@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The Day 1 state is intentionally documentation-first. It defines the product, architecture, decision records, and local data stack before feature code exists.
+The project started with a documentation-first Day 1 package. Day 2 adds a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI.
 
 The product thesis:
 
@@ -82,13 +82,50 @@ Source Upload / URL Input
   -> Run Log / Failure Case
 ```
 
-Day 1 implementation status:
+Implementation status:
 
 - Product definition: documented
 - Architecture: documented
 - ADRs: documented
 - Local database service: configured
-- API, web app, ingestion, retrieval, agents, dashboard: planned, not implemented
+- FastAPI health endpoint: implemented
+- PostgreSQL schema init: implemented
+- Document metadata endpoints: implemented
+- Agent run metadata endpoints: implemented
+- Failure case endpoints: implemented
+- Ops summary placeholder: implemented
+- Web app, ingestion, retrieval, Evidence Ledger generation, agents, final reports, dashboard: planned, not implemented
+
+## Implementation Status
+
+### Day 1 - Documentation-first package
+
+- Product brief: done
+- Architecture: done
+- ADRs: done
+- Docker Compose database target: done
+
+### Day 2 - Service skeleton
+
+- FastAPI health endpoint: done
+- PostgreSQL schema init: done
+- Document metadata endpoints: done
+- Agent run metadata endpoints: done
+- Failure case endpoints: done
+- Ops summary placeholder: done
+- GitHub Actions API smoke CI: done
+- Runbook: done
+
+Not implemented yet:
+
+- file parsing
+- chunking
+- embeddings
+- retrieval
+- Evidence Ledger generation
+- Critic / Noise Gate
+- final report generation
+- web dashboard
 
 ## Planned Agent Workflow
 
@@ -181,15 +218,22 @@ Failure cases are first-class artifacts. The planned system will record:
 
 ## Local Setup
 
-Day 1 only defines a PostgreSQL + pgvector database service.
+Day 2 defines a PostgreSQL + pgvector database service and a FastAPI skeleton.
 
 ```bash
 cp .env.example .env
 docker compose up -d db
-docker compose down
+cd apps/api
+uv sync
+uv run uvicorn app.main:app --reload
 ```
 
-No API or web service is defined yet. That is intentional.
+Smoke checks:
+
+```bash
+curl http://localhost:8000/health
+curl http://localhost:8000/ops/summary
+```
 
 ## Demo Flow
 
@@ -206,15 +250,14 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Day 1, the next phase should build only the local stack skeleton:
+After Day 2, the next phase should add sample messy data and ingestion stubs before UI work:
 
-- FastAPI health endpoint
-- Next.js shell for operations dashboard
-- database connectivity
-- schema init or migration path
-- CI for basic checks
+- sample PDF/CSV/URL/markdown memo fixtures
+- document profiler stub
+- parser selection records
+- failure cases for bad inputs
 
-It should not start with UI polish, LLM prompt tuning, or broad agent abstractions.
+It should not start with UI polish, LLM prompt tuning, embeddings, retrieval, or broad agent abstractions.
 
 ## Braincrew Role Alignment
 

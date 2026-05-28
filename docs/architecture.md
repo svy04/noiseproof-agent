@@ -2,11 +2,13 @@
 
 ## Implementation Status
 
-Day 1 status:
+Day 2 status:
 
 - Architecture is documented.
 - PostgreSQL with pgvector is configured in Docker Compose.
-- API, web app, ingestion, retrieval, Evidence Ledger, agents, and dashboard are planned but not implemented.
+- PostgreSQL schema init SQL exists for documents, agent runs, and failure cases.
+- FastAPI skeleton exists for health, metadata persistence, and ops summary placeholder.
+- Web app, ingestion, retrieval, Evidence Ledger, agents, and dashboard are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -243,23 +245,31 @@ created_at
 
 ## Planned API Surface
 
-No API endpoint is implemented on Day 1.
+Day 2 implemented only metadata and ops skeleton endpoints.
 
-Planned endpoints:
+Implemented endpoints:
 
 ```text
 POST /documents
-GET  /documents/{id}
-POST /retrieval-runs
-GET  /retrieval-runs/{id}
-GET  /retrieval-runs/{id}/evidence-ledger
+GET  /documents
 POST /agent-runs
-GET  /agent-runs/{id}
+GET  /agent-runs
+POST /failure-cases
 GET  /failure-cases
 GET  /ops/summary
 ```
 
-These are placeholders for implementation planning, not working interfaces.
+Planned later endpoints:
+
+```text
+GET  /documents/{id}
+POST /retrieval-runs
+GET  /retrieval-runs/{id}
+GET  /retrieval-runs/{id}/evidence-ledger
+POST /reports
+```
+
+Day 2 endpoints do not parse files, run retrieval, generate an Evidence Ledger, invoke an LLM, or create final reports.
 
 ## Agent Workflow
 
