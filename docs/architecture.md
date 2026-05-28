@@ -2,13 +2,15 @@
 
 ## Implementation Status
 
-Day 2 status:
+Current status:
 
 - Architecture is documented.
 - PostgreSQL with pgvector is configured in Docker Compose.
 - PostgreSQL schema init SQL exists for documents, agent runs, and failure cases.
 - FastAPI skeleton exists for health, metadata persistence, and ops summary placeholder.
-- Web app, ingestion, retrieval, Evidence Ledger, agents, and dashboard are planned but not implemented.
+- Messy market data fixtures exist.
+- Document Profiler v0 exists for fixture-like text and direct text payloads.
+- Web app, parser adapters, chunking, retrieval, Evidence Ledger, agents, and dashboard are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -53,16 +55,21 @@ It should store metadata before parsing so failed parsing attempts can still be 
 
 ### Document Profiler
 
-Generates a profile for each document:
+Document Profiler v0 generates a lightweight profile for provided text:
 
 - source type
-- source URI or filename
-- title if available
-- source date if available
+- character count
+- line count
+- approximate token count
+- table-like structure
+- URL presence
+- date presence
+- number presence
 - extraction quality
-- text length
-- likely parser
-- limitations
+- recommended strategy
+- warnings
+
+It does not parse uploaded files yet.
 
 ### Parser Selector
 
@@ -252,6 +259,7 @@ Implemented endpoints:
 ```text
 POST /documents
 GET  /documents
+POST /documents/profile
 POST /agent-runs
 GET  /agent-runs
 POST /failure-cases
@@ -269,7 +277,7 @@ GET  /retrieval-runs/{id}/evidence-ledger
 POST /reports
 ```
 
-Day 2 endpoints do not parse files, run retrieval, generate an Evidence Ledger, invoke an LLM, or create final reports.
+Current endpoints do not parse uploaded files, run retrieval, generate an Evidence Ledger, invoke an LLM, or create final reports.
 
 ## Agent Workflow
 

@@ -8,6 +8,7 @@ Implemented in this package:
 - `GET /ops/summary`
 - `POST /documents`
 - `GET /documents`
+- `POST /documents/profile`
 - `POST /agent-runs`
 - `GET /agent-runs`
 - `POST /failure-cases`
@@ -40,4 +41,7 @@ Smoke checks:
 ```bash
 curl http://localhost:8000/health
 curl http://localhost:8000/ops/summary
+curl -X POST http://localhost:8000/documents/profile \
+  -H "Content-Type: application/json" \
+  -d "{\"source_type\":\"markdown\",\"text\":\"# Memo\nDate: 2026-05-28\nSource: https://example.com\nRevenue grew 12%.\"}"
 ```

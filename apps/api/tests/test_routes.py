@@ -145,3 +145,42 @@ def test_ops_summary_placeholder_counts_registered_records():
     assert response.json()["failure_case_count"] == 1
     assert response.json()["unsupported_claim_count"] == 0
     assert response.json()["contradiction_count"] == 0
+
+
+def test_document_profile_endpoint_detects_fixture_signals():
+    client = make_client()
+
+    payload = {
+        "source_type": "markdown",
+        "text": "# Memo\nDate: 2026-05-28\nSource: https://example.com\nRevenue grew 12%.",
+    }
+
+    response = client.post("/documents/profile", json=payload)
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["source_type"] == "markdown"
+    assert body["character_count"] == len(payload["text"])
+    assert body["line_count"] == 4
+    assert body["approximate_token_count"] > 0
+    assert body["has_urls"] is True
+    assert body["has_dates"] is True
+    assert body["has_numbers"] is True
+    assert body["recommended_strategy"] == "heading-aware"
+    assert body["extraction_quality"] in {"high", "medium"}
+
+
+def test_document_profile_endpoint_recommends_row_aware_for_csv():
+    client = make_client()
+
+    response = client.post(
+        "/documents/profile",
+        json={
+            "source_type": "csv",
+            "text": "date,segment,growth\n2026-05-28,enterprise,12%\n",
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.json()["has_tables"] is True
+    assert response.json()["recommended_strategy"] == "row-aware"

@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 adds a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. The current phase adds messy-data fixtures and Document Profiler v0.
 
 The product thesis:
 
@@ -94,7 +94,9 @@ Implementation status:
 - Agent run metadata endpoints: implemented
 - Failure case endpoints: implemented
 - Ops summary placeholder: implemented
-- Web app, ingestion, retrieval, Evidence Ledger generation, agents, final reports, dashboard: planned, not implemented
+- Messy market data fixtures: implemented
+- Document Profiler v0: implemented
+- Web app, parser adapters, chunking, retrieval, Evidence Ledger generation, agents, final reports, dashboard: planned, not implemented
 
 ## Implementation Status
 
@@ -115,6 +117,13 @@ Implementation status:
 - Ops summary placeholder: done
 - GitHub Actions API smoke CI: done
 - Runbook: done
+
+### Phase 2 - Ingestion fixtures and Document Profiler v0
+
+- Messy market data fixture pack: done
+- Reusable profiler package: done
+- `POST /documents/profile`: done
+- Profile fields for source type, counts, table/url/date/number detection, extraction quality, recommended strategy, and warnings: done
 
 Not implemented yet:
 
@@ -233,6 +242,9 @@ Smoke checks:
 ```bash
 curl http://localhost:8000/health
 curl http://localhost:8000/ops/summary
+curl -X POST http://localhost:8000/documents/profile \
+  -H "Content-Type: application/json" \
+  -d "{\"source_type\":\"markdown\",\"text\":\"# Memo\nDate: 2026-05-28\nSource: https://example.com\nRevenue grew 12%.\"}"
 ```
 
 ## Demo Flow
@@ -250,12 +262,13 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Day 2, the next phase should add sample messy data and ingestion stubs before UI work:
+After Phase 2, the next phase should add parser adapter stubs:
 
-- sample PDF/CSV/URL/markdown memo fixtures
-- document profiler stub
-- parser selection records
-- failure cases for bad inputs
+- markdown parser adapter
+- CSV parser adapter
+- plain text adapter
+- HTML text adapter
+- parser result metadata and failure records
 
 It should not start with UI polish, LLM prompt tuning, embeddings, retrieval, or broad agent abstractions.
 

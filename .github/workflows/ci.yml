@@ -27,7 +27,7 @@ jobs:
 
       - name: Compile API package
         working-directory: apps/api
-        run: uv run python -m compileall app
+        run: uv run python -m compileall app ../../packages/ingestion
 
       - name: Run API smoke tests
         working-directory: apps/api

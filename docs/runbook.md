@@ -9,9 +9,12 @@ Implemented:
 - FastAPI app skeleton
 - `GET /health`
 - `GET /ops/summary`
+- `POST /documents/profile`
 - document metadata create/list endpoints
 - agent run metadata create/list endpoints
 - failure case create/list endpoints
+- messy market data fixtures
+- Document Profiler v0
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
@@ -101,6 +104,34 @@ Expected `/ops/summary` shape:
   "notes": [
     "Day 2 skeleton only: no retrieval, Evidence Ledger, Critic, or dashboard implementation yet.",
     "Unsupported claim and contradiction counts remain placeholders until Evidence Ledger exists."
+  ]
+}
+```
+
+Profile fixture-like text:
+
+```bash
+curl -X POST http://localhost:8000/documents/profile \
+  -H "Content-Type: application/json" \
+  -d "{\"source_type\":\"markdown\",\"text\":\"# Memo\nDate: 2026-05-28\nSource: https://example.com\nRevenue grew 12%.\"}"
+```
+
+Expected `/documents/profile` shape:
+
+```json
+{
+  "source_type": "markdown",
+  "character_count": 69,
+  "line_count": 4,
+  "approximate_token_count": 18,
+  "has_tables": false,
+  "has_urls": true,
+  "has_dates": true,
+  "has_numbers": true,
+  "extraction_quality": "medium",
+  "recommended_strategy": "heading-aware",
+  "warnings": [
+    "Very short text; profile may not represent a full document."
   ]
 }
 ```
