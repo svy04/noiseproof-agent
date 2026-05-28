@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 2:
+Accepted state as of Phase 3:
 
 ```text
-Ingestion Fixtures and Document Profiler v0
+Ingestion Fixtures, Document Profiler v0, and Parser Adapter Stubs
 ```
 
 Implemented:
@@ -64,6 +64,9 @@ Implemented:
 - messy market data fixtures
 - reusable `packages/ingestion` profiler package
 - `POST /documents/profile`
+- parser adapter stubs for markdown, CSV, HTML/URL, PDF text-only fallback, and unknown source types
+- `POST /documents/parse-preview`
+- structured parser warnings and failure-case candidates
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -78,7 +81,8 @@ Not yet implemented:
 
 - runtime Docker DB verification in this local environment
 - file upload
-- file parsing
+- robust PDF extraction
+- persisted parse records
 - chunking
 - embeddings
 - retrieval
@@ -190,6 +194,42 @@ warnings
 ```
 
 Phase 2 should not parse files from uploads. It profiles provided text or fixture-like content only.
+
+### Phase 3 - Parser Adapter Stubs
+
+Implemented outputs:
+
+```text
+packages/ingestion/parsers/__init__.py
+packages/ingestion/parsers/base.py
+packages/ingestion/parsers/markdown.py
+packages/ingestion/parsers/csv.py
+packages/ingestion/parsers/html.py
+packages/ingestion/parsers/pdf.py
+packages/ingestion/selector.py
+apps/api/app/services/parse_preview.py
+POST /documents/parse-preview
+```
+
+Parse-preview accepts direct text payloads and returns:
+
+```text
+source_type
+parser
+text
+metadata
+warnings
+failure_case_candidate
+profile
+```
+
+The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
+
+Next recommended implementation phase:
+
+```text
+Phase 4 - Chunk strategy experiment v0
+```
 
 ## 6. Ordering Rules
 

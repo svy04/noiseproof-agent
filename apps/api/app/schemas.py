@@ -43,9 +43,33 @@ class DocumentProfileOut(BaseModel):
     warnings: list[str]
 
 
+class ParsePreviewRequest(BaseModel):
+    source_type: str = Field(..., min_length=1)
+    content: str = ""
+    filename: str | None = None
+    source_uri: str | None = None
+
+
+class FailureCaseCandidateOut(BaseModel):
+    failure_type: str
+    description: str
+    root_cause: str | None = None
+    next_action: str | None = None
+
+
+class ParsePreviewOut(BaseModel):
+    source_type: str
+    parser: str
+    text: str
+    metadata: dict[str, Any]
+    warnings: list[str]
+    failure_case_candidate: FailureCaseCandidateOut | None = None
+    profile: DocumentProfileOut
+
+
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "day2-skeleton"
+    workflow_version: str = "phase3-parser-stubs"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None

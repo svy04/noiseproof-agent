@@ -1,6 +1,6 @@
 # NoiseProof Agent API
 
-Day 2 FastAPI skeleton for NoiseProof Agent.
+FastAPI skeleton for NoiseProof Agent.
 
 Implemented in this package:
 
@@ -9,6 +9,7 @@ Implemented in this package:
 - `POST /documents`
 - `GET /documents`
 - `POST /documents/profile`
+- `POST /documents/parse-preview`
 - `POST /agent-runs`
 - `GET /agent-runs`
 - `POST /failure-cases`
@@ -17,7 +18,8 @@ Implemented in this package:
 Not implemented yet:
 
 - file upload
-- parsing
+- robust PDF extraction
+- persisted parse records
 - chunking
 - embeddings
 - retrieval
@@ -44,4 +46,9 @@ curl http://localhost:8000/ops/summary
 curl -X POST http://localhost:8000/documents/profile \
   -H "Content-Type: application/json" \
   -d "{\"source_type\":\"markdown\",\"text\":\"# Memo\nDate: 2026-05-28\nSource: https://example.com\nRevenue grew 12%.\"}"
+curl -X POST http://localhost:8000/documents/parse-preview \
+  -H "Content-Type: application/json" \
+  -d "{\"source_type\":\"pdf\",\"content\":\"Extracted PDF text preview only.\"}"
 ```
+
+The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.

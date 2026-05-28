@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. The current phase adds messy-data fixtures and Document Profiler v0.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 adds parser adapter stubs for parse-preview boundaries.
 
 The product thesis:
 
@@ -96,7 +96,8 @@ Implementation status:
 - Ops summary placeholder: implemented
 - Messy market data fixtures: implemented
 - Document Profiler v0: implemented
-- Web app, parser adapters, chunking, retrieval, Evidence Ledger generation, agents, final reports, dashboard: planned, not implemented
+- Parser adapter stubs: implemented for markdown, CSV, HTML/URL, PDF text-only fallback, and unknown source types
+- Web app, file upload parsing, robust PDF extraction, chunking, retrieval, Evidence Ledger generation, agents, final reports, dashboard: planned, not implemented
 
 ## Implementation Status
 
@@ -125,9 +126,20 @@ Implementation status:
 - `POST /documents/profile`: done
 - Profile fields for source type, counts, table/url/date/number detection, extraction quality, recommended strategy, and warnings: done
 
+### Phase 3 - Parser adapter stubs
+
+- Parser boundary package: done
+- Markdown parser metadata for headings, links, and bullets: done
+- CSV parser metadata for rows, columns, headers, and malformed row warnings: done
+- HTML/URL text preview and link metadata: done
+- PDF text-only fallback with explicit non-claim about robust PDF extraction: done
+- Unknown source type structured failure candidate: done
+- `POST /documents/parse-preview`: done
+
 Not implemented yet:
 
-- file parsing
+- file upload parsing
+- robust PDF extraction
 - chunking
 - embeddings
 - retrieval
@@ -227,7 +239,7 @@ Failure cases are first-class artifacts. The planned system will record:
 
 ## Local Setup
 
-Day 2 defines a PostgreSQL + pgvector database service and a FastAPI skeleton.
+The current local stack defines a PostgreSQL + pgvector database service and a FastAPI skeleton.
 
 ```bash
 cp .env.example .env
@@ -245,6 +257,9 @@ curl http://localhost:8000/ops/summary
 curl -X POST http://localhost:8000/documents/profile \
   -H "Content-Type: application/json" \
   -d "{\"source_type\":\"markdown\",\"text\":\"# Memo\nDate: 2026-05-28\nSource: https://example.com\nRevenue grew 12%.\"}"
+curl -X POST http://localhost:8000/documents/parse-preview \
+  -H "Content-Type: application/json" \
+  -d "{\"source_type\":\"markdown\",\"content\":\"# Memo\nDate: 2026-05-28\nSource: https://example.com\nRevenue grew 12%.\"}"
 ```
 
 ## Demo Flow
@@ -262,15 +277,15 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Phase 2, the next phase should add parser adapter stubs:
+After Phase 3, the next phase should add chunk strategy experiment v0:
 
-- markdown parser adapter
-- CSV parser adapter
-- plain text adapter
-- HTML text adapter
-- parser result metadata and failure records
+- fixed-window chunking
+- heading-aware chunking
+- row-aware chunking
+- chunk metadata
+- chunk strategy comparison tests
 
-It should not start with UI polish, LLM prompt tuning, embeddings, retrieval, or broad agent abstractions.
+It should not start with UI polish, LLM prompt tuning, embeddings, retrieval, Evidence Ledger generation, or broad agent abstractions.
 
 ## Braincrew Role Alignment
 

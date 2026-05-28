@@ -48,7 +48,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="day2-skeleton",
+            workflow_version="phase3-parser-stubs",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -75,7 +75,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-        "workflow_version": "day2-skeleton",
+        "workflow_version": "phase3-parser-stubs",
     }
 
 
@@ -122,7 +122,7 @@ def test_agent_run_and_failure_case_roundtrip():
 
     assert run.status_code == 201
     assert failure.status_code == 201
-    assert client.get("/agent-runs").json()[0]["workflow_version"] == "day2-skeleton"
+    assert client.get("/agent-runs").json()[0]["workflow_version"] == "phase3-parser-stubs"
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
 
@@ -184,3 +184,116 @@ def test_document_profile_endpoint_recommends_row_aware_for_csv():
     assert response.status_code == 200
     assert response.json()["has_tables"] is True
     assert response.json()["recommended_strategy"] == "row-aware"
+
+
+def test_parse_preview_markdown_returns_heading_metadata_and_profile():
+    client = make_client()
+
+    response = client.post(
+        "/documents/parse-preview",
+        json={
+            "source_type": "markdown",
+            "content": "# Market memo\n\n- Demand grew 12% on 2026-05-28.\n- Source: https://example.com",
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["source_type"] == "markdown"
+    assert body["parser"] == "markdown"
+    assert body["metadata"]["heading_count"] == 1
+    assert body["metadata"]["bullet_count"] == 2
+    assert body["profile"]["recommended_strategy"] == "heading-aware"
+    assert body["profile"]["has_dates"] is True
+    assert body["profile"]["has_numbers"] is True
+
+
+def test_parse_preview_csv_returns_row_and_column_metadata():
+    client = make_client()
+
+    response = client.post(
+        "/documents/parse-preview",
+        json={
+            "source_type": "csv",
+            "content": "date,segment,growth\n2026-05-28,enterprise,12%\n",
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["parser"] == "csv"
+    assert body["metadata"]["row_count"] == 2
+    assert body["metadata"]["column_count"] == 3
+    assert body["metadata"]["headers"] == ["date", "segment", "growth"]
+    assert body["profile"]["recommended_strategy"] == "row-aware"
+
+
+def test_parse_preview_html_strips_tags_and_reports_links():
+    client = make_client()
+
+    response = client.post(
+        "/documents/parse-preview",
+        json={
+            "source_type": "html",
+            "content": "<html><body><h1>Market update</h1><p>Revenue grew 9%.</p><a href='https://example.com/report'>report</a></body></html>",
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["parser"] == "html"
+    assert "<h1>" not in body["text"]
+    assert "Market update" in body["text"]
+    assert body["metadata"]["heading_count"] == 1
+    assert body["metadata"]["link_count"] == 1
+    assert body["metadata"]["links"] == ["https://example.com/report"]
+
+
+def test_parse_preview_pdf_is_text_only_fallback_without_robust_claim():
+    client = make_client()
+
+    response = client.post(
+        "/documents/parse-preview",
+        json={
+            "source_type": "pdf",
+            "content": "Extracted PDF text preview. Revenue grew 9% in 2026.",
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["parser"] == "pdf-text-fallback"
+    assert body["metadata"]["robust_pdf_extraction"] is False
+    assert body["metadata"]["text_only_fallback"] is True
+    assert any("robust PDF extraction is not claimed" in warning for warning in body["warnings"])
+    assert body["failure_case_candidate"] is None
+
+
+def test_parse_preview_unknown_source_type_returns_structured_failure_candidate():
+    client = make_client()
+
+    response = client.post(
+        "/documents/parse-preview",
+        json={"source_type": "spreadsheet-binary", "content": "opaque bytes"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["parser"] == "unknown"
+    assert body["warnings"]
+    assert body["failure_case_candidate"]["failure_type"] == "unknown_source_type"
+    assert body["profile"]["extraction_quality"] == "empty"
+
+
+def test_parse_preview_bad_csv_exposes_failure_case_candidate():
+    client = make_client()
+
+    response = client.post(
+        "/documents/parse-preview",
+        json={"source_type": "csv", "content": "date,segment,growth\n2026-05-28,enterprise\n"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["metadata"]["inconsistent_row_count"] == 1
+    assert body["failure_case_candidate"]["failure_type"] == "csv_inconsistent_rows"

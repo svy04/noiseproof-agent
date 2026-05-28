@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from typing import Any
 
 
 @dataclass(frozen=True)
@@ -22,3 +23,29 @@ class DocumentProfile:
     extraction_quality: str
     recommended_strategy: str
     warnings: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class ParseInput:
+    source_type: str
+    content: str = ""
+    filename: str | None = None
+    source_uri: str | None = None
+
+
+@dataclass(frozen=True)
+class FailureCaseCandidate:
+    failure_type: str
+    description: str
+    root_cause: str | None = None
+    next_action: str | None = None
+
+
+@dataclass(frozen=True)
+class ParseResult:
+    source_type: str
+    parser: str
+    text: str
+    metadata: dict[str, Any] = field(default_factory=dict)
+    warnings: list[str] = field(default_factory=list)
+    failure_case_candidate: FailureCaseCandidate | None = None

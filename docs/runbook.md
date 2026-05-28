@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Day 2 service skeleton is intended to prove that the project is becoming a service, not a prompt demo.
+Phase 3 is intended to prove that parser boundaries exist before chunking or retrieval starts.
 
 Implemented:
 
@@ -15,13 +15,16 @@ Implemented:
 - failure case create/list endpoints
 - messy market data fixtures
 - Document Profiler v0
+- parser adapter stubs for markdown, CSV, HTML/URL, PDF text-only fallback, and unknown source types
+- `POST /documents/parse-preview`
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
 Not implemented:
 
 - file upload
-- PDF/CSV/HTML parsing
+- robust PDF extraction
+- persisted parse records
 - chunking
 - embeddings
 - retrieval
@@ -85,7 +88,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "day2-skeleton"
+  "workflow_version": "phase3-parser-stubs"
 }
 ```
 
@@ -94,7 +97,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "day2-skeleton",
+  "workflow_version": "phase3-parser-stubs",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -102,7 +105,7 @@ Expected `/ops/summary` shape:
   "contradiction_count": 0,
   "average_latency_ms": null,
   "notes": [
-    "Day 2 skeleton only: no retrieval, Evidence Ledger, Critic, or dashboard implementation yet.",
+    "Phase 3 parser boundary only: no retrieval, Evidence Ledger, Critic, or dashboard implementation yet.",
     "Unsupported claim and contradiction counts remain placeholders until Evidence Ledger exists."
   ]
 }
@@ -135,6 +138,56 @@ Expected `/documents/profile` shape:
   ]
 }
 ```
+
+Preview parser output without saving it:
+
+```bash
+curl -X POST http://localhost:8000/documents/parse-preview \
+  -H "Content-Type: application/json" \
+  -d "{\"source_type\":\"markdown\",\"content\":\"# Memo\nDate: 2026-05-28\nSource: https://example.com\nRevenue grew 12%.\"}"
+```
+
+Expected `/documents/parse-preview` shape:
+
+```json
+{
+  "source_type": "markdown",
+  "parser": "markdown",
+  "text": "# Memo\nDate: 2026-05-28\nSource: https://example.com\nRevenue grew 12%.",
+  "metadata": {
+    "heading_count": 1,
+    "link_count": 1,
+    "bullet_count": 0
+  },
+  "warnings": [],
+  "failure_case_candidate": null,
+  "profile": {
+    "source_type": "markdown",
+    "character_count": 69,
+    "line_count": 4,
+    "approximate_token_count": 18,
+    "has_tables": false,
+    "has_urls": true,
+    "has_dates": true,
+    "has_numbers": true,
+    "extraction_quality": "medium",
+    "recommended_strategy": "heading-aware",
+    "warnings": [
+      "Very short text; profile may not represent a full document."
+    ]
+  }
+}
+```
+
+PDF preview boundary:
+
+```bash
+curl -X POST http://localhost:8000/documents/parse-preview \
+  -H "Content-Type: application/json" \
+  -d "{\"source_type\":\"pdf\",\"content\":\"Extracted PDF text preview only.\"}"
+```
+
+The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
 
 ## Metadata Examples
 
@@ -169,7 +222,7 @@ If Docker is unavailable, run the API compile and smoke tests:
 ```bash
 cd apps/api
 uv sync
-uv run python -m compileall app
+uv run python -m compileall app ../../packages/ingestion
 uv run pytest -q
 ```
 
@@ -177,4 +230,4 @@ These tests use an in-memory repository override. They do not prove PostgreSQL r
 
 ## Boundary
 
-Do not claim retrieval, Evidence Ledger, Critic / Noise Gate, or report generation exists until those stages are implemented and verified with examples.
+Do not claim robust PDF parsing, retrieval, Evidence Ledger, Critic / Noise Gate, or report generation exists until those stages are implemented and verified with examples.

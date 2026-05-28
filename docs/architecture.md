@@ -10,7 +10,8 @@ Current status:
 - FastAPI skeleton exists for health, metadata persistence, and ops summary placeholder.
 - Messy market data fixtures exist.
 - Document Profiler v0 exists for fixture-like text and direct text payloads.
-- Web app, parser adapters, chunking, retrieval, Evidence Ledger, agents, and dashboard are planned but not implemented.
+- Parser adapter stubs exist for direct parse-preview payloads.
+- Web app, file upload parsing, robust PDF extraction, chunking, retrieval, Evidence Ledger, agents, and dashboard are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -74,6 +75,16 @@ It does not parse uploaded files yet.
 ### Parser Selector
 
 Chooses the parser by input type and extraction quality.
+
+Phase 3 implements a small parse-preview boundary, not full production parsing:
+
+- markdown parser returns text plus heading, link, and bullet metadata
+- CSV parser returns text plus row, column, header, and inconsistent-row metadata
+- HTML/URL parser strips tags into visible text and records link metadata
+- PDF parser is a text-only fallback and does not claim robust PDF extraction
+- unknown source types return a structured warning and failure-case candidate
+
+The parser output can feed Document Profiler v0. Parse-preview does not save records to the database.
 
 Planned defaults:
 
@@ -252,7 +263,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented only metadata and ops skeleton endpoints.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries.
 
 Implemented endpoints:
 
@@ -260,6 +271,7 @@ Implemented endpoints:
 POST /documents
 GET  /documents
 POST /documents/profile
+POST /documents/parse-preview
 POST /agent-runs
 GET  /agent-runs
 POST /failure-cases
@@ -277,7 +289,7 @@ GET  /retrieval-runs/{id}/evidence-ledger
 POST /reports
 ```
 
-Current endpoints do not parse uploaded files, run retrieval, generate an Evidence Ledger, invoke an LLM, or create final reports.
+Current endpoints do not parse uploaded files, perform robust PDF extraction, run retrieval, generate an Evidence Ledger, invoke an LLM, or create final reports.
 
 ## Agent Workflow
 
