@@ -310,7 +310,7 @@ class ReportStoredRecordOut(ReportPreviewOut):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase22-evidence-dashboard-table"
+    workflow_version: str = "phase25-workflow-run-metadata"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None
@@ -322,6 +322,22 @@ class AgentRunOut(AgentRunCreate):
     id: UUID
     started_at: datetime
     ended_at: datetime | None = None
+
+
+class WorkflowRunCreate(BaseModel):
+    question: str = Field(..., min_length=1)
+    workflow_version: str = "phase25-workflow-run-metadata"
+    status: str = "created"
+    trace_json: dict[str, Any] = Field(default_factory=dict)
+    started_at: datetime | None = None
+    ended_at: datetime | None = None
+    latency_ms: int | None = None
+    error_message: str | None = None
+
+
+class WorkflowRunOut(WorkflowRunCreate):
+    id: UUID
+    created_at: datetime
 
 
 class FailureCaseCreate(BaseModel):

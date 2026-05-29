@@ -15,6 +15,7 @@ from app.schemas import (
     OpsSummaryOut,
     ReportPreviewOut,
     RetrievalRunCreate,
+    WorkflowRunCreate,
 )
 from app.settings import Settings, get_settings
 
@@ -33,6 +34,8 @@ class Repository(Protocol):
         trace_json: dict,
     ) -> dict: ...
     def list_agent_runs(self) -> Sequence[dict]: ...
+    def create_workflow_run(self, payload: WorkflowRunCreate) -> dict: ...
+    def list_workflow_runs(self) -> Sequence[dict]: ...
     def create_evidence_ledger_entries(
         self,
         question: str,
@@ -178,6 +181,38 @@ class PostgresRepository:
         with self._connect() as conn:
             rows = conn.execute(
                 "SELECT * FROM agent_runs ORDER BY started_at DESC, id DESC"
+            ).fetchall()
+            return [dict(row) for row in rows]
+
+    def create_workflow_run(self, payload: WorkflowRunCreate) -> dict:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                INSERT INTO workflow_runs (
+                  question, workflow_version, status, trace_json,
+                  started_at, ended_at, latency_ms, error_message
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING *
+                """,
+                (
+                    payload.question,
+                    payload.workflow_version,
+                    payload.status,
+                    Jsonb(payload.trace_json),
+                    payload.started_at,
+                    payload.ended_at,
+                    payload.latency_ms,
+                    payload.error_message,
+                ),
+            ).fetchone()
+            conn.commit()
+            return dict(row)
+
+    def list_workflow_runs(self) -> Sequence[dict]:
+        with self._connect() as conn:
+            rows = conn.execute(
+                "SELECT * FROM workflow_runs ORDER BY created_at DESC, id DESC"
             ).fetchall()
             return [dict(row) for row in rows]
 

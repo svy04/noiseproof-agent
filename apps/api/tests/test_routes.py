@@ -9,6 +9,8 @@ from app.main import create_app
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
 from app.services.run_trace import run_with_trace
 
+WORKFLOW_VERSION = "phase25-workflow-run-metadata"
+
 
 class InMemoryRepository:
     def __init__(self):
@@ -19,6 +21,7 @@ class InMemoryRepository:
         self.noise_gate_records = []
         self.report_records = []
         self.retrieval_runs = []
+        self.workflow_runs = []
 
     def create_document(self, payload: DocumentCreate) -> dict:
         row = payload.model_dump()
@@ -190,10 +193,22 @@ class InMemoryRepository:
     def list_retrieval_runs(self):
         return self.retrieval_runs
 
+    def create_workflow_run(self, payload) -> dict:
+        row = payload.model_dump()
+        row["id"] = uuid4()
+        row["created_at"] = datetime.now(timezone.utc)
+        row["started_at"] = None
+        row["ended_at"] = None
+        self.workflow_runs.append(row)
+        return row
+
+    def list_workflow_runs(self):
+        return self.workflow_runs
+
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase22-evidence-dashboard-table",
+            workflow_version=WORKFLOW_VERSION,
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -243,7 +258,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-            "workflow_version": "phase22-evidence-dashboard-table",
+            "workflow_version": WORKFLOW_VERSION,
     }
 
 
@@ -292,9 +307,33 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase22-evidence-dashboard-table"
+        == WORKFLOW_VERSION
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
+
+
+def test_workflow_run_metadata_roundtrip_without_orchestration():
+    client = make_client()
+
+    created = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which sources disagree about memory demand?",
+            "status": "created",
+            "trace_json": {"phase": "metadata-only"},
+        },
+    )
+    listed = client.get("/workflow-runs")
+
+    assert created.status_code == 201
+    assert created.json()["question"] == "Which sources disagree about memory demand?"
+    assert created.json()["workflow_version"] == WORKFLOW_VERSION
+    assert created.json()["status"] == "created"
+    assert created.json()["trace_json"] == {"phase": "metadata-only"}
+    assert created.json()["started_at"] is None
+    assert listed.status_code == 200
+    assert len(listed.json()) == 1
+    assert listed.json()[0]["id"] == created.json()["id"]
 
 
 def test_ops_summary_placeholder_counts_registered_records():
@@ -445,7 +484,7 @@ def test_core_preview_endpoints_auto_record_agent_run_traces():
         "POST /noise-gates/preview",
         "POST /reports/preview",
     }.issubset(endpoints)
-    assert all(trace["workflow_version"] == "phase22-evidence-dashboard-table" for trace in traces)
+    assert all(trace["workflow_version"] == WORKFLOW_VERSION for trace in traces)
     assert any(trace["trace_json"].get("decision") == "pass" for trace in traces)
     assert any(trace["trace_json"].get("report_status") == "generated" for trace in traces)
 
@@ -580,7 +619,7 @@ def test_noise_gate_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /noise-gates"
         and trace["trace_json"].get("decision") == "pass"
-        and trace["trace_json"].get("phase") == "phase22-evidence-dashboard-table"
+        and trace["trace_json"].get("phase") == WORKFLOW_VERSION
         for trace in traces
     )
 
@@ -689,7 +728,7 @@ def test_report_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /reports"
         and trace["trace_json"].get("report_status") == "generated"
-        and trace["trace_json"].get("phase") == "phase22-evidence-dashboard-table"
+        and trace["trace_json"].get("phase") == WORKFLOW_VERSION
         for trace in traces
     )
 

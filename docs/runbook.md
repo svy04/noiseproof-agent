@@ -8,7 +8,9 @@ Phase 22.5 adds a review-only cross-link decision: direct evidence -> gate -> re
 
 Phase 23 adds a review-only workflow parent decision: future workflow-level provenance should use a separate `workflow_runs` table instead of reusing `agent_runs`.
 
-Phase 24 adds schema-only workflow parent storage: `workflow_runs` exists in SQL, but no endpoint or execution path writes to it yet.
+Phase 24 added schema-only workflow parent storage before runtime writes existed.
+
+Phase 25 adds metadata-only workflow parent persistence: `POST /workflow-runs` and `GET /workflow-runs` exist, but no orchestration path or child record writes use `workflow_run_id` yet.
 
 Implemented:
 
@@ -77,6 +79,9 @@ Implemented:
 - WorkflowRun Schema v0
 - `workflow_runs` table in `db/init/001_schema.sql`
 - `db/migrations/007_workflow_runs.sql`
+- WorkflowRun Metadata Persistence v0
+- `POST /workflow-runs`
+- `GET /workflow-runs`
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -176,6 +181,10 @@ http://localhost:8000
 curl http://localhost:8000/health
 curl http://localhost:8000/ops/summary
 curl http://localhost:8000/ops/dashboard
+curl -X POST http://localhost:8000/workflow-runs `
+  -H "Content-Type: application/json" `
+  -d "{\"question\":\"Which sources disagree about memory demand?\",\"trace_json\":{\"phase\":\"metadata-only\"}}"
+curl http://localhost:8000/workflow-runs
 ```
 
 Expected `/health` shape:
@@ -184,7 +193,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase22-evidence-dashboard-table"
+  "workflow_version": "phase25-workflow-run-metadata"
 }
 ```
 
@@ -193,7 +202,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase22-evidence-dashboard-table",
+  "workflow_version": "phase25-workflow-run-metadata",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -735,11 +744,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase22-evidence-dashboard-table",
+    "workflow_version": "phase25-workflow-run-metadata",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase22-evidence-dashboard-table",
+      "phase": "phase25-workflow-run-metadata",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }
@@ -804,4 +813,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, DB persistence for collection plans, workflow execution endpoints, child workflow_run_id links, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
+Do not claim persisted chunks, embeddings, DB persistence for collection plans, workflow execution endpoints, child workflow_run_id links, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created and listed as metadata, but no endpoint executes a full workflow or attaches child records to it yet. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
