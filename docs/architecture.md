@@ -19,7 +19,8 @@ Current status:
 - Claim-bounded Report Preview v0 exists for deterministic report-shaped output after the Noise Gate passes.
 - Operations Dashboard v0 exists as a plain FastAPI HTML view over current metadata records.
 - Evaluation/Application Package v0 exists for evaluation planning, failure records, and Braincrew role mapping.
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, persisted Evidence Ledger entries, persisted gate records, persisted reports, and agents are planned but not implemented.
+- Auto Trace Recording v0 exists for preview endpoint metadata in `agent_runs.trace_json`.
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, persisted Evidence Ledger entries, persisted gate records, persisted reports, distributed tracing, hosted observability, and agents are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -247,6 +248,8 @@ Records each agent run and failure case for later evaluation.
 
 Failures are not hidden. They are portfolio evidence.
 
+Phase 11 adds a small auto-trace boundary for preview endpoints. The current preview routes create `agent_runs` records with `trace_json` fields such as endpoint, phase, source type, result counts, gate decisions, and report status where available. This is metadata tracing for inspectability, not distributed tracing or hosted observability.
+
 ## Planned Data Model
 
 ### Document
@@ -349,7 +352,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints.
 
 Implemented endpoints:
 
@@ -382,7 +385,7 @@ GET  /retrieval-runs/{id}/evidence-ledger
 POST /reports
 ```
 
-Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, persist Evidence Ledger entries, persist gate records, persist reports, compute embeddings, invoke an LLM, or create free-form final answers.
+Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, persist Evidence Ledger entries, persist gate records, persist reports, compute embeddings, invoke an LLM, create free-form final answers, or provide distributed tracing.
 
 ## Agent Workflow
 
@@ -394,7 +397,7 @@ Planned explicit workflow:
 4. Critic Agent blocks unsupported claims and surfaces contradictions.
 5. Report Agent produces a claim-bounded report.
 
-Each stage must log input and output.
+Each stage must log input and output. Current Phase 11 behavior auto-records preview endpoint metadata in `agent_runs`; it is not yet a complete multi-stage workflow trace.
 
 ## Evaluation Surface
 

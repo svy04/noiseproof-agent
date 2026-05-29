@@ -14,6 +14,7 @@ from app.schemas import (
 from app.services.chunk_preview import preview_chunks
 from app.services.document_profiler import profile_document
 from app.services.parse_preview import preview_parse
+from app.services.run_trace import run_with_trace
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 
@@ -32,15 +33,49 @@ def list_documents(repository: Repository = Depends(get_repository)) -> list[dic
 
 
 @router.post("/profile", response_model=DocumentProfileOut)
-def profile_document_text(payload: DocumentProfileRequest) -> DocumentProfileOut:
-    return profile_document(payload)
+def profile_document_text(
+    payload: DocumentProfileRequest,
+    repository: Repository = Depends(get_repository),
+) -> DocumentProfileOut:
+    def operation() -> DocumentProfileOut:
+        return profile_document(payload)
+
+    return run_with_trace(
+        repository,
+        endpoint="POST /documents/profile",
+        user_question=f"profile document: {payload.source_type}",
+        trace_json={"source_type": payload.source_type},
+        operation=operation,
+    )
 
 
 @router.post("/parse-preview", response_model=ParsePreviewOut)
-def parse_document_preview(payload: ParsePreviewRequest) -> ParsePreviewOut:
-    return preview_parse(payload)
+def parse_document_preview(
+    payload: ParsePreviewRequest,
+    repository: Repository = Depends(get_repository),
+) -> ParsePreviewOut:
+    return run_with_trace(
+        repository,
+        endpoint="POST /documents/parse-preview",
+        user_question=f"parse preview: {payload.source_type}",
+        trace_json={"source_type": payload.source_type},
+        operation=lambda: preview_parse(payload),
+    )
 
 
 @router.post("/chunk-preview", response_model=ChunkPreviewOut)
-def chunk_document_preview(payload: ChunkPreviewRequest) -> ChunkPreviewOut:
-    return preview_chunks(payload)
+def chunk_document_preview(
+    payload: ChunkPreviewRequest,
+    repository: Repository = Depends(get_repository),
+) -> ChunkPreviewOut:
+    return run_with_trace(
+        repository,
+        endpoint="POST /documents/chunk-preview",
+        user_question=f"chunk preview: {payload.source_type}",
+        trace_json={
+            "source_type": payload.source_type,
+            "max_characters": payload.max_characters,
+            "overlap": payload.overlap,
+        },
+        operation=lambda: preview_chunks(payload),
+    )

@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 10 records the current evaluation and Braincrew application package after the operations dashboard became inspectable.
+Phase 11 records preview endpoint traces after the evaluation and Braincrew application package made the project inspectable.
 
 Implemented:
 
@@ -35,6 +35,8 @@ Implemented:
 - Evaluation/Application Package v0
 - `docs/evaluation/*`
 - `docs/application/*`
+- Auto Trace Recording v0
+- preview endpoints create `agent_runs.trace_json` metadata
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
@@ -113,7 +115,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase9-operations-dashboard"
+  "workflow_version": "phase11-auto-trace"
 }
 ```
 
@@ -122,7 +124,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase9-operations-dashboard",
+  "workflow_version": "phase11-auto-trace",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -130,7 +132,7 @@ Expected `/ops/summary` shape:
   "contradiction_count": 0,
   "average_latency_ms": null,
   "notes": [
-    "Retrieval runs recorded: 0. Phase 9 adds Operations Dashboard v0 only; no persisted reports or Evidence Ledger metrics yet.",
+    "Retrieval runs recorded: 0. Phase 11 records preview endpoint traces, but there are still no persisted reports or Evidence Ledger metrics.",
     "Unsupported claim and contradiction counts remain placeholders until persisted Evidence Ledger entries exist."
   ]
 }
@@ -539,6 +541,30 @@ Expected `/reports/preview` response shape:
 
 If the Noise Gate returns `blocked` or `needs_revision`, `report` is `null` and the response includes `fallback_message` plus `required_revisions`. This endpoint does not call an LLM, persist report records, create a dashboard, or create claims outside the allowed gate output.
 
+Inspect auto-created preview traces:
+
+```bash
+curl http://localhost:8000/agent-runs
+```
+
+Expected trace boundary:
+
+```json
+[
+  {
+    "workflow_version": "phase11-auto-trace",
+    "status": "completed",
+    "trace_json": {
+      "endpoint": "POST /reports/preview",
+      "phase": "phase11-auto-trace",
+      "report_status": "generated"
+    }
+  }
+]
+```
+
+The trace is metadata for inspectability. It is not distributed tracing, hosted observability, or persisted Evidence Ledger/report storage.
+
 ## Metadata Examples
 
 Create a document metadata record:
@@ -580,7 +606,7 @@ These tests use an in-memory repository override. They do not prove PostgreSQL r
 
 ## Evaluation And Application Package
 
-Review these Phase 10 artifacts before making application claims:
+Review these Phase 10/11 artifacts before making application claims:
 
 ```text
 docs/evaluation/eval-plan.md
@@ -594,4 +620,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, persisted Evidence Ledger entries, persisted Critic / Noise Gate records, persisted report records, DB persistence for collection plans, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI.
+Do not claim persisted chunks, embeddings, persisted Evidence Ledger entries, persisted Critic / Noise Gate records, persisted report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI.

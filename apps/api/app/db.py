@@ -184,7 +184,7 @@ class PostgresRepository:
             contradiction_count=0,
             average_latency_ms=row["average_latency_ms"],
             notes=[
-                f"Retrieval runs recorded: {row['retrieval_run_count']}. Phase 9 adds Operations Dashboard v0 only; no persisted reports or Evidence Ledger metrics yet.",
+                f"Retrieval runs recorded: {row['retrieval_run_count']}. Phase 11 records preview endpoint traces, but there are still no persisted reports or Evidence Ledger metrics.",
                 "Unsupported claim and contradiction counts remain placeholders until persisted Evidence Ledger entries exist.",
             ],
         )

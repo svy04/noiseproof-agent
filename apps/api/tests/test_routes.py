@@ -1,11 +1,13 @@
 from datetime import date, datetime, timezone
 from uuid import uuid4
 
+import pytest
 from fastapi.testclient import TestClient
 
 from app.db import get_repository
 from app.main import create_app
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
+from app.services.run_trace import run_with_trace
 
 
 class InMemoryRepository:
@@ -59,7 +61,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase9-operations-dashboard",
+            workflow_version="phase11-auto-trace",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -86,7 +88,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-        "workflow_version": "phase9-operations-dashboard",
+        "workflow_version": "phase11-auto-trace",
     }
 
 
@@ -135,7 +137,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase9-operations-dashboard"
+        == "phase11-auto-trace"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -207,6 +209,138 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
     assert "Phase 9" in response.text
+
+
+def test_core_preview_endpoints_auto_record_agent_run_traces():
+    client = make_client()
+
+    client.post(
+        "/collection-plans/preview",
+        json={"question": "Did enterprise AI demand become stronger?"},
+    )
+    client.post(
+        "/evidence-ledgers/preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "retrieval_results": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "chunk_strategy": "heading-aware",
+                    "chunk_index": 0,
+                    "text": "Enterprise demand grew 12% in 2026.",
+                    "score": 0.75,
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "metadata": {"source_date": "2026-05-28"},
+                }
+            ],
+        },
+    )
+    client.post(
+        "/noise-gates/preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+        },
+    )
+    client.post(
+        "/reports/preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+            "draft_claims": [
+                "Enterprise demand grew, with the current evidence limited to one retrieved source."
+            ],
+        },
+    )
+
+    traces = client.get("/agent-runs").json()
+    endpoints = {trace["trace_json"]["endpoint"] for trace in traces}
+    assert {
+        "POST /collection-plans/preview",
+        "POST /evidence-ledgers/preview",
+        "POST /noise-gates/preview",
+        "POST /reports/preview",
+    }.issubset(endpoints)
+    assert all(trace["workflow_version"] == "phase11-auto-trace" for trace in traces)
+    assert any(trace["trace_json"].get("decision") == "pass" for trace in traces)
+    assert any(trace["trace_json"].get("report_status") == "generated" for trace in traces)
+
+
+def test_document_preview_endpoints_auto_record_agent_run_traces():
+    client = make_client()
+
+    client.post(
+        "/documents/profile",
+        json={"source_type": "markdown", "text": "# Memo\nRevenue grew 12%."},
+    )
+    client.post(
+        "/documents/parse-preview",
+        json={"source_type": "markdown", "content": "# Memo\nRevenue grew 12%."},
+    )
+    client.post(
+        "/documents/chunk-preview",
+        json={"source_type": "markdown", "content": "# Memo\nRevenue grew 12%."},
+    )
+
+    traces = client.get("/agent-runs").json()
+    endpoints = {trace["trace_json"]["endpoint"] for trace in traces}
+    assert {
+        "POST /documents/profile",
+        "POST /documents/parse-preview",
+        "POST /documents/chunk-preview",
+    }.issubset(endpoints)
+    assert any(trace["trace_json"]["source_type"] == "markdown" for trace in traces)
+
+
+def test_run_trace_records_failed_preview_operations():
+    repository = InMemoryRepository()
+
+    def failing_operation():
+        raise ValueError("synthetic preview failure")
+
+    with pytest.raises(ValueError):
+        run_with_trace(
+            repository,
+            endpoint="POST /reports/preview",
+            user_question="failed preview?",
+            trace_json={"evidence_entry_count": 0},
+            operation=failing_operation,
+        )
+
+    trace = repository.list_agent_runs()[0]
+    assert trace["status"] == "failed"
+    assert trace["error_message"] == "synthetic preview failure"
+    assert trace["trace_json"]["endpoint"] == "POST /reports/preview"
+    assert trace["trace_json"]["error_type"] == "ValueError"
 
 
 def test_document_profile_endpoint_detects_fixture_signals():

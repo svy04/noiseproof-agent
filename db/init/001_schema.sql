@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS documents (
 CREATE TABLE IF NOT EXISTS agent_runs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_question TEXT NOT NULL,
-  workflow_version TEXT NOT NULL DEFAULT 'phase9-operations-dashboard',
+  workflow_version TEXT NOT NULL DEFAULT 'phase11-auto-trace',
   status TEXT NOT NULL DEFAULT 'created',
   error_message TEXT,
   token_cost NUMERIC,

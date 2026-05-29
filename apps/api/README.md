@@ -22,6 +22,8 @@ Implemented in this package:
 - `POST /failure-cases`
 - `GET /failure-cases`
 
+Phase 11 auto-records `agent_runs.trace_json` metadata for the document/profile, parse, chunk, collection-plan, evidence-ledger, noise-gate, and report preview endpoints.
+
 Not implemented yet:
 
 - file upload
@@ -82,3 +84,4 @@ Evidence Ledger Preview is deterministic and does not call LLMs, search external
 Noise Gate Preview is deterministic and does not call LLMs, persist gate records, create a final report, or build a dashboard.
 Report Preview is deterministic and does not call LLMs or persist report records.
 Operations Dashboard v0 is a plain FastAPI HTML view over current metadata, not a polished product UI.
+Auto Trace Recording v0 is metadata tracing for preview endpoints, not distributed tracing or hosted observability.

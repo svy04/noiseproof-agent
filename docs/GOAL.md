@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 10:
+Accepted state as of Phase 11:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, and Evaluation/Application Package v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, and Auto Trace Recording v0
 ```
 
 Implemented:
@@ -126,6 +126,10 @@ Implemented:
 - `docs/application/cover-message.md`
 - `docs/application/portfolio-index.md`
 - `docs/review/application-ready-review.md`
+- Auto Trace Recording v0
+- preview endpoints auto-create `agent_runs` metadata records
+- `trace_json` records endpoint, phase, source type, counts, gate decisions, and report status where available
+- failed preview operations are wrapped so a failed trace can be recorded before the exception is re-raised
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -147,6 +151,7 @@ Not yet implemented:
 - persisted Evidence Ledger entries
 - persisted Critic / Noise Gate records
 - persisted report records
+- full distributed tracing or hosted observability
 
 ## 4. How Future Agents Continue
 
@@ -181,6 +186,7 @@ Phase 7   - Critic / Noise Gate v0
 Phase 8   - Claim-bounded report v0
 Phase 9   - Operations dashboard v0
 Phase 10  - Evaluation and application package
+Phase 11  - Auto Trace Recording v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -581,10 +587,53 @@ apps/api/tests/test_docs.py
 
 Phase 10 does not add new runtime product behavior. It makes the current evidence, failures, role fit, and unproven boundaries easier to inspect.
 
+Phase 10 handoff:
+
+```text
+Auto Trace Recording v0
+```
+
+### Phase 11 - Auto Trace Recording v0
+
+Implemented outputs:
+
+```text
+apps/api/app/services/run_trace.py
+preview endpoint trace creation in agent_runs
+workflow_version phase11-auto-trace
+```
+
+The current preview endpoints create `agent_runs` metadata records:
+
+```text
+POST /documents/profile
+POST /documents/parse-preview
+POST /documents/chunk-preview
+POST /collection-plans/preview
+POST /evidence-ledgers/preview
+POST /noise-gates/preview
+POST /reports/preview
+```
+
+Trace records include:
+
+```text
+endpoint
+phase
+latency_ms
+status
+source_type where available
+route-specific counts
+gate decisions where available
+report status where available
+```
+
+Phase 11 does not add LLM calls, embeddings, retrieval expansion, persisted Evidence Ledger records, persisted gate records, persisted report records, distributed tracing, hosted observability, or dashboard UI polish.
+
 Next recommended implementation phase:
 
 ```text
-External proof linking
+Persisted Evidence Ledger records v0
 ```
 
 ## 6. Ordering Rules

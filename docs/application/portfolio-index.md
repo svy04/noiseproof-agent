@@ -27,6 +27,7 @@ This page maps the repository into a reviewer-readable path.
 | Noise Gate preview | `packages/ingestion/noise_gate/gate.py` | implemented |
 | Report preview | `packages/ingestion/reports/report.py` | implemented |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
+| Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 
 ## Verification Artifacts
 
@@ -44,6 +45,7 @@ This page maps the repository into a reviewer-readable path.
 - production RAG quality
 - robust PDF extraction
 - semantic retrieval
+- distributed tracing
 - external customer validation
 - financial prediction quality
 - trading advice
@@ -51,4 +53,4 @@ This page maps the repository into a reviewer-readable path.
 
 ## Current Best Claim
 
-NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be blocked before report output.
+NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be blocked before report output, with preview endpoint traces recorded in `agent_runs`.

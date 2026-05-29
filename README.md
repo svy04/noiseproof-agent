@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 added Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output. Phase 9 adds Operations Dashboard v0 so the existing run, retrieval, and failure records are inspectable from the browser.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 added Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output. Phase 9 added Operations Dashboard v0 so the existing run, retrieval, and failure records are inspectable from the browser. Phase 11 adds Auto Trace Recording v0 so preview endpoints leave `agent_runs.trace_json` metadata before the project claims a full agent workflow.
 
 The product thesis:
 
@@ -107,6 +107,7 @@ Implementation status:
 - Operations Dashboard v0: implemented as a plain FastAPI HTML view over current metadata records
 - Evaluation/Application Package v0: implemented for evaluation planning, failure cases, Braincrew role mapping, cover message, and portfolio index
 - Application-ready review: implemented as a partial/pass boundary checklist
+- Auto Trace Recording v0: implemented for document profile, parse, chunk, collection plan, evidence ledger, noise gate, and report preview endpoints
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, persisted Evidence Ledger entries, persisted reports: planned, not implemented
 
 ## Implementation Status
@@ -223,6 +224,13 @@ Implementation status:
 - `docs/review/application-ready-review.md`: done
 - Runtime product behavior, new retrieval behavior, LLM calls, and deployment: not implemented in Phase 10
 
+### Phase 11 - Auto Trace Recording v0
+
+- Preview endpoints auto-create `agent_runs` metadata records: done
+- `trace_json` records endpoint, phase, source type, counts, decisions, and report status where available: done
+- Failed preview operations are wrapped so a failed trace can be recorded before the exception is re-raised: done
+- Full distributed tracing, hosted observability, persisted Evidence Ledger records, persisted gate records, and persisted report records: not implemented
+
 Not implemented yet:
 
 - file upload parsing
@@ -232,6 +240,7 @@ Not implemented yet:
 - persisted Evidence Ledger entries
 - persisted Critic / Noise Gate records
 - persisted report records
+- full distributed tracing or hosted observability
 
 ## Planned Agent Workflow
 
@@ -244,6 +253,8 @@ NoiseProof Agent will use five explicit roles before introducing any complex mul
 5. Report Agent: generate a claim-bounded report with citations and next data needed
 
 Each planned stage must log its input and output.
+
+Current Phase 11 behavior records preview endpoint metadata in `agent_runs.trace_json`. This is not full workflow tracing or distributed observability.
 
 ## Evidence Ledger
 
@@ -372,6 +383,7 @@ curl -X POST http://localhost:8000/noise-gates/preview \
 curl -X POST http://localhost:8000/reports/preview \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
+curl http://localhost:8000/agent-runs
 ```
 
 ## Demo Flow
@@ -390,12 +402,11 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After this application-ready review, the next phase should be a proof-link pass:
+After Auto Trace Recording v0, the next phase should reduce the remaining dashboard placeholder gap:
 
-- verify every README claim links to an artifact
-- add screenshots or terminal transcripts only where they prove a specific boundary
-- connect this repo from the portfolio proof surface
-- decide whether Phase 11 should add external proof links or hosted demo setup
+- persist Evidence Ledger preview entries or a minimal claim-status summary
+- connect persisted unsupported and contradiction counts to the operations dashboard
+- keep deterministic preview behavior before adding LLM calls or embeddings
 
 It should not start with UI polish, LLM prompt tuning, new retrieval behavior, or broad agent abstractions.
 
