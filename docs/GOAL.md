@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 14:
+Accepted state as of Phase 15:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, and Persisted Report Preview Records v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, and Record Linkage v0
 ```
 
 Implemented:
@@ -147,6 +147,11 @@ Implemented:
 - `report_records` table and migration
 - generated, blocked, and needs-revision report counts in `/ops/summary`
 - Report Records section in `/ops/dashboard`
+- Record Linkage v0
+- `workflow_trace_id` on persisted Evidence Ledger records
+- `workflow_trace_id` on persisted Noise Gate records
+- `workflow_trace_id` on persisted Report records
+- matching `workflow_trace_id` in `agent_runs.trace_json` for persisted evidence/gate/report endpoints
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -165,9 +170,7 @@ Not yet implemented:
 - persisted chunks
 - persisted collection plans
 - embeddings
-- retrieval-run-linked Evidence Ledger records
-- agent-run-linked Noise Gate records
-- agent-run-linked Report records
+- `agent_run_id` foreign-key-linked Evidence Ledger, Noise Gate, and Report records
 - full distributed tracing or hosted observability
 
 ## 4. How Future Agents Continue
@@ -207,6 +210,7 @@ Phase 11  - Auto Trace Recording v0
 Phase 12  - Persisted Evidence Ledger Records v0
 Phase 13  - Persisted Noise Gate Records v0
 Phase 14  - Persisted Report Preview Records v0
+Phase 15  - Record Linkage v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -763,10 +767,24 @@ created_at
 
 Phase 14 does not add retrieval expansion, embeddings, semantic retrieval, LLM calls, free-form final report generation, agent-run-linked report records, or dashboard UI polish.
 
+### Phase 15 - Record Linkage v0
+
+Implemented outputs:
+
+```text
+db/migrations/005_workflow_trace_ids.sql
+workflow_trace_id on evidence_ledger_entries
+workflow_trace_id on noise_gate_records
+workflow_trace_id on report_records
+matching workflow_trace_id in agent_runs.trace_json for POST /evidence-ledgers, POST /noise-gates, and POST /reports
+```
+
+Phase 15 is not full distributed tracing and does not add `agent_run_id` foreign-key linkage. It only makes persisted records and their trace metadata joinable by a shared local workflow trace id.
+
 Next recommended implementation phase:
 
 ```text
-Record Linkage v0
+Trace-id lookup v0
 ```
 
 ## 6. Ordering Rules

@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 14 persists Report Preview records after Evidence Ledger and Noise Gate records made claim boundaries inspectable.
+Phase 15 links persisted evidence, gate, and report records to their matching agent-run trace metadata with a shared `workflow_trace_id`.
 
 Implemented:
 
@@ -34,6 +34,9 @@ Implemented:
 - `POST /reports`
 - `GET /reports`
 - generated, blocked, and needs-revision report counts from persisted Report records
+- Record Linkage v0
+- `workflow_trace_id` on persisted Evidence Ledger, Noise Gate, and Report records
+- matching `workflow_trace_id` in `agent_runs.trace_json` for persisted evidence/gate/report endpoints
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -59,9 +62,7 @@ Not implemented:
 - persisted parse records
 - persisted chunks
 - embeddings
-- retrieval-run-linked Evidence Ledger records
-- agent-run-linked Noise Gate records
-- agent-run-linked Report records
+- `agent_run_id` foreign-key-linked Evidence Ledger, Noise Gate, and Report records
 
 ## Local Database
 
@@ -100,12 +101,13 @@ POSTGRES_PORT=55432
 DATABASE_URL=postgresql://noiseproof:noiseproof@localhost:55432/noiseproof
 ```
 
-For an existing local database created before Phase 14, apply:
+For an existing local database created before Phase 15, apply:
 
 ```powershell
 Get-Content db/migrations/002_evidence_ledger_entries.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 Get-Content db/migrations/003_noise_gate_records.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 Get-Content db/migrations/004_report_records.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
+Get-Content db/migrations/005_workflow_trace_ids.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 ```
 
 ## API
@@ -138,7 +140,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase14-report-preview-persistence"
+  "workflow_version": "phase15-record-linkage"
 }
 ```
 
@@ -147,7 +149,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase14-report-preview-persistence",
+  "workflow_version": "phase15-record-linkage",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -163,7 +165,7 @@ Expected `/ops/summary` shape:
   "average_latency_ms": null,
   "notes": [
     "Retrieval runs recorded: 0. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
-    "Embeddings, semantic retrieval, agent-run-linked gate records, and final report generation beyond deterministic previews are still not implemented."
+    "Embeddings, semantic retrieval, agent_run_id foreign-key record linkage, and final report generation beyond deterministic previews are still not implemented."
   ]
 }
 ```
@@ -654,6 +656,7 @@ Expected persisted response shape:
 ```
 
 Current report persistence is v0. It stores deterministic preview output only; it does not link report records to an `agent_runs` id, call an LLM, or create a free-form final report.
+Persisted evidence, gate, and report records include `workflow_trace_id`. The same value is written to the matching `agent_runs.trace_json` entry for the persistence endpoint. This is a local correlation id, not full distributed tracing or an `agent_run_id` foreign-key relationship.
 
 Inspect auto-created preview traces:
 
@@ -666,11 +669,12 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase14-report-preview-persistence",
+    "workflow_version": "phase15-record-linkage",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase14-report-preview-persistence",
+      "phase": "phase15-record-linkage",
+      "workflow_trace_id": "uuid",
       "report_status": "generated"
     }
   }
@@ -734,4 +738,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, retrieval-run-linked Evidence Ledger records, agent-run-linked Noise Gate records, agent-run-linked Report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI.
+Do not claim persisted chunks, embeddings, `agent_run_id` foreign-key-linked Evidence Ledger / Noise Gate / Report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI.

@@ -29,6 +29,7 @@ Implemented in this package:
 - `GET /failure-cases`
 
 Phase 11 auto-records `agent_runs.trace_json` metadata for the document/profile, parse, chunk, collection-plan, evidence-ledger, noise-gate, and report preview endpoints.
+Phase 15 adds `workflow_trace_id` linkage for persisted evidence, gate, and report endpoints.
 
 Not implemented yet:
 
@@ -38,9 +39,7 @@ Not implemented yet:
 - persisted chunks
 - persisted collection plans
 - embeddings
-- retrieval-run-linked Evidence Ledger records
-- agent-run-linked Noise Gate records
-- agent-run-linked Report records
+- `agent_run_id` foreign-key-linked Evidence Ledger, Noise Gate, and Report records
 
 ## Local Run
 
@@ -94,5 +93,6 @@ Evidence Ledger Preview is deterministic and does not call LLMs, search external
 Noise Gate Preview is deterministic and does not call LLMs, create a final report, or build a dashboard.
 `POST /noise-gates` persists the deterministic gate decision as a v0 Noise Gate record. It does not link the record to an agent run id or create a final report.
 Report Preview is deterministic and does not call LLMs. `POST /reports` persists the deterministic preview output as a v0 Report record; it does not create a free-form final report.
+Persisted evidence, gate, and report records include `workflow_trace_id`, which also appears in the matching `agent_runs.trace_json`.
 Operations Dashboard v0 is a plain FastAPI HTML view over current metadata, not a polished product UI.
 Auto Trace Recording v0 is metadata tracing for preview endpoints, not distributed tracing or hosted observability.

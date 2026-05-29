@@ -97,8 +97,6 @@ docker compose ps
 - embeddings
 - production-scale ingestion
 - persisted chunks
-- retrieval-run-linked Evidence Ledger records
-- agent-run-linked Noise Gate records
-- agent-run-linked Report records
+- `agent_run_id` foreign-key-linked Evidence Ledger / Noise Gate / Report records
 - external user validation
 - financial prediction quality

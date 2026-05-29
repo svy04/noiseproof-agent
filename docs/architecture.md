@@ -23,7 +23,8 @@ Current status:
 - Persisted Evidence Ledger Records v0 exists for stored claim-level entries and operations counts.
 - Persisted Noise Gate Records v0 exists for stored pass / needs_revision / blocked gate decisions.
 - Persisted Report Preview Records v0 exists for stored generated / needs_revision / blocked report-shaped outputs.
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, retrieval-run-linked Evidence Ledger records, agent-run-linked Noise Gate records, agent-run-linked Report records, distributed tracing, hosted observability, and agents are planned but not implemented.
+- Record Linkage v0 exists with shared `workflow_trace_id` values across persisted evidence, gate, report records, and matching `agent_runs.trace_json`.
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, `agent_run_id` foreign-key-linked Evidence Ledger / Noise Gate / Report records, distributed tracing, hosted observability, and agents are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -323,6 +324,7 @@ metadata_json
 ```text
 id
 run_id
+workflow_trace_id
 question
 claim
 source_id
@@ -380,6 +382,7 @@ created_at
 
 ```text
 id
+workflow_trace_id
 question
 decision
 final_response_allowed
@@ -399,6 +402,7 @@ created_at
 
 ```text
 id
+workflow_trace_id
 question
 status
 report
@@ -415,7 +419,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records. Phase 13 added persisted Noise Gate records. Phase 14 added persisted Report Preview records.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records. Phase 13 added persisted Noise Gate records. Phase 14 added persisted Report Preview records. Phase 15 added shared `workflow_trace_id` correlation across persisted evidence/gate/report records and agent-run traces.
 
 Implemented endpoints:
 
@@ -453,7 +457,7 @@ GET  /retrieval-runs/{id}
 GET  /retrieval-runs/{id}/evidence-ledger
 ```
 
-Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, link Evidence Ledger entries to retrieval run ids, link Noise Gate records to agent run ids, link Report records to agent run ids, compute embeddings, invoke an LLM, create free-form final answers, or provide distributed tracing.
+Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, link Evidence Ledger entries to retrieval run ids, link Evidence / Noise Gate / Report records to `agent_runs.id` with foreign keys, compute embeddings, invoke an LLM, create free-form final answers, or provide distributed tracing.
 
 ## Agent Workflow
 

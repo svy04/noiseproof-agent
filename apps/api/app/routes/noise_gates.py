@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from uuid import uuid4
 
 from app.db import Repository, get_repository
 from app.schemas import NoiseGatePreviewOut, NoiseGatePreviewRequest, NoiseGateStoredRecordOut
@@ -13,12 +14,15 @@ def create_noise_gate_record(
     payload: NoiseGatePreviewRequest,
     repository: Repository = Depends(get_repository),
 ) -> NoiseGateStoredRecordOut:
+    workflow_trace_id = uuid4()
+
     def operation() -> NoiseGateStoredRecordOut:
         preview = preview_noise_gate(payload)
         persisted = repository.create_noise_gate_record(
             preview,
             evidence_entry_count=len(payload.evidence_entries),
             draft_claim_count=len(payload.draft_claims),
+            workflow_trace_id=workflow_trace_id,
         )
         return NoiseGateStoredRecordOut(**persisted)
 
@@ -26,7 +30,10 @@ def create_noise_gate_record(
         repository,
         endpoint="POST /noise-gates",
         user_question=payload.question,
-        trace_json={"evidence_entry_count": len(payload.evidence_entries)},
+        trace_json={
+            "evidence_entry_count": len(payload.evidence_entries),
+            "workflow_trace_id": str(workflow_trace_id),
+        },
         operation=operation,
         trace_from_result=lambda result: {
             "decision": result.decision,

@@ -217,6 +217,7 @@ class EvidenceLedgerStoredEntryOut(EvidenceLedgerEntryOut):
     id: UUID
     question: str
     run_id: UUID | None = None
+    workflow_trace_id: UUID
     created_at: datetime
 
 
@@ -255,6 +256,7 @@ class NoiseGatePreviewOut(BaseModel):
 
 class NoiseGateStoredRecordOut(NoiseGatePreviewOut):
     id: UUID
+    workflow_trace_id: UUID
     evidence_entry_count: int
     draft_claim_count: int
     created_at: datetime
@@ -295,6 +297,7 @@ class ReportPreviewOut(BaseModel):
 
 class ReportStoredRecordOut(ReportPreviewOut):
     id: UUID
+    workflow_trace_id: UUID
     gate_decision: str
     claim_count: int
     evidence_entry_count: int
@@ -304,7 +307,7 @@ class ReportStoredRecordOut(ReportPreviewOut):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase14-report-preview-persistence"
+    workflow_version: str = "phase15-record-linkage"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None

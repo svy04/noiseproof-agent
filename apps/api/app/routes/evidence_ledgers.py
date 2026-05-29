@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from uuid import uuid4
 
 from app.db import Repository, get_repository
 from app.schemas import (
@@ -18,11 +19,14 @@ def create_evidence_ledger(
     payload: EvidenceLedgerPreviewRequest,
     repository: Repository = Depends(get_repository),
 ) -> EvidenceLedgerPersistedOut:
+    workflow_trace_id = uuid4()
+
     def operation() -> EvidenceLedgerPersistedOut:
         preview = preview_evidence_ledger(payload)
         persisted = repository.create_evidence_ledger_entries(
             preview.question,
             preview.entries,
+            workflow_trace_id=workflow_trace_id,
         )
         return EvidenceLedgerPersistedOut(
             question=preview.question,
@@ -36,7 +40,10 @@ def create_evidence_ledger(
         repository,
         endpoint="POST /evidence-ledgers",
         user_question=payload.question,
-        trace_json={"retrieval_result_count": len(payload.retrieval_results)},
+        trace_json={
+            "retrieval_result_count": len(payload.retrieval_results),
+            "workflow_trace_id": str(workflow_trace_id),
+        },
         operation=operation,
         trace_from_result=lambda result: {
             "stored_entry_count": result.stored_entry_count,

@@ -1,5 +1,6 @@
 from collections.abc import Sequence
 from typing import Protocol
+from uuid import UUID
 
 import psycopg
 from psycopg.rows import dict_row
@@ -24,7 +25,10 @@ class Repository(Protocol):
     def create_agent_run(self, payload: AgentRunCreate) -> dict: ...
     def list_agent_runs(self) -> Sequence[dict]: ...
     def create_evidence_ledger_entries(
-        self, question: str, entries: list[EvidenceLedgerEntryOut]
+        self,
+        question: str,
+        entries: list[EvidenceLedgerEntryOut],
+        workflow_trace_id: UUID,
     ) -> Sequence[dict]: ...
     def list_evidence_ledger_entries(self) -> Sequence[dict]: ...
     def create_noise_gate_record(
@@ -32,6 +36,7 @@ class Repository(Protocol):
         result: NoiseGatePreviewOut,
         evidence_entry_count: int,
         draft_claim_count: int,
+        workflow_trace_id: UUID,
     ) -> dict: ...
     def list_noise_gate_records(self) -> Sequence[dict]: ...
     def create_report_record(
@@ -39,6 +44,7 @@ class Repository(Protocol):
         result: ReportPreviewOut,
         evidence_entry_count: int,
         draft_claim_count: int,
+        workflow_trace_id: UUID,
     ) -> dict: ...
     def list_report_records(self) -> Sequence[dict]: ...
     def create_failure_case(self, payload: FailureCaseCreate) -> dict: ...
@@ -119,7 +125,10 @@ class PostgresRepository:
             return [dict(row) for row in rows]
 
     def create_evidence_ledger_entries(
-        self, question: str, entries: list[EvidenceLedgerEntryOut]
+        self,
+        question: str,
+        entries: list[EvidenceLedgerEntryOut],
+        workflow_trace_id: UUID,
     ) -> Sequence[dict]:
         with self._connect() as conn:
             rows = []
@@ -127,14 +136,15 @@ class PostgresRepository:
                 row = conn.execute(
                     """
                     INSERT INTO evidence_ledger_entries (
-                      question, claim, source_id, source_type, source_date,
+                      workflow_trace_id, question, claim, source_id, source_type, source_date,
                       evidence_span, confidence, limitation,
                       contradicting_source_ids, status, matched_terms, role
                     )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     RETURNING *
                     """,
                     (
+                        workflow_trace_id,
                         question,
                         entry.claim,
                         entry.source_id,
@@ -168,20 +178,22 @@ class PostgresRepository:
         result: NoiseGatePreviewOut,
         evidence_entry_count: int,
         draft_claim_count: int,
+        workflow_trace_id: UUID,
     ) -> dict:
         with self._connect() as conn:
             row = conn.execute(
                 """
                 INSERT INTO noise_gate_records (
-                  question, decision, final_response_allowed, checks,
+                  workflow_trace_id, question, decision, final_response_allowed, checks,
                   blocked_claims, downgraded_claims, allowed_claims,
                   required_revisions, fallback_message, warnings,
                   evidence_entry_count, draft_claim_count
                 )
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 RETURNING *
                 """,
                 (
+                    workflow_trace_id,
                     result.question,
                     result.decision,
                     result.final_response_allowed,
@@ -214,19 +226,21 @@ class PostgresRepository:
         result: ReportPreviewOut,
         evidence_entry_count: int,
         draft_claim_count: int,
+        workflow_trace_id: UUID,
     ) -> dict:
         with self._connect() as conn:
             row = conn.execute(
                 """
                 INSERT INTO report_records (
-                  question, status, report, gate, gate_decision,
+                  workflow_trace_id, question, status, report, gate, gate_decision,
                   fallback_message, required_revisions, warnings,
                   claim_count, evidence_entry_count, draft_claim_count
                 )
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 RETURNING *
                 """,
                 (
+                    workflow_trace_id,
                     result.question,
                     result.status,
                     Jsonb(result.report.model_dump() if result.report is not None else None),
@@ -386,7 +400,7 @@ class PostgresRepository:
             average_latency_ms=row["average_latency_ms"],
             notes=[
                 f"Retrieval runs recorded: {row['retrieval_run_count']}. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
-                "Embeddings, semantic retrieval, agent-run-linked gate records, and final report generation beyond deterministic previews are still not implemented.",
+                "Embeddings, semantic retrieval, agent_run_id foreign-key record linkage, and final report generation beyond deterministic previews are still not implemented.",
             ],
         )
 
