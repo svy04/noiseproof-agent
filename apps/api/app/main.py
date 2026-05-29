@@ -9,6 +9,7 @@ from app.routes import (
     health,
     noise_gates,
     ops,
+    reports,
     retrieval_runs,
 )
 
@@ -16,7 +17,7 @@ from app.routes import (
 def create_app() -> FastAPI:
     app = FastAPI(
         title="NoiseProof Agent API",
-        version="0.7.0",
+        version="0.8.0",
         description="NoiseProof Agent phased API with collection planning, retrieval, and evidence boundaries.",
     )
     app.include_router(health.router)
@@ -26,6 +27,7 @@ def create_app() -> FastAPI:
     app.include_router(retrieval_runs.router)
     app.include_router(evidence_ledgers.router)
     app.include_router(noise_gates.router)
+    app.include_router(reports.router)
     app.include_router(failure_cases.router)
     app.include_router(ops.router)
     return app

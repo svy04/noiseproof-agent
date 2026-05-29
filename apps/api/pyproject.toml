@@ -1,6 +1,6 @@
 [project]
 name = "noiseproof-agent-api"
-version = "0.7.0"
+version = "0.8.0"
 description = "Phased FastAPI service for NoiseProof Agent."
 requires-python = ">=3.11"
 dependencies = [

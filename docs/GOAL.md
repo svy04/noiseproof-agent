@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 7:
+Accepted state as of Phase 8:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, and Noise Gate Preview v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, and Claim-bounded Report Preview v0
 ```
 
 Implemented:
@@ -107,6 +107,12 @@ Implemented:
 - contradictions, missing source recency, missing limitations, and high-confidence single-source claims require revision
 - overconfident draft language is flagged
 - Korean fallback message returned for blocked or revision-needed outputs
+- Claim-bounded Report Preview v0
+- `POST /reports/preview`
+- Noise Gate runs before report formatting
+- report output is generated only when the gate decision is `pass`
+- generated report includes summary, claims, source ids, evidence spans, confidence, limitations, contradictions, and next data needed
+- blocked or revision-needed gate outputs return fallback message and required revisions instead of a report
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -127,7 +133,7 @@ Not yet implemented:
 - embeddings
 - persisted Evidence Ledger entries
 - persisted Critic / Noise Gate records
-- final report generation
+- persisted report records
 - web dashboard
 
 ## 4. How Future Agents Continue
@@ -478,10 +484,57 @@ overconfident_language
 
 Phase 7 is a deterministic preview boundary. It does not call LLMs, search external sources, persist gate records, generate final answers, create reports, or build a dashboard.
 
+### Phase 8 - Claim-bounded Report Preview v0
+
+Implemented outputs:
+
+```text
+packages/ingestion/reports/__init__.py
+packages/ingestion/reports/report.py
+apps/api/app/services/report_preview.py
+apps/api/app/routes/reports.py
+POST /reports/preview
+```
+
+Report Preview accepts a question, Evidence Ledger entries, and optional draft claims. It runs Noise Gate Preview first, then returns:
+
+```text
+question
+status
+report
+gate
+fallback_message
+required_revisions
+warnings
+```
+
+When the gate passes, `report` includes:
+
+```text
+summary
+claims
+limitations
+contradictions
+next_data_needed
+```
+
+Each report claim includes:
+
+```text
+claim
+source_ids
+evidence_spans
+confidence
+limitations
+contradictions
+```
+
+Phase 8 is a deterministic preview boundary. It does not call LLMs, search external sources, persist report records, create a dashboard, or generate free-form answers beyond the bounded report shape.
+
 Next recommended implementation phase:
 
 ```text
-Phase 8 - Claim-bounded report v0
+Phase 9 - Operations dashboard v0
 ```
 
 ## 6. Ordering Rules

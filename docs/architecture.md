@@ -16,7 +16,8 @@ Current status:
 - Collection Plan Preview v0 exists for question-only role planning before Evidence Ledger work.
 - Evidence Ledger Preview v0 exists for deterministic claim-level entries over retrieval candidates.
 - Noise Gate Preview v0 exists for deterministic pre-report checks over ledger entries and draft claims.
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, persisted Evidence Ledger entries, persisted gate records, final reports, agents, and dashboard are planned but not implemented.
+- Claim-bounded Report Preview v0 exists for deterministic report-shaped output after the Noise Gate passes.
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, persisted Evidence Ledger entries, persisted gate records, persisted reports, agents, and dashboard are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -228,6 +229,16 @@ Generates a final report that includes:
 - contradictions
 - next data needed
 
+Implemented Phase 8 boundary:
+
+- deterministic preview only
+- runs Noise Gate before report formatting
+- no LLM calls
+- no DB persistence
+- no dashboard
+
+The preview generates report-shaped output only when the gate passes. Blocked or revision-needed gate outputs return the fallback message and required revisions instead of a report.
+
 ### Run Log / Failure Case
 
 Records each agent run and failure case for later evaluation.
@@ -336,7 +347,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes.
 
 Implemented endpoints:
 
@@ -351,6 +362,7 @@ POST /retrieval-runs
 GET  /retrieval-runs
 POST /evidence-ledgers/preview
 POST /noise-gates/preview
+POST /reports/preview
 POST /agent-runs
 GET  /agent-runs
 POST /failure-cases
@@ -367,7 +379,7 @@ GET  /retrieval-runs/{id}/evidence-ledger
 POST /reports
 ```
 
-Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, persist Evidence Ledger entries, persist gate records, compute embeddings, invoke an LLM, create final answers, or create final reports.
+Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, persist Evidence Ledger entries, persist gate records, persist reports, compute embeddings, invoke an LLM, or create free-form final answers.
 
 ## Agent Workflow
 

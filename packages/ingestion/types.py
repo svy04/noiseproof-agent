@@ -185,3 +185,33 @@ class NoiseGateResult:
     required_revisions: list[str]
     fallback_message: str | None
     warnings: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class ReportClaim:
+    claim: str
+    source_ids: list[str]
+    evidence_spans: list[str]
+    confidence: str
+    limitations: list[str]
+    contradictions: list[str]
+
+
+@dataclass(frozen=True)
+class ClaimBoundedReport:
+    summary: str
+    claims: list[ReportClaim]
+    limitations: list[str]
+    contradictions: list[str]
+    next_data_needed: list[str]
+
+
+@dataclass(frozen=True)
+class ReportPreview:
+    question: str
+    status: str
+    report: ClaimBoundedReport | None
+    gate: NoiseGateResult
+    fallback_message: str | None
+    required_revisions: list[str]
+    warnings: list[str] = field(default_factory=list)

@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 7 is intended to prove that Evidence Ledger entries can be checked by a small, inspectable Noise Gate Preview before any final report exists.
+Phase 8 is intended to prove that gate-passing Evidence Ledger entries can become a small, inspectable claim-bounded report preview.
 
 Implemented:
 
@@ -28,6 +28,8 @@ Implemented:
 - `POST /evidence-ledgers/preview`
 - Noise Gate Preview v0
 - `POST /noise-gates/preview`
+- Claim-bounded Report Preview v0
+- `POST /reports/preview`
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
@@ -40,7 +42,7 @@ Not implemented:
 - embeddings
 - persisted Evidence Ledger entries
 - persisted Critic / Noise Gate records
-- final report generation
+- persisted report records
 - web dashboard
 
 ## Local Database
@@ -106,7 +108,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase7-noise-gate-preview"
+  "workflow_version": "phase8-report-preview"
 }
 ```
 
@@ -115,7 +117,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase7-noise-gate-preview",
+  "workflow_version": "phase8-report-preview",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -123,7 +125,7 @@ Expected `/ops/summary` shape:
   "contradiction_count": 0,
   "average_latency_ms": null,
   "notes": [
-    "Retrieval runs recorded: 0. Phase 7 adds Noise Gate Preview only; no final report or dashboard implementation yet.",
+    "Retrieval runs recorded: 0. Phase 8 adds Claim-bounded Report Preview only; no persisted reports or dashboard implementation yet.",
     "Unsupported claim and contradiction counts remain placeholders until persisted Evidence Ledger entries exist."
   ]
 }
@@ -481,6 +483,51 @@ Expected `/noise-gates/preview` response shape:
 
 Unsupported or blocked ledger entries return `decision: blocked`. Contradictions, missing source dates, missing limitations, high-confidence single-source claims, and overconfident draft language return `decision: needs_revision` unless trading-advice drift blocks the response. This endpoint does not call an LLM, persist gate records, create a final report, or build a dashboard.
 
+Preview a claim-bounded report after the Noise Gate:
+
+```bash
+curl -X POST http://localhost:8000/reports/preview \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
+```
+
+Expected `/reports/preview` response shape:
+
+```json
+{
+  "question": "Which segment had enterprise demand growth?",
+  "status": "generated",
+  "report": {
+    "summary": "1 claim(s) can be stated with current evidence boundaries.",
+    "claims": [
+      {
+        "claim": "Enterprise demand grew",
+        "source_ids": ["doc-demand"],
+        "evidence_spans": ["Enterprise demand grew 12% in 2026."],
+        "confidence": "medium",
+        "limitations": ["Supported by one retrieved source."],
+        "contradictions": []
+      }
+    ],
+    "limitations": ["Supported by one retrieved source."],
+    "contradictions": [],
+    "next_data_needed": [
+      "Add an independent second source for claim: Enterprise demand grew",
+      "Check for contradicting sources for claim: Enterprise demand grew"
+    ]
+  },
+  "gate": {},
+  "fallback_message": null,
+  "required_revisions": [],
+  "warnings": [
+    "Report Preview is deterministic and does not use an LLM.",
+    "It only formats claims that passed the Noise Gate; it does not create new claims."
+  ]
+}
+```
+
+If the Noise Gate returns `blocked` or `needs_revision`, `report` is `null` and the response includes `fallback_message` plus `required_revisions`. This endpoint does not call an LLM, persist report records, create a dashboard, or create claims outside the allowed gate output.
+
 ## Metadata Examples
 
 Create a document metadata record:
@@ -522,4 +569,4 @@ These tests use an in-memory repository override. They do not prove PostgreSQL r
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, persisted Evidence Ledger entries, persisted Critic / Noise Gate records, report generation, dashboard, DB persistence for collection plans, or answer generation exists until those stages are implemented and verified with examples.
+Do not claim persisted chunks, embeddings, persisted Evidence Ledger entries, persisted Critic / Noise Gate records, persisted report records, dashboard, DB persistence for collection plans, or free-form answer generation exists until those stages are implemented and verified with examples.

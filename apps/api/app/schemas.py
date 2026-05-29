@@ -238,9 +238,42 @@ class NoiseGatePreviewOut(BaseModel):
     warnings: list[str]
 
 
+class ReportPreviewRequest(BaseModel):
+    question: str = Field(..., min_length=1)
+    evidence_entries: list[EvidenceLedgerEntryOut] = Field(default_factory=list)
+    draft_claims: list[str] = Field(default_factory=list)
+
+
+class ReportClaimOut(BaseModel):
+    claim: str
+    source_ids: list[str]
+    evidence_spans: list[str]
+    confidence: str
+    limitations: list[str]
+    contradictions: list[str]
+
+
+class ClaimBoundedReportOut(BaseModel):
+    summary: str
+    claims: list[ReportClaimOut]
+    limitations: list[str]
+    contradictions: list[str]
+    next_data_needed: list[str]
+
+
+class ReportPreviewOut(BaseModel):
+    question: str
+    status: str
+    report: ClaimBoundedReportOut | None
+    gate: NoiseGatePreviewOut
+    fallback_message: str | None
+    required_revisions: list[str]
+    warnings: list[str]
+
+
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase7-noise-gate-preview"
+    workflow_version: str = "phase8-report-preview"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None

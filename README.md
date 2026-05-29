@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 adds Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 adds Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output.
 
 The product thesis:
 
@@ -103,7 +103,8 @@ Implementation status:
 - Collection Plan Preview: implemented for role-based information needs before Evidence Ledger work
 - Evidence Ledger Preview: implemented for deterministic claim-level entries over retrieval candidates
 - Noise Gate Preview: implemented for deterministic pre-report checks over ledger entries and draft claims
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, persisted Evidence Ledger entries, final reports, dashboard: planned, not implemented
+- Claim-bounded Report Preview: implemented for gate-passing ledger entries
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, persisted Evidence Ledger entries, persisted reports, dashboard: planned, not implemented
 
 ## Implementation Status
 
@@ -191,6 +192,15 @@ Implementation status:
 - Returns decision, checks, blocked claims, downgraded claims, allowed claims, required revisions, fallback message, and warnings: done
 - LLM calls, persisted gate records, final reports, dashboard, and answer generation: not implemented
 
+### Phase 8 - Claim-bounded Report Preview v0
+
+- `POST /reports/preview`: done
+- Runs Noise Gate before report formatting: done
+- Generates report output only when the gate decision is `pass`: done
+- Includes summary, claims, source ids, evidence spans, confidence, limitations, contradictions, and next data needed: done
+- Returns fallback message and required revisions when the gate is `blocked` or `needs_revision`: done
+- LLM calls, persisted report records, dashboard, and free-form answer generation: not implemented
+
 Not implemented yet:
 
 - file upload parsing
@@ -199,7 +209,7 @@ Not implemented yet:
 - embeddings
 - persisted Evidence Ledger entries
 - persisted Critic / Noise Gate records
-- final report generation
+- persisted report records
 - web dashboard
 
 ## Planned Agent Workflow
@@ -331,6 +341,9 @@ curl -X POST http://localhost:8000/evidence-ledgers/preview \
 curl -X POST http://localhost:8000/noise-gates/preview \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
+curl -X POST http://localhost:8000/reports/preview \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
 ```
 
 ## Demo Flow
@@ -344,19 +357,19 @@ Planned demo flow after implementation:
 5. Run retrieval for source-linked candidate chunks.
 6. Generate an Evidence Ledger Preview before the answer.
 7. Ask the Critic Agent to block unsupported claims and surface contradictions.
-8. Generate a claim-bounded report with citations and limitations.
+8. Generate a claim-bounded report preview with citations and limitations.
 9. Show the run log and failure case record.
 
 ## What I Would Improve Next
 
-After Phase 7, the next phase should add Claim-bounded Report v0:
+After Phase 8, the next phase should add Operations Dashboard v0:
 
-- generate a small report only from allowed gate output
-- include claims, source ids, evidence spans, limitations, contradictions, and next data needed
-- refuse or return the Korean fallback message when the gate blocks the draft
-- keep UI/dashboard out of scope until report behavior is inspectable
+- show recent agent runs, retrieval failures, unsupported/contradiction placeholders, latency, and failure cases
+- keep it operational and plain rather than visually polished
+- make the current pipeline inspectable from the browser
+- avoid adding new model or retrieval behavior
 
-It should not start with UI polish, LLM prompt tuning, dashboard work, or broad agent abstractions.
+It should not start with UI polish, LLM prompt tuning, new retrieval behavior, or broad agent abstractions.
 
 ## Braincrew Role Alignment
 

@@ -59,7 +59,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase7-noise-gate-preview",
+            workflow_version="phase8-report-preview",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -86,7 +86,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-        "workflow_version": "phase7-noise-gate-preview",
+        "workflow_version": "phase8-report-preview",
     }
 
 
@@ -135,7 +135,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase7-noise-gate-preview"
+        == "phase8-report-preview"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -860,3 +860,174 @@ def test_noise_gate_preview_requires_two_sources_for_high_confidence():
     assert body["final_response_allowed"] is False
     assert body["downgraded_claims"] == ["Revenue grew by 20%"]
     assert any(check["name"] == "high_confidence_has_two_sources" for check in body["checks"])
+
+
+def test_report_preview_generates_claim_bounded_report_after_passing_gate():
+    client = make_client()
+
+    response = client.post(
+        "/reports/preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+            "draft_claims": [
+                "Enterprise demand grew, with the current evidence limited to one retrieved source."
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "generated"
+    assert body["gate"]["decision"] == "pass"
+    assert body["fallback_message"] is None
+    assert body["report"]["summary"] == "1 claim(s) can be stated with current evidence boundaries."
+    assert body["report"]["claims"][0]["claim"] == "Enterprise demand grew"
+    assert body["report"]["claims"][0]["source_ids"] == ["doc-demand"]
+    assert body["report"]["claims"][0]["evidence_spans"] == ["Enterprise demand grew 12% in 2026."]
+    assert body["report"]["claims"][0]["limitations"] == ["Supported by one retrieved source."]
+    assert body["report"]["next_data_needed"]
+    assert any("does not use an LLM" in warning for warning in body["warnings"])
+
+
+def test_report_preview_uses_supported_ledger_claims_without_draft_claims():
+    client = make_client()
+
+    response = client.post(
+        "/reports/preview",
+        json={
+            "question": "What evidence supports enterprise AI demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise AI demand grew in 2026.",
+                    "source_id": "doc-demand-1",
+                    "source_type": "html",
+                    "source_date": "2026-05-01",
+                    "evidence_span": "Survey data reported enterprise AI adoption demand growth.",
+                    "confidence": "medium",
+                    "limitation": "Survey source; needs independent confirmation.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "AI", "demand", "growth"],
+                    "role": "direct_support",
+                },
+                {
+                    "claim": "Enterprise AI demand grew in 2026.",
+                    "source_id": "doc-demand-2",
+                    "source_type": "csv",
+                    "source_date": "2026-05-03",
+                    "evidence_span": "Pipeline data showed an increase in enterprise AI inquiries.",
+                    "confidence": "medium",
+                    "limitation": "Pipeline metric may include duplicated inquiries.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "AI", "inquiries"],
+                    "role": "direct_support",
+                },
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "generated"
+    assert body["gate"]["decision"] == "pass"
+    assert body["report"]["summary"] == "1 claim(s) can be stated with current evidence boundaries."
+    assert body["report"]["claims"][0]["claim"] == "Enterprise AI demand grew in 2026."
+    assert body["report"]["claims"][0]["source_ids"] == ["doc-demand-1", "doc-demand-2"]
+
+
+def test_report_preview_returns_fallback_when_noise_gate_blocks():
+    client = make_client()
+
+    response = client.post(
+        "/reports/preview",
+        json={
+            "question": "Should I buy this stock after earnings?",
+            "evidence_entries": [
+                {
+                    "claim": "Revenue grew after earnings",
+                    "source_id": "doc-earnings",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Revenue grew 12% after earnings.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["revenue", "earnings"],
+                    "role": "direct_support",
+                }
+            ],
+            "draft_claims": ["This proves you should buy the stock."],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "blocked"
+    assert body["report"] is None
+    assert body["gate"]["decision"] == "blocked"
+    assert body["fallback_message"].startswith("현재 근거만으로는 결론을 내릴 수 없습니다")
+    assert any("buy/sell" in revision for revision in body["required_revisions"])
+
+
+def test_report_preview_requires_revision_when_gate_needs_revision():
+    client = make_client()
+
+    response = client.post(
+        "/reports/preview",
+        json={
+            "question": "Did enterprise demand grow?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-support",
+                    "source_type": "markdown",
+                    "source_date": None,
+                    "evidence_span": "Enterprise demand grew 12% this quarter.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": ["doc-contradiction"],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                },
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-contradiction",
+                    "source_type": "markdown",
+                    "source_date": None,
+                    "evidence_span": "Enterprise demand declined and no growth was observed.",
+                    "confidence": "low",
+                    "limitation": "Candidate contains contradiction language.",
+                    "contradicting_source_ids": ["doc-support"],
+                    "status": "contradicted",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "contradiction",
+                },
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "needs_revision"
+    assert body["report"] is None
+    assert body["gate"]["decision"] == "needs_revision"
+    assert "Enterprise demand grew" in body["gate"]["downgraded_claims"]
+    assert body["required_revisions"]
