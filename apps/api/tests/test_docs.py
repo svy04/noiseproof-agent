@@ -15,6 +15,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/application-ready-review.md",
         "docs/review/agent-run-linkage-review.md",
         "docs/review/evidence-to-gate-report-cross-links-review.md",
+        "docs/review/single-workflow-parent-review.md",
     ]
 
     for file_path in required_files:
@@ -73,3 +74,15 @@ def test_evidence_to_gate_report_cross_links_review_keeps_boundary_explicit():
     assert "agent_run_id" in content
     assert "false sense of causal lineage" in content
     assert "single workflow parent" in content
+
+
+def test_single_workflow_parent_review_keeps_orchestration_boundary_explicit():
+    content = (REPO_ROOT / "docs/review/single-workflow-parent-review.md").read_text(encoding="utf-8")
+
+    assert "Single workflow parent review" in content
+    assert "review-only gate" in content
+    assert "Do not reuse agent_runs as the workflow parent" in content
+    assert "workflow_runs" in content
+    assert "one endpoint invocation" in content
+    assert "evidence -> gate -> report" in content
+    assert "false sense of orchestration" in content

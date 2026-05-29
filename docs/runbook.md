@@ -6,6 +6,8 @@ Phase 22 adds an Evidence Ledger dashboard table: persisted evidence rows are no
 
 Phase 22.5 adds a review-only cross-link decision: direct evidence -> gate -> report links are deferred until a single workflow parent exists.
 
+Phase 23 adds a review-only workflow parent decision: future workflow-level provenance should use a separate `workflow_runs` table instead of reusing `agent_runs`.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -67,6 +69,9 @@ Implemented:
 - Evidence-to-gate/report Local Cross-links Review v0
 - `docs/review/evidence-to-gate-report-cross-links-review.md`
 - direct evidence -> gate -> report links remain unimplemented until a single workflow parent exists
+- Single Workflow Parent Review v0
+- `docs/review/single-workflow-parent-review.md`
+- `workflow_runs` remains unimplemented until a dedicated schema/runtime gate
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -91,6 +96,7 @@ Not implemented:
 - robust PDF extraction
 - persisted parse records
 - persisted chunks
+- workflow_runs
 - embeddings
 - distributed tracing or hosted observability
 
@@ -790,4 +796,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
+Do not claim persisted chunks, embeddings, DB persistence for collection plans, workflow_runs, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
