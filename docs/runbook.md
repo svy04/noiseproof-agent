@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 17 adds read-only filtering on persisted Evidence Ledger, Noise Gate, and Report records.
+Phase 18 adds trace lookup and persisted record filter links to the plain operations dashboard.
 
 Implemented:
 
@@ -46,6 +46,8 @@ Implemented:
 - `GET /noise-gates?decision=...`
 - `GET /reports?workflow_trace_id=...`
 - `GET /reports?status=...`
+- Dashboard Trace/Filter Links v0
+- trace lookup and record filter links in `GET /ops/dashboard`
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -149,7 +151,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase17-persisted-record-filtering"
+  "workflow_version": "phase18-dashboard-trace-filter-links"
 }
 ```
 
@@ -158,7 +160,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase17-persisted-record-filtering",
+  "workflow_version": "phase18-dashboard-trace-filter-links",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -672,9 +674,20 @@ Use the persisted record list filters to narrow evidence, gate, and report recor
 ```bash
 curl "http://localhost:8000/evidence-ledgers?workflow_trace_id=<uuid>"
 curl "http://localhost:8000/evidence-ledgers?status=blocked"
+curl "http://localhost:8000/noise-gates?workflow_trace_id=<uuid>"
 curl "http://localhost:8000/noise-gates?decision=blocked"
+curl "http://localhost:8000/reports?workflow_trace_id=<uuid>"
 curl "http://localhost:8000/reports?status=generated"
+curl "http://localhost:8000/traces/<uuid>"
 ```
+
+Open the dashboard to use the same trace lookup and filter endpoints from a browser-readable surface:
+
+```bash
+curl http://localhost:8000/ops/dashboard
+```
+
+The dashboard links are navigation aids over existing records. They do not add ranking, search, LLM calls, or UI polish.
 
 Inspect auto-created preview traces:
 
@@ -687,11 +700,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase17-persisted-record-filtering",
+    "workflow_version": "phase18-dashboard-trace-filter-links",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase17-persisted-record-filtering",
+      "phase": "phase18-dashboard-trace-filter-links",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }

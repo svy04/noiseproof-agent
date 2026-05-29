@@ -26,6 +26,7 @@ Current status:
 - Record Linkage v0 exists with shared `workflow_trace_id` values across persisted evidence, gate, report records, and matching `agent_runs.trace_json`.
 - Trace-id Lookup v0 exists for direct inspection by `workflow_trace_id`.
 - Persisted Record Filtering v0 exists for read-only filtering of persisted evidence, gate, and report records.
+- Dashboard Trace/Filter Links v0 exists for browser-readable trace lookup and record filter navigation.
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, `agent_run_id` foreign-key-linked Evidence Ledger / Noise Gate / Report records, distributed tracing, hosted observability, and agents are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
@@ -421,7 +422,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records. Phase 13 added persisted Noise Gate records. Phase 14 added persisted Report Preview records. Phase 15 added shared `workflow_trace_id` correlation across persisted evidence/gate/report records and agent-run traces. Phase 16 added direct trace-id lookup. Phase 17 added read-only filters on persisted evidence, gate, and report records.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records. Phase 13 added persisted Noise Gate records. Phase 14 added persisted Report Preview records. Phase 15 added shared `workflow_trace_id` correlation across persisted evidence/gate/report records and agent-run traces. Phase 16 added direct trace-id lookup. Phase 17 added read-only filters on persisted evidence, gate, and report records. Phase 18 added trace lookup and filter links to the plain operations dashboard.
 
 Implemented endpoints:
 

@@ -159,7 +159,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase17-persisted-record-filtering",
+            workflow_version="phase18-dashboard-trace-filter-links",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -209,7 +209,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-            "workflow_version": "phase17-persisted-record-filtering",
+            "workflow_version": "phase18-dashboard-trace-filter-links",
     }
 
 
@@ -258,7 +258,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase17-persisted-record-filtering"
+        == "phase18-dashboard-trace-filter-links"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -329,7 +329,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 17" in response.text
+    assert "Phase 18" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():
@@ -411,7 +411,7 @@ def test_core_preview_endpoints_auto_record_agent_run_traces():
         "POST /noise-gates/preview",
         "POST /reports/preview",
     }.issubset(endpoints)
-    assert all(trace["workflow_version"] == "phase17-persisted-record-filtering" for trace in traces)
+    assert all(trace["workflow_version"] == "phase18-dashboard-trace-filter-links" for trace in traces)
     assert any(trace["trace_json"].get("decision") == "pass" for trace in traces)
     assert any(trace["trace_json"].get("report_status") == "generated" for trace in traces)
 
@@ -546,7 +546,7 @@ def test_noise_gate_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /noise-gates"
         and trace["trace_json"].get("decision") == "pass"
-        and trace["trace_json"].get("phase") == "phase17-persisted-record-filtering"
+        and trace["trace_json"].get("phase") == "phase18-dashboard-trace-filter-links"
         for trace in traces
     )
 
@@ -655,7 +655,7 @@ def test_report_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /reports"
         and trace["trace_json"].get("report_status") == "generated"
-        and trace["trace_json"].get("phase") == "phase17-persisted-record-filtering"
+        and trace["trace_json"].get("phase") == "phase18-dashboard-trace-filter-links"
         for trace in traces
     )
 
@@ -974,6 +974,66 @@ def test_persisted_record_lists_can_filter_by_trace_id_and_status():
     assert [record["workflow_trace_id"] for record in reports_by_trace.json()] == [
         report_trace_id
     ]
+
+
+def test_ops_dashboard_links_to_trace_lookup_and_record_filters():
+    client = make_client()
+
+    gate_response = client.post(
+        "/noise-gates",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+        },
+    )
+    report_response = client.post(
+        "/reports",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+        },
+    )
+    gate_trace_id = gate_response.json()["workflow_trace_id"]
+    report_trace_id = report_response.json()["workflow_trace_id"]
+
+    dashboard = client.get("/ops/dashboard")
+
+    assert "Trace & Filter Links" in dashboard.text
+    assert f'href="/traces/{gate_trace_id}"' in dashboard.text
+    assert f'href="/traces/{report_trace_id}"' in dashboard.text
+    assert f'href="/noise-gates?workflow_trace_id={gate_trace_id}"' in dashboard.text
+    assert f'href="/reports?workflow_trace_id={report_trace_id}"' in dashboard.text
+    assert 'href="/evidence-ledgers?status=unsupported"' in dashboard.text
+    assert 'href="/noise-gates?decision=needs_revision"' in dashboard.text
+    assert 'href="/reports?status=generated"' in dashboard.text
 
 
 def test_document_preview_endpoints_auto_record_agent_run_traces():

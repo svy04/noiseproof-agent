@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 17:
+Accepted state as of Phase 18:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, and Persisted Record Filtering v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, and Dashboard Trace/Filter Links v0
 ```
 
 Implemented:
@@ -162,6 +162,9 @@ Implemented:
 - `GET /noise-gates?decision=...`
 - `GET /reports?workflow_trace_id=...`
 - `GET /reports?status=...`
+- Dashboard Trace/Filter Links v0
+- `GET /ops/dashboard` exposes trace lookup links for observed `workflow_trace_id` values
+- `GET /ops/dashboard` exposes quick filter links for Evidence Ledger statuses, Noise Gate decisions, and Report statuses
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -223,6 +226,7 @@ Phase 14  - Persisted Report Preview Records v0
 Phase 15  - Record Linkage v0
 Phase 16  - Trace-id Lookup v0
 Phase 17  - Persisted Record Filtering v0
+Phase 18  - Dashboard Trace/Filter Links v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -823,10 +827,21 @@ GET /reports?status=...
 
 Phase 17 is read-only filtering over existing persisted records. It does not add search, ranking, semantic retrieval, LLM calls, dashboard polish, or hosted observability.
 
+### Phase 18 - Dashboard Trace/Filter Links v0
+
+Implemented outputs:
+
+```text
+GET /ops/dashboard trace lookup links
+GET /ops/dashboard persisted record filter links
+```
+
+Phase 18 is a small inspectability improvement over existing metadata and persisted records. It does not add search, ranking, semantic retrieval, LLM calls, dashboard polish, or hosted observability.
+
 Next recommended implementation phase:
 
 ```text
-Dashboard trace/filter links v0
+Agent-run foreign-key linkage review v0
 ```
 
 ## 6. Ordering Rules
