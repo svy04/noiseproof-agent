@@ -14,6 +14,7 @@ Implemented in this package:
 - `POST /collection-plans/preview`
 - `POST /retrieval-runs`
 - `GET /retrieval-runs`
+- `POST /evidence-ledgers/preview`
 - `POST /agent-runs`
 - `GET /agent-runs`
 - `POST /failure-cases`
@@ -27,7 +28,7 @@ Not implemented yet:
 - persisted chunks
 - persisted collection plans
 - embeddings
-- Evidence Ledger generation
+- persisted Evidence Ledger entries
 - Critic / Noise Gate
 - final report generation
 
@@ -62,7 +63,11 @@ curl -X POST http://localhost:8000/retrieval-runs \
 curl -X POST http://localhost:8000/collection-plans/preview \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Did this company's AI narrative become materially stronger?\"}"
+curl -X POST http://localhost:8000/evidence-ledgers/preview \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which segment had enterprise demand growth?\",\"retrieval_results\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"chunk_strategy\":\"heading-aware\",\"chunk_index\":0,\"text\":\"Enterprise demand grew 12% in 2026.\",\"score\":0.75,\"matched_terms\":[\"demand\",\"enterprise\",\"growth\"],\"metadata\":{\"source_date\":\"2026-05-28\"}}]}"
 ```
 
 The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
-Collection Plan Preview is deterministic and does not call LLMs, search external sources, expand retrieval, create an Evidence Ledger, or persist records.
+Collection Plan Preview is deterministic and does not call LLMs, search external sources, expand retrieval, create an Evidence Ledger by itself, or persist records.
+Evidence Ledger Preview is deterministic and does not call LLMs, search external sources, run a Critic / Noise Gate, create a final report, or persist Evidence Ledger entries.

@@ -14,7 +14,8 @@ Current status:
 - Chunk strategy experiment v0 exists for direct chunk-preview payloads.
 - Retrieval v0 exists for lexical candidate search over generated chunks.
 - Collection Plan Preview v0 exists for question-only role planning before Evidence Ledger work.
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, Evidence Ledger, agents, and dashboard are planned but not implemented.
+- Evidence Ledger Preview v0 exists for deterministic claim-level entries over retrieval candidates.
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, persisted Evidence Ledger entries, agents, and dashboard are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -151,7 +152,7 @@ Implemented Phase 5 boundary:
 - retrieval run metadata persisted to `retrieval_runs`
 - no-results runs recorded with `status: no_results`
 
-Retrieval candidates are not Evidence Ledger entries. They are possible source-linked evidence candidates for the next phase.
+Retrieval candidates are not final evidence by themselves. Phase 6 can promote, weaken, contradict, or block them through an Evidence Ledger Preview.
 
 ### Collection Plan Preview
 
@@ -174,6 +175,17 @@ The preview returns the question, information need, possible claim candidates, r
 Turns retrieved evidence into claim-level records before final answer generation.
 
 The ledger is the main trust surface of the product.
+
+Implemented Phase 6 boundary:
+
+- deterministic preview only
+- direct retrieval-candidate input
+- no LLM calls
+- no external search
+- no DB persistence
+- no final report generation
+
+The preview returns claim-level entries with source id, source type, source date, evidence span, confidence, limitation, contradicting source ids, status, matched terms, and role. It can block no-evidence and buy/sell-drift questions, and it can surface contradiction language before report generation.
 
 ### Analysis Draft
 
@@ -312,7 +324,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates.
 
 Implemented endpoints:
 
@@ -325,6 +337,7 @@ POST /documents/chunk-preview
 POST /collection-plans/preview
 POST /retrieval-runs
 GET  /retrieval-runs
+POST /evidence-ledgers/preview
 POST /agent-runs
 GET  /agent-runs
 POST /failure-cases
@@ -341,7 +354,7 @@ GET  /retrieval-runs/{id}/evidence-ledger
 POST /reports
 ```
 
-Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, compute embeddings, generate an Evidence Ledger, invoke an LLM, create final answers, or create final reports.
+Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, persist Evidence Ledger entries, compute embeddings, invoke an LLM, create final answers, run a Critic / Noise Gate, or create final reports.
 
 ## Agent Workflow
 

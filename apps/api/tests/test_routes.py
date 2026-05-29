@@ -59,7 +59,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase5.5-collection-plan-preview",
+            workflow_version="phase6-evidence-ledger-preview",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -86,7 +86,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-        "workflow_version": "phase5.5-collection-plan-preview",
+        "workflow_version": "phase6-evidence-ledger-preview",
     }
 
 
@@ -135,7 +135,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase5.5-collection-plan-preview"
+        == "phase6-evidence-ledger-preview"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -542,3 +542,135 @@ def test_collection_plan_preview_for_source_quality_question():
     assert "contradiction" in body["required_roles"]
     assert any("source quality" in risk for risk in body["known_risks"])
     assert any("source quality cannot be checked" in condition for condition in body["stop_conditions"])
+
+
+def test_evidence_ledger_preview_promotes_retrieval_candidate_to_supported_entry():
+    client = make_client()
+
+    response = client.post(
+        "/evidence-ledgers/preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "retrieval_results": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "chunk_strategy": "heading-aware",
+                    "chunk_index": 0,
+                    "text": "Enterprise demand grew 12% in 2026.",
+                    "score": 0.75,
+                    "matched_terms": ["demand", "enterprise", "growth"],
+                    "metadata": {"source_date": "2026-05-28"},
+                }
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["question"] == "Which segment had enterprise demand growth?"
+    assert body["summary"]["supported_count"] == 1
+    assert body["summary"]["blocked_count"] == 0
+    assert body["entries"][0]["status"] == "supported"
+    assert body["entries"][0]["source_id"] == "doc-demand"
+    assert body["entries"][0]["source_date"] == "2026-05-28"
+    assert "Enterprise demand grew" in body["entries"][0]["evidence_span"]
+    assert "lexical retrieval candidate" in body["entries"][0]["limitation"]
+    assert any("does not judge final truth" in warning for warning in body["warnings"])
+
+
+def test_evidence_ledger_preview_blocks_when_retrieval_has_no_evidence():
+    client = make_client()
+
+    response = client.post(
+        "/evidence-ledgers/preview",
+        json={
+            "question": "Was semiconductor backlog reduced?",
+            "retrieval_results": [],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["summary"]["blocked_count"] == 1
+    assert body["summary"]["supported_count"] == 0
+    assert body["entries"][0]["status"] == "blocked"
+    assert body["entries"][0]["source_id"] is None
+    assert "No retrieval candidates" in body["entries"][0]["limitation"]
+
+
+def test_evidence_ledger_preview_surfaces_contradicting_sources():
+    client = make_client()
+
+    response = client.post(
+        "/evidence-ledgers/preview",
+        json={
+            "question": "Did enterprise demand grow?",
+            "retrieval_results": [
+                {
+                    "source_id": "doc-support",
+                    "source_type": "markdown",
+                    "chunk_strategy": "fixed-window",
+                    "chunk_index": 0,
+                    "text": "Enterprise demand grew 12% this quarter.",
+                    "score": 0.8,
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "metadata": {},
+                },
+                {
+                    "source_id": "doc-contradiction",
+                    "source_type": "markdown",
+                    "chunk_strategy": "fixed-window",
+                    "chunk_index": 0,
+                    "text": "Enterprise demand declined and no growth was observed this quarter.",
+                    "score": 0.8,
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "metadata": {},
+                },
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    statuses = {entry["source_id"]: entry["status"] for entry in body["entries"]}
+    assert statuses["doc-support"] == "supported"
+    assert statuses["doc-contradiction"] == "contradicted"
+    support_entry = next(entry for entry in body["entries"] if entry["source_id"] == "doc-support")
+    contradiction_entry = next(
+        entry for entry in body["entries"] if entry["source_id"] == "doc-contradiction"
+    )
+    assert support_entry["contradicting_source_ids"] == ["doc-contradiction"]
+    assert contradiction_entry["contradicting_source_ids"] == ["doc-support"]
+    assert body["summary"]["contradicted_count"] == 1
+
+
+def test_evidence_ledger_preview_blocks_buy_sell_drift():
+    client = make_client()
+
+    response = client.post(
+        "/evidence-ledgers/preview",
+        json={
+            "question": "Should I buy this stock after earnings?",
+            "retrieval_results": [
+                {
+                    "source_id": "doc-earnings",
+                    "source_type": "markdown",
+                    "chunk_strategy": "fixed-window",
+                    "chunk_index": 0,
+                    "text": "Revenue grew 12% after earnings.",
+                    "score": 0.7,
+                    "matched_terms": ["earnings", "growth"],
+                    "metadata": {},
+                }
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["summary"]["blocked_count"] == 1
+    assert body["entries"][0]["status"] == "blocked"
+    assert body["entries"][0]["source_id"] is None
+    assert "buy/sell" in body["entries"][0]["limitation"]
+    assert any("financial advice" in warning for warning in body["warnings"])

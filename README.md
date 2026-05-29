@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 adds a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 adds Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists.
 
 The product thesis:
 
@@ -101,7 +101,8 @@ Implementation status:
 - Chunk strategy experiment v0: implemented for fixed-window, heading-aware, and row-aware strategies
 - Retrieval v0: implemented for lexical candidate search over chunk-preview output with source ids
 - Collection Plan Preview: implemented for role-based information needs before Evidence Ledger work
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, Evidence Ledger generation, agents, final reports, dashboard: planned, not implemented
+- Evidence Ledger Preview: implemented for deterministic claim-level entries over retrieval candidates
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, persisted Evidence Ledger entries, agents, final reports, dashboard: planned, not implemented
 
 ## Implementation Status
 
@@ -165,7 +166,18 @@ Implementation status:
 - Required information roles returned before Evidence Ledger work: done
 - Buy/sell drift questions include `user_intent_check` and stop conditions: done
 - Underspecified, numeric, and source-quality questions expose role-specific warnings: done
-- LLM calls, external search, retrieval expansion, Evidence Ledger generation, final reports, dashboard, and DB persistence: not implemented
+- LLM calls, external search, retrieval expansion, Evidence Ledger generation, final reports, dashboard, and DB persistence were not implemented in Phase 5.5
+
+### Phase 6 - Evidence Ledger Preview v0
+
+- `POST /evidence-ledgers/preview`: done
+- Retrieval candidates can become claim-level ledger entries: done
+- Supported, weakly_supported, contradicted, unsupported, and blocked statuses: done
+- Source id, source type, source date, evidence span, confidence, limitation, contradicting source ids, matched terms, and role are returned: done
+- No-evidence questions produce a blocked ledger entry: done
+- Buy/sell drift questions produce a blocked ledger entry: done
+- Contradiction language is surfaced before report generation: done
+- LLM calls, external search, Critic / Noise Gate, final reports, dashboard, and Evidence Ledger DB persistence: not implemented
 
 Not implemented yet:
 
@@ -173,7 +185,7 @@ Not implemented yet:
 - robust PDF extraction
 - persisted chunks
 - embeddings
-- Evidence Ledger generation
+- persisted Evidence Ledger entries
 - Critic / Noise Gate
 - final report generation
 - web dashboard
@@ -192,7 +204,7 @@ Each planned stage must log its input and output.
 
 ## Evidence Ledger
 
-The Evidence Ledger is the planned control surface between retrieval and final answer generation.
+The Evidence Ledger is the control surface between retrieval and final answer generation. Phase 6 implements a deterministic preview boundary; persisted ledger entries are still planned.
 
 Each ledger entry records:
 
@@ -216,7 +228,7 @@ unsupported
 blocked
 ```
 
-The system should generate the ledger before generating a final report.
+The system should generate the ledger preview before generating a final report.
 
 ## Noise Gate
 
@@ -299,6 +311,9 @@ curl -X POST http://localhost:8000/retrieval-runs \
 curl -X POST http://localhost:8000/collection-plans/preview \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Did this company's AI narrative become materially stronger?\"}"
+curl -X POST http://localhost:8000/evidence-ledgers/preview \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which segment had enterprise demand growth?\",\"retrieval_results\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"chunk_strategy\":\"heading-aware\",\"chunk_index\":0,\"text\":\"Enterprise demand grew 12% in 2026.\",\"score\":0.75,\"matched_terms\":[\"demand\",\"enterprise\",\"growth\"],\"metadata\":{\"source_date\":\"2026-05-28\"}}]}"
 ```
 
 ## Demo Flow
@@ -310,21 +325,21 @@ Planned demo flow after implementation:
 3. Compare fixed-window, heading-aware, and row-aware chunk strategies.
 4. Create a Collection Plan Preview for a market-intelligence question.
 5. Run retrieval for source-linked candidate chunks.
-6. Generate an Evidence Ledger before the answer.
+6. Generate an Evidence Ledger Preview before the answer.
 7. Ask the Critic Agent to block unsupported claims and surface contradictions.
 8. Generate a claim-bounded report with citations and limitations.
 9. Show the run log and failure case record.
 
 ## What I Would Improve Next
 
-After Phase 5.5, the next phase should add Evidence Ledger v0:
+After Phase 6, the next phase should add Critic / Noise Gate v0:
 
-- claim-level evidence records
-- supported / weakly_supported / contradicted / unsupported / blocked statuses
-- source id and evidence span mapping from retrieval candidates
-- explicit separation between retrieval candidates and verified evidence
+- block or downgrade unsupported claims
+- enforce limitations before final report generation
+- detect trading-advice drift after ledger generation
+- keep final reports out of scope until the gate is inspectable
 
-It should not start with UI polish, LLM prompt tuning, Critic / Noise Gate, final reports, or broad agent abstractions.
+It should not start with UI polish, LLM prompt tuning, final reports, or broad agent abstractions.
 
 ## Braincrew Role Alignment
 

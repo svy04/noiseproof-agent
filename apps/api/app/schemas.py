@@ -167,9 +167,55 @@ class CollectionPlanPreviewOut(BaseModel):
     warnings: list[str]
 
 
+class EvidenceLedgerCandidateIn(BaseModel):
+    source_id: str | None = None
+    source_type: str | None = None
+    chunk_strategy: str | None = None
+    chunk_index: int | None = None
+    text: str = ""
+    score: float = 0.0
+    matched_terms: list[str] = Field(default_factory=list)
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class EvidenceLedgerPreviewRequest(BaseModel):
+    question: str = Field(..., min_length=1)
+    retrieval_results: list[EvidenceLedgerCandidateIn] = Field(default_factory=list)
+
+
+class EvidenceLedgerEntryOut(BaseModel):
+    claim: str
+    source_id: str | None
+    source_type: str | None
+    source_date: str | None
+    evidence_span: str
+    confidence: str
+    limitation: str
+    contradicting_source_ids: list[str]
+    status: str
+    matched_terms: list[str]
+    role: str
+
+
+class EvidenceLedgerSummaryOut(BaseModel):
+    supported_count: int
+    weakly_supported_count: int
+    contradicted_count: int
+    unsupported_count: int
+    blocked_count: int
+    source_count: int
+
+
+class EvidenceLedgerPreviewOut(BaseModel):
+    question: str
+    entries: list[EvidenceLedgerEntryOut]
+    summary: EvidenceLedgerSummaryOut
+    warnings: list[str]
+
+
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase5.5-collection-plan-preview"
+    workflow_version: str = "phase6-evidence-ledger-preview"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None

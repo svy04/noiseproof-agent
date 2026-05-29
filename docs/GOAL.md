@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 5.5:
+Accepted state as of Phase 6:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, and Collection Plan Preview v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, and Evidence Ledger Preview v0
 ```
 
 Implemented:
@@ -58,6 +58,8 @@ Implemented:
 - PostgreSQL init schema for `documents`, `agent_runs`, and `failure_cases`
 - `pgcrypto` and `vector` extension init
 - Docker Compose DB service definition
+- local Docker runtime persistence verification with PostgreSQL + pgvector
+- local port conflict handled with ignored `.env` using `POSTGRES_PORT=55432`
 - GitHub Actions API smoke CI
 - runbook
 - `docs/GOAL.md` continuation source of truth
@@ -88,6 +90,14 @@ Implemented:
 - required information roles returned before Evidence Ledger work
 - buy/sell drift questions include `user_intent_check` and stop conditions
 - underspecified, numeric, and source-quality questions expose role-specific warnings
+- Evidence Ledger Preview v0
+- `POST /evidence-ledgers/preview`
+- retrieval candidates converted into claim-level entries
+- supported, weakly_supported, contradicted, unsupported, and blocked status labels
+- source ids, source types, source dates, evidence spans, confidence, limitations, contradicting source ids, matched terms, and roles returned on entries
+- no-evidence questions produce a blocked ledger entry
+- buy/sell drift questions produce a blocked ledger entry
+- contradiction language is surfaced before report generation
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -100,14 +110,13 @@ Implemented:
 
 Not yet implemented:
 
-- runtime Docker DB verification in this local environment
 - file upload
 - robust PDF extraction
 - persisted parse records
 - persisted chunks
 - persisted collection plans
 - embeddings
-- Evidence Ledger generation
+- persisted Evidence Ledger entries
 - Critic / Noise Gate
 - final report generation
 - web dashboard
@@ -369,10 +378,59 @@ user_intent_check
 
 Phase 5.5 is a deterministic preview boundary. It does not call LLMs, search external sources, expand retrieval, create Evidence Ledger entries, run a Critic / Noise Gate, generate final answers, create reports, build a dashboard, or persist collection plans.
 
+### Phase 6 - Evidence Ledger Preview v0
+
+Implemented outputs:
+
+```text
+packages/ingestion/evidence/__init__.py
+packages/ingestion/evidence/ledger.py
+apps/api/app/services/evidence_ledger.py
+apps/api/app/routes/evidence_ledgers.py
+POST /evidence-ledgers/preview
+```
+
+Evidence Ledger Preview accepts a question and direct retrieval candidates, then returns:
+
+```text
+question
+entries
+summary
+warnings
+```
+
+Each entry includes:
+
+```text
+claim
+source_id
+source_type
+source_date
+evidence_span
+confidence
+limitation
+contradicting_source_ids
+status
+matched_terms
+role
+```
+
+Implemented statuses:
+
+```text
+supported
+weakly_supported
+contradicted
+unsupported
+blocked
+```
+
+Phase 6 is a deterministic preview boundary. It does not call LLMs, search external sources, persist Evidence Ledger entries, run a Critic / Noise Gate, generate final answers, create reports, or build a dashboard.
+
 Next recommended implementation phase:
 
 ```text
-Phase 6 - Evidence Ledger v0
+Phase 7 - Critic / Noise Gate v0
 ```
 
 ## 6. Ordering Rules

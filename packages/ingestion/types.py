@@ -119,3 +119,48 @@ class CollectionPlan:
     known_risks: list[str]
     stop_conditions: list[str]
     warnings: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class EvidenceLedgerCandidate:
+    source_id: str | None
+    source_type: str | None
+    chunk_strategy: str | None
+    chunk_index: int | None
+    text: str
+    score: float = 0.0
+    matched_terms: list[str] = field(default_factory=list)
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class EvidenceLedgerEntry:
+    claim: str
+    source_id: str | None
+    source_type: str | None
+    source_date: str | None
+    evidence_span: str
+    confidence: str
+    limitation: str
+    contradicting_source_ids: list[str]
+    status: str
+    matched_terms: list[str] = field(default_factory=list)
+    role: str = "direct_support"
+
+
+@dataclass(frozen=True)
+class EvidenceLedgerSummary:
+    supported_count: int
+    weakly_supported_count: int
+    contradicted_count: int
+    unsupported_count: int
+    blocked_count: int
+    source_count: int
+
+
+@dataclass(frozen=True)
+class EvidenceLedger:
+    question: str
+    entries: list[EvidenceLedgerEntry]
+    summary: EvidenceLedgerSummary
+    warnings: list[str] = field(default_factory=list)

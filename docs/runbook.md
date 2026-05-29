@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 5.5 is intended to prove that a question can produce a small role-based Collection Plan Preview before retrieval candidates are promoted toward Evidence Ledger work.
+Phase 6 is intended to prove that retrieval candidates can be turned into a small, inspectable Evidence Ledger Preview before any Critic / Noise Gate or final report exists.
 
 Implemented:
 
@@ -24,6 +24,8 @@ Implemented:
 - `GET /retrieval-runs`
 - Collection Plan Preview v0
 - `POST /collection-plans/preview`
+- Evidence Ledger Preview v0
+- `POST /evidence-ledgers/preview`
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
@@ -34,7 +36,7 @@ Not implemented:
 - persisted parse records
 - persisted chunks
 - embeddings
-- Evidence Ledger generation
+- persisted Evidence Ledger entries
 - Critic / Noise Gate
 - final report generation
 - web dashboard
@@ -59,11 +61,19 @@ It creates:
 - `documents`
 - `agent_runs`
 - `failure_cases`
+- `retrieval_runs`
 
 It also enables:
 
 - `pgcrypto`
 - `vector`
+
+If local port `5432` is already occupied by another Postgres process, keep the repo-local `.env` ignored and use:
+
+```text
+POSTGRES_PORT=55432
+DATABASE_URL=postgresql://noiseproof:noiseproof@localhost:55432/noiseproof
+```
 
 ## API
 
@@ -94,7 +104,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase5.5-collection-plan-preview"
+  "workflow_version": "phase6-evidence-ledger-preview"
 }
 ```
 
@@ -103,7 +113,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase5.5-collection-plan-preview",
+  "workflow_version": "phase6-evidence-ledger-preview",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -111,8 +121,8 @@ Expected `/ops/summary` shape:
   "contradiction_count": 0,
   "average_latency_ms": null,
   "notes": [
-    "Retrieval runs recorded: 0. Phase 5.5 adds Collection Plan Preview only; no Evidence Ledger, Critic, or dashboard implementation yet.",
-    "Unsupported claim and contradiction counts remain placeholders until Evidence Ledger exists."
+    "Retrieval runs recorded: 0. Phase 6 adds Evidence Ledger Preview only; no Critic, final report, or dashboard implementation yet.",
+    "Unsupported claim and contradiction counts remain placeholders until persisted Evidence Ledger entries exist."
   ]
 }
 ```
@@ -388,6 +398,51 @@ Expected `/collection-plans/preview` response shape:
 
 Buy/sell-style questions should include `user_intent_check` and a stop condition for buy/sell drift. This endpoint does not call an LLM, search external sources, expand retrieval, generate an Evidence Ledger, create a final report, build a dashboard, or persist records.
 
+Create an Evidence Ledger Preview from retrieval candidates:
+
+```bash
+curl -X POST http://localhost:8000/evidence-ledgers/preview \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which segment had enterprise demand growth?\",\"retrieval_results\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"chunk_strategy\":\"heading-aware\",\"chunk_index\":0,\"text\":\"Enterprise demand grew 12% in 2026.\",\"score\":0.75,\"matched_terms\":[\"demand\",\"enterprise\",\"growth\"],\"metadata\":{\"source_date\":\"2026-05-28\"}}]}"
+```
+
+Expected `/evidence-ledgers/preview` response shape:
+
+```json
+{
+  "question": "Which segment had enterprise demand growth?",
+  "entries": [
+    {
+      "claim": "Which segment had enterprise demand growth",
+      "source_id": "doc-demand",
+      "source_type": "markdown",
+      "source_date": "2026-05-28",
+      "evidence_span": "Enterprise demand grew 12% in 2026.",
+      "confidence": "medium",
+      "limitation": "Supported by a lexical retrieval candidate; not yet validated by a Critic / Noise Gate.",
+      "contradicting_source_ids": [],
+      "status": "supported",
+      "matched_terms": ["demand", "enterprise", "growth"],
+      "role": "direct_support"
+    }
+  ],
+  "summary": {
+    "supported_count": 1,
+    "weakly_supported_count": 0,
+    "contradicted_count": 0,
+    "unsupported_count": 0,
+    "blocked_count": 0,
+    "source_count": 1
+  },
+  "warnings": [
+    "Evidence Ledger Preview does not judge final truth or generate a final report.",
+    "Entries are derived from retrieval candidates and must still pass a future Critic / Noise Gate."
+  ]
+}
+```
+
+No-evidence and buy/sell-style questions produce `blocked` ledger entries. Contradiction language is surfaced as `contradicted`. This endpoint does not call an LLM, search external sources, run a Critic / Noise Gate, create a final report, build a dashboard, or persist Evidence Ledger entries.
+
 ## Metadata Examples
 
 Create a document metadata record:
@@ -429,4 +484,4 @@ These tests use an in-memory repository override. They do not prove PostgreSQL r
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, Evidence Ledger, Critic / Noise Gate, report generation, dashboard, DB persistence for collection plans, or answer generation exists until those stages are implemented and verified with examples.
+Do not claim persisted chunks, embeddings, persisted Evidence Ledger entries, Critic / Noise Gate, report generation, dashboard, DB persistence for collection plans, or answer generation exists until those stages are implemented and verified with examples.
