@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 15:
+Accepted state as of Phase 16:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, and Record Linkage v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, and Trace-id Lookup v0
 ```
 
 Implemented:
@@ -152,6 +152,9 @@ Implemented:
 - `workflow_trace_id` on persisted Noise Gate records
 - `workflow_trace_id` on persisted Report records
 - matching `workflow_trace_id` in `agent_runs.trace_json` for persisted evidence/gate/report endpoints
+- Trace-id Lookup v0
+- `GET /traces/{workflow_trace_id}`
+- lookup response includes matching agent runs, Evidence Ledger entries, Noise Gate records, Report records, and summary counts
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -211,6 +214,7 @@ Phase 12  - Persisted Evidence Ledger Records v0
 Phase 13  - Persisted Noise Gate Records v0
 Phase 14  - Persisted Report Preview Records v0
 Phase 15  - Record Linkage v0
+Phase 16  - Trace-id Lookup v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -781,10 +785,25 @@ matching workflow_trace_id in agent_runs.trace_json for POST /evidence-ledgers, 
 
 Phase 15 is not full distributed tracing and does not add `agent_run_id` foreign-key linkage. It only makes persisted records and their trace metadata joinable by a shared local workflow trace id.
 
+### Phase 16 - Trace-id Lookup v0
+
+Implemented outputs:
+
+```text
+GET /traces/{workflow_trace_id}
+trace lookup response with agent_runs
+trace lookup response with evidence_ledger_entries
+trace lookup response with noise_gate_records
+trace lookup response with report_records
+trace lookup summary counts
+```
+
+Phase 16 does not add distributed tracing, hosted observability, `agent_run_id` foreign-key linkage, LLM calls, embeddings, semantic retrieval, or dashboard polish.
+
 Next recommended implementation phase:
 
 ```text
-Trace-id lookup v0
+Persisted record filtering v0
 ```
 
 ## 6. Ordering Rules

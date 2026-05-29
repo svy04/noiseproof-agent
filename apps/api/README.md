@@ -23,6 +23,7 @@ Implemented in this package:
 - `POST /reports/preview`
 - `POST /reports`
 - `GET /reports`
+- `GET /traces/{workflow_trace_id}`
 - `POST /agent-runs`
 - `GET /agent-runs`
 - `POST /failure-cases`
@@ -30,6 +31,7 @@ Implemented in this package:
 
 Phase 11 auto-records `agent_runs.trace_json` metadata for the document/profile, parse, chunk, collection-plan, evidence-ledger, noise-gate, and report preview endpoints.
 Phase 15 adds `workflow_trace_id` linkage for persisted evidence, gate, and report endpoints.
+Phase 16 adds direct trace-id lookup for persisted records and matching agent-run traces.
 
 Not implemented yet:
 

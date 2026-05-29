@@ -90,6 +90,31 @@ class InMemoryRepository:
     def list_report_records(self):
         return self.report_records
 
+    def lookup_trace_records(self, workflow_trace_id):
+        trace_id = str(workflow_trace_id)
+        return {
+            "agent_runs": [
+                row
+                for row in self.agent_runs
+                if row["trace_json"].get("workflow_trace_id") == trace_id
+            ],
+            "evidence_ledger_entries": [
+                row
+                for row in self.evidence_ledger_entries
+                if str(row["workflow_trace_id"]) == trace_id
+            ],
+            "noise_gate_records": [
+                row
+                for row in self.noise_gate_records
+                if str(row["workflow_trace_id"]) == trace_id
+            ],
+            "report_records": [
+                row
+                for row in self.report_records
+                if str(row["workflow_trace_id"]) == trace_id
+            ],
+        }
+
     def create_failure_case(self, payload: FailureCaseCreate) -> dict:
         row = payload.model_dump()
         row["id"] = uuid4()
@@ -113,7 +138,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase15-record-linkage",
+            workflow_version="phase16-trace-lookup",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -163,7 +188,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-            "workflow_version": "phase15-record-linkage",
+            "workflow_version": "phase16-trace-lookup",
     }
 
 
@@ -212,7 +237,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase15-record-linkage"
+        == "phase16-trace-lookup"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -283,7 +308,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 15" in response.text
+    assert "Phase 16" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():
@@ -365,7 +390,7 @@ def test_core_preview_endpoints_auto_record_agent_run_traces():
         "POST /noise-gates/preview",
         "POST /reports/preview",
     }.issubset(endpoints)
-    assert all(trace["workflow_version"] == "phase15-record-linkage" for trace in traces)
+    assert all(trace["workflow_version"] == "phase16-trace-lookup" for trace in traces)
     assert any(trace["trace_json"].get("decision") == "pass" for trace in traces)
     assert any(trace["trace_json"].get("report_status") == "generated" for trace in traces)
 
@@ -500,7 +525,7 @@ def test_noise_gate_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /noise-gates"
         and trace["trace_json"].get("decision") == "pass"
-        and trace["trace_json"].get("phase") == "phase15-record-linkage"
+        and trace["trace_json"].get("phase") == "phase16-trace-lookup"
         for trace in traces
     )
 
@@ -609,7 +634,7 @@ def test_report_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /reports"
         and trace["trace_json"].get("report_status") == "generated"
-        and trace["trace_json"].get("phase") == "phase15-record-linkage"
+        and trace["trace_json"].get("phase") == "phase16-trace-lookup"
         for trace in traces
     )
 
@@ -755,6 +780,47 @@ def test_persisted_records_share_workflow_trace_id_with_agent_run_trace():
     assert trace_by_endpoint["POST /noise-gates"] == gate_trace_id
     assert trace_by_endpoint["POST /reports"] == report_trace_id
     assert len({ledger_trace_id, gate_trace_id, report_trace_id}) == 3
+
+
+def test_trace_lookup_surfaces_records_for_workflow_trace_id():
+    client = make_client()
+
+    report_response = client.post(
+        "/reports",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+        },
+    )
+    trace_id = report_response.json()["workflow_trace_id"]
+
+    lookup = client.get(f"/traces/{trace_id}")
+
+    assert lookup.status_code == 200
+    body = lookup.json()
+    assert body["workflow_trace_id"] == trace_id
+    assert body["summary"] == {
+        "agent_run_count": 1,
+        "evidence_ledger_entry_count": 0,
+        "noise_gate_record_count": 0,
+        "report_record_count": 1,
+    }
+    assert body["agent_runs"][0]["trace_json"]["endpoint"] == "POST /reports"
+    assert body["report_records"][0]["question"] == "Which segment had enterprise demand growth?"
 
 
 def test_document_preview_endpoints_auto_record_agent_run_traces():

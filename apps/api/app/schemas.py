@@ -307,7 +307,7 @@ class ReportStoredRecordOut(ReportPreviewOut):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase15-record-linkage"
+    workflow_version: str = "phase16-trace-lookup"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None
@@ -358,3 +358,19 @@ class OpsSummaryOut(BaseModel):
     contradiction_count: int
     average_latency_ms: float | None
     notes: list[str]
+
+
+class TraceLookupSummaryOut(BaseModel):
+    agent_run_count: int
+    evidence_ledger_entry_count: int
+    noise_gate_record_count: int
+    report_record_count: int
+
+
+class TraceLookupOut(BaseModel):
+    workflow_trace_id: UUID
+    agent_runs: list[AgentRunOut]
+    evidence_ledger_entries: list[EvidenceLedgerStoredEntryOut]
+    noise_gate_records: list[NoiseGateStoredRecordOut]
+    report_records: list[ReportStoredRecordOut]
+    summary: TraceLookupSummaryOut

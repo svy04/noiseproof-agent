@@ -30,6 +30,7 @@ This page maps the repository into a reviewer-readable path.
 | Report preview | `packages/ingestion/reports/report.py` | implemented |
 | Report preview persistence | `POST /reports`, `GET /reports` | implemented v0 |
 | Record linkage | `workflow_trace_id` on persisted evidence/gate/report records and agent-run traces | implemented v0 |
+| Trace lookup | `GET /traces/{workflow_trace_id}` | implemented v0 |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 

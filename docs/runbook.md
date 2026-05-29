@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 15 links persisted evidence, gate, and report records to their matching agent-run trace metadata with a shared `workflow_trace_id`.
+Phase 16 adds direct trace-id lookup on top of the shared `workflow_trace_id` linkage.
 
 Implemented:
 
@@ -37,6 +37,8 @@ Implemented:
 - Record Linkage v0
 - `workflow_trace_id` on persisted Evidence Ledger, Noise Gate, and Report records
 - matching `workflow_trace_id` in `agent_runs.trace_json` for persisted evidence/gate/report endpoints
+- Trace-id Lookup v0
+- `GET /traces/{workflow_trace_id}`
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -140,7 +142,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase15-record-linkage"
+  "workflow_version": "phase16-trace-lookup"
 }
 ```
 
@@ -149,7 +151,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase15-record-linkage",
+  "workflow_version": "phase16-trace-lookup",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -657,6 +659,7 @@ Expected persisted response shape:
 
 Current report persistence is v0. It stores deterministic preview output only; it does not link report records to an `agent_runs` id, call an LLM, or create a free-form final report.
 Persisted evidence, gate, and report records include `workflow_trace_id`. The same value is written to the matching `agent_runs.trace_json` entry for the persistence endpoint. This is a local correlation id, not full distributed tracing or an `agent_run_id` foreign-key relationship.
+Use `GET /traces/{workflow_trace_id}` to inspect records and agent-run traces that share that id.
 
 Inspect auto-created preview traces:
 
@@ -669,11 +672,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase15-record-linkage",
+    "workflow_version": "phase16-trace-lookup",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase15-record-linkage",
+      "phase": "phase16-trace-lookup",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }

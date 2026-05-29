@@ -47,6 +47,7 @@ class Repository(Protocol):
         workflow_trace_id: UUID,
     ) -> dict: ...
     def list_report_records(self) -> Sequence[dict]: ...
+    def lookup_trace_records(self, workflow_trace_id: UUID) -> dict[str, Sequence[dict]]: ...
     def create_failure_case(self, payload: FailureCaseCreate) -> dict: ...
     def list_failure_cases(self) -> Sequence[dict]: ...
     def create_retrieval_run(self, payload: RetrievalRunCreate) -> dict: ...
@@ -266,6 +267,47 @@ class PostgresRepository:
                 """
             ).fetchall()
             return [dict(row) for row in rows]
+
+    def lookup_trace_records(self, workflow_trace_id: UUID) -> dict[str, Sequence[dict]]:
+        with self._connect() as conn:
+            agent_runs = conn.execute(
+                """
+                SELECT * FROM agent_runs
+                WHERE trace_json->>'workflow_trace_id' = %s
+                ORDER BY started_at DESC, id DESC
+                """,
+                (str(workflow_trace_id),),
+            ).fetchall()
+            evidence_entries = conn.execute(
+                """
+                SELECT * FROM evidence_ledger_entries
+                WHERE workflow_trace_id = %s
+                ORDER BY created_at DESC, id DESC
+                """,
+                (workflow_trace_id,),
+            ).fetchall()
+            noise_gate_records = conn.execute(
+                """
+                SELECT * FROM noise_gate_records
+                WHERE workflow_trace_id = %s
+                ORDER BY created_at DESC, id DESC
+                """,
+                (workflow_trace_id,),
+            ).fetchall()
+            report_records = conn.execute(
+                """
+                SELECT * FROM report_records
+                WHERE workflow_trace_id = %s
+                ORDER BY created_at DESC, id DESC
+                """,
+                (workflow_trace_id,),
+            ).fetchall()
+        return {
+            "agent_runs": [dict(row) for row in agent_runs],
+            "evidence_ledger_entries": [dict(row) for row in evidence_entries],
+            "noise_gate_records": [dict(row) for row in noise_gate_records],
+            "report_records": [dict(row) for row in report_records],
+        }
 
     def create_failure_case(self, payload: FailureCaseCreate) -> dict:
         with self._connect() as conn:

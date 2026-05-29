@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 added Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output. Phase 9 added Operations Dashboard v0 so the existing run, retrieval, and failure records are inspectable from the browser. Phase 11 added Auto Trace Recording v0 so preview endpoints leave `agent_runs.trace_json` metadata before the project claims a full agent workflow. Phase 12 added persisted Evidence Ledger records so unsupported and contradiction counts are no longer dashboard placeholders. Phase 13 added persisted Noise Gate records so gate decisions can be inspected after the preview call. Phase 14 added persisted Report Preview records so generated, blocked, and revision-needed report-shaped outputs can be inspected after the preview call. Phase 15 added `workflow_trace_id` linkage across persisted evidence, gate, report records, and their matching `agent_runs.trace_json`.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 added Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output. Phase 9 added Operations Dashboard v0 so the existing run, retrieval, and failure records are inspectable from the browser. Phase 11 added Auto Trace Recording v0 so preview endpoints leave `agent_runs.trace_json` metadata before the project claims a full agent workflow. Phase 12 added persisted Evidence Ledger records so unsupported and contradiction counts are no longer dashboard placeholders. Phase 13 added persisted Noise Gate records so gate decisions can be inspected after the preview call. Phase 14 added persisted Report Preview records so generated, blocked, and revision-needed report-shaped outputs can be inspected after the preview call. Phase 15 added `workflow_trace_id` linkage across persisted evidence, gate, report records, and their matching `agent_runs.trace_json`. Phase 16 added `GET /traces/{workflow_trace_id}` so a trace id can be inspected directly.
 
 The product thesis:
 
@@ -112,6 +112,7 @@ Implementation status:
 - Persisted Noise Gate records v0: implemented with `POST /noise-gates`, `GET /noise-gates`, and ops counts for blocked/revision gate decisions
 - Persisted Report Preview records v0: implemented with `POST /reports`, `GET /reports`, and ops counts for generated/blocked/revision report-shaped outputs
 - Record Linkage v0: implemented with shared `workflow_trace_id` values on persisted evidence, gate, report records, and matching agent-run traces
+- Trace-id lookup v0: implemented with `GET /traces/{workflow_trace_id}`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -269,6 +270,12 @@ Implementation status:
 - `workflow_trace_id` on `report_records`: done
 - Matching `workflow_trace_id` in `agent_runs.trace_json` for persisted evidence/gate/report endpoints: done
 - `agent_run_id` foreign-key linkage, distributed tracing, LLM calls, embeddings, and semantic retrieval: not implemented
+
+### Phase 16 - Trace-id Lookup v0
+
+- `GET /traces/{workflow_trace_id}`: done
+- Trace lookup returns matching agent runs, Evidence Ledger entries, Noise Gate records, Report records, and summary counts: done
+- It is a local inspectability endpoint, not distributed tracing or hosted observability
 
 Not implemented yet:
 
@@ -448,9 +455,9 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Record Linkage v0, the next phase should make persisted records easier to navigate without overstating the workflow:
+After Trace-id Lookup v0, the next phase should improve persisted record navigation without overstating the workflow:
 
-- expose trace-id based lookup or filtering for persisted records
+- add lightweight list/filter affordances where useful
 - keep the links inspectable without introducing LLM calls or dashboard polish
 - keep deterministic preview behavior before adding LLM calls or embeddings
 
