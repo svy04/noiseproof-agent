@@ -14,6 +14,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/application/portfolio-index.md",
         "docs/review/application-ready-review.md",
         "docs/review/agent-run-linkage-review.md",
+        "docs/review/evidence-to-gate-report-cross-links-review.md",
     ]
 
     for file_path in required_files:
@@ -60,3 +61,15 @@ def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     assert "Do not add the foreign key in this review gate" in content
     assert "create the agent run first" in content
     assert "false sense of provenance" in content
+
+
+def test_evidence_to_gate_report_cross_links_review_keeps_boundary_explicit():
+    content = (REPO_ROOT / "docs/review/evidence-to-gate-report-cross-links-review.md").read_text(encoding="utf-8")
+
+    assert "Evidence-to-gate/report local cross-links review" in content
+    assert "review-only gate" in content
+    assert "Do not add cross-link columns in this review gate" in content
+    assert "workflow_trace_id" in content
+    assert "agent_run_id" in content
+    assert "false sense of causal lineage" in content
+    assert "single workflow parent" in content

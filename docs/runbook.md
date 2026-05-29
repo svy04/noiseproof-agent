@@ -4,6 +4,8 @@
 
 Phase 22 adds an Evidence Ledger dashboard table: persisted evidence rows are now visible beside retrieval, gate, and report records in the plain operations dashboard.
 
+Phase 22.5 adds a review-only cross-link decision: direct evidence -> gate -> report links are deferred until a single workflow parent exists.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -62,6 +64,9 @@ Implemented:
 - Evidence Ledger Dashboard Table v0
 - persisted Evidence Ledger rows in `GET /ops/dashboard`
 - trace, parent run, and status filter links on Evidence Ledger dashboard rows
+- Evidence-to-gate/report Local Cross-links Review v0
+- `docs/review/evidence-to-gate-report-cross-links-review.md`
+- direct evidence -> gate -> report links remain unimplemented until a single workflow parent exists
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -785,4 +790,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
+Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.

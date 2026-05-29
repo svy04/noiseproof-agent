@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 22:
+Accepted state as of Phase 22.5:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, and Evidence Ledger Dashboard Table v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, and Evidence-to-gate/report Local Cross-links Review v0
 ```
 
 Implemented:
@@ -183,6 +183,9 @@ Implemented:
 - Evidence Ledger Dashboard Table v0
 - `GET /ops/dashboard` shows persisted Evidence Ledger rows
 - Evidence Ledger dashboard rows include trace links, parent run links, status filters, claim, evidence span, source, and confidence
+- Evidence-to-gate/report Local Cross-links Review v0
+- `docs/review/evidence-to-gate-report-cross-links-review.md`
+- direct evidence -> gate -> report cross-links are deferred until a single workflow parent exists
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -249,6 +252,7 @@ Phase 19  - Agent-run Lifecycle v0
 Phase 20  - Persisted Child Record Agent-run Linkage v0
 Phase 21  - Dashboard Parent/Child Provenance Links v0
 Phase 22  - Evidence Ledger Dashboard Table v0
+Phase 22.5 - Evidence-to-gate/report Local Cross-links Review v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -922,10 +926,22 @@ claim, evidence span, source, and confidence columns
 
 Phase 22 is a plain inspectability change. It does not add dashboard polish, semantic evidence search, distributed tracing, hosted observability, LLM calls, embeddings, or new retrieval behavior.
 
+### Phase 22.5 - Evidence-to-gate/report Local Cross-links Review v0
+
+Implemented:
+
+```text
+docs/review/evidence-to-gate-report-cross-links-review.md
+decision not to add cross-link columns in the review gate
+future acceptance criteria for a single workflow parent before direct cross-stage links
+```
+
+Phase 22.5 is a review-only gate. It does not add migrations, columns, endpoints, dashboard behavior, LLM calls, embeddings, retrieval behavior, distributed tracing, hosted observability, or final report generation.
+
 Next recommended implementation phase:
 
 ```text
-Evidence-to-gate/report local cross-links review
+Single workflow parent review
 ```
 
 ## 6. Ordering Rules
