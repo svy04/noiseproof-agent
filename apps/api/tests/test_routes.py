@@ -16,6 +16,7 @@ class InMemoryRepository:
         self.agent_runs = []
         self.evidence_ledger_entries = []
         self.failure_cases = []
+        self.noise_gate_records = []
         self.retrieval_runs = []
 
     def create_document(self, payload: DocumentCreate) -> dict:
@@ -54,6 +55,18 @@ class InMemoryRepository:
     def list_evidence_ledger_entries(self):
         return self.evidence_ledger_entries
 
+    def create_noise_gate_record(self, result, evidence_entry_count, draft_claim_count):
+        row = result.model_dump()
+        row["id"] = uuid4()
+        row["evidence_entry_count"] = evidence_entry_count
+        row["draft_claim_count"] = draft_claim_count
+        row["created_at"] = datetime.now(timezone.utc)
+        self.noise_gate_records.append(row)
+        return row
+
+    def list_noise_gate_records(self):
+        return self.noise_gate_records
+
     def create_failure_case(self, payload: FailureCaseCreate) -> dict:
         row = payload.model_dump()
         row["id"] = uuid4()
@@ -77,10 +90,17 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase12-evidence-ledger-persistence",
+            workflow_version="phase13-noise-gate-persistence",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
+            noise_gate_record_count=len(self.noise_gate_records),
+            blocked_gate_count=sum(
+                row["decision"] == "blocked" for row in self.noise_gate_records
+            ),
+            revision_gate_count=sum(
+                row["decision"] == "needs_revision" for row in self.noise_gate_records
+            ),
             unsupported_claim_count=sum(
                 row["status"] in {"unsupported", "blocked"}
                 for row in self.evidence_ledger_entries
@@ -110,7 +130,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-        "workflow_version": "phase12-evidence-ledger-persistence",
+        "workflow_version": "phase13-noise-gate-persistence",
     }
 
 
@@ -159,7 +179,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase12-evidence-ledger-persistence"
+        == "phase13-noise-gate-persistence"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -230,7 +250,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 12" in response.text
+    assert "Phase 13" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():
@@ -312,7 +332,7 @@ def test_core_preview_endpoints_auto_record_agent_run_traces():
         "POST /noise-gates/preview",
         "POST /reports/preview",
     }.issubset(endpoints)
-    assert all(trace["workflow_version"] == "phase12-evidence-ledger-persistence" for trace in traces)
+    assert all(trace["workflow_version"] == "phase13-noise-gate-persistence" for trace in traces)
     assert any(trace["trace_json"].get("decision") == "pass" for trace in traces)
     assert any(trace["trace_json"].get("report_status") == "generated" for trace in traces)
 
@@ -401,6 +421,113 @@ def test_ops_summary_counts_persisted_evidence_ledger_boundaries():
     summary = client.get("/ops/summary").json()
     assert summary["unsupported_claim_count"] == 1
     assert summary["contradiction_count"] == 1
+
+
+def test_noise_gate_records_can_be_persisted_and_listed():
+    client = make_client()
+
+    response = client.post(
+        "/noise-gates",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+            "draft_claims": [
+                "Enterprise demand grew, with the current evidence limited to one retrieved source."
+            ],
+        },
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["id"]
+    assert body["decision"] == "pass"
+    assert body["final_response_allowed"] is True
+    assert body["evidence_entry_count"] == 1
+    assert body["draft_claim_count"] == 1
+
+    listed = client.get("/noise-gates").json()
+    assert len(listed) == 1
+    assert listed[0]["decision"] == "pass"
+
+    traces = client.get("/agent-runs").json()
+    assert any(
+        trace["trace_json"].get("endpoint") == "POST /noise-gates"
+        and trace["trace_json"].get("decision") == "pass"
+        and trace["trace_json"].get("phase") == "phase13-noise-gate-persistence"
+        for trace in traces
+    )
+
+
+def test_ops_summary_and_dashboard_surface_persisted_noise_gate_records():
+    client = make_client()
+
+    client.post(
+        "/noise-gates",
+        json={
+            "question": "Should I buy this company?",
+            "evidence_entries": [
+                {
+                    "claim": "Should I buy this company",
+                    "source_id": None,
+                    "source_type": None,
+                    "source_date": None,
+                    "evidence_span": "",
+                    "confidence": "none",
+                    "limitation": "Question drifts into buy/sell or financial-advice intent.",
+                    "contradicting_source_ids": [],
+                    "status": "blocked",
+                    "matched_terms": [],
+                    "role": "user_intent_check",
+                }
+            ],
+            "draft_claims": ["Should I buy this company?"],
+        },
+    )
+    client.post(
+        "/noise-gates",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": None,
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+        },
+    )
+
+    summary = client.get("/ops/summary").json()
+    assert summary["noise_gate_record_count"] == 2
+    assert summary["blocked_gate_count"] == 1
+    assert summary["revision_gate_count"] == 1
+
+    dashboard = client.get("/ops/dashboard")
+    assert "Noise Gate Records" in dashboard.text
+    assert "Should I buy this company?" in dashboard.text
+    assert "needs_revision" in dashboard.text
 
 
 def test_document_preview_endpoints_auto_record_agent_run_traces():

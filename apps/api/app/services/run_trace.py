@@ -20,6 +20,7 @@ def run_with_trace(
     trace_from_result: Callable[[T], dict] | None = None,
 ) -> T:
     started_at = time.perf_counter()
+    workflow_version = get_settings().workflow_version
     try:
         result = operation()
     except Exception as exc:
@@ -27,13 +28,13 @@ def run_with_trace(
         repository.create_agent_run(
             AgentRunCreate(
                 user_question=user_question,
-                workflow_version=get_settings().workflow_version,
+                workflow_version=workflow_version,
                 status="failed",
                 error_message=str(exc),
                 latency_ms=latency_ms,
                 trace_json={
                     "endpoint": endpoint,
-                    "phase": "phase11-auto-trace",
+                    "phase": workflow_version,
                     **trace_json,
                     "error_type": exc.__class__.__name__,
                 },
@@ -46,12 +47,12 @@ def run_with_trace(
     repository.create_agent_run(
         AgentRunCreate(
             user_question=user_question,
-            workflow_version=get_settings().workflow_version,
+            workflow_version=workflow_version,
             status="completed",
             latency_ms=latency_ms,
             trace_json={
                 "endpoint": endpoint,
-                "phase": "phase11-auto-trace",
+                "phase": workflow_version,
                 **trace_json,
                 **result_trace,
             },

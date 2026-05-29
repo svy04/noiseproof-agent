@@ -21,7 +21,8 @@ Current status:
 - Evaluation/Application Package v0 exists for evaluation planning, failure records, and Braincrew role mapping.
 - Auto Trace Recording v0 exists for preview endpoint metadata in `agent_runs.trace_json`.
 - Persisted Evidence Ledger Records v0 exists for stored claim-level entries and operations counts.
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, retrieval-run-linked Evidence Ledger records, persisted gate records, persisted reports, distributed tracing, hosted observability, and agents are planned but not implemented.
+- Persisted Noise Gate Records v0 exists for stored pass / needs_revision / blocked gate decisions.
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, retrieval-run-linked Evidence Ledger records, agent-run-linked Noise Gate records, persisted reports, distributed tracing, hosted observability, and agents are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -222,10 +223,16 @@ Implemented Phase 7 boundary:
 - direct Evidence Ledger entry input
 - optional draft-claim checks
 - no LLM calls
-- no DB persistence
 - no final report generation
 
 The preview returns pass / needs_revision / blocked decisions, check results, blocked claims, downgraded claims, allowed claims, required revisions, a fallback message, and warnings. It blocks unsupported ledger entries and trading-advice drift, and it requires revision for contradictions, missing source recency, missing limitations, and high-confidence single-source claims.
+
+Implemented Phase 13 boundary:
+
+- `POST /noise-gates` persists a gate decision record
+- `GET /noise-gates` lists stored gate records
+- operations summary and dashboard count blocked and needs-revision gate decisions
+- persisted Noise Gate records are not yet linked to agent run ids or report records
 
 ### Claim-bounded Report
 
@@ -255,7 +262,7 @@ Records each agent run and failure case for later evaluation.
 
 Failures are not hidden. They are portfolio evidence.
 
-Phase 11 adds a small auto-trace boundary for preview endpoints. The current preview routes create `agent_runs` records with `trace_json` fields such as endpoint, phase, source type, result counts, gate decisions, and report status where available. This is metadata tracing for inspectability, not distributed tracing or hosted observability.
+Phase 11 added a small auto-trace boundary for preview endpoints. The current preview routes create `agent_runs` records with `trace_json` fields such as endpoint, current workflow phase, source type, result counts, gate decisions, and report status where available. This is metadata tracing for inspectability, not distributed tracing or hosted observability.
 
 ## Planned Data Model
 
@@ -361,9 +368,28 @@ next_action
 created_at
 ```
 
+### NoiseGateRecord
+
+```text
+id
+question
+decision
+final_response_allowed
+checks
+blocked_claims
+downgraded_claims
+allowed_claims
+required_revisions
+fallback_message
+warnings
+evidence_entry_count
+draft_claim_count
+created_at
+```
+
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records. Phase 13 added persisted Noise Gate records.
 
 Implemented endpoints:
 
@@ -380,6 +406,8 @@ POST /evidence-ledgers/preview
 POST /evidence-ledgers
 GET  /evidence-ledgers
 POST /noise-gates/preview
+POST /noise-gates
+GET  /noise-gates
 POST /reports/preview
 POST /agent-runs
 GET  /agent-runs
@@ -398,7 +426,7 @@ GET  /retrieval-runs/{id}/evidence-ledger
 POST /reports
 ```
 
-Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, link Evidence Ledger entries to retrieval run ids, persist gate records, persist reports, compute embeddings, invoke an LLM, create free-form final answers, or provide distributed tracing.
+Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, link Evidence Ledger entries to retrieval run ids, link Noise Gate records to agent run ids, persist reports, compute embeddings, invoke an LLM, create free-form final answers, or provide distributed tracing.
 
 ## Agent Workflow
 
@@ -448,12 +476,14 @@ It currently shows:
 - retrieval failures
 - unsupported claim count
 - contradiction count
+- blocked and needs-revision gate counts
 - average latency
 - failure cases
 
 Current limitations:
 
 - unsupported claim and contradiction counts come from persisted Evidence Ledger entries
+- blocked and needs-revision gate counts come from persisted Noise Gate records
 - token cost rollups and chunk strategy comparison require later persistence work
 - dashboard does not add Next.js or a polished product UI
 - dashboard does not create new retrieval, evidence, gate, or report behavior

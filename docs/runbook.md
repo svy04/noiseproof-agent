@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 12 persists Evidence Ledger records after preview endpoint traces made the project more inspectable.
+Phase 13 persists Noise Gate records after Evidence Ledger records made unsupported and contradiction counts inspectable.
 
 Implemented:
 
@@ -41,6 +41,10 @@ Implemented:
 - `POST /evidence-ledgers`
 - `GET /evidence-ledgers`
 - unsupported and contradiction counts from persisted ledger entries
+- Persisted Noise Gate Records v0
+- `POST /noise-gates`
+- `GET /noise-gates`
+- blocked and needs-revision gate counts from persisted Noise Gate records
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
@@ -52,7 +56,7 @@ Not implemented:
 - persisted chunks
 - embeddings
 - retrieval-run-linked Evidence Ledger records
-- persisted Critic / Noise Gate records
+- agent-run-linked Noise Gate records
 - persisted report records
 
 ## Local Database
@@ -77,6 +81,7 @@ It creates:
 - `failure_cases`
 - `retrieval_runs`
 - `evidence_ledger_entries`
+- `noise_gate_records`
 
 It also enables:
 
@@ -90,10 +95,11 @@ POSTGRES_PORT=55432
 DATABASE_URL=postgresql://noiseproof:noiseproof@localhost:55432/noiseproof
 ```
 
-For an existing local database created before Phase 12, apply:
+For an existing local database created before Phase 13, apply:
 
 ```powershell
 Get-Content db/migrations/002_evidence_ledger_entries.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
+Get-Content db/migrations/003_noise_gate_records.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 ```
 
 ## API
@@ -126,7 +132,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase12-evidence-ledger-persistence"
+  "workflow_version": "phase13-noise-gate-persistence"
 }
 ```
 
@@ -135,16 +141,19 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase12-evidence-ledger-persistence",
+  "workflow_version": "phase13-noise-gate-persistence",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
+  "noise_gate_record_count": 0,
+  "blocked_gate_count": 0,
+  "revision_gate_count": 0,
   "unsupported_claim_count": 0,
   "contradiction_count": 0,
   "average_latency_ms": null,
   "notes": [
     "Retrieval runs recorded: 0. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
-    "Persisted reports, persisted gate records, embeddings, and semantic retrieval are still not implemented."
+    "Persisted reports, embeddings, semantic retrieval, and agent-run-linked gate records are still not implemented."
   ]
 }
 ```
@@ -502,7 +511,7 @@ Expected persisted response shape:
 }
 ```
 
-Current persistence is v0. It does not link entries to retrieval run ids, persist gate records, persist report records, call an LLM, or judge final truth.
+Evidence Ledger persistence is v0. It does not link entries to retrieval run ids, persist report records, call an LLM, or judge final truth. Noise Gate records are persisted separately by `POST /noise-gates`.
 
 Preview whether current ledger entries can pass the Noise Gate:
 
@@ -539,6 +548,31 @@ Expected `/noise-gates/preview` response shape:
 ```
 
 Unsupported or blocked ledger entries return `decision: blocked`. Contradictions, missing source dates, missing limitations, high-confidence single-source claims, and overconfident draft language return `decision: needs_revision` unless trading-advice drift blocks the response. This endpoint does not call an LLM, persist gate records, create a final report, or build a dashboard.
+
+Persist a Noise Gate v0 record:
+
+```bash
+curl -X POST http://localhost:8000/noise-gates \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Should I buy this company?\",\"evidence_entries\":[{\"claim\":\"Should I buy this company\",\"source_id\":null,\"source_type\":null,\"source_date\":null,\"evidence_span\":\"\",\"confidence\":\"none\",\"limitation\":\"Question drifts into buy/sell or financial-advice intent.\",\"contradicting_source_ids\":[],\"status\":\"blocked\",\"matched_terms\":[],\"role\":\"user_intent_check\"}],\"draft_claims\":[\"Should I buy this company?\"]}"
+curl http://localhost:8000/noise-gates
+```
+
+Expected persisted response shape:
+
+```json
+{
+  "id": "uuid",
+  "question": "Should I buy this company?",
+  "decision": "blocked",
+  "final_response_allowed": false,
+  "evidence_entry_count": 1,
+  "draft_claim_count": 1,
+  "created_at": "timestamp"
+}
+```
+
+Current persistence is v0. It does not link gate records to an `agent_runs` id, persist report records, call an LLM, or judge final truth.
 
 Preview a claim-bounded report after the Noise Gate:
 
@@ -596,11 +630,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase12-evidence-ledger-persistence",
+    "workflow_version": "phase13-noise-gate-persistence",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase11-auto-trace",
+      "phase": "phase13-noise-gate-persistence",
       "report_status": "generated"
     }
   }
@@ -664,4 +698,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, retrieval-run-linked Evidence Ledger records, persisted Critic / Noise Gate records, persisted report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI.
+Do not claim persisted chunks, embeddings, retrieval-run-linked Evidence Ledger records, agent-run-linked Noise Gate records, persisted report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI.

@@ -9,7 +9,9 @@ def render_ops_dashboard(
     agent_runs: list[dict[str, Any]],
     failure_cases: list[dict[str, Any]],
     retrieval_runs: list[dict[str, Any]],
+    noise_gate_records: list[dict[str, Any]] | None = None,
 ) -> str:
+    noise_gate_records = noise_gate_records or []
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -30,7 +32,7 @@ def render_ops_dashboard(
 </head>
 <body>
   <h1>Operations Dashboard v0</h1>
-  <p class="muted">Phase 12 inspectable operations surface. No LLM calls, no new retrieval behavior, no persisted gate/report records.</p>
+  <p class="muted">Phase 13 inspectable operations surface. No LLM calls, no new retrieval behavior, no persisted report records.</p>
   <section>
     <h2>Summary</h2>
     <div class="grid">
@@ -38,6 +40,9 @@ def render_ops_dashboard(
       {_metric("Documents", summary.document_count)}
       {_metric("Agent Runs", summary.agent_run_count)}
       {_metric("Failure Cases", summary.failure_case_count)}
+      {_metric("Noise Gate Records", summary.noise_gate_record_count)}
+      {_metric("Blocked Gates", summary.blocked_gate_count)}
+      {_metric("Revision Gates", summary.revision_gate_count)}
       {_metric("Unsupported Claims", summary.unsupported_claim_count)}
       {_metric("Contradictions", summary.contradiction_count)}
       {_metric("Average Latency", summary.average_latency_ms if summary.average_latency_ms is not None else "n/a")}
@@ -56,11 +61,15 @@ def render_ops_dashboard(
     {_retrieval_runs_table(retrieval_runs)}
   </section>
   <section>
+    <h2>Noise Gate Records</h2>
+    {_noise_gate_records_table(noise_gate_records)}
+  </section>
+  <section>
     <h2>Boundary</h2>
     <ul>
       <li>This dashboard renders existing metadata and preview records only.</li>
       <li>Unsupported claim and contradiction counts come from persisted Evidence Ledger entries.</li>
-      <li>Gate records, report records, embeddings, and semantic retrieval are still not implemented.</li>
+      <li>Agent-run-linked gate records, report records, embeddings, and semantic retrieval are still not implemented.</li>
       <li>Visual polish is intentionally deferred until failure behavior is more complete.</li>
     </ul>
   </section>
@@ -118,6 +127,22 @@ def _retrieval_runs_table(rows: list[dict[str, Any]]) -> str:
         for row in rows[:10]
     )
     return f"<table><thead><tr><th>Created</th><th>Status</th><th>Question</th><th>Strategy</th><th>Results</th><th>Missing Evidence</th></tr></thead><tbody>{body}</tbody></table>"
+
+
+def _noise_gate_records_table(rows: list[dict[str, Any]]) -> str:
+    if not rows:
+        return '<p class="muted">No noise gate records persisted yet.</p>'
+    body = "\n".join(
+        "<tr>"
+        f"<td>{_cell(row.get('created_at'))}</td>"
+        f"<td>{_cell(row.get('decision'))}</td>"
+        f"<td>{_cell(row.get('question'))}</td>"
+        f"<td>{_cell(row.get('evidence_entry_count'))}</td>"
+        f"<td>{_cell(row.get('draft_claim_count'))}</td>"
+        "</tr>"
+        for row in rows[:10]
+    )
+    return f"<table><thead><tr><th>Created</th><th>Decision</th><th>Question</th><th>Evidence Entries</th><th>Draft Claims</th></tr></thead><tbody>{body}</tbody></table>"
 
 
 def _cell(value: object) -> str:

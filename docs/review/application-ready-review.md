@@ -1,16 +1,16 @@
 # Application-ready Review
 
-Status: Phase 12 review packet.
+Status: Phase 13 review packet.
 
 This is an application-ready review, not a product-complete declaration.
 
-Not product-complete: robust PDF extraction, embeddings, semantic retrieval, retrieval-run-linked Evidence Ledger records, persisted Noise Gate records, persisted report records, distributed tracing, hosted deployment, and external user validation are still unproven.
+Not product-complete: robust PDF extraction, embeddings, semantic retrieval, retrieval-run-linked Evidence Ledger records, agent-run-linked Noise Gate records, persisted report records, distributed tracing, hosted deployment, and external user validation are still unproven.
 
 ## Summary
 
 Current judgment: Partial application-ready portfolio artifact.
 
-NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, preview endpoint traces, failure records, and technical decision trail.
+NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, preview endpoint traces, failure records, and technical decision trail.
 
 It is not strong enough to claim production RAG quality or autonomous market intelligence.
 
@@ -24,7 +24,7 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | three chunk strategies can be compared | Pass | fixed-window, heading-aware, row-aware | chunks are not persisted |
 | retrieval returns source ids | Pass | lexical retrieval v0 | semantic retrieval is not implemented |
 | Evidence Ledger can be generated before final answer | Pass | `POST /evidence-ledgers/preview`, `POST /evidence-ledgers` | persisted v0 entries are not yet linked to retrieval run ids |
-| unsupported claims are blocked | Pass | Noise Gate and Report Preview tests | deterministic checks only |
+| unsupported claims are blocked | Pass | Noise Gate, persisted Noise Gate, and Report Preview tests | deterministic checks only |
 | contradictions are surfaced | Pass | Evidence Ledger and Noise Gate previews | not a full contradiction engine |
 | buy/sell recommendation questions are refused or reframed | Pass | collection, ledger, gate, and report boundaries | not legal or financial advice tooling |
 | every agent run leaves a trace | Pass for current preview endpoints | preview endpoints auto-create `agent_runs.trace_json`; retrieval has dedicated `retrieval_runs` | metadata trace only, not distributed tracing or a complete multi-stage workflow trace |
@@ -40,7 +40,7 @@ It is not strong enough to claim production RAG quality or autonomous market int
 Use:
 
 ```text
-NoiseProof Agent is a small, inspectable portfolio service that shows how messy market data can be profiled, retrieved, converted into persisted evidence entries, gated for unsupported claims, rendered into claim-bounded report previews, and recorded as preview endpoint traces.
+NoiseProof Agent is a small, inspectable portfolio service that shows how messy market data can be profiled, retrieved, converted into persisted evidence entries, persisted as gate decisions, rendered into claim-bounded report previews, and recorded as preview endpoint traces.
 ```
 
 Do not use:
@@ -61,6 +61,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - Evidence Ledger Preview
 - Persisted Evidence Ledger Records v0
 - Noise Gate Preview
+- Persisted Noise Gate Records v0
 - Operations Dashboard v0
 - evaluation/application package
 - Auto Trace Recording v0 for preview endpoint metadata
@@ -72,5 +73,6 @@ Avoid claims about:
 - robust PDF extraction
 - semantic retrieval
 - retrieval-run-linked Evidence Ledger records
+- agent-run-linked Noise Gate records
 - distributed tracing
 - market prediction accuracy

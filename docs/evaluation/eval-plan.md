@@ -98,7 +98,7 @@ docker compose ps
 - production-scale ingestion
 - persisted chunks
 - retrieval-run-linked Evidence Ledger records
-- persisted Noise Gate records
+- agent-run-linked Noise Gate records
 - persisted reports
 - external user validation
 - financial prediction quality

@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 added Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output. Phase 9 added Operations Dashboard v0 so the existing run, retrieval, and failure records are inspectable from the browser. Phase 11 added Auto Trace Recording v0 so preview endpoints leave `agent_runs.trace_json` metadata before the project claims a full agent workflow. Phase 12 adds persisted Evidence Ledger records so unsupported and contradiction counts are no longer dashboard placeholders.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 added Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output. Phase 9 added Operations Dashboard v0 so the existing run, retrieval, and failure records are inspectable from the browser. Phase 11 added Auto Trace Recording v0 so preview endpoints leave `agent_runs.trace_json` metadata before the project claims a full agent workflow. Phase 12 added persisted Evidence Ledger records so unsupported and contradiction counts are no longer dashboard placeholders. Phase 13 added persisted Noise Gate records so gate decisions can be inspected after the preview call.
 
 The product thesis:
 
@@ -109,7 +109,8 @@ Implementation status:
 - Application-ready review: implemented as a partial/pass boundary checklist
 - Auto Trace Recording v0: implemented for document profile, parse, chunk, collection plan, evidence ledger, noise gate, and report preview endpoints
 - Persisted Evidence Ledger records v0: implemented with `POST /evidence-ledgers`, `GET /evidence-ledgers`, and real ops counts for unsupported and contradicted entries
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, persisted gate records, persisted reports: planned, not implemented
+- Persisted Noise Gate records v0: implemented with `POST /noise-gates`, `GET /noise-gates`, and ops counts for blocked/revision gate decisions
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, persisted report records: planned, not implemented
 
 ## Implementation Status
 
@@ -195,7 +196,7 @@ Implementation status:
 - Requires revision for contradictions, missing source recency, missing limitations, and high-confidence claims with fewer than two source ids: done
 - Flags overconfident draft language: done
 - Returns decision, checks, blocked claims, downgraded claims, allowed claims, required revisions, fallback message, and warnings: done
-- LLM calls, persisted gate records, final reports, dashboard, and answer generation: not implemented
+- LLM calls, persisted report records, final reports, dashboard UI polish, and answer generation: not implemented
 
 ### Phase 8 - Claim-bounded Report Preview v0
 
@@ -230,7 +231,7 @@ Implementation status:
 - Preview endpoints auto-create `agent_runs` metadata records: done
 - `trace_json` records endpoint, phase, source type, counts, decisions, and report status where available: done
 - Failed preview operations are wrapped so a failed trace can be recorded before the exception is re-raised: done
-- Full distributed tracing, hosted observability, persisted gate records, and persisted report records: not implemented
+- Full distributed tracing, hosted observability, agent-run-linked gate records, and persisted report records: not implemented
 
 ### Phase 12 - Persisted Evidence Ledger Records v0
 
@@ -239,7 +240,16 @@ Implementation status:
 - `evidence_ledger_entries` table and migration: done
 - unsupported and contradiction counts in `/ops/summary`: done
 - unsupported and contradiction counts in `/ops/dashboard`: done
-- Retrieval-run-linked ledger persistence, persisted gate records, persisted report records, embeddings, and semantic retrieval: not implemented
+- Retrieval-run-linked ledger persistence, agent-run-linked gate records, persisted report records, embeddings, and semantic retrieval: not implemented
+
+### Phase 13 - Persisted Noise Gate Records v0
+
+- `POST /noise-gates`: done
+- `GET /noise-gates`: done
+- `noise_gate_records` table and migration: done
+- blocked and needs-revision gate counts in `/ops/summary`: done
+- Noise Gate Records section in `/ops/dashboard`: done
+- Agent-run-linked gate records, persisted report records, LLM calls, embeddings, and semantic retrieval: not implemented
 
 Not implemented yet:
 
@@ -248,7 +258,7 @@ Not implemented yet:
 - persisted chunks
 - embeddings
 - retrieval-run-linked Evidence Ledger records
-- persisted Critic / Noise Gate records
+- agent-run-linked Noise Gate records
 - persisted report records
 - full distributed tracing or hosted observability
 
@@ -264,7 +274,7 @@ NoiseProof Agent will use five explicit roles before introducing any complex mul
 
 Each planned stage must log its input and output.
 
-Current Phase 11 behavior records preview endpoint metadata in `agent_runs.trace_json`. This is not full workflow tracing or distributed observability.
+Auto Trace behavior records preview endpoint metadata in `agent_runs.trace_json` using the current workflow version. This is not full workflow tracing or distributed observability.
 
 ## Evidence Ledger
 
@@ -296,7 +306,7 @@ The system should generate the ledger before generating a final report. Current 
 
 ## Noise Gate
 
-The Noise Gate is the reviewer before a final response is allowed through. Phase 7 implements a deterministic preview boundary; persisted gate records and final reports are still planned.
+The Noise Gate is the reviewer before a final response is allowed through. Phase 7 implements a deterministic preview boundary. Phase 13 persists gate decisions so blocked and revision-needed outputs remain inspectable.
 
 It checks:
 
@@ -308,7 +318,7 @@ It checks:
 - Is the answer drifting into trading advice?
 - Are limitations explicit?
 
-The current preview returns `pass`, `needs_revision`, or `blocked`. It does not generate the final report.
+The current preview returns `pass`, `needs_revision`, or `blocked`. `POST /noise-gates` stores the decision and checks. It does not generate the final report.
 
 If the gate fails, the system should return:
 
@@ -394,6 +404,10 @@ curl http://localhost:8000/evidence-ledgers
 curl -X POST http://localhost:8000/noise-gates/preview \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
+curl -X POST http://localhost:8000/noise-gates \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Should I buy this company?\",\"evidence_entries\":[{\"claim\":\"Should I buy this company\",\"source_id\":null,\"source_type\":null,\"source_date\":null,\"evidence_span\":\"\",\"confidence\":\"none\",\"limitation\":\"Question drifts into buy/sell or financial-advice intent.\",\"contradicting_source_ids\":[],\"status\":\"blocked\",\"matched_terms\":[],\"role\":\"user_intent_check\"}],\"draft_claims\":[\"Should I buy this company?\"]}"
+curl http://localhost:8000/noise-gates
 curl -X POST http://localhost:8000/reports/preview \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
@@ -416,10 +430,10 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Persisted Evidence Ledger Records v0, the next phase should make the evidence-to-gate path more inspectable:
+After Persisted Noise Gate Records v0, the next phase should make the gate-to-report path more inspectable:
 
-- link persisted Evidence Ledger entries to retrieval or agent run ids
-- persist Noise Gate decisions over stored entries
+- persist report preview records
+- connect stored report records to gate decisions where possible
 - keep deterministic preview behavior before adding LLM calls or embeddings
 
 It should not start with UI polish, LLM prompt tuning, new retrieval behavior, or broad agent abstractions.

@@ -253,6 +253,13 @@ class NoiseGatePreviewOut(BaseModel):
     warnings: list[str]
 
 
+class NoiseGateStoredRecordOut(NoiseGatePreviewOut):
+    id: UUID
+    evidence_entry_count: int
+    draft_claim_count: int
+    created_at: datetime
+
+
 class ReportPreviewRequest(BaseModel):
     question: str = Field(..., min_length=1)
     evidence_entries: list[EvidenceLedgerEntryOut] = Field(default_factory=list)
@@ -288,7 +295,7 @@ class ReportPreviewOut(BaseModel):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase12-evidence-ledger-persistence"
+    workflow_version: str = "phase13-noise-gate-persistence"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None
@@ -328,6 +335,9 @@ class OpsSummaryOut(BaseModel):
     document_count: int
     agent_run_count: int
     failure_case_count: int
+    noise_gate_record_count: int = 0
+    blocked_gate_count: int = 0
+    revision_gate_count: int = 0
     unsupported_claim_count: int
     contradiction_count: int
     average_latency_ms: float | None

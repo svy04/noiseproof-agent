@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 12:
+Accepted state as of Phase 13:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, and Persisted Evidence Ledger Records v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, and Persisted Noise Gate Records v0
 ```
 
 Implemented:
@@ -135,6 +135,12 @@ Implemented:
 - `GET /evidence-ledgers`
 - `evidence_ledger_entries` table and migration
 - unsupported and contradiction counts in `/ops/summary` come from persisted ledger entries
+- Persisted Noise Gate Records v0
+- `POST /noise-gates`
+- `GET /noise-gates`
+- `noise_gate_records` table and migration
+- blocked and needs-revision gate counts in `/ops/summary`
+- Noise Gate Records section in `/ops/dashboard`
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -154,7 +160,7 @@ Not yet implemented:
 - persisted collection plans
 - embeddings
 - retrieval-run-linked Evidence Ledger records
-- persisted Critic / Noise Gate records
+- agent-run-linked Noise Gate records
 - persisted report records
 - full distributed tracing or hosted observability
 
@@ -193,6 +199,7 @@ Phase 9   - Operations dashboard v0
 Phase 10  - Evaluation and application package
 Phase 11  - Auto Trace Recording v0
 Phase 12  - Persisted Evidence Ledger Records v0
+Phase 13  - Persisted Noise Gate Records v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -574,7 +581,7 @@ retrieval runs
 unsupported and contradiction counts from persisted Evidence Ledger entries
 ```
 
-Phase 9 did not add Next.js, UI polish, LLM calls, new retrieval behavior, persisted Evidence Ledger entries, persisted gate records, or persisted report records. Phase 12 later added persisted Evidence Ledger entries.
+Phase 9 did not add Next.js, UI polish, LLM calls, new retrieval behavior, persisted Evidence Ledger entries, persisted Noise Gate records, or persisted report records. Phase 12 later added persisted Evidence Ledger entries, and Phase 13 later added persisted Noise Gate records.
 
 ### Phase 10 - Evaluation and Application Package v0
 
@@ -606,7 +613,7 @@ Implemented outputs:
 ```text
 apps/api/app/services/run_trace.py
 preview endpoint trace creation in agent_runs
-workflow_version phase11-auto-trace
+trace phase uses the current workflow version
 ```
 
 The current preview endpoints create `agent_runs` metadata records:
@@ -634,7 +641,7 @@ gate decisions where available
 report status where available
 ```
 
-Phase 11 does not add LLM calls, embeddings, retrieval expansion, persisted gate records, persisted report records, distributed tracing, hosted observability, or dashboard UI polish.
+Phase 11 does not add LLM calls, embeddings, retrieval expansion, persisted Noise Gate records, persisted report records, distributed tracing, hosted observability, or dashboard UI polish.
 
 Phase 11 handoff:
 
@@ -674,12 +681,52 @@ role
 created_at
 ```
 
-Phase 12 does not add retrieval expansion, embeddings, semantic retrieval, LLM calls, persisted gate records, persisted report records, or dashboard UI polish. Current persisted entries are not yet linked to retrieval run ids.
+Phase 12 does not add retrieval expansion, embeddings, semantic retrieval, LLM calls, persisted Noise Gate records, persisted report records, or dashboard UI polish. Current persisted entries are not yet linked to retrieval run ids.
+
+Phase 12 handoff:
+
+```text
+Persisted Noise Gate records v0
+```
+
+### Phase 13 - Persisted Noise Gate Records v0
+
+Implemented outputs:
+
+```text
+db/migrations/003_noise_gate_records.sql
+POST /noise-gates
+GET /noise-gates
+noise_gate_records table
+ops summary blocked/revision gate counts
+ops dashboard Noise Gate Records section
+```
+
+Persisted records include:
+
+```text
+id
+question
+decision
+final_response_allowed
+checks
+blocked_claims
+downgraded_claims
+allowed_claims
+required_revisions
+fallback_message
+warnings
+evidence_entry_count
+draft_claim_count
+created_at
+```
+
+Phase 13 does not add retrieval expansion, embeddings, semantic retrieval, LLM calls, persisted report records, final report generation beyond the preview shape, agent-run-linked gate records, or dashboard UI polish.
 
 Next recommended implementation phase:
 
 ```text
-Persisted Noise Gate records v0
+Persisted Report Preview records v0
 ```
 
 ## 6. Ordering Rules

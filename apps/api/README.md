@@ -18,6 +18,8 @@ Implemented in this package:
 - `POST /evidence-ledgers`
 - `GET /evidence-ledgers`
 - `POST /noise-gates/preview`
+- `POST /noise-gates`
+- `GET /noise-gates`
 - `POST /reports/preview`
 - `POST /agent-runs`
 - `GET /agent-runs`
@@ -35,7 +37,7 @@ Not implemented yet:
 - persisted collection plans
 - embeddings
 - retrieval-run-linked Evidence Ledger records
-- persisted Critic / Noise Gate records
+- agent-run-linked Noise Gate records
 - persisted report records
 
 ## Local Run
@@ -83,7 +85,8 @@ curl -X POST http://localhost:8000/reports/preview \
 The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
 Collection Plan Preview is deterministic and does not call LLMs, search external sources, expand retrieval, create an Evidence Ledger by itself, or persist records.
 Evidence Ledger Preview is deterministic and does not call LLMs, search external sources, run a Critic / Noise Gate, or create a final report. `POST /evidence-ledgers` persists the generated preview entries as v0 ledger records.
-Noise Gate Preview is deterministic and does not call LLMs, persist gate records, create a final report, or build a dashboard.
+Noise Gate Preview is deterministic and does not call LLMs, create a final report, or build a dashboard.
+`POST /noise-gates` persists the deterministic gate decision as a v0 Noise Gate record. It does not link the record to an agent run id or create a final report.
 Report Preview is deterministic and does not call LLMs or persist report records.
 Operations Dashboard v0 is a plain FastAPI HTML view over current metadata, not a polished product UI.
 Auto Trace Recording v0 is metadata tracing for preview endpoints, not distributed tracing or hosted observability.
