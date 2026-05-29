@@ -14,6 +14,7 @@ class InMemoryRepository:
     def __init__(self):
         self.documents = []
         self.agent_runs = []
+        self.evidence_ledger_entries = []
         self.failure_cases = []
         self.retrieval_runs = []
 
@@ -38,6 +39,21 @@ class InMemoryRepository:
     def list_agent_runs(self):
         return self.agent_runs
 
+    def create_evidence_ledger_entries(self, question, entries):
+        created = []
+        for entry in entries:
+            row = entry.model_dump()
+            row["id"] = uuid4()
+            row["question"] = question
+            row["run_id"] = None
+            row["created_at"] = datetime.now(timezone.utc)
+            self.evidence_ledger_entries.append(row)
+            created.append(row)
+        return created
+
+    def list_evidence_ledger_entries(self):
+        return self.evidence_ledger_entries
+
     def create_failure_case(self, payload: FailureCaseCreate) -> dict:
         row = payload.model_dump()
         row["id"] = uuid4()
@@ -61,12 +77,18 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase11-auto-trace",
+            workflow_version="phase12-evidence-ledger-persistence",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
-            unsupported_claim_count=0,
-            contradiction_count=0,
+            unsupported_claim_count=sum(
+                row["status"] in {"unsupported", "blocked"}
+                for row in self.evidence_ledger_entries
+            ),
+            contradiction_count=sum(
+                row["status"] == "contradicted" or bool(row["contradicting_source_ids"])
+                for row in self.evidence_ledger_entries
+            ),
             average_latency_ms=None,
             notes=["test repository"],
         )
@@ -88,7 +110,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-        "workflow_version": "phase11-auto-trace",
+        "workflow_version": "phase12-evidence-ledger-persistence",
     }
 
 
@@ -137,7 +159,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase11-auto-trace"
+        == "phase12-evidence-ledger-persistence"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -208,7 +230,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 9" in response.text
+    assert "Phase 12" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():
@@ -290,9 +312,95 @@ def test_core_preview_endpoints_auto_record_agent_run_traces():
         "POST /noise-gates/preview",
         "POST /reports/preview",
     }.issubset(endpoints)
-    assert all(trace["workflow_version"] == "phase11-auto-trace" for trace in traces)
+    assert all(trace["workflow_version"] == "phase12-evidence-ledger-persistence" for trace in traces)
     assert any(trace["trace_json"].get("decision") == "pass" for trace in traces)
     assert any(trace["trace_json"].get("report_status") == "generated" for trace in traces)
+
+
+def test_evidence_ledger_entries_can_be_persisted_and_listed():
+    client = make_client()
+
+    response = client.post(
+        "/evidence-ledgers",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "retrieval_results": [
+                {
+                    "source_id": "doc-support",
+                    "source_type": "markdown",
+                    "chunk_strategy": "heading-aware",
+                    "chunk_index": 0,
+                    "text": "Enterprise demand grew 12% in 2026.",
+                    "score": 0.75,
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "metadata": {"source_date": "2026-05-28"},
+                },
+                {
+                    "source_id": "doc-contradiction",
+                    "source_type": "markdown",
+                    "chunk_strategy": "heading-aware",
+                    "chunk_index": 1,
+                    "text": "Enterprise demand declined in the same period.",
+                    "score": 0.72,
+                    "matched_terms": ["enterprise", "demand"],
+                    "metadata": {"source_date": "2026-05-29"},
+                },
+            ],
+        },
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["stored_entry_count"] == 2
+    assert {entry["status"] for entry in body["entries"]} == {"supported", "contradicted"}
+    assert body["entries"][0]["id"]
+
+    entries = client.get("/evidence-ledgers").json()
+    assert len(entries) == 2
+    assert {entry["question"] for entry in entries} == {
+        "Which segment had enterprise demand growth?"
+    }
+
+    traces = client.get("/agent-runs").json()
+    assert any(
+        trace["trace_json"].get("endpoint") == "POST /evidence-ledgers"
+        and trace["trace_json"].get("stored_entry_count") == 2
+        for trace in traces
+    )
+
+
+def test_ops_summary_counts_persisted_evidence_ledger_boundaries():
+    client = make_client()
+
+    client.post(
+        "/evidence-ledgers",
+        json={
+            "question": "Should I buy this company?",
+            "retrieval_results": [],
+        },
+    )
+    client.post(
+        "/evidence-ledgers",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "retrieval_results": [
+                {
+                    "source_id": "doc-contradiction",
+                    "source_type": "markdown",
+                    "chunk_strategy": "heading-aware",
+                    "chunk_index": 0,
+                    "text": "Enterprise demand declined in 2026.",
+                    "score": 0.72,
+                    "matched_terms": ["enterprise", "demand"],
+                    "metadata": {"source_date": "2026-05-29"},
+                }
+            ],
+        },
+    )
+
+    summary = client.get("/ops/summary").json()
+    assert summary["unsupported_claim_count"] == 1
+    assert summary["contradiction_count"] == 1
 
 
 def test_document_preview_endpoints_auto_record_agent_run_traces():

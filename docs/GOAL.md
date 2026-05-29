@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 11:
+Accepted state as of Phase 12:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, and Auto Trace Recording v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, and Persisted Evidence Ledger Records v0
 ```
 
 Implemented:
@@ -117,7 +117,7 @@ Implemented:
 - `GET /ops/dashboard`
 - plain browser-readable operations surface over existing metadata
 - dashboard shows summary counts, recent agent runs, failure cases, and retrieval runs
-- unsupported claim and contradiction counts remain placeholders until persisted Evidence Ledger entries exist
+- unsupported claim and contradiction counts come from persisted Evidence Ledger entries
 - Evaluation/Application Package v0
 - `docs/evaluation/eval-plan.md`
 - `docs/evaluation/retrieval-eval-report.md`
@@ -130,6 +130,11 @@ Implemented:
 - preview endpoints auto-create `agent_runs` metadata records
 - `trace_json` records endpoint, phase, source type, counts, gate decisions, and report status where available
 - failed preview operations are wrapped so a failed trace can be recorded before the exception is re-raised
+- Persisted Evidence Ledger Records v0
+- `POST /evidence-ledgers`
+- `GET /evidence-ledgers`
+- `evidence_ledger_entries` table and migration
+- unsupported and contradiction counts in `/ops/summary` come from persisted ledger entries
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -148,7 +153,7 @@ Not yet implemented:
 - persisted chunks
 - persisted collection plans
 - embeddings
-- persisted Evidence Ledger entries
+- retrieval-run-linked Evidence Ledger records
 - persisted Critic / Noise Gate records
 - persisted report records
 - full distributed tracing or hosted observability
@@ -187,6 +192,7 @@ Phase 8   - Claim-bounded report v0
 Phase 9   - Operations dashboard v0
 Phase 10  - Evaluation and application package
 Phase 11  - Auto Trace Recording v0
+Phase 12  - Persisted Evidence Ledger Records v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -565,10 +571,10 @@ summary counts
 recent agent runs
 failure cases
 retrieval runs
-placeholder unsupported claim and contradiction counts
+unsupported and contradiction counts from persisted Evidence Ledger entries
 ```
 
-Phase 9 does not add Next.js, UI polish, LLM calls, new retrieval behavior, persisted Evidence Ledger entries, persisted gate records, or persisted report records.
+Phase 9 did not add Next.js, UI polish, LLM calls, new retrieval behavior, persisted Evidence Ledger entries, persisted gate records, or persisted report records. Phase 12 later added persisted Evidence Ledger entries.
 
 ### Phase 10 - Evaluation and Application Package v0
 
@@ -628,12 +634,52 @@ gate decisions where available
 report status where available
 ```
 
-Phase 11 does not add LLM calls, embeddings, retrieval expansion, persisted Evidence Ledger records, persisted gate records, persisted report records, distributed tracing, hosted observability, or dashboard UI polish.
+Phase 11 does not add LLM calls, embeddings, retrieval expansion, persisted gate records, persisted report records, distributed tracing, hosted observability, or dashboard UI polish.
+
+Phase 11 handoff:
+
+```text
+Persisted Evidence Ledger records v0
+```
+
+### Phase 12 - Persisted Evidence Ledger Records v0
+
+Implemented outputs:
+
+```text
+db/migrations/002_evidence_ledger_entries.sql
+POST /evidence-ledgers
+GET /evidence-ledgers
+evidence_ledger_entries table
+ops summary unsupported/contradiction counts from persisted ledger entries
+```
+
+Persisted entries include:
+
+```text
+id
+run_id
+question
+claim
+source_id
+source_type
+source_date
+evidence_span
+confidence
+limitation
+contradicting_source_ids
+status
+matched_terms
+role
+created_at
+```
+
+Phase 12 does not add retrieval expansion, embeddings, semantic retrieval, LLM calls, persisted gate records, persisted report records, or dashboard UI polish. Current persisted entries are not yet linked to retrieval run ids.
 
 Next recommended implementation phase:
 
 ```text
-Persisted Evidence Ledger records v0
+Persisted Noise Gate records v0
 ```
 
 ## 6. Ordering Rules

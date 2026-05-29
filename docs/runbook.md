@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 11 records preview endpoint traces after the evaluation and Braincrew application package made the project inspectable.
+Phase 12 persists Evidence Ledger records after preview endpoint traces made the project more inspectable.
 
 Implemented:
 
@@ -37,6 +37,10 @@ Implemented:
 - `docs/application/*`
 - Auto Trace Recording v0
 - preview endpoints create `agent_runs.trace_json` metadata
+- Persisted Evidence Ledger Records v0
+- `POST /evidence-ledgers`
+- `GET /evidence-ledgers`
+- unsupported and contradiction counts from persisted ledger entries
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
@@ -47,7 +51,7 @@ Not implemented:
 - persisted parse records
 - persisted chunks
 - embeddings
-- persisted Evidence Ledger entries
+- retrieval-run-linked Evidence Ledger records
 - persisted Critic / Noise Gate records
 - persisted report records
 
@@ -72,6 +76,7 @@ It creates:
 - `agent_runs`
 - `failure_cases`
 - `retrieval_runs`
+- `evidence_ledger_entries`
 
 It also enables:
 
@@ -83,6 +88,12 @@ If local port `5432` is already occupied by another Postgres process, keep the r
 ```text
 POSTGRES_PORT=55432
 DATABASE_URL=postgresql://noiseproof:noiseproof@localhost:55432/noiseproof
+```
+
+For an existing local database created before Phase 12, apply:
+
+```powershell
+Get-Content db/migrations/002_evidence_ledger_entries.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 ```
 
 ## API
@@ -115,7 +126,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase11-auto-trace"
+  "workflow_version": "phase12-evidence-ledger-persistence"
 }
 ```
 
@@ -124,7 +135,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase11-auto-trace",
+  "workflow_version": "phase12-evidence-ledger-persistence",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -132,8 +143,8 @@ Expected `/ops/summary` shape:
   "contradiction_count": 0,
   "average_latency_ms": null,
   "notes": [
-    "Retrieval runs recorded: 0. Phase 11 records preview endpoint traces, but there are still no persisted reports or Evidence Ledger metrics.",
-    "Unsupported claim and contradiction counts remain placeholders until persisted Evidence Ledger entries exist."
+    "Retrieval runs recorded: 0. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
+    "Persisted reports, persisted gate records, embeddings, and semantic retrieval are still not implemented."
   ]
 }
 ```
@@ -458,7 +469,40 @@ Expected `/evidence-ledgers/preview` response shape:
 }
 ```
 
-No-evidence and buy/sell-style questions produce `blocked` ledger entries. Contradiction language is surfaced as `contradicted`. This endpoint does not call an LLM, search external sources, run a Critic / Noise Gate, create a final report, build a dashboard, or persist Evidence Ledger entries.
+No-evidence and buy/sell-style questions produce `blocked` ledger entries. Contradiction language is surfaced as `contradicted`. The `/preview` endpoint does not call an LLM, search external sources, run a Critic / Noise Gate, create a final report, build a dashboard, or persist Evidence Ledger entries by itself.
+
+Persist an Evidence Ledger v0 record set:
+
+```bash
+curl -X POST http://localhost:8000/evidence-ledgers \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Should I buy this company?\",\"retrieval_results\":[]}"
+curl http://localhost:8000/evidence-ledgers
+```
+
+Expected persisted response shape:
+
+```json
+{
+  "question": "Should I buy this company?",
+  "entries": [
+    {
+      "id": "uuid",
+      "question": "Should I buy this company?",
+      "claim": "Should I buy this company",
+      "status": "blocked",
+      "role": "user_intent_check",
+      "created_at": "timestamp"
+    }
+  ],
+  "summary": {
+    "blocked_count": 1
+  },
+  "stored_entry_count": 1
+}
+```
+
+Current persistence is v0. It does not link entries to retrieval run ids, persist gate records, persist report records, call an LLM, or judge final truth.
 
 Preview whether current ledger entries can pass the Noise Gate:
 
@@ -552,7 +596,7 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase11-auto-trace",
+    "workflow_version": "phase12-evidence-ledger-persistence",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
@@ -606,7 +650,7 @@ These tests use an in-memory repository override. They do not prove PostgreSQL r
 
 ## Evaluation And Application Package
 
-Review these Phase 10/11 artifacts before making application claims:
+Review these Phase 10-12 artifacts before making application claims:
 
 ```text
 docs/evaluation/eval-plan.md
@@ -620,4 +664,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, persisted Evidence Ledger entries, persisted Critic / Noise Gate records, persisted report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI.
+Do not claim persisted chunks, embeddings, retrieval-run-linked Evidence Ledger records, persisted Critic / Noise Gate records, persisted report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI.

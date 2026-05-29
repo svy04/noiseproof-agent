@@ -24,6 +24,7 @@ This page maps the repository into a reviewer-readable path.
 | Retrieval | `packages/ingestion/retrieval/lexical.py` | implemented |
 | Collection plan | `packages/ingestion/collection/planner.py` | implemented |
 | Evidence Ledger preview | `packages/ingestion/evidence/ledger.py` | implemented |
+| Evidence Ledger persistence | `POST /evidence-ledgers`, `GET /evidence-ledgers` | implemented v0 |
 | Noise Gate preview | `packages/ingestion/noise_gate/gate.py` | implemented |
 | Report preview | `packages/ingestion/reports/report.py` | implemented |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
@@ -53,4 +54,4 @@ This page maps the repository into a reviewer-readable path.
 
 ## Current Best Claim
 
-NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be blocked before report output, with preview endpoint traces recorded in `agent_runs`.
+NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be persisted and blocked before report output, with preview endpoint traces recorded in `agent_runs`.

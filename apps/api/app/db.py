@@ -8,6 +8,7 @@ from psycopg.types.json import Jsonb
 from app.schemas import (
     AgentRunCreate,
     DocumentCreate,
+    EvidenceLedgerEntryOut,
     FailureCaseCreate,
     OpsSummaryOut,
     RetrievalRunCreate,
@@ -20,6 +21,10 @@ class Repository(Protocol):
     def list_documents(self) -> Sequence[dict]: ...
     def create_agent_run(self, payload: AgentRunCreate) -> dict: ...
     def list_agent_runs(self) -> Sequence[dict]: ...
+    def create_evidence_ledger_entries(
+        self, question: str, entries: list[EvidenceLedgerEntryOut]
+    ) -> Sequence[dict]: ...
+    def list_evidence_ledger_entries(self) -> Sequence[dict]: ...
     def create_failure_case(self, payload: FailureCaseCreate) -> dict: ...
     def list_failure_cases(self) -> Sequence[dict]: ...
     def create_retrieval_run(self, payload: RetrievalRunCreate) -> dict: ...
@@ -97,6 +102,51 @@ class PostgresRepository:
             ).fetchall()
             return [dict(row) for row in rows]
 
+    def create_evidence_ledger_entries(
+        self, question: str, entries: list[EvidenceLedgerEntryOut]
+    ) -> Sequence[dict]:
+        with self._connect() as conn:
+            rows = []
+            for entry in entries:
+                row = conn.execute(
+                    """
+                    INSERT INTO evidence_ledger_entries (
+                      question, claim, source_id, source_type, source_date,
+                      evidence_span, confidence, limitation,
+                      contradicting_source_ids, status, matched_terms, role
+                    )
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    RETURNING *
+                    """,
+                    (
+                        question,
+                        entry.claim,
+                        entry.source_id,
+                        entry.source_type,
+                        entry.source_date,
+                        entry.evidence_span,
+                        entry.confidence,
+                        entry.limitation,
+                        Jsonb(entry.contradicting_source_ids),
+                        entry.status,
+                        Jsonb(entry.matched_terms),
+                        entry.role,
+                    ),
+                ).fetchone()
+                rows.append(dict(row))
+            conn.commit()
+            return rows
+
+    def list_evidence_ledger_entries(self) -> Sequence[dict]:
+        with self._connect() as conn:
+            rows = conn.execute(
+                """
+                SELECT * FROM evidence_ledger_entries
+                ORDER BY created_at DESC, id DESC
+                """
+            ).fetchall()
+            return [dict(row) for row in rows]
+
     def create_failure_case(self, payload: FailureCaseCreate) -> dict:
         with self._connect() as conn:
             row = conn.execute(
@@ -169,6 +219,17 @@ class PostgresRepository:
                   (SELECT count(*) FROM agent_runs) AS agent_run_count,
                   (SELECT count(*) FROM failure_cases) AS failure_case_count,
                   (SELECT count(*) FROM retrieval_runs) AS retrieval_run_count,
+                  (
+                    SELECT count(*)
+                    FROM evidence_ledger_entries
+                    WHERE status IN ('unsupported', 'blocked')
+                  ) AS unsupported_claim_count,
+                  (
+                    SELECT count(*)
+                    FROM evidence_ledger_entries
+                    WHERE status = 'contradicted'
+                       OR jsonb_array_length(contradicting_source_ids) > 0
+                  ) AS contradiction_count,
                   (SELECT avg(latency_ms) FROM agent_runs WHERE latency_ms IS NOT NULL)
                     AS average_latency_ms
                 """
@@ -180,12 +241,12 @@ class PostgresRepository:
             document_count=row["document_count"],
             agent_run_count=row["agent_run_count"],
             failure_case_count=row["failure_case_count"],
-            unsupported_claim_count=0,
-            contradiction_count=0,
+            unsupported_claim_count=row["unsupported_claim_count"],
+            contradiction_count=row["contradiction_count"],
             average_latency_ms=row["average_latency_ms"],
             notes=[
-                f"Retrieval runs recorded: {row['retrieval_run_count']}. Phase 11 records preview endpoint traces, but there are still no persisted reports or Evidence Ledger metrics.",
-                "Unsupported claim and contradiction counts remain placeholders until persisted Evidence Ledger entries exist.",
+                f"Retrieval runs recorded: {row['retrieval_run_count']}. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
+                "Persisted reports, persisted gate records, embeddings, and semantic retrieval are still not implemented.",
             ],
         )
 

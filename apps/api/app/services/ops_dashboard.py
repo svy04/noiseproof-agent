@@ -30,7 +30,7 @@ def render_ops_dashboard(
 </head>
 <body>
   <h1>Operations Dashboard v0</h1>
-  <p class="muted">Phase 9 inspectable operations surface. No LLM calls, no new retrieval behavior, no persisted evidence/report records.</p>
+  <p class="muted">Phase 12 inspectable operations surface. No LLM calls, no new retrieval behavior, no persisted gate/report records.</p>
   <section>
     <h2>Summary</h2>
     <div class="grid">
@@ -59,7 +59,8 @@ def render_ops_dashboard(
     <h2>Boundary</h2>
     <ul>
       <li>This dashboard renders existing metadata and preview records only.</li>
-      <li>Unsupported claim and contradiction counts remain placeholders until Evidence Ledger persistence exists.</li>
+      <li>Unsupported claim and contradiction counts come from persisted Evidence Ledger entries.</li>
+      <li>Gate records, report records, embeddings, and semantic retrieval are still not implemented.</li>
       <li>Visual polish is intentionally deferred until failure behavior is more complete.</li>
     </ul>
   </section>

@@ -20,7 +20,8 @@ Current status:
 - Operations Dashboard v0 exists as a plain FastAPI HTML view over current metadata records.
 - Evaluation/Application Package v0 exists for evaluation planning, failure records, and Braincrew role mapping.
 - Auto Trace Recording v0 exists for preview endpoint metadata in `agent_runs.trace_json`.
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, persisted Evidence Ledger entries, persisted gate records, persisted reports, distributed tracing, hosted observability, and agents are planned but not implemented.
+- Persisted Evidence Ledger Records v0 exists for stored claim-level entries and operations counts.
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, retrieval-run-linked Evidence Ledger records, persisted gate records, persisted reports, distributed tracing, hosted observability, and agents are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -187,10 +188,16 @@ Implemented Phase 6 boundary:
 - direct retrieval-candidate input
 - no LLM calls
 - no external search
-- no DB persistence
 - no final report generation
 
 The preview returns claim-level entries with source id, source type, source date, evidence span, confidence, limitation, contradicting source ids, status, matched terms, and role. It can block no-evidence and buy/sell-drift questions, and it can surface contradiction language before report generation.
+
+Implemented Phase 12 boundary:
+
+- `POST /evidence-ledgers` persists generated preview entries
+- `GET /evidence-ledgers` lists stored entries
+- operations summary and dashboard counts use persisted unsupported, blocked, and contradicted entries
+- persisted entries are not yet linked to retrieval run ids
 
 ### Analysis Draft
 
@@ -301,6 +308,7 @@ metadata_json
 ```text
 id
 run_id
+question
 claim
 source_id
 source_type
@@ -310,6 +318,9 @@ confidence
 limitation
 contradicting_source_ids
 status
+matched_terms
+role
+created_at
 ```
 
 Status values:
@@ -352,7 +363,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records.
 
 Implemented endpoints:
 
@@ -366,6 +377,8 @@ POST /collection-plans/preview
 POST /retrieval-runs
 GET  /retrieval-runs
 POST /evidence-ledgers/preview
+POST /evidence-ledgers
+GET  /evidence-ledgers
 POST /noise-gates/preview
 POST /reports/preview
 POST /agent-runs
@@ -385,7 +398,7 @@ GET  /retrieval-runs/{id}/evidence-ledger
 POST /reports
 ```
 
-Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, persist Evidence Ledger entries, persist gate records, persist reports, compute embeddings, invoke an LLM, create free-form final answers, or provide distributed tracing.
+Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, link Evidence Ledger entries to retrieval run ids, persist gate records, persist reports, compute embeddings, invoke an LLM, create free-form final answers, or provide distributed tracing.
 
 ## Agent Workflow
 
@@ -440,7 +453,7 @@ It currently shows:
 
 Current limitations:
 
-- unsupported claim and contradiction counts are placeholders until Evidence Ledger persistence exists
+- unsupported claim and contradiction counts come from persisted Evidence Ledger entries
 - token cost rollups and chunk strategy comparison require later persistence work
 - dashboard does not add Next.js or a polished product UI
 - dashboard does not create new retrieval, evidence, gate, or report behavior

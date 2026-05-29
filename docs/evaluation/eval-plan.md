@@ -97,7 +97,7 @@ docker compose ps
 - embeddings
 - production-scale ingestion
 - persisted chunks
-- persisted Evidence Ledger entries
+- retrieval-run-linked Evidence Ledger records
 - persisted Noise Gate records
 - persisted reports
 - external user validation

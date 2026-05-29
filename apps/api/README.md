@@ -15,6 +15,8 @@ Implemented in this package:
 - `POST /retrieval-runs`
 - `GET /retrieval-runs`
 - `POST /evidence-ledgers/preview`
+- `POST /evidence-ledgers`
+- `GET /evidence-ledgers`
 - `POST /noise-gates/preview`
 - `POST /reports/preview`
 - `POST /agent-runs`
@@ -32,7 +34,7 @@ Not implemented yet:
 - persisted chunks
 - persisted collection plans
 - embeddings
-- persisted Evidence Ledger entries
+- retrieval-run-linked Evidence Ledger records
 - persisted Critic / Noise Gate records
 - persisted report records
 
@@ -80,7 +82,7 @@ curl -X POST http://localhost:8000/reports/preview \
 
 The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
 Collection Plan Preview is deterministic and does not call LLMs, search external sources, expand retrieval, create an Evidence Ledger by itself, or persist records.
-Evidence Ledger Preview is deterministic and does not call LLMs, search external sources, run a Critic / Noise Gate, create a final report, or persist Evidence Ledger entries.
+Evidence Ledger Preview is deterministic and does not call LLMs, search external sources, run a Critic / Noise Gate, or create a final report. `POST /evidence-ledgers` persists the generated preview entries as v0 ledger records.
 Noise Gate Preview is deterministic and does not call LLMs, persist gate records, create a final report, or build a dashboard.
 Report Preview is deterministic and does not call LLMs or persist report records.
 Operations Dashboard v0 is a plain FastAPI HTML view over current metadata, not a polished product UI.

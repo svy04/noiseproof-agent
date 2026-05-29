@@ -213,6 +213,21 @@ class EvidenceLedgerPreviewOut(BaseModel):
     warnings: list[str]
 
 
+class EvidenceLedgerStoredEntryOut(EvidenceLedgerEntryOut):
+    id: UUID
+    question: str
+    run_id: UUID | None = None
+    created_at: datetime
+
+
+class EvidenceLedgerPersistedOut(BaseModel):
+    question: str
+    entries: list[EvidenceLedgerStoredEntryOut]
+    summary: EvidenceLedgerSummaryOut
+    warnings: list[str]
+    stored_entry_count: int
+
+
 class NoiseGatePreviewRequest(BaseModel):
     question: str = Field(..., min_length=1)
     evidence_entries: list[EvidenceLedgerEntryOut] = Field(default_factory=list)
@@ -273,7 +288,7 @@ class ReportPreviewOut(BaseModel):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase11-auto-trace"
+    workflow_version: str = "phase12-evidence-ledger-persistence"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None
