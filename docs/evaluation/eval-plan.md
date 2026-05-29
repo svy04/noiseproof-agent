@@ -99,6 +99,6 @@ docker compose ps
 - persisted chunks
 - retrieval-run-linked Evidence Ledger records
 - agent-run-linked Noise Gate records
-- persisted reports
+- agent-run-linked Report records
 - external user validation
 - financial prediction quality

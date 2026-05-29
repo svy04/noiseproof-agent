@@ -28,6 +28,7 @@ This page maps the repository into a reviewer-readable path.
 | Noise Gate preview | `packages/ingestion/noise_gate/gate.py` | implemented |
 | Noise Gate persistence | `POST /noise-gates`, `GET /noise-gates` | implemented v0 |
 | Report preview | `packages/ingestion/reports/report.py` | implemented |
+| Report preview persistence | `POST /reports`, `GET /reports` | implemented v0 |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 
@@ -55,4 +56,4 @@ This page maps the repository into a reviewer-readable path.
 
 ## Current Best Claim
 
-NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be persisted, gated, and blocked before report output, with preview endpoint traces recorded in `agent_runs`.
+NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be persisted, gated, blocked, and stored as report-shaped preview records before any free-form final answer exists.

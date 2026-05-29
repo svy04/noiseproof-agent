@@ -1,11 +1,48 @@
 from fastapi import APIRouter, Depends
 
 from app.db import Repository, get_repository
-from app.schemas import ReportPreviewOut, ReportPreviewRequest
+from app.schemas import ReportPreviewOut, ReportPreviewRequest, ReportStoredRecordOut
 from app.services.report_preview import preview_report
 from app.services.run_trace import run_with_trace
 
 router = APIRouter(prefix="/reports", tags=["reports"])
+
+
+@router.post("", response_model=ReportStoredRecordOut, status_code=201)
+def create_report_record(
+    payload: ReportPreviewRequest,
+    repository: Repository = Depends(get_repository),
+) -> ReportStoredRecordOut:
+    def operation() -> ReportStoredRecordOut:
+        preview = preview_report(payload)
+        persisted = repository.create_report_record(
+            preview,
+            evidence_entry_count=len(payload.evidence_entries),
+            draft_claim_count=len(payload.draft_claims),
+        )
+        return ReportStoredRecordOut(**persisted)
+
+    return run_with_trace(
+        repository,
+        endpoint="POST /reports",
+        user_question=payload.question,
+        trace_json={"evidence_entry_count": len(payload.evidence_entries)},
+        operation=operation,
+        trace_from_result=lambda result: {
+            "report_status": result.status,
+            "gate_decision": result.gate.decision,
+            "claim_count": result.claim_count,
+            "evidence_entry_count": result.evidence_entry_count,
+            "draft_claim_count": result.draft_claim_count,
+        },
+    )
+
+
+@router.get("", response_model=list[ReportStoredRecordOut])
+def list_report_records(
+    repository: Repository = Depends(get_repository),
+) -> list[ReportStoredRecordOut]:
+    return [ReportStoredRecordOut(**record) for record in repository.list_report_records()]
 
 
 @router.post("/preview", response_model=ReportPreviewOut)

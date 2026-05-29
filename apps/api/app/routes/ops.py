@@ -21,5 +21,6 @@ def ops_dashboard(repository: Repository = Depends(get_repository)) -> HTMLRespo
         failure_cases=list(repository.list_failure_cases()),
         retrieval_runs=list(repository.list_retrieval_runs()),
         noise_gate_records=list(repository.list_noise_gate_records()),
+        report_records=list(repository.list_report_records()),
     )
     return HTMLResponse(content=html)

@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 13 persists Noise Gate records after Evidence Ledger records made unsupported and contradiction counts inspectable.
+Phase 14 persists Report Preview records after Evidence Ledger and Noise Gate records made claim boundaries inspectable.
 
 Implemented:
 
@@ -30,6 +30,10 @@ Implemented:
 - `POST /noise-gates/preview`
 - Claim-bounded Report Preview v0
 - `POST /reports/preview`
+- Persisted Report Preview Records v0
+- `POST /reports`
+- `GET /reports`
+- generated, blocked, and needs-revision report counts from persisted Report records
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -57,7 +61,7 @@ Not implemented:
 - embeddings
 - retrieval-run-linked Evidence Ledger records
 - agent-run-linked Noise Gate records
-- persisted report records
+- agent-run-linked Report records
 
 ## Local Database
 
@@ -82,6 +86,7 @@ It creates:
 - `retrieval_runs`
 - `evidence_ledger_entries`
 - `noise_gate_records`
+- `report_records`
 
 It also enables:
 
@@ -95,11 +100,12 @@ POSTGRES_PORT=55432
 DATABASE_URL=postgresql://noiseproof:noiseproof@localhost:55432/noiseproof
 ```
 
-For an existing local database created before Phase 13, apply:
+For an existing local database created before Phase 14, apply:
 
 ```powershell
 Get-Content db/migrations/002_evidence_ledger_entries.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 Get-Content db/migrations/003_noise_gate_records.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
+Get-Content db/migrations/004_report_records.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 ```
 
 ## API
@@ -132,7 +138,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase13-noise-gate-persistence"
+  "workflow_version": "phase14-report-preview-persistence"
 }
 ```
 
@@ -141,19 +147,23 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase13-noise-gate-persistence",
+  "workflow_version": "phase14-report-preview-persistence",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
   "noise_gate_record_count": 0,
   "blocked_gate_count": 0,
   "revision_gate_count": 0,
+  "report_record_count": 0,
+  "generated_report_count": 0,
+  "blocked_report_count": 0,
+  "revision_report_count": 0,
   "unsupported_claim_count": 0,
   "contradiction_count": 0,
   "average_latency_ms": null,
   "notes": [
     "Retrieval runs recorded: 0. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
-    "Persisted reports, embeddings, semantic retrieval, and agent-run-linked gate records are still not implemented."
+    "Embeddings, semantic retrieval, agent-run-linked gate records, and final report generation beyond deterministic previews are still not implemented."
   ]
 }
 ```
@@ -619,6 +629,32 @@ Expected `/reports/preview` response shape:
 
 If the Noise Gate returns `blocked` or `needs_revision`, `report` is `null` and the response includes `fallback_message` plus `required_revisions`. This endpoint does not call an LLM, persist report records, create a dashboard, or create claims outside the allowed gate output.
 
+Persist a deterministic Report Preview v0 record:
+
+```bash
+curl -X POST http://localhost:8000/reports \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
+curl http://localhost:8000/reports
+```
+
+Expected persisted response shape:
+
+```json
+{
+  "id": "uuid",
+  "question": "Which segment had enterprise demand growth?",
+  "status": "generated",
+  "gate_decision": "pass",
+  "claim_count": 1,
+  "evidence_entry_count": 1,
+  "draft_claim_count": 1,
+  "created_at": "timestamp"
+}
+```
+
+Current report persistence is v0. It stores deterministic preview output only; it does not link report records to an `agent_runs` id, call an LLM, or create a free-form final report.
+
 Inspect auto-created preview traces:
 
 ```bash
@@ -630,18 +666,18 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase13-noise-gate-persistence",
+    "workflow_version": "phase14-report-preview-persistence",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase13-noise-gate-persistence",
+      "phase": "phase14-report-preview-persistence",
       "report_status": "generated"
     }
   }
 ]
 ```
 
-The trace is metadata for inspectability. It is not distributed tracing, hosted observability, or persisted Evidence Ledger/report storage.
+The trace is metadata for inspectability. It is not distributed tracing or hosted observability.
 
 ## Metadata Examples
 
@@ -684,7 +720,7 @@ These tests use an in-memory repository override. They do not prove PostgreSQL r
 
 ## Evaluation And Application Package
 
-Review these Phase 10-12 artifacts before making application claims:
+Review these Phase 10-14 artifacts before making application claims:
 
 ```text
 docs/evaluation/eval-plan.md
@@ -698,4 +734,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, retrieval-run-linked Evidence Ledger records, agent-run-linked Noise Gate records, persisted report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI.
+Do not claim persisted chunks, embeddings, retrieval-run-linked Evidence Ledger records, agent-run-linked Noise Gate records, agent-run-linked Report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI.

@@ -22,7 +22,8 @@ Current status:
 - Auto Trace Recording v0 exists for preview endpoint metadata in `agent_runs.trace_json`.
 - Persisted Evidence Ledger Records v0 exists for stored claim-level entries and operations counts.
 - Persisted Noise Gate Records v0 exists for stored pass / needs_revision / blocked gate decisions.
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, retrieval-run-linked Evidence Ledger records, agent-run-linked Noise Gate records, persisted reports, distributed tracing, hosted observability, and agents are planned but not implemented.
+- Persisted Report Preview Records v0 exists for stored generated / needs_revision / blocked report-shaped outputs.
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, retrieval-run-linked Evidence Ledger records, agent-run-linked Noise Gate records, agent-run-linked Report records, distributed tracing, hosted observability, and agents are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -236,7 +237,7 @@ Implemented Phase 13 boundary:
 
 ### Claim-bounded Report
 
-Generates a final report that includes:
+Generates a claim-bounded report-shaped preview that includes:
 
 - claims
 - source ids
@@ -251,10 +252,17 @@ Implemented Phase 8 boundary:
 - deterministic preview only
 - runs Noise Gate before report formatting
 - no LLM calls
-- no DB persistence
+- no DB persistence in `/reports/preview`
 - no dashboard
 
 The preview generates report-shaped output only when the gate passes. Blocked or revision-needed gate outputs return the fallback message and required revisions instead of a report.
+
+Implemented Phase 14 boundary:
+
+- `POST /reports` persists deterministic report preview records
+- `GET /reports` lists stored report preview records
+- operations summary and dashboard count generated, blocked, and needs-revision report records
+- persisted Report records are not yet linked to agent run ids
 
 ### Run Log / Failure Case
 
@@ -387,9 +395,27 @@ draft_claim_count
 created_at
 ```
 
+### ReportRecord
+
+```text
+id
+question
+status
+report
+gate
+gate_decision
+fallback_message
+required_revisions
+warnings
+claim_count
+evidence_entry_count
+draft_claim_count
+created_at
+```
+
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records. Phase 13 added persisted Noise Gate records.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records. Phase 13 added persisted Noise Gate records. Phase 14 added persisted Report Preview records.
 
 Implemented endpoints:
 
@@ -409,6 +435,8 @@ POST /noise-gates/preview
 POST /noise-gates
 GET  /noise-gates
 POST /reports/preview
+POST /reports
+GET  /reports
 POST /agent-runs
 GET  /agent-runs
 POST /failure-cases
@@ -423,10 +451,9 @@ Planned later endpoints:
 GET  /documents/{id}
 GET  /retrieval-runs/{id}
 GET  /retrieval-runs/{id}/evidence-ledger
-POST /reports
 ```
 
-Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, link Evidence Ledger entries to retrieval run ids, link Noise Gate records to agent run ids, persist reports, compute embeddings, invoke an LLM, create free-form final answers, or provide distributed tracing.
+Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, link Evidence Ledger entries to retrieval run ids, link Noise Gate records to agent run ids, link Report records to agent run ids, compute embeddings, invoke an LLM, create free-form final answers, or provide distributed tracing.
 
 ## Agent Workflow
 
@@ -484,6 +511,7 @@ Current limitations:
 
 - unsupported claim and contradiction counts come from persisted Evidence Ledger entries
 - blocked and needs-revision gate counts come from persisted Noise Gate records
+- generated, blocked, and needs-revision report counts come from persisted Report records
 - token cost rollups and chunk strategy comparison require later persistence work
 - dashboard does not add Next.js or a polished product UI
 - dashboard does not create new retrieval, evidence, gate, or report behavior

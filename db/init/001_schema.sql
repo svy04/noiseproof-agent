@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS documents (
 CREATE TABLE IF NOT EXISTS agent_runs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_question TEXT NOT NULL,
-  workflow_version TEXT NOT NULL DEFAULT 'phase13-noise-gate-persistence',
+  workflow_version TEXT NOT NULL DEFAULT 'phase14-report-preview-persistence',
   status TEXT NOT NULL DEFAULT 'created',
   error_message TEXT,
   token_cost NUMERIC,
@@ -81,6 +81,26 @@ CREATE TABLE IF NOT EXISTS noise_gate_records (
   required_revisions JSONB NOT NULL DEFAULT '[]'::jsonb,
   fallback_message TEXT,
   warnings JSONB NOT NULL DEFAULT '[]'::jsonb,
+  evidence_entry_count INTEGER NOT NULL DEFAULT 0,
+  draft_claim_count INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS report_records (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  question TEXT NOT NULL,
+  status TEXT NOT NULL CHECK (
+    status IN ('generated', 'needs_revision', 'blocked')
+  ),
+  report JSONB,
+  gate JSONB NOT NULL DEFAULT '{}'::jsonb,
+  gate_decision TEXT NOT NULL CHECK (
+    gate_decision IN ('pass', 'needs_revision', 'blocked')
+  ),
+  fallback_message TEXT,
+  required_revisions JSONB NOT NULL DEFAULT '[]'::jsonb,
+  warnings JSONB NOT NULL DEFAULT '[]'::jsonb,
+  claim_count INTEGER NOT NULL DEFAULT 0,
   evidence_entry_count INTEGER NOT NULL DEFAULT 0,
   draft_claim_count INTEGER NOT NULL DEFAULT 0,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()

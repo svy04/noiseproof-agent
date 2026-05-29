@@ -21,6 +21,8 @@ Implemented in this package:
 - `POST /noise-gates`
 - `GET /noise-gates`
 - `POST /reports/preview`
+- `POST /reports`
+- `GET /reports`
 - `POST /agent-runs`
 - `GET /agent-runs`
 - `POST /failure-cases`
@@ -38,7 +40,7 @@ Not implemented yet:
 - embeddings
 - retrieval-run-linked Evidence Ledger records
 - agent-run-linked Noise Gate records
-- persisted report records
+- agent-run-linked Report records
 
 ## Local Run
 
@@ -80,6 +82,10 @@ curl -X POST http://localhost:8000/noise-gates/preview \
 curl -X POST http://localhost:8000/reports/preview \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
+curl -X POST http://localhost:8000/reports \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
+curl http://localhost:8000/reports
 ```
 
 The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
@@ -87,6 +93,6 @@ Collection Plan Preview is deterministic and does not call LLMs, search external
 Evidence Ledger Preview is deterministic and does not call LLMs, search external sources, run a Critic / Noise Gate, or create a final report. `POST /evidence-ledgers` persists the generated preview entries as v0 ledger records.
 Noise Gate Preview is deterministic and does not call LLMs, create a final report, or build a dashboard.
 `POST /noise-gates` persists the deterministic gate decision as a v0 Noise Gate record. It does not link the record to an agent run id or create a final report.
-Report Preview is deterministic and does not call LLMs or persist report records.
+Report Preview is deterministic and does not call LLMs. `POST /reports` persists the deterministic preview output as a v0 Report record; it does not create a free-form final report.
 Operations Dashboard v0 is a plain FastAPI HTML view over current metadata, not a polished product UI.
 Auto Trace Recording v0 is metadata tracing for preview endpoints, not distributed tracing or hosted observability.

@@ -293,9 +293,18 @@ class ReportPreviewOut(BaseModel):
     warnings: list[str]
 
 
+class ReportStoredRecordOut(ReportPreviewOut):
+    id: UUID
+    gate_decision: str
+    claim_count: int
+    evidence_entry_count: int
+    draft_claim_count: int
+    created_at: datetime
+
+
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase13-noise-gate-persistence"
+    workflow_version: str = "phase14-report-preview-persistence"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None
@@ -338,6 +347,10 @@ class OpsSummaryOut(BaseModel):
     noise_gate_record_count: int = 0
     blocked_gate_count: int = 0
     revision_gate_count: int = 0
+    report_record_count: int = 0
+    generated_report_count: int = 0
+    blocked_report_count: int = 0
+    revision_report_count: int = 0
     unsupported_claim_count: int
     contradiction_count: int
     average_latency_ms: float | None

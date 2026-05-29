@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 13:
+Accepted state as of Phase 14:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, and Persisted Noise Gate Records v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, and Persisted Report Preview Records v0
 ```
 
 Implemented:
@@ -141,6 +141,12 @@ Implemented:
 - `noise_gate_records` table and migration
 - blocked and needs-revision gate counts in `/ops/summary`
 - Noise Gate Records section in `/ops/dashboard`
+- Persisted Report Preview Records v0
+- `POST /reports`
+- `GET /reports`
+- `report_records` table and migration
+- generated, blocked, and needs-revision report counts in `/ops/summary`
+- Report Records section in `/ops/dashboard`
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -161,7 +167,7 @@ Not yet implemented:
 - embeddings
 - retrieval-run-linked Evidence Ledger records
 - agent-run-linked Noise Gate records
-- persisted report records
+- agent-run-linked Report records
 - full distributed tracing or hosted observability
 
 ## 4. How Future Agents Continue
@@ -200,6 +206,7 @@ Phase 10  - Evaluation and application package
 Phase 11  - Auto Trace Recording v0
 Phase 12  - Persisted Evidence Ledger Records v0
 Phase 13  - Persisted Noise Gate Records v0
+Phase 14  - Persisted Report Preview Records v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -723,10 +730,43 @@ created_at
 
 Phase 13 does not add retrieval expansion, embeddings, semantic retrieval, LLM calls, persisted report records, final report generation beyond the preview shape, agent-run-linked gate records, or dashboard UI polish.
 
+### Phase 14 - Persisted Report Preview Records v0
+
+Implemented outputs:
+
+```text
+db/migrations/004_report_records.sql
+POST /reports
+GET /reports
+report_records table
+ops summary generated/blocked/revision report counts
+ops dashboard Report Records section
+```
+
+Persisted records include:
+
+```text
+id
+question
+status
+report
+gate
+gate_decision
+fallback_message
+required_revisions
+warnings
+claim_count
+evidence_entry_count
+draft_claim_count
+created_at
+```
+
+Phase 14 does not add retrieval expansion, embeddings, semantic retrieval, LLM calls, free-form final report generation, agent-run-linked report records, or dashboard UI polish.
+
 Next recommended implementation phase:
 
 ```text
-Persisted Report Preview records v0
+Record Linkage v0
 ```
 
 ## 6. Ordering Rules

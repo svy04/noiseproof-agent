@@ -12,6 +12,7 @@ from app.schemas import (
     FailureCaseCreate,
     NoiseGatePreviewOut,
     OpsSummaryOut,
+    ReportPreviewOut,
     RetrievalRunCreate,
 )
 from app.settings import Settings, get_settings
@@ -33,6 +34,13 @@ class Repository(Protocol):
         draft_claim_count: int,
     ) -> dict: ...
     def list_noise_gate_records(self) -> Sequence[dict]: ...
+    def create_report_record(
+        self,
+        result: ReportPreviewOut,
+        evidence_entry_count: int,
+        draft_claim_count: int,
+    ) -> dict: ...
+    def list_report_records(self) -> Sequence[dict]: ...
     def create_failure_case(self, payload: FailureCaseCreate) -> dict: ...
     def list_failure_cases(self) -> Sequence[dict]: ...
     def create_retrieval_run(self, payload: RetrievalRunCreate) -> dict: ...
@@ -201,6 +209,50 @@ class PostgresRepository:
             ).fetchall()
             return [dict(row) for row in rows]
 
+    def create_report_record(
+        self,
+        result: ReportPreviewOut,
+        evidence_entry_count: int,
+        draft_claim_count: int,
+    ) -> dict:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                INSERT INTO report_records (
+                  question, status, report, gate, gate_decision,
+                  fallback_message, required_revisions, warnings,
+                  claim_count, evidence_entry_count, draft_claim_count
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING *
+                """,
+                (
+                    result.question,
+                    result.status,
+                    Jsonb(result.report.model_dump() if result.report is not None else None),
+                    Jsonb(result.gate.model_dump()),
+                    result.gate.decision,
+                    result.fallback_message,
+                    Jsonb(result.required_revisions),
+                    Jsonb(result.warnings),
+                    len(result.report.claims) if result.report is not None else 0,
+                    evidence_entry_count,
+                    draft_claim_count,
+                ),
+            ).fetchone()
+            conn.commit()
+            return dict(row)
+
+    def list_report_records(self) -> Sequence[dict]:
+        with self._connect() as conn:
+            rows = conn.execute(
+                """
+                SELECT * FROM report_records
+                ORDER BY created_at DESC, id DESC
+                """
+            ).fetchall()
+            return [dict(row) for row in rows]
+
     def create_failure_case(self, payload: FailureCaseCreate) -> dict:
         with self._connect() as conn:
             row = conn.execute(
@@ -274,6 +326,7 @@ class PostgresRepository:
                   (SELECT count(*) FROM failure_cases) AS failure_case_count,
                   (SELECT count(*) FROM retrieval_runs) AS retrieval_run_count,
                   (SELECT count(*) FROM noise_gate_records) AS noise_gate_record_count,
+                  (SELECT count(*) FROM report_records) AS report_record_count,
                   (
                     SELECT count(*)
                     FROM noise_gate_records
@@ -284,6 +337,21 @@ class PostgresRepository:
                     FROM noise_gate_records
                     WHERE decision = 'needs_revision'
                   ) AS revision_gate_count,
+                  (
+                    SELECT count(*)
+                    FROM report_records
+                    WHERE status = 'generated'
+                  ) AS generated_report_count,
+                  (
+                    SELECT count(*)
+                    FROM report_records
+                    WHERE status = 'blocked'
+                  ) AS blocked_report_count,
+                  (
+                    SELECT count(*)
+                    FROM report_records
+                    WHERE status = 'needs_revision'
+                  ) AS revision_report_count,
                   (
                     SELECT count(*)
                     FROM evidence_ledger_entries
@@ -309,12 +377,16 @@ class PostgresRepository:
             noise_gate_record_count=row["noise_gate_record_count"],
             blocked_gate_count=row["blocked_gate_count"],
             revision_gate_count=row["revision_gate_count"],
+            report_record_count=row["report_record_count"],
+            generated_report_count=row["generated_report_count"],
+            blocked_report_count=row["blocked_report_count"],
+            revision_report_count=row["revision_report_count"],
             unsupported_claim_count=row["unsupported_claim_count"],
             contradiction_count=row["contradiction_count"],
             average_latency_ms=row["average_latency_ms"],
             notes=[
                 f"Retrieval runs recorded: {row['retrieval_run_count']}. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
-                "Persisted reports, embeddings, semantic retrieval, and agent-run-linked gate records are still not implemented.",
+                "Embeddings, semantic retrieval, agent-run-linked gate records, and final report generation beyond deterministic previews are still not implemented.",
             ],
         )
 
