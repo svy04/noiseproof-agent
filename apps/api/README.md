@@ -80,4 +80,5 @@ The PDF parser is currently a text-only fallback. Robust PDF extraction is not c
 Collection Plan Preview is deterministic and does not call LLMs, search external sources, expand retrieval, create an Evidence Ledger by itself, or persist records.
 Evidence Ledger Preview is deterministic and does not call LLMs, search external sources, run a Critic / Noise Gate, create a final report, or persist Evidence Ledger entries.
 Noise Gate Preview is deterministic and does not call LLMs, persist gate records, create a final report, or build a dashboard.
-Report Preview is deterministic and does not call LLMs, persist report records, or build a dashboard.
+Report Preview is deterministic and does not call LLMs or persist report records.
+Operations Dashboard v0 is a plain FastAPI HTML view over current metadata, not a polished product UI.

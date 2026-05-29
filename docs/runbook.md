@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 8 is intended to prove that gate-passing Evidence Ledger entries can become a small, inspectable claim-bounded report preview.
+Phase 9 is intended to prove that the current metadata, retrieval runs, and failure records can be inspected from a plain operations dashboard before any UI polish starts.
 
 Implemented:
 
@@ -43,7 +43,6 @@ Not implemented:
 - persisted Evidence Ledger entries
 - persisted Critic / Noise Gate records
 - persisted report records
-- web dashboard
 
 ## Local Database
 
@@ -100,6 +99,7 @@ http://localhost:8000
 ```bash
 curl http://localhost:8000/health
 curl http://localhost:8000/ops/summary
+curl http://localhost:8000/ops/dashboard
 ```
 
 Expected `/health` shape:
@@ -108,7 +108,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase8-report-preview"
+  "workflow_version": "phase9-operations-dashboard"
 }
 ```
 
@@ -117,7 +117,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase8-report-preview",
+  "workflow_version": "phase9-operations-dashboard",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -125,7 +125,7 @@ Expected `/ops/summary` shape:
   "contradiction_count": 0,
   "average_latency_ms": null,
   "notes": [
-    "Retrieval runs recorded: 0. Phase 8 adds Claim-bounded Report Preview only; no persisted reports or dashboard implementation yet.",
+    "Retrieval runs recorded: 0. Phase 9 adds Operations Dashboard v0 only; no persisted reports or Evidence Ledger metrics yet.",
     "Unsupported claim and contradiction counts remain placeholders until persisted Evidence Ledger entries exist."
   ]
 }
@@ -410,6 +410,12 @@ curl -X POST http://localhost:8000/evidence-ledgers/preview \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"retrieval_results\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"chunk_strategy\":\"heading-aware\",\"chunk_index\":0,\"text\":\"Enterprise demand grew 12% in 2026.\",\"score\":0.75,\"matched_terms\":[\"demand\",\"enterprise\",\"growth\"],\"metadata\":{\"source_date\":\"2026-05-28\"}}]}"
 ```
 
+Expected `/ops/dashboard` behavior:
+
+```text
+Returns text/html with Operations Dashboard v0, summary counts, recent agent runs, failure cases, and retrieval runs.
+```
+
 Expected `/evidence-ledgers/preview` response shape:
 
 ```json
@@ -569,4 +575,4 @@ These tests use an in-memory repository override. They do not prove PostgreSQL r
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, persisted Evidence Ledger entries, persisted Critic / Noise Gate records, persisted report records, dashboard, DB persistence for collection plans, or free-form answer generation exists until those stages are implemented and verified with examples.
+Do not claim persisted chunks, embeddings, persisted Evidence Ledger entries, persisted Critic / Noise Gate records, persisted report records, DB persistence for collection plans, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI.

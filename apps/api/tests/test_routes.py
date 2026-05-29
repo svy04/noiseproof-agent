@@ -59,7 +59,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase8-report-preview",
+            workflow_version="phase9-operations-dashboard",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -86,7 +86,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-        "workflow_version": "phase8-report-preview",
+        "workflow_version": "phase9-operations-dashboard",
     }
 
 
@@ -135,7 +135,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase8-report-preview"
+        == "phase9-operations-dashboard"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -159,6 +159,54 @@ def test_ops_summary_placeholder_counts_registered_records():
     assert response.json()["failure_case_count"] == 1
     assert response.json()["unsupported_claim_count"] == 0
     assert response.json()["contradiction_count"] == 0
+
+
+def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
+    client = make_client()
+
+    client.post(
+        "/agent-runs",
+        json={
+            "user_question": "Which sources conflict on demand growth?",
+            "status": "failed",
+            "latency_ms": 321,
+        },
+    )
+    client.post(
+        "/failure-cases",
+        json={
+            "failure_type": "retrieval_failure",
+            "description": "No source ids found for the question.",
+            "next_action": "Add a source quality check before report generation.",
+        },
+    )
+    client.post(
+        "/retrieval-runs",
+        json={
+            "question": "semiconductor backlog",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-unrelated",
+                    "source_type": "markdown",
+                    "content": "# Weather\nRainfall was heavy in Seoul.",
+                }
+            ],
+        },
+    )
+
+    response = client.get("/ops/dashboard")
+
+    assert response.status_code == 200
+    assert response.headers["content-type"].startswith("text/html")
+    assert "Operations Dashboard v0" in response.text
+    assert "Recent Agent Runs" in response.text
+    assert "Which sources conflict on demand growth?" in response.text
+    assert "Failure Cases" in response.text
+    assert "retrieval_failure" in response.text
+    assert "Retrieval Runs" in response.text
+    assert "semiconductor backlog" in response.text
+    assert "Phase 9" in response.text
 
 
 def test_document_profile_endpoint_detects_fixture_signals():

@@ -17,7 +17,8 @@ Current status:
 - Evidence Ledger Preview v0 exists for deterministic claim-level entries over retrieval candidates.
 - Noise Gate Preview v0 exists for deterministic pre-report checks over ledger entries and draft claims.
 - Claim-bounded Report Preview v0 exists for deterministic report-shaped output after the Noise Gate passes.
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, persisted Evidence Ledger entries, persisted gate records, persisted reports, agents, and dashboard are planned but not implemented.
+- Operations Dashboard v0 exists as a plain FastAPI HTML view over current metadata records.
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, persisted Evidence Ledger entries, persisted gate records, persisted reports, and agents are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -347,7 +348,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata.
 
 Implemented endpoints:
 
@@ -368,6 +369,7 @@ GET  /agent-runs
 POST /failure-cases
 GET  /failure-cases
 GET  /ops/summary
+GET  /ops/dashboard
 ```
 
 Planned later endpoints:
@@ -416,7 +418,9 @@ Day 1 does not create evaluation results because no retrieval implementation exi
 
 ## Operations Dashboard
 
-The planned dashboard should show:
+Phase 9 implements a plain FastAPI HTML dashboard at `GET /ops/dashboard`.
+
+It currently shows:
 
 - recent agent runs
 - failed questions
@@ -424,9 +428,14 @@ The planned dashboard should show:
 - unsupported claim count
 - contradiction count
 - average latency
-- token cost or placeholder
-- chunk strategy comparison
 - failure cases
+
+Current limitations:
+
+- unsupported claim and contradiction counts are placeholders until Evidence Ledger persistence exists
+- token cost rollups and chunk strategy comparison require later persistence work
+- dashboard does not add Next.js or a polished product UI
+- dashboard does not create new retrieval, evidence, gate, or report behavior
 
 This matters more than visual polish.
 

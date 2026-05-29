@@ -273,7 +273,7 @@ class ReportPreviewOut(BaseModel):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase8-report-preview"
+    workflow_version: str = "phase9-operations-dashboard"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None

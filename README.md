@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 adds Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 added Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output. Phase 9 adds Operations Dashboard v0 so the existing run, retrieval, and failure records are inspectable from the browser.
 
 The product thesis:
 
@@ -104,7 +104,8 @@ Implementation status:
 - Evidence Ledger Preview: implemented for deterministic claim-level entries over retrieval candidates
 - Noise Gate Preview: implemented for deterministic pre-report checks over ledger entries and draft claims
 - Claim-bounded Report Preview: implemented for gate-passing ledger entries
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, persisted Evidence Ledger entries, persisted reports, dashboard: planned, not implemented
+- Operations Dashboard v0: implemented as a plain FastAPI HTML view over current metadata records
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, persisted Evidence Ledger entries, persisted reports: planned, not implemented
 
 ## Implementation Status
 
@@ -199,7 +200,15 @@ Implementation status:
 - Generates report output only when the gate decision is `pass`: done
 - Includes summary, claims, source ids, evidence spans, confidence, limitations, contradictions, and next data needed: done
 - Returns fallback message and required revisions when the gate is `blocked` or `needs_revision`: done
-- LLM calls, persisted report records, dashboard, and free-form answer generation: not implemented
+- LLM calls, persisted report records, and free-form answer generation: not implemented
+
+### Phase 9 - Operations Dashboard v0
+
+- `GET /ops/dashboard`: done
+- Browser-readable operations surface for current metadata: done
+- Shows summary counts, recent agent runs, failure cases, and retrieval runs: done
+- Keeps unsupported claim and contradiction counts as placeholders until persisted Evidence Ledger entries exist: done
+- Next.js, UI polish, new model behavior, new retrieval behavior, persisted Evidence Ledger entries, and persisted report records: not implemented
 
 Not implemented yet:
 
@@ -210,7 +219,6 @@ Not implemented yet:
 - persisted Evidence Ledger entries
 - persisted Critic / Noise Gate records
 - persisted report records
-- web dashboard
 
 ## Planned Agent Workflow
 
@@ -320,6 +328,7 @@ Smoke checks:
 ```bash
 curl http://localhost:8000/health
 curl http://localhost:8000/ops/summary
+curl http://localhost:8000/ops/dashboard
 curl -X POST http://localhost:8000/documents/profile \
   -H "Content-Type: application/json" \
   -d "{\"source_type\":\"markdown\",\"text\":\"# Memo\nDate: 2026-05-28\nSource: https://example.com\nRevenue grew 12%.\"}"
@@ -362,12 +371,13 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Phase 8, the next phase should add Operations Dashboard v0:
+After Phase 9, the next phase should add Evaluation and application package artifacts:
 
-- show recent agent runs, retrieval failures, unsupported/contradiction placeholders, latency, and failure cases
-- keep it operational and plain rather than visually polished
-- make the current pipeline inspectable from the browser
-- avoid adding new model or retrieval behavior
+- create `docs/evaluation/eval-plan.md`
+- create `docs/evaluation/retrieval-eval-report.md`
+- create `docs/evaluation/failure-cases.md`
+- create Braincrew application mapping artifacts under `docs/application/`
+- keep claims tied to examples, failures, and explicit unproven boundaries
 
 It should not start with UI polish, LLM prompt tuning, new retrieval behavior, or broad agent abstractions.
 

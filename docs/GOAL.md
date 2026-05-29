@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 8:
+Accepted state as of Phase 9:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, and Claim-bounded Report Preview v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, and Operations Dashboard v0
 ```
 
 Implemented:
@@ -113,6 +113,11 @@ Implemented:
 - report output is generated only when the gate decision is `pass`
 - generated report includes summary, claims, source ids, evidence spans, confidence, limitations, contradictions, and next data needed
 - blocked or revision-needed gate outputs return fallback message and required revisions instead of a report
+- Operations Dashboard v0
+- `GET /ops/dashboard`
+- plain browser-readable operations surface over existing metadata
+- dashboard shows summary counts, recent agent runs, failure cases, and retrieval runs
+- unsupported claim and contradiction counts remain placeholders until persisted Evidence Ledger entries exist
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -134,7 +139,6 @@ Not yet implemented:
 - persisted Evidence Ledger entries
 - persisted Critic / Noise Gate records
 - persisted report records
-- web dashboard
 
 ## 4. How Future Agents Continue
 
@@ -529,12 +533,33 @@ limitations
 contradictions
 ```
 
-Phase 8 is a deterministic preview boundary. It does not call LLMs, search external sources, persist report records, create a dashboard, or generate free-form answers beyond the bounded report shape.
+Phase 8 is a deterministic preview boundary. It does not call LLMs, search external sources, persist report records, or generate free-form answers beyond the bounded report shape.
+
+### Phase 9 - Operations Dashboard v0
+
+Implemented outputs:
+
+```text
+apps/api/app/services/ops_dashboard.py
+GET /ops/dashboard
+```
+
+Operations Dashboard v0 is a plain FastAPI HTML view over current metadata. It shows:
+
+```text
+summary counts
+recent agent runs
+failure cases
+retrieval runs
+placeholder unsupported claim and contradiction counts
+```
+
+Phase 9 does not add Next.js, UI polish, LLM calls, new retrieval behavior, persisted Evidence Ledger entries, persisted gate records, or persisted report records.
 
 Next recommended implementation phase:
 
 ```text
-Phase 9 - Operations dashboard v0
+Phase 10 - Evaluation and application package
 ```
 
 ## 6. Ordering Rules
