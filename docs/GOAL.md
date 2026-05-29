@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 20:
+Accepted state as of Phase 21:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, and Persisted Child Record Agent-run Linkage v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, and Dashboard Parent/Child Provenance Links v0
 ```
 
 Implemented:
@@ -176,6 +176,10 @@ Implemented:
 - `agent_run_id` on persisted Noise Gate records
 - `agent_run_id` on persisted Report records
 - `db/migrations/006_child_agent_run_ids.sql`
+- Dashboard Parent/Child Provenance Links v0
+- `GET /ops/dashboard` shows parent run links for persisted Noise Gate records
+- `GET /ops/dashboard` shows parent run links for persisted Report records
+- parent run links use trace lookup, not a separate agent-run detail endpoint
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -194,7 +198,6 @@ Not yet implemented:
 - persisted chunks
 - persisted collection plans
 - embeddings
-- `agent_run_id` foreign-key-linked Evidence Ledger, Noise Gate, and Report records
 - full distributed tracing or hosted observability
 
 ## 4. How Future Agents Continue
@@ -241,6 +244,7 @@ Phase 18  - Dashboard Trace/Filter Links v0
 Phase 18.5 - Agent-run Linkage Review v0
 Phase 19  - Agent-run Lifecycle v0
 Phase 20  - Persisted Child Record Agent-run Linkage v0
+Phase 21  - Dashboard Parent/Child Provenance Links v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -888,10 +892,22 @@ trace lookup returns child records with parent agent_run_id
 
 Phase 20 adds local parent/child linkage for persisted evidence, gate, and report records. It does not add distributed tracing, hosted observability, LLM calls, embeddings, semantic retrieval, or a full multi-stage workflow parent table.
 
+### Phase 21 - Dashboard Parent/Child Provenance Links v0
+
+Implemented:
+
+```text
+parent run links on Noise Gate dashboard rows
+parent run links on Report dashboard rows
+dashboard boundary copy updated from missing agent_run_id linkage to local parent/child provenance
+```
+
+Phase 21 is a plain inspectability change. It does not add a polished UI, a new dashboard framework, distributed tracing, hosted observability, LLM calls, embeddings, or semantic retrieval.
+
 Next recommended implementation phase:
 
 ```text
-Dashboard parent/child provenance links v0
+Evidence Ledger dashboard table v0
 ```
 
 ## 6. Ordering Rules

@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 20 adds local parent/child linkage: persisted Evidence Ledger, Noise Gate, and Report records now store the parent `agent_run_id`.
+Phase 21 adds dashboard parent/child provenance links: persisted Noise Gate and Report rows now expose their parent `agent_run_id` as trace lookup links.
 
 Implemented:
 
@@ -56,6 +56,9 @@ Implemented:
 - Persisted Child Record Agent-run Linkage v0
 - `agent_run_id` on persisted Evidence Ledger, Noise Gate, and Report records
 - `db/migrations/006_child_agent_run_ids.sql`
+- Dashboard Parent/Child Provenance Links v0
+- parent run links on Noise Gate rows in `GET /ops/dashboard`
+- parent run links on Report rows in `GET /ops/dashboard`
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -159,7 +162,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase20-child-agent-run-linkage"
+  "workflow_version": "phase21-dashboard-provenance-links"
 }
 ```
 
@@ -168,7 +171,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase20-child-agent-run-linkage",
+  "workflow_version": "phase21-dashboard-provenance-links",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -666,6 +669,8 @@ Expected persisted response shape:
   "id": "uuid",
   "question": "Which segment had enterprise demand growth?",
   "status": "generated",
+  "workflow_trace_id": "uuid",
+  "agent_run_id": "uuid",
   "gate_decision": "pass",
   "claim_count": 1,
   "evidence_entry_count": 1,
@@ -695,7 +700,7 @@ Open the dashboard to use the same trace lookup and filter endpoints from a brow
 curl http://localhost:8000/ops/dashboard
 ```
 
-The dashboard links are navigation aids over existing records. They do not add ranking, search, LLM calls, or UI polish.
+The dashboard links are navigation aids over existing records. Noise Gate and Report rows also expose parent run links through `GET /traces/{workflow_trace_id}`. They do not add ranking, search, LLM calls, distributed tracing, hosted observability, or UI polish.
 
 Inspect auto-created preview traces:
 
@@ -708,11 +713,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase20-child-agent-run-linkage",
+    "workflow_version": "phase21-dashboard-provenance-links",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase20-child-agent-run-linkage",
+      "phase": "phase21-dashboard-provenance-links",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }

@@ -36,7 +36,7 @@ def render_ops_dashboard(
 </head>
 <body>
   <h1>Operations Dashboard v0</h1>
-  <p class="muted">Phase 20 inspectable operations surface. No LLM calls, no new retrieval behavior, no final report generation beyond deterministic previews.</p>
+  <p class="muted">Phase 21 inspectable operations surface. No LLM calls, no new retrieval behavior, no final report generation beyond deterministic previews.</p>
   <section>
     <h2>Summary</h2>
     <div class="grid">
@@ -85,7 +85,8 @@ def render_ops_dashboard(
     <ul>
       <li>This dashboard renders existing metadata and preview records only.</li>
       <li>Unsupported claim and contradiction counts come from persisted Evidence Ledger entries.</li>
-      <li>Agent-run-linked gate records, embeddings, semantic retrieval, and free-form final reports are still not implemented.</li>
+      <li>Persisted gate and report records link back to their parent agent run through trace lookup.</li>
+      <li>Embeddings, semantic retrieval, distributed tracing, and free-form final reports are still not implemented.</li>
       <li>Visual polish is intentionally deferred until failure behavior is more complete.</li>
     </ul>
   </section>
@@ -153,6 +154,7 @@ def _noise_gate_records_table(rows: list[dict[str, Any]]) -> str:
         "<tr>"
         f"<td>{_cell(row.get('created_at'))}</td>"
         f"<td>{_trace_cell(row.get('workflow_trace_id'), '/noise-gates')}</td>"
+        f"<td>{_parent_run_cell(row)}</td>"
         f"<td>{_filter_cell('/noise-gates', 'decision', row.get('decision'))}</td>"
         f"<td>{_cell(row.get('question'))}</td>"
         f"<td>{_cell(row.get('evidence_entry_count'))}</td>"
@@ -160,7 +162,7 @@ def _noise_gate_records_table(rows: list[dict[str, Any]]) -> str:
         "</tr>"
         for row in rows[:10]
     )
-    return f"<table><thead><tr><th>Created</th><th>Trace</th><th>Decision</th><th>Question</th><th>Evidence Entries</th><th>Draft Claims</th></tr></thead><tbody>{body}</tbody></table>"
+    return f"<table><thead><tr><th>Created</th><th>Trace</th><th>Parent Run</th><th>Decision</th><th>Question</th><th>Evidence Entries</th><th>Draft Claims</th></tr></thead><tbody>{body}</tbody></table>"
 
 
 def _report_records_table(rows: list[dict[str, Any]]) -> str:
@@ -170,6 +172,7 @@ def _report_records_table(rows: list[dict[str, Any]]) -> str:
         "<tr>"
         f"<td>{_cell(row.get('created_at'))}</td>"
         f"<td>{_trace_cell(row.get('workflow_trace_id'), '/reports')}</td>"
+        f"<td>{_parent_run_cell(row)}</td>"
         f"<td>{_filter_cell('/reports', 'status', row.get('status'))}</td>"
         f"<td>{_cell(row.get('gate_decision'))}</td>"
         f"<td>{_cell(row.get('question'))}</td>"
@@ -177,7 +180,7 @@ def _report_records_table(rows: list[dict[str, Any]]) -> str:
         "</tr>"
         for row in rows[:10]
     )
-    return f"<table><thead><tr><th>Created</th><th>Trace</th><th>Status</th><th>Gate</th><th>Question</th><th>Claims</th></tr></thead><tbody>{body}</tbody></table>"
+    return f"<table><thead><tr><th>Created</th><th>Trace</th><th>Parent Run</th><th>Status</th><th>Gate</th><th>Question</th><th>Claims</th></tr></thead><tbody>{body}</tbody></table>"
 
 
 def _trace_filter_links(
@@ -236,6 +239,16 @@ def _trace_cell(trace_id: object, filter_base: str | None = None) -> str:
         "filter",
     )
     return f"{trace_link} / {filter_link}"
+
+
+def _parent_run_cell(row: dict[str, Any]) -> str:
+    parent_id = row.get("agent_run_id")
+    if not parent_id:
+        return '<span class="muted">n/a</span>'
+    trace_id = row.get("workflow_trace_id")
+    if not trace_id:
+        return _cell(parent_id)
+    return _link(f"/traces/{trace_id}", parent_id)
 
 
 def _filter_cell(base_path: str, field: str, value: object) -> str:

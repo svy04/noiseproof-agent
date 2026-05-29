@@ -193,7 +193,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase20-child-agent-run-linkage",
+            workflow_version="phase21-dashboard-provenance-links",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -243,7 +243,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-            "workflow_version": "phase20-child-agent-run-linkage",
+            "workflow_version": "phase21-dashboard-provenance-links",
     }
 
 
@@ -292,7 +292,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase20-child-agent-run-linkage"
+        == "phase21-dashboard-provenance-links"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -363,7 +363,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 20" in response.text
+    assert "Phase 21" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():
@@ -445,7 +445,7 @@ def test_core_preview_endpoints_auto_record_agent_run_traces():
         "POST /noise-gates/preview",
         "POST /reports/preview",
     }.issubset(endpoints)
-    assert all(trace["workflow_version"] == "phase20-child-agent-run-linkage" for trace in traces)
+    assert all(trace["workflow_version"] == "phase21-dashboard-provenance-links" for trace in traces)
     assert any(trace["trace_json"].get("decision") == "pass" for trace in traces)
     assert any(trace["trace_json"].get("report_status") == "generated" for trace in traces)
 
@@ -580,7 +580,7 @@ def test_noise_gate_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /noise-gates"
         and trace["trace_json"].get("decision") == "pass"
-        and trace["trace_json"].get("phase") == "phase20-child-agent-run-linkage"
+        and trace["trace_json"].get("phase") == "phase21-dashboard-provenance-links"
         for trace in traces
     )
 
@@ -689,7 +689,7 @@ def test_report_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /reports"
         and trace["trace_json"].get("report_status") == "generated"
-        and trace["trace_json"].get("phase") == "phase20-child-agent-run-linkage"
+        and trace["trace_json"].get("phase") == "phase21-dashboard-provenance-links"
         for trace in traces
     )
 
@@ -1132,12 +1132,17 @@ def test_ops_dashboard_links_to_trace_lookup_and_record_filters():
     )
     gate_trace_id = gate_response.json()["workflow_trace_id"]
     report_trace_id = report_response.json()["workflow_trace_id"]
+    gate_agent_run_id = gate_response.json()["agent_run_id"]
+    report_agent_run_id = report_response.json()["agent_run_id"]
 
     dashboard = client.get("/ops/dashboard")
 
     assert "Trace & Filter Links" in dashboard.text
+    assert "Parent Run" in dashboard.text
     assert f'href="/traces/{gate_trace_id}"' in dashboard.text
     assert f'href="/traces/{report_trace_id}"' in dashboard.text
+    assert f'href="/traces/{gate_trace_id}">{gate_agent_run_id}</a>' in dashboard.text
+    assert f'href="/traces/{report_trace_id}">{report_agent_run_id}</a>' in dashboard.text
     assert f'href="/noise-gates?workflow_trace_id={gate_trace_id}"' in dashboard.text
     assert f'href="/reports?workflow_trace_id={report_trace_id}"' in dashboard.text
     assert 'href="/evidence-ledgers?status=unsupported"' in dashboard.text

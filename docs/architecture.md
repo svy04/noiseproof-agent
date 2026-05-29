@@ -30,6 +30,7 @@ Current status:
 - Agent-run Linkage Review v0 exists as a review artifact that preceded direct child-record linkage.
 - Agent-run Lifecycle v0 exists: traced operations create a parent `agent_runs` row before execution, then update the same row after completion or failure.
 - Persisted Child Record Agent-run Linkage v0 exists for Evidence Ledger, Noise Gate, and Report records.
+- Dashboard Parent/Child Provenance Links v0 exists for parent run links on persisted Noise Gate and Report rows.
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, distributed tracing, hosted observability, and agents are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
@@ -330,6 +331,7 @@ metadata_json
 ```text
 id
 run_id
+agent_run_id
 workflow_trace_id
 question
 claim
@@ -389,6 +391,7 @@ created_at
 ```text
 id
 workflow_trace_id
+agent_run_id
 question
 decision
 final_response_allowed
@@ -409,6 +412,7 @@ created_at
 ```text
 id
 workflow_trace_id
+agent_run_id
 question
 status
 report
@@ -425,7 +429,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records. Phase 13 added persisted Noise Gate records. Phase 14 added persisted Report Preview records. Phase 15 added shared `workflow_trace_id` correlation across persisted evidence/gate/report records and agent-run traces. Phase 16 added direct trace-id lookup. Phase 17 added read-only filters on persisted evidence, gate, and report records. Phase 18 added trace lookup and filter links to the plain operations dashboard. Phase 18.5 added a review-only decision boundary for direct `agent_run_id` linkage. Phase 19 added parent agent-run lifecycle updates before child-record foreign keys. Phase 20 added `agent_run_id` fields to persisted evidence, gate, and report records.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records. Phase 13 added persisted Noise Gate records. Phase 14 added persisted Report Preview records. Phase 15 added shared `workflow_trace_id` correlation across persisted evidence/gate/report records and agent-run traces. Phase 16 added direct trace-id lookup. Phase 17 added read-only filters on persisted evidence, gate, and report records. Phase 18 added trace lookup and filter links to the plain operations dashboard. Phase 18.5 added a review-only decision boundary for direct `agent_run_id` linkage. Phase 19 added parent agent-run lifecycle updates before child-record foreign keys. Phase 20 added `agent_run_id` fields to persisted evidence, gate, and report records. Phase 21 added parent run links for persisted gate and report rows in the plain operations dashboard.
 
 Implemented endpoints:
 
