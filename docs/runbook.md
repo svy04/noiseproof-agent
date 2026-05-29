@@ -8,6 +8,8 @@ Phase 22.5 adds a review-only cross-link decision: direct evidence -> gate -> re
 
 Phase 23 adds a review-only workflow parent decision: future workflow-level provenance should use a separate `workflow_runs` table instead of reusing `agent_runs`.
 
+Phase 24 adds schema-only workflow parent storage: `workflow_runs` exists in SQL, but no endpoint or execution path writes to it yet.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -71,7 +73,10 @@ Implemented:
 - direct evidence -> gate -> report links remain unimplemented until a single workflow parent exists
 - Single Workflow Parent Review v0
 - `docs/review/single-workflow-parent-review.md`
-- `workflow_runs` remains unimplemented until a dedicated schema/runtime gate
+- `workflow_runs` schema exists; runtime persistence and workflow execution remain unimplemented until a dedicated runtime gate
+- WorkflowRun Schema v0
+- `workflow_runs` table in `db/init/001_schema.sql`
+- `db/migrations/007_workflow_runs.sql`
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -96,7 +101,8 @@ Not implemented:
 - robust PDF extraction
 - persisted parse records
 - persisted chunks
-- workflow_runs
+- workflow execution endpoints
+- child workflow_run_id links
 - embeddings
 - distributed tracing or hosted observability
 
@@ -144,6 +150,8 @@ Get-Content db/migrations/002_evidence_ledger_entries.sql | docker compose exec 
 Get-Content db/migrations/003_noise_gate_records.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 Get-Content db/migrations/004_report_records.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 Get-Content db/migrations/005_workflow_trace_ids.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
+Get-Content db/migrations/006_child_agent_run_ids.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
+Get-Content db/migrations/007_workflow_runs.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 ```
 
 ## API
@@ -796,4 +804,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, DB persistence for collection plans, workflow_runs, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
+Do not claim persisted chunks, embeddings, DB persistence for collection plans, workflow execution endpoints, child workflow_run_id links, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.

@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 23:
+Accepted state as of Phase 24:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, and Single Workflow Parent Review v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, and WorkflowRun Schema v0
 ```
 
 Implemented:
@@ -190,6 +190,10 @@ Implemented:
 - `docs/review/single-workflow-parent-review.md`
 - `agent_runs` remains operation-level provenance, not workflow-level provenance
 - future implementation direction is a separate `workflow_runs` table before cross-stage links
+- WorkflowRun Schema v0
+- `workflow_runs` table in `db/init/001_schema.sql`
+- `db/migrations/007_workflow_runs.sql`
+- workflow parent status values: `created`, `running`, `completed`, `failed`, `blocked`, `needs_revision`
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -207,7 +211,6 @@ Not yet implemented:
 - persisted parse records
 - persisted chunks
 - persisted collection plans
-- workflow_runs
 - embeddings
 - full distributed tracing or hosted observability
 
@@ -259,6 +262,7 @@ Phase 21  - Dashboard Parent/Child Provenance Links v0
 Phase 22  - Evidence Ledger Dashboard Table v0
 Phase 22.5 - Evidence-to-gate/report Local Cross-links Review v0
 Phase 23  - Single Workflow Parent Review v0
+Phase 24  - WorkflowRun Schema v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -957,10 +961,22 @@ acceptance criteria for workflow-level provenance
 
 Phase 23 is a review-only gate. It does not add migrations, a `workflow_runs` table, `workflow_run_id` columns, workflow execution endpoints, dashboard behavior, distributed tracing, hosted observability, LLM calls, embeddings, semantic retrieval, or final report generation.
 
+### Phase 24 - WorkflowRun Schema v0
+
+Implemented:
+
+```text
+workflow_runs table in db/init/001_schema.sql
+db/migrations/007_workflow_runs.sql
+schema-level workflow parent status boundary
+```
+
+Phase 24 is schema-only. It does not add `workflow_run_id` columns to child records, workflow execution endpoints, repository methods, dashboard behavior, distributed tracing, hosted observability, LLM calls, embeddings, semantic retrieval, or final report generation.
+
 Next recommended implementation phase:
 
 ```text
-WorkflowRun schema v0
+WorkflowRun metadata persistence v0
 ```
 
 ## 6. Ordering Rules

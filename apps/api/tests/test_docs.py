@@ -86,3 +86,23 @@ def test_single_workflow_parent_review_keeps_orchestration_boundary_explicit():
     assert "one endpoint invocation" in content
     assert "evidence -> gate -> report" in content
     assert "false sense of orchestration" in content
+
+
+def test_workflow_runs_schema_exists_without_child_cross_links():
+    init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
+    migration = (REPO_ROOT / "db/migrations/007_workflow_runs.sql").read_text(encoding="utf-8")
+    combined = init_schema + "\n" + migration
+
+    assert "CREATE TABLE IF NOT EXISTS workflow_runs" in combined
+    assert "question TEXT NOT NULL" in combined
+    assert "workflow_version TEXT NOT NULL" in combined
+    assert "status TEXT NOT NULL" in combined
+    assert "trace_json JSONB NOT NULL DEFAULT '{}'::jsonb" in combined
+    assert "status IN (" in combined
+    assert "'created'" in combined
+    assert "'running'" in combined
+    assert "'completed'" in combined
+    assert "'failed'" in combined
+    assert "'blocked'" in combined
+    assert "'needs_revision'" in combined
+    assert "workflow_run_id" not in init_schema
