@@ -13,6 +13,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/application/cover-message.md",
         "docs/application/portfolio-index.md",
         "docs/review/application-ready-review.md",
+        "docs/review/agent-run-linkage-review.md",
     ]
 
     for file_path in required_files:
@@ -49,3 +50,13 @@ def test_application_ready_review_marks_partial_boundaries():
     assert "Partial" in content
     assert "Not product-complete" in content
     assert "every agent run leaves a trace" in content
+
+
+def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
+    content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
+
+    assert "agent_run_id" in content
+    assert "workflow_trace_id" in content
+    assert "Do not add the foreign key in this review gate" in content
+    assert "create the agent run first" in content
+    assert "false sense of provenance" in content

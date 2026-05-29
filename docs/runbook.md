@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 18 adds trace lookup and persisted record filter links to the plain operations dashboard.
+Phase 18.5 adds a review-only decision on direct `agent_run_id` foreign-key linkage.
 
 Implemented:
 
@@ -48,6 +48,8 @@ Implemented:
 - `GET /reports?status=...`
 - Dashboard Trace/Filter Links v0
 - trace lookup and record filter links in `GET /ops/dashboard`
+- Agent-run Linkage Review v0
+- `docs/review/agent-run-linkage-review.md`
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -73,7 +75,7 @@ Not implemented:
 - persisted parse records
 - persisted chunks
 - embeddings
-- `agent_run_id` foreign-key-linked Evidence Ledger, Noise Gate, and Report records
+- `agent_run_id` foreign-key-linked Evidence Ledger, Noise Gate, and Report records. This has been reviewed, but it is not implemented.
 
 ## Local Database
 
@@ -769,4 +771,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, `agent_run_id` foreign-key-linked Evidence Ledger / Noise Gate / Report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI.
+Do not claim persisted chunks, embeddings, `agent_run_id` foreign-key-linked Evidence Ledger / Noise Gate / Report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` linkage has a review artifact, but no migration or endpoint behavior exists for it yet.

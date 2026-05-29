@@ -1,6 +1,6 @@
 # Application-ready Review
 
-Status: Phase 18 review packet.
+Status: Phase 18.5 review packet.
 
 This is an application-ready review, not a product-complete declaration.
 
@@ -10,7 +10,7 @@ Not product-complete: robust PDF extraction, embeddings, semantic retrieval, `ag
 
 Current judgment: Partial application-ready portfolio artifact.
 
-NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, preview endpoint traces, failure records, and technical decision trail.
+NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, preview endpoint traces, failure records, and technical decision trail.
 
 It is not strong enough to claim production RAG quality or autonomous market intelligence.
 
@@ -67,6 +67,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - Trace-id Lookup v0
 - Persisted Record Filtering v0
 - Dashboard Trace/Filter Links v0
+- Agent-run Linkage Review v0
 - Operations Dashboard v0
 - evaluation/application package
 - Auto Trace Recording v0 for preview endpoint metadata
