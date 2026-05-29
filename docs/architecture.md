@@ -11,7 +11,8 @@ Current status:
 - Messy market data fixtures exist.
 - Document Profiler v0 exists for fixture-like text and direct text payloads.
 - Parser adapter stubs exist for direct parse-preview payloads.
-- Web app, file upload parsing, robust PDF extraction, chunking, retrieval, Evidence Ledger, agents, and dashboard are planned but not implemented.
+- Chunk strategy experiment v0 exists for direct chunk-preview payloads.
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, retrieval, Evidence Ledger, agents, and dashboard are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -97,13 +98,29 @@ Planned defaults:
 
 Runs multiple chunking strategies against the same document.
 
-Planned strategies:
+Implemented Phase 4 strategies:
 
-- fixed-size chunking
-- heading-based chunking
-- semantic or simple heuristic chunking
+- fixed-window chunking with configurable max characters and overlap
+- heading-aware chunking with `header_path` metadata
+- row-aware chunking with CSV header and row metadata
 
-The goal is to compare retrieval quality, not to assume one chunking method is always best.
+Phase 4 records comparison metrics only:
+
+- chunk count
+- source character and line counts
+- min, max, and average chunk character counts
+- empty and oversized chunk counts
+- estimated token count
+- structural boundary count
+
+The goal is to compare chunk shapes before retrieval, not to assume one chunking method is always best. Chunks are not persisted yet.
+
+Research scope note:
+
+- `fixed-window` keeps the familiar `max_characters` / `overlap` vocabulary used by common text splitter APIs.
+- `heading-aware` preserves section paths so later retrieval work can inspect whether source structure was lost.
+- `row-aware` preserves CSV headers and row indices so tabular evidence can stay auditable.
+- Phase 4 does not add external chunking dependencies; it only creates a local, inspectable comparison boundary.
 
 ### Indexing
 
@@ -263,7 +280,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison.
 
 Implemented endpoints:
 
@@ -272,6 +289,7 @@ POST /documents
 GET  /documents
 POST /documents/profile
 POST /documents/parse-preview
+POST /documents/chunk-preview
 POST /agent-runs
 GET  /agent-runs
 POST /failure-cases
@@ -289,7 +307,7 @@ GET  /retrieval-runs/{id}/evidence-ledger
 POST /reports
 ```
 
-Current endpoints do not parse uploaded files, perform robust PDF extraction, run retrieval, generate an Evidence Ledger, invoke an LLM, or create final reports.
+Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, run retrieval, generate an Evidence Ledger, invoke an LLM, or create final reports.
 
 ## Agent Workflow
 

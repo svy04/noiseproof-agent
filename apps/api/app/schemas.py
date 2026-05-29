@@ -67,9 +67,43 @@ class ParsePreviewOut(BaseModel):
     profile: DocumentProfileOut
 
 
+class ChunkPreviewRequest(BaseModel):
+    source_type: str = Field(..., min_length=1)
+    content: str = ""
+    filename: str | None = None
+    source_uri: str | None = None
+    max_characters: int = Field(default=500, ge=1, le=4000)
+    overlap: int = Field(default=0, ge=0)
+
+
+class ChunkOut(BaseModel):
+    strategy: str
+    chunk_index: int
+    text: str
+    character_count: int
+    approximate_token_count: int
+    metadata: dict[str, Any]
+
+
+class ChunkStrategyOut(BaseModel):
+    strategy: str
+    chunks: list[ChunkOut]
+    metrics: dict[str, Any]
+    warnings: list[str]
+
+
+class ChunkPreviewOut(BaseModel):
+    source_type: str
+    parser: str
+    profile: DocumentProfileOut
+    parse_warnings: list[str]
+    failure_case_candidate: FailureCaseCandidateOut | None = None
+    strategies: list[ChunkStrategyOut]
+
+
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase3-parser-stubs"
+    workflow_version: str = "phase4-chunk-strategy-v0"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None

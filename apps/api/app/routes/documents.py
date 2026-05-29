@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends
 
 from app.db import Repository, get_repository
 from app.schemas import (
+    ChunkPreviewOut,
+    ChunkPreviewRequest,
     DocumentCreate,
     DocumentOut,
     DocumentProfileOut,
@@ -9,6 +11,7 @@ from app.schemas import (
     ParsePreviewOut,
     ParsePreviewRequest,
 )
+from app.services.chunk_preview import preview_chunks
 from app.services.document_profiler import profile_document
 from app.services.parse_preview import preview_parse
 
@@ -36,3 +39,8 @@ def profile_document_text(payload: DocumentProfileRequest) -> DocumentProfileOut
 @router.post("/parse-preview", response_model=ParsePreviewOut)
 def parse_document_preview(payload: ParsePreviewRequest) -> ParsePreviewOut:
     return preview_parse(payload)
+
+
+@router.post("/chunk-preview", response_model=ChunkPreviewOut)
+def chunk_document_preview(payload: ChunkPreviewRequest) -> ChunkPreviewOut:
+    return preview_chunks(payload)

@@ -49,3 +49,27 @@ class ParseResult:
     metadata: dict[str, Any] = field(default_factory=dict)
     warnings: list[str] = field(default_factory=list)
     failure_case_candidate: FailureCaseCandidate | None = None
+
+
+@dataclass(frozen=True)
+class ChunkOptions:
+    max_characters: int = 500
+    overlap: int = 0
+
+
+@dataclass(frozen=True)
+class ChunkRecord:
+    strategy: str
+    chunk_index: int
+    text: str
+    character_count: int
+    approximate_token_count: int
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class ChunkStrategyResult:
+    strategy: str
+    chunks: list[ChunkRecord]
+    metrics: dict[str, Any]
+    warnings: list[str] = field(default_factory=list)

@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 adds parser adapter stubs for parse-preview boundaries.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 adds a small chunk strategy experiment boundary.
 
 The product thesis:
 
@@ -97,7 +97,8 @@ Implementation status:
 - Messy market data fixtures: implemented
 - Document Profiler v0: implemented
 - Parser adapter stubs: implemented for markdown, CSV, HTML/URL, PDF text-only fallback, and unknown source types
-- Web app, file upload parsing, robust PDF extraction, chunking, retrieval, Evidence Ledger generation, agents, final reports, dashboard: planned, not implemented
+- Chunk strategy experiment v0: implemented for fixed-window, heading-aware, and row-aware strategies
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, retrieval, Evidence Ledger generation, agents, final reports, dashboard: planned, not implemented
 
 ## Implementation Status
 
@@ -136,11 +137,20 @@ Implementation status:
 - Unknown source type structured failure candidate: done
 - `POST /documents/parse-preview`: done
 
+### Phase 4 - Chunk strategy experiment v0
+
+- `POST /documents/chunk-preview`: done
+- Fixed-window chunking with max-character and overlap controls: done
+- Heading-aware chunking with `header_path` metadata: done
+- Row-aware chunking with CSV header and row metadata: done
+- Strategy comparison metrics for chunk count, character distribution, boundary count, oversized chunks, and estimated tokens: done
+- Unknown source types keep parser failure candidates and skip chunking: done
+
 Not implemented yet:
 
 - file upload parsing
 - robust PDF extraction
-- chunking
+- persisted chunks
 - embeddings
 - retrieval
 - Evidence Ledger generation
@@ -260,6 +270,9 @@ curl -X POST http://localhost:8000/documents/profile \
 curl -X POST http://localhost:8000/documents/parse-preview \
   -H "Content-Type: application/json" \
   -d "{\"source_type\":\"markdown\",\"content\":\"# Memo\nDate: 2026-05-28\nSource: https://example.com\nRevenue grew 12%.\"}"
+curl -X POST http://localhost:8000/documents/chunk-preview \
+  -H "Content-Type: application/json" \
+  -d "{\"source_type\":\"markdown\",\"content\":\"# Market\nRevenue grew 12% in 2026.\n\n## Risks\nCosts rose 7%.\",\"max_characters\":80,\"overlap\":10}"
 ```
 
 ## Demo Flow
@@ -268,7 +281,7 @@ Planned demo flow after implementation:
 
 1. Upload or reference messy PDF, CSV, URL/HTML, and markdown memo inputs.
 2. Generate a document profile for each input.
-3. Compare fixed-size, heading-based, and semantic/heuristic chunk strategies.
+3. Compare fixed-window, heading-aware, and row-aware chunk strategies.
 4. Run retrieval for a market-intelligence question.
 5. Generate an Evidence Ledger before the answer.
 6. Ask the Critic Agent to block unsupported claims and surface contradictions.
@@ -277,15 +290,14 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Phase 3, the next phase should add chunk strategy experiment v0:
+After Phase 4, the next phase should add retrieval v0:
 
-- fixed-window chunking
-- heading-aware chunking
-- row-aware chunking
-- chunk metadata
-- chunk strategy comparison tests
+- source ids for returned chunks
+- retrieval run metadata
+- retrieval quality placeholders
+- no embeddings unless the retrieval gate explicitly requires them
 
-It should not start with UI polish, LLM prompt tuning, embeddings, retrieval, Evidence Ledger generation, or broad agent abstractions.
+It should not start with UI polish, LLM prompt tuning, Evidence Ledger generation, or broad agent abstractions.
 
 ## Braincrew Role Alignment
 

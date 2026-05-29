@@ -10,6 +10,7 @@ Implemented in this package:
 - `GET /documents`
 - `POST /documents/profile`
 - `POST /documents/parse-preview`
+- `POST /documents/chunk-preview`
 - `POST /agent-runs`
 - `GET /agent-runs`
 - `POST /failure-cases`
@@ -20,7 +21,7 @@ Not implemented yet:
 - file upload
 - robust PDF extraction
 - persisted parse records
-- chunking
+- persisted chunks
 - embeddings
 - retrieval
 - Evidence Ledger generation
@@ -49,6 +50,9 @@ curl -X POST http://localhost:8000/documents/profile \
 curl -X POST http://localhost:8000/documents/parse-preview \
   -H "Content-Type: application/json" \
   -d "{\"source_type\":\"pdf\",\"content\":\"Extracted PDF text preview only.\"}"
+curl -X POST http://localhost:8000/documents/chunk-preview \
+  -H "Content-Type: application/json" \
+  -d "{\"source_type\":\"csv\",\"content\":\"date,segment,growth\n2026-05-28,enterprise,12%\n2026-05-29,smb,7%\",\"max_characters\":60}"
 ```
 
 The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.

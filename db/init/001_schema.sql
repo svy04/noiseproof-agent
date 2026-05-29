@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS documents (
 CREATE TABLE IF NOT EXISTS agent_runs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_question TEXT NOT NULL,
-  workflow_version TEXT NOT NULL DEFAULT 'phase3-parser-stubs',
+  workflow_version TEXT NOT NULL DEFAULT 'phase4-chunk-strategy-v0',
   status TEXT NOT NULL DEFAULT 'created',
   error_message TEXT,
   token_cost NUMERIC,

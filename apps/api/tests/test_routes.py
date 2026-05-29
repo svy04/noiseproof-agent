@@ -48,7 +48,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase3-parser-stubs",
+            workflow_version="phase4-chunk-strategy-v0",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -75,7 +75,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-        "workflow_version": "phase3-parser-stubs",
+        "workflow_version": "phase4-chunk-strategy-v0",
     }
 
 
@@ -122,7 +122,7 @@ def test_agent_run_and_failure_case_roundtrip():
 
     assert run.status_code == 201
     assert failure.status_code == 201
-    assert client.get("/agent-runs").json()[0]["workflow_version"] == "phase3-parser-stubs"
+    assert client.get("/agent-runs").json()[0]["workflow_version"] == "phase4-chunk-strategy-v0"
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
 
@@ -297,3 +297,75 @@ def test_parse_preview_bad_csv_exposes_failure_case_candidate():
     body = response.json()
     assert body["metadata"]["inconsistent_row_count"] == 1
     assert body["failure_case_candidate"]["failure_type"] == "csv_inconsistent_rows"
+
+
+def test_chunk_preview_compares_three_strategies_for_markdown():
+    client = make_client()
+
+    response = client.post(
+        "/documents/chunk-preview",
+        json={
+            "source_type": "markdown",
+            "content": "# Market\nRevenue grew 12% in 2026.\n\n## Risks\nCosts rose 7%.\n\n## Sources\nSource: https://example.com/report",
+            "max_characters": 80,
+            "overlap": 10,
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    strategy_names = {strategy["strategy"] for strategy in body["strategies"]}
+    assert strategy_names == {"fixed-window", "heading-aware", "row-aware"}
+    assert body["parser"] == "markdown"
+    assert body["profile"]["recommended_strategy"] == "heading-aware"
+
+    heading_strategy = next(
+        strategy for strategy in body["strategies"] if strategy["strategy"] == "heading-aware"
+    )
+    assert heading_strategy["metrics"]["chunk_count"] >= 2
+    assert heading_strategy["metrics"]["oversized_chunk_count"] == 0
+    assert any(chunk["metadata"].get("header_path") == "Market/Risks" for chunk in heading_strategy["chunks"])
+
+    fixed_strategy = next(
+        strategy for strategy in body["strategies"] if strategy["strategy"] == "fixed-window"
+    )
+    assert all(chunk["character_count"] <= 80 for chunk in fixed_strategy["chunks"])
+
+
+def test_chunk_preview_csv_row_aware_preserves_header_and_row_metadata():
+    client = make_client()
+
+    response = client.post(
+        "/documents/chunk-preview",
+        json={
+            "source_type": "csv",
+            "content": "date,segment,growth\n2026-05-28,enterprise,12%\n2026-05-29,smb,7%\n",
+            "max_characters": 60,
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    row_strategy = next(
+        strategy for strategy in body["strategies"] if strategy["strategy"] == "row-aware"
+    )
+    assert row_strategy["metrics"]["chunk_count"] == 2
+    assert row_strategy["metrics"]["source_line_count"] == 3
+    assert row_strategy["chunks"][0]["metadata"]["headers"] == ["date", "segment", "growth"]
+    assert row_strategy["chunks"][0]["metadata"]["row_start"] == 1
+    assert "date,segment,growth" in row_strategy["chunks"][0]["text"]
+
+
+def test_chunk_preview_unknown_source_type_keeps_parse_failure_candidate():
+    client = make_client()
+
+    response = client.post(
+        "/documents/chunk-preview",
+        json={"source_type": "spreadsheet-binary", "content": "opaque bytes"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["parser"] == "unknown"
+    assert body["failure_case_candidate"]["failure_type"] == "unknown_source_type"
+    assert body["strategies"] == []

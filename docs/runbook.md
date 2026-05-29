@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 3 is intended to prove that parser boundaries exist before chunking or retrieval starts.
+Phase 4 is intended to prove that parser output can be compared across chunk strategies before retrieval starts.
 
 Implemented:
 
@@ -17,6 +17,8 @@ Implemented:
 - Document Profiler v0
 - parser adapter stubs for markdown, CSV, HTML/URL, PDF text-only fallback, and unknown source types
 - `POST /documents/parse-preview`
+- chunk strategy experiment v0 for fixed-window, heading-aware, and row-aware strategies
+- `POST /documents/chunk-preview`
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
@@ -25,7 +27,7 @@ Not implemented:
 - file upload
 - robust PDF extraction
 - persisted parse records
-- chunking
+- persisted chunks
 - embeddings
 - retrieval
 - Evidence Ledger generation
@@ -88,7 +90,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase3-parser-stubs"
+  "workflow_version": "phase4-chunk-strategy-v0"
 }
 ```
 
@@ -97,7 +99,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase3-parser-stubs",
+  "workflow_version": "phase4-chunk-strategy-v0",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -105,7 +107,7 @@ Expected `/ops/summary` shape:
   "contradiction_count": 0,
   "average_latency_ms": null,
   "notes": [
-    "Phase 3 parser boundary only: no retrieval, Evidence Ledger, Critic, or dashboard implementation yet.",
+    "Phase 4 chunk strategy boundary only: no retrieval, Evidence Ledger, Critic, or dashboard implementation yet.",
     "Unsupported claim and contradiction counts remain placeholders until Evidence Ledger exists."
   ]
 }
@@ -189,6 +191,94 @@ curl -X POST http://localhost:8000/documents/parse-preview \
 
 The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
 
+Preview chunk strategy comparison without saving chunks:
+
+```bash
+curl -X POST http://localhost:8000/documents/chunk-preview \
+  -H "Content-Type: application/json" \
+  -d "{\"source_type\":\"markdown\",\"content\":\"# Market\nRevenue grew 12% in 2026.\n\n## Risks\nCosts rose 7%.\",\"max_characters\":80,\"overlap\":10}"
+```
+
+Expected `/documents/chunk-preview` shape:
+
+```json
+{
+  "source_type": "markdown",
+  "parser": "markdown",
+  "profile": {},
+  "parse_warnings": [],
+  "failure_case_candidate": null,
+  "strategies": [
+    {
+      "strategy": "fixed-window",
+      "chunks": [
+        {
+          "strategy": "fixed-window",
+          "chunk_index": 0,
+          "text": "...",
+          "character_count": 59,
+          "approximate_token_count": 15,
+          "metadata": {
+            "start": 0,
+            "end": 59
+          }
+        }
+      ],
+      "metrics": {
+        "chunk_count": 1,
+        "max_characters": 80,
+        "overlap": 10
+      },
+      "warnings": []
+    },
+    {
+      "strategy": "heading-aware",
+      "chunks": [
+        {
+          "strategy": "heading-aware",
+          "chunk_index": 0,
+          "text": "...",
+          "character_count": 34,
+          "approximate_token_count": 9,
+          "metadata": {
+            "header_path": "Market",
+            "heading_level": 1
+          }
+        }
+      ],
+      "metrics": {
+        "chunk_count": 2,
+        "boundary_count": 2
+      },
+      "warnings": []
+    },
+    {
+      "strategy": "row-aware",
+      "chunks": [
+        {
+          "strategy": "row-aware",
+          "chunk_index": 0,
+          "text": "...",
+          "character_count": 8,
+          "approximate_token_count": 2,
+          "metadata": {
+            "row_start": 1,
+            "row_end": 1
+          }
+        }
+      ],
+      "metrics": {
+        "chunk_count": 4,
+        "boundary_count": 4
+      },
+      "warnings": [
+        "Source type is not CSV; row-aware strategy used non-empty text lines as row boundaries."
+      ]
+    }
+  ]
+}
+```
+
 ## Metadata Examples
 
 Create a document metadata record:
@@ -230,4 +320,4 @@ These tests use an in-memory repository override. They do not prove PostgreSQL r
 
 ## Boundary
 
-Do not claim robust PDF parsing, retrieval, Evidence Ledger, Critic / Noise Gate, or report generation exists until those stages are implemented and verified with examples.
+Do not claim persisted chunks, retrieval, Evidence Ledger, Critic / Noise Gate, or report generation exists until those stages are implemented and verified with examples.

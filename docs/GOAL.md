@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 3:
+Accepted state as of Phase 4:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, and Parser Adapter Stubs
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, and Chunk Strategy Experiment v0
 ```
 
 Implemented:
@@ -67,6 +67,15 @@ Implemented:
 - parser adapter stubs for markdown, CSV, HTML/URL, PDF text-only fallback, and unknown source types
 - `POST /documents/parse-preview`
 - structured parser warnings and failure-case candidates
+- chunk strategy experiment v0 for fixed-window, heading-aware, and row-aware strategies
+- `POST /documents/chunk-preview`
+- chunk comparison metrics:
+  - chunk count
+  - source character and line counts
+  - min, max, and average chunk character counts
+  - empty and oversized chunk counts
+  - estimated token count
+  - structural boundary count
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -83,7 +92,7 @@ Not yet implemented:
 - file upload
 - robust PDF extraction
 - persisted parse records
-- chunking
+- persisted chunks
 - embeddings
 - retrieval
 - Evidence Ledger generation
@@ -225,10 +234,44 @@ profile
 
 The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
 
+### Phase 4 - Chunk Strategy Experiment v0
+
+Implemented outputs:
+
+```text
+packages/ingestion/chunking/__init__.py
+packages/ingestion/chunking/experiment.py
+apps/api/app/services/chunk_preview.py
+POST /documents/chunk-preview
+```
+
+Chunk-preview accepts direct text payloads and returns:
+
+```text
+source_type
+parser
+profile
+parse_warnings
+failure_case_candidate
+strategies
+```
+
+Implemented strategies:
+
+```text
+fixed-window
+heading-aware
+row-aware
+```
+
+Phase 4 does not persist chunks, run retrieval, compute embeddings, generate Evidence Ledger entries, call LLMs, or build a dashboard.
+
+Current local `docs/GOAL.md` does not include a separate `Parallel research track` section. Phase 4 research influence is intentionally limited to strategy names and comparison metrics.
+
 Next recommended implementation phase:
 
 ```text
-Phase 4 - Chunk strategy experiment v0
+Phase 5 - Retrieval v0
 ```
 
 ## 6. Ordering Rules

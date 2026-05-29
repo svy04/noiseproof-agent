@@ -147,7 +147,7 @@ class PostgresRepository:
             contradiction_count=0,
             average_latency_ms=row["average_latency_ms"],
             notes=[
-                "Phase 3 parser boundary only: no retrieval, Evidence Ledger, Critic, or dashboard implementation yet.",
+                "Phase 4 chunk strategy boundary only: no retrieval, Evidence Ledger, Critic, or dashboard implementation yet.",
                 "Unsupported claim and contradiction counts remain placeholders until Evidence Ledger exists.",
             ],
         )
