@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from app.db import Repository, get_repository
 from app.schemas import NoiseGatePreviewOut, NoiseGatePreviewRequest, NoiseGateStoredRecordOut
@@ -48,11 +48,16 @@ def create_noise_gate_record(
 
 @router.get("", response_model=list[NoiseGateStoredRecordOut])
 def list_noise_gate_records(
+    workflow_trace_id: UUID | None = None,
+    decision: str | None = None,
     repository: Repository = Depends(get_repository),
 ) -> list[NoiseGateStoredRecordOut]:
     return [
         NoiseGateStoredRecordOut(**record)
-        for record in repository.list_noise_gate_records()
+        for record in repository.list_noise_gate_records(
+            workflow_trace_id=workflow_trace_id,
+            decision=decision,
+        )
     ]
 
 

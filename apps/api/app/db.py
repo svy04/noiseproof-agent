@@ -30,7 +30,11 @@ class Repository(Protocol):
         entries: list[EvidenceLedgerEntryOut],
         workflow_trace_id: UUID,
     ) -> Sequence[dict]: ...
-    def list_evidence_ledger_entries(self) -> Sequence[dict]: ...
+    def list_evidence_ledger_entries(
+        self,
+        workflow_trace_id: UUID | None = None,
+        status: str | None = None,
+    ) -> Sequence[dict]: ...
     def create_noise_gate_record(
         self,
         result: NoiseGatePreviewOut,
@@ -38,7 +42,11 @@ class Repository(Protocol):
         draft_claim_count: int,
         workflow_trace_id: UUID,
     ) -> dict: ...
-    def list_noise_gate_records(self) -> Sequence[dict]: ...
+    def list_noise_gate_records(
+        self,
+        workflow_trace_id: UUID | None = None,
+        decision: str | None = None,
+    ) -> Sequence[dict]: ...
     def create_report_record(
         self,
         result: ReportPreviewOut,
@@ -46,7 +54,11 @@ class Repository(Protocol):
         draft_claim_count: int,
         workflow_trace_id: UUID,
     ) -> dict: ...
-    def list_report_records(self) -> Sequence[dict]: ...
+    def list_report_records(
+        self,
+        workflow_trace_id: UUID | None = None,
+        status: str | None = None,
+    ) -> Sequence[dict]: ...
     def lookup_trace_records(self, workflow_trace_id: UUID) -> dict[str, Sequence[dict]]: ...
     def create_failure_case(self, payload: FailureCaseCreate) -> dict: ...
     def list_failure_cases(self) -> Sequence[dict]: ...
@@ -164,13 +176,23 @@ class PostgresRepository:
             conn.commit()
             return rows
 
-    def list_evidence_ledger_entries(self) -> Sequence[dict]:
+    def list_evidence_ledger_entries(
+        self,
+        workflow_trace_id: UUID | None = None,
+        status: str | None = None,
+    ) -> Sequence[dict]:
+        filters, params = _record_filters(
+            workflow_trace_id=workflow_trace_id,
+            status=status,
+        )
         with self._connect() as conn:
             rows = conn.execute(
-                """
+                f"""
                 SELECT * FROM evidence_ledger_entries
+                {filters}
                 ORDER BY created_at DESC, id DESC
-                """
+                """,
+                params,
             ).fetchall()
             return [dict(row) for row in rows]
 
@@ -212,13 +234,23 @@ class PostgresRepository:
             conn.commit()
             return dict(row)
 
-    def list_noise_gate_records(self) -> Sequence[dict]:
+    def list_noise_gate_records(
+        self,
+        workflow_trace_id: UUID | None = None,
+        decision: str | None = None,
+    ) -> Sequence[dict]:
+        filters, params = _record_filters(
+            workflow_trace_id=workflow_trace_id,
+            decision=decision,
+        )
         with self._connect() as conn:
             rows = conn.execute(
-                """
+                f"""
                 SELECT * FROM noise_gate_records
+                {filters}
                 ORDER BY created_at DESC, id DESC
-                """
+                """,
+                params,
             ).fetchall()
             return [dict(row) for row in rows]
 
@@ -258,13 +290,23 @@ class PostgresRepository:
             conn.commit()
             return dict(row)
 
-    def list_report_records(self) -> Sequence[dict]:
+    def list_report_records(
+        self,
+        workflow_trace_id: UUID | None = None,
+        status: str | None = None,
+    ) -> Sequence[dict]:
+        filters, params = _record_filters(
+            workflow_trace_id=workflow_trace_id,
+            status=status,
+        )
         with self._connect() as conn:
             rows = conn.execute(
-                """
+                f"""
                 SELECT * FROM report_records
+                {filters}
                 ORDER BY created_at DESC, id DESC
-                """
+                """,
+                params,
             ).fetchall()
             return [dict(row) for row in rows]
 
@@ -449,3 +491,16 @@ class PostgresRepository:
 
 def get_repository() -> Repository:
     return PostgresRepository(get_settings())
+
+
+def _record_filters(**criteria: object) -> tuple[str, list[object]]:
+    clauses = []
+    params = []
+    for column, value in criteria.items():
+        if value is None:
+            continue
+        clauses.append(f"{column} = %s")
+        params.append(value)
+    if not clauses:
+        return "", []
+    return "WHERE " + " AND ".join(clauses), params

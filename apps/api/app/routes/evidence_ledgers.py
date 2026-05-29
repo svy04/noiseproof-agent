@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from app.db import Repository, get_repository
 from app.schemas import (
@@ -56,11 +56,16 @@ def create_evidence_ledger(
 
 @router.get("", response_model=list[EvidenceLedgerStoredEntryOut])
 def list_evidence_ledger_entries(
+    workflow_trace_id: UUID | None = None,
+    status: str | None = None,
     repository: Repository = Depends(get_repository),
 ) -> list[EvidenceLedgerStoredEntryOut]:
     return [
         EvidenceLedgerStoredEntryOut(**entry)
-        for entry in repository.list_evidence_ledger_entries()
+        for entry in repository.list_evidence_ledger_entries(
+            workflow_trace_id=workflow_trace_id,
+            status=status,
+        )
     ]
 
 

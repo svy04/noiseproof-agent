@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 16:
+Accepted state as of Phase 17:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, and Trace-id Lookup v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, and Persisted Record Filtering v0
 ```
 
 Implemented:
@@ -155,6 +155,13 @@ Implemented:
 - Trace-id Lookup v0
 - `GET /traces/{workflow_trace_id}`
 - lookup response includes matching agent runs, Evidence Ledger entries, Noise Gate records, Report records, and summary counts
+- Persisted Record Filtering v0
+- `GET /evidence-ledgers?workflow_trace_id=...`
+- `GET /evidence-ledgers?status=...`
+- `GET /noise-gates?workflow_trace_id=...`
+- `GET /noise-gates?decision=...`
+- `GET /reports?workflow_trace_id=...`
+- `GET /reports?status=...`
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -215,6 +222,7 @@ Phase 13  - Persisted Noise Gate Records v0
 Phase 14  - Persisted Report Preview Records v0
 Phase 15  - Record Linkage v0
 Phase 16  - Trace-id Lookup v0
+Phase 17  - Persisted Record Filtering v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -800,10 +808,25 @@ trace lookup summary counts
 
 Phase 16 does not add distributed tracing, hosted observability, `agent_run_id` foreign-key linkage, LLM calls, embeddings, semantic retrieval, or dashboard polish.
 
+### Phase 17 - Persisted Record Filtering v0
+
+Implemented outputs:
+
+```text
+GET /evidence-ledgers?workflow_trace_id=...
+GET /evidence-ledgers?status=...
+GET /noise-gates?workflow_trace_id=...
+GET /noise-gates?decision=...
+GET /reports?workflow_trace_id=...
+GET /reports?status=...
+```
+
+Phase 17 is read-only filtering over existing persisted records. It does not add search, ranking, semantic retrieval, LLM calls, dashboard polish, or hosted observability.
+
 Next recommended implementation phase:
 
 ```text
-Persisted record filtering v0
+Dashboard trace/filter links v0
 ```
 
 ## 6. Ordering Rules

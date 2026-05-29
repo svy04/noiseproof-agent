@@ -55,8 +55,15 @@ class InMemoryRepository:
             created.append(row)
         return created
 
-    def list_evidence_ledger_entries(self):
-        return self.evidence_ledger_entries
+    def list_evidence_ledger_entries(self, workflow_trace_id=None, status=None):
+        rows = self.evidence_ledger_entries
+        if workflow_trace_id is not None:
+            rows = [
+                row for row in rows if str(row["workflow_trace_id"]) == str(workflow_trace_id)
+            ]
+        if status is not None:
+            rows = [row for row in rows if row["status"] == status]
+        return rows
 
     def create_noise_gate_record(
         self, result, evidence_entry_count, draft_claim_count, workflow_trace_id=None
@@ -70,8 +77,15 @@ class InMemoryRepository:
         self.noise_gate_records.append(row)
         return row
 
-    def list_noise_gate_records(self):
-        return self.noise_gate_records
+    def list_noise_gate_records(self, workflow_trace_id=None, decision=None):
+        rows = self.noise_gate_records
+        if workflow_trace_id is not None:
+            rows = [
+                row for row in rows if str(row["workflow_trace_id"]) == str(workflow_trace_id)
+            ]
+        if decision is not None:
+            rows = [row for row in rows if row["decision"] == decision]
+        return rows
 
     def create_report_record(
         self, result, evidence_entry_count, draft_claim_count, workflow_trace_id=None
@@ -87,8 +101,15 @@ class InMemoryRepository:
         self.report_records.append(row)
         return row
 
-    def list_report_records(self):
-        return self.report_records
+    def list_report_records(self, workflow_trace_id=None, status=None):
+        rows = self.report_records
+        if workflow_trace_id is not None:
+            rows = [
+                row for row in rows if str(row["workflow_trace_id"]) == str(workflow_trace_id)
+            ]
+        if status is not None:
+            rows = [row for row in rows if row["status"] == status]
+        return rows
 
     def lookup_trace_records(self, workflow_trace_id):
         trace_id = str(workflow_trace_id)
@@ -138,7 +159,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase16-trace-lookup",
+            workflow_version="phase17-persisted-record-filtering",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -188,7 +209,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-            "workflow_version": "phase16-trace-lookup",
+            "workflow_version": "phase17-persisted-record-filtering",
     }
 
 
@@ -237,7 +258,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase16-trace-lookup"
+        == "phase17-persisted-record-filtering"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -308,7 +329,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 16" in response.text
+    assert "Phase 17" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():
@@ -390,7 +411,7 @@ def test_core_preview_endpoints_auto_record_agent_run_traces():
         "POST /noise-gates/preview",
         "POST /reports/preview",
     }.issubset(endpoints)
-    assert all(trace["workflow_version"] == "phase16-trace-lookup" for trace in traces)
+    assert all(trace["workflow_version"] == "phase17-persisted-record-filtering" for trace in traces)
     assert any(trace["trace_json"].get("decision") == "pass" for trace in traces)
     assert any(trace["trace_json"].get("report_status") == "generated" for trace in traces)
 
@@ -525,7 +546,7 @@ def test_noise_gate_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /noise-gates"
         and trace["trace_json"].get("decision") == "pass"
-        and trace["trace_json"].get("phase") == "phase16-trace-lookup"
+        and trace["trace_json"].get("phase") == "phase17-persisted-record-filtering"
         for trace in traces
     )
 
@@ -634,7 +655,7 @@ def test_report_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /reports"
         and trace["trace_json"].get("report_status") == "generated"
-        and trace["trace_json"].get("phase") == "phase16-trace-lookup"
+        and trace["trace_json"].get("phase") == "phase17-persisted-record-filtering"
         for trace in traces
     )
 
@@ -821,6 +842,138 @@ def test_trace_lookup_surfaces_records_for_workflow_trace_id():
     }
     assert body["agent_runs"][0]["trace_json"]["endpoint"] == "POST /reports"
     assert body["report_records"][0]["question"] == "Which segment had enterprise demand growth?"
+
+
+def test_persisted_record_lists_can_filter_by_trace_id_and_status():
+    client = make_client()
+
+    ledger_response = client.post(
+        "/evidence-ledgers",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "retrieval_results": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "chunk_strategy": "heading-aware",
+                    "chunk_index": 0,
+                    "text": "Enterprise demand grew 12% in 2026.",
+                    "score": 0.75,
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "metadata": {"source_date": "2026-05-28"},
+                }
+            ],
+        },
+    )
+    ledger_trace_id = ledger_response.json()["entries"][0]["workflow_trace_id"]
+
+    client.post(
+        "/noise-gates",
+        json={
+            "question": "Should I buy this company?",
+            "evidence_entries": [
+                {
+                    "claim": "Should I buy this company?",
+                    "source_id": None,
+                    "source_type": None,
+                    "source_date": None,
+                    "evidence_span": "",
+                    "confidence": "none",
+                    "limitation": "Question drifts into buy/sell or financial-advice intent.",
+                    "contradicting_source_ids": [],
+                    "status": "blocked",
+                    "matched_terms": [],
+                    "role": "user_intent_check",
+                }
+            ],
+            "draft_claims": ["This proves you should buy this company."],
+        },
+    )
+    pass_gate = client.post(
+        "/noise-gates",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+        },
+    )
+    gate_trace_id = pass_gate.json()["workflow_trace_id"]
+
+    client.post(
+        "/reports",
+        json={
+            "question": "Should I buy this company?",
+            "evidence_entries": [
+                {
+                    "claim": "Should I buy this company?",
+                    "source_id": None,
+                    "source_type": None,
+                    "source_date": None,
+                    "evidence_span": "",
+                    "confidence": "none",
+                    "limitation": "Question drifts into buy/sell or financial-advice intent.",
+                    "contradicting_source_ids": [],
+                    "status": "blocked",
+                    "matched_terms": [],
+                    "role": "user_intent_check",
+                }
+            ],
+            "draft_claims": ["This proves you should buy this company."],
+        },
+    )
+    generated_report = client.post(
+        "/reports",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+        },
+    )
+    report_trace_id = generated_report.json()["workflow_trace_id"]
+
+    ledger_by_trace = client.get(f"/evidence-ledgers?workflow_trace_id={ledger_trace_id}")
+    gates_by_decision = client.get("/noise-gates?decision=pass")
+    gates_by_trace = client.get(f"/noise-gates?workflow_trace_id={gate_trace_id}")
+    reports_by_status = client.get("/reports?status=generated")
+    reports_by_trace = client.get(f"/reports?workflow_trace_id={report_trace_id}")
+
+    assert [entry["workflow_trace_id"] for entry in ledger_by_trace.json()] == [
+        ledger_trace_id
+    ]
+    assert [record["decision"] for record in gates_by_decision.json()] == ["pass"]
+    assert [record["workflow_trace_id"] for record in gates_by_trace.json()] == [
+        gate_trace_id
+    ]
+    assert [record["status"] for record in reports_by_status.json()] == ["generated"]
+    assert [record["workflow_trace_id"] for record in reports_by_trace.json()] == [
+        report_trace_id
+    ]
 
 
 def test_document_preview_endpoints_auto_record_agent_run_traces():

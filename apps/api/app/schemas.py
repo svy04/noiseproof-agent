@@ -307,7 +307,7 @@ class ReportStoredRecordOut(ReportPreviewOut):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase16-trace-lookup"
+    workflow_version: str = "phase17-persisted-record-filtering"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None

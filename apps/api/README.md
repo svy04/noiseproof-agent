@@ -32,6 +32,7 @@ Implemented in this package:
 Phase 11 auto-records `agent_runs.trace_json` metadata for the document/profile, parse, chunk, collection-plan, evidence-ledger, noise-gate, and report preview endpoints.
 Phase 15 adds `workflow_trace_id` linkage for persisted evidence, gate, and report endpoints.
 Phase 16 adds direct trace-id lookup for persisted records and matching agent-run traces.
+Phase 17 adds read-only query filters for persisted evidence, gate, and report lists.
 
 Not implemented yet:
 
@@ -87,6 +88,10 @@ curl -X POST http://localhost:8000/reports \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
 curl http://localhost:8000/reports
+curl "http://localhost:8000/evidence-ledgers?workflow_trace_id=<uuid>"
+curl "http://localhost:8000/evidence-ledgers?status=blocked"
+curl "http://localhost:8000/noise-gates?decision=blocked"
+curl "http://localhost:8000/reports?status=generated"
 ```
 
 The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.

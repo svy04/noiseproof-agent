@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from app.db import Repository, get_repository
 from app.schemas import ReportPreviewOut, ReportPreviewRequest, ReportStoredRecordOut
@@ -47,9 +47,17 @@ def create_report_record(
 
 @router.get("", response_model=list[ReportStoredRecordOut])
 def list_report_records(
+    workflow_trace_id: UUID | None = None,
+    status: str | None = None,
     repository: Repository = Depends(get_repository),
 ) -> list[ReportStoredRecordOut]:
-    return [ReportStoredRecordOut(**record) for record in repository.list_report_records()]
+    return [
+        ReportStoredRecordOut(**record)
+        for record in repository.list_report_records(
+            workflow_trace_id=workflow_trace_id,
+            status=status,
+        )
+    ]
 
 
 @router.post("/preview", response_model=ReportPreviewOut)

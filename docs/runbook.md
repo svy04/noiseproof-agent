@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 16 adds direct trace-id lookup on top of the shared `workflow_trace_id` linkage.
+Phase 17 adds read-only filtering on persisted Evidence Ledger, Noise Gate, and Report records.
 
 Implemented:
 
@@ -39,6 +39,13 @@ Implemented:
 - matching `workflow_trace_id` in `agent_runs.trace_json` for persisted evidence/gate/report endpoints
 - Trace-id Lookup v0
 - `GET /traces/{workflow_trace_id}`
+- Persisted Record Filtering v0
+- `GET /evidence-ledgers?workflow_trace_id=...`
+- `GET /evidence-ledgers?status=...`
+- `GET /noise-gates?workflow_trace_id=...`
+- `GET /noise-gates?decision=...`
+- `GET /reports?workflow_trace_id=...`
+- `GET /reports?status=...`
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -142,7 +149,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase16-trace-lookup"
+  "workflow_version": "phase17-persisted-record-filtering"
 }
 ```
 
@@ -151,7 +158,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase16-trace-lookup",
+  "workflow_version": "phase17-persisted-record-filtering",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -660,6 +667,14 @@ Expected persisted response shape:
 Current report persistence is v0. It stores deterministic preview output only; it does not link report records to an `agent_runs` id, call an LLM, or create a free-form final report.
 Persisted evidence, gate, and report records include `workflow_trace_id`. The same value is written to the matching `agent_runs.trace_json` entry for the persistence endpoint. This is a local correlation id, not full distributed tracing or an `agent_run_id` foreign-key relationship.
 Use `GET /traces/{workflow_trace_id}` to inspect records and agent-run traces that share that id.
+Use the persisted record list filters to narrow evidence, gate, and report records without adding search or ranking:
+
+```bash
+curl "http://localhost:8000/evidence-ledgers?workflow_trace_id=<uuid>"
+curl "http://localhost:8000/evidence-ledgers?status=blocked"
+curl "http://localhost:8000/noise-gates?decision=blocked"
+curl "http://localhost:8000/reports?status=generated"
+```
 
 Inspect auto-created preview traces:
 
@@ -672,11 +687,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase16-trace-lookup",
+    "workflow_version": "phase17-persisted-record-filtering",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase16-trace-lookup",
+      "phase": "phase17-persisted-record-filtering",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }
