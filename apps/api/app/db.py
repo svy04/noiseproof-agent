@@ -23,6 +23,15 @@ class Repository(Protocol):
     def create_document(self, payload: DocumentCreate) -> dict: ...
     def list_documents(self) -> Sequence[dict]: ...
     def create_agent_run(self, payload: AgentRunCreate) -> dict: ...
+    def update_agent_run(
+        self,
+        agent_run_id: UUID,
+        *,
+        status: str,
+        error_message: str | None,
+        latency_ms: int,
+        trace_json: dict,
+    ) -> dict: ...
     def list_agent_runs(self) -> Sequence[dict]: ...
     def create_evidence_ledger_entries(
         self,
@@ -125,6 +134,38 @@ class PostgresRepository:
                     payload.token_cost,
                     payload.latency_ms,
                     Jsonb(payload.trace_json),
+                ),
+            ).fetchone()
+            conn.commit()
+            return dict(row)
+
+    def update_agent_run(
+        self,
+        agent_run_id: UUID,
+        *,
+        status: str,
+        error_message: str | None,
+        latency_ms: int,
+        trace_json: dict,
+    ) -> dict:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                UPDATE agent_runs
+                SET status = %s,
+                    error_message = %s,
+                    latency_ms = %s,
+                    trace_json = %s,
+                    ended_at = now()
+                WHERE id = %s
+                RETURNING *
+                """,
+                (
+                    status,
+                    error_message,
+                    latency_ms,
+                    Jsonb(trace_json),
+                    agent_run_id,
                 ),
             ).fetchone()
             conn.commit()

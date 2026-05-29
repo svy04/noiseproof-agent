@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 18.5 adds a review-only decision on direct `agent_run_id` foreign-key linkage.
+Phase 19 adds an agent-run lifecycle: traced operations create a parent `agent_runs` row before execution, then update that same row to `completed` or `failed`.
 
 Implemented:
 
@@ -50,6 +50,9 @@ Implemented:
 - trace lookup and record filter links in `GET /ops/dashboard`
 - Agent-run Linkage Review v0
 - `docs/review/agent-run-linkage-review.md`
+- Agent-run Lifecycle v0
+- `run_with_trace()` parent run creation before operation execution
+- completion/failure updates on the same `agent_runs` row
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -75,7 +78,7 @@ Not implemented:
 - persisted parse records
 - persisted chunks
 - embeddings
-- `agent_run_id` foreign-key-linked Evidence Ledger, Noise Gate, and Report records. This has been reviewed, but it is not implemented.
+- `agent_run_id` foreign-key-linked Evidence Ledger, Noise Gate, and Report records. Parent run lifecycle now exists, but child-record foreign keys are still not implemented.
 
 ## Local Database
 
@@ -153,7 +156,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase18-dashboard-trace-filter-links"
+  "workflow_version": "phase19-agent-run-lifecycle"
 }
 ```
 
@@ -162,7 +165,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase18-dashboard-trace-filter-links",
+  "workflow_version": "phase19-agent-run-lifecycle",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -702,11 +705,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase18-dashboard-trace-filter-links",
+    "workflow_version": "phase19-agent-run-lifecycle",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase18-dashboard-trace-filter-links",
+      "phase": "phase19-agent-run-lifecycle",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }
@@ -771,4 +774,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, `agent_run_id` foreign-key-linked Evidence Ledger / Noise Gate / Report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` linkage has a review artifact, but no migration or endpoint behavior exists for it yet.
+Do not claim persisted chunks, embeddings, `agent_run_id` foreign-key-linked Evidence Ledger / Noise Gate / Report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage has a review artifact and parent run lifecycle, but no child-record migration or endpoint behavior exists for it yet.

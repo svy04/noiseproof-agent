@@ -16,7 +16,7 @@ def create_report_record(
 ) -> ReportStoredRecordOut:
     workflow_trace_id = uuid4()
 
-    def operation() -> ReportStoredRecordOut:
+    def operation(_agent_run_id) -> ReportStoredRecordOut:
         preview = preview_report(payload)
         persisted = repository.create_report_record(
             preview,
@@ -70,7 +70,7 @@ def create_report_preview(
         endpoint="POST /reports/preview",
         user_question=payload.question,
         trace_json={"evidence_entry_count": len(payload.evidence_entries)},
-        operation=lambda: preview_report(payload),
+        operation=lambda _agent_run_id: preview_report(payload),
         trace_from_result=lambda result: {
             "report_status": result.status,
             "gate_decision": result.gate.decision,

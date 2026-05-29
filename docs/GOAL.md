@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 18.5:
+Accepted state as of Phase 19:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, and Agent-run Linkage Review v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, and Agent-run Lifecycle v0
 ```
 
 Implemented:
@@ -168,6 +168,9 @@ Implemented:
 - Agent-run Linkage Review v0
 - `docs/review/agent-run-linkage-review.md`
 - direct `agent_run_id` foreign-key linkage reviewed but not implemented
+- Agent-run Lifecycle v0
+- `run_with_trace()` creates a parent `agent_runs` row before operation execution
+- `run_with_trace()` updates the same row to `completed` or `failed` after execution
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -231,6 +234,7 @@ Phase 16  - Trace-id Lookup v0
 Phase 17  - Persisted Record Filtering v0
 Phase 18  - Dashboard Trace/Filter Links v0
 Phase 18.5 - Agent-run Linkage Review v0
+Phase 19  - Agent-run Lifecycle v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -852,10 +856,22 @@ docs/review/agent-run-linkage-review.md
 
 Phase 18.5 is a review-only gate. It does not add migrations, endpoints, or runtime behavior. It keeps the direct `agent_run_id` foreign-key boundary explicit and concludes that the next implementation should create the agent run first before inserting child evidence, gate, or report records.
 
+### Phase 19 - Agent-run Lifecycle v0
+
+Implemented outputs:
+
+```text
+run_with_trace creates parent agent_runs row before operation execution
+run_with_trace updates the same row to completed or failed
+Repository.update_agent_run
+```
+
+Phase 19 changes trace lifecycle only. It does not add child-record `agent_run_id` foreign-key linkage, migrations for persisted evidence/gate/report records, distributed tracing, hosted observability, LLM calls, embeddings, or semantic retrieval.
+
 Next recommended implementation phase:
 
 ```text
-Agent-run lifecycle v0
+Persisted child record agent_run_id linkage v0
 ```
 
 ## 6. Ordering Rules

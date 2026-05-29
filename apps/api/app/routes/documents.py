@@ -37,7 +37,7 @@ def profile_document_text(
     payload: DocumentProfileRequest,
     repository: Repository = Depends(get_repository),
 ) -> DocumentProfileOut:
-    def operation() -> DocumentProfileOut:
+    def operation(_agent_run_id) -> DocumentProfileOut:
         return profile_document(payload)
 
     return run_with_trace(
@@ -59,7 +59,7 @@ def parse_document_preview(
         endpoint="POST /documents/parse-preview",
         user_question=f"parse preview: {payload.source_type}",
         trace_json={"source_type": payload.source_type},
-        operation=lambda: preview_parse(payload),
+        operation=lambda _agent_run_id: preview_parse(payload),
     )
 
 
@@ -77,5 +77,5 @@ def chunk_document_preview(
             "max_characters": payload.max_characters,
             "overlap": payload.overlap,
         },
-        operation=lambda: preview_chunks(payload),
+        operation=lambda _agent_run_id: preview_chunks(payload),
     )

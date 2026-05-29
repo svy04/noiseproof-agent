@@ -21,7 +21,7 @@ def create_evidence_ledger(
 ) -> EvidenceLedgerPersistedOut:
     workflow_trace_id = uuid4()
 
-    def operation() -> EvidenceLedgerPersistedOut:
+    def operation(_agent_run_id) -> EvidenceLedgerPersistedOut:
         preview = preview_evidence_ledger(payload)
         persisted = repository.create_evidence_ledger_entries(
             preview.question,
@@ -79,7 +79,7 @@ def create_evidence_ledger_preview(
         endpoint="POST /evidence-ledgers/preview",
         user_question=payload.question,
         trace_json={"retrieval_result_count": len(payload.retrieval_results)},
-        operation=lambda: preview_evidence_ledger(payload),
+        operation=lambda _agent_run_id: preview_evidence_ledger(payload),
         trace_from_result=lambda result: {
             "supported_count": result.summary.supported_count,
             "contradicted_count": result.summary.contradicted_count,

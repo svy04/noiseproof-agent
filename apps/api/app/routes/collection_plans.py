@@ -18,7 +18,7 @@ def create_collection_plan_preview(
         endpoint="POST /collection-plans/preview",
         user_question=payload.question,
         trace_json={},
-        operation=lambda: preview_collection_plan(payload),
+        operation=lambda _agent_run_id: preview_collection_plan(payload),
         trace_from_result=lambda result: {
             "required_role_count": len(result.required_roles),
             "warning_count": len(result.warnings),

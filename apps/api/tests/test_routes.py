@@ -38,6 +38,25 @@ class InMemoryRepository:
         self.agent_runs.append(row)
         return row
 
+    def update_agent_run(
+        self,
+        agent_run_id,
+        *,
+        status,
+        error_message,
+        latency_ms,
+        trace_json,
+    ):
+        for row in self.agent_runs:
+            if row["id"] == agent_run_id:
+                row["status"] = status
+                row["error_message"] = error_message
+                row["latency_ms"] = latency_ms
+                row["trace_json"] = trace_json
+                row["ended_at"] = datetime.now(timezone.utc)
+                return row
+        raise KeyError(f"Unknown agent run id: {agent_run_id}")
+
     def list_agent_runs(self):
         return self.agent_runs
 
@@ -159,7 +178,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase18-dashboard-trace-filter-links",
+            workflow_version="phase19-agent-run-lifecycle",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -209,7 +228,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-            "workflow_version": "phase18-dashboard-trace-filter-links",
+            "workflow_version": "phase19-agent-run-lifecycle",
     }
 
 
@@ -258,7 +277,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase18-dashboard-trace-filter-links"
+        == "phase19-agent-run-lifecycle"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -329,7 +348,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 18" in response.text
+    assert "Phase 19" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():
@@ -411,7 +430,7 @@ def test_core_preview_endpoints_auto_record_agent_run_traces():
         "POST /noise-gates/preview",
         "POST /reports/preview",
     }.issubset(endpoints)
-    assert all(trace["workflow_version"] == "phase18-dashboard-trace-filter-links" for trace in traces)
+    assert all(trace["workflow_version"] == "phase19-agent-run-lifecycle" for trace in traces)
     assert any(trace["trace_json"].get("decision") == "pass" for trace in traces)
     assert any(trace["trace_json"].get("report_status") == "generated" for trace in traces)
 
@@ -546,7 +565,7 @@ def test_noise_gate_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /noise-gates"
         and trace["trace_json"].get("decision") == "pass"
-        and trace["trace_json"].get("phase") == "phase18-dashboard-trace-filter-links"
+        and trace["trace_json"].get("phase") == "phase19-agent-run-lifecycle"
         for trace in traces
     )
 
@@ -655,7 +674,7 @@ def test_report_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /reports"
         and trace["trace_json"].get("report_status") == "generated"
-        and trace["trace_json"].get("phase") == "phase18-dashboard-trace-filter-links"
+        and trace["trace_json"].get("phase") == "phase19-agent-run-lifecycle"
         for trace in traces
     )
 
@@ -1065,7 +1084,7 @@ def test_document_preview_endpoints_auto_record_agent_run_traces():
 def test_run_trace_records_failed_preview_operations():
     repository = InMemoryRepository()
 
-    def failing_operation():
+    def failing_operation(_agent_run_id):
         raise ValueError("synthetic preview failure")
 
     with pytest.raises(ValueError):
@@ -1079,9 +1098,45 @@ def test_run_trace_records_failed_preview_operations():
 
     trace = repository.list_agent_runs()[0]
     assert trace["status"] == "failed"
+    assert trace["ended_at"] is not None
     assert trace["error_message"] == "synthetic preview failure"
     assert trace["trace_json"]["endpoint"] == "POST /reports/preview"
     assert trace["trace_json"]["error_type"] == "ValueError"
+
+
+def test_run_trace_creates_parent_run_before_operation_and_updates_it():
+    repository = InMemoryRepository()
+    observed_parent_ids = []
+
+    def operation(agent_run_id):
+        rows = repository.list_agent_runs()
+        assert len(rows) == 1
+        assert rows[0]["id"] == agent_run_id
+        assert rows[0]["status"] == "running"
+        assert rows[0]["ended_at"] is None
+        observed_parent_ids.append(agent_run_id)
+        return {"stored_entry_count": 1}
+
+    result = run_with_trace(
+        repository,
+        endpoint="POST /evidence-ledgers",
+        user_question="Which segment had enterprise demand growth?",
+        trace_json={"workflow_trace_id": str(uuid4())},
+        operation=operation,
+        trace_from_result=lambda value: {
+            "stored_entry_count": value["stored_entry_count"]
+        },
+    )
+
+    rows = repository.list_agent_runs()
+    assert result == {"stored_entry_count": 1}
+    assert len(rows) == 1
+    assert rows[0]["id"] == observed_parent_ids[0]
+    assert rows[0]["status"] == "completed"
+    assert rows[0]["ended_at"] is not None
+    assert rows[0]["latency_ms"] is not None
+    assert rows[0]["trace_json"]["endpoint"] == "POST /evidence-ledgers"
+    assert rows[0]["trace_json"]["stored_entry_count"] == 1
 
 
 def test_document_profile_endpoint_detects_fixture_signals():

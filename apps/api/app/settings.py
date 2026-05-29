@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     service_name: str = "noiseproof-agent-api"
-    workflow_version: str = "phase18-dashboard-trace-filter-links"
+    workflow_version: str = "phase19-agent-run-lifecycle"
     database_url: str = "postgresql://noiseproof:noiseproof@localhost:5432/noiseproof"
 
     model_config = SettingsConfigDict(

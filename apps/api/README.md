@@ -34,6 +34,7 @@ Phase 15 adds `workflow_trace_id` linkage for persisted evidence, gate, and repo
 Phase 16 adds direct trace-id lookup for persisted records and matching agent-run traces.
 Phase 17 adds read-only query filters for persisted evidence, gate, and report lists.
 Phase 18 adds trace lookup and filter links to the plain operations dashboard.
+Phase 19 changes preview/persistence tracing to create a parent `agent_runs` row before operation execution, then update the same row to completed or failed.
 
 Not implemented yet:
 

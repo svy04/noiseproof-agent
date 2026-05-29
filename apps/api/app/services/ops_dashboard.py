@@ -36,7 +36,7 @@ def render_ops_dashboard(
 </head>
 <body>
   <h1>Operations Dashboard v0</h1>
-  <p class="muted">Phase 18 inspectable operations surface. No LLM calls, no new retrieval behavior, no final report generation beyond deterministic previews.</p>
+  <p class="muted">Phase 19 inspectable operations surface. No LLM calls, no new retrieval behavior, no final report generation beyond deterministic previews.</p>
   <section>
     <h2>Summary</h2>
     <div class="grid">

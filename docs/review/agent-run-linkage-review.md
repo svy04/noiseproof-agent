@@ -1,6 +1,6 @@
 # Agent-run Linkage Review
 
-Status: Phase 18.5 review gate.
+Status: Phase 18.5 review gate, updated after Phase 19 parent lifecycle implementation.
 
 This is a review artifact, not a runtime implementation. It decides whether the current persisted Evidence Ledger, Noise Gate, and Report records are ready for direct `agent_run_id` foreign-key linkage.
 
@@ -16,7 +16,9 @@ This is inspectable through:
 - `GET /reports?workflow_trace_id=...`
 - `GET /ops/dashboard`
 
-The current `run_with_trace()` lifecycle creates the persisted business record inside the operation, then creates the `agent_runs` trace after the operation returns. That order makes the current `workflow_trace_id` link valid, but it means a non-null `agent_run_id` is not available when the persisted record is inserted.
+Before Phase 19, `run_with_trace()` created the persisted business record inside the operation, then created the `agent_runs` trace after the operation returned. That order made the current `workflow_trace_id` link valid, but it meant a non-null `agent_run_id` was not available when the persisted record was inserted.
+
+Phase 19 changed the parent run lifecycle: `run_with_trace()` now creates the `agent_runs` row before operation execution and updates the same row after completion or failure. Direct child-record `agent_run_id` linkage is still not implemented.
 
 ## Decision
 
@@ -24,7 +26,7 @@ Do not add the foreign key in this review gate.
 
 Adding nullable `agent_run_id` columns now would create a false sense of provenance because most new records would still be linked by `workflow_trace_id`, not by a database-enforced parent row.
 
-Before implementing direct foreign-key linkage, the runtime should create the agent run first, pass its id into the operation, then update the trace status and latency after the operation finishes.
+Before implementing direct foreign-key linkage, the runtime should create the agent run first, pass its id into the operation, then update the trace status and latency after the operation finishes. Phase 19 has now implemented that prerequisite. A future phase can add child-record `agent_run_id` fields and tests.
 
 ## Alternatives Considered
 
@@ -42,9 +44,9 @@ The current link is explicit, test-covered, and visible in the dashboard. It is 
 
 ### Create agent runs first, then persist child records
 
-Preferred future implementation.
+Partially implemented by Phase 19.
 
-This would make `agent_run_id` meaningful because every persisted Evidence Ledger, Noise Gate, and Report record could point to the exact parent run. It requires a lifecycle change, not just a migration.
+This makes `agent_run_id` meaningful because every persisted Evidence Ledger, Noise Gate, and Report record could eventually point to the exact parent run. The parent lifecycle exists now; the child-record foreign-key migration still has not been implemented.
 
 ### Add a separate workflow run table
 
@@ -54,9 +56,9 @@ It may become useful if a single workflow contains retrieval, evidence, gate, an
 
 ## Future Acceptance Criteria
 
-A future `agent_run_id` linkage phase should be accepted only when:
+A future child-record `agent_run_id` linkage phase should be accepted only when:
 
-- `agent_runs` rows are created before persisted Evidence Ledger, Noise Gate, and Report records are inserted.
+- `agent_runs` rows are created before persisted Evidence Ledger, Noise Gate, and Report records are inserted. Phase 19 satisfies this parent lifecycle prerequisite.
 - persisted records can store a non-null `agent_run_id` that points to the parent run.
 - the same records still expose `workflow_trace_id` for human-readable trace grouping.
 - failed operations still leave a failed agent run.

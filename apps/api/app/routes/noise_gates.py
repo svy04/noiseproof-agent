@@ -16,7 +16,7 @@ def create_noise_gate_record(
 ) -> NoiseGateStoredRecordOut:
     workflow_trace_id = uuid4()
 
-    def operation() -> NoiseGateStoredRecordOut:
+    def operation(_agent_run_id) -> NoiseGateStoredRecordOut:
         preview = preview_noise_gate(payload)
         persisted = repository.create_noise_gate_record(
             preview,
@@ -71,7 +71,7 @@ def create_noise_gate_preview(
         endpoint="POST /noise-gates/preview",
         user_question=payload.question,
         trace_json={"evidence_entry_count": len(payload.evidence_entries)},
-        operation=lambda: preview_noise_gate(payload),
+        operation=lambda _agent_run_id: preview_noise_gate(payload),
         trace_from_result=lambda result: {
             "decision": result.decision,
             "final_response_allowed": result.final_response_allowed,
