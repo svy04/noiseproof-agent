@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 9 is intended to prove that the current metadata, retrieval runs, and failure records can be inspected from a plain operations dashboard before any UI polish starts.
+Phase 10 records the current evaluation and Braincrew application package after the operations dashboard became inspectable.
 
 Implemented:
 
@@ -30,6 +30,11 @@ Implemented:
 - `POST /noise-gates/preview`
 - Claim-bounded Report Preview v0
 - `POST /reports/preview`
+- Operations Dashboard v0
+- `GET /ops/dashboard`
+- Evaluation/Application Package v0
+- `docs/evaluation/*`
+- `docs/application/*`
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
@@ -572,6 +577,19 @@ uv run pytest -q
 ```
 
 These tests use an in-memory repository override. They do not prove PostgreSQL runtime connectivity.
+
+## Evaluation And Application Package
+
+Review these Phase 10 artifacts before making application claims:
+
+```text
+docs/evaluation/eval-plan.md
+docs/evaluation/retrieval-eval-report.md
+docs/evaluation/failure-cases.md
+docs/application/braincrew-role-map.md
+docs/application/cover-message.md
+docs/application/portfolio-index.md
+```
 
 ## Boundary
 

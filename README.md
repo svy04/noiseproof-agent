@@ -105,6 +105,7 @@ Implementation status:
 - Noise Gate Preview: implemented for deterministic pre-report checks over ledger entries and draft claims
 - Claim-bounded Report Preview: implemented for gate-passing ledger entries
 - Operations Dashboard v0: implemented as a plain FastAPI HTML view over current metadata records
+- Evaluation/Application Package v0: implemented for evaluation planning, failure cases, Braincrew role mapping, cover message, and portfolio index
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, persisted Evidence Ledger entries, persisted reports: planned, not implemented
 
 ## Implementation Status
@@ -210,6 +211,16 @@ Implementation status:
 - Keeps unsupported claim and contradiction counts as placeholders until persisted Evidence Ledger entries exist: done
 - Next.js, UI polish, new model behavior, new retrieval behavior, persisted Evidence Ledger entries, and persisted report records: not implemented
 
+### Phase 10 - Evaluation/Application Package v0
+
+- `docs/evaluation/eval-plan.md`: done
+- `docs/evaluation/retrieval-eval-report.md`: done
+- `docs/evaluation/failure-cases.md`: done
+- `docs/application/braincrew-role-map.md`: done
+- `docs/application/cover-message.md`: done
+- `docs/application/portfolio-index.md`: done
+- Runtime product behavior, new retrieval behavior, LLM calls, and deployment: not implemented in Phase 10
+
 Not implemented yet:
 
 - file upload parsing
@@ -284,9 +295,9 @@ If the gate fails, the system should return:
 
 ## Evaluation
 
-Evaluation is planned around inspectability, not polished demo output.
+Evaluation is organized around inspectability, not polished demo output.
 
-The project will track:
+The Phase 10 evaluation package tracks:
 
 - sample dataset description
 - retrieval hit rate
@@ -296,7 +307,13 @@ The project will track:
 - contradiction examples
 - failure cases and next fixes
 
-Day 1 does not claim model, retrieval, or answer quality success.
+See:
+
+- `docs/evaluation/eval-plan.md`
+- `docs/evaluation/retrieval-eval-report.md`
+- `docs/evaluation/failure-cases.md`
+
+The project does not claim model, semantic retrieval, or answer quality success.
 
 ## Failure Cases
 
@@ -371,13 +388,12 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Phase 9, the next phase should add Evaluation and application package artifacts:
+After Phase 10, the next phase should be an application-ready review and proof-link pass:
 
-- create `docs/evaluation/eval-plan.md`
-- create `docs/evaluation/retrieval-eval-report.md`
-- create `docs/evaluation/failure-cases.md`
-- create Braincrew application mapping artifacts under `docs/application/`
-- keep claims tied to examples, failures, and explicit unproven boundaries
+- verify every README claim links to an artifact
+- add screenshots or terminal transcripts only where they prove a specific boundary
+- connect this repo from the portfolio proof surface
+- decide whether Phase 11 should add external proof links or hosted demo setup
 
 It should not start with UI polish, LLM prompt tuning, new retrieval behavior, or broad agent abstractions.
 

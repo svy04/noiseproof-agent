@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 9:
+Accepted state as of Phase 10:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, and Operations Dashboard v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, and Evaluation/Application Package v0
 ```
 
 Implemented:
@@ -118,6 +118,13 @@ Implemented:
 - plain browser-readable operations surface over existing metadata
 - dashboard shows summary counts, recent agent runs, failure cases, and retrieval runs
 - unsupported claim and contradiction counts remain placeholders until persisted Evidence Ledger entries exist
+- Evaluation/Application Package v0
+- `docs/evaluation/eval-plan.md`
+- `docs/evaluation/retrieval-eval-report.md`
+- `docs/evaluation/failure-cases.md`
+- `docs/application/braincrew-role-map.md`
+- `docs/application/cover-message.md`
+- `docs/application/portfolio-index.md`
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -556,10 +563,26 @@ placeholder unsupported claim and contradiction counts
 
 Phase 9 does not add Next.js, UI polish, LLM calls, new retrieval behavior, persisted Evidence Ledger entries, persisted gate records, or persisted report records.
 
+### Phase 10 - Evaluation and Application Package v0
+
+Implemented outputs:
+
+```text
+docs/evaluation/eval-plan.md
+docs/evaluation/retrieval-eval-report.md
+docs/evaluation/failure-cases.md
+docs/application/braincrew-role-map.md
+docs/application/cover-message.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Phase 10 does not add new runtime product behavior. It makes the current evidence, failures, role fit, and unproven boundaries easier to inspect.
+
 Next recommended implementation phase:
 
 ```text
-Phase 10 - Evaluation and application package
+Application-ready review / external proof linking
 ```
 
 ## 6. Ordering Rules

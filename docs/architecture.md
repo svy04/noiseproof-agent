@@ -18,6 +18,7 @@ Current status:
 - Noise Gate Preview v0 exists for deterministic pre-report checks over ledger entries and draft claims.
 - Claim-bounded Report Preview v0 exists for deterministic report-shaped output after the Noise Gate passes.
 - Operations Dashboard v0 exists as a plain FastAPI HTML view over current metadata records.
+- Evaluation/Application Package v0 exists for evaluation planning, failure records, and Braincrew role mapping.
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, persisted Evidence Ledger entries, persisted gate records, persisted reports, and agents are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
@@ -406,15 +407,18 @@ Evaluation should include:
 - contradiction examples
 - failures and next fixes
 
-Planned docs:
+Implemented Phase 10 docs:
 
 ```text
 docs/evaluation/eval-plan.md
 docs/evaluation/retrieval-eval-report.md
 docs/evaluation/failure-cases.md
+docs/application/braincrew-role-map.md
+docs/application/cover-message.md
+docs/application/portfolio-index.md
 ```
 
-Day 1 does not create evaluation results because no retrieval implementation exists yet.
+These documents do not claim production retrieval quality. They describe current evidence, remaining gaps, and application framing.
 
 ## Operations Dashboard
 
