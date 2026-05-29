@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 5 is intended to prove that chunk output can produce source-linked retrieval candidates before Evidence Ledger work starts.
+Phase 5.5 is intended to prove that a question can produce a small role-based Collection Plan Preview before retrieval candidates are promoted toward Evidence Ledger work.
 
 Implemented:
 
@@ -22,6 +22,8 @@ Implemented:
 - lexical retrieval v0 over generated chunks
 - `POST /retrieval-runs`
 - `GET /retrieval-runs`
+- Collection Plan Preview v0
+- `POST /collection-plans/preview`
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
@@ -92,7 +94,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase5-retrieval-v0"
+  "workflow_version": "phase5.5-collection-plan-preview"
 }
 ```
 
@@ -101,7 +103,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase5-retrieval-v0",
+  "workflow_version": "phase5.5-collection-plan-preview",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -109,7 +111,7 @@ Expected `/ops/summary` shape:
   "contradiction_count": 0,
   "average_latency_ms": null,
   "notes": [
-    "Retrieval runs recorded: 0. Phase 5 retrieval v0 only; no Evidence Ledger, Critic, or dashboard implementation yet.",
+    "Retrieval runs recorded: 0. Phase 5.5 adds Collection Plan Preview only; no Evidence Ledger, Critic, or dashboard implementation yet.",
     "Unsupported claim and contradiction counts remain placeholders until Evidence Ledger exists."
   ]
 }
@@ -337,6 +339,55 @@ No-results retrieval is recorded with:
 }
 ```
 
+Create a Collection Plan Preview without saving or retrieving anything:
+
+```bash
+curl -X POST http://localhost:8000/collection-plans/preview \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Did this company's AI narrative become materially stronger?\"}"
+```
+
+Expected `/collection-plans/preview` response shape:
+
+```json
+{
+  "question": "Did this company's AI narrative become materially stronger?",
+  "information_need": "Determine which role-diverse sources are needed before retrieval for: ...",
+  "possible_claims": [
+    "The available sources support a limited claim about: ...",
+    "The available sources weaken or contradict a claim about: ...",
+    "The current sources are insufficient to make a stronger claim about: ..."
+  ],
+  "required_roles": [
+    "direct_support",
+    "contradiction",
+    "timeline_anchor",
+    "missing_data_signal"
+  ],
+  "source_types_to_check": [
+    "news",
+    "financial_report",
+    "company_statement",
+    "analyst_note"
+  ],
+  "minimum_evidence_needed": "at least one direct support source; one contradiction or missing-data signal; one visible timeline anchor.",
+  "known_risks": [
+    "same-source repeated narrative may look like independent confirmation",
+    "marketing narrative may outrun operational evidence"
+  ],
+  "stop_conditions": [
+    "only same-source repeated narrative found",
+    "no contradiction or missing-data signal found"
+  ],
+  "warnings": [
+    "Collection Plan Preview does not judge truth or retrieve evidence.",
+    "This plan only defines information roles needed before retrieval."
+  ]
+}
+```
+
+Buy/sell-style questions should include `user_intent_check` and a stop condition for buy/sell drift. This endpoint does not call an LLM, search external sources, expand retrieval, generate an Evidence Ledger, create a final report, build a dashboard, or persist records.
+
 ## Metadata Examples
 
 Create a document metadata record:
@@ -378,4 +429,4 @@ These tests use an in-memory repository override. They do not prove PostgreSQL r
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, Evidence Ledger, Critic / Noise Gate, report generation, or answer generation exists until those stages are implemented and verified with examples.
+Do not claim persisted chunks, embeddings, Evidence Ledger, Critic / Noise Gate, report generation, dashboard, DB persistence for collection plans, or answer generation exists until those stages are implemented and verified with examples.

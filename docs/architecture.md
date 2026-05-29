@@ -13,7 +13,8 @@ Current status:
 - Parser adapter stubs exist for direct parse-preview payloads.
 - Chunk strategy experiment v0 exists for direct chunk-preview payloads.
 - Retrieval v0 exists for lexical candidate search over generated chunks.
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, Evidence Ledger, agents, and dashboard are planned but not implemented.
+- Collection Plan Preview v0 exists for question-only role planning before Evidence Ledger work.
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, Evidence Ledger, agents, and dashboard are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -28,6 +29,7 @@ Source Upload / URL Input
   -> Document Profiler
   -> Parser Selector
   -> Chunk Strategy Experiment
+  -> Collection Plan Preview
   -> Indexing
   -> Retrieval
   -> Evidence Ledger
@@ -40,7 +42,7 @@ Source Upload / URL Input
 Short form:
 
 ```text
-Source -> Document Profiler -> Parser -> Chunker -> Index -> Retrieval -> Evidence Ledger -> Critic -> Report -> Run Log
+Source -> Document Profiler -> Parser -> Chunker -> Collection Plan -> Retrieval -> Evidence Ledger -> Critic -> Report -> Run Log
 ```
 
 ## Component Responsibilities
@@ -150,6 +152,22 @@ Implemented Phase 5 boundary:
 - no-results runs recorded with `status: no_results`
 
 Retrieval candidates are not Evidence Ledger entries. They are possible source-linked evidence candidates for the next phase.
+
+### Collection Plan Preview
+
+Collection Plan Preview v0 converts a user question into required information roles before evidence work starts.
+
+Implemented Phase 5.5 boundary:
+
+- deterministic local rules only
+- question-only input
+- no LLM calls
+- no external search
+- no retrieval expansion
+- no DB persistence
+- no truth judgment
+
+The preview returns the question, information need, possible claim candidates, required roles, source types to check, minimum evidence needed, risks, stop conditions, and warnings. Buy/sell drift is represented as `user_intent_check` plus a stop condition, not as financial advice.
 
 ### Evidence Ledger
 
@@ -294,7 +312,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs.
 
 Implemented endpoints:
 
@@ -304,6 +322,7 @@ GET  /documents
 POST /documents/profile
 POST /documents/parse-preview
 POST /documents/chunk-preview
+POST /collection-plans/preview
 POST /retrieval-runs
 GET  /retrieval-runs
 POST /agent-runs
@@ -322,7 +341,7 @@ GET  /retrieval-runs/{id}/evidence-ledger
 POST /reports
 ```
 
-Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, compute embeddings, generate an Evidence Ledger, invoke an LLM, create final answers, or create final reports.
+Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, compute embeddings, generate an Evidence Ledger, invoke an LLM, create final answers, or create final reports.
 
 ## Agent Workflow
 

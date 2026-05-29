@@ -184,7 +184,7 @@ class PostgresRepository:
             contradiction_count=0,
             average_latency_ms=row["average_latency_ms"],
             notes=[
-                f"Retrieval runs recorded: {row['retrieval_run_count']}. Phase 5 retrieval v0 only; no Evidence Ledger, Critic, or dashboard implementation yet.",
+                f"Retrieval runs recorded: {row['retrieval_run_count']}. Phase 5.5 adds Collection Plan Preview only; no Evidence Ledger, Critic, or dashboard implementation yet.",
                 "Unsupported claim and contradiction counts remain placeholders until Evidence Ledger exists.",
             ],
         )

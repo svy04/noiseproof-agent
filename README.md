@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 adds lexical retrieval v0 over chunks and records retrieval runs.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 adds a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts.
 
 The product thesis:
 
@@ -73,6 +73,7 @@ Source Upload / URL Input
   -> Document Profiler
   -> Parser Selector
   -> Chunk Strategy Experiment
+  -> Collection Plan Preview
   -> Indexing
   -> Retrieval
   -> Evidence Ledger
@@ -99,6 +100,7 @@ Implementation status:
 - Parser adapter stubs: implemented for markdown, CSV, HTML/URL, PDF text-only fallback, and unknown source types
 - Chunk strategy experiment v0: implemented for fixed-window, heading-aware, and row-aware strategies
 - Retrieval v0: implemented for lexical candidate search over chunk-preview output with source ids
+- Collection Plan Preview: implemented for role-based information needs before Evidence Ledger work
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, Evidence Ledger generation, agents, final reports, dashboard: planned, not implemented
 
 ## Implementation Status
@@ -155,6 +157,15 @@ Implementation status:
 - Source ids returned on each retrieval candidate: done
 - Retrieval run records stored in `retrieval_runs`: done
 - No-results retrieval case recorded with `status: no_results`: done
+
+### Phase 5.5 - Collection Plan Preview
+
+- `POST /collection-plans/preview`: done
+- Question-only input: done
+- Required information roles returned before Evidence Ledger work: done
+- Buy/sell drift questions include `user_intent_check` and stop conditions: done
+- Underspecified, numeric, and source-quality questions expose role-specific warnings: done
+- LLM calls, external search, retrieval expansion, Evidence Ledger generation, final reports, dashboard, and DB persistence: not implemented
 
 Not implemented yet:
 
@@ -285,6 +296,9 @@ curl -X POST http://localhost:8000/documents/chunk-preview \
 curl -X POST http://localhost:8000/retrieval-runs \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"strategy\":\"heading-aware\",\"sources\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"content\":\"# Demand\nEnterprise demand grew 12% in 2026.\"}]}"
+curl -X POST http://localhost:8000/collection-plans/preview \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Did this company's AI narrative become materially stronger?\"}"
 ```
 
 ## Demo Flow
@@ -294,15 +308,16 @@ Planned demo flow after implementation:
 1. Upload or reference messy PDF, CSV, URL/HTML, and markdown memo inputs.
 2. Generate a document profile for each input.
 3. Compare fixed-window, heading-aware, and row-aware chunk strategies.
-4. Run retrieval for a market-intelligence question.
-5. Generate an Evidence Ledger before the answer.
-6. Ask the Critic Agent to block unsupported claims and surface contradictions.
-7. Generate a claim-bounded report with citations and limitations.
-8. Show the run log and failure case record.
+4. Create a Collection Plan Preview for a market-intelligence question.
+5. Run retrieval for source-linked candidate chunks.
+6. Generate an Evidence Ledger before the answer.
+7. Ask the Critic Agent to block unsupported claims and surface contradictions.
+8. Generate a claim-bounded report with citations and limitations.
+9. Show the run log and failure case record.
 
 ## What I Would Improve Next
 
-After Phase 5, the next phase should add Evidence Ledger v0:
+After Phase 5.5, the next phase should add Evidence Ledger v0:
 
 - claim-level evidence records
 - supported / weakly_supported / contradicted / unsupported / blocked statuses

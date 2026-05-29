@@ -11,6 +11,7 @@ Implemented in this package:
 - `POST /documents/profile`
 - `POST /documents/parse-preview`
 - `POST /documents/chunk-preview`
+- `POST /collection-plans/preview`
 - `POST /retrieval-runs`
 - `GET /retrieval-runs`
 - `POST /agent-runs`
@@ -24,6 +25,7 @@ Not implemented yet:
 - robust PDF extraction
 - persisted parse records
 - persisted chunks
+- persisted collection plans
 - embeddings
 - Evidence Ledger generation
 - Critic / Noise Gate
@@ -57,6 +59,10 @@ curl -X POST http://localhost:8000/documents/chunk-preview \
 curl -X POST http://localhost:8000/retrieval-runs \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"strategy\":\"heading-aware\",\"sources\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"content\":\"# Demand\nEnterprise demand grew 12% in 2026.\"}]}"
+curl -X POST http://localhost:8000/collection-plans/preview \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Did this company's AI narrative become materially stronger?\"}"
 ```
 
 The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
+Collection Plan Preview is deterministic and does not call LLMs, search external sources, expand retrieval, create an Evidence Ledger, or persist records.

@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 5:
+Accepted state as of Phase 5.5:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, and Retrieval v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, and Collection Plan Preview v0
 ```
 
 Implemented:
@@ -82,6 +82,12 @@ Implemented:
 - source ids attached to retrieval candidates
 - retrieval run records persisted in `retrieval_runs`
 - no-results retrieval runs recorded with `status: no_results`
+- Collection Plan Preview v0
+- `POST /collection-plans/preview`
+- question-only collection plan input
+- required information roles returned before Evidence Ledger work
+- buy/sell drift questions include `user_intent_check` and stop conditions
+- underspecified, numeric, and source-quality questions expose role-specific warnings
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -99,6 +105,7 @@ Not yet implemented:
 - robust PDF extraction
 - persisted parse records
 - persisted chunks
+- persisted collection plans
 - embeddings
 - Evidence Ledger generation
 - Critic / Noise Gate
@@ -132,6 +139,7 @@ Phase 2   - Ingestion fixtures and Document Profiler v0
 Phase 3   - Parser adapter stubs
 Phase 4   - Chunk strategy experiment v0
 Phase 5   - Retrieval v0
+Phase 5.5 - Collection Plan Preview v0
 Phase 6   - Evidence Ledger v0
 Phase 7   - Critic / Noise Gate v0
 Phase 8   - Claim-bounded report v0
@@ -318,6 +326,48 @@ metadata
 ```
 
 Phase 5 does not persist chunks, compute embeddings, create Evidence Ledger entries, call LLMs, generate final answers, create reports, run a Critic / Noise Gate, or build a dashboard.
+
+### Phase 5.5 - Collection Plan Preview v0
+
+Implemented outputs:
+
+```text
+packages/ingestion/collection/__init__.py
+packages/ingestion/collection/planner.py
+apps/api/app/services/collection_plan.py
+apps/api/app/routes/collection_plans.py
+POST /collection-plans/preview
+```
+
+Collection Plan Preview accepts a question and returns:
+
+```text
+question
+information_need
+possible_claims
+required_roles
+source_types_to_check
+minimum_evidence_needed
+known_risks
+stop_conditions
+warnings
+```
+
+Implemented role examples:
+
+```text
+direct_support
+contradiction
+quantitative_anchor
+timeline_anchor
+definition_anchor
+source_quality_check
+missing_data_signal
+scope_boundary
+user_intent_check
+```
+
+Phase 5.5 is a deterministic preview boundary. It does not call LLMs, search external sources, expand retrieval, create Evidence Ledger entries, run a Critic / Noise Gate, generate final answers, create reports, build a dashboard, or persist collection plans.
 
 Next recommended implementation phase:
 

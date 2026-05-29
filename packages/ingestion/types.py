@@ -106,3 +106,16 @@ class RetrievalExperimentResult:
     hit_rate: float
     citation_coverage: float
     warnings: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class CollectionPlan:
+    question: str
+    information_need: str
+    possible_claims: list[str]
+    required_roles: list[str]
+    source_types_to_check: list[str]
+    minimum_evidence_needed: str
+    known_risks: list[str]
+    stop_conditions: list[str]
+    warnings: list[str] = field(default_factory=list)

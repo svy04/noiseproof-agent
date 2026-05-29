@@ -151,9 +151,25 @@ class RetrievalRunResponse(RetrievalRunOut):
     warnings: list[str]
 
 
+class CollectionPlanPreviewRequest(BaseModel):
+    question: str = Field(..., min_length=1)
+
+
+class CollectionPlanPreviewOut(BaseModel):
+    question: str
+    information_need: str
+    possible_claims: list[str]
+    required_roles: list[str]
+    source_types_to_check: list[str]
+    minimum_evidence_needed: str
+    known_risks: list[str]
+    stop_conditions: list[str]
+    warnings: list[str]
+
+
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase5-retrieval-v0"
+    workflow_version: str = "phase5.5-collection-plan-preview"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None

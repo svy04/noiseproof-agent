@@ -59,7 +59,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase5-retrieval-v0",
+            workflow_version="phase5.5-collection-plan-preview",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -86,7 +86,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-        "workflow_version": "phase5-retrieval-v0",
+        "workflow_version": "phase5.5-collection-plan-preview",
     }
 
 
@@ -133,7 +133,10 @@ def test_agent_run_and_failure_case_roundtrip():
 
     assert run.status_code == 201
     assert failure.status_code == 201
-    assert client.get("/agent-runs").json()[0]["workflow_version"] == "phase5-retrieval-v0"
+    assert (
+        client.get("/agent-runs").json()[0]["workflow_version"]
+        == "phase5.5-collection-plan-preview"
+    )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
 
@@ -454,3 +457,88 @@ def test_retrieval_run_records_no_results_case():
     assert listed.status_code == 200
     assert listed.json()[0]["status"] == "no_results"
     assert listed.json()[0]["missing_evidence_count"] == 1
+
+
+def test_collection_plan_preview_for_general_market_question():
+    client = make_client()
+
+    response = client.post(
+        "/collection-plans/preview",
+        json={"question": "Did this company's AI narrative become materially stronger?"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["question"] == "Did this company's AI narrative become materially stronger?"
+    assert "AI narrative" in body["information_need"]
+    assert body["possible_claims"]
+    assert {
+        "direct_support",
+        "contradiction",
+        "timeline_anchor",
+        "missing_data_signal",
+    }.issubset(set(body["required_roles"]))
+    assert "company_statement" in body["source_types_to_check"]
+    assert any("not judge truth" in warning for warning in body["warnings"])
+
+
+def test_collection_plan_preview_for_underspecified_question():
+    client = make_client()
+
+    response = client.post("/collection-plans/preview", json={"question": "Tell me about AI"})
+
+    assert response.status_code == 200
+    body = response.json()
+    assert "definition_anchor" in body["required_roles"]
+    assert "scope_boundary" in body["required_roles"]
+    assert "missing_data_signal" in body["required_roles"]
+    assert any("underspecified" in warning for warning in body["warnings"])
+    assert any("question is underspecified" in condition for condition in body["stop_conditions"])
+
+
+def test_collection_plan_preview_blocks_buy_sell_drift():
+    client = make_client()
+
+    response = client.post(
+        "/collection-plans/preview",
+        json={"question": "Should I buy Tesla stock after the AI announcement?"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert "user_intent_check" in body["required_roles"]
+    assert any("buy/sell" in condition for condition in body["stop_conditions"])
+    assert any("trading advice" in risk for risk in body["known_risks"])
+    assert any("does not provide buy/sell recommendations" in warning for warning in body["warnings"])
+
+
+def test_collection_plan_preview_for_question_requiring_numbers():
+    client = make_client()
+
+    response = client.post(
+        "/collection-plans/preview",
+        json={"question": "Did revenue grow by 20% in 2026?"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert "quantitative_anchor" in body["required_roles"]
+    assert "timeline_anchor" in body["required_roles"]
+    assert "financial_report" in body["source_types_to_check"]
+    assert "At least one quantitative anchor" in body["minimum_evidence_needed"]
+
+
+def test_collection_plan_preview_for_source_quality_question():
+    client = make_client()
+
+    response = client.post(
+        "/collection-plans/preview",
+        json={"question": "Is this anonymous rumor about enterprise demand reliable?"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert "source_quality_check" in body["required_roles"]
+    assert "contradiction" in body["required_roles"]
+    assert any("source quality" in risk for risk in body["known_risks"])
+    assert any("source quality cannot be checked" in condition for condition in body["stop_conditions"])
