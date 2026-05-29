@@ -106,6 +106,7 @@ Implementation status:
 - Claim-bounded Report Preview: implemented for gate-passing ledger entries
 - Operations Dashboard v0: implemented as a plain FastAPI HTML view over current metadata records
 - Evaluation/Application Package v0: implemented for evaluation planning, failure cases, Braincrew role mapping, cover message, and portfolio index
+- Application-ready review: implemented as a partial/pass boundary checklist
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, persisted Evidence Ledger entries, persisted reports: planned, not implemented
 
 ## Implementation Status
@@ -219,6 +220,7 @@ Implementation status:
 - `docs/application/braincrew-role-map.md`: done
 - `docs/application/cover-message.md`: done
 - `docs/application/portfolio-index.md`: done
+- `docs/review/application-ready-review.md`: done
 - Runtime product behavior, new retrieval behavior, LLM calls, and deployment: not implemented in Phase 10
 
 Not implemented yet:
@@ -388,7 +390,7 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Phase 10, the next phase should be an application-ready review and proof-link pass:
+After this application-ready review, the next phase should be a proof-link pass:
 
 - verify every README claim links to an artifact
 - add screenshots or terminal transcripts only where they prove a specific boundary

@@ -416,6 +416,7 @@ docs/evaluation/failure-cases.md
 docs/application/braincrew-role-map.md
 docs/application/cover-message.md
 docs/application/portfolio-index.md
+docs/review/application-ready-review.md
 ```
 
 These documents do not claim production retrieval quality. They describe current evidence, remaining gaps, and application framing.

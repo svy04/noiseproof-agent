@@ -125,6 +125,7 @@ Implemented:
 - `docs/application/braincrew-role-map.md`
 - `docs/application/cover-message.md`
 - `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -574,6 +575,7 @@ docs/evaluation/failure-cases.md
 docs/application/braincrew-role-map.md
 docs/application/cover-message.md
 docs/application/portfolio-index.md
+docs/review/application-ready-review.md
 apps/api/tests/test_docs.py
 ```
 
@@ -582,7 +584,7 @@ Phase 10 does not add new runtime product behavior. It makes the current evidenc
 Next recommended implementation phase:
 
 ```text
-Application-ready review / external proof linking
+External proof linking
 ```
 
 ## 6. Ordering Rules

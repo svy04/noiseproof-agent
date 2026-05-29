@@ -12,6 +12,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/application/braincrew-role-map.md",
         "docs/application/cover-message.md",
         "docs/application/portfolio-index.md",
+        "docs/review/application-ready-review.md",
     ]
 
     for file_path in required_files:
@@ -39,3 +40,12 @@ def test_evaluation_docs_include_examples_and_unproven_boundaries():
     assert "lexical retrieval" in retrieval_report
     assert "runtime_verification" in failure_cases
     assert "No LLM" in failure_cases
+
+
+def test_application_ready_review_marks_partial_boundaries():
+    content = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(encoding="utf-8")
+
+    assert "application-ready review" in content
+    assert "Partial" in content
+    assert "Not product-complete" in content
+    assert "every agent run leaves a trace" in content
