@@ -59,7 +59,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase6-evidence-ledger-preview",
+            workflow_version="phase7-noise-gate-preview",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -86,7 +86,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-        "workflow_version": "phase6-evidence-ledger-preview",
+        "workflow_version": "phase7-noise-gate-preview",
     }
 
 
@@ -135,7 +135,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase6-evidence-ledger-preview"
+        == "phase7-noise-gate-preview"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -674,3 +674,189 @@ def test_evidence_ledger_preview_blocks_buy_sell_drift():
     assert body["entries"][0]["source_id"] is None
     assert "buy/sell" in body["entries"][0]["limitation"]
     assert any("financial advice" in warning for warning in body["warnings"])
+
+
+def test_noise_gate_preview_allows_supported_bounded_ledger_entry():
+    client = make_client()
+
+    response = client.post(
+        "/noise-gates/preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by a lexical retrieval candidate; not yet validated externally.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+            "draft_claims": [
+                "Enterprise demand grew, with the current evidence limited to one retrieved source."
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["decision"] == "pass"
+    assert body["final_response_allowed"] is True
+    assert body["blocked_claims"] == []
+    assert any(check["name"] == "every_strong_claim_has_evidence" for check in body["checks"])
+    assert any("does not generate a report" in warning for warning in body["warnings"])
+
+
+def test_noise_gate_preview_blocks_unsupported_entries():
+    client = make_client()
+
+    response = client.post(
+        "/noise-gates/preview",
+        json={
+            "question": "Was backlog reduced?",
+            "evidence_entries": [
+                {
+                    "claim": "Backlog was reduced",
+                    "source_id": None,
+                    "source_type": None,
+                    "source_date": None,
+                    "evidence_span": "",
+                    "confidence": "none",
+                    "limitation": "No retrieval candidates were provided.",
+                    "contradicting_source_ids": [],
+                    "status": "blocked",
+                    "matched_terms": [],
+                    "role": "missing_data_signal",
+                }
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["decision"] == "blocked"
+    assert body["final_response_allowed"] is False
+    assert body["fallback_message"].startswith("현재 근거만으로는 결론을 내릴 수 없습니다")
+    assert body["blocked_claims"] == ["Backlog was reduced"]
+    assert any(check["name"] == "unsupported_claim_blocking" for check in body["checks"])
+
+
+def test_noise_gate_preview_requires_revision_for_contradictions_and_missing_recency():
+    client = make_client()
+
+    response = client.post(
+        "/noise-gates/preview",
+        json={
+            "question": "Did enterprise demand grow?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-support",
+                    "source_type": "markdown",
+                    "source_date": None,
+                    "evidence_span": "Enterprise demand grew 12% this quarter.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": ["doc-contradiction"],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                },
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-contradiction",
+                    "source_type": "markdown",
+                    "source_date": None,
+                    "evidence_span": "Enterprise demand declined and no growth was observed.",
+                    "confidence": "low",
+                    "limitation": "Candidate contains contradiction language.",
+                    "contradicting_source_ids": ["doc-support"],
+                    "status": "contradicted",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "contradiction",
+                },
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["decision"] == "needs_revision"
+    assert body["final_response_allowed"] is False
+    assert "Enterprise demand grew" in body["downgraded_claims"]
+    assert any(check["name"] == "contradictions_are_surfaced" for check in body["checks"])
+    assert any(check["name"] == "source_recency_visible" for check in body["checks"])
+
+
+def test_noise_gate_preview_blocks_trading_advice_and_overconfident_draft():
+    client = make_client()
+
+    response = client.post(
+        "/noise-gates/preview",
+        json={
+            "question": "Should I buy this stock after earnings?",
+            "evidence_entries": [
+                {
+                    "claim": "Revenue grew after earnings",
+                    "source_id": "doc-earnings",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Revenue grew 12% after earnings.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["revenue", "earnings"],
+                    "role": "direct_support",
+                }
+            ],
+            "draft_claims": ["This proves you should buy the stock."],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["decision"] == "blocked"
+    assert body["final_response_allowed"] is False
+    assert any(check["name"] == "trading_advice_drift" for check in body["checks"])
+    assert any(check["name"] == "overconfident_language" for check in body["checks"])
+    assert any("buy/sell" in revision for revision in body["required_revisions"])
+
+
+def test_noise_gate_preview_requires_two_sources_for_high_confidence():
+    client = make_client()
+
+    response = client.post(
+        "/noise-gates/preview",
+        json={
+            "question": "Did revenue grow by 20% in 2026?",
+            "evidence_entries": [
+                {
+                    "claim": "Revenue grew by 20%",
+                    "source_id": "doc-revenue",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Revenue grew by 20% in 2026.",
+                    "confidence": "high",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["revenue", "growth", "20"],
+                    "role": "quantitative_anchor",
+                }
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["decision"] == "needs_revision"
+    assert body["final_response_allowed"] is False
+    assert body["downgraded_claims"] == ["Revenue grew by 20%"]
+    assert any(check["name"] == "high_confidence_has_two_sources" for check in body["checks"])

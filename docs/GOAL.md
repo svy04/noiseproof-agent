@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 6:
+Accepted state as of Phase 7:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, and Evidence Ledger Preview v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, and Noise Gate Preview v0
 ```
 
 Implemented:
@@ -98,6 +98,15 @@ Implemented:
 - no-evidence questions produce a blocked ledger entry
 - buy/sell drift questions produce a blocked ledger entry
 - contradiction language is surfaced before report generation
+- Noise Gate Preview v0
+- `POST /noise-gates/preview`
+- pre-report checks over Evidence Ledger entries and optional draft claims
+- pass / needs_revision / blocked decisions
+- unsupported and blocked ledger entries prevent final response allowance
+- buy/sell and financial-advice drift blocks final response allowance
+- contradictions, missing source recency, missing limitations, and high-confidence single-source claims require revision
+- overconfident draft language is flagged
+- Korean fallback message returned for blocked or revision-needed outputs
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -117,7 +126,7 @@ Not yet implemented:
 - persisted collection plans
 - embeddings
 - persisted Evidence Ledger entries
-- Critic / Noise Gate
+- persisted Critic / Noise Gate records
 - final report generation
 - web dashboard
 
@@ -427,10 +436,52 @@ blocked
 
 Phase 6 is a deterministic preview boundary. It does not call LLMs, search external sources, persist Evidence Ledger entries, run a Critic / Noise Gate, generate final answers, create reports, or build a dashboard.
 
+### Phase 7 - Noise Gate Preview v0
+
+Implemented outputs:
+
+```text
+packages/ingestion/noise_gate/__init__.py
+packages/ingestion/noise_gate/gate.py
+apps/api/app/services/noise_gate.py
+apps/api/app/routes/noise_gates.py
+POST /noise-gates/preview
+```
+
+Noise Gate Preview accepts a question, Evidence Ledger entries, and optional draft claims, then returns:
+
+```text
+question
+decision
+final_response_allowed
+checks
+blocked_claims
+downgraded_claims
+allowed_claims
+required_revisions
+fallback_message
+warnings
+```
+
+Implemented checks:
+
+```text
+every_strong_claim_has_evidence
+unsupported_claim_blocking
+contradictions_are_surfaced
+source_recency_visible
+high_confidence_has_two_sources
+limitations_explicit
+trading_advice_drift
+overconfident_language
+```
+
+Phase 7 is a deterministic preview boundary. It does not call LLMs, search external sources, persist gate records, generate final answers, create reports, or build a dashboard.
+
 Next recommended implementation phase:
 
 ```text
-Phase 7 - Critic / Noise Gate v0
+Phase 8 - Claim-bounded report v0
 ```
 
 ## 6. Ordering Rules

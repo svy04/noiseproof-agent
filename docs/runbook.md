@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 6 is intended to prove that retrieval candidates can be turned into a small, inspectable Evidence Ledger Preview before any Critic / Noise Gate or final report exists.
+Phase 7 is intended to prove that Evidence Ledger entries can be checked by a small, inspectable Noise Gate Preview before any final report exists.
 
 Implemented:
 
@@ -26,6 +26,8 @@ Implemented:
 - `POST /collection-plans/preview`
 - Evidence Ledger Preview v0
 - `POST /evidence-ledgers/preview`
+- Noise Gate Preview v0
+- `POST /noise-gates/preview`
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
@@ -37,7 +39,7 @@ Not implemented:
 - persisted chunks
 - embeddings
 - persisted Evidence Ledger entries
-- Critic / Noise Gate
+- persisted Critic / Noise Gate records
 - final report generation
 - web dashboard
 
@@ -104,7 +106,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase6-evidence-ledger-preview"
+  "workflow_version": "phase7-noise-gate-preview"
 }
 ```
 
@@ -113,7 +115,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase6-evidence-ledger-preview",
+  "workflow_version": "phase7-noise-gate-preview",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -121,7 +123,7 @@ Expected `/ops/summary` shape:
   "contradiction_count": 0,
   "average_latency_ms": null,
   "notes": [
-    "Retrieval runs recorded: 0. Phase 6 adds Evidence Ledger Preview only; no Critic, final report, or dashboard implementation yet.",
+    "Retrieval runs recorded: 0. Phase 7 adds Noise Gate Preview only; no final report or dashboard implementation yet.",
     "Unsupported claim and contradiction counts remain placeholders until persisted Evidence Ledger entries exist."
   ]
 }
@@ -443,6 +445,42 @@ Expected `/evidence-ledgers/preview` response shape:
 
 No-evidence and buy/sell-style questions produce `blocked` ledger entries. Contradiction language is surfaced as `contradicted`. This endpoint does not call an LLM, search external sources, run a Critic / Noise Gate, create a final report, build a dashboard, or persist Evidence Ledger entries.
 
+Preview whether current ledger entries can pass the Noise Gate:
+
+```bash
+curl -X POST http://localhost:8000/noise-gates/preview \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
+```
+
+Expected `/noise-gates/preview` response shape:
+
+```json
+{
+  "question": "Which segment had enterprise demand growth?",
+  "decision": "pass",
+  "final_response_allowed": true,
+  "checks": [
+    {
+      "name": "every_strong_claim_has_evidence",
+      "status": "pass",
+      "message": "Every current ledger claim has source-linked evidence."
+    }
+  ],
+  "blocked_claims": [],
+  "downgraded_claims": [],
+  "allowed_claims": ["Enterprise demand grew"],
+  "required_revisions": [],
+  "fallback_message": null,
+  "warnings": [
+    "Noise Gate Preview does not generate a report or call an LLM.",
+    "It only checks whether current ledger evidence can pass into a future report stage."
+  ]
+}
+```
+
+Unsupported or blocked ledger entries return `decision: blocked`. Contradictions, missing source dates, missing limitations, high-confidence single-source claims, and overconfident draft language return `decision: needs_revision` unless trading-advice drift blocks the response. This endpoint does not call an LLM, persist gate records, create a final report, or build a dashboard.
+
 ## Metadata Examples
 
 Create a document metadata record:
@@ -484,4 +522,4 @@ These tests use an in-memory repository override. They do not prove PostgreSQL r
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, persisted Evidence Ledger entries, Critic / Noise Gate, report generation, dashboard, DB persistence for collection plans, or answer generation exists until those stages are implemented and verified with examples.
+Do not claim persisted chunks, embeddings, persisted Evidence Ledger entries, persisted Critic / Noise Gate records, report generation, dashboard, DB persistence for collection plans, or answer generation exists until those stages are implemented and verified with examples.

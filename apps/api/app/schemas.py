@@ -213,9 +213,34 @@ class EvidenceLedgerPreviewOut(BaseModel):
     warnings: list[str]
 
 
+class NoiseGatePreviewRequest(BaseModel):
+    question: str = Field(..., min_length=1)
+    evidence_entries: list[EvidenceLedgerEntryOut] = Field(default_factory=list)
+    draft_claims: list[str] = Field(default_factory=list)
+
+
+class NoiseGateCheckOut(BaseModel):
+    name: str
+    status: str
+    message: str
+
+
+class NoiseGatePreviewOut(BaseModel):
+    question: str
+    decision: str
+    final_response_allowed: bool
+    checks: list[NoiseGateCheckOut]
+    blocked_claims: list[str]
+    downgraded_claims: list[str]
+    allowed_claims: list[str]
+    required_revisions: list[str]
+    fallback_message: str | None
+    warnings: list[str]
+
+
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase6-evidence-ledger-preview"
+    workflow_version: str = "phase7-noise-gate-preview"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None

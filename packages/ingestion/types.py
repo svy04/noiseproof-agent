@@ -164,3 +164,24 @@ class EvidenceLedger:
     entries: list[EvidenceLedgerEntry]
     summary: EvidenceLedgerSummary
     warnings: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class NoiseGateCheck:
+    name: str
+    status: str
+    message: str
+
+
+@dataclass(frozen=True)
+class NoiseGateResult:
+    question: str
+    decision: str
+    final_response_allowed: bool
+    checks: list[NoiseGateCheck]
+    blocked_claims: list[str]
+    downgraded_claims: list[str]
+    allowed_claims: list[str]
+    required_revisions: list[str]
+    fallback_message: str | None
+    warnings: list[str] = field(default_factory=list)

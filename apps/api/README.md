@@ -15,6 +15,7 @@ Implemented in this package:
 - `POST /retrieval-runs`
 - `GET /retrieval-runs`
 - `POST /evidence-ledgers/preview`
+- `POST /noise-gates/preview`
 - `POST /agent-runs`
 - `GET /agent-runs`
 - `POST /failure-cases`
@@ -29,7 +30,7 @@ Not implemented yet:
 - persisted collection plans
 - embeddings
 - persisted Evidence Ledger entries
-- Critic / Noise Gate
+- persisted Critic / Noise Gate records
 - final report generation
 
 ## Local Run
@@ -66,8 +67,12 @@ curl -X POST http://localhost:8000/collection-plans/preview \
 curl -X POST http://localhost:8000/evidence-ledgers/preview \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"retrieval_results\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"chunk_strategy\":\"heading-aware\",\"chunk_index\":0,\"text\":\"Enterprise demand grew 12% in 2026.\",\"score\":0.75,\"matched_terms\":[\"demand\",\"enterprise\",\"growth\"],\"metadata\":{\"source_date\":\"2026-05-28\"}}]}"
+curl -X POST http://localhost:8000/noise-gates/preview \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
 ```
 
 The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
 Collection Plan Preview is deterministic and does not call LLMs, search external sources, expand retrieval, create an Evidence Ledger by itself, or persist records.
 Evidence Ledger Preview is deterministic and does not call LLMs, search external sources, run a Critic / Noise Gate, create a final report, or persist Evidence Ledger entries.
+Noise Gate Preview is deterministic and does not call LLMs, persist gate records, create a final report, or build a dashboard.
