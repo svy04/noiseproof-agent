@@ -193,7 +193,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase21-dashboard-provenance-links",
+            workflow_version="phase22-evidence-dashboard-table",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -243,7 +243,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-            "workflow_version": "phase21-dashboard-provenance-links",
+            "workflow_version": "phase22-evidence-dashboard-table",
     }
 
 
@@ -292,7 +292,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase21-dashboard-provenance-links"
+        == "phase22-evidence-dashboard-table"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -363,7 +363,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 21" in response.text
+    assert "Phase 22" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():
@@ -445,7 +445,7 @@ def test_core_preview_endpoints_auto_record_agent_run_traces():
         "POST /noise-gates/preview",
         "POST /reports/preview",
     }.issubset(endpoints)
-    assert all(trace["workflow_version"] == "phase21-dashboard-provenance-links" for trace in traces)
+    assert all(trace["workflow_version"] == "phase22-evidence-dashboard-table" for trace in traces)
     assert any(trace["trace_json"].get("decision") == "pass" for trace in traces)
     assert any(trace["trace_json"].get("report_status") == "generated" for trace in traces)
 
@@ -580,7 +580,7 @@ def test_noise_gate_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /noise-gates"
         and trace["trace_json"].get("decision") == "pass"
-        and trace["trace_json"].get("phase") == "phase21-dashboard-provenance-links"
+        and trace["trace_json"].get("phase") == "phase22-evidence-dashboard-table"
         for trace in traces
     )
 
@@ -689,7 +689,7 @@ def test_report_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /reports"
         and trace["trace_json"].get("report_status") == "generated"
-        and trace["trace_json"].get("phase") == "phase21-dashboard-provenance-links"
+        and trace["trace_json"].get("phase") == "phase22-evidence-dashboard-table"
         for trace in traces
     )
 
@@ -1148,6 +1148,40 @@ def test_ops_dashboard_links_to_trace_lookup_and_record_filters():
     assert 'href="/evidence-ledgers?status=unsupported"' in dashboard.text
     assert 'href="/noise-gates?decision=needs_revision"' in dashboard.text
     assert 'href="/reports?status=generated"' in dashboard.text
+
+
+def test_ops_dashboard_surfaces_evidence_ledger_records_with_parent_links():
+    client = make_client()
+
+    response = client.post(
+        "/evidence-ledgers",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "retrieval_results": [
+                {
+                    "source_id": "doc-support",
+                    "source_type": "markdown",
+                    "chunk_strategy": "heading-aware",
+                    "chunk_index": 0,
+                    "text": "Enterprise demand grew 12% in 2026.",
+                    "score": 0.75,
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "metadata": {"source_date": "2026-05-28"},
+                }
+            ],
+        },
+    )
+    body = response.json()
+    trace_id = body["entries"][0]["workflow_trace_id"]
+    agent_run_id = body["entries"][0]["agent_run_id"]
+
+    dashboard = client.get("/ops/dashboard")
+
+    assert "Evidence Ledger Records" in dashboard.text
+    assert "Enterprise demand grew" in dashboard.text
+    assert f'href="/traces/{trace_id}">{agent_run_id}</a>' in dashboard.text
+    assert f'href="/evidence-ledgers?workflow_trace_id={trace_id}"' in dashboard.text
+    assert 'href="/evidence-ledgers?status=supported"' in dashboard.text
 
 
 def test_document_preview_endpoints_auto_record_agent_run_traces():

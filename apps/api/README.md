@@ -37,6 +37,7 @@ Phase 18 adds trace lookup and filter links to the plain operations dashboard.
 Phase 19 changes preview/persistence tracing to create a parent `agent_runs` row before operation execution, then update the same row to completed or failed.
 Phase 20 stores the parent `agent_run_id` on persisted Evidence Ledger, Noise Gate, and Report records.
 Phase 21 exposes parent run links for persisted Noise Gate and Report records in the plain operations dashboard.
+Phase 22 exposes persisted Evidence Ledger rows in the plain operations dashboard.
 
 Not implemented yet:
 
@@ -108,6 +109,6 @@ Evidence Ledger Preview is deterministic and does not call LLMs, search external
 Noise Gate Preview is deterministic and does not call LLMs, create a final report, or build a dashboard.
 `POST /noise-gates` persists the deterministic gate decision as a v0 Noise Gate record with local parent `agent_run_id` provenance. It does not create a final report.
 Report Preview is deterministic and does not call LLMs. `POST /reports` persists the deterministic preview output as a v0 Report record; it does not create a free-form final report.
-Persisted evidence, gate, and report records include `workflow_trace_id`, which also appears in the matching `agent_runs.trace_json`; persisted gate and report rows are linked back to their parent run from the dashboard.
-Operations Dashboard v0 is a plain FastAPI HTML view over current metadata. It now links to trace lookup, record filters, and parent run provenance, but it is still not a polished product UI.
+Persisted evidence, gate, and report records include `workflow_trace_id`, which also appears in the matching `agent_runs.trace_json`; persisted evidence, gate, and report rows are linked back to their parent run from the dashboard.
+Operations Dashboard v0 is a plain FastAPI HTML view over current metadata. It now links to trace lookup, record filters, parent run provenance, and persisted Evidence Ledger rows, but it is still not a polished product UI.
 Auto Trace Recording v0 is metadata tracing for preview endpoints, not distributed tracing or hosted observability.

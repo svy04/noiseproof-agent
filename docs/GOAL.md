@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 21:
+Accepted state as of Phase 22:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, and Dashboard Parent/Child Provenance Links v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, and Evidence Ledger Dashboard Table v0
 ```
 
 Implemented:
@@ -180,6 +180,9 @@ Implemented:
 - `GET /ops/dashboard` shows parent run links for persisted Noise Gate records
 - `GET /ops/dashboard` shows parent run links for persisted Report records
 - parent run links use trace lookup, not a separate agent-run detail endpoint
+- Evidence Ledger Dashboard Table v0
+- `GET /ops/dashboard` shows persisted Evidence Ledger rows
+- Evidence Ledger dashboard rows include trace links, parent run links, status filters, claim, evidence span, source, and confidence
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -245,6 +248,7 @@ Phase 18.5 - Agent-run Linkage Review v0
 Phase 19  - Agent-run Lifecycle v0
 Phase 20  - Persisted Child Record Agent-run Linkage v0
 Phase 21  - Dashboard Parent/Child Provenance Links v0
+Phase 22  - Evidence Ledger Dashboard Table v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -904,10 +908,24 @@ dashboard boundary copy updated from missing agent_run_id linkage to local paren
 
 Phase 21 is a plain inspectability change. It does not add a polished UI, a new dashboard framework, distributed tracing, hosted observability, LLM calls, embeddings, or semantic retrieval.
 
+### Phase 22 - Evidence Ledger Dashboard Table v0
+
+Implemented:
+
+```text
+Evidence Ledger Records section in GET /ops/dashboard
+trace lookup links for evidence rows
+parent run links for evidence rows
+status filter links for evidence rows
+claim, evidence span, source, and confidence columns
+```
+
+Phase 22 is a plain inspectability change. It does not add dashboard polish, semantic evidence search, distributed tracing, hosted observability, LLM calls, embeddings, or new retrieval behavior.
+
 Next recommended implementation phase:
 
 ```text
-Evidence Ledger dashboard table v0
+Evidence-to-gate/report local cross-links review
 ```
 
 ## 6. Ordering Rules

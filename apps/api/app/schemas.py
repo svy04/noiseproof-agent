@@ -310,7 +310,7 @@ class ReportStoredRecordOut(ReportPreviewOut):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase21-dashboard-provenance-links"
+    workflow_version: str = "phase22-evidence-dashboard-table"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None

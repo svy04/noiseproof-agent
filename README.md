@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 added Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output. Phase 9 added Operations Dashboard v0 so the existing run, retrieval, and failure records are inspectable from the browser. Phase 11 added Auto Trace Recording v0 so preview endpoints leave `agent_runs.trace_json` metadata before the project claims a full agent workflow. Phase 12 added persisted Evidence Ledger records so unsupported and contradiction counts are no longer dashboard placeholders. Phase 13 added persisted Noise Gate records so gate decisions can be inspected after the preview call. Phase 14 added persisted Report Preview records so generated, blocked, and revision-needed report-shaped outputs can be inspected after the preview call. Phase 15 added `workflow_trace_id` linkage across persisted evidence, gate, report records, and their matching `agent_runs.trace_json`. Phase 16 added `GET /traces/{workflow_trace_id}` so a trace id can be inspected directly. Phase 17 added lightweight filters for persisted Evidence Ledger, Noise Gate, and Report record lists. Phase 18 added trace lookup and filter links to the plain operations dashboard. Phase 18.5 reviewed direct `agent_run_id` foreign-key linkage and kept it unimplemented until the run lifecycle is changed. Phase 19 added an agent-run lifecycle so traced operations create a parent run before execution and update that same run after completion or failure. Phase 20 added `agent_run_id` linkage on persisted Evidence Ledger, Noise Gate, and Report records. Phase 21 added parent-run provenance links to persisted gate and report rows in the plain dashboard.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 added Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output. Phase 9 added Operations Dashboard v0 so the existing run, retrieval, and failure records are inspectable from the browser. Phase 11 added Auto Trace Recording v0 so preview endpoints leave `agent_runs.trace_json` metadata before the project claims a full agent workflow. Phase 12 added persisted Evidence Ledger records so unsupported and contradiction counts are no longer dashboard placeholders. Phase 13 added persisted Noise Gate records so gate decisions can be inspected after the preview call. Phase 14 added persisted Report Preview records so generated, blocked, and revision-needed report-shaped outputs can be inspected after the preview call. Phase 15 added `workflow_trace_id` linkage across persisted evidence, gate, report records, and their matching `agent_runs.trace_json`. Phase 16 added `GET /traces/{workflow_trace_id}` so a trace id can be inspected directly. Phase 17 added lightweight filters for persisted Evidence Ledger, Noise Gate, and Report record lists. Phase 18 added trace lookup and filter links to the plain operations dashboard. Phase 18.5 reviewed direct `agent_run_id` foreign-key linkage and kept it unimplemented until the run lifecycle is changed. Phase 19 added an agent-run lifecycle so traced operations create a parent run before execution and update that same run after completion or failure. Phase 20 added `agent_run_id` linkage on persisted Evidence Ledger, Noise Gate, and Report records. Phase 21 added parent-run provenance links to persisted gate and report rows in the plain dashboard. Phase 22 added a persisted Evidence Ledger table to the dashboard.
 
 The product thesis:
 
@@ -119,6 +119,7 @@ Implementation status:
 - Agent-run lifecycle v0: implemented in `run_with_trace()`
 - Persisted child record agent-run linkage v0: implemented for Evidence Ledger, Noise Gate, and Report records
 - Dashboard parent/child provenance links v0: implemented for Noise Gate and Report record rows
+- Evidence Ledger dashboard table v0: implemented for persisted evidence rows
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -336,6 +337,12 @@ Implementation status:
 - Parent run links route through `GET /traces/{workflow_trace_id}`: done
 - This is still a plain inspectability surface, not dashboard polish or distributed tracing
 
+### Phase 22 - Evidence Ledger Dashboard Table v0
+
+- `GET /ops/dashboard` shows persisted Evidence Ledger rows: done
+- Evidence rows include trace links, parent run links, status filters, claim, evidence span, source, and confidence: done
+- This is still a bounded operations view, not dashboard polish or semantic search
+
 Not implemented yet:
 
 - file upload parsing
@@ -513,9 +520,9 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Dashboard Parent/Child Provenance Links v0, the next phase should improve evidence inspectability carefully without overstating the workflow:
+After Evidence Ledger Dashboard Table v0, the next phase should improve evidence inspectability carefully without overstating the workflow:
 
-- consider a small persisted Evidence Ledger table in the plain dashboard so evidence entries are inspectable beside gate and report records
+- consider evidence-to-gate/report cross-links only if they remain local and inspectable
 - keep the links inspectable without introducing LLM calls, dashboard polish, or new retrieval behavior
 - keep deterministic preview behavior before adding LLM calls or embeddings
 

@@ -9,9 +9,11 @@ def render_ops_dashboard(
     agent_runs: list[dict[str, Any]],
     failure_cases: list[dict[str, Any]],
     retrieval_runs: list[dict[str, Any]],
+    evidence_ledger_entries: list[dict[str, Any]] | None = None,
     noise_gate_records: list[dict[str, Any]] | None = None,
     report_records: list[dict[str, Any]] | None = None,
 ) -> str:
+    evidence_ledger_entries = evidence_ledger_entries or []
     noise_gate_records = noise_gate_records or []
     report_records = report_records or []
     return f"""<!doctype html>
@@ -36,7 +38,7 @@ def render_ops_dashboard(
 </head>
 <body>
   <h1>Operations Dashboard v0</h1>
-  <p class="muted">Phase 21 inspectable operations surface. No LLM calls, no new retrieval behavior, no final report generation beyond deterministic previews.</p>
+  <p class="muted">Phase 22 inspectable operations surface. No LLM calls, no new retrieval behavior, no final report generation beyond deterministic previews.</p>
   <section>
     <h2>Summary</h2>
     <div class="grid">
@@ -73,6 +75,10 @@ def render_ops_dashboard(
     {_retrieval_runs_table(retrieval_runs)}
   </section>
   <section>
+    <h2>Evidence Ledger Records</h2>
+    {_evidence_ledger_records_table(evidence_ledger_entries)}
+  </section>
+  <section>
     <h2>Noise Gate Records</h2>
     {_noise_gate_records_table(noise_gate_records)}
   </section>
@@ -85,7 +91,7 @@ def render_ops_dashboard(
     <ul>
       <li>This dashboard renders existing metadata and preview records only.</li>
       <li>Unsupported claim and contradiction counts come from persisted Evidence Ledger entries.</li>
-      <li>Persisted gate and report records link back to their parent agent run through trace lookup.</li>
+      <li>Persisted evidence, gate, and report records link back to their parent agent run through trace lookup.</li>
       <li>Embeddings, semantic retrieval, distributed tracing, and free-form final reports are still not implemented.</li>
       <li>Visual polish is intentionally deferred until failure behavior is more complete.</li>
     </ul>
@@ -145,6 +151,25 @@ def _retrieval_runs_table(rows: list[dict[str, Any]]) -> str:
         for row in rows[:10]
     )
     return f"<table><thead><tr><th>Created</th><th>Status</th><th>Question</th><th>Strategy</th><th>Results</th><th>Missing Evidence</th></tr></thead><tbody>{body}</tbody></table>"
+
+
+def _evidence_ledger_records_table(rows: list[dict[str, Any]]) -> str:
+    if not rows:
+        return '<p class="muted">No evidence ledger records persisted yet.</p>'
+    body = "\n".join(
+        "<tr>"
+        f"<td>{_cell(row.get('created_at'))}</td>"
+        f"<td>{_trace_cell(row.get('workflow_trace_id'), '/evidence-ledgers')}</td>"
+        f"<td>{_parent_run_cell(row)}</td>"
+        f"<td>{_filter_cell('/evidence-ledgers', 'status', row.get('status'))}</td>"
+        f"<td>{_cell(row.get('claim'))}</td>"
+        f"<td>{_cell(row.get('evidence_span'))}</td>"
+        f"<td>{_cell(row.get('source_id'))}</td>"
+        f"<td>{_cell(row.get('confidence'))}</td>"
+        "</tr>"
+        for row in rows[:10]
+    )
+    return f"<table><thead><tr><th>Created</th><th>Trace</th><th>Parent Run</th><th>Status</th><th>Claim</th><th>Evidence Span</th><th>Source</th><th>Confidence</th></tr></thead><tbody>{body}</tbody></table>"
 
 
 def _noise_gate_records_table(rows: list[dict[str, Any]]) -> str:

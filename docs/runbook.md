@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 21 adds dashboard parent/child provenance links: persisted Noise Gate and Report rows now expose their parent `agent_run_id` as trace lookup links.
+Phase 22 adds an Evidence Ledger dashboard table: persisted evidence rows are now visible beside retrieval, gate, and report records in the plain operations dashboard.
 
 Implemented:
 
@@ -59,6 +59,9 @@ Implemented:
 - Dashboard Parent/Child Provenance Links v0
 - parent run links on Noise Gate rows in `GET /ops/dashboard`
 - parent run links on Report rows in `GET /ops/dashboard`
+- Evidence Ledger Dashboard Table v0
+- persisted Evidence Ledger rows in `GET /ops/dashboard`
+- trace, parent run, and status filter links on Evidence Ledger dashboard rows
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -162,7 +165,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase21-dashboard-provenance-links"
+  "workflow_version": "phase22-evidence-dashboard-table"
 }
 ```
 
@@ -171,7 +174,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase21-dashboard-provenance-links",
+  "workflow_version": "phase22-evidence-dashboard-table",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -700,7 +703,7 @@ Open the dashboard to use the same trace lookup and filter endpoints from a brow
 curl http://localhost:8000/ops/dashboard
 ```
 
-The dashboard links are navigation aids over existing records. Noise Gate and Report rows also expose parent run links through `GET /traces/{workflow_trace_id}`. They do not add ranking, search, LLM calls, distributed tracing, hosted observability, or UI polish.
+The dashboard links are navigation aids over existing records. Evidence Ledger, Noise Gate, and Report rows also expose parent run links through `GET /traces/{workflow_trace_id}`. They do not add ranking, search, LLM calls, distributed tracing, hosted observability, or UI polish.
 
 Inspect auto-created preview traces:
 
@@ -713,11 +716,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase21-dashboard-provenance-links",
+    "workflow_version": "phase22-evidence-dashboard-table",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase21-dashboard-provenance-links",
+      "phase": "phase22-evidence-dashboard-table",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }
