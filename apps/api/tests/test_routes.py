@@ -13,6 +13,7 @@ class InMemoryRepository:
         self.documents = []
         self.agent_runs = []
         self.failure_cases = []
+        self.retrieval_runs = []
 
     def create_document(self, payload: DocumentCreate) -> dict:
         row = payload.model_dump()
@@ -45,10 +46,20 @@ class InMemoryRepository:
     def list_failure_cases(self):
         return self.failure_cases
 
+    def create_retrieval_run(self, payload) -> dict:
+        row = payload.model_dump()
+        row["id"] = uuid4()
+        row["created_at"] = datetime.now(timezone.utc)
+        self.retrieval_runs.append(row)
+        return row
+
+    def list_retrieval_runs(self):
+        return self.retrieval_runs
+
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase4-chunk-strategy-v0",
+            workflow_version="phase5-retrieval-v0",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -75,7 +86,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-        "workflow_version": "phase4-chunk-strategy-v0",
+        "workflow_version": "phase5-retrieval-v0",
     }
 
 
@@ -122,7 +133,7 @@ def test_agent_run_and_failure_case_roundtrip():
 
     assert run.status_code == 201
     assert failure.status_code == 201
-    assert client.get("/agent-runs").json()[0]["workflow_version"] == "phase4-chunk-strategy-v0"
+    assert client.get("/agent-runs").json()[0]["workflow_version"] == "phase5-retrieval-v0"
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
 
@@ -369,3 +380,77 @@ def test_chunk_preview_unknown_source_type_keeps_parse_failure_candidate():
     assert body["parser"] == "unknown"
     assert body["failure_case_candidate"]["failure_type"] == "unknown_source_type"
     assert body["strategies"] == []
+
+
+def test_retrieval_run_returns_ranked_chunk_candidates_with_source_ids():
+    client = make_client()
+
+    response = client.post(
+        "/retrieval-runs",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "heading-aware",
+            "top_k": 2,
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "# Demand\nEnterprise demand grew 12% in 2026.\n\n## Risks\nCosts rose 7%.",
+                },
+                {
+                    "source_id": "doc-noise",
+                    "source_type": "markdown",
+                    "content": "# Weather\nRainfall was heavy in Seoul.",
+                },
+            ],
+        },
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["question"] == "Which segment had enterprise demand growth?"
+    assert body["strategy"] == "heading-aware"
+    assert body["result_count"] == 1
+    assert body["missing_evidence_count"] == 0
+    assert body["results"][0]["source_id"] == "doc-demand"
+    assert body["results"][0]["chunk_strategy"] == "heading-aware"
+    assert body["results"][0]["score"] > 0
+    assert {"enterprise", "demand", "growth"}.issubset(set(body["results"][0]["matched_terms"]))
+    assert "Enterprise demand grew" in body["results"][0]["text"]
+
+    listed = client.get("/retrieval-runs")
+    assert listed.status_code == 200
+    assert listed.json()[0]["id"] == body["id"]
+    assert listed.json()[0]["result_count"] == 1
+    assert "results" not in listed.json()[0]
+
+
+def test_retrieval_run_records_no_results_case():
+    client = make_client()
+
+    response = client.post(
+        "/retrieval-runs",
+        json={
+            "question": "semiconductor backlog",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-unrelated",
+                    "source_type": "markdown",
+                    "content": "# Weather\nRainfall was heavy in Seoul.",
+                }
+            ],
+        },
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["results"] == []
+    assert body["result_count"] == 0
+    assert body["missing_evidence_count"] == 1
+    assert body["status"] == "no_results"
+
+    listed = client.get("/retrieval-runs")
+    assert listed.status_code == 200
+    assert listed.json()[0]["status"] == "no_results"
+    assert listed.json()[0]["missing_evidence_count"] == 1

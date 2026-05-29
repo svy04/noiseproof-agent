@@ -101,9 +101,59 @@ class ChunkPreviewOut(BaseModel):
     strategies: list[ChunkStrategyOut]
 
 
+class RetrievalSourceIn(BaseModel):
+    source_id: str = Field(..., min_length=1)
+    source_type: str = Field(..., min_length=1)
+    content: str = ""
+    filename: str | None = None
+    source_uri: str | None = None
+
+
+class RetrievalRunRequest(BaseModel):
+    question: str = Field(..., min_length=1)
+    strategy: str = "fixed-window"
+    sources: list[RetrievalSourceIn] = Field(..., min_length=1)
+    top_k: int = Field(default=5, ge=1, le=20)
+    max_characters: int = Field(default=500, ge=1, le=4000)
+    overlap: int = Field(default=0, ge=0)
+
+
+class RetrievalRunCreate(BaseModel):
+    question: str = Field(..., min_length=1)
+    strategy: str = "fixed-window"
+    status: str = "completed"
+    latency_ms: int | None = None
+    result_count: int = 0
+    hit_rate: float = 0.0
+    citation_coverage: float = 0.0
+    missing_evidence_count: int = 0
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
+
+
+class RetrievalCandidateOut(BaseModel):
+    source_id: str
+    source_type: str
+    chunk_strategy: str
+    chunk_index: int
+    text: str
+    score: float
+    matched_terms: list[str]
+    metadata: dict[str, Any]
+
+
+class RetrievalRunOut(RetrievalRunCreate):
+    id: UUID
+    created_at: datetime
+
+
+class RetrievalRunResponse(RetrievalRunOut):
+    results: list[RetrievalCandidateOut]
+    warnings: list[str]
+
+
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase4-chunk-strategy-v0"
+    workflow_version: str = "phase5-retrieval-v0"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None

@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 4:
+Accepted state as of Phase 5:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, and Chunk Strategy Experiment v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, and Retrieval v0
 ```
 
 Implemented:
@@ -76,6 +76,12 @@ Implemented:
   - empty and oversized chunk counts
   - estimated token count
   - structural boundary count
+- lexical retrieval v0 over generated chunks
+- `POST /retrieval-runs`
+- `GET /retrieval-runs`
+- source ids attached to retrieval candidates
+- retrieval run records persisted in `retrieval_runs`
+- no-results retrieval runs recorded with `status: no_results`
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -94,7 +100,6 @@ Not yet implemented:
 - persisted parse records
 - persisted chunks
 - embeddings
-- retrieval
 - Evidence Ledger generation
 - Critic / Noise Gate
 - final report generation
@@ -268,10 +273,56 @@ Phase 4 does not persist chunks, run retrieval, compute embeddings, generate Evi
 
 Current local `docs/GOAL.md` does not include a separate `Parallel research track` section. Phase 4 research influence is intentionally limited to strategy names and comparison metrics.
 
+### Phase 5 - Retrieval v0
+
+Implemented outputs:
+
+```text
+packages/ingestion/retrieval/__init__.py
+packages/ingestion/retrieval/lexical.py
+apps/api/app/services/retrieval_run.py
+apps/api/app/routes/retrieval_runs.py
+POST /retrieval-runs
+GET /retrieval-runs
+```
+
+Retrieval v0 accepts direct text sources and returns:
+
+```text
+id
+question
+strategy
+status
+latency_ms
+result_count
+hit_rate
+citation_coverage
+missing_evidence_count
+metadata_json
+created_at
+results
+warnings
+```
+
+Each result includes:
+
+```text
+source_id
+source_type
+chunk_strategy
+chunk_index
+text
+score
+matched_terms
+metadata
+```
+
+Phase 5 does not persist chunks, compute embeddings, create Evidence Ledger entries, call LLMs, generate final answers, create reports, run a Critic / Noise Gate, or build a dashboard.
+
 Next recommended implementation phase:
 
 ```text
-Phase 5 - Retrieval v0
+Phase 6 - Evidence Ledger v0
 ```
 
 ## 6. Ordering Rules

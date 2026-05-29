@@ -12,7 +12,8 @@ Current status:
 - Document Profiler v0 exists for fixture-like text and direct text payloads.
 - Parser adapter stubs exist for direct parse-preview payloads.
 - Chunk strategy experiment v0 exists for direct chunk-preview payloads.
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, retrieval, Evidence Ledger, agents, and dashboard are planned but not implemented.
+- Retrieval v0 exists for lexical candidate search over generated chunks.
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, Evidence Ledger, agents, and dashboard are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -130,7 +131,7 @@ Qdrant remains an alternative if pgvector slows delivery, but Day 1 chooses pgve
 
 ### Retrieval
 
-Runs a question against indexed chunks and records:
+Retrieval v0 runs a question against generated chunks and records:
 
 - strategy
 - latency
@@ -138,6 +139,17 @@ Runs a question against indexed chunks and records:
 - hit rate
 - citation coverage
 - missing evidence count
+
+Implemented Phase 5 boundary:
+
+- lexical term matching only
+- no embeddings
+- no vector index
+- source id attached to every returned candidate
+- retrieval run metadata persisted to `retrieval_runs`
+- no-results runs recorded with `status: no_results`
+
+Retrieval candidates are not Evidence Ledger entries. They are possible source-linked evidence candidates for the next phase.
 
 ### Evidence Ledger
 
@@ -222,6 +234,8 @@ result_count
 hit_rate
 citation_coverage
 missing_evidence_count
+status
+metadata_json
 ```
 
 ### EvidenceLedgerEntry
@@ -280,7 +294,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording.
 
 Implemented endpoints:
 
@@ -290,6 +304,8 @@ GET  /documents
 POST /documents/profile
 POST /documents/parse-preview
 POST /documents/chunk-preview
+POST /retrieval-runs
+GET  /retrieval-runs
 POST /agent-runs
 GET  /agent-runs
 POST /failure-cases
@@ -301,13 +317,12 @@ Planned later endpoints:
 
 ```text
 GET  /documents/{id}
-POST /retrieval-runs
 GET  /retrieval-runs/{id}
 GET  /retrieval-runs/{id}/evidence-ledger
 POST /reports
 ```
 
-Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, run retrieval, generate an Evidence Ledger, invoke an LLM, or create final reports.
+Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, compute embeddings, generate an Evidence Ledger, invoke an LLM, create final answers, or create final reports.
 
 ## Agent Workflow
 

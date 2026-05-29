@@ -10,6 +10,7 @@ from app.schemas import (
     DocumentCreate,
     FailureCaseCreate,
     OpsSummaryOut,
+    RetrievalRunCreate,
 )
 from app.settings import Settings, get_settings
 
@@ -21,6 +22,8 @@ class Repository(Protocol):
     def list_agent_runs(self) -> Sequence[dict]: ...
     def create_failure_case(self, payload: FailureCaseCreate) -> dict: ...
     def list_failure_cases(self) -> Sequence[dict]: ...
+    def create_retrieval_run(self, payload: RetrievalRunCreate) -> dict: ...
+    def list_retrieval_runs(self) -> Sequence[dict]: ...
     def ops_summary(self) -> OpsSummaryOut: ...
 
 
@@ -124,6 +127,39 @@ class PostgresRepository:
             ).fetchall()
             return [dict(row) for row in rows]
 
+    def create_retrieval_run(self, payload: RetrievalRunCreate) -> dict:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                INSERT INTO retrieval_runs (
+                  question, strategy, status, latency_ms, result_count,
+                  hit_rate, citation_coverage, missing_evidence_count, metadata_json
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING *
+                """,
+                (
+                    payload.question,
+                    payload.strategy,
+                    payload.status,
+                    payload.latency_ms,
+                    payload.result_count,
+                    payload.hit_rate,
+                    payload.citation_coverage,
+                    payload.missing_evidence_count,
+                    Jsonb(payload.metadata_json),
+                ),
+            ).fetchone()
+            conn.commit()
+            return dict(row)
+
+    def list_retrieval_runs(self) -> Sequence[dict]:
+        with self._connect() as conn:
+            rows = conn.execute(
+                "SELECT * FROM retrieval_runs ORDER BY created_at DESC, id DESC"
+            ).fetchall()
+            return [dict(row) for row in rows]
+
     def ops_summary(self) -> OpsSummaryOut:
         with self._connect() as conn:
             row = conn.execute(
@@ -132,6 +168,7 @@ class PostgresRepository:
                   (SELECT count(*) FROM documents) AS document_count,
                   (SELECT count(*) FROM agent_runs) AS agent_run_count,
                   (SELECT count(*) FROM failure_cases) AS failure_case_count,
+                  (SELECT count(*) FROM retrieval_runs) AS retrieval_run_count,
                   (SELECT avg(latency_ms) FROM agent_runs WHERE latency_ms IS NOT NULL)
                     AS average_latency_ms
                 """
@@ -147,7 +184,7 @@ class PostgresRepository:
             contradiction_count=0,
             average_latency_ms=row["average_latency_ms"],
             notes=[
-                "Phase 4 chunk strategy boundary only: no retrieval, Evidence Ledger, Critic, or dashboard implementation yet.",
+                f"Retrieval runs recorded: {row['retrieval_run_count']}. Phase 5 retrieval v0 only; no Evidence Ledger, Critic, or dashboard implementation yet.",
                 "Unsupported claim and contradiction counts remain placeholders until Evidence Ledger exists.",
             ],
         )

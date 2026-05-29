@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 adds a small chunk strategy experiment boundary.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 adds lexical retrieval v0 over chunks and records retrieval runs.
 
 The product thesis:
 
@@ -98,7 +98,8 @@ Implementation status:
 - Document Profiler v0: implemented
 - Parser adapter stubs: implemented for markdown, CSV, HTML/URL, PDF text-only fallback, and unknown source types
 - Chunk strategy experiment v0: implemented for fixed-window, heading-aware, and row-aware strategies
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, retrieval, Evidence Ledger generation, agents, final reports, dashboard: planned, not implemented
+- Retrieval v0: implemented for lexical candidate search over chunk-preview output with source ids
+- Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, Evidence Ledger generation, agents, final reports, dashboard: planned, not implemented
 
 ## Implementation Status
 
@@ -146,13 +147,21 @@ Implementation status:
 - Strategy comparison metrics for chunk count, character distribution, boundary count, oversized chunks, and estimated tokens: done
 - Unknown source types keep parser failure candidates and skip chunking: done
 
+### Phase 5 - Retrieval v0
+
+- `POST /retrieval-runs`: done
+- `GET /retrieval-runs`: done
+- Lexical candidate search over generated chunks: done
+- Source ids returned on each retrieval candidate: done
+- Retrieval run records stored in `retrieval_runs`: done
+- No-results retrieval case recorded with `status: no_results`: done
+
 Not implemented yet:
 
 - file upload parsing
 - robust PDF extraction
 - persisted chunks
 - embeddings
-- retrieval
 - Evidence Ledger generation
 - Critic / Noise Gate
 - final report generation
@@ -273,6 +282,9 @@ curl -X POST http://localhost:8000/documents/parse-preview \
 curl -X POST http://localhost:8000/documents/chunk-preview \
   -H "Content-Type: application/json" \
   -d "{\"source_type\":\"markdown\",\"content\":\"# Market\nRevenue grew 12% in 2026.\n\n## Risks\nCosts rose 7%.\",\"max_characters\":80,\"overlap\":10}"
+curl -X POST http://localhost:8000/retrieval-runs \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which segment had enterprise demand growth?\",\"strategy\":\"heading-aware\",\"sources\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"content\":\"# Demand\nEnterprise demand grew 12% in 2026.\"}]}"
 ```
 
 ## Demo Flow
@@ -290,14 +302,14 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Phase 4, the next phase should add retrieval v0:
+After Phase 5, the next phase should add Evidence Ledger v0:
 
-- source ids for returned chunks
-- retrieval run metadata
-- retrieval quality placeholders
-- no embeddings unless the retrieval gate explicitly requires them
+- claim-level evidence records
+- supported / weakly_supported / contradicted / unsupported / blocked statuses
+- source id and evidence span mapping from retrieval candidates
+- explicit separation between retrieval candidates and verified evidence
 
-It should not start with UI polish, LLM prompt tuning, Evidence Ledger generation, or broad agent abstractions.
+It should not start with UI polish, LLM prompt tuning, Critic / Noise Gate, final reports, or broad agent abstractions.
 
 ## Braincrew Role Alignment
 

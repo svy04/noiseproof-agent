@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS documents (
 CREATE TABLE IF NOT EXISTS agent_runs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_question TEXT NOT NULL,
-  workflow_version TEXT NOT NULL DEFAULT 'phase4-chunk-strategy-v0',
+  workflow_version TEXT NOT NULL DEFAULT 'phase5-retrieval-v0',
   status TEXT NOT NULL DEFAULT 'created',
   error_message TEXT,
   token_cost NUMERIC,
@@ -25,6 +25,20 @@ CREATE TABLE IF NOT EXISTS agent_runs (
   trace_json JSONB NOT NULL DEFAULT '{}'::jsonb,
   started_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   ended_at TIMESTAMPTZ
+);
+
+CREATE TABLE IF NOT EXISTS retrieval_runs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  question TEXT NOT NULL,
+  strategy TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'completed',
+  latency_ms INTEGER,
+  result_count INTEGER NOT NULL DEFAULT 0,
+  hit_rate NUMERIC NOT NULL DEFAULT 0,
+  citation_coverage NUMERIC NOT NULL DEFAULT 0,
+  missing_evidence_count INTEGER NOT NULL DEFAULT 0,
+  metadata_json JSONB NOT NULL DEFAULT '{}'::jsonb,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE TABLE IF NOT EXISTS failure_cases (

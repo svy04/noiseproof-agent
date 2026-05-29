@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 4 is intended to prove that parser output can be compared across chunk strategies before retrieval starts.
+Phase 5 is intended to prove that chunk output can produce source-linked retrieval candidates before Evidence Ledger work starts.
 
 Implemented:
 
@@ -19,6 +19,9 @@ Implemented:
 - `POST /documents/parse-preview`
 - chunk strategy experiment v0 for fixed-window, heading-aware, and row-aware strategies
 - `POST /documents/chunk-preview`
+- lexical retrieval v0 over generated chunks
+- `POST /retrieval-runs`
+- `GET /retrieval-runs`
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
@@ -29,7 +32,6 @@ Not implemented:
 - persisted parse records
 - persisted chunks
 - embeddings
-- retrieval
 - Evidence Ledger generation
 - Critic / Noise Gate
 - final report generation
@@ -90,7 +92,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase4-chunk-strategy-v0"
+  "workflow_version": "phase5-retrieval-v0"
 }
 ```
 
@@ -99,7 +101,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase4-chunk-strategy-v0",
+  "workflow_version": "phase5-retrieval-v0",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -107,7 +109,7 @@ Expected `/ops/summary` shape:
   "contradiction_count": 0,
   "average_latency_ms": null,
   "notes": [
-    "Phase 4 chunk strategy boundary only: no retrieval, Evidence Ledger, Critic, or dashboard implementation yet.",
+    "Retrieval runs recorded: 0. Phase 5 retrieval v0 only; no Evidence Ledger, Critic, or dashboard implementation yet.",
     "Unsupported claim and contradiction counts remain placeholders until Evidence Ledger exists."
   ]
 }
@@ -279,6 +281,62 @@ Expected `/documents/chunk-preview` shape:
 }
 ```
 
+Run lexical retrieval v0 and record the run:
+
+```bash
+curl -X POST http://localhost:8000/retrieval-runs \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which segment had enterprise demand growth?\",\"strategy\":\"heading-aware\",\"sources\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"content\":\"# Demand\nEnterprise demand grew 12% in 2026.\"},{\"source_id\":\"doc-noise\",\"source_type\":\"markdown\",\"content\":\"# Weather\nRainfall was heavy in Seoul.\"}]}"
+```
+
+Expected `/retrieval-runs` response shape:
+
+```json
+{
+  "id": "uuid",
+  "question": "Which segment had enterprise demand growth?",
+  "strategy": "heading-aware",
+  "status": "completed",
+  "latency_ms": 0,
+  "result_count": 1,
+  "hit_rate": 1.0,
+  "citation_coverage": 1.0,
+  "missing_evidence_count": 0,
+  "metadata_json": {
+    "source_count": 2,
+    "top_k": 5,
+    "max_characters": 500,
+    "overlap": 0,
+    "warning_count": 0
+  },
+  "created_at": "timestamp",
+  "results": [
+    {
+      "source_id": "doc-demand",
+      "source_type": "markdown",
+      "chunk_strategy": "heading-aware",
+      "chunk_index": 0,
+      "text": "...",
+      "score": 0.75,
+      "matched_terms": ["demand", "enterprise", "growth"],
+      "metadata": {}
+    }
+  ],
+  "warnings": []
+}
+```
+
+No-results retrieval is recorded with:
+
+```json
+{
+  "status": "no_results",
+  "result_count": 0,
+  "missing_evidence_count": 1,
+  "results": []
+}
+```
+
 ## Metadata Examples
 
 Create a document metadata record:
@@ -320,4 +378,4 @@ These tests use an in-memory repository override. They do not prove PostgreSQL r
 
 ## Boundary
 
-Do not claim persisted chunks, retrieval, Evidence Ledger, Critic / Noise Gate, or report generation exists until those stages are implemented and verified with examples.
+Do not claim persisted chunks, embeddings, Evidence Ledger, Critic / Noise Gate, report generation, or answer generation exists until those stages are implemented and verified with examples.

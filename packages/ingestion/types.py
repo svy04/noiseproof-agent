@@ -73,3 +73,36 @@ class ChunkStrategyResult:
     chunks: list[ChunkRecord]
     metrics: dict[str, Any]
     warnings: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class RetrievalSource:
+    source_id: str
+    source_type: str
+    content: str
+    filename: str | None = None
+    source_uri: str | None = None
+
+
+@dataclass(frozen=True)
+class RetrievalCandidate:
+    source_id: str
+    source_type: str
+    chunk_strategy: str
+    chunk_index: int
+    text: str
+    score: float
+    matched_terms: list[str]
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class RetrievalExperimentResult:
+    question: str
+    strategy: str
+    results: list[RetrievalCandidate]
+    result_count: int
+    missing_evidence_count: int
+    hit_rate: float
+    citation_coverage: float
+    warnings: list[str] = field(default_factory=list)
