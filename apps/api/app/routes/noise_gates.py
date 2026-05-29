@@ -16,13 +16,14 @@ def create_noise_gate_record(
 ) -> NoiseGateStoredRecordOut:
     workflow_trace_id = uuid4()
 
-    def operation(_agent_run_id) -> NoiseGateStoredRecordOut:
+    def operation(agent_run_id) -> NoiseGateStoredRecordOut:
         preview = preview_noise_gate(payload)
         persisted = repository.create_noise_gate_record(
             preview,
             evidence_entry_count=len(payload.evidence_entries),
             draft_claim_count=len(payload.draft_claims),
             workflow_trace_id=workflow_trace_id,
+            agent_run_id=agent_run_id,
         )
         return NoiseGateStoredRecordOut(**persisted)
 

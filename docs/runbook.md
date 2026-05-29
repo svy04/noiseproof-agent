@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Phase 19 adds an agent-run lifecycle: traced operations create a parent `agent_runs` row before execution, then update that same row to `completed` or `failed`.
+Phase 20 adds local parent/child linkage: persisted Evidence Ledger, Noise Gate, and Report records now store the parent `agent_run_id`.
 
 Implemented:
 
@@ -53,6 +53,9 @@ Implemented:
 - Agent-run Lifecycle v0
 - `run_with_trace()` parent run creation before operation execution
 - completion/failure updates on the same `agent_runs` row
+- Persisted Child Record Agent-run Linkage v0
+- `agent_run_id` on persisted Evidence Ledger, Noise Gate, and Report records
+- `db/migrations/006_child_agent_run_ids.sql`
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -78,7 +81,7 @@ Not implemented:
 - persisted parse records
 - persisted chunks
 - embeddings
-- `agent_run_id` foreign-key-linked Evidence Ledger, Noise Gate, and Report records. Parent run lifecycle now exists, but child-record foreign keys are still not implemented.
+- distributed tracing or hosted observability
 
 ## Local Database
 
@@ -156,7 +159,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase19-agent-run-lifecycle"
+  "workflow_version": "phase20-child-agent-run-linkage"
 }
 ```
 
@@ -165,7 +168,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase19-agent-run-lifecycle",
+  "workflow_version": "phase20-child-agent-run-linkage",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -181,7 +184,7 @@ Expected `/ops/summary` shape:
   "average_latency_ms": null,
   "notes": [
     "Retrieval runs recorded: 0. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
-    "Embeddings, semantic retrieval, agent_run_id foreign-key record linkage, and final report generation beyond deterministic previews are still not implemented."
+    "Embeddings, semantic retrieval, distributed tracing, and final report generation beyond deterministic previews are still not implemented."
   ]
 }
 ```
@@ -671,8 +674,8 @@ Expected persisted response shape:
 }
 ```
 
-Current report persistence is v0. It stores deterministic preview output only; it does not link report records to an `agent_runs` id, call an LLM, or create a free-form final report.
-Persisted evidence, gate, and report records include `workflow_trace_id`. The same value is written to the matching `agent_runs.trace_json` entry for the persistence endpoint. This is a local correlation id, not full distributed tracing or an `agent_run_id` foreign-key relationship.
+Current report persistence is v0. It stores deterministic preview output only; it does not call an LLM or create a free-form final report.
+Persisted evidence, gate, and report records include both `workflow_trace_id` and `agent_run_id`. The same `workflow_trace_id` is written to the matching `agent_runs.trace_json` entry for the persistence endpoint. This is local parent/child linkage, not full distributed tracing.
 Use `GET /traces/{workflow_trace_id}` to inspect records and agent-run traces that share that id.
 Use the persisted record list filters to narrow evidence, gate, and report records without adding search or ranking:
 
@@ -705,11 +708,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase19-agent-run-lifecycle",
+    "workflow_version": "phase20-child-agent-run-linkage",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase19-agent-run-lifecycle",
+      "phase": "phase20-child-agent-run-linkage",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }
@@ -774,4 +777,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, `agent_run_id` foreign-key-linked Evidence Ledger / Noise Gate / Report records, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage has a review artifact and parent run lifecycle, but no child-record migration or endpoint behavior exists for it yet.
+Do not claim persisted chunks, embeddings, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.

@@ -33,8 +33,9 @@ This page maps the repository into a reviewer-readable path.
 | Trace lookup | `GET /traces/{workflow_trace_id}` | implemented v0 |
 | Persisted record filters | `workflow_trace_id` / status filters on evidence, gate, and report lists | implemented v0 |
 | Dashboard trace/filter links | browser-readable trace lookup and persisted record filter links | implemented v0 |
-| Agent-run linkage review | `docs/review/agent-run-linkage-review.md` | reviewed, not implemented |
+| Agent-run linkage review | `docs/review/agent-run-linkage-review.md` | reviewed |
 | Agent-run lifecycle | parent `agent_runs` row is created before traced operations and updated after completion/failure | implemented v0 |
+| Persisted child record agent-run linkage | `agent_run_id` on Evidence Ledger, Noise Gate, and Report records | implemented v0 |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 

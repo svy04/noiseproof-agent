@@ -35,6 +35,7 @@ Phase 16 adds direct trace-id lookup for persisted records and matching agent-ru
 Phase 17 adds read-only query filters for persisted evidence, gate, and report lists.
 Phase 18 adds trace lookup and filter links to the plain operations dashboard.
 Phase 19 changes preview/persistence tracing to create a parent `agent_runs` row before operation execution, then update the same row to completed or failed.
+Phase 20 stores the parent `agent_run_id` on persisted Evidence Ledger, Noise Gate, and Report records.
 
 Not implemented yet:
 
@@ -44,7 +45,7 @@ Not implemented yet:
 - persisted chunks
 - persisted collection plans
 - embeddings
-- `agent_run_id` foreign-key-linked Evidence Ledger, Noise Gate, and Report records
+- distributed tracing or hosted observability
 
 ## Local Run
 

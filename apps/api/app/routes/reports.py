@@ -16,13 +16,14 @@ def create_report_record(
 ) -> ReportStoredRecordOut:
     workflow_trace_id = uuid4()
 
-    def operation(_agent_run_id) -> ReportStoredRecordOut:
+    def operation(agent_run_id) -> ReportStoredRecordOut:
         preview = preview_report(payload)
         persisted = repository.create_report_record(
             preview,
             evidence_entry_count=len(payload.evidence_entries),
             draft_claim_count=len(payload.draft_claims),
             workflow_trace_id=workflow_trace_id,
+            agent_run_id=agent_run_id,
         )
         return ReportStoredRecordOut(**persisted)
 

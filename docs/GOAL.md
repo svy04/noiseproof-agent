@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 19:
+Accepted state as of Phase 20:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, and Agent-run Lifecycle v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, and Persisted Child Record Agent-run Linkage v0
 ```
 
 Implemented:
@@ -167,10 +167,15 @@ Implemented:
 - `GET /ops/dashboard` exposes quick filter links for Evidence Ledger statuses, Noise Gate decisions, and Report statuses
 - Agent-run Linkage Review v0
 - `docs/review/agent-run-linkage-review.md`
-- direct `agent_run_id` foreign-key linkage reviewed but not implemented
+- direct `agent_run_id` foreign-key linkage reviewed before Phase 20 implementation
 - Agent-run Lifecycle v0
 - `run_with_trace()` creates a parent `agent_runs` row before operation execution
 - `run_with_trace()` updates the same row to `completed` or `failed` after execution
+- Persisted Child Record Agent-run Linkage v0
+- `agent_run_id` on persisted Evidence Ledger records
+- `agent_run_id` on persisted Noise Gate records
+- `agent_run_id` on persisted Report records
+- `db/migrations/006_child_agent_run_ids.sql`
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -235,6 +240,7 @@ Phase 17  - Persisted Record Filtering v0
 Phase 18  - Dashboard Trace/Filter Links v0
 Phase 18.5 - Agent-run Linkage Review v0
 Phase 19  - Agent-run Lifecycle v0
+Phase 20  - Persisted Child Record Agent-run Linkage v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -868,10 +874,24 @@ Repository.update_agent_run
 
 Phase 19 changes trace lifecycle only. It does not add child-record `agent_run_id` foreign-key linkage, migrations for persisted evidence/gate/report records, distributed tracing, hosted observability, LLM calls, embeddings, or semantic retrieval.
 
+### Phase 20 - Persisted Child Record Agent-run Linkage v0
+
+Implemented outputs:
+
+```text
+agent_run_id on persisted Evidence Ledger entries
+agent_run_id on persisted Noise Gate records
+agent_run_id on persisted Report records
+db/migrations/006_child_agent_run_ids.sql
+trace lookup returns child records with parent agent_run_id
+```
+
+Phase 20 adds local parent/child linkage for persisted evidence, gate, and report records. It does not add distributed tracing, hosted observability, LLM calls, embeddings, semantic retrieval, or a full multi-stage workflow parent table.
+
 Next recommended implementation phase:
 
 ```text
-Persisted child record agent_run_id linkage v0
+Dashboard parent/child provenance links v0
 ```
 
 ## 6. Ordering Rules

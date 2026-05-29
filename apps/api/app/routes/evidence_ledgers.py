@@ -21,12 +21,13 @@ def create_evidence_ledger(
 ) -> EvidenceLedgerPersistedOut:
     workflow_trace_id = uuid4()
 
-    def operation(_agent_run_id) -> EvidenceLedgerPersistedOut:
+    def operation(agent_run_id) -> EvidenceLedgerPersistedOut:
         preview = preview_evidence_ledger(payload)
         persisted = repository.create_evidence_ledger_entries(
             preview.question,
             preview.entries,
             workflow_trace_id=workflow_trace_id,
+            agent_run_id=agent_run_id,
         )
         return EvidenceLedgerPersistedOut(
             question=preview.question,

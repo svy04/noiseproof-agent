@@ -1,16 +1,16 @@
 # Application-ready Review
 
-Status: Phase 19 review packet.
+Status: Phase 20 review packet.
 
 This is an application-ready review, not a product-complete declaration.
 
-Not product-complete: robust PDF extraction, embeddings, semantic retrieval, child-record `agent_run_id` foreign-key-linked Evidence Ledger / Noise Gate / Report records, distributed tracing, hosted deployment, and external user validation are still unproven.
+Not product-complete: robust PDF extraction, embeddings, semantic retrieval, distributed tracing, hosted deployment, and external user validation are still unproven.
 
 ## Summary
 
 Current judgment: Partial application-ready portfolio artifact.
 
-NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, preview endpoint traces, failure records, and technical decision trail.
+NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, preview endpoint traces, failure records, and technical decision trail.
 
 It is not strong enough to claim production RAG quality or autonomous market intelligence.
 
@@ -69,6 +69,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - Dashboard Trace/Filter Links v0
 - Agent-run Linkage Review v0
 - Agent-run Lifecycle v0
+- Persisted Child Record Agent-run Linkage v0
 - Operations Dashboard v0
 - evaluation/application package
 - Auto Trace Recording v0 for preview endpoint metadata
@@ -79,6 +80,5 @@ Avoid claims about:
 - external users
 - robust PDF extraction
 - semantic retrieval
-- child-record `agent_run_id` foreign-key-linked Evidence Ledger / Noise Gate / Report records
 - distributed tracing
 - market prediction accuracy

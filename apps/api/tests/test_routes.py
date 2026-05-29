@@ -60,15 +60,18 @@ class InMemoryRepository:
     def list_agent_runs(self):
         return self.agent_runs
 
-    def create_evidence_ledger_entries(self, question, entries, workflow_trace_id=None):
+    def create_evidence_ledger_entries(
+        self, question, entries, workflow_trace_id=None, agent_run_id=None
+    ):
         workflow_trace_id = workflow_trace_id or uuid4()
         created = []
         for entry in entries:
             row = entry.model_dump()
             row["id"] = uuid4()
             row["question"] = question
-            row["run_id"] = None
+            row["run_id"] = agent_run_id
             row["workflow_trace_id"] = workflow_trace_id
+            row["agent_run_id"] = agent_run_id
             row["created_at"] = datetime.now(timezone.utc)
             self.evidence_ledger_entries.append(row)
             created.append(row)
@@ -85,11 +88,17 @@ class InMemoryRepository:
         return rows
 
     def create_noise_gate_record(
-        self, result, evidence_entry_count, draft_claim_count, workflow_trace_id=None
+        self,
+        result,
+        evidence_entry_count,
+        draft_claim_count,
+        workflow_trace_id=None,
+        agent_run_id=None,
     ):
         row = result.model_dump()
         row["id"] = uuid4()
         row["workflow_trace_id"] = workflow_trace_id or uuid4()
+        row["agent_run_id"] = agent_run_id
         row["evidence_entry_count"] = evidence_entry_count
         row["draft_claim_count"] = draft_claim_count
         row["created_at"] = datetime.now(timezone.utc)
@@ -107,11 +116,17 @@ class InMemoryRepository:
         return rows
 
     def create_report_record(
-        self, result, evidence_entry_count, draft_claim_count, workflow_trace_id=None
+        self,
+        result,
+        evidence_entry_count,
+        draft_claim_count,
+        workflow_trace_id=None,
+        agent_run_id=None,
     ):
         row = result.model_dump()
         row["id"] = uuid4()
         row["workflow_trace_id"] = workflow_trace_id or uuid4()
+        row["agent_run_id"] = agent_run_id
         row["gate_decision"] = result.gate.decision
         row["claim_count"] = len(result.report.claims) if result.report is not None else 0
         row["evidence_entry_count"] = evidence_entry_count
@@ -178,7 +193,7 @@ class InMemoryRepository:
     def ops_summary(self) -> OpsSummaryOut:
         return OpsSummaryOut(
             status="placeholder",
-            workflow_version="phase19-agent-run-lifecycle",
+            workflow_version="phase20-child-agent-run-linkage",
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
@@ -228,7 +243,7 @@ def test_health_endpoint():
     assert response.json() == {
         "status": "ok",
         "service": "noiseproof-agent-api",
-            "workflow_version": "phase19-agent-run-lifecycle",
+            "workflow_version": "phase20-child-agent-run-linkage",
     }
 
 
@@ -277,7 +292,7 @@ def test_agent_run_and_failure_case_roundtrip():
     assert failure.status_code == 201
     assert (
         client.get("/agent-runs").json()[0]["workflow_version"]
-        == "phase19-agent-run-lifecycle"
+        == "phase20-child-agent-run-linkage"
     )
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
@@ -348,7 +363,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 19" in response.text
+    assert "Phase 20" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():
@@ -430,7 +445,7 @@ def test_core_preview_endpoints_auto_record_agent_run_traces():
         "POST /noise-gates/preview",
         "POST /reports/preview",
     }.issubset(endpoints)
-    assert all(trace["workflow_version"] == "phase19-agent-run-lifecycle" for trace in traces)
+    assert all(trace["workflow_version"] == "phase20-child-agent-run-linkage" for trace in traces)
     assert any(trace["trace_json"].get("decision") == "pass" for trace in traces)
     assert any(trace["trace_json"].get("report_status") == "generated" for trace in traces)
 
@@ -565,7 +580,7 @@ def test_noise_gate_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /noise-gates"
         and trace["trace_json"].get("decision") == "pass"
-        and trace["trace_json"].get("phase") == "phase19-agent-run-lifecycle"
+        and trace["trace_json"].get("phase") == "phase20-child-agent-run-linkage"
         for trace in traces
     )
 
@@ -674,7 +689,7 @@ def test_report_records_can_be_persisted_and_listed():
     assert any(
         trace["trace_json"].get("endpoint") == "POST /reports"
         and trace["trace_json"].get("report_status") == "generated"
-        and trace["trace_json"].get("phase") == "phase19-agent-run-lifecycle"
+        and trace["trace_json"].get("phase") == "phase20-child-agent-run-linkage"
         for trace in traces
     )
 
@@ -861,6 +876,81 @@ def test_trace_lookup_surfaces_records_for_workflow_trace_id():
     }
     assert body["agent_runs"][0]["trace_json"]["endpoint"] == "POST /reports"
     assert body["report_records"][0]["question"] == "Which segment had enterprise demand growth?"
+
+
+def test_persisted_child_records_store_parent_agent_run_id():
+    client = make_client()
+
+    ledger_response = client.post(
+        "/evidence-ledgers",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "retrieval_results": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "chunk_strategy": "heading-aware",
+                    "chunk_index": 0,
+                    "text": "Enterprise demand grew 12% in 2026.",
+                    "score": 0.75,
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "metadata": {"source_date": "2026-05-28"},
+                }
+            ],
+        },
+    )
+    gate_response = client.post(
+        "/noise-gates",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+        },
+    )
+    report_response = client.post(
+        "/reports",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+        },
+    )
+
+    for trace_id, record_key in [
+        (ledger_response.json()["entries"][0]["workflow_trace_id"], "evidence_ledger_entries"),
+        (gate_response.json()["workflow_trace_id"], "noise_gate_records"),
+        (report_response.json()["workflow_trace_id"], "report_records"),
+    ]:
+        trace = client.get(f"/traces/{trace_id}").json()
+        parent_run_id = trace["agent_runs"][0]["id"]
+        child_record = trace[record_key][0]
+        assert child_record["agent_run_id"] == parent_run_id
 
 
 def test_persisted_record_lists_can_filter_by_trace_id_and_status():

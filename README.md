@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
 
-The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 added Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output. Phase 9 added Operations Dashboard v0 so the existing run, retrieval, and failure records are inspectable from the browser. Phase 11 added Auto Trace Recording v0 so preview endpoints leave `agent_runs.trace_json` metadata before the project claims a full agent workflow. Phase 12 added persisted Evidence Ledger records so unsupported and contradiction counts are no longer dashboard placeholders. Phase 13 added persisted Noise Gate records so gate decisions can be inspected after the preview call. Phase 14 added persisted Report Preview records so generated, blocked, and revision-needed report-shaped outputs can be inspected after the preview call. Phase 15 added `workflow_trace_id` linkage across persisted evidence, gate, report records, and their matching `agent_runs.trace_json`. Phase 16 added `GET /traces/{workflow_trace_id}` so a trace id can be inspected directly. Phase 17 added lightweight filters for persisted Evidence Ledger, Noise Gate, and Report record lists. Phase 18 added trace lookup and filter links to the plain operations dashboard. Phase 18.5 reviewed direct `agent_run_id` foreign-key linkage and kept it unimplemented until the run lifecycle is changed. Phase 19 added an agent-run lifecycle so traced operations create a parent run before execution and update that same run after completion or failure.
+The project started with a documentation-first Day 1 package. Day 2 added a small service skeleton: FastAPI routes, metadata persistence boundaries, PostgreSQL schema init SQL, and API smoke CI. Phase 2 added messy-data fixtures and Document Profiler v0. Phase 3 added parser adapter stubs for parse-preview boundaries. Phase 4 added a small chunk strategy experiment boundary. Phase 5 added lexical retrieval v0 over chunks and records retrieval runs. Phase 5.5 added a deterministic Collection Plan Preview so a question declares required information roles before evidence work starts. Phase 6 added Evidence Ledger Preview v0 so retrieval candidates can be promoted, weakened, contradicted, or blocked before any final answer exists. Phase 7 added Noise Gate Preview v0 so ledger entries can be blocked, downgraded, or allowed before report generation. Phase 8 added Claim-bounded Report Preview v0 so only gate-passing claims become report-shaped output. Phase 9 added Operations Dashboard v0 so the existing run, retrieval, and failure records are inspectable from the browser. Phase 11 added Auto Trace Recording v0 so preview endpoints leave `agent_runs.trace_json` metadata before the project claims a full agent workflow. Phase 12 added persisted Evidence Ledger records so unsupported and contradiction counts are no longer dashboard placeholders. Phase 13 added persisted Noise Gate records so gate decisions can be inspected after the preview call. Phase 14 added persisted Report Preview records so generated, blocked, and revision-needed report-shaped outputs can be inspected after the preview call. Phase 15 added `workflow_trace_id` linkage across persisted evidence, gate, report records, and their matching `agent_runs.trace_json`. Phase 16 added `GET /traces/{workflow_trace_id}` so a trace id can be inspected directly. Phase 17 added lightweight filters for persisted Evidence Ledger, Noise Gate, and Report record lists. Phase 18 added trace lookup and filter links to the plain operations dashboard. Phase 18.5 reviewed direct `agent_run_id` foreign-key linkage and kept it unimplemented until the run lifecycle is changed. Phase 19 added an agent-run lifecycle so traced operations create a parent run before execution and update that same run after completion or failure. Phase 20 added `agent_run_id` linkage on persisted Evidence Ledger, Noise Gate, and Report records.
 
 The product thesis:
 
@@ -117,6 +117,7 @@ Implementation status:
 - Dashboard trace/filter links v0: implemented in `GET /ops/dashboard`
 - Agent-run linkage review v0: implemented as `docs/review/agent-run-linkage-review.md`
 - Agent-run lifecycle v0: implemented in `run_with_trace()`
+- Persisted child record agent-run linkage v0: implemented for Evidence Ledger, Noise Gate, and Report records
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -265,7 +266,8 @@ Implementation status:
 - `report_records` table and migration: done
 - generated, blocked, and needs-revision report counts in `/ops/summary`: done
 - Report Records section in `/ops/dashboard`: done
-- `agent_run_id` foreign-key-linked report records, LLM calls, embeddings, semantic retrieval, and free-form final report generation: not implemented
+- Phase 14 used deterministic report persistence without direct `agent_run_id`; that linkage was added later in Phase 20
+- LLM calls, embeddings, semantic retrieval, and free-form final report generation: not implemented
 
 ### Phase 15 - Record Linkage v0
 
@@ -273,7 +275,8 @@ Implementation status:
 - `workflow_trace_id` on `noise_gate_records`: done
 - `workflow_trace_id` on `report_records`: done
 - Matching `workflow_trace_id` in `agent_runs.trace_json` for persisted evidence/gate/report endpoints: done
-- `agent_run_id` foreign-key linkage, distributed tracing, LLM calls, embeddings, and semantic retrieval: not implemented
+- Phase 15 used `workflow_trace_id` correlation before direct `agent_run_id` child-record linkage was added in Phase 20
+- distributed tracing, LLM calls, embeddings, and semantic retrieval: not implemented
 
 ### Phase 16 - Trace-id Lookup v0
 
@@ -302,8 +305,8 @@ Implementation status:
 ### Phase 18.5 - Agent-run Linkage Review v0
 
 - `docs/review/agent-run-linkage-review.md`: done
-- Direct `agent_run_id` foreign-key linkage: reviewed but not implemented
-- Current accepted link remains `workflow_trace_id`
+- Direct `agent_run_id` foreign-key linkage: reviewed here, implemented later in Phase 20
+- At that review gate, the accepted link remained `workflow_trace_id`
 - Future implementation should create the agent run first, then persist child records with its id
 
 ### Phase 19 - Agent-run Lifecycle v0
@@ -312,7 +315,16 @@ Implementation status:
 - the same `agent_runs` row is updated to `completed` or `failed`: done
 - failed operations keep one failed parent run instead of creating a separate trace row after failure: done
 - `ended_at`, `latency_ms`, `error_message`, and final `trace_json` are updated on the parent run: done
-- direct `agent_run_id` foreign-key linkage for persisted Evidence Ledger, Noise Gate, and Report records: still not implemented
+- direct `agent_run_id` foreign-key linkage for persisted Evidence Ledger, Noise Gate, and Report records: added in the following Phase 20 gate
+
+### Phase 20 - Persisted Child Record Agent-run Linkage v0
+
+- `agent_run_id` on persisted Evidence Ledger entries: done
+- `agent_run_id` on persisted Noise Gate records: done
+- `agent_run_id` on persisted Report records: done
+- `db/migrations/006_child_agent_run_ids.sql`: done
+- `GET /traces/{workflow_trace_id}` returns child records with the matching parent run id: done
+- this is local parent/child linkage, not distributed tracing or hosted observability
 
 Not implemented yet:
 
@@ -321,7 +333,6 @@ Not implemented yet:
 - persisted chunks
 - embeddings
 - retrieval-run-linked Evidence Ledger records
-- `agent_run_id` foreign-key-linked Evidence Ledger, Noise Gate, and Report records
 - full distributed tracing or hosted observability
 
 ## Planned Agent Workflow
@@ -492,9 +503,9 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Agent-run Lifecycle v0, the next phase should improve record linkage carefully without overstating the workflow:
+After Persisted Child Record Agent-run Linkage v0, the next phase should improve provenance carefully without overstating the workflow:
 
-- add direct `agent_run_id` linkage only after child persisted records can receive the pre-created parent run id
+- expose parent/child linkage in the plain dashboard only if it helps inspection
 - keep the links inspectable without introducing LLM calls, dashboard polish, or new retrieval behavior
 - keep deterministic preview behavior before adding LLM calls or embeddings
 

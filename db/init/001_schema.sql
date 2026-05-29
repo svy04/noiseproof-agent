@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS documents (
 CREATE TABLE IF NOT EXISTS agent_runs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_question TEXT NOT NULL,
-  workflow_version TEXT NOT NULL DEFAULT 'phase19-agent-run-lifecycle',
+  workflow_version TEXT NOT NULL DEFAULT 'phase20-child-agent-run-linkage',
   status TEXT NOT NULL DEFAULT 'created',
   error_message TEXT,
   token_cost NUMERIC,
@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS retrieval_runs (
 CREATE TABLE IF NOT EXISTS evidence_ledger_entries (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   run_id UUID REFERENCES agent_runs(id) ON DELETE SET NULL,
+  agent_run_id UUID REFERENCES agent_runs(id) ON DELETE SET NULL,
   workflow_trace_id UUID NOT NULL DEFAULT gen_random_uuid(),
   question TEXT NOT NULL,
   claim TEXT NOT NULL,
@@ -71,6 +72,7 @@ CREATE TABLE IF NOT EXISTS evidence_ledger_entries (
 CREATE TABLE IF NOT EXISTS noise_gate_records (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   workflow_trace_id UUID NOT NULL DEFAULT gen_random_uuid(),
+  agent_run_id UUID REFERENCES agent_runs(id) ON DELETE SET NULL,
   question TEXT NOT NULL,
   decision TEXT NOT NULL CHECK (
     decision IN ('pass', 'needs_revision', 'blocked')
@@ -91,6 +93,7 @@ CREATE TABLE IF NOT EXISTS noise_gate_records (
 CREATE TABLE IF NOT EXISTS report_records (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   workflow_trace_id UUID NOT NULL DEFAULT gen_random_uuid(),
+  agent_run_id UUID REFERENCES agent_runs(id) ON DELETE SET NULL,
   question TEXT NOT NULL,
   status TEXT NOT NULL CHECK (
     status IN ('generated', 'needs_revision', 'blocked')
