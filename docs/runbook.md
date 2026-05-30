@@ -64,6 +64,8 @@ Phase 41 reviews workflow-version naming consistency and identifies stale execut
 
 Phase 42 updates fresh schema defaults and adds `db/migrations/010_workflow_version_defaults.sql` so omitted `workflow_version` values default to `phase40-lineage-warning-code-dashboard`. Historical migration 007 is not rewritten.
 
+Phase 42.5 adds expected schema-default workflow-version smoke checks. They document how to inspect defaults only; they do not prove new workflow behavior.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -362,6 +364,26 @@ Expected workflow-version fields:
 ```
 
 These checks confirm the runtime marker used by the smallest service surfaces. They do not mean workflow semantics changed; no workflow semantics changed in Phase 40 or Phase 40.5.
+
+Expected schema-default workflow-version smoke checks:
+
+```sql
+SELECT table_name, column_default
+FROM information_schema.columns
+WHERE table_schema = 'public'
+  AND column_name = 'workflow_version'
+  AND table_name IN ('agent_runs', 'workflow_runs')
+ORDER BY table_name;
+```
+
+Expected rows:
+
+```text
+agent_runs.workflow_version    DEFAULT 'phase40-lineage-warning-code-dashboard'
+workflow_runs.workflow_version DEFAULT 'phase40-lineage-warning-code-dashboard'
+```
+
+This is a schema defaults only smoke check. It does not prove workflow execution behavior, child record lineage, retrieval quality, evidence quality, dashboard analytics, or distributed tracing.
 
 Expected `/workflow-runs/{id}/lineage` response shape:
 

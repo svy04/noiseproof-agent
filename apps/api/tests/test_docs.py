@@ -499,3 +499,18 @@ def test_phase42_schema_default_workflow_version_update_uses_forward_migration()
     assert "Do not rewrite historical migration 007" in goal
     assert "Phase 42 - Schema Default Workflow Version Update v0" in goal
     assert "Schema default workflow version update v0: implemented" in readme
+
+
+def test_phase42_5_docs_add_schema_default_workflow_version_smoke_example():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Phase 42.5 - Schema Default Workflow Version Smoke Example v0" in goal
+    assert "Schema default workflow version smoke example v0: implemented" in readme
+    assert "Expected schema-default workflow-version smoke checks" in runbook
+    assert "SELECT table_name, column_default" in runbook
+    assert "agent_runs.workflow_version" in runbook
+    assert "workflow_runs.workflow_version" in runbook
+    assert "phase40-lineage-warning-code-dashboard" in runbook
+    assert "schema defaults only" in runbook
