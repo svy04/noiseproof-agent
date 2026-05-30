@@ -934,3 +934,26 @@ def test_failure_case_draft_preview_smoke_verification_keeps_preview_only_bounda
     assert "not fresh Docker DB evidence" in content
     assert "failure-case draft preview smoke verification v0" in goal
     assert "Failure-case draft preview smoke verification v0: implemented" in readme
+
+
+def test_failure_case_draft_preview_smoke_application_refresh_surfaces_smoke_artifact():
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Failure-case draft preview smoke application refresh v0: implemented" in readme
+    assert "failure-case draft preview smoke application refresh v0" in goal
+    assert "Failure-case draft preview smoke verification" in portfolio
+    assert "docs/review/failure-case-draft-preview-smoke-verification.md" in portfolio
+    assert "route-level smoke" in role_map
+    assert "not fresh Docker DB evidence" in role_map
+    assert "failure-case draft preview smoke" in review
+    assert "automatic failure-case persistence is not claimed" in review

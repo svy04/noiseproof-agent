@@ -172,6 +172,7 @@ Implementation status:
 - Failure-case draft preview v0: implemented as `POST /failure-cases/draft-preview`
 - Failure-case draft preview application refresh v0: implemented across application-facing docs
 - Failure-case draft preview smoke verification v0: implemented as `docs/review/failure-case-draft-preview-smoke-verification.md`
+- Failure-case draft preview smoke application refresh v0: implemented across application-facing docs
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -809,6 +810,14 @@ Implementation status:
 - Verified test path: `tests/test_routes.py::test_failure_case_draft_preview_suggests_manual_payload_without_persistence`
 - Observed: `1 passed, 65 deselected, 1 warning`
 - Boundary: route-level smoke only; not fresh Docker DB evidence, automatic failure detection, automatic failure-case persistence, or complete workflow failure causality
+
+### Phase 64 - Failure-case Draft Preview Smoke Application Refresh v0
+
+- Failure-case draft preview smoke application refresh v0: implemented
+- `docs/application/portfolio-index.md`: updated with the smoke verification artifact
+- `docs/application/braincrew-role-map.md`: updated with route-level smoke and non-DB-proof boundaries
+- `docs/review/application-ready-review.md`: updated with draft-preview smoke evidence
+- Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
 
 Not implemented yet:
 

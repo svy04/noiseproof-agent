@@ -49,6 +49,7 @@ The newest local runtime evidence is:
 - Workflow failure linkage smoke: `docs/review/workflow-failure-linkage-smoke-verification.md`
 - Failure-case workflow linkage review: `docs/review/failure-case-workflow-linkage-review.md`
 - Failure-case draft preview: `POST /failure-cases/draft-preview`
+- Failure-case draft preview smoke: `docs/review/failure-case-draft-preview-smoke-verification.md`
 
 These show a fresh migrated Docker DB can run the local service path for `/health`, `/ops/summary`, `POST /documents`, and `GET /documents`.
 
@@ -61,6 +62,8 @@ The failed workflow parent proof shows a route-level test fixture can make a dow
 The failure-case workflow linkage review states that workflow_run_id on failure_cases remains deferred because there is still no failure-case creation path from failed workflow parents.
 
 The failure-case draft preview can turn workflow failure evidence into a human-confirmed draft payload with `preview_only_not_persisted`. It is a preparation boundary only; it does not persist the failure case, classify incidents automatically, or prove complete workflow failure causality.
+
+The draft-preview smoke is a route-level smoke that confirms `preview_only_not_persisted`, `human_confirmation_required`, and unchanged `failure_cases`. It is not fresh Docker DB evidence.
 
 Boundary: the DB smoke checks are fresh migrated Docker DB evidence. The workflow failure linkage smoke is not fresh Docker DB evidence. Neither one is hosted deployment evidence, production migration orchestration, rollback proof, automatic failure detection, complete workflow failure causality, or external customer validation.
 
