@@ -75,6 +75,7 @@ def render_ops_dashboard(
   <section>
     <h2>Workflow Runs</h2>
     <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 36 exposes structured warning codes for the derived lineage read model while keeping human-readable warnings.</p>
+    <p class="muted">Lineage warning codes: <code>derived_read_model_boundary</code>, <code>local_workflow_scope</code>, <code>missing_manifest_reference</code>, <code>invalid_manifest_shape</code>. These are response-level taxonomy only, not persisted dashboard analytics.</p>
     {_workflow_runs_table(workflow_runs)}
   </section>
   <section>

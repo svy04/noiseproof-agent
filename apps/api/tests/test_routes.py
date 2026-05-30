@@ -780,6 +780,29 @@ def test_ops_dashboard_links_workflow_runs_to_detail_and_lineage_views():
     assert "derived lineage read model" in dashboard.text
 
 
+def test_ops_dashboard_surfaces_lineage_warning_code_legend_without_persistence_claims():
+    client = make_client()
+
+    client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which sources disagree about memory demand?",
+            "trace_json": {"phase": "metadata-only"},
+        },
+    )
+
+    dashboard = client.get("/ops/dashboard")
+
+    assert dashboard.status_code == 200
+    assert "Lineage warning codes" in dashboard.text
+    assert "derived_read_model_boundary" in dashboard.text
+    assert "local_workflow_scope" in dashboard.text
+    assert "missing_manifest_reference" in dashboard.text
+    assert "invalid_manifest_shape" in dashboard.text
+    assert "response-level taxonomy only" in dashboard.text
+    assert "not persisted dashboard analytics" in dashboard.text
+
+
 def test_ops_summary_placeholder_counts_registered_records():
     client = make_client()
 

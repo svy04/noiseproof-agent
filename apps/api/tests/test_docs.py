@@ -378,3 +378,22 @@ def test_workflow_lineage_warning_code_dashboard_review_keeps_ui_scope_bounded()
     assert "workflow lineage warning code dashboard surfacing v0" in content
     assert "Workflow lineage warning code dashboard review v0" in goal
     assert "workflow lineage warning code dashboard surfacing v0" in goal
+
+
+def test_phase38_docs_mark_warning_code_dashboard_surfacing_without_storage_expansion():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+
+    assert "Phase 38 - Workflow Lineage Warning Code Dashboard Surfacing v0" in goal
+    assert "Lineage warning codes" in goal
+    assert "derived_read_model_boundary" in goal
+    assert "local_workflow_scope" in goal
+    assert "missing_manifest_reference" in goal
+    assert "invalid_manifest_shape" in goal
+    assert "no migrations, columns, or join tables" in goal
+    assert "Workflow lineage warning code dashboard surfacing v0: implemented" in readme
+    assert "Lineage warning codes" in runbook
+    assert "not persisted dashboard analytics" in runbook
+    assert "warning-code dashboard surfacing" in architecture
