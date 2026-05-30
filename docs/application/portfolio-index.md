@@ -53,6 +53,7 @@ This page maps the repository into a reviewer-readable path.
 | Workflow lineage read model | `GET /workflow-runs/{id}/lineage` | implemented v0 |
 | Workflow lineage dashboard links | `GET /ops/dashboard` workflow row detail/lineage links | implemented v0 |
 | Workflow lineage missing-reference review | `docs/review/workflow-lineage-missing-reference-review.md` | reviewed |
+| Workflow lineage missing-reference test | `apps/api/tests/test_routes.py` broken manifest fixture | implemented v0 |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 
@@ -80,4 +81,4 @@ This page maps the repository into a reviewer-readable path.
 
 ## Current Best Claim
 
-NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be persisted, gated, blocked, stored as report-shaped preview records, linked to a deterministic workflow parent, inspected from that parent, and kept bounded before any free-form final answer exists. Workflow-created gate and report records now carry local `stage_input_manifest` values that show persisted upstream ids consumed by deterministic preview stages, `GET /workflow-runs/{id}/lineage` derives a readable lineage view from those existing records, and the operations dashboard links workflow rows to both detail and lineage views. Missing-reference behavior has been reviewed, but direct evidence -> gate -> report foreign-key and join-table lineage remains intentionally unclaimed.
+NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be persisted, gated, blocked, stored as report-shaped preview records, linked to a deterministic workflow parent, inspected from that parent, and kept bounded before any free-form final answer exists. Workflow-created gate and report records now carry local `stage_input_manifest` values that show persisted upstream ids consumed by deterministic preview stages, `GET /workflow-runs/{id}/lineage` derives a readable lineage view from those existing records, and the operations dashboard links workflow rows to both detail and lineage views. Missing-reference behavior has been reviewed and covered by a targeted broken-manifest fixture, but direct evidence -> gate -> report foreign-key and join-table lineage remains intentionally unclaimed.

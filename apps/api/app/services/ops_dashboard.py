@@ -40,7 +40,7 @@ def render_ops_dashboard(
 </head>
 <body>
   <h1>Operations Dashboard v0</h1>
-  <p class="muted">Phase 33 inspectable operations surface. No LLM calls, no semantic retrieval, workflow and stage input manifests are local nullable provenance, no free-form final answer generation.</p>
+  <p class="muted">Phase 34 inspectable operations surface. No LLM calls, no semantic retrieval, workflow and stage input manifests are local nullable provenance, no free-form final answer generation.</p>
   <section>
     <h2>Summary</h2>
     <div class="grid">
@@ -74,7 +74,7 @@ def render_ops_dashboard(
   </section>
   <section>
     <h2>Workflow Runs</h2>
-    <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 33 adds detail and lineage links from workflow rows to the child inspection endpoint and derived lineage read model.</p>
+    <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 34 keeps those links and adds a targeted missing-reference test for the derived lineage read model.</p>
     {_workflow_runs_table(workflow_runs)}
   </section>
   <section>

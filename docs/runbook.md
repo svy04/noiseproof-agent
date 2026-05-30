@@ -34,6 +34,8 @@ Phase 33 adds workflow lineage links to the plain operations dashboard: workflow
 
 Phase 33.5 reviews missing manifest reference behavior for the derived lineage read model: `docs/review/workflow-lineage-missing-reference-review.md` keeps runtime behavior unchanged and selects a targeted missing-reference test as the next proof step.
 
+Phase 34 adds that targeted missing-reference fixture: tests now prove `GET /workflow-runs/{id}/lineage` surfaces `missing_reference_count > 0`, missing Evidence Ledger ids, and missing Noise Gate ids without adding a malformed-manifest mutation endpoint or new lineage storage.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -137,6 +139,8 @@ Implemented:
 - no dashboard polish, frontend framework, or new lineage storage added
 - missing-reference behavior review exists in `docs/review/workflow-lineage-missing-reference-review.md`
 - no malformed-manifest mutation endpoint, repair endpoint, migration, column, or join table added by the review gate
+- missing-reference fixture exists in `apps/api/tests/test_routes.py`
+- no migrations, columns, or join tables added by the missing-reference test gate
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
 - direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0
@@ -257,7 +261,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase33-workflow-lineage-dashboard-links"
+  "workflow_version": "phase34-workflow-lineage-missing-reference-test"
 }
 ```
 
@@ -266,7 +270,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase33-workflow-lineage-dashboard-links",
+  "workflow_version": "phase34-workflow-lineage-missing-reference-test",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -808,11 +812,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase33-workflow-lineage-dashboard-links",
+    "workflow_version": "phase34-workflow-lineage-missing-reference-test",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase33-workflow-lineage-dashboard-links",
+      "phase": "phase34-workflow-lineage-missing-reference-test",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }

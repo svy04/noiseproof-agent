@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 33.5:
+Accepted state as of Phase 34:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, and Workflow Lineage Missing-reference Review v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, and Workflow Lineage Missing-reference Test v0
 ```
 
 Implemented:
@@ -251,6 +251,10 @@ Implemented:
 - `docs/review/workflow-lineage-missing-reference-review.md`
 - review-only decision to keep missing-reference proof as a targeted test before schema or mutation changes
 - no migrations, columns, join tables, or runtime mutation paths added
+- Workflow Lineage Missing-reference Test v0
+- targeted route test proves `GET /workflow-runs/{id}/lineage` returns `missing_reference_count > 0` for broken `stage_input_manifest` values
+- missing Evidence Ledger ids and missing Noise Gate ids are surfaced without a malformed-manifest mutation API
+- no migrations, columns, or join tables added
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -335,6 +339,7 @@ Phase 31.5 - Direct Cross-stage Link Schema Review v0
 Phase 32  - Workflow Lineage Read Model v0
 Phase 33  - Workflow Lineage Dashboard Links v0
 Phase 33.5 - Workflow Lineage Missing-reference Review v0
+Phase 34  - Workflow Lineage Missing-reference Test v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -1238,10 +1243,30 @@ next direction for a targeted missing-reference test fixture
 
 Phase 33.5 is a review-only gate. It adds no runtime behavior, migrations, columns, join tables, direct evidence -> gate -> report foreign-key links, malformed-manifest creation endpoint, repair endpoint, dashboard polish, LLM calls, embeddings, semantic retrieval, external search, autonomous workflow execution, or free-form final answer generation.
 
-Next recommended implementation phase:
+Follow-up implemented by Phase 34:
 
 ```text
 Workflow lineage missing-reference test v0
+```
+
+### Phase 34 - Workflow Lineage Missing-reference Test v0
+
+Implemented:
+
+```text
+targeted missing-reference fixture in apps/api/tests/test_routes.py
+GET /workflow-runs/{id}/lineage test with deliberately broken stage_input_manifest values
+assertion that missing_reference_count > 0
+assertions for missing_evidence_entry_ids and missing_noise_gate_record_id
+workflow version phase34-workflow-lineage-missing-reference-test
+```
+
+Phase 34 proves missing-reference surfacing in the existing derived lineage read model. It adds no malformed-manifest mutation endpoint, repair endpoint, migrations, columns, join tables, direct evidence -> gate -> report foreign-key links, dashboard polish, LLM calls, embeddings, semantic retrieval, external search, autonomous workflow execution, or free-form final answer generation.
+
+Next recommended implementation phase:
+
+```text
+Workflow lineage boundary hardening review v0
 ```
 
 ## 6. Ordering Rules

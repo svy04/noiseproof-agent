@@ -228,3 +228,17 @@ def test_workflow_lineage_missing_reference_review_keeps_runtime_scope_bounded()
     assert "Phase 33.5 - Workflow Lineage Missing-reference Review v0" in goal
     assert "docs/review/workflow-lineage-missing-reference-review.md" in goal
     assert "Workflow lineage missing-reference test v0" in goal
+
+
+def test_phase34_docs_mark_missing_reference_test_without_schema_expansion():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Phase 34 - Workflow Lineage Missing-reference Test v0" in goal
+    assert "Workflow lineage missing-reference test v0: implemented" in readme
+    assert "missing_reference_count > 0" in goal
+    assert "no malformed-manifest mutation endpoint" in goal
+    assert "no migrations, columns, or join tables" in goal
+    assert "phase34-workflow-lineage-missing-reference-test" in runbook
+    assert "missing-reference fixture" in runbook

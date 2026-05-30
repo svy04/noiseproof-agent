@@ -9,7 +9,7 @@ from app.main import create_app
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
 from app.services.run_trace import run_with_trace
 
-WORKFLOW_VERSION = "phase33-workflow-lineage-dashboard-links"
+WORKFLOW_VERSION = "phase34-workflow-lineage-missing-reference-test"
 
 
 class InMemoryRepository:
@@ -551,6 +551,55 @@ def test_workflow_run_lineage_read_model_resolves_manifest_inputs_without_new_st
     assert any("derived read model" in warning for warning in payload["warnings"])
 
 
+def test_workflow_run_lineage_reports_missing_manifest_references_without_mutation_api():
+    client = make_client()
+    repository = client.app.dependency_overrides[get_repository]()
+    execution = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    ).json()
+    workflow_run_id = execution["workflow_run"]["id"]
+    missing_evidence_id = str(uuid4())
+    missing_gate_id = str(uuid4())
+    repository.noise_gate_records[0]["stage_input_manifest"] = {
+        "input_evidence_ledger_entry_ids": [missing_evidence_id],
+    }
+    repository.report_records[0]["stage_input_manifest"] = {
+        "input_evidence_ledger_entry_ids": [missing_evidence_id],
+        "input_noise_gate_record_id": missing_gate_id,
+    }
+
+    response = client.get(f"/workflow-runs/{workflow_run_id}/lineage")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["lineage_boundary"] == "derived_read_model_only"
+    assert payload["summary"]["missing_reference_count"] == 3
+    assert payload["summary"]["evidence_ledger_entry_count"] == 1
+    assert payload["summary"]["gate_input_evidence_reference_count"] == 1
+    assert payload["summary"]["report_input_evidence_reference_count"] == 1
+    assert payload["summary"]["report_input_gate_reference_count"] == 1
+    assert payload["noise_gate_lineage"][0]["input_evidence_entries"] == []
+    assert payload["noise_gate_lineage"][0]["missing_evidence_entry_ids"] == [
+        missing_evidence_id
+    ]
+    assert payload["report_lineage"][0]["input_evidence_entries"] == []
+    assert payload["report_lineage"][0]["input_noise_gate_record"] is None
+    assert payload["report_lineage"][0]["missing_evidence_entry_ids"] == [missing_evidence_id]
+    assert payload["report_lineage"][0]["missing_noise_gate_record_id"] == missing_gate_id
+    assert any("could not be resolved" in warning for warning in payload["warnings"])
+
+
 def test_ops_dashboard_links_workflow_runs_to_detail_and_lineage_views():
     client = make_client()
     execution = client.post(
@@ -643,7 +692,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 33" in response.text
+    assert "Phase 34" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():
