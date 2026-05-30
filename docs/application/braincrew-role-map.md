@@ -51,6 +51,7 @@ The newest local runtime evidence is:
 - Failure-case draft preview: `POST /failure-cases/draft-preview`
 - Failure-case draft preview smoke: `docs/review/failure-case-draft-preview-smoke-verification.md`
 - Failure-case draft manual handoff smoke: `docs/review/failure-case-draft-manual-handoff-smoke-verification.md`
+- Failure-case draft fresh DB handoff smoke: `docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md`
 
 These show a fresh migrated Docker DB can run the local service path for `/health`, `/ops/summary`, `POST /documents`, and `GET /documents`.
 
@@ -67,6 +68,8 @@ The failure-case draft preview can turn workflow failure evidence into a human-c
 The draft-preview smoke is a route-level smoke that confirms `preview_only_not_persisted`, `human_confirmation_required`, and unchanged `failure_cases`. It is not fresh Docker DB evidence.
 
 The manual handoff smoke shows a reviewer-controlled step: `draft.fix_status from draft to open`, then `POST /failure-cases`. That proves the existing endpoints can carry a human-confirmed draft into persistence, but it is not automatic failure-case persistence.
+
+The fresh migrated Docker DB handoff proof verifies the same manual path through a real FastAPI process and PostgreSQL repository, ending with `ops_failure_case_count: 1`. It is not hosted deployment evidence.
 
 Boundary: the DB smoke checks are fresh migrated Docker DB evidence. The workflow failure linkage smoke is not fresh Docker DB evidence. Neither one is hosted deployment evidence, production migration orchestration, rollback proof, automatic failure detection, complete workflow failure causality, or external customer validation.
 

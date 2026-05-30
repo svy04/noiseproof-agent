@@ -1063,3 +1063,26 @@ def test_failure_case_draft_fresh_db_handoff_smoke_verification_records_runtime_
     assert "not hosted deployment evidence" in content
     assert "failure-case draft fresh-db handoff smoke verification v0" in goal
     assert "Failure-case draft fresh-db handoff smoke verification v0: implemented" in readme
+
+
+def test_failure_case_draft_fresh_db_handoff_application_refresh_surfaces_runtime_proof():
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Failure-case draft fresh-db handoff application refresh v0: implemented" in readme
+    assert "failure-case draft fresh-db handoff application refresh v0" in goal
+    assert "Failure-case draft fresh DB handoff smoke verification" in portfolio
+    assert "docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md" in portfolio
+    assert "fresh migrated Docker DB handoff proof" in role_map
+    assert "not hosted deployment evidence" in role_map
+    assert "failure-case draft fresh DB handoff smoke" in review
+    assert "automatic persistence remains unclaimed" in review
