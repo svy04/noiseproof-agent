@@ -176,6 +176,7 @@ Implementation status:
 - Failure-case draft persistence handoff review v0: implemented as `docs/review/failure-case-draft-persistence-handoff-review.md`
 - Failure-case draft manual handoff smoke verification v0: implemented as `docs/review/failure-case-draft-manual-handoff-smoke-verification.md`
 - Failure-case draft manual handoff application refresh v0: implemented across application-facing docs
+- Failure-case draft fresh-db handoff review v0: implemented as `docs/review/failure-case-draft-fresh-db-handoff-review.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -844,6 +845,14 @@ Implementation status:
 - `docs/application/portfolio-index.md`: updated with the manual handoff smoke artifact
 - `docs/application/braincrew-role-map.md`: updated with the explicit human edit from `draft` to `open`
 - `docs/review/application-ready-review.md`: updated with the manual handoff smoke boundary
+- Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
+
+### Phase 68 - Failure-case Draft Fresh-db Handoff Review v0
+
+- Failure-case draft fresh-db handoff review v0: implemented
+- `docs/review/failure-case-draft-fresh-db-handoff-review.md`: added
+- Current decision: run the manual draft-to-persistence handoff against a fresh migrated Docker DB before stronger application claims
+- Deferred: automatic persistence, confirm endpoint, `workflow_run_id` on `failure_cases`, and complete workflow failure causality
 - Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
 
 Not implemented yet:
