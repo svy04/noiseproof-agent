@@ -28,6 +28,7 @@ Implemented in this package:
 - `GET /agent-runs`
 - `POST /workflow-runs`
 - `GET /workflow-runs`
+- `POST /workflow-runs/execute-preview`
 - `POST /failure-cases`
 - `GET /failure-cases`
 
@@ -42,6 +43,7 @@ Phase 21 exposes parent run links for persisted Noise Gate and Report records in
 Phase 22 exposes persisted Evidence Ledger rows in the plain operations dashboard.
 Phase 25 adds create/list metadata persistence for `workflow_runs`, without workflow orchestration or child `workflow_run_id` links.
 Phase 26 surfaces workflow-run metadata rows in the plain operations dashboard, labeled as metadata-only and not workflow execution.
+Phase 28 adds a deterministic workflow execution preview that creates a workflow parent and runs retrieval -> evidence -> gate -> report preview steps, without child `workflow_run_id` columns.
 
 Not implemented yet:
 
@@ -50,7 +52,7 @@ Not implemented yet:
 - persisted parse records
 - persisted chunks
 - persisted collection plans
-- workflow execution endpoints
+- child-linked or autonomous workflow execution endpoints
 - child workflow_run_id links
 - embeddings
 - distributed tracing or hosted observability
@@ -111,6 +113,9 @@ curl -X POST http://localhost:8000/workflow-runs \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which sources disagree about memory demand?\",\"trace_json\":{\"phase\":\"metadata-only\"}}"
 curl http://localhost:8000/workflow-runs
+curl -X POST http://localhost:8000/workflow-runs/execute-preview \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which segment had enterprise demand growth?\",\"strategy\":\"fixed-window\",\"sources\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"content\":\"Enterprise segment demand growth was 12 percent in 2026.\"}],\"draft_claims\":[\"Enterprise segment demand growth was supported by current retrieved evidence.\"]}"
 ```
 
 The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
@@ -122,5 +127,5 @@ Report Preview is deterministic and does not call LLMs. `POST /reports` persists
 Persisted evidence, gate, and report records include `workflow_trace_id`, which also appears in the matching `agent_runs.trace_json`; persisted evidence, gate, and report rows are linked back to their parent run from the dashboard.
 Operations Dashboard v0 is a plain FastAPI HTML view over current metadata. It now links to trace lookup, record filters, parent run provenance, and persisted Evidence Ledger rows, but it is still not a polished product UI.
 Auto Trace Recording v0 is metadata tracing for preview endpoints, not distributed tracing or hosted observability.
-WorkflowRun Metadata Persistence v0 is create/list metadata storage only. It does not execute a workflow, attach child records to `workflow_run_id`, or create evidence -> gate -> report cross-links.
-WorkflowRun Dashboard Table v0 renders those metadata rows in the plain dashboard. It still does not execute a workflow, attach child records to `workflow_run_id`, or create evidence -> gate -> report cross-links.
+WorkflowRun Metadata Persistence v0 is create/list metadata storage only. WorkflowRun Dashboard Table v0 renders those metadata rows in the plain dashboard.
+Deterministic Workflow Execution Preview v0 creates and updates a parent workflow row, then runs deterministic retrieval -> evidence -> gate -> report preview steps. It still does not attach child records to `workflow_run_id`, create direct evidence -> gate -> report foreign-key links, use semantic retrieval, compute embeddings, call LLMs, search external sources, or create a free-form final answer.

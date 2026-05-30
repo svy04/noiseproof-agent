@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 27:
+Accepted state as of Phase 28:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, and WorkflowRun Child-link Review v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, and Deterministic Workflow Execution Preview v0
 ```
 
 Implemented:
@@ -203,7 +203,14 @@ Implemented:
 - dashboard boundary copy labels workflow-run rows as metadata-only, not workflow execution
 - WorkflowRun Child-link Review v0
 - `docs/review/workflow-run-child-link-review.md`
-- child `workflow_run_id` columns are deferred until a workflow execution boundary exists
+- child `workflow_run_id` columns were deferred before Phase 28; the next gate should review them against the deterministic execution preview
+- Deterministic Workflow Execution Preview v0
+- `POST /workflow-runs/execute-preview`
+- parent `workflow_runs` row creation before deterministic execution
+- parent workflow row completion/failure updates after execution
+- deterministic retrieval -> evidence -> gate -> report preview sequence
+- child records correlated by `workflow_trace_id`
+- child `workflow_run_id` columns remain unimplemented
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -221,6 +228,8 @@ Not yet implemented:
 - persisted parse records
 - persisted chunks
 - persisted collection plans
+- child `workflow_run_id` links
+- autonomous or LLM-backed workflow execution
 - embeddings
 - full distributed tracing or hosted observability
 
@@ -276,6 +285,7 @@ Phase 24  - WorkflowRun Schema v0
 Phase 25  - WorkflowRun Metadata Persistence v0
 Phase 26  - WorkflowRun Dashboard Table v0
 Phase 27  - WorkflowRun Child-link Review v0
+Phase 28  - Deterministic Workflow Execution Preview v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -1022,10 +1032,24 @@ acceptance criteria for adding child workflow links later
 
 Phase 27 is review-only. It does not add migrations, child columns, endpoints, dashboard behavior, workflow orchestration, distributed tracing, hosted observability, LLM calls, embeddings, semantic retrieval, or final report generation.
 
+### Phase 28 - Deterministic Workflow Execution Preview v0
+
+Implemented:
+
+```text
+POST /workflow-runs/execute-preview
+parent workflow_runs row creation before deterministic execution
+parent workflow_runs row completion/failure updates after execution
+deterministic retrieval -> evidence -> gate -> report preview sequence
+child records correlated by workflow_trace_id
+```
+
+Phase 28 is deterministic preview execution only. It does not add child `workflow_run_id` columns, direct evidence -> gate -> report foreign-key links, distributed tracing, hosted observability, LLM calls, embeddings, semantic retrieval, external search, autonomous workflow execution, or free-form final answer generation.
+
 Next recommended implementation phase:
 
 ```text
-Minimal workflow execution boundary review or deterministic workflow execution service v0
+WorkflowRun child-link schema review or nullable child workflow_run_id schema v0
 ```
 
 ## 6. Ordering Rules

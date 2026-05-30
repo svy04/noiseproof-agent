@@ -35,6 +35,15 @@ class Repository(Protocol):
     ) -> dict: ...
     def list_agent_runs(self) -> Sequence[dict]: ...
     def create_workflow_run(self, payload: WorkflowRunCreate) -> dict: ...
+    def update_workflow_run(
+        self,
+        workflow_run_id: UUID,
+        *,
+        status: str,
+        error_message: str | None,
+        latency_ms: int,
+        trace_json: dict,
+    ) -> dict: ...
     def list_workflow_runs(self) -> Sequence[dict]: ...
     def create_evidence_ledger_entries(
         self,
@@ -215,6 +224,38 @@ class PostgresRepository:
                 "SELECT * FROM workflow_runs ORDER BY created_at DESC, id DESC"
             ).fetchall()
             return [dict(row) for row in rows]
+
+    def update_workflow_run(
+        self,
+        workflow_run_id: UUID,
+        *,
+        status: str,
+        error_message: str | None,
+        latency_ms: int,
+        trace_json: dict,
+    ) -> dict:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                UPDATE workflow_runs
+                SET status = %s,
+                    error_message = %s,
+                    latency_ms = %s,
+                    trace_json = %s,
+                    ended_at = now()
+                WHERE id = %s
+                RETURNING *
+                """,
+                (
+                    status,
+                    error_message,
+                    latency_ms,
+                    Jsonb(trace_json),
+                    workflow_run_id,
+                ),
+            ).fetchone()
+            conn.commit()
+            return dict(row)
 
     def create_evidence_ledger_entries(
         self,

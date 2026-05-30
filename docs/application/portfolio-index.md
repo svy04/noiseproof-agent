@@ -44,6 +44,7 @@ This page maps the repository into a reviewer-readable path.
 | WorkflowRun metadata persistence | `POST /workflow-runs`, `GET /workflow-runs` | implemented v0 |
 | WorkflowRun dashboard visibility | `GET /ops/dashboard` workflow-run metadata table | implemented v0 |
 | WorkflowRun child-link review | `docs/review/workflow-run-child-link-review.md` | reviewed |
+| Deterministic workflow execution preview | `POST /workflow-runs/execute-preview` | implemented v0 |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 
@@ -71,4 +72,4 @@ This page maps the repository into a reviewer-readable path.
 
 ## Current Best Claim
 
-NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be persisted, gated, blocked, stored as report-shaped preview records, and correlated back to trace metadata before any free-form final answer exists.
+NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be persisted, gated, blocked, stored as report-shaped preview records, and run through a deterministic workflow preview before any free-form final answer exists.

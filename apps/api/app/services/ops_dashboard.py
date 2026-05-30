@@ -40,7 +40,7 @@ def render_ops_dashboard(
 </head>
 <body>
   <h1>Operations Dashboard v0</h1>
-  <p class="muted">Phase 26 inspectable operations surface. No LLM calls, no new retrieval behavior, no workflow execution, no final report generation beyond deterministic previews.</p>
+  <p class="muted">Phase 28 inspectable operations surface. No LLM calls, no semantic retrieval, no child workflow_run_id links, no free-form final answer generation.</p>
   <section>
     <h2>Summary</h2>
     <div class="grid">
@@ -74,7 +74,7 @@ def render_ops_dashboard(
   </section>
   <section>
     <h2>Workflow Runs</h2>
-    <p class="muted">Metadata-only workflow parent records; this is not workflow execution.</p>
+    <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Child records are still correlated by workflow_trace_id, not workflow_run_id.</p>
     {_workflow_runs_table(workflow_runs)}
   </section>
   <section>

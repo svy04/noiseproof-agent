@@ -1,6 +1,6 @@
 # Application-ready Review
 
-Status: Phase 27 review packet.
+Status: Phase 28 review packet.
 
 This is an application-ready review, not a product-complete declaration.
 
@@ -10,7 +10,7 @@ Not product-complete: robust PDF extraction, embeddings, semantic retrieval, dis
 
 Current judgment: Partial application-ready portfolio artifact.
 
-NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, dashboard parent/child provenance links, dashboard Evidence Ledger table, evidence-to-gate/report cross-link review, single workflow parent review, WorkflowRun schema, WorkflowRun metadata persistence, WorkflowRun dashboard visibility, WorkflowRun child-link review, preview endpoint traces, failure records, and technical decision trail.
+NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, dashboard parent/child provenance links, dashboard Evidence Ledger table, evidence-to-gate/report cross-link review, single workflow parent review, WorkflowRun schema, WorkflowRun metadata persistence, WorkflowRun dashboard visibility, WorkflowRun child-link review, deterministic workflow execution preview, preview endpoint traces, failure records, and technical decision trail.
 
 It is not strong enough to claim production RAG quality or autonomous market intelligence.
 
@@ -35,14 +35,14 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | evaluation report exists | Pass | `docs/evaluation/*` | not a benchmark |
 | Braincrew role map exists | Pass | `docs/application/braincrew-role-map.md` | role fit is an argument, not hiring proof |
 | evidence -> gate -> report lineage exists | Not yet | `docs/review/evidence-to-gate-report-cross-links-review.md` | direct cross-stage links are deferred until a single workflow parent exists |
-| single workflow parent exists | Partial | `POST /workflow-runs`, `GET /workflow-runs`, dashboard metadata table, child-link review | no endpoint executes a workflow or attaches child records to a workflow run yet |
+| single workflow parent exists | Partial | `POST /workflow-runs`, `GET /workflow-runs`, `POST /workflow-runs/execute-preview`, dashboard metadata table, child-link review | deterministic preview creates a workflow parent, but child records still use `workflow_trace_id` rather than `workflow_run_id` links |
 
 ## Best External Claim
 
 Use:
 
 ```text
-NoiseProof Agent is a small, inspectable portfolio service that shows how messy market data can be profiled, retrieved, converted into persisted evidence entries, persisted as gate decisions, stored as claim-bounded report preview records, and correlated with preview endpoint traces through `workflow_trace_id`.
+NoiseProof Agent is a small, inspectable portfolio service that shows how messy market data can be profiled, retrieved, converted into persisted evidence entries, persisted as gate decisions, stored as claim-bounded report preview records, and run through a deterministic workflow preview with `workflow_trace_id` correlation.
 ```
 
 Do not use:
@@ -72,6 +72,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - Agent-run Linkage Review v0
 - Agent-run Lifecycle v0
 - Persisted Child Record Agent-run Linkage v0
+- Deterministic Workflow Execution Preview v0
 - Operations Dashboard v0
 - evaluation/application package
 - Auto Trace Recording v0 for preview endpoint metadata

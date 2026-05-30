@@ -68,3 +68,11 @@ Implement either:
 2. a minimal workflow execution service that owns the deterministic retrieval -> evidence -> gate -> report path.
 
 Do not add child links before that boundary exists.
+
+## Follow-up status after Phase 28
+
+Phase 28 implemented a minimal deterministic workflow execution preview at `POST /workflow-runs/execute-preview`.
+
+That endpoint now creates a parent `workflow_runs` row and runs retrieval -> evidence -> gate -> report preview steps. Child records are still correlated by `workflow_trace_id`; they are not attached to `workflow_run_id` columns.
+
+The next gate should review whether this deterministic execution preview provides enough runtime evidence to justify nullable child `workflow_run_id` schema changes.

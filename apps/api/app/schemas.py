@@ -308,9 +308,24 @@ class ReportStoredRecordOut(ReportPreviewOut):
     created_at: datetime
 
 
+class WorkflowRunExecutePreviewRequest(RetrievalRunRequest):
+    draft_claims: list[str] = Field(default_factory=list)
+
+
+class WorkflowRunExecutePreviewOut(BaseModel):
+    workflow_run: "WorkflowRunOut"
+    workflow_trace_id: UUID
+    execution_boundary: str
+    retrieval: RetrievalRunResponse
+    evidence: EvidenceLedgerPersistedOut
+    gate: NoiseGateStoredRecordOut
+    report: ReportStoredRecordOut
+    warnings: list[str]
+
+
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase25-workflow-run-metadata"
+    workflow_version: str = "phase28-workflow-execution-preview"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None
@@ -326,7 +341,7 @@ class AgentRunOut(AgentRunCreate):
 
 class WorkflowRunCreate(BaseModel):
     question: str = Field(..., min_length=1)
-    workflow_version: str = "phase25-workflow-run-metadata"
+    workflow_version: str = "phase28-workflow-execution-preview"
     status: str = "created"
     trace_json: dict[str, Any] = Field(default_factory=dict)
     started_at: datetime | None = None
