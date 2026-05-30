@@ -27,6 +27,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/workflow-version-naming-review.md",
         "docs/review/workflow-version-naming-consistency-review.md",
         "docs/review/runtime-db-schema-default-verification.md",
+        "docs/review/migration-runner-review.md",
     ]
 
     for file_path in required_files:
@@ -534,3 +535,20 @@ def test_runtime_db_schema_default_verification_records_before_and_after_default
     assert "No volume deletion was performed" in content
     assert "Phase 43 - Runtime DB Schema Default Verification v0" in goal
     assert "Runtime DB schema default verification v0: implemented" in readme
+
+
+def test_migration_runner_review_selects_lightweight_sql_runner_next():
+    content = (REPO_ROOT / "docs/review/migration-runner-review.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Migration runner review" in content
+    assert "review-only gate" in content
+    assert "runbook-only psql piping" in content
+    assert "Alembic" in content
+    assert "lightweight SQL migration runner" in content
+    assert "schema_migrations" in content
+    assert "Do not implement the runner in this review gate" in content
+    assert "lightweight SQL migration runner v0" in content
+    assert "Phase 44 - Migration Runner Review v0" in goal
+    assert "Migration runner review v0: implemented" in readme

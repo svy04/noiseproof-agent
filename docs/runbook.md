@@ -68,6 +68,8 @@ Phase 42.5 adds expected schema-default workflow-version smoke checks. They docu
 
 Phase 43 verifies the local Docker DB schema defaults before and after applying migration 010. The existing volume was stale before the migration and current afterward; no volume deletion was performed.
 
+Phase 44 reviews migration handling and selects a lightweight SQL migration runner as the next bounded implementation. The runner is not implemented yet.
+
 Implemented:
 
 - FastAPI app skeleton
