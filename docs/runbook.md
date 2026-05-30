@@ -98,6 +98,8 @@ Phase 58 reviews whether failure cases should link to workflow parents and keeps
 
 Phase 59 refreshes application-facing docs with that failure-case workflow linkage boundary without changing schema, API behavior, or failure creation logic.
 
+Phase 60 reviews failure-case creation paths and selects a manual failure-case draft before any automatic failure-case creation.
+
 Implemented:
 
 - FastAPI app skeleton

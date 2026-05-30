@@ -36,6 +36,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/workflow-failure-provenance-review.md",
         "docs/review/workflow-failure-linkage-smoke-verification.md",
         "docs/review/failure-case-workflow-linkage-review.md",
+        "docs/review/failure-case-creation-path-review.md",
     ]
 
     for file_path in required_files:
@@ -858,3 +859,21 @@ def test_failure_case_workflow_linkage_application_refresh_surfaces_deferred_sch
     assert "no failure-case creation path from failed workflow parents" in role_map
     assert "failure-case workflow linkage review" in review
     assert "failure cases are not linked to workflow parents yet" in review
+
+
+def test_failure_case_creation_path_review_selects_manual_draft_before_automation():
+    content = (REPO_ROOT / "docs/review/failure-case-creation-path-review.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case creation path review" in content
+    assert "review-only gate" in content
+    assert "manual failure-case draft" in content
+    assert "do not automatically create failure_cases from workflow failures" in content
+    assert "human confirmation boundary" in content
+    assert "no new API endpoint" in content
+    assert "schema remains unchanged" in content
+    assert "failure-case creation path review v0" in goal
+    assert "Failure-case creation path review v0: implemented" in readme
