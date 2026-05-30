@@ -89,10 +89,13 @@ def test_single_workflow_parent_review_keeps_orchestration_boundary_explicit():
     assert "false sense of orchestration" in content
 
 
-def test_workflow_runs_schema_exists_without_child_cross_links():
+def test_workflow_runs_schema_exists_with_nullable_child_links():
     init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
     migration = (REPO_ROOT / "db/migrations/007_workflow_runs.sql").read_text(encoding="utf-8")
-    combined = init_schema + "\n" + migration
+    child_link_migration = (REPO_ROOT / "db/migrations/008_child_workflow_run_ids.sql").read_text(
+        encoding="utf-8"
+    )
+    combined = init_schema + "\n" + migration + "\n" + child_link_migration
 
     assert "CREATE TABLE IF NOT EXISTS workflow_runs" in combined
     assert "question TEXT NOT NULL" in combined
@@ -106,7 +109,14 @@ def test_workflow_runs_schema_exists_without_child_cross_links():
     assert "'failed'" in combined
     assert "'blocked'" in combined
     assert "'needs_revision'" in combined
-    assert "workflow_run_id" not in init_schema
+    for table_name in [
+        "retrieval_runs",
+        "evidence_ledger_entries",
+        "noise_gate_records",
+        "report_records",
+    ]:
+        assert f"ALTER TABLE {table_name}" in child_link_migration
+    assert combined.count("workflow_run_id UUID REFERENCES workflow_runs(id) ON DELETE SET NULL") >= 4
 
 
 def test_workflow_run_child_link_review_defers_schema_until_orchestration_boundary():

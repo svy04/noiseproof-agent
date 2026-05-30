@@ -121,6 +121,7 @@ class RetrievalRunRequest(BaseModel):
 class RetrievalRunCreate(BaseModel):
     question: str = Field(..., min_length=1)
     strategy: str = "fixed-window"
+    workflow_run_id: UUID | None = None
     status: str = "completed"
     latency_ms: int | None = None
     result_count: int = 0
@@ -219,6 +220,7 @@ class EvidenceLedgerStoredEntryOut(EvidenceLedgerEntryOut):
     run_id: UUID | None = None
     workflow_trace_id: UUID
     agent_run_id: UUID | None = None
+    workflow_run_id: UUID | None = None
     created_at: datetime
 
 
@@ -259,6 +261,7 @@ class NoiseGateStoredRecordOut(NoiseGatePreviewOut):
     id: UUID
     workflow_trace_id: UUID
     agent_run_id: UUID | None = None
+    workflow_run_id: UUID | None = None
     evidence_entry_count: int
     draft_claim_count: int
     created_at: datetime
@@ -301,6 +304,7 @@ class ReportStoredRecordOut(ReportPreviewOut):
     id: UUID
     workflow_trace_id: UUID
     agent_run_id: UUID | None = None
+    workflow_run_id: UUID | None = None
     gate_decision: str
     claim_count: int
     evidence_entry_count: int
@@ -325,7 +329,7 @@ class WorkflowRunExecutePreviewOut(BaseModel):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase28-workflow-execution-preview"
+    workflow_version: str = "phase29-workflow-child-links"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None
@@ -341,7 +345,7 @@ class AgentRunOut(AgentRunCreate):
 
 class WorkflowRunCreate(BaseModel):
     question: str = Field(..., min_length=1)
-    workflow_version: str = "phase28-workflow-execution-preview"
+    workflow_version: str = "phase29-workflow-child-links"
     status: str = "created"
     trace_json: dict[str, Any] = Field(default_factory=dict)
     started_at: datetime | None = None

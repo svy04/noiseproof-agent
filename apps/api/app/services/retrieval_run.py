@@ -1,5 +1,6 @@
 from dataclasses import asdict
 import time
+from uuid import UUID
 
 from packages.ingestion.retrieval import retrieve_candidates
 from packages.ingestion.types import ChunkOptions, RetrievalSource
@@ -15,6 +16,7 @@ from app.schemas import (
 def run_retrieval(
     payload: RetrievalRunRequest,
     repository: Repository,
+    workflow_run_id: UUID | None = None,
 ) -> RetrievalRunResponse:
     started_at = time.perf_counter()
     experiment = retrieve_candidates(
@@ -39,6 +41,7 @@ def run_retrieval(
         RetrievalRunCreate(
             question=payload.question,
             strategy=payload.strategy,
+            workflow_run_id=workflow_run_id,
             status=status,
             latency_ms=latency_ms,
             result_count=experiment.result_count,

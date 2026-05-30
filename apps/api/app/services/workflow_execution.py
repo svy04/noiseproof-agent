@@ -43,7 +43,8 @@ def execute_workflow_preview(
     )
 
     try:
-        retrieval = run_retrieval(payload, repository)
+        workflow_run_id = workflow_run["id"]
+        retrieval = run_retrieval(payload, repository, workflow_run_id=workflow_run_id)
         evidence_preview = preview_evidence_ledger(
             EvidenceLedgerPreviewRequest(
                 question=payload.question,
@@ -58,6 +59,7 @@ def execute_workflow_preview(
             evidence_preview.entries,
             workflow_trace_id=workflow_trace_id,
             agent_run_id=None,
+            workflow_run_id=workflow_run_id,
         )
         evidence = EvidenceLedgerPersistedOut(
             question=evidence_preview.question,
@@ -84,6 +86,7 @@ def execute_workflow_preview(
                 draft_claim_count=len(draft_claims),
                 workflow_trace_id=workflow_trace_id,
                 agent_run_id=None,
+                workflow_run_id=workflow_run_id,
             )
         )
 
@@ -101,6 +104,7 @@ def execute_workflow_preview(
                 draft_claim_count=len(draft_claims),
                 workflow_trace_id=workflow_trace_id,
                 agent_run_id=None,
+                workflow_run_id=workflow_run_id,
             )
         )
     except Exception as exc:
@@ -142,7 +146,7 @@ def execute_workflow_preview(
         report=report,
         warnings=[
             "Workflow execution preview is deterministic and does not call an LLM.",
-            "It does not attach child workflow_run_id columns; child records are correlated by workflow_trace_id.",
+            "Phase 29 child records are attached to workflow_run_id while still carrying workflow_trace_id.",
             "It does not perform semantic retrieval, embeddings, external search, or free-form final answer generation.",
         ],
     )

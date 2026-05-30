@@ -9,7 +9,7 @@ from app.main import create_app
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
 from app.services.run_trace import run_with_trace
 
-WORKFLOW_VERSION = "phase28-workflow-execution-preview"
+WORKFLOW_VERSION = "phase29-workflow-child-links"
 
 
 class InMemoryRepository:
@@ -64,7 +64,7 @@ class InMemoryRepository:
         return self.agent_runs
 
     def create_evidence_ledger_entries(
-        self, question, entries, workflow_trace_id=None, agent_run_id=None
+        self, question, entries, workflow_trace_id=None, agent_run_id=None, workflow_run_id=None
     ):
         workflow_trace_id = workflow_trace_id or uuid4()
         created = []
@@ -75,6 +75,7 @@ class InMemoryRepository:
             row["run_id"] = agent_run_id
             row["workflow_trace_id"] = workflow_trace_id
             row["agent_run_id"] = agent_run_id
+            row["workflow_run_id"] = workflow_run_id
             row["created_at"] = datetime.now(timezone.utc)
             self.evidence_ledger_entries.append(row)
             created.append(row)
@@ -97,11 +98,13 @@ class InMemoryRepository:
         draft_claim_count,
         workflow_trace_id=None,
         agent_run_id=None,
+        workflow_run_id=None,
     ):
         row = result.model_dump()
         row["id"] = uuid4()
         row["workflow_trace_id"] = workflow_trace_id or uuid4()
         row["agent_run_id"] = agent_run_id
+        row["workflow_run_id"] = workflow_run_id
         row["evidence_entry_count"] = evidence_entry_count
         row["draft_claim_count"] = draft_claim_count
         row["created_at"] = datetime.now(timezone.utc)
@@ -125,11 +128,13 @@ class InMemoryRepository:
         draft_claim_count,
         workflow_trace_id=None,
         agent_run_id=None,
+        workflow_run_id=None,
     ):
         row = result.model_dump()
         row["id"] = uuid4()
         row["workflow_trace_id"] = workflow_trace_id or uuid4()
         row["agent_run_id"] = agent_run_id
+        row["workflow_run_id"] = workflow_run_id
         row["gate_decision"] = result.gate.decision
         row["claim_count"] = len(result.report.claims) if result.report is not None else 0
         row["evidence_entry_count"] = evidence_entry_count
@@ -375,7 +380,7 @@ def test_ops_dashboard_surfaces_workflow_runs_as_metadata_only():
     assert "deterministic execution-preview parents" in dashboard.text
 
 
-def test_workflow_run_execute_preview_owns_deterministic_sequence_without_child_links():
+def test_workflow_run_execute_preview_links_child_records_to_workflow_parent():
     client = make_client()
 
     response = client.post(
@@ -398,10 +403,12 @@ def test_workflow_run_execute_preview_owns_deterministic_sequence_without_child_
 
     assert response.status_code == 201
     payload = response.json()
+    workflow_run_id = payload["workflow_run"]["id"]
     assert payload["execution_boundary"] == "deterministic_preview_only"
     assert payload["workflow_run"]["status"] == "completed"
     assert payload["workflow_run"]["workflow_version"] == WORKFLOW_VERSION
     assert payload["workflow_run"]["trace_json"]["stage"] == "workflow_execute_preview"
+    assert payload["retrieval"]["workflow_run_id"] == workflow_run_id
     assert payload["retrieval"]["result_count"] >= 1
     assert payload["evidence"]["stored_entry_count"] >= 1
     assert payload["gate"]["decision"] in {"pass", "needs_revision", "blocked"}
@@ -409,8 +416,10 @@ def test_workflow_run_execute_preview_owns_deterministic_sequence_without_child_
     assert payload["workflow_trace_id"] == payload["evidence"]["entries"][0]["workflow_trace_id"]
     assert payload["workflow_trace_id"] == payload["gate"]["workflow_trace_id"]
     assert payload["workflow_trace_id"] == payload["report"]["workflow_trace_id"]
-    assert "workflow_run_id" not in payload["evidence"]["entries"][0]
-    assert any("does not attach child workflow_run_id" in warning for warning in payload["warnings"])
+    assert payload["evidence"]["entries"][0]["workflow_run_id"] == workflow_run_id
+    assert payload["gate"]["workflow_run_id"] == workflow_run_id
+    assert payload["report"]["workflow_run_id"] == workflow_run_id
+    assert any("child records are attached to workflow_run_id" in warning for warning in payload["warnings"])
 
 
 def test_ops_summary_placeholder_counts_registered_records():
@@ -479,7 +488,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 28" in response.text
+    assert "Phase 29" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():

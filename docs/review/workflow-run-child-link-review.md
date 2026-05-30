@@ -76,3 +76,9 @@ Phase 28 implemented a minimal deterministic workflow execution preview at `POST
 That endpoint now creates a parent `workflow_runs` row and runs retrieval -> evidence -> gate -> report preview steps. Child records are still correlated by `workflow_trace_id`; they are not attached to `workflow_run_id` columns.
 
 The next gate should review whether this deterministic execution preview provides enough runtime evidence to justify nullable child `workflow_run_id` schema changes.
+
+## Follow-up status after Phase 29
+
+Phase 29 added nullable `workflow_run_id` fields to retrieval, Evidence Ledger, Noise Gate, and Report records. The deterministic workflow execution preview now attaches those child records to the parent workflow run.
+
+This remains local workflow provenance. It is not distributed tracing, autonomous workflow execution, or direct evidence -> gate -> report foreign-key lineage.

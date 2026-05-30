@@ -18,6 +18,8 @@ Phase 27 reviews child `workflow_run_id` links and defers them until a workflow 
 
 Phase 28 adds a deterministic workflow execution preview: `POST /workflow-runs/execute-preview` creates a parent workflow row and runs retrieval -> evidence -> gate -> report preview steps without child `workflow_run_id` links.
 
+Phase 29 adds nullable child `workflow_run_id` links for retrieval, evidence, gate, and report rows created by the deterministic workflow preview.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -96,7 +98,10 @@ Implemented:
 - `POST /workflow-runs/execute-preview`
 - parent `workflow_runs` row creation and completion/failure updates
 - deterministic retrieval -> evidence -> gate -> report preview sequence
-- child records remain correlated by `workflow_trace_id`, not `workflow_run_id`
+- WorkflowRun Child-record Links v0
+- `db/migrations/008_child_workflow_run_ids.sql`
+- `workflow_run_id` on retrieval, Evidence Ledger, Noise Gate, and Report records created by the deterministic workflow preview
+- child records still carry `workflow_trace_id` for correlation
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -121,8 +126,7 @@ Not implemented:
 - robust PDF extraction
 - persisted parse records
 - persisted chunks
-- child-linked or autonomous workflow execution endpoints
-- child workflow_run_id links
+- autonomous workflow execution endpoints
 - embeddings
 - distributed tracing or hosted observability
 
@@ -211,7 +215,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase28-workflow-execution-preview"
+  "workflow_version": "phase29-workflow-child-links"
 }
 ```
 
@@ -220,7 +224,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase28-workflow-execution-preview",
+  "workflow_version": "phase29-workflow-child-links",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -762,11 +766,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase28-workflow-execution-preview",
+    "workflow_version": "phase29-workflow-child-links",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase28-workflow-execution-preview",
+      "phase": "phase29-workflow-child-links",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }
@@ -831,4 +835,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, DB persistence for collection plans, child workflow_run_id links, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, and created by a deterministic execution-preview endpoint. That preview runs retrieval -> evidence -> gate -> report deterministically, but child records are still correlated by `workflow_trace_id` rather than attached to `workflow_run_id`. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
+Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, and created by a deterministic execution-preview endpoint. That preview runs retrieval -> evidence -> gate -> report deterministically, and Phase 29 attaches those child records to nullable `workflow_run_id` fields while still carrying `workflow_trace_id`. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
