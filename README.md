@@ -159,6 +159,7 @@ Implementation status:
 - Migration runner runbook cleanup v0: implemented in `docs/runbook.md`
 - Fresh DB API smoke verification v0: implemented as `docs/review/fresh-db-api-smoke-verification.md`
 - Application evidence index refresh v0: implemented across application-facing docs
+- Failure-case persistence smoke verification v0: implemented as `docs/review/failure-case-persistence-smoke-verification.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -688,6 +689,16 @@ Implementation status:
 - `docs/application/braincrew-role-map.md`: updated with runtime proof surfaces and hosted-deployment boundary
 - `docs/review/application-ready-review.md`: updated with local migration/API smoke evidence and overclaim boundaries
 - Runtime behavior, schema, API endpoints, migration runner code, dashboard rendering, LLM, and embedding behavior: not changed
+
+### Phase 51 - Failure-case Persistence Smoke Verification v0
+
+- Failure-case persistence smoke verification v0: implemented
+- Isolated Compose project `noiseproof-agent-failure-smoke`: verified on `POSTGRES_PORT=55436`
+- Migration runner on fresh DB: applied 9 migrations and reached 9 applied / 0 pending
+- Temporary API on port `8019`: verified with `GET /health`, `GET /ops/summary`, `POST /failure-cases`, and `GET /failure-cases`
+- Failure smoke record: `parser_timeout` with `root_cause: simulated parser timeout`
+- Ops summary failure count: 0 before create, 1 after create
+- Automatic failure detection, hosted deployment readiness, distributed tracing, LLM, and embedding behavior: not added
 
 Not implemented yet:
 

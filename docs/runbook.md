@@ -82,6 +82,8 @@ Phase 49 verifies that a fresh migrated Docker DB can serve a minimal API path: 
 
 Phase 50 refreshes application-facing evidence indexes so reviewers can find the newest local runtime proof artifacts without treating them as hosted deployment evidence.
 
+Phase 51 verifies failure-case persistence on a fresh migrated Docker DB through `POST /failure-cases`, `GET /failure-cases`, and `/ops/summary` failure counts.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -388,6 +390,39 @@ GET /ops/summary before document create: status_code 200, document_count 0
 POST /documents: status_code 201, title Sample fresh DB smoke document
 GET /documents: status_code 200, title Sample fresh DB smoke document
 GET /ops/summary after document create: status_code 200, document_count 1
+Cleanup: isolated test volume removed
+```
+
+Failure-case persistence smoke verification from Phase 51:
+
+```powershell
+POSTGRES_PORT=55436 docker compose -p noiseproof-agent-failure-smoke up -d db
+docker compose -p noiseproof-agent-failure-smoke exec -T db pg_isready -U noiseproof -d noiseproof
+cd apps/api
+$env:DATABASE_URL="postgresql://noiseproof:noiseproof@localhost:55436/noiseproof"
+uv run python -m app.migration_runner
+uv run python -m app.migration_runner --status
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8019
+```
+
+Smoke calls:
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:8019/health
+Invoke-RestMethod http://127.0.0.1:8019/ops/summary
+Invoke-RestMethod http://127.0.0.1:8019/failure-cases -Method Post -ContentType "application/json" -Body '{"failure_type":"parser_timeout","description":"Parser preview exceeded local smoke timeout.","root_cause":"simulated parser timeout","fix_status":"open","next_action":"Record parser timeout and keep the source out of report generation until retried."}'
+Invoke-RestMethod http://127.0.0.1:8019/failure-cases
+Invoke-RestMethod http://127.0.0.1:8019/ops/summary
+POSTGRES_PORT=55436 docker compose -p noiseproof-agent-failure-smoke down -v
+```
+
+Expected failure-case evidence:
+
+```text
+POST /failure-cases: status_code 201, failure_type parser_timeout
+GET /failure-cases: status_code 200, root_cause simulated parser timeout
+GET /ops/summary before create: failure_case_count 0
+GET /ops/summary after create: failure_case_count 1
 Cleanup: isolated test volume removed
 ```
 

@@ -31,6 +31,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/runtime-migration-runner-verification.md",
         "docs/review/migration-runner-fresh-db-verification.md",
         "docs/review/fresh-db-api-smoke-verification.md",
+        "docs/review/failure-case-persistence-smoke-verification.md",
     ]
 
     for file_path in required_files:
@@ -671,3 +672,24 @@ def test_application_evidence_index_refresh_surfaces_runtime_artifacts_without_o
     assert "migration runner" in role_map
     assert "fresh DB API smoke" in review
     assert "not hosted deployment evidence" in review
+
+
+def test_failure_case_persistence_smoke_verification_records_failure_ledger_path():
+    content = (
+        REPO_ROOT / "docs/review/failure-case-persistence-smoke-verification.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case persistence smoke verification" in content
+    assert "noiseproof-agent-failure-smoke" in content
+    assert "POSTGRES_PORT=55436" in content
+    assert "POST /failure-cases" in content
+    assert "GET /failure-cases" in content
+    assert "status_code: 201" in content
+    assert "status_code: 200" in content
+    assert "parser_timeout" in content
+    assert "simulated parser timeout" in content
+    assert "isolated test volume was removed" in content
+    assert "Phase 51 - Failure-case Persistence Smoke Verification v0" in goal
+    assert "Failure-case persistence smoke verification v0: implemented" in readme
