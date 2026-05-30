@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 48:
+Accepted state as of Phase 49:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, Workflow Version Naming Smoke Example v0, Workflow Version Naming Consistency Review v0, Schema Default Workflow Version Update v0, Schema Default Workflow Version Smoke Example v0, Runtime DB Schema Default Verification v0, Migration Runner Review v0, Lightweight SQL Migration Runner v0, Runtime Migration Runner Verification v0, Migration Runner Fresh DB Verification v0, and Migration Runner Runbook Cleanup v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, Workflow Version Naming Smoke Example v0, Workflow Version Naming Consistency Review v0, Schema Default Workflow Version Update v0, Schema Default Workflow Version Smoke Example v0, Runtime DB Schema Default Verification v0, Migration Runner Review v0, Lightweight SQL Migration Runner v0, Runtime Migration Runner Verification v0, Migration Runner Fresh DB Verification v0, Migration Runner Runbook Cleanup v0, and Fresh DB API Smoke Verification v0
 ```
 
 Implemented:
@@ -155,6 +155,9 @@ Implemented:
 - migration runbook now presents the runner as the default path
 - manual SQL piping is documented as a legacy/debug fallback
 - fresh/reset DB and existing already-migrated DB runner paths are separated
+- fresh migrated Docker DB API smoke verified with `GET /health`, `GET /ops/summary`, `POST /documents`, and `GET /documents`
+- fresh DB document persistence smoke verified with `Sample fresh DB smoke document`
+- fresh DB API smoke test volume removed after verification
 - Auto Trace Recording v0
 - preview endpoints auto-create `agent_runs` metadata records
 - `trace_json` records endpoint, phase, source type, counts, gate decisions, and report status where available
@@ -400,6 +403,7 @@ Phase 45  - Lightweight SQL Migration Runner v0
 Phase 46  - Runtime Migration Runner Verification v0
 Phase 47  - Migration Runner Fresh DB Verification v0
 Phase 48  - Migration Runner Runbook Cleanup v0
+Phase 49  - Fresh DB API Smoke Verification v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -1752,10 +1756,33 @@ manual SQL piping is a legacy/debug fallback
 
 Phase 48 changes only documentation ordering and boundary language. It adds no migration runner behavior, rollback support, production migration orchestration, hosted deployment safety, API endpoint, dashboard rendering, workflow execution semantics, LLM calls, embeddings, semantic retrieval, autonomous workflow execution, or free-form final answer generation.
 
+### Phase 49 - Fresh DB API Smoke Verification v0
+
+Goal:
+
+```text
+verify that a fresh migrated Docker DB can serve the smallest API persistence path
+```
+
+Implemented:
+
+```text
+docs/review/fresh-db-api-smoke-verification.md
+isolated Compose project noiseproof-agent-api-smoke on POSTGRES_PORT=55435
+migration runner applied 9 pending migrations before API start
+temporary API served GET /health on port 8018
+temporary API served GET /ops/summary before and after document creation
+temporary API served POST /documents and GET /documents
+Sample fresh DB smoke document persisted and was listed
+isolated test volume was removed after verification
+```
+
+Phase 49 verifies a local API smoke path against a fresh migrated Docker DB. It adds no API features, migration runner behavior, rollback support, production migration orchestration, hosted deployment safety, dashboard polish, LLM calls, embeddings, semantic retrieval, autonomous workflow execution, or free-form final answer generation.
+
 Next recommended implementation phase:
 
 ```text
-fresh DB API smoke verification v0
+application evidence index refresh v0
 ```
 
 ## 6. Ordering Rules

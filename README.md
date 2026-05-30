@@ -157,6 +157,7 @@ Implementation status:
 - Runtime migration runner verification v0: implemented as `docs/review/runtime-migration-runner-verification.md`
 - Migration runner fresh DB verification v0: implemented as `docs/review/migration-runner-fresh-db-verification.md`
 - Migration runner runbook cleanup v0: implemented in `docs/runbook.md`
+- Fresh DB API smoke verification v0: implemented as `docs/review/fresh-db-api-smoke-verification.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -668,6 +669,16 @@ Implementation status:
 - Existing already-migrated local DB without `schema_migrations`: `--status`, `--baseline`, `--status`
 - Manual SQL piping: documented as a legacy/debug fallback only
 - Runtime behavior, migration runner code, schema, API endpoints, dashboard rendering, LLM, and embedding behavior: not changed
+
+### Phase 49 - Fresh DB API Smoke Verification v0
+
+- Fresh DB API smoke verification v0: implemented
+- Isolated Compose project `noiseproof-agent-api-smoke`: verified on `POSTGRES_PORT=55435`
+- Migration runner on fresh DB: 0 applied / 9 pending -> 9 applied / 0 pending
+- Temporary API on port `8018`: verified with `GET /health`, `GET /ops/summary`, `POST /documents`, and `GET /documents`
+- Document persistence smoke record: `Sample fresh DB smoke document`
+- Isolated test volume: removed with `docker compose -p noiseproof-agent-api-smoke down -v`
+- Hosted deployment readiness, production migration orchestration, API expansion, dashboard polish, LLM, and embedding behavior: not added
 
 Not implemented yet:
 

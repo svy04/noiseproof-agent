@@ -30,6 +30,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/migration-runner-review.md",
         "docs/review/runtime-migration-runner-verification.md",
         "docs/review/migration-runner-fresh-db-verification.md",
+        "docs/review/fresh-db-api-smoke-verification.md",
     ]
 
     for file_path in required_files:
@@ -628,3 +629,26 @@ def test_migration_runner_runbook_cleanup_makes_runner_first_and_manual_fallback
     assert "Fresh or reset local DB" in runbook
     assert "Existing already-migrated local DB without schema_migrations rows" in runbook
     assert "Manual fallback" in runbook
+
+
+def test_fresh_db_api_smoke_verification_records_service_path():
+    content = (REPO_ROOT / "docs/review/fresh-db-api-smoke-verification.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Fresh DB API smoke verification" in content
+    assert "noiseproof-agent-api-smoke" in content
+    assert "POSTGRES_PORT=55435" in content
+    assert "uv run python -m app.migration_runner" in content
+    assert "uv run uvicorn app.main:app" in content
+    assert "GET /health" in content
+    assert "GET /ops/summary" in content
+    assert "POST /documents" in content
+    assert "GET /documents" in content
+    assert "status_code: 200" in content
+    assert "Sample fresh DB smoke document" in content
+    assert "isolated test volume was removed" in content
+    assert "Phase 49 - Fresh DB API Smoke Verification v0" in goal
+    assert "Fresh DB API smoke verification v0: implemented" in readme

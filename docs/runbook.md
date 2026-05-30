@@ -78,6 +78,8 @@ Phase 47 verifies the lightweight SQL migration runner apply path against an iso
 
 Phase 48 cleans up the migration runbook so the runner is the default path and manual SQL piping is a legacy/debug fallback.
 
+Phase 49 verifies that a fresh migrated Docker DB can serve a minimal API path: `/health`, `/ops/summary`, `POST /documents`, and `GET /documents`.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -349,6 +351,41 @@ Initial status: Applied migrations: 0 / Pending migrations: 9
 Apply result: applied 002_evidence_ledger_entries.sql through 010_workflow_version_defaults.sql
 Final status: Applied migrations: 9 / Pending migrations: 0
 Schema defaults: phase40-lineage-warning-code-dashboard
+Cleanup: isolated test volume removed
+```
+
+Fresh DB API smoke verification from Phase 49:
+
+```powershell
+POSTGRES_PORT=55435 docker compose -p noiseproof-agent-api-smoke up -d db
+docker compose -p noiseproof-agent-api-smoke exec -T db pg_isready -U noiseproof -d noiseproof
+cd apps/api
+$env:DATABASE_URL="postgresql://noiseproof:noiseproof@localhost:55435/noiseproof"
+uv run python -m app.migration_runner --status
+uv run python -m app.migration_runner
+uv run python -m app.migration_runner --status
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8018
+```
+
+Smoke calls:
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:8018/health
+Invoke-RestMethod http://127.0.0.1:8018/ops/summary
+Invoke-RestMethod http://127.0.0.1:8018/documents -Method Post -ContentType "application/json" -Body '{"source_type":"markdown","source_uri":"sample://fresh-db-api-smoke.md","title":"Sample fresh DB smoke document","source_date":"2026-05-30","extraction_quality":"unknown","status":"registered"}'
+Invoke-RestMethod http://127.0.0.1:8018/documents
+Invoke-RestMethod http://127.0.0.1:8018/ops/summary
+POSTGRES_PORT=55435 docker compose -p noiseproof-agent-api-smoke down -v
+```
+
+Expected fresh DB API evidence:
+
+```text
+GET /health: status_code 200, workflow_version phase40-lineage-warning-code-dashboard
+GET /ops/summary before document create: status_code 200, document_count 0
+POST /documents: status_code 201, title Sample fresh DB smoke document
+GET /documents: status_code 200, title Sample fresh DB smoke document
+GET /ops/summary after document create: status_code 200, document_count 1
 Cleanup: isolated test volume removed
 ```
 
