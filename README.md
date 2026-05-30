@@ -161,6 +161,7 @@ Implementation status:
 - Application evidence index refresh v0: implemented across application-facing docs
 - Failure-case persistence smoke verification v0: implemented as `docs/review/failure-case-persistence-smoke-verification.md`
 - Failure-case application evidence refresh v0: implemented across application-facing docs
+- Agent-run failure linkage smoke verification v0: implemented as `docs/review/agent-run-failure-linkage-smoke-verification.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -708,6 +709,15 @@ Implementation status:
 - `docs/application/braincrew-role-map.md`: updated with failure-ledger proof surface and automatic-detection boundary
 - `docs/review/application-ready-review.md`: updated with failure-case persistence smoke evidence
 - Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, LLM, and embedding behavior: not changed
+
+### Phase 53 - Agent-run Failure Linkage Smoke Verification v0
+
+- Agent-run failure linkage smoke verification v0: implemented
+- Isolated Compose project `noiseproof-agent-failure-link-smoke`: verified on `POSTGRES_PORT=55437`
+- Temporary API on port `8020`: verified with `POST /agent-runs`, `POST /failure-cases`, `GET /failure-cases`, `GET /agent-runs`, and `GET /ops/summary`
+- Linked failure smoke record: `linked_parser_timeout` with `agent_run_id` pointing at the created failed agent run
+- Ops summary counts: `agent_run_count: 1`, `failure_case_count: 1`
+- Automatic failure detection, complete workflow failure causality, hosted deployment evidence, LLM, and embedding behavior: not added
 
 Not implemented yet:
 

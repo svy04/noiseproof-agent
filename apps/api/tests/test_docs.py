@@ -32,6 +32,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/migration-runner-fresh-db-verification.md",
         "docs/review/fresh-db-api-smoke-verification.md",
         "docs/review/failure-case-persistence-smoke-verification.md",
+        "docs/review/agent-run-failure-linkage-smoke-verification.md",
     ]
 
     for file_path in required_files:
@@ -710,3 +711,25 @@ def test_failure_case_application_evidence_refresh_surfaces_failure_smoke_withou
     assert "not automatic failure detection" in role_map
     assert "failure-case persistence smoke" in review
     assert "automatic failure detection is not claimed" in review
+
+
+def test_agent_run_failure_linkage_smoke_verification_records_fk_path():
+    content = (
+        REPO_ROOT / "docs/review/agent-run-failure-linkage-smoke-verification.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Agent-run failure linkage smoke verification" in content
+    assert "noiseproof-agent-failure-link-smoke" in content
+    assert "POSTGRES_PORT=55437" in content
+    assert "POST /agent-runs" in content
+    assert "POST /failure-cases" in content
+    assert "GET /failure-cases" in content
+    assert "agent_run_id" in content
+    assert "linked_parser_timeout" in content
+    assert "status_code: 201" in content
+    assert "status_code: 200" in content
+    assert "isolated test volume was removed" in content
+    assert "Phase 53 - Agent-run Failure Linkage Smoke Verification v0" in goal
+    assert "Agent-run failure linkage smoke verification v0: implemented" in readme

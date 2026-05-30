@@ -86,6 +86,8 @@ Phase 51 verifies failure-case persistence on a fresh migrated Docker DB through
 
 Phase 52 refreshes application-facing evidence indexes so the failure-case persistence smoke artifact is discoverable without claiming automatic failure detection.
 
+Phase 53 verifies that a failure case can carry `agent_run_id` linkage to a persisted failed agent run on a fresh migrated Docker DB.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -425,6 +427,41 @@ POST /failure-cases: status_code 201, failure_type parser_timeout
 GET /failure-cases: status_code 200, root_cause simulated parser timeout
 GET /ops/summary before create: failure_case_count 0
 GET /ops/summary after create: failure_case_count 1
+Cleanup: isolated test volume removed
+```
+
+Agent-run failure linkage smoke verification from Phase 53:
+
+```powershell
+POSTGRES_PORT=55437 docker compose -p noiseproof-agent-failure-link-smoke up -d db
+docker compose -p noiseproof-agent-failure-link-smoke exec -T db pg_isready -U noiseproof -d noiseproof
+cd apps/api
+$env:DATABASE_URL="postgresql://noiseproof:noiseproof@localhost:55437/noiseproof"
+uv run python -m app.migration_runner
+uv run python -m app.migration_runner --status
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8020
+```
+
+Smoke calls:
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:8020/health
+Invoke-RestMethod http://127.0.0.1:8020/agent-runs -Method Post -ContentType "application/json" -Body '{"user_question":"Why did parser preview fail for the uploaded market note?","workflow_version":"phase40-lineage-warning-code-dashboard","status":"failed","error_message":"simulated parser timeout for smoke verification","trace_json":{"smoke":"agent-run-failure-linkage"}}'
+Invoke-RestMethod http://127.0.0.1:8020/failure-cases -Method Post -ContentType "application/json" -Body '{"agent_run_id":"<created-agent-run-id>","failure_type":"linked_parser_timeout","description":"Failure case linked to the created agent run.","root_cause":"simulated parser timeout","fix_status":"open","next_action":"Retry parser preview with smaller input and preserve agent_run_id linkage."}'
+Invoke-RestMethod http://127.0.0.1:8020/failure-cases
+Invoke-RestMethod http://127.0.0.1:8020/agent-runs
+Invoke-RestMethod http://127.0.0.1:8020/ops/summary
+POSTGRES_PORT=55437 docker compose -p noiseproof-agent-failure-link-smoke down -v
+```
+
+Expected linked-failure evidence:
+
+```text
+POST /agent-runs: status_code 201, status failed
+POST /failure-cases: status_code 201, failure_type linked_parser_timeout, agent_run_id present
+GET /failure-cases: status_code 200, agent_run_id matches created run
+GET /agent-runs: status_code 200, trace_json.smoke agent-run-failure-linkage
+GET /ops/summary: agent_run_count 1, failure_case_count 1
 Cleanup: isolated test volume removed
 ```
 
