@@ -12,6 +12,8 @@ Phase 24 added schema-only workflow parent storage before runtime writes existed
 
 Phase 25 adds metadata-only workflow parent persistence: `POST /workflow-runs` and `GET /workflow-runs` exist, but no orchestration path or child record writes use `workflow_run_id` yet.
 
+Phase 26 adds workflow-run metadata visibility in the plain operations dashboard, labeled as metadata-only and not workflow execution.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -82,6 +84,8 @@ Implemented:
 - WorkflowRun Metadata Persistence v0
 - `POST /workflow-runs`
 - `GET /workflow-runs`
+- WorkflowRun Dashboard Table v0
+- `GET /ops/dashboard` shows workflow-run metadata rows
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -813,4 +817,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, DB persistence for collection plans, workflow execution endpoints, child workflow_run_id links, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created and listed as metadata, but no endpoint executes a full workflow or attaches child records to it yet. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
+Do not claim persisted chunks, embeddings, DB persistence for collection plans, workflow execution endpoints, child workflow_run_id links, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, and viewed on the dashboard as metadata, but no endpoint executes a full workflow or attaches child records to it yet. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.

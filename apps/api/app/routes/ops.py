@@ -19,6 +19,7 @@ def ops_dashboard(repository: Repository = Depends(get_repository)) -> HTMLRespo
         summary=repository.ops_summary(),
         agent_runs=list(repository.list_agent_runs()),
         failure_cases=list(repository.list_failure_cases()),
+        workflow_runs=list(repository.list_workflow_runs()),
         retrieval_runs=list(repository.list_retrieval_runs()),
         evidence_ledger_entries=list(repository.list_evidence_ledger_entries()),
         noise_gate_records=list(repository.list_noise_gate_records()),

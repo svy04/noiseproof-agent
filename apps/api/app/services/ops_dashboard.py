@@ -9,10 +9,12 @@ def render_ops_dashboard(
     agent_runs: list[dict[str, Any]],
     failure_cases: list[dict[str, Any]],
     retrieval_runs: list[dict[str, Any]],
+    workflow_runs: list[dict[str, Any]] | None = None,
     evidence_ledger_entries: list[dict[str, Any]] | None = None,
     noise_gate_records: list[dict[str, Any]] | None = None,
     report_records: list[dict[str, Any]] | None = None,
 ) -> str:
+    workflow_runs = workflow_runs or []
     evidence_ledger_entries = evidence_ledger_entries or []
     noise_gate_records = noise_gate_records or []
     report_records = report_records or []
@@ -38,7 +40,7 @@ def render_ops_dashboard(
 </head>
 <body>
   <h1>Operations Dashboard v0</h1>
-  <p class="muted">Phase 22 inspectable operations surface. No LLM calls, no new retrieval behavior, no final report generation beyond deterministic previews.</p>
+  <p class="muted">Phase 26 inspectable operations surface. No LLM calls, no new retrieval behavior, no workflow execution, no final report generation beyond deterministic previews.</p>
   <section>
     <h2>Summary</h2>
     <div class="grid">
@@ -69,6 +71,11 @@ def render_ops_dashboard(
   <section>
     <h2>Failure Cases</h2>
     {_failure_cases_table(failure_cases)}
+  </section>
+  <section>
+    <h2>Workflow Runs</h2>
+    <p class="muted">Metadata-only workflow parent records; this is not workflow execution.</p>
+    {_workflow_runs_table(workflow_runs)}
   </section>
   <section>
     <h2>Retrieval Runs</h2>
@@ -134,6 +141,23 @@ def _failure_cases_table(rows: list[dict[str, Any]]) -> str:
         for row in rows[:10]
     )
     return f"<table><thead><tr><th>Created</th><th>Type</th><th>Description</th><th>Fix Status</th><th>Next Action</th></tr></thead><tbody>{body}</tbody></table>"
+
+
+def _workflow_runs_table(rows: list[dict[str, Any]]) -> str:
+    if not rows:
+        return '<p class="muted">No workflow run metadata recorded yet.</p>'
+    body = "\n".join(
+        "<tr>"
+        f"<td>{_cell(row.get('created_at'))}</td>"
+        f"<td>{_cell(row.get('status'))}</td>"
+        f"<td>{_cell(row.get('question'))}</td>"
+        f"<td>{_cell(row.get('workflow_version'))}</td>"
+        f"<td>{_cell(row.get('latency_ms'))}</td>"
+        f"<td>{_cell(row.get('trace_json'))}</td>"
+        "</tr>"
+        for row in rows[:10]
+    )
+    return f"<table><thead><tr><th>Created</th><th>Status</th><th>Question</th><th>Workflow Version</th><th>Latency ms</th><th>Trace Metadata</th></tr></thead><tbody>{body}</tbody></table>"
 
 
 def _retrieval_runs_table(rows: list[dict[str, Any]]) -> str:

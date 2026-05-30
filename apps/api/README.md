@@ -41,6 +41,7 @@ Phase 20 stores the parent `agent_run_id` on persisted Evidence Ledger, Noise Ga
 Phase 21 exposes parent run links for persisted Noise Gate and Report records in the plain operations dashboard.
 Phase 22 exposes persisted Evidence Ledger rows in the plain operations dashboard.
 Phase 25 adds create/list metadata persistence for `workflow_runs`, without workflow orchestration or child `workflow_run_id` links.
+Phase 26 surfaces workflow-run metadata rows in the plain operations dashboard, labeled as metadata-only and not workflow execution.
 
 Not implemented yet:
 
@@ -122,3 +123,4 @@ Persisted evidence, gate, and report records include `workflow_trace_id`, which 
 Operations Dashboard v0 is a plain FastAPI HTML view over current metadata. It now links to trace lookup, record filters, parent run provenance, and persisted Evidence Ledger rows, but it is still not a polished product UI.
 Auto Trace Recording v0 is metadata tracing for preview endpoints, not distributed tracing or hosted observability.
 WorkflowRun Metadata Persistence v0 is create/list metadata storage only. It does not execute a workflow, attach child records to `workflow_run_id`, or create evidence -> gate -> report cross-links.
+WorkflowRun Dashboard Table v0 renders those metadata rows in the plain dashboard. It still does not execute a workflow, attach child records to `workflow_run_id`, or create evidence -> gate -> report cross-links.

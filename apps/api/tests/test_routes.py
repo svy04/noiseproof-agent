@@ -336,6 +336,26 @@ def test_workflow_run_metadata_roundtrip_without_orchestration():
     assert listed.json()[0]["id"] == created.json()["id"]
 
 
+def test_ops_dashboard_surfaces_workflow_runs_as_metadata_only():
+    client = make_client()
+
+    client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which sources disagree about memory demand?",
+            "trace_json": {"phase": "metadata-only"},
+        },
+    )
+
+    dashboard = client.get("/ops/dashboard")
+
+    assert dashboard.status_code == 200
+    assert "Workflow Runs" in dashboard.text
+    assert "metadata-only" in dashboard.text
+    assert "Which sources disagree about memory demand?" in dashboard.text
+    assert "not workflow execution" in dashboard.text
+
+
 def test_ops_summary_placeholder_counts_registered_records():
     client = make_client()
 
@@ -402,7 +422,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 22" in response.text
+    assert "Phase 26" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():
