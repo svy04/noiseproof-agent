@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 26:
+Accepted state as of Phase 27:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, and WorkflowRun Dashboard Table v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, and WorkflowRun Child-link Review v0
 ```
 
 Implemented:
@@ -201,6 +201,9 @@ Implemented:
 - WorkflowRun Dashboard Table v0
 - `GET /ops/dashboard` shows workflow-run metadata rows
 - dashboard boundary copy labels workflow-run rows as metadata-only, not workflow execution
+- WorkflowRun Child-link Review v0
+- `docs/review/workflow-run-child-link-review.md`
+- child `workflow_run_id` columns are deferred until a workflow execution boundary exists
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -272,6 +275,7 @@ Phase 23  - Single Workflow Parent Review v0
 Phase 24  - WorkflowRun Schema v0
 Phase 25  - WorkflowRun Metadata Persistence v0
 Phase 26  - WorkflowRun Dashboard Table v0
+Phase 27  - WorkflowRun Child-link Review v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -1006,10 +1010,22 @@ metadata-only boundary copy for workflow runs
 
 Phase 26 is visibility-only. It does not add workflow orchestration, `workflow_run_id` columns to child records, evidence -> gate -> report execution, distributed tracing, hosted observability, LLM calls, embeddings, semantic retrieval, or final report generation.
 
+### Phase 27 - WorkflowRun Child-link Review v0
+
+Implemented:
+
+```text
+docs/review/workflow-run-child-link-review.md
+decision to defer child workflow_run_id columns until a workflow execution boundary exists
+acceptance criteria for adding child workflow links later
+```
+
+Phase 27 is review-only. It does not add migrations, child columns, endpoints, dashboard behavior, workflow orchestration, distributed tracing, hosted observability, LLM calls, embeddings, semantic retrieval, or final report generation.
+
 Next recommended implementation phase:
 
 ```text
-WorkflowRun child-link review or nullable child workflow_run_id schema v0
+Minimal workflow execution boundary review or deterministic workflow execution service v0
 ```
 
 ## 6. Ordering Rules

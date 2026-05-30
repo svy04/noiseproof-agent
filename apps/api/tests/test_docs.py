@@ -16,6 +16,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/agent-run-linkage-review.md",
         "docs/review/evidence-to-gate-report-cross-links-review.md",
         "docs/review/single-workflow-parent-review.md",
+        "docs/review/workflow-run-child-link-review.md",
     ]
 
     for file_path in required_files:
@@ -106,3 +107,15 @@ def test_workflow_runs_schema_exists_without_child_cross_links():
     assert "'blocked'" in combined
     assert "'needs_revision'" in combined
     assert "workflow_run_id" not in init_schema
+
+
+def test_workflow_run_child_link_review_defers_schema_until_orchestration_boundary():
+    content = (REPO_ROOT / "docs/review/workflow-run-child-link-review.md").read_text(encoding="utf-8")
+
+    assert "WorkflowRun child-link review" in content
+    assert "review-only gate" in content
+    assert "Do not add child workflow_run_id columns in this review gate" in content
+    assert "workflow_runs" in content
+    assert "agent_run_id" in content
+    assert "evidence -> gate -> report" in content
+    assert "false sense of workflow causality" in content
