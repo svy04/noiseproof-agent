@@ -262,6 +262,7 @@ class NoiseGateStoredRecordOut(NoiseGatePreviewOut):
     workflow_trace_id: UUID
     agent_run_id: UUID | None = None
     workflow_run_id: UUID | None = None
+    stage_input_manifest: dict[str, Any] = Field(default_factory=dict)
     evidence_entry_count: int
     draft_claim_count: int
     created_at: datetime
@@ -305,6 +306,7 @@ class ReportStoredRecordOut(ReportPreviewOut):
     workflow_trace_id: UUID
     agent_run_id: UUID | None = None
     workflow_run_id: UUID | None = None
+    stage_input_manifest: dict[str, Any] = Field(default_factory=dict)
     gate_decision: str
     claim_count: int
     evidence_entry_count: int
@@ -329,7 +331,7 @@ class WorkflowRunExecutePreviewOut(BaseModel):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase30-workflow-run-detail"
+    workflow_version: str = "phase31-stage-input-manifest"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None
@@ -345,7 +347,7 @@ class AgentRunOut(AgentRunCreate):
 
 class WorkflowRunCreate(BaseModel):
     question: str = Field(..., min_length=1)
-    workflow_version: str = "phase30-workflow-run-detail"
+    workflow_version: str = "phase31-stage-input-manifest"
     status: str = "created"
     trace_json: dict[str, Any] = Field(default_factory=dict)
     started_at: datetime | None = None

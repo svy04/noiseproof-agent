@@ -47,6 +47,7 @@ Phase 26 surfaces workflow-run metadata rows in the plain operations dashboard, 
 Phase 28 adds a deterministic workflow execution preview that creates a workflow parent and runs retrieval -> evidence -> gate -> report preview steps, without child `workflow_run_id` columns.
 Phase 29 adds nullable child `workflow_run_id` links for retrieval, evidence, gate, and report rows created by the deterministic workflow preview.
 Phase 30 adds workflow-run detail lookup for inspecting child records attached to one workflow parent.
+Phase 31 adds stage input manifests on deterministic workflow Noise Gate and Report records so downstream previews show persisted upstream ids they consumed.
 
 Not implemented yet:
 
@@ -131,4 +132,4 @@ Persisted evidence, gate, and report records include `workflow_trace_id`, which 
 Operations Dashboard v0 is a plain FastAPI HTML view over current metadata. It now links to trace lookup, record filters, parent run provenance, and persisted Evidence Ledger rows, but it is still not a polished product UI.
 Auto Trace Recording v0 is metadata tracing for preview endpoints, not distributed tracing or hosted observability.
 WorkflowRun Metadata Persistence v0 is create/list metadata storage only. WorkflowRun Dashboard Table v0 renders those metadata rows in the plain dashboard.
-Deterministic Workflow Execution Preview v0 creates and updates a parent workflow row, then runs deterministic retrieval -> evidence -> gate -> report preview steps. Phase 29 attaches those child records to the parent `workflow_run_id` while keeping `workflow_trace_id` for correlation. Phase 30 exposes `GET /workflow-runs/{id}` for inspecting those child records from the parent. It still does not create direct evidence -> gate -> report foreign-key links, use semantic retrieval, compute embeddings, call LLMs, search external sources, or create a free-form final answer.
+Deterministic Workflow Execution Preview v0 creates and updates a parent workflow row, then runs deterministic retrieval -> evidence -> gate -> report preview steps. Phase 29 attaches those child records to the parent `workflow_run_id` while keeping `workflow_trace_id` for correlation. Phase 30 exposes `GET /workflow-runs/{id}` for inspecting those child records from the parent. Phase 31 adds `stage_input_manifest` on workflow-created Noise Gate and Report records so persisted upstream ids are visible without claiming direct foreign-key lineage. It still does not create direct evidence -> gate -> report foreign-key links, use semantic retrieval, compute embeddings, call LLMs, search external sources, or create a free-form final answer.

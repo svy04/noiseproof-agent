@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS documents (
 CREATE TABLE IF NOT EXISTS agent_runs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_question TEXT NOT NULL,
-  workflow_version TEXT NOT NULL DEFAULT 'phase30-workflow-run-detail',
+  workflow_version TEXT NOT NULL DEFAULT 'phase31-stage-input-manifest',
   status TEXT NOT NULL DEFAULT 'created',
   error_message TEXT,
   token_cost NUMERIC,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS agent_runs (
 CREATE TABLE IF NOT EXISTS workflow_runs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   question TEXT NOT NULL,
-  workflow_version TEXT NOT NULL DEFAULT 'phase30-workflow-run-detail',
+  workflow_version TEXT NOT NULL DEFAULT 'phase31-stage-input-manifest',
   status TEXT NOT NULL DEFAULT 'created' CHECK (
     status IN (
       'created',
@@ -98,6 +98,7 @@ CREATE TABLE IF NOT EXISTS noise_gate_records (
   workflow_trace_id UUID NOT NULL DEFAULT gen_random_uuid(),
   agent_run_id UUID REFERENCES agent_runs(id) ON DELETE SET NULL,
   workflow_run_id UUID REFERENCES workflow_runs(id) ON DELETE SET NULL,
+  stage_input_manifest JSONB NOT NULL DEFAULT '{}'::jsonb,
   question TEXT NOT NULL,
   decision TEXT NOT NULL CHECK (
     decision IN ('pass', 'needs_revision', 'blocked')
@@ -120,6 +121,7 @@ CREATE TABLE IF NOT EXISTS report_records (
   workflow_trace_id UUID NOT NULL DEFAULT gen_random_uuid(),
   agent_run_id UUID REFERENCES agent_runs(id) ON DELETE SET NULL,
   workflow_run_id UUID REFERENCES workflow_runs(id) ON DELETE SET NULL,
+  stage_input_manifest JSONB NOT NULL DEFAULT '{}'::jsonb,
   question TEXT NOT NULL,
   status TEXT NOT NULL CHECK (
     status IN ('generated', 'needs_revision', 'blocked')

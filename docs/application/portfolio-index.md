@@ -48,6 +48,7 @@ This page maps the repository into a reviewer-readable path.
 | WorkflowRun child-record links | nullable `workflow_run_id` on retrieval, evidence, gate, and report records | implemented v0 |
 | WorkflowRun child inspection | `GET /workflow-runs/{id}` | implemented v0 |
 | Direct evidence-to-gate/report cross-link review | `docs/review/direct-evidence-gate-report-cross-link-review.md` | reviewed |
+| Workflow stage input manifest | `stage_input_manifest` on workflow-created Noise Gate and Report records | implemented v0 |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 
@@ -75,4 +76,4 @@ This page maps the repository into a reviewer-readable path.
 
 ## Current Best Claim
 
-NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be persisted, gated, blocked, stored as report-shaped preview records, linked to a deterministic workflow parent, inspected from that parent, and kept bounded before any free-form final answer exists. Direct evidence -> gate -> report foreign-key lineage is intentionally not claimed yet.
+NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be persisted, gated, blocked, stored as report-shaped preview records, linked to a deterministic workflow parent, inspected from that parent, and kept bounded before any free-form final answer exists. Workflow-created gate and report records now carry local `stage_input_manifest` values that show persisted upstream ids consumed by deterministic preview stages. Direct evidence -> gate -> report foreign-key lineage is intentionally not claimed yet.

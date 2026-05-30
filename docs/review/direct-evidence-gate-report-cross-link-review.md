@@ -120,3 +120,9 @@ Workflow stage input manifest v0
 ```
 
 That gate should add the smallest runtime evidence needed to prove downstream stages consumed persisted upstream ids before adding stronger foreign-key or join-table claims.
+
+## Follow-up status after Phase 31
+
+Phase 31 implemented `stage_input_manifest` on deterministic workflow-created Noise Gate and Report records.
+
+The manifest records persisted Evidence Ledger row ids consumed by the gate preview, plus persisted Evidence Ledger row ids and the persisted Noise Gate record id consumed by the report preview. This is enough to show local stage input provenance for the deterministic preview, but it is still not a direct evidence -> gate -> report foreign-key or join-table lineage.

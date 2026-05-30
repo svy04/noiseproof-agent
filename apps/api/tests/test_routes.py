@@ -9,7 +9,7 @@ from app.main import create_app
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
 from app.services.run_trace import run_with_trace
 
-WORKFLOW_VERSION = "phase30-workflow-run-detail"
+WORKFLOW_VERSION = "phase31-stage-input-manifest"
 
 
 class InMemoryRepository:
@@ -99,12 +99,14 @@ class InMemoryRepository:
         workflow_trace_id=None,
         agent_run_id=None,
         workflow_run_id=None,
+        stage_input_manifest=None,
     ):
         row = result.model_dump()
         row["id"] = uuid4()
         row["workflow_trace_id"] = workflow_trace_id or uuid4()
         row["agent_run_id"] = agent_run_id
         row["workflow_run_id"] = workflow_run_id
+        row["stage_input_manifest"] = stage_input_manifest or {}
         row["evidence_entry_count"] = evidence_entry_count
         row["draft_claim_count"] = draft_claim_count
         row["created_at"] = datetime.now(timezone.utc)
@@ -129,12 +131,14 @@ class InMemoryRepository:
         workflow_trace_id=None,
         agent_run_id=None,
         workflow_run_id=None,
+        stage_input_manifest=None,
     ):
         row = result.model_dump()
         row["id"] = uuid4()
         row["workflow_trace_id"] = workflow_trace_id or uuid4()
         row["agent_run_id"] = agent_run_id
         row["workflow_run_id"] = workflow_run_id
+        row["stage_input_manifest"] = stage_input_manifest or {}
         row["gate_decision"] = result.gate.decision
         row["claim_count"] = len(result.report.claims) if result.report is not None else 0
         row["evidence_entry_count"] = evidence_entry_count
@@ -444,6 +448,17 @@ def test_workflow_run_execute_preview_links_child_records_to_workflow_parent():
     assert payload["evidence"]["entries"][0]["workflow_run_id"] == workflow_run_id
     assert payload["gate"]["workflow_run_id"] == workflow_run_id
     assert payload["report"]["workflow_run_id"] == workflow_run_id
+    evidence_entry_ids = [entry["id"] for entry in payload["evidence"]["entries"]]
+    assert payload["gate"]["stage_input_manifest"] == {
+        "input_evidence_ledger_entry_ids": evidence_entry_ids,
+        "input_noise_gate_record_id": None,
+        "source": "workflow_execution_preview",
+    }
+    assert payload["report"]["stage_input_manifest"] == {
+        "input_evidence_ledger_entry_ids": evidence_entry_ids,
+        "input_noise_gate_record_id": payload["gate"]["id"],
+        "source": "workflow_execution_preview",
+    }
     assert any("child records are attached to workflow_run_id" in warning for warning in payload["warnings"])
 
 
@@ -480,6 +495,13 @@ def test_workflow_run_detail_returns_child_records_linked_to_workflow_parent():
     assert payload["evidence_ledger_entries"][0]["workflow_run_id"] == workflow_run_id
     assert payload["noise_gate_records"][0]["workflow_run_id"] == workflow_run_id
     assert payload["report_records"][0]["workflow_run_id"] == workflow_run_id
+    evidence_entry_ids = [entry["id"] for entry in payload["evidence_ledger_entries"]]
+    assert payload["noise_gate_records"][0]["stage_input_manifest"][
+        "input_evidence_ledger_entry_ids"
+    ] == evidence_entry_ids
+    assert payload["report_records"][0]["stage_input_manifest"][
+        "input_noise_gate_record_id"
+    ] == payload["noise_gate_records"][0]["id"]
 
 
 def test_ops_summary_placeholder_counts_registered_records():
@@ -548,7 +570,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 30" in response.text
+    assert "Phase 31" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():

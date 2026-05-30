@@ -40,7 +40,7 @@ def render_ops_dashboard(
 </head>
 <body>
   <h1>Operations Dashboard v0</h1>
-  <p class="muted">Phase 30 inspectable operations surface. No LLM calls, no semantic retrieval, child workflow_run_id links are local nullable provenance, no free-form final answer generation.</p>
+  <p class="muted">Phase 31 inspectable operations surface. No LLM calls, no semantic retrieval, workflow and stage input manifests are local nullable provenance, no free-form final answer generation.</p>
   <section>
     <h2>Summary</h2>
     <div class="grid">
@@ -74,7 +74,7 @@ def render_ops_dashboard(
   </section>
   <section>
     <h2>Workflow Runs</h2>
-    <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 30 child records can attach to workflow_run_id, still carry workflow_trace_id, and be inspected through GET /workflow-runs/{id}.</p>
+    <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 31 child records can attach to workflow_run_id, still carry workflow_trace_id, and carry stage input manifests for downstream preview stages.</p>
     {_workflow_runs_table(workflow_runs)}
   </section>
   <section>
@@ -208,10 +208,11 @@ def _noise_gate_records_table(rows: list[dict[str, Any]]) -> str:
         f"<td>{_cell(row.get('question'))}</td>"
         f"<td>{_cell(row.get('evidence_entry_count'))}</td>"
         f"<td>{_cell(row.get('draft_claim_count'))}</td>"
+        f"<td>{_cell(row.get('stage_input_manifest'))}</td>"
         "</tr>"
         for row in rows[:10]
     )
-    return f"<table><thead><tr><th>Created</th><th>Trace</th><th>Parent Run</th><th>Decision</th><th>Question</th><th>Evidence Entries</th><th>Draft Claims</th></tr></thead><tbody>{body}</tbody></table>"
+    return f"<table><thead><tr><th>Created</th><th>Trace</th><th>Parent Run</th><th>Decision</th><th>Question</th><th>Evidence Entries</th><th>Draft Claims</th><th>Stage Input Manifest</th></tr></thead><tbody>{body}</tbody></table>"
 
 
 def _report_records_table(rows: list[dict[str, Any]]) -> str:
@@ -226,10 +227,11 @@ def _report_records_table(rows: list[dict[str, Any]]) -> str:
         f"<td>{_cell(row.get('gate_decision'))}</td>"
         f"<td>{_cell(row.get('question'))}</td>"
         f"<td>{_cell(row.get('claim_count'))}</td>"
+        f"<td>{_cell(row.get('stage_input_manifest'))}</td>"
         "</tr>"
         for row in rows[:10]
     )
-    return f"<table><thead><tr><th>Created</th><th>Trace</th><th>Parent Run</th><th>Status</th><th>Gate</th><th>Question</th><th>Claims</th></tr></thead><tbody>{body}</tbody></table>"
+    return f"<table><thead><tr><th>Created</th><th>Trace</th><th>Parent Run</th><th>Status</th><th>Gate</th><th>Question</th><th>Claims</th><th>Stage Input Manifest</th></tr></thead><tbody>{body}</tbody></table>"
 
 
 def _trace_filter_links(

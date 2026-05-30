@@ -4,6 +4,7 @@ from uuid import uuid4
 from app.db import Repository
 from app.schemas import (
     EvidenceLedgerCandidateIn,
+    EvidenceLedgerEntryOut,
     EvidenceLedgerPersistedOut,
     EvidenceLedgerPreviewRequest,
     EvidenceLedgerStoredEntryOut,
@@ -68,14 +69,24 @@ def execute_workflow_preview(
             warnings=evidence_preview.warnings,
             stored_entry_count=len(evidence_rows),
         )
+        stored_evidence_entries = [EvidenceLedgerStoredEntryOut(**entry) for entry in evidence_rows]
+        downstream_evidence_entries = [
+            _stored_entry_to_preview_entry(entry) for entry in stored_evidence_entries
+        ]
+        evidence_entry_ids = [str(entry.id) for entry in stored_evidence_entries]
+        gate_stage_input_manifest = {
+            "input_evidence_ledger_entry_ids": evidence_entry_ids,
+            "input_noise_gate_record_id": None,
+            "source": "workflow_execution_preview",
+        }
 
         draft_claims = payload.draft_claims or [
-            entry.claim for entry in evidence_preview.entries if entry.status == "supported"
+            entry.claim for entry in downstream_evidence_entries if entry.status == "supported"
         ]
         gate_preview = preview_noise_gate(
             NoiseGatePreviewRequest(
                 question=payload.question,
-                evidence_entries=evidence_preview.entries,
+                evidence_entries=downstream_evidence_entries,
                 draft_claims=draft_claims,
             )
         )
@@ -87,13 +98,19 @@ def execute_workflow_preview(
                 workflow_trace_id=workflow_trace_id,
                 agent_run_id=None,
                 workflow_run_id=workflow_run_id,
+                stage_input_manifest=gate_stage_input_manifest,
             )
         )
+        report_stage_input_manifest = {
+            "input_evidence_ledger_entry_ids": evidence_entry_ids,
+            "input_noise_gate_record_id": str(gate.id),
+            "source": "workflow_execution_preview",
+        }
 
         report_preview = preview_report(
             ReportPreviewRequest(
                 question=payload.question,
-                evidence_entries=evidence_preview.entries,
+                evidence_entries=downstream_evidence_entries,
                 draft_claims=draft_claims,
             )
         )
@@ -105,6 +122,7 @@ def execute_workflow_preview(
                 workflow_trace_id=workflow_trace_id,
                 agent_run_id=None,
                 workflow_run_id=workflow_run_id,
+                stage_input_manifest=report_stage_input_manifest,
             )
         )
     except Exception as exc:
@@ -128,6 +146,7 @@ def execute_workflow_preview(
         trace_json={
             **initial_trace,
             "retrieval_run_id": str(retrieval.id),
+            "evidence_entry_ids": evidence_entry_ids,
             "evidence_entry_count": evidence.stored_entry_count,
             "gate_record_id": str(gate.id),
             "gate_decision": gate.decision,
@@ -147,6 +166,7 @@ def execute_workflow_preview(
         warnings=[
             "Workflow execution preview is deterministic and does not call an LLM.",
             "child records are attached to workflow_run_id while still carrying workflow_trace_id.",
+            "stage input manifests record persisted upstream ids consumed by downstream preview stages.",
             "It does not perform semantic retrieval, embeddings, external search, or free-form final answer generation.",
         ],
     )
@@ -154,3 +174,19 @@ def execute_workflow_preview(
 
 def _latency_ms(started_at: float) -> int:
     return max(0, round((time.perf_counter() - started_at) * 1000))
+
+
+def _stored_entry_to_preview_entry(entry: EvidenceLedgerStoredEntryOut) -> EvidenceLedgerEntryOut:
+    return EvidenceLedgerEntryOut(
+        claim=entry.claim,
+        source_id=entry.source_id,
+        source_type=entry.source_type,
+        source_date=entry.source_date,
+        evidence_span=entry.evidence_span,
+        confidence=entry.confidence,
+        limitation=entry.limitation,
+        contradicting_source_ids=entry.contradicting_source_ids,
+        status=entry.status,
+        matched_terms=entry.matched_terms,
+        role=entry.role,
+    )

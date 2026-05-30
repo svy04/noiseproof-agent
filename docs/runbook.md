@@ -24,6 +24,8 @@ Phase 30 adds a workflow-run child inspection surface: `GET /workflow-runs/{id}`
 
 Phase 30.5 reviews direct evidence -> gate -> report foreign-key links and defers them until downstream stages consume persisted upstream row ids.
 
+Phase 31 adds workflow stage input manifests: deterministic workflow-created Noise Gate and Report records now show the persisted upstream ids they consumed, without claiming direct evidence -> gate -> report foreign-key lineage.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -111,6 +113,9 @@ Implemented:
 - workflow detail response with linked retrieval, Evidence Ledger, Noise Gate, and Report records
 - child record summary counts by workflow parent
 - Direct Evidence-to-gate/report Cross-link Review v0
+- Workflow Stage Input Manifest v0
+- `stage_input_manifest` on deterministic workflow Noise Gate records
+- `stage_input_manifest` on deterministic workflow Report records
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
 - direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0
@@ -165,6 +170,7 @@ It creates:
 - `evidence_ledger_entries`
 - `noise_gate_records`
 - `report_records`
+- `workflow_runs`
 
 It also enables:
 
@@ -188,6 +194,7 @@ Get-Content db/migrations/005_workflow_trace_ids.sql | docker compose exec -T db
 Get-Content db/migrations/006_child_agent_run_ids.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 Get-Content db/migrations/007_workflow_runs.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 Get-Content db/migrations/008_child_workflow_run_ids.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
+Get-Content db/migrations/009_stage_input_manifest.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 ```
 
 ## API
@@ -228,7 +235,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase30-workflow-run-detail"
+  "workflow_version": "phase31-stage-input-manifest"
 }
 ```
 
@@ -237,7 +244,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase30-workflow-run-detail",
+  "workflow_version": "phase31-stage-input-manifest",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -779,11 +786,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase30-workflow-run-detail",
+    "workflow_version": "phase31-stage-input-manifest",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase30-workflow-run-detail",
+      "phase": "phase31-stage-input-manifest",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }
@@ -849,4 +856,4 @@ docs/review/direct-evidence-gate-report-cross-link-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, created by a deterministic execution-preview endpoint, and inspected through `GET /workflow-runs/{id}`. That preview runs retrieval -> evidence -> gate -> report deterministically, Phase 29 attaches those child records to nullable `workflow_run_id` fields while still carrying `workflow_trace_id`, and Phase 30 exposes those child records from the parent workflow detail response. Phase 30.5 keeps direct evidence -> gate -> report foreign-key links deferred because downstream stages do not yet consume persisted upstream row ids. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
+Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, created by a deterministic execution-preview endpoint, and inspected through `GET /workflow-runs/{id}`. That preview runs retrieval -> evidence -> gate -> report deterministically, Phase 29 attaches those child records to nullable `workflow_run_id` fields while still carrying `workflow_trace_id`, and Phase 30 exposes those child records from the parent workflow detail response. Phase 31 records `stage_input_manifest` on deterministic workflow-created Noise Gate and Report rows so persisted upstream ids are visible, but Phase 30.5 still keeps direct evidence -> gate -> report foreign-key links deferred. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.

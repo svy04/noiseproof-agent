@@ -94,3 +94,9 @@ This improves workflow-level inspectability, but it still does not create direct
 Phase 30.5 reviewed direct evidence -> gate -> report cross-links and kept them deferred.
 
 The next safer implementation direction is a workflow stage input manifest: downstream stages should record the persisted upstream row ids they consumed before the project claims direct stage-level causality.
+
+## Follow-up status after Phase 31
+
+Phase 31 added that workflow stage input manifest on workflow-created Noise Gate and Report records.
+
+This improves local child-record provenance inside `GET /workflow-runs/{id}`, but it still does not create direct evidence -> gate -> report foreign-key lineage.

@@ -68,6 +68,7 @@ class Repository(Protocol):
         workflow_trace_id: UUID,
         agent_run_id: UUID | None = None,
         workflow_run_id: UUID | None = None,
+        stage_input_manifest: dict | None = None,
     ) -> dict: ...
     def list_noise_gate_records(
         self,
@@ -82,6 +83,7 @@ class Repository(Protocol):
         workflow_trace_id: UUID,
         agent_run_id: UUID | None = None,
         workflow_run_id: UUID | None = None,
+        stage_input_manifest: dict | None = None,
     ) -> dict: ...
     def list_report_records(
         self,
@@ -384,23 +386,25 @@ class PostgresRepository:
         workflow_trace_id: UUID,
         agent_run_id: UUID | None = None,
         workflow_run_id: UUID | None = None,
+        stage_input_manifest: dict | None = None,
     ) -> dict:
         with self._connect() as conn:
             row = conn.execute(
                 """
                 INSERT INTO noise_gate_records (
-                  workflow_trace_id, agent_run_id, workflow_run_id, question, decision, final_response_allowed, checks,
+                  workflow_trace_id, agent_run_id, workflow_run_id, stage_input_manifest, question, decision, final_response_allowed, checks,
                   blocked_claims, downgraded_claims, allowed_claims,
                   required_revisions, fallback_message, warnings,
                   evidence_entry_count, draft_claim_count
                 )
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 RETURNING *
                 """,
                 (
                     workflow_trace_id,
                     agent_run_id,
                     workflow_run_id,
+                    Jsonb(stage_input_manifest or {}),
                     result.question,
                     result.decision,
                     result.final_response_allowed,
@@ -446,22 +450,24 @@ class PostgresRepository:
         workflow_trace_id: UUID,
         agent_run_id: UUID | None = None,
         workflow_run_id: UUID | None = None,
+        stage_input_manifest: dict | None = None,
     ) -> dict:
         with self._connect() as conn:
             row = conn.execute(
                 """
                 INSERT INTO report_records (
-                  workflow_trace_id, agent_run_id, workflow_run_id, question, status, report, gate, gate_decision,
+                  workflow_trace_id, agent_run_id, workflow_run_id, stage_input_manifest, question, status, report, gate, gate_decision,
                   fallback_message, required_revisions, warnings,
                   claim_count, evidence_entry_count, draft_claim_count
                 )
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 RETURNING *
                 """,
                 (
                     workflow_trace_id,
                     agent_run_id,
                     workflow_run_id,
+                    Jsonb(stage_input_manifest or {}),
                     result.question,
                     result.status,
                     Jsonb(result.report.model_dump() if result.report is not None else None),

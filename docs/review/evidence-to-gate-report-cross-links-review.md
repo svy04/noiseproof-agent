@@ -119,3 +119,9 @@ See:
 ```text
 docs/review/direct-evidence-gate-report-cross-link-review.md
 ```
+
+## Follow-up status after Phase 31
+
+Phase 31 added `stage_input_manifest` JSONB values to deterministic workflow-created Noise Gate and Report records.
+
+This shows the persisted upstream ids consumed by downstream preview stages, but it is still a local manifest. Direct evidence -> gate -> report foreign-key lineage remains unimplemented.

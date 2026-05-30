@@ -96,7 +96,10 @@ def test_workflow_runs_schema_exists_with_nullable_child_links():
     child_link_migration = (REPO_ROOT / "db/migrations/008_child_workflow_run_ids.sql").read_text(
         encoding="utf-8"
     )
-    combined = init_schema + "\n" + migration + "\n" + child_link_migration
+    manifest_migration = (REPO_ROOT / "db/migrations/009_stage_input_manifest.sql").read_text(
+        encoding="utf-8"
+    )
+    combined = init_schema + "\n" + migration + "\n" + child_link_migration + "\n" + manifest_migration
 
     assert "CREATE TABLE IF NOT EXISTS workflow_runs" in combined
     assert "question TEXT NOT NULL" in combined
@@ -118,6 +121,7 @@ def test_workflow_runs_schema_exists_with_nullable_child_links():
     ]:
         assert f"ALTER TABLE {table_name}" in child_link_migration
     assert combined.count("workflow_run_id UUID REFERENCES workflow_runs(id) ON DELETE SET NULL") >= 4
+    assert combined.count("stage_input_manifest JSONB NOT NULL DEFAULT '{}'::jsonb") >= 4
 
 
 def test_workflow_run_child_link_review_defers_schema_until_orchestration_boundary():
@@ -145,3 +149,17 @@ def test_direct_evidence_gate_report_cross_link_review_requires_runtime_order_be
     assert "evidence -> gate -> report" in content
     assert "execution order" in content
     assert "false sense of stage-level causality" in content
+    assert "Follow-up status after Phase 31" in content
+    assert "stage_input_manifest" in content
+
+
+def test_phase31_goal_and_application_review_document_manifest_boundary():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(encoding="utf-8")
+
+    assert "Phase 31 - Workflow Stage Input Manifest v0" in goal
+    assert "stage_input_manifest JSONB on noise_gate_records" in goal
+    assert "stage_input_manifest JSONB on report_records" in goal
+    assert "Direct cross-stage link schema review v0" in goal
+    assert "Workflow Stage Input Manifest v0" in review
+    assert "JSON manifest only, not direct FK or join-table lineage" in review
