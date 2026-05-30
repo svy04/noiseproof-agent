@@ -39,6 +39,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-creation-path-review.md",
         "docs/review/failure-case-draft-preview-smoke-verification.md",
         "docs/review/failure-case-draft-persistence-handoff-review.md",
+        "docs/review/failure-case-draft-manual-handoff-smoke-verification.md",
     ]
 
     for file_path in required_files:
@@ -977,3 +978,23 @@ def test_failure_case_draft_persistence_handoff_review_defers_automation():
     assert "human confirmation boundary" in content
     assert "failure-case draft persistence handoff review v0" in goal
     assert "Failure-case draft persistence handoff review v0: implemented" in readme
+
+
+def test_failure_case_draft_manual_handoff_smoke_verification_records_existing_path():
+    content = (
+        REPO_ROOT / "docs/review/failure-case-draft-manual-handoff-smoke-verification.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case draft manual handoff smoke verification" in content
+    assert "route-level smoke" in content
+    assert "POST /failure-cases/draft-preview" in content
+    assert "POST /failure-cases" in content
+    assert "GET /failure-cases" in content
+    assert "draft.fix_status: draft" in content
+    assert "persisted.fix_status: open" in content
+    assert "human confirmation boundary" in content
+    assert "not automatic failure-case persistence" in content
+    assert "failure-case draft manual handoff smoke verification v0" in goal
+    assert "Failure-case draft manual handoff smoke verification v0: implemented" in readme

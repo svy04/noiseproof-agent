@@ -174,6 +174,7 @@ Implementation status:
 - Failure-case draft preview smoke verification v0: implemented as `docs/review/failure-case-draft-preview-smoke-verification.md`
 - Failure-case draft preview smoke application refresh v0: implemented across application-facing docs
 - Failure-case draft persistence handoff review v0: implemented as `docs/review/failure-case-draft-persistence-handoff-review.md`
+- Failure-case draft manual handoff smoke verification v0: implemented as `docs/review/failure-case-draft-manual-handoff-smoke-verification.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -827,6 +828,14 @@ Implementation status:
 - Current decision: prove manual handoff from `POST /failure-cases/draft-preview` to existing `POST /failure-cases` before adding automation
 - Deferred: automatic persistence, confirm endpoint, `workflow_run_id` on `failure_cases`, and complete workflow failure causality
 - Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
+
+### Phase 66 - Failure-case Draft Manual Handoff Smoke Verification v0
+
+- Failure-case draft manual handoff smoke verification v0: implemented
+- `docs/review/failure-case-draft-manual-handoff-smoke-verification.md`: added
+- Verified test path: `tests/test_routes.py::test_failure_case_draft_can_be_manually_handed_to_failure_case_persistence`
+- Observed: `1 passed, 66 deselected, 1 warning`
+- Boundary: route-level smoke only; not automatic persistence, a confirm endpoint, fresh Docker DB evidence, or complete workflow failure causality
 
 Not implemented yet:
 

@@ -420,6 +420,45 @@ def test_failure_case_draft_preview_suggests_manual_payload_without_persistence(
     assert client.get("/failure-cases").json() == []
 
 
+def test_failure_case_draft_can_be_manually_handed_to_failure_case_persistence():
+    client = make_client()
+
+    preview = client.post(
+        "/failure-cases/draft-preview",
+        json={
+            "workflow_run_id": str(uuid4()),
+            "question": "Which segment had enterprise demand growth?",
+            "workflow_status": "failed",
+            "error_message": "simulated evidence persistence failure",
+            "trace_json": {
+                "stage": "workflow_execute_preview",
+                "error_type": "RuntimeError",
+            },
+        },
+    )
+
+    assert preview.status_code == 200
+    preview_payload = preview.json()
+    draft = preview_payload["draft"]
+    assert preview_payload["persistence_boundary"] == "preview_only_not_persisted"
+    assert preview_payload["human_confirmation_required"] is True
+    assert draft["fix_status"] == "draft"
+    assert client.get("/failure-cases").json() == []
+
+    human_confirmed_payload = {**draft, "fix_status": "open"}
+    persisted = client.post("/failure-cases", json=human_confirmed_payload)
+    listed = client.get("/failure-cases")
+
+    assert persisted.status_code == 201
+    assert persisted.json()["failure_type"] == "workflow_stage_error"
+    assert persisted.json()["fix_status"] == "open"
+    assert persisted.json()["root_cause"] == draft["root_cause"]
+    assert listed.status_code == 200
+    assert len(listed.json()) == 1
+    assert listed.json()[0]["failure_type"] == "workflow_stage_error"
+    assert listed.json()[0]["fix_status"] == "open"
+
+
 def test_workflow_run_metadata_roundtrip_without_orchestration():
     client = make_client()
 
