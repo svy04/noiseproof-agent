@@ -552,3 +552,17 @@ def test_migration_runner_review_selects_lightweight_sql_runner_next():
     assert "lightweight SQL migration runner v0" in content
     assert "Phase 44 - Migration Runner Review v0" in goal
     assert "Migration runner review v0: implemented" in readme
+
+
+def test_phase45_docs_mark_lightweight_sql_migration_runner_boundary():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Phase 45 - Lightweight SQL Migration Runner v0" in goal
+    assert "Lightweight SQL migration runner v0: implemented" in readme
+    assert "python -m app.migration_runner --status" in runbook
+    assert "python -m app.migration_runner --baseline" in runbook
+    assert "schema_migrations" in runbook
+    assert "not a production migration platform" in runbook
+    assert "No Alembic dependency" in goal

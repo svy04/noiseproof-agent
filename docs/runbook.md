@@ -68,7 +68,9 @@ Phase 42.5 adds expected schema-default workflow-version smoke checks. They docu
 
 Phase 43 verifies the local Docker DB schema defaults before and after applying migration 010. The existing volume was stale before the migration and current afterward; no volume deletion was performed.
 
-Phase 44 reviews migration handling and selects a lightweight SQL migration runner as the next bounded implementation. The runner is not implemented yet.
+Phase 44 reviews migration handling and selects a lightweight SQL migration runner as the next bounded implementation.
+
+Phase 45 adds the lightweight SQL migration runner. It uses `schema_migrations` tracking over existing SQL files and is not a production migration platform.
 
 Implemented:
 
@@ -277,6 +279,23 @@ Get-Content db/migrations/007_workflow_runs.sql | docker compose exec -T db psql
 Get-Content db/migrations/008_child_workflow_run_ids.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 Get-Content db/migrations/009_stage_input_manifest.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 ```
+
+Preferred migration runner commands from Phase 45:
+
+```powershell
+cd apps/api
+uv run python -m app.migration_runner --status
+uv run python -m app.migration_runner --baseline
+uv run python -m app.migration_runner
+```
+
+Use `--status` to inspect pending SQL files without applying them.
+
+Use `--baseline` only when an existing local database is already known to contain the migration effects but lacks `schema_migrations` records. Baseline records filenames, checksums, byte counts, and timestamps without executing SQL.
+
+Use the default command to apply pending files from `db/migrations/*.sql` in sorted filename order. The runner creates `schema_migrations` if needed and fails on SQL errors or checksum drift.
+
+The runner is a local inspectability tool, not a production migration platform. It does not replace database backups, environment promotion rules, hosted migration orchestration, or rollback planning.
 
 ## API
 
