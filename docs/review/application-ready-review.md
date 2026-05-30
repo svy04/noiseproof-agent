@@ -54,6 +54,7 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | failure-case persistence smoke works | Pass | `docs/review/failure-case-persistence-smoke-verification.md` | stores manually submitted failure records; automatic failure detection is not claimed |
 | agent-run failure linkage smoke works | Pass | `docs/review/agent-run-failure-linkage-smoke-verification.md` | links manual failure records to failed agent runs; complete workflow failure causality is not claimed |
 | workflow failure linkage smoke works | Pass | `docs/review/workflow-failure-linkage-smoke-verification.md` | test-fixture proof only; complete workflow failure causality is not claimed |
+| failure-case workflow linkage review exists | Pass | `docs/review/failure-case-workflow-linkage-review.md` | failure cases are not linked to workflow parents yet |
 
 Historical Phase 31.5 boundary: JSON manifest only, not direct FK or join-table lineage. Phase 32 makes that manifest easier to inspect through a derived read model, but it still does not convert the manifest into a relational contract.
 
@@ -108,6 +109,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - Failure-case Persistence Smoke Verification v0
 - Agent-run Failure Linkage Smoke Verification v0
 - Workflow Failure Linkage Smoke Verification v0
+- Failure-case Workflow Linkage Review v0
 
 Avoid claims about:
 

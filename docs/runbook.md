@@ -96,6 +96,8 @@ Phase 56 verifies the workflow failure path with a test fixture: a downstream st
 
 Phase 58 reviews whether failure cases should link to workflow parents and keeps the schema unchanged until a real failure-case creation path exists.
 
+Phase 59 refreshes application-facing docs with that failure-case workflow linkage boundary without changing schema, API behavior, or failure creation logic.
+
 Implemented:
 
 - FastAPI app skeleton
