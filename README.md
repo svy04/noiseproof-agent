@@ -155,6 +155,7 @@ Implementation status:
 - Migration runner review v0: implemented as `docs/review/migration-runner-review.md`
 - Lightweight SQL migration runner v0: implemented as `python -m app.migration_runner`
 - Runtime migration runner verification v0: implemented as `docs/review/runtime-migration-runner-verification.md`
+- Migration runner fresh DB verification v0: implemented as `docs/review/migration-runner-fresh-db-verification.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -646,6 +647,17 @@ Implementation status:
 - `--baseline`: recorded the 9 already-applied local migrations without executing SQL
 - Final `--status`: 9 applied, 0 pending migrations
 - Production migration orchestration, rollback behavior, API endpoints, dashboard rendering, LLM, and embedding behavior: not added
+
+### Phase 47 - Migration Runner Fresh DB Verification v0
+
+- Migration runner fresh DB verification v0: implemented
+- Isolated Compose project `noiseproof-agent-fresh`: verified on `POSTGRES_PORT=55433`
+- Initial `--status`: 0 applied, 9 pending migrations
+- Default runner apply command: applied all 9 migration files through `010_workflow_version_defaults.sql`
+- Final `--status`: 9 applied, 0 pending migrations
+- Fresh DB schema defaults for `agent_runs.workflow_version` and `workflow_runs.workflow_version`: verified as `phase40-lineage-warning-code-dashboard`
+- Isolated test volume: removed with `docker compose -p noiseproof-agent-fresh down -v`
+- Production migration orchestration, rollback behavior, hosted deployment safety, API endpoints, dashboard rendering, LLM, and embedding behavior: not added
 
 Not implemented yet:
 

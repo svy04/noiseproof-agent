@@ -29,6 +29,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/runtime-db-schema-default-verification.md",
         "docs/review/migration-runner-review.md",
         "docs/review/runtime-migration-runner-verification.md",
+        "docs/review/migration-runner-fresh-db-verification.md",
     ]
 
     for file_path in required_files:
@@ -588,3 +589,27 @@ def test_runtime_migration_runner_verification_records_status_baseline_status():
     assert "Pending migrations: 0" in content
     assert "Phase 46 - Runtime Migration Runner Verification v0" in goal
     assert "Runtime migration runner verification v0: implemented" in readme
+
+
+def test_migration_runner_fresh_db_verification_records_apply_path():
+    content = (REPO_ROOT / "docs/review/migration-runner-fresh-db-verification.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Migration runner fresh DB verification" in content
+    assert "isolated Compose project" in content
+    assert "noiseproof-agent-fresh" in content
+    assert "Initial runner status" in content
+    assert "Applied migrations: 0" in content
+    assert "Pending migrations: 9" in content
+    assert "Runner apply result" in content
+    assert "applied 010_workflow_version_defaults.sql" in content
+    assert "Final runner status" in content
+    assert "Applied migrations: 9" in content
+    assert "Pending migrations: 0" in content
+    assert "phase40-lineage-warning-code-dashboard" in content
+    assert "test volume was removed" in content
+    assert "Phase 47 - Migration Runner Fresh DB Verification v0" in goal
+    assert "Migration runner fresh DB verification v0: implemented" in readme

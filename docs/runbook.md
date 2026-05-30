@@ -74,6 +74,8 @@ Phase 45 adds the lightweight SQL migration runner. It uses `schema_migrations` 
 
 Phase 46 verifies the lightweight SQL migration runner against the local Docker DB. The existing already-current database was baselined, and final status showed 9 applied / 0 pending migrations.
 
+Phase 47 verifies the lightweight SQL migration runner apply path against an isolated fresh Docker DB. The runner saw 9 pending migrations, applied all 9, reached 9 applied / 0 pending, verified current workflow-version defaults, and removed the isolated test volume.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -298,6 +300,30 @@ Use `--baseline` only when an existing local database is already known to contai
 Use the default command to apply pending files from `db/migrations/*.sql` in sorted filename order. The runner creates `schema_migrations` if needed and fails on SQL errors or checksum drift.
 
 The runner is a local inspectability tool, not a production migration platform. It does not replace database backups, environment promotion rules, hosted migration orchestration, or rollback planning.
+
+Fresh DB apply-path verification from Phase 47:
+
+```powershell
+POSTGRES_PORT=55433 docker compose -p noiseproof-agent-fresh up -d db
+cd apps/api
+$env:DATABASE_URL="postgresql://noiseproof:noiseproof@localhost:55433/noiseproof"
+uv run python -m app.migration_runner --status
+uv run python -m app.migration_runner
+uv run python -m app.migration_runner --status
+docker compose -p noiseproof-agent-fresh exec -T db psql -U noiseproof -d noiseproof -c "SELECT table_name, column_default FROM information_schema.columns WHERE table_schema = 'public' AND table_name IN ('agent_runs', 'workflow_runs') AND column_name = 'workflow_version' ORDER BY table_name;"
+docker compose -p noiseproof-agent-fresh exec -T db psql -U noiseproof -d noiseproof -c "SELECT filename FROM schema_migrations ORDER BY filename;"
+POSTGRES_PORT=55433 docker compose -p noiseproof-agent-fresh down -v
+```
+
+Expected fresh DB runner evidence:
+
+```text
+Initial status: Applied migrations: 0 / Pending migrations: 9
+Apply result: applied 002_evidence_ledger_entries.sql through 010_workflow_version_defaults.sql
+Final status: Applied migrations: 9 / Pending migrations: 0
+Schema defaults: phase40-lineage-warning-code-dashboard
+Cleanup: isolated test volume removed
+```
 
 ## API
 
