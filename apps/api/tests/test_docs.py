@@ -23,6 +23,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/workflow-lineage-boundary-hardening-review.md",
         "docs/review/workflow-lineage-warning-taxonomy-review.md",
         "docs/review/workflow-lineage-warning-code-documentation-review.md",
+        "docs/review/workflow-lineage-warning-code-dashboard-review.md",
     ]
 
     for file_path in required_files:
@@ -356,3 +357,24 @@ def test_phase37_runbook_documents_lineage_warning_code_response_shape():
     assert '"local_workflow_scope"' in runbook
     assert "response-level taxonomy only" in runbook
     assert "no migrations, columns, or join tables" in goal
+
+
+def test_workflow_lineage_warning_code_dashboard_review_keeps_ui_scope_bounded():
+    content = (
+        REPO_ROOT / "docs/review/workflow-lineage-warning-code-dashboard-review.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Workflow lineage warning code dashboard review" in content
+    assert "review-only gate" in content
+    assert "GET /ops/dashboard" in content
+    assert "warning_codes" in content
+    assert "derived_read_model_boundary" in content
+    assert "local_workflow_scope" in content
+    assert "Do not add dashboard rendering in this review gate" in content
+    assert "no migrations" in content
+    assert "no columns" in content
+    assert "no join tables" in content
+    assert "workflow lineage warning code dashboard surfacing v0" in content
+    assert "Workflow lineage warning code dashboard review v0" in goal
+    assert "workflow lineage warning code dashboard surfacing v0" in goal

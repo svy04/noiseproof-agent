@@ -48,6 +48,8 @@ Phase 36.5 reviews warning-code documentation: `docs/review/workflow-lineage-war
 
 Phase 37 adds a runbook example for lineage warning codes: the lineage response shape now shows both human-readable `warnings` and machine-readable `warning_codes`, while noting that codes are response-level taxonomy only.
 
+Phase 37.5 reviews dashboard surfacing for lineage warning codes: `docs/review/workflow-lineage-warning-code-dashboard-review.md` keeps `GET /ops/dashboard` unchanged in this review gate and defers rendering changes to a later bounded implementation gate.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -167,6 +169,8 @@ Implemented:
 - no runtime behavior added by the warning-code documentation review gate
 - runbook lineage response example includes `warnings` and `warning_codes`
 - `warning_codes` remain response-level taxonomy only
+- warning-code dashboard review exists in `docs/review/workflow-lineage-warning-code-dashboard-review.md`
+- no dashboard rendering, migrations, columns, or join tables added by the dashboard review gate
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
 - direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0
