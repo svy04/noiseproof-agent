@@ -33,6 +33,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/fresh-db-api-smoke-verification.md",
         "docs/review/failure-case-persistence-smoke-verification.md",
         "docs/review/agent-run-failure-linkage-smoke-verification.md",
+        "docs/review/workflow-failure-provenance-review.md",
     ]
 
     for file_path in required_files:
@@ -750,3 +751,23 @@ def test_agent_run_failure_linkage_application_refresh_surfaces_linked_failure_w
     assert "not complete workflow failure causality" in role_map
     assert "agent-run failure linkage smoke" in review
     assert "complete workflow failure causality is not claimed" in review
+
+
+def test_workflow_failure_provenance_review_defers_schema_until_causality_is_real():
+    content = (REPO_ROOT / "docs/review/workflow-failure-provenance-review.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Workflow failure provenance review" in content
+    assert "review-only gate" in content
+    assert "operation-level failure linkage" in content
+    assert "workflow-level failure causality" in content
+    assert "Do not add workflow_run_id to failure_cases in this review gate" in content
+    assert "Do not add automatic failure detection in this review gate" in content
+    assert "manual failure record" in content
+    assert "false sense of workflow failure causality" in content
+    assert "workflow failure linkage smoke verification v0" in content
+    assert "Phase 55 - Workflow Failure Provenance Review v0" in goal
+    assert "Workflow failure provenance review v0: implemented" in readme

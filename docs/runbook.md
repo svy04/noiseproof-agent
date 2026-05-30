@@ -90,6 +90,8 @@ Phase 53 verifies that a failure case can carry `agent_run_id` linkage to a pers
 
 Phase 54 refreshes application-facing evidence indexes so the linked failure-case proof is discoverable without claiming automatic detection or complete workflow failure causality.
 
+Phase 55 reviews workflow failure provenance and keeps `failure_cases` at operation-level linkage until a real workflow failure path exists.
+
 Implemented:
 
 - FastAPI app skeleton

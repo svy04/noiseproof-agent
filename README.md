@@ -163,6 +163,7 @@ Implementation status:
 - Failure-case application evidence refresh v0: implemented across application-facing docs
 - Agent-run failure linkage smoke verification v0: implemented as `docs/review/agent-run-failure-linkage-smoke-verification.md`
 - Agent-run failure linkage application refresh v0: implemented across application-facing docs
+- Workflow failure provenance review v0: implemented as `docs/review/workflow-failure-provenance-review.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -727,6 +728,14 @@ Implementation status:
 - `docs/application/braincrew-role-map.md`: updated with linked failure-case proof and workflow-causality boundary
 - `docs/review/application-ready-review.md`: updated with agent-run failure linkage smoke evidence
 - Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
+
+### Phase 55 - Workflow Failure Provenance Review v0
+
+- Workflow failure provenance review v0: implemented
+- `docs/review/workflow-failure-provenance-review.md`: added
+- Current claim: operation-level failure linkage for a manual failure record
+- Deferred: `workflow_run_id` on `failure_cases`, automatic failure detection, and workflow-level failure causality
+- Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, LLM, and embedding behavior: not changed
 
 Not implemented yet:
 
