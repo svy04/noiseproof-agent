@@ -652,3 +652,22 @@ def test_fresh_db_api_smoke_verification_records_service_path():
     assert "isolated test volume was removed" in content
     assert "Phase 49 - Fresh DB API Smoke Verification v0" in goal
     assert "Fresh DB API smoke verification v0: implemented" in readme
+
+
+def test_application_evidence_index_refresh_surfaces_runtime_artifacts_without_overclaiming():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(encoding="utf-8")
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(encoding="utf-8")
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(encoding="utf-8")
+
+    assert "Phase 50 - Application Evidence Index Refresh v0" in goal
+    assert "Application evidence index refresh v0: implemented" in readme
+    assert "Fresh DB API smoke verification" in portfolio
+    assert "docs/review/fresh-db-api-smoke-verification.md" in portfolio
+    assert "Migration runner fresh DB verification" in portfolio
+    assert "docs/review/migration-runner-fresh-db-verification.md" in portfolio
+    assert "fresh migrated Docker DB" in role_map
+    assert "migration runner" in role_map
+    assert "fresh DB API smoke" in review
+    assert "not hosted deployment evidence" in review

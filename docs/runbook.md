@@ -80,6 +80,8 @@ Phase 48 cleans up the migration runbook so the runner is the default path and m
 
 Phase 49 verifies that a fresh migrated Docker DB can serve a minimal API path: `/health`, `/ops/summary`, `POST /documents`, and `GET /documents`.
 
+Phase 50 refreshes application-facing evidence indexes so reviewers can find the newest local runtime proof artifacts without treating them as hosted deployment evidence.
+
 Implemented:
 
 - FastAPI app skeleton

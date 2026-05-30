@@ -158,6 +158,7 @@ Implementation status:
 - Migration runner fresh DB verification v0: implemented as `docs/review/migration-runner-fresh-db-verification.md`
 - Migration runner runbook cleanup v0: implemented in `docs/runbook.md`
 - Fresh DB API smoke verification v0: implemented as `docs/review/fresh-db-api-smoke-verification.md`
+- Application evidence index refresh v0: implemented across application-facing docs
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -679,6 +680,14 @@ Implementation status:
 - Document persistence smoke record: `Sample fresh DB smoke document`
 - Isolated test volume: removed with `docker compose -p noiseproof-agent-api-smoke down -v`
 - Hosted deployment readiness, production migration orchestration, API expansion, dashboard polish, LLM, and embedding behavior: not added
+
+### Phase 50 - Application Evidence Index Refresh v0
+
+- Application evidence index refresh v0: implemented
+- `docs/application/portfolio-index.md`: updated with migration runner and fresh DB API smoke artifacts
+- `docs/application/braincrew-role-map.md`: updated with runtime proof surfaces and hosted-deployment boundary
+- `docs/review/application-ready-review.md`: updated with local migration/API smoke evidence and overclaim boundaries
+- Runtime behavior, schema, API endpoints, migration runner code, dashboard rendering, LLM, and embedding behavior: not changed
 
 Not implemented yet:
 

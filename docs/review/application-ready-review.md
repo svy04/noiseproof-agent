@@ -10,7 +10,7 @@ Not product-complete: robust PDF extraction, embeddings, semantic retrieval, dis
 
 Current judgment: Partial application-ready portfolio artifact.
 
-NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, dashboard parent/child provenance links, dashboard Evidence Ledger table, evidence-to-gate/report cross-link review, single workflow parent review, WorkflowRun schema, WorkflowRun metadata persistence, WorkflowRun dashboard visibility, WorkflowRun child-link review, deterministic workflow execution preview, child `workflow_run_id` links, workflow-run child inspection, direct evidence-to-gate/report cross-link review, workflow stage input manifests, direct cross-stage link schema review, workflow lineage read model, dashboard lineage links, missing-reference review and test, boundary hardening review, manifest-shape hardening, warning taxonomy review, structured warning codes, warning-code documentation review, warning-code runbook example, warning-code dashboard review, warning-code dashboard surfacing, preview endpoint traces, failure records, and technical decision trail.
+NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, dashboard parent/child provenance links, dashboard Evidence Ledger table, evidence-to-gate/report cross-link review, single workflow parent review, WorkflowRun schema, WorkflowRun metadata persistence, WorkflowRun dashboard visibility, WorkflowRun child-link review, deterministic workflow execution preview, child `workflow_run_id` links, workflow-run child inspection, direct evidence-to-gate/report cross-link review, workflow stage input manifests, direct cross-stage link schema review, workflow lineage read model, dashboard lineage links, missing-reference review and test, boundary hardening review, manifest-shape hardening, warning taxonomy review, structured warning codes, warning-code documentation review, warning-code runbook example, warning-code dashboard review, warning-code dashboard surfacing, migration runner review/implementation/runtime verification, fresh DB API smoke evidence, preview endpoint traces, failure records, and technical decision trail.
 
 It is not strong enough to claim production RAG quality or autonomous market intelligence.
 
@@ -49,6 +49,8 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | warning-code dashboard smoke example exists | Pass | `docs/runbook.md` expected dashboard legend | docs-only; not runtime proof |
 | workflow-version naming reviewed | Pass | `docs/review/workflow-version-naming-review.md` | review-only; runtime value unchanged |
 | workflow-version naming updated | Pass | `phase40-lineage-warning-code-dashboard` in runtime defaults and examples | identifier-only; no workflow semantic change |
+| migration runner can apply on fresh DB | Pass | `docs/review/migration-runner-fresh-db-verification.md` | local Docker only; not production migration orchestration |
+| fresh DB API smoke path works | Pass | `docs/review/fresh-db-api-smoke-verification.md` | local Docker/API smoke only; not hosted deployment evidence |
 
 Historical Phase 31.5 boundary: JSON manifest only, not direct FK or join-table lineage. Phase 32 makes that manifest easier to inspect through a derived read model, but it still does not convert the manifest into a relational contract.
 
@@ -98,10 +100,13 @@ If this repo is linked from the portfolio site, link only these claims:
 - Operations Dashboard v0
 - evaluation/application package
 - Auto Trace Recording v0 for preview endpoint metadata
+- Migration Runner Fresh DB Verification v0
+- Fresh DB API Smoke Verification v0
 
 Avoid claims about:
 
 - production deployment
+- hosted deployment evidence
 - external users
 - robust PDF extraction
 - semantic retrieval

@@ -65,6 +65,9 @@ This page maps the repository into a reviewer-readable path.
 | Workflow lineage warning code dashboard smoke example | `docs/runbook.md` dashboard legend example | implemented v0 |
 | Workflow version naming review | `docs/review/workflow-version-naming-review.md` | reviewed |
 | Workflow version naming update | `phase40-lineage-warning-code-dashboard` | implemented v0 |
+| Lightweight SQL migration runner | `python -m app.migration_runner` | implemented v0 |
+| Migration runner fresh DB verification | `docs/review/migration-runner-fresh-db-verification.md` | verified local |
+| Fresh DB API smoke verification | `docs/review/fresh-db-api-smoke-verification.md` | verified local |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 
@@ -78,6 +81,8 @@ This page maps the repository into a reviewer-readable path.
 | `docs/evaluation/eval-plan.md` | evaluation plan |
 | `docs/evaluation/retrieval-eval-report.md` | current retrieval boundary report |
 | `docs/evaluation/failure-cases.md` | failure case ledger |
+| `docs/review/migration-runner-fresh-db-verification.md` | runner apply-path evidence on isolated fresh Docker DB |
+| `docs/review/fresh-db-api-smoke-verification.md` | API smoke evidence on isolated fresh migrated Docker DB |
 
 ## What Not To Claim
 
@@ -89,7 +94,8 @@ This page maps the repository into a reviewer-readable path.
 - financial prediction quality
 - trading advice
 - Product Engineer-level production ownership
+- hosted deployment evidence
 
 ## Current Best Claim
 
-NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be persisted, gated, blocked, stored as report-shaped preview records, linked to a deterministic workflow parent, inspected from that parent, and kept bounded before any free-form final answer exists. Workflow-created gate and report records now carry local `stage_input_manifest` values that show persisted upstream ids consumed by deterministic preview stages, `GET /workflow-runs/{id}/lineage` derives a readable lineage view from those existing records, and the operations dashboard links workflow rows to both detail and lineage views. Missing-reference behavior has been reviewed and covered by a targeted broken-manifest fixture, manifest-shape handling now rejects non-list evidence id values with a warning, warning categories have been reviewed, the lineage response now exposes `warning_codes` while preserving human-readable warnings, warning-code documentation has been reviewed, the runbook now shows the lineage response shape, dashboard surfacing has been reviewed before rendering change, and the dashboard now shows a bounded warning-code legend. Direct evidence -> gate -> report foreign-key and join-table lineage remains intentionally unclaimed.
+NoiseProof Agent is a small, inspectable data-agent portfolio project that shows how unsupported claims can be persisted, gated, blocked, stored as report-shaped preview records, linked to a deterministic workflow parent, inspected from that parent, and kept bounded before any free-form final answer exists. Workflow-created gate and report records now carry local `stage_input_manifest` values that show persisted upstream ids consumed by deterministic preview stages, `GET /workflow-runs/{id}/lineage` derives a readable lineage view from those existing records, and the operations dashboard links workflow rows to both detail and lineage views. Missing-reference behavior has been reviewed and covered by a targeted broken-manifest fixture, manifest-shape handling now rejects non-list evidence id values with a warning, warning categories have been reviewed, the lineage response now exposes `warning_codes` while preserving human-readable warnings, warning-code documentation has been reviewed, the runbook now shows the lineage response shape, dashboard surfacing has been reviewed before rendering change, and the dashboard now shows a bounded warning-code legend. The migration runner has local fresh-DB apply-path evidence, and the API has a local fresh migrated Docker DB smoke check for health, ops summary, and document metadata persistence. Direct evidence -> gate -> report foreign-key and join-table lineage remains intentionally unclaimed, and the local Docker smoke checks are not hosted deployment evidence.

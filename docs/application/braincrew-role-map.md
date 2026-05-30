@@ -26,7 +26,7 @@ It is a small service that shows how I define a messy customer-like data problem
 | Solution design and implementation | FastAPI service, PostgreSQL schema, phase-gated workflow | `docs/architecture.md` |
 | RAG and Agent interest | retrieval, Evidence Ledger, Noise Gate, report preview | `README.md` |
 | Logging and operations | agent runs, failure cases, retrieval runs, ops dashboard | `GET /ops/dashboard` |
-| CI/CD and maintainability | GitHub Actions CI and repeatable smoke checks | `.github/workflows/ci.yml`, `docs/runbook.md` |
+| CI/CD and maintainability | GitHub Actions CI, migration runner, and repeatable smoke checks | `.github/workflows/ci.yml`, `docs/runbook.md`, `docs/review/fresh-db-api-smoke-verification.md` |
 | Technical decision documentation | ADRs for RAG, stack, Evidence Ledger, non-trading, human approval | `docs/adr/*` |
 
 ## Product Engineer Secondary Mapping
@@ -34,9 +34,20 @@ It is a small service that shows how I define a messy customer-like data problem
 | Product Engineer signal | Current evidence | Boundary |
 |---|---|---|
 | Full-stack service design | API service and operations dashboard exist | Next.js app is not implemented |
-| Infrastructure judgment | Docker Compose DB and CI exist | hosted deployment is not claimed |
+| Infrastructure judgment | Docker Compose DB, migration runner, CI, and fresh migrated Docker DB API smoke exist | hosted deployment is not claimed |
 | Product surface ownership | dashboard and docs explain workflow | not a polished product UI |
 | RAG/Agent platform interest | phased retrieval/evidence/gate/report workflow | no LLM or embeddings yet |
+
+## Runtime Proof Surfaces
+
+The newest local runtime evidence is:
+
+- Migration runner fresh DB verification: `docs/review/migration-runner-fresh-db-verification.md`
+- Fresh DB API smoke verification: `docs/review/fresh-db-api-smoke-verification.md`
+
+These show a fresh migrated Docker DB can run the local service path for `/health`, `/ops/summary`, `POST /documents`, and `GET /documents`.
+
+Boundary: this is fresh migrated Docker DB evidence, not hosted deployment evidence, production migration orchestration, rollback proof, or external customer validation.
 
 ## DeepDocurator Alignment
 
