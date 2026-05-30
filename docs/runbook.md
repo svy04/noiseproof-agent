@@ -46,6 +46,8 @@ Phase 36 adds structured warning taxonomy to the lineage response: `GET /workflo
 
 Phase 36.5 reviews warning-code documentation: `docs/review/workflow-lineage-warning-code-documentation-review.md` records that warning codes should be explained with their human-readable warnings before any dashboard or persistence expansion.
 
+Phase 37 adds a runbook example for lineage warning codes: the lineage response shape now shows both human-readable `warnings` and machine-readable `warning_codes`, while noting that codes are response-level taxonomy only.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -163,6 +165,8 @@ Implemented:
 - no warning-code persistence, migrations, columns, or join tables added by the structured taxonomy gate
 - warning-code documentation review exists in `docs/review/workflow-lineage-warning-code-documentation-review.md`
 - no runtime behavior added by the warning-code documentation review gate
+- runbook lineage response example includes `warnings` and `warning_codes`
+- `warning_codes` remain response-level taxonomy only
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
 - direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0
@@ -312,6 +316,42 @@ Expected `/ops/summary` shape:
   ]
 }
 ```
+
+Expected `/workflow-runs/{id}/lineage` response shape:
+
+```json
+{
+  "workflow_run": {
+    "id": "uuid",
+    "question": "Which segment had enterprise demand growth?",
+    "workflow_version": "phase36-structured-warning-taxonomy",
+    "status": "completed"
+  },
+  "lineage_boundary": "derived_read_model_only",
+  "evidence_ledger_entries": [],
+  "noise_gate_lineage": [],
+  "report_lineage": [],
+  "summary": {
+    "evidence_ledger_entry_count": 0,
+    "noise_gate_record_count": 0,
+    "report_record_count": 0,
+    "gate_input_evidence_reference_count": 0,
+    "report_input_evidence_reference_count": 0,
+    "report_input_gate_reference_count": 0,
+    "missing_reference_count": 0
+  },
+  "warnings": [
+    "Workflow lineage read model is a derived read model over existing workflow child records and stage_input_manifest values.",
+    "It adds no storage, foreign-key links, join tables, distributed tracing, LLM calls, or free-form final answer generation."
+  ],
+  "warning_codes": [
+    "derived_read_model_boundary",
+    "local_workflow_scope"
+  ]
+}
+```
+
+The `warning_codes` field is response-level taxonomy only. It is not persisted as a warning-code table, dashboard analytics surface, or strict relational lineage contract.
 
 Profile fixture-like text:
 

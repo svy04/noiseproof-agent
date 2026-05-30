@@ -340,3 +340,19 @@ def test_workflow_lineage_warning_code_documentation_review_keeps_docs_scope_bou
     assert "workflow lineage warning code runbook example v0" in content
     assert "Workflow lineage warning code documentation review v0" in goal
     assert "workflow lineage warning code runbook example v0" in goal
+
+
+def test_phase37_runbook_documents_lineage_warning_code_response_shape():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Phase 37 - Workflow Lineage Warning Code Runbook Example v0" in goal
+    assert "Workflow lineage warning code runbook example v0: implemented" in readme
+    assert "Expected `/workflow-runs/{id}/lineage` response shape" in runbook
+    assert '"warnings": [' in runbook
+    assert '"warning_codes": [' in runbook
+    assert '"derived_read_model_boundary"' in runbook
+    assert '"local_workflow_scope"' in runbook
+    assert "response-level taxonomy only" in runbook
+    assert "no migrations, columns, or join tables" in goal
