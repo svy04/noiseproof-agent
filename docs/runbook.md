@@ -30,6 +30,8 @@ Phase 31.5 reviews direct cross-stage link schema and defers new FK/join-table s
 
 Phase 32 adds that derived workflow lineage read model: `GET /workflow-runs/{id}/lineage` reads existing workflow child records and `stage_input_manifest` values, resolves local stage inputs back to linked records where possible, and does not add new storage or direct FK/join-table lineage.
 
+Phase 33 adds workflow lineage links to the plain operations dashboard: workflow rows now link to both `GET /workflow-runs/{id}` and `GET /workflow-runs/{id}/lineage`, with no dashboard polish or new lineage storage.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -127,6 +129,10 @@ Implemented:
 - `GET /workflow-runs/{id}/lineage`
 - derived read model over existing workflow child records and `stage_input_manifest`
 - no migrations, columns, direct foreign keys, or join tables added
+- Workflow Lineage Dashboard Links v0
+- `GET /ops/dashboard` workflow rows expose detail and lineage links
+- workflow lineage links point to `GET /workflow-runs/{id}/lineage`
+- no dashboard polish, frontend framework, or new lineage storage added
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
 - direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0
@@ -247,7 +253,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase32-workflow-lineage-read-model"
+  "workflow_version": "phase33-workflow-lineage-dashboard-links"
 }
 ```
 
@@ -256,7 +262,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase32-workflow-lineage-read-model",
+  "workflow_version": "phase33-workflow-lineage-dashboard-links",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -798,11 +804,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase32-workflow-lineage-read-model",
+    "workflow_version": "phase33-workflow-lineage-dashboard-links",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase32-workflow-lineage-read-model",
+      "phase": "phase33-workflow-lineage-dashboard-links",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }

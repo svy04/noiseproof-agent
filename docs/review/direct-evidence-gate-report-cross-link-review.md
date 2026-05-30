@@ -148,3 +148,9 @@ GET /workflow-runs/{id}/lineage
 ```
 
 The endpoint resolves manifest references against existing workflow child records where possible. It still does not add direct evidence -> gate -> report foreign-key links, join tables, distributed tracing, or hosted observability.
+
+## Follow-up status after Phase 33
+
+Phase 33 added dashboard links from workflow rows to both the workflow detail endpoint and the derived lineage endpoint.
+
+This improves discoverability only. Direct evidence -> gate -> report foreign-key links and join tables remain unimplemented.

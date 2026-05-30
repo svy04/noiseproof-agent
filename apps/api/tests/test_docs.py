@@ -193,3 +193,16 @@ def test_phase32_docs_mark_lineage_read_model_without_storage_claims():
     assert "does not add migrations, columns, join tables" in goal
     assert "Workflow lineage read model v0: implemented" in readme
     assert "GET /workflow-runs/{id}/lineage" in architecture
+
+
+def test_phase33_docs_mark_dashboard_lineage_links_without_ui_polish_claims():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Phase 33 - Workflow Lineage Dashboard Links v0" in goal
+    assert "Workflow lineage dashboard links v0: implemented" in readme
+    assert "detail and lineage links from workflow rows" in goal
+    assert "no dashboard polish" in goal
+    assert "curl http://localhost:8000/ops/dashboard" in runbook
+    assert "workflow lineage links" in runbook

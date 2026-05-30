@@ -139,3 +139,14 @@ GET /workflow-runs/{id}/lineage
 It derives lineage from existing workflow child records and `stage_input_manifest` values, resolves referenced Evidence Ledger and Noise Gate ids where possible, and surfaces missing manifest references as warnings.
 
 Direct evidence -> gate -> report foreign-key links and join tables remain unimplemented.
+
+## Phase 33 Follow-up
+
+Phase 33 made the derived read model discoverable from the plain operations dashboard by adding workflow-row links to:
+
+```text
+GET /workflow-runs/{id}
+GET /workflow-runs/{id}/lineage
+```
+
+This is a navigation improvement only. It does not add dashboard polish, new lineage storage, direct evidence -> gate -> report foreign-key links, or join tables.

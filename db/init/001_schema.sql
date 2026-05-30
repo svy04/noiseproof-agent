@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS documents (
 CREATE TABLE IF NOT EXISTS agent_runs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_question TEXT NOT NULL,
-  workflow_version TEXT NOT NULL DEFAULT 'phase32-workflow-lineage-read-model',
+  workflow_version TEXT NOT NULL DEFAULT 'phase33-workflow-lineage-dashboard-links',
   status TEXT NOT NULL DEFAULT 'created',
   error_message TEXT,
   token_cost NUMERIC,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS agent_runs (
 CREATE TABLE IF NOT EXISTS workflow_runs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   question TEXT NOT NULL,
-  workflow_version TEXT NOT NULL DEFAULT 'phase32-workflow-lineage-read-model',
+  workflow_version TEXT NOT NULL DEFAULT 'phase33-workflow-lineage-dashboard-links',
   status TEXT NOT NULL DEFAULT 'created' CHECK (
     status IN (
       'created',

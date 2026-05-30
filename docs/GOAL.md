@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 32:
+Accepted state as of Phase 33:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, and Workflow Lineage Read Model v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, and Workflow Lineage Dashboard Links v0
 ```
 
 Implemented:
@@ -243,6 +243,10 @@ Implemented:
 - resolves Report input Evidence Ledger ids and Noise Gate record ids back to linked records
 - missing manifest references are surfaced in the response
 - does not add migrations, columns, join tables, direct foreign-key links, or new storage
+- Workflow Lineage Dashboard Links v0
+- detail and lineage links from workflow rows in `GET /ops/dashboard`
+- links point to `GET /workflow-runs/{id}` and `GET /workflow-runs/{id}/lineage`
+- no dashboard polish, frontend framework, new storage, or lineage schema added
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -325,6 +329,7 @@ Phase 30.5 - Direct Evidence-to-gate/report Cross-link Review v0
 Phase 31  - Workflow Stage Input Manifest v0
 Phase 31.5 - Direct Cross-stage Link Schema Review v0
 Phase 32  - Workflow Lineage Read Model v0
+Phase 33  - Workflow Lineage Dashboard Links v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -1190,10 +1195,29 @@ missing manifest references surfaced as response warnings and summary counts
 
 Phase 32 does not add migrations, columns, join tables, direct evidence -> gate -> report foreign-key links, distributed tracing, hosted observability, LLM calls, embeddings, semantic retrieval, external search, autonomous workflow execution, or free-form final answer generation.
 
-Next recommended implementation phase:
+Follow-up implemented by Phase 33:
 
 ```text
 Workflow lineage dashboard links v0
+```
+
+### Phase 33 - Workflow Lineage Dashboard Links v0
+
+Implemented:
+
+```text
+detail and lineage links from workflow rows in GET /ops/dashboard
+detail links target GET /workflow-runs/{id}
+lineage links target GET /workflow-runs/{id}/lineage
+plain operations dashboard copy labels the lineage surface as a derived read model
+```
+
+Phase 33 is an inspectability change only. It adds no dashboard polish, frontend framework, migrations, columns, join tables, direct evidence -> gate -> report foreign-key links, distributed tracing, hosted observability, LLM calls, embeddings, semantic retrieval, external search, autonomous workflow execution, or free-form final answer generation.
+
+Next recommended implementation phase:
+
+```text
+Workflow lineage missing-reference review v0
 ```
 
 ## 6. Ordering Rules

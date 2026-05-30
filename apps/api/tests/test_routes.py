@@ -9,7 +9,7 @@ from app.main import create_app
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
 from app.services.run_trace import run_with_trace
 
-WORKFLOW_VERSION = "phase32-workflow-lineage-read-model"
+WORKFLOW_VERSION = "phase33-workflow-lineage-dashboard-links"
 
 
 class InMemoryRepository:
@@ -551,6 +551,32 @@ def test_workflow_run_lineage_read_model_resolves_manifest_inputs_without_new_st
     assert any("derived read model" in warning for warning in payload["warnings"])
 
 
+def test_ops_dashboard_links_workflow_runs_to_detail_and_lineage_views():
+    client = make_client()
+    execution = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    )
+    workflow_run_id = execution.json()["workflow_run"]["id"]
+
+    dashboard = client.get("/ops/dashboard")
+
+    assert dashboard.status_code == 200
+    assert f'href="/workflow-runs/{workflow_run_id}">detail</a>' in dashboard.text
+    assert f'href="/workflow-runs/{workflow_run_id}/lineage">lineage</a>' in dashboard.text
+    assert "derived lineage read model" in dashboard.text
+
+
 def test_ops_summary_placeholder_counts_registered_records():
     client = make_client()
 
@@ -617,7 +643,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 31" in response.text
+    assert "Phase 33" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():

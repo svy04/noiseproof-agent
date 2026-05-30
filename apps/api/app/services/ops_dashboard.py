@@ -40,7 +40,7 @@ def render_ops_dashboard(
 </head>
 <body>
   <h1>Operations Dashboard v0</h1>
-  <p class="muted">Phase 31 inspectable operations surface. No LLM calls, no semantic retrieval, workflow and stage input manifests are local nullable provenance, no free-form final answer generation.</p>
+  <p class="muted">Phase 33 inspectable operations surface. No LLM calls, no semantic retrieval, workflow and stage input manifests are local nullable provenance, no free-form final answer generation.</p>
   <section>
     <h2>Summary</h2>
     <div class="grid">
@@ -74,7 +74,7 @@ def render_ops_dashboard(
   </section>
   <section>
     <h2>Workflow Runs</h2>
-    <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 31 child records can attach to workflow_run_id, still carry workflow_trace_id, and carry stage input manifests for downstream preview stages.</p>
+    <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 33 adds detail and lineage links from workflow rows to the child inspection endpoint and derived lineage read model.</p>
     {_workflow_runs_table(workflow_runs)}
   </section>
   <section>
@@ -148,6 +148,7 @@ def _workflow_runs_table(rows: list[dict[str, Any]]) -> str:
         return '<p class="muted">No workflow run metadata recorded yet.</p>'
     body = "\n".join(
         "<tr>"
+        f"<td>{_workflow_run_links_cell(row)}</td>"
         f"<td>{_cell(row.get('created_at'))}</td>"
         f"<td>{_cell(row.get('status'))}</td>"
         f"<td>{_cell(row.get('question'))}</td>"
@@ -157,7 +158,7 @@ def _workflow_runs_table(rows: list[dict[str, Any]]) -> str:
         "</tr>"
         for row in rows[:10]
     )
-    return f"<table><thead><tr><th>Created</th><th>Status</th><th>Question</th><th>Workflow Version</th><th>Latency ms</th><th>Trace Metadata</th></tr></thead><tbody>{body}</tbody></table>"
+    return f"<table><thead><tr><th>Links</th><th>Created</th><th>Status</th><th>Question</th><th>Workflow Version</th><th>Latency ms</th><th>Trace Metadata</th></tr></thead><tbody>{body}</tbody></table>"
 
 
 def _retrieval_runs_table(rows: list[dict[str, Any]]) -> str:
@@ -300,6 +301,15 @@ def _parent_run_cell(row: dict[str, Any]) -> str:
     if not trace_id:
         return _cell(parent_id)
     return _link(f"/traces/{trace_id}", parent_id)
+
+
+def _workflow_run_links_cell(row: dict[str, Any]) -> str:
+    workflow_run_id = row.get("id")
+    if not workflow_run_id:
+        return '<span class="muted">n/a</span>'
+    detail = _link(f"/workflow-runs/{workflow_run_id}", "detail")
+    lineage = _link(f"/workflow-runs/{workflow_run_id}/lineage", "lineage")
+    return f"{detail} / {lineage}"
 
 
 def _filter_cell(base_path: str, field: str, value: object) -> str:
