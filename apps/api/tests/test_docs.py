@@ -482,3 +482,20 @@ def test_workflow_version_naming_consistency_review_identifies_schema_default_dr
     assert "Phase 41 - Workflow Version Naming Consistency Review v0" in goal
     assert "schema default workflow version update v0" in goal
     assert "Workflow version naming consistency review v0: implemented" in readme
+
+
+def test_phase42_schema_default_workflow_version_update_uses_forward_migration():
+    init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
+    migration_path = REPO_ROOT / "db/migrations/010_workflow_version_defaults.sql"
+    migration = migration_path.read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert migration_path.is_file()
+    assert init_schema.count("DEFAULT 'phase40-lineage-warning-code-dashboard'") >= 2
+    assert "ALTER TABLE agent_runs" in migration
+    assert "ALTER COLUMN workflow_version SET DEFAULT 'phase40-lineage-warning-code-dashboard'" in migration
+    assert "ALTER TABLE workflow_runs" in migration
+    assert "Do not rewrite historical migration 007" in goal
+    assert "Phase 42 - Schema Default Workflow Version Update v0" in goal
+    assert "Schema default workflow version update v0: implemented" in readme

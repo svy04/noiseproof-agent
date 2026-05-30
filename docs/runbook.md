@@ -62,6 +62,8 @@ Phase 40.5 adds explicit expected workflow-version smoke checks for `/health` an
 
 Phase 41 reviews workflow-version naming consistency and identifies stale executable schema defaults in `db/init/001_schema.sql` and `db/migrations/007_workflow_runs.sql`. It does not change schema defaults in the review gate.
 
+Phase 42 updates fresh schema defaults and adds `db/migrations/010_workflow_version_defaults.sql` so omitted `workflow_version` values default to `phase40-lineage-warning-code-dashboard`. Historical migration 007 is not rewritten.
+
 Implemented:
 
 - FastAPI app skeleton
