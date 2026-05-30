@@ -165,6 +165,7 @@ Implementation status:
 - Agent-run failure linkage application refresh v0: implemented across application-facing docs
 - Workflow failure provenance review v0: implemented as `docs/review/workflow-failure-provenance-review.md`
 - Workflow failure linkage smoke verification v0: implemented as `docs/review/workflow-failure-linkage-smoke-verification.md`
+- Workflow failure linkage application refresh v0: implemented across application-facing docs
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -746,6 +747,14 @@ Implementation status:
 - Current claim: failed workflow parent state is inspectable in the test fixture
 - Deferred: fresh Docker DB proof, automatic failure detection, `workflow_run_id` on `failure_cases`, and complete workflow failure causality
 - Runtime behavior, schema, API endpoints, dashboard rendering, LLM, and embedding behavior: not changed
+
+### Phase 57 - Workflow Failure Linkage Application Refresh v0
+
+- Workflow failure linkage application refresh v0: implemented
+- `docs/application/portfolio-index.md`: updated with workflow failure linkage smoke artifact
+- `docs/application/braincrew-role-map.md`: updated with failed workflow parent proof and boundaries
+- `docs/review/application-ready-review.md`: updated with workflow failure linkage smoke evidence
+- Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
 
 Not implemented yet:
 

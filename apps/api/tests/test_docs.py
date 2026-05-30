@@ -792,3 +792,27 @@ def test_workflow_failure_linkage_smoke_verification_stays_test_fixture_bounded(
     assert "Phase 56 - Workflow Failure Linkage Smoke Verification v0" in goal
     assert "Workflow failure linkage smoke verification v0: implemented" in readme
     assert "Phase 56 verifies the workflow failure path with a test fixture" in runbook
+
+
+def test_workflow_failure_linkage_application_refresh_surfaces_workflow_failure_smoke():
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Workflow failure linkage application refresh v0: implemented" in readme
+    assert "workflow failure linkage application refresh v0" in goal
+    assert "Workflow failure linkage smoke verification" in portfolio
+    assert "docs/review/workflow-failure-linkage-smoke-verification.md" in portfolio
+    assert "failed workflow parent proof" in role_map
+    assert "not automatic failure detection" in role_map
+    assert "not fresh Docker DB evidence" in role_map
+    assert "workflow failure linkage smoke" in review
+    assert "complete workflow failure causality is not claimed" in review

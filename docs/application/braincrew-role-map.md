@@ -46,6 +46,7 @@ The newest local runtime evidence is:
 - Fresh DB API smoke verification: `docs/review/fresh-db-api-smoke-verification.md`
 - Failure-case persistence smoke: `docs/review/failure-case-persistence-smoke-verification.md`
 - Agent-run failure linkage smoke: `docs/review/agent-run-failure-linkage-smoke-verification.md`
+- Workflow failure linkage smoke: `docs/review/workflow-failure-linkage-smoke-verification.md`
 
 These show a fresh migrated Docker DB can run the local service path for `/health`, `/ops/summary`, `POST /documents`, and `GET /documents`.
 
@@ -53,7 +54,9 @@ The failure-case persistence smoke shows the service can store and list a `parse
 
 The linked failure-case proof shows a manually created `failure_cases` row can retain `agent_run_id` linkage to a failed `agent_runs` row.
 
-Boundary: this is fresh migrated Docker DB evidence, not hosted deployment evidence, production migration orchestration, rollback proof, automatic failure detection, complete workflow failure causality, or external customer validation.
+The failed workflow parent proof shows a route-level test fixture can make a downstream workflow stage raise and leave the deterministic workflow parent as `failed`.
+
+Boundary: the DB smoke checks are fresh migrated Docker DB evidence. The workflow failure linkage smoke is not fresh Docker DB evidence. Neither one is hosted deployment evidence, production migration orchestration, rollback proof, automatic failure detection, complete workflow failure causality, or external customer validation.
 
 Short boundary phrase: not automatic failure detection.
 
