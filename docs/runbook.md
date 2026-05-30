@@ -66,6 +66,8 @@ Phase 42 updates fresh schema defaults and adds `db/migrations/010_workflow_vers
 
 Phase 42.5 adds expected schema-default workflow-version smoke checks. They document how to inspect defaults only; they do not prove new workflow behavior.
 
+Phase 43 verifies the local Docker DB schema defaults before and after applying migration 010. The existing volume was stale before the migration and current afterward; no volume deletion was performed.
+
 Implemented:
 
 - FastAPI app skeleton

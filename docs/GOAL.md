@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 42.5:
+Accepted state as of Phase 43:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, Workflow Version Naming Smoke Example v0, Workflow Version Naming Consistency Review v0, Schema Default Workflow Version Update v0, and Schema Default Workflow Version Smoke Example v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, Workflow Version Naming Smoke Example v0, Workflow Version Naming Consistency Review v0, Schema Default Workflow Version Update v0, Schema Default Workflow Version Smoke Example v0, and Runtime DB Schema Default Verification v0
 ```
 
 Implemented:
@@ -141,6 +141,7 @@ Implemented:
 - fresh schema defaults now use `phase40-lineage-warning-code-dashboard`
 - forward migration `db/migrations/010_workflow_version_defaults.sql`
 - runbook schema-default workflow-version smoke example
+- runtime Docker DB schema defaults verified after applying migration 010
 - Auto Trace Recording v0
 - preview endpoints auto-create `agent_runs` metadata records
 - `trace_json` records endpoint, phase, source type, counts, gate decisions, and report status where available
@@ -380,6 +381,7 @@ Phase 40.5 - Workflow Version Naming Smoke Example v0
 Phase 41  - Workflow Version Naming Consistency Review v0
 Phase 42  - Schema Default Workflow Version Update v0
 Phase 42.5 - Schema Default Workflow Version Smoke Example v0
+Phase 43  - Runtime DB Schema Default Verification v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -1606,10 +1608,30 @@ docs/runbook.md expected schema-default workflow-version smoke checks
 
 Phase 42.5 documents how a reviewer can inspect PostgreSQL defaults for `agent_runs.workflow_version` and `workflow_runs.workflow_version`. It proves schema defaults only; it adds no runtime behavior, workflow semantics, migrations, columns, join tables, trace schema changes, dashboard rendering changes, LLM calls, embeddings, semantic retrieval, autonomous workflow execution, or free-form final answer generation.
 
+### Phase 43 - Runtime DB Schema Default Verification v0
+
+Goal:
+
+```text
+verify the local Docker DB schema defaults and record before/after migration evidence
+```
+
+Implemented:
+
+```text
+docs/review/runtime-db-schema-default-verification.md
+Docker DB started healthy on local port 55432
+pre-migration stale defaults recorded
+db/migrations/010_workflow_version_defaults.sql applied to the running DB
+post-migration defaults verified as phase40-lineage-warning-code-dashboard
+```
+
+Phase 43 records that the existing Docker volume carried stale defaults until migration 010 was applied. No volume deletion was performed. This changes no repo runtime behavior, columns, join tables, trace schema, dashboard rendering, LLM calls, embeddings, semantic retrieval, autonomous workflow execution, or free-form final answer generation.
+
 Next recommended implementation phase:
 
 ```text
-runtime DB schema default verification v0
+migration runner review v0
 ```
 
 ## 6. Ordering Rules

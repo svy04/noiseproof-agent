@@ -26,6 +26,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/workflow-lineage-warning-code-dashboard-review.md",
         "docs/review/workflow-version-naming-review.md",
         "docs/review/workflow-version-naming-consistency-review.md",
+        "docs/review/runtime-db-schema-default-verification.md",
     ]
 
     for file_path in required_files:
@@ -514,3 +515,22 @@ def test_phase42_5_docs_add_schema_default_workflow_version_smoke_example():
     assert "workflow_runs.workflow_version" in runbook
     assert "phase40-lineage-warning-code-dashboard" in runbook
     assert "schema defaults only" in runbook
+
+
+def test_runtime_db_schema_default_verification_records_before_and_after_defaults():
+    content = (REPO_ROOT / "docs/review/runtime-db-schema-default-verification.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Runtime DB schema default verification" in content
+    assert "Docker runtime verification performed" in content
+    assert "Initial observed defaults before applying migration 010" in content
+    assert "phase5.5-collection-plan-preview" in content
+    assert "phase24-workflow-run-schema" in content
+    assert "Observed defaults after applying migration 010" in content
+    assert "phase40-lineage-warning-code-dashboard" in content
+    assert "No volume deletion was performed" in content
+    assert "Phase 43 - Runtime DB Schema Default Verification v0" in goal
+    assert "Runtime DB schema default verification v0: implemented" in readme
