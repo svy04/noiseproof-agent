@@ -32,6 +32,8 @@ Phase 32 adds that derived workflow lineage read model: `GET /workflow-runs/{id}
 
 Phase 33 adds workflow lineage links to the plain operations dashboard: workflow rows now link to both `GET /workflow-runs/{id}` and `GET /workflow-runs/{id}/lineage`, with no dashboard polish or new lineage storage.
 
+Phase 33.5 reviews missing manifest reference behavior for the derived lineage read model: `docs/review/workflow-lineage-missing-reference-review.md` keeps runtime behavior unchanged and selects a targeted missing-reference test as the next proof step.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -133,6 +135,8 @@ Implemented:
 - `GET /ops/dashboard` workflow rows expose detail and lineage links
 - workflow lineage links point to `GET /workflow-runs/{id}/lineage`
 - no dashboard polish, frontend framework, or new lineage storage added
+- missing-reference behavior review exists in `docs/review/workflow-lineage-missing-reference-review.md`
+- no malformed-manifest mutation endpoint, repair endpoint, migration, column, or join table added by the review gate
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
 - direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0

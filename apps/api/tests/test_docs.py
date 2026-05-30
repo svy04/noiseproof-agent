@@ -19,6 +19,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/direct-cross-stage-link-schema-review.md",
         "docs/review/single-workflow-parent-review.md",
         "docs/review/workflow-run-child-link-review.md",
+        "docs/review/workflow-lineage-missing-reference-review.md",
     ]
 
     for file_path in required_files:
@@ -206,3 +207,24 @@ def test_phase33_docs_mark_dashboard_lineage_links_without_ui_polish_claims():
     assert "no dashboard polish" in goal
     assert "curl http://localhost:8000/ops/dashboard" in runbook
     assert "workflow lineage links" in runbook
+
+
+def test_workflow_lineage_missing_reference_review_keeps_runtime_scope_bounded():
+    content = (REPO_ROOT / "docs/review/workflow-lineage-missing-reference-review.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Workflow lineage missing-reference review" in content
+    assert "review-only gate" in content
+    assert "GET /workflow-runs/{id}/lineage" in content
+    assert "missing_reference_count" in content
+    assert "One or more stage_input_manifest references could not be resolved" in content
+    assert "no migrations" in content
+    assert "no columns" in content
+    assert "no join tables" in content
+    assert "do not add runtime mutation path" in content
+    assert "targeted missing-reference test" in content
+    assert "Phase 33.5 - Workflow Lineage Missing-reference Review v0" in goal
+    assert "docs/review/workflow-lineage-missing-reference-review.md" in goal
+    assert "Workflow lineage missing-reference test v0" in goal
