@@ -54,6 +54,8 @@ Phase 38 surfaces the warning-code legend in `GET /ops/dashboard`: the dashboard
 
 Phase 38.5 adds the dashboard warning-code smoke example below, without changing runtime behavior.
 
+Phase 39 reviews workflow-version naming: `docs/review/workflow-version-naming-review.md` keeps `phase36-structured-warning-taxonomy` as the current runtime value until a dedicated update gate changes all affected examples together.
+
 Implemented:
 
 - FastAPI app skeleton

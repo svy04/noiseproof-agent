@@ -24,6 +24,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/workflow-lineage-warning-taxonomy-review.md",
         "docs/review/workflow-lineage-warning-code-documentation-review.md",
         "docs/review/workflow-lineage-warning-code-dashboard-review.md",
+        "docs/review/workflow-version-naming-review.md",
     ]
 
     for file_path in required_files:
@@ -413,3 +414,21 @@ def test_phase38_5_docs_add_dashboard_warning_code_smoke_example():
     assert "`invalid_manifest_shape`" in runbook
     assert "not persisted dashboard analytics" in runbook
     assert "Workflow lineage warning code dashboard smoke example v0: implemented" in readme
+
+
+def test_workflow_version_naming_review_keeps_runtime_scope_bounded():
+    content = (REPO_ROOT / "docs/review/workflow-version-naming-review.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Workflow version naming review" in content
+    assert "review-only gate" in content
+    assert "workflow_version" in content
+    assert "phase36-structured-warning-taxonomy" in content
+    assert "dashboard-only phases" in content
+    assert "Do not rename workflow_version in this review gate" in content
+    assert "no runtime behavior" in content
+    assert "workflow version naming update v0" in content
+    assert "Phase 39 - Workflow Version Naming Review v0" in goal
+    assert "workflow version naming update v0" in goal
