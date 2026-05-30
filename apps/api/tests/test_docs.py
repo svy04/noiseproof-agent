@@ -277,7 +277,7 @@ def test_phase35_docs_mark_manifest_shape_hardening_without_schema_expansion():
     assert "cross-workflow references remain local missing references" in goal
     assert "duplicate manifest references preserve order and count" in goal
     assert "no migrations, columns, or join tables" in goal
-    assert "phase35-workflow-lineage-manifest-shape-hardening" in runbook
+    assert "phase35-workflow-lineage-manifest-shape-hardening" in readme
 
 
 def test_workflow_lineage_warning_taxonomy_review_keeps_warning_scope_bounded():
@@ -300,3 +300,19 @@ def test_workflow_lineage_warning_taxonomy_review_keeps_warning_scope_bounded():
     assert "structured warning taxonomy v0" in content
     assert "Workflow lineage warning taxonomy review v0" in goal
     assert "structured warning taxonomy v0" in goal
+
+
+def test_phase36_docs_mark_structured_warning_taxonomy_without_storage_expansion():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+
+    assert "Phase 36 - Structured Warning Taxonomy v0" in goal
+    assert "warning_codes" in goal
+    assert "derived_read_model_boundary" in goal
+    assert "missing_manifest_reference" in goal
+    assert "invalid_manifest_shape" in goal
+    assert "local_workflow_scope" in goal
+    assert "no migrations, columns, or join tables" in goal
+    assert "Structured warning taxonomy v0: implemented" in readme
+    assert "warning_codes" in architecture

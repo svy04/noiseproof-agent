@@ -9,7 +9,7 @@ from app.main import create_app
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
 from app.services.run_trace import run_with_trace
 
-WORKFLOW_VERSION = "phase35-workflow-lineage-manifest-shape-hardening"
+WORKFLOW_VERSION = "phase36-structured-warning-taxonomy"
 
 
 class InMemoryRepository:
@@ -549,6 +549,10 @@ def test_workflow_run_lineage_read_model_resolves_manifest_inputs_without_new_st
     assert payload["report_lineage"][0]["missing_evidence_entry_ids"] == []
     assert payload["report_lineage"][0]["missing_noise_gate_record_id"] is None
     assert any("derived read model" in warning for warning in payload["warnings"])
+    assert payload["warning_codes"] == [
+        "derived_read_model_boundary",
+        "local_workflow_scope",
+    ]
 
 
 def test_workflow_run_lineage_reports_missing_manifest_references_without_mutation_api():
@@ -598,6 +602,7 @@ def test_workflow_run_lineage_reports_missing_manifest_references_without_mutati
     assert payload["report_lineage"][0]["missing_evidence_entry_ids"] == [missing_evidence_id]
     assert payload["report_lineage"][0]["missing_noise_gate_record_id"] == missing_gate_id
     assert any("could not be resolved" in warning for warning in payload["warnings"])
+    assert "missing_manifest_reference" in payload["warning_codes"]
 
 
 def test_workflow_run_lineage_ignores_non_list_manifest_evidence_ids():
@@ -646,6 +651,7 @@ def test_workflow_run_lineage_ignores_non_list_manifest_evidence_ids():
         "input_evidence_ledger_entry_ids must be a list" in warning
         for warning in payload["warnings"]
     )
+    assert "invalid_manifest_shape" in payload["warning_codes"]
 
 
 def test_workflow_run_lineage_keeps_cross_workflow_manifest_references_local():
@@ -708,6 +714,7 @@ def test_workflow_run_lineage_keeps_cross_workflow_manifest_references_local():
         str(first_evidence_id)
     ]
     assert any("could not be resolved" in warning for warning in payload["warnings"])
+    assert "local_workflow_scope" in payload["warning_codes"]
 
 
 def test_workflow_run_lineage_preserves_duplicate_manifest_reference_counts():

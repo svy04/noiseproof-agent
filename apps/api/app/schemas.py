@@ -331,7 +331,7 @@ class WorkflowRunExecutePreviewOut(BaseModel):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase35-workflow-lineage-manifest-shape-hardening"
+    workflow_version: str = "phase36-structured-warning-taxonomy"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None
@@ -347,7 +347,7 @@ class AgentRunOut(AgentRunCreate):
 
 class WorkflowRunCreate(BaseModel):
     question: str = Field(..., min_length=1)
-    workflow_version: str = "phase35-workflow-lineage-manifest-shape-hardening"
+    workflow_version: str = "phase36-structured-warning-taxonomy"
     status: str = "created"
     trace_json: dict[str, Any] = Field(default_factory=dict)
     started_at: datetime | None = None
@@ -412,6 +412,7 @@ class WorkflowLineageOut(BaseModel):
     report_lineage: list[WorkflowReportLineageOut]
     summary: WorkflowLineageSummaryOut
     warnings: list[str]
+    warning_codes: list[str]
 
 
 class FailureCaseCreate(BaseModel):

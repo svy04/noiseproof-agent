@@ -94,6 +94,14 @@ Acceptance criteria for that future gate:
 - no direct evidence -> gate -> report foreign keys
 - no dashboard polish
 
+Follow-up implemented by Phase 36:
+
+```text
+structured warning taxonomy v0
+```
+
+Phase 36 exposes `warning_codes` on `GET /workflow-runs/{id}/lineage` while keeping the existing human-readable `warnings` field.
+
 ## Claim boundary
 
 Allowed claim:

@@ -74,7 +74,7 @@ def render_ops_dashboard(
   </section>
   <section>
     <h2>Workflow Runs</h2>
-    <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 35 hardens manifest-shape handling for the derived lineage read model.</p>
+    <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 36 exposes structured warning codes for the derived lineage read model while keeping human-readable warnings.</p>
     {_workflow_runs_table(workflow_runs)}
   </section>
   <section>

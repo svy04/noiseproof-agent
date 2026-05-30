@@ -143,6 +143,11 @@ def _build_workflow_lineage(
     if missing_reference_count:
         warnings.append("One or more stage_input_manifest references could not be resolved.")
     warnings.extend(_unique_warnings(manifest_shape_warnings))
+    warning_codes = ["derived_read_model_boundary", "local_workflow_scope"]
+    if missing_reference_count:
+        warning_codes.append("missing_manifest_reference")
+    if manifest_shape_warnings:
+        warning_codes.append("invalid_manifest_shape")
 
     return WorkflowLineageOut(
         workflow_run=WorkflowRunOut(**workflow_run),
@@ -160,6 +165,7 @@ def _build_workflow_lineage(
             missing_reference_count=missing_reference_count,
         ),
         warnings=warnings,
+        warning_codes=_unique_warnings(warning_codes),
     )
 
 

@@ -42,6 +42,8 @@ Phase 35 hardens manifest-shape handling: non-list `input_evidence_ledger_entry_
 
 Phase 35.5 reviews the workflow lineage warning taxonomy before changing the API shape: warning categories are named in `docs/review/workflow-lineage-warning-taxonomy-review.md`, while current warning strings remain human-readable.
 
+Phase 36 adds structured warning taxonomy to the lineage response: `GET /workflow-runs/{id}/lineage` now returns `warning_codes` while preserving the existing human-readable `warnings`.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -154,6 +156,9 @@ Implemented:
 - duplicate manifest references preserve order and count
 - warning taxonomy review exists in `docs/review/workflow-lineage-warning-taxonomy-review.md`
 - no structured warning code fields, migrations, columns, or join tables added by the taxonomy review gate
+- `warning_codes` are exposed by `GET /workflow-runs/{id}/lineage`
+- human-readable lineage `warnings` remain available
+- no warning-code persistence, migrations, columns, or join tables added by the structured taxonomy gate
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
 - direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0
@@ -274,7 +279,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase35-workflow-lineage-manifest-shape-hardening"
+  "workflow_version": "phase36-structured-warning-taxonomy"
 }
 ```
 
@@ -283,7 +288,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase35-workflow-lineage-manifest-shape-hardening",
+  "workflow_version": "phase36-structured-warning-taxonomy",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -825,11 +830,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase35-workflow-lineage-manifest-shape-hardening",
+    "workflow_version": "phase36-structured-warning-taxonomy",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase35-workflow-lineage-manifest-shape-hardening",
+      "phase": "phase36-structured-warning-taxonomy",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }
