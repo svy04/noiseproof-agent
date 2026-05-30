@@ -156,6 +156,7 @@ Implementation status:
 - Lightweight SQL migration runner v0: implemented as `python -m app.migration_runner`
 - Runtime migration runner verification v0: implemented as `docs/review/runtime-migration-runner-verification.md`
 - Migration runner fresh DB verification v0: implemented as `docs/review/migration-runner-fresh-db-verification.md`
+- Migration runner runbook cleanup v0: implemented in `docs/runbook.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -658,6 +659,15 @@ Implementation status:
 - Fresh DB schema defaults for `agent_runs.workflow_version` and `workflow_runs.workflow_version`: verified as `phase40-lineage-warning-code-dashboard`
 - Isolated test volume: removed with `docker compose -p noiseproof-agent-fresh down -v`
 - Production migration orchestration, rollback behavior, hosted deployment safety, API endpoints, dashboard rendering, LLM, and embedding behavior: not added
+
+### Phase 48 - Migration Runner Runbook Cleanup v0
+
+- Migration runner runbook cleanup v0: implemented
+- Default migration path in `docs/runbook.md`: use `python -m app.migration_runner`
+- Fresh/reset local DB path: `--status`, apply, `--status`
+- Existing already-migrated local DB without `schema_migrations`: `--status`, `--baseline`, `--status`
+- Manual SQL piping: documented as a legacy/debug fallback only
+- Runtime behavior, migration runner code, schema, API endpoints, dashboard rendering, LLM, and embedding behavior: not changed
 
 Not implemented yet:
 

@@ -76,6 +76,8 @@ Phase 46 verifies the lightweight SQL migration runner against the local Docker 
 
 Phase 47 verifies the lightweight SQL migration runner apply path against an isolated fresh Docker DB. The runner saw 9 pending migrations, applied all 9, reached 9 applied / 0 pending, verified current workflow-version defaults, and removed the isolated test volume.
 
+Phase 48 cleans up the migration runbook so the runner is the default path and manual SQL piping is a legacy/debug fallback.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -271,7 +273,33 @@ POSTGRES_PORT=55432
 DATABASE_URL=postgresql://noiseproof:noiseproof@localhost:55432/noiseproof
 ```
 
-For an existing local database created before Phase 15, apply:
+Default path: use the migration runner.
+
+Fresh or reset local DB:
+
+```powershell
+cd apps/api
+uv run python -m app.migration_runner --status
+uv run python -m app.migration_runner
+uv run python -m app.migration_runner --status
+```
+
+Existing already-migrated local DB without schema_migrations rows:
+
+```powershell
+cd apps/api
+uv run python -m app.migration_runner --status
+uv run python -m app.migration_runner --baseline
+uv run python -m app.migration_runner --status
+```
+
+Do not use `--baseline` on a fresh DB. Baseline records migration files as already applied without executing SQL; it is only for an existing local database that is already known to contain the migration effects.
+
+Use the default command to apply pending files from `db/migrations/*.sql` in sorted filename order. The runner creates `schema_migrations` if needed and fails on SQL errors or checksum drift.
+
+Manual fallback:
+
+manual SQL piping is a legacy/debug fallback. Use it only when the runner itself is broken and you need to inspect whether a specific SQL file is valid against a local throwaway database.
 
 ```powershell
 Get-Content db/migrations/002_evidence_ledger_entries.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
@@ -282,9 +310,10 @@ Get-Content db/migrations/006_child_agent_run_ids.sql | docker compose exec -T d
 Get-Content db/migrations/007_workflow_runs.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 Get-Content db/migrations/008_child_workflow_run_ids.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 Get-Content db/migrations/009_stage_input_manifest.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
+Get-Content db/migrations/010_workflow_version_defaults.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 ```
 
-Preferred migration runner commands from Phase 45:
+General runner commands:
 
 ```powershell
 cd apps/api
@@ -295,9 +324,7 @@ uv run python -m app.migration_runner
 
 Use `--status` to inspect pending SQL files without applying them.
 
-Use `--baseline` only when an existing local database is already known to contain the migration effects but lacks `schema_migrations` records. Baseline records filenames, checksums, byte counts, and timestamps without executing SQL.
-
-Use the default command to apply pending files from `db/migrations/*.sql` in sorted filename order. The runner creates `schema_migrations` if needed and fails on SQL errors or checksum drift.
+Use `--baseline` only when an existing local database is already known to contain the migration effects but lacks `schema_migrations` records. Baseline records filenames, checksums, byte counts, and timestamps with no SQL execution.
 
 The runner is a local inspectability tool, not a production migration platform. It does not replace database backups, environment promotion rules, hosted migration orchestration, or rollback planning.
 

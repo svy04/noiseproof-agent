@@ -613,3 +613,18 @@ def test_migration_runner_fresh_db_verification_records_apply_path():
     assert "test volume was removed" in content
     assert "Phase 47 - Migration Runner Fresh DB Verification v0" in goal
     assert "Migration runner fresh DB verification v0: implemented" in readme
+
+
+def test_migration_runner_runbook_cleanup_makes_runner_first_and_manual_fallback():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Phase 48 - Migration Runner Runbook Cleanup v0" in goal
+    assert "Migration runner runbook cleanup v0: implemented" in readme
+    assert "Default path: use the migration runner" in runbook
+    assert "Do not use `--baseline` on a fresh DB" in runbook
+    assert "manual SQL piping is a legacy/debug fallback" in runbook
+    assert "Fresh or reset local DB" in runbook
+    assert "Existing already-migrated local DB without schema_migrations rows" in runbook
+    assert "Manual fallback" in runbook
