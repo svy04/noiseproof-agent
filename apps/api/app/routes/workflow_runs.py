@@ -90,11 +90,13 @@ def _build_workflow_lineage(
     evidence_by_id = {str(row["id"]): row for row in evidence_rows}
     gate_by_id = {str(row["id"]): row for row in gate_rows}
 
+    manifest_shape_warnings: list[str] = []
     gate_lineage: list[WorkflowNoiseGateLineageOut] = []
     gate_input_reference_count = 0
     missing_reference_count = 0
     for row in gate_rows:
-        input_ids = _manifest_evidence_ids(row)
+        input_ids, shape_warnings = _manifest_evidence_ids(row)
+        manifest_shape_warnings.extend(shape_warnings)
         resolved_entries, missing_ids = _resolve_evidence_entries(input_ids, evidence_by_id)
         gate_input_reference_count += len(input_ids)
         missing_reference_count += len(missing_ids)
@@ -111,7 +113,8 @@ def _build_workflow_lineage(
     report_input_evidence_reference_count = 0
     report_input_gate_reference_count = 0
     for row in report_rows:
-        input_ids = _manifest_evidence_ids(row)
+        input_ids, shape_warnings = _manifest_evidence_ids(row)
+        manifest_shape_warnings.extend(shape_warnings)
         resolved_entries, missing_ids = _resolve_evidence_entries(input_ids, evidence_by_id)
         input_gate_id = _manifest_gate_id(row)
         resolved_gate = gate_by_id.get(input_gate_id) if input_gate_id else None
@@ -139,6 +142,7 @@ def _build_workflow_lineage(
     ]
     if missing_reference_count:
         warnings.append("One or more stage_input_manifest references could not be resolved.")
+    warnings.extend(_unique_warnings(manifest_shape_warnings))
 
     return WorkflowLineageOut(
         workflow_run=WorkflowRunOut(**workflow_run),
@@ -159,9 +163,16 @@ def _build_workflow_lineage(
     )
 
 
-def _manifest_evidence_ids(row: dict) -> list[str]:
+def _manifest_evidence_ids(row: dict) -> tuple[list[str], list[str]]:
     manifest = row.get("stage_input_manifest") or {}
-    return [str(value) for value in manifest.get("input_evidence_ledger_entry_ids", [])]
+    values = manifest.get("input_evidence_ledger_entry_ids", [])
+    if values is None:
+        return [], []
+    if not isinstance(values, list):
+        return [], [
+            "Invalid stage_input_manifest shape: input_evidence_ledger_entry_ids must be a list."
+        ]
+    return [str(value) for value in values], []
 
 
 def _manifest_gate_id(row: dict) -> str | None:
@@ -181,3 +192,11 @@ def _resolve_evidence_entries(
     ]
     missing = [evidence_id for evidence_id in input_ids if evidence_id not in evidence_by_id]
     return resolved, missing
+
+
+def _unique_warnings(warnings: list[str]) -> list[str]:
+    unique = []
+    for warning in warnings:
+        if warning not in unique:
+            unique.append(warning)
+    return unique

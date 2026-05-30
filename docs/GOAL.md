@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 34.5:
+Accepted state as of Phase 35:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, and Workflow Lineage Boundary Hardening Review v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, and Workflow Lineage Manifest-shape Hardening v0
 ```
 
 Implemented:
@@ -259,6 +259,12 @@ Implemented:
 - `docs/review/workflow-lineage-boundary-hardening-review.md`
 - non-list manifest values, duplicate references, and cross-workflow references reviewed before schema changes
 - next direction for manifest-shape hardening without adding migrations, columns, join tables, mutation endpoints, or repair endpoints
+- Workflow Lineage Manifest-shape Hardening v0
+- non-list `input_evidence_ledger_entry_ids` values produce an empty id list and a structured warning
+- string values are not treated as iterable evidence id lists
+- duplicate manifest references preserve order and count
+- cross-workflow references remain local missing references
+- workflow version `phase35-workflow-lineage-manifest-shape-hardening`
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -345,6 +351,7 @@ Phase 33  - Workflow Lineage Dashboard Links v0
 Phase 33.5 - Workflow Lineage Missing-reference Review v0
 Phase 34  - Workflow Lineage Missing-reference Test v0
 Phase 34.5 - Workflow Lineage Boundary Hardening Review v0
+Phase 35  - Workflow Lineage Manifest-shape Hardening v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -1287,10 +1294,30 @@ decision to harden manifest-shape parsing before adding schema
 
 Phase 34.5 is a review-only gate. It adds no runtime behavior, migrations, columns, join tables, malformed-manifest mutation endpoint, repair endpoint, dashboard polish, LLM calls, embeddings, semantic retrieval, external search, autonomous workflow execution, or free-form final answer generation.
 
-Next recommended implementation phase:
+Follow-up implemented by Phase 35:
 
 ```text
 Workflow lineage manifest-shape hardening v0
+```
+
+### Phase 35 - Workflow Lineage Manifest-shape Hardening v0
+
+Implemented:
+
+```text
+GET /workflow-runs/{id}/lineage ignores non-list input_evidence_ledger_entry_ids values
+invalid manifest shape warning: input_evidence_ledger_entry_ids must be a list
+cross-workflow references remain local missing references
+duplicate manifest references preserve order and count
+workflow version phase35-workflow-lineage-manifest-shape-hardening
+```
+
+Phase 35 hardens the existing derived lineage read model. It adds no migrations, columns, or join tables. It also adds no direct evidence -> gate -> report foreign-key links, malformed-manifest mutation endpoint, repair endpoint, dashboard polish, LLM calls, embeddings, semantic retrieval, external search, autonomous workflow execution, or free-form final answer generation.
+
+Next recommended implementation phase:
+
+```text
+Workflow lineage warning taxonomy review v0
 ```
 
 ## 6. Ordering Rules

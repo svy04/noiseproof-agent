@@ -9,7 +9,7 @@ from app.main import create_app
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
 from app.services.run_trace import run_with_trace
 
-WORKFLOW_VERSION = "phase34-workflow-lineage-missing-reference-test"
+WORKFLOW_VERSION = "phase35-workflow-lineage-manifest-shape-hardening"
 
 
 class InMemoryRepository:
@@ -600,6 +600,153 @@ def test_workflow_run_lineage_reports_missing_manifest_references_without_mutati
     assert any("could not be resolved" in warning for warning in payload["warnings"])
 
 
+def test_workflow_run_lineage_ignores_non_list_manifest_evidence_ids():
+    client = make_client()
+    repository = client.app.dependency_overrides[get_repository]()
+    execution = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    ).json()
+    workflow_run_id = execution["workflow_run"]["id"]
+    evidence_entry_id = repository.evidence_ledger_entries[0]["id"]
+    gate_id = repository.noise_gate_records[0]["id"]
+    repository.noise_gate_records[0]["stage_input_manifest"] = {
+        "input_evidence_ledger_entry_ids": str(evidence_entry_id),
+    }
+    repository.report_records[0]["stage_input_manifest"] = {
+        "input_evidence_ledger_entry_ids": str(evidence_entry_id),
+        "input_noise_gate_record_id": str(gate_id),
+    }
+
+    response = client.get(f"/workflow-runs/{workflow_run_id}/lineage")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["summary"]["gate_input_evidence_reference_count"] == 0
+    assert payload["summary"]["report_input_evidence_reference_count"] == 0
+    assert payload["summary"]["report_input_gate_reference_count"] == 1
+    assert payload["summary"]["missing_reference_count"] == 0
+    assert payload["noise_gate_lineage"][0]["input_evidence_entry_ids"] == []
+    assert payload["noise_gate_lineage"][0]["missing_evidence_entry_ids"] == []
+    assert payload["report_lineage"][0]["input_evidence_entry_ids"] == []
+    assert payload["report_lineage"][0]["missing_evidence_entry_ids"] == []
+    assert payload["report_lineage"][0]["input_noise_gate_record_id"] == str(gate_id)
+    assert payload["report_lineage"][0]["missing_noise_gate_record_id"] is None
+    assert any(
+        "input_evidence_ledger_entry_ids must be a list" in warning
+        for warning in payload["warnings"]
+    )
+
+
+def test_workflow_run_lineage_keeps_cross_workflow_manifest_references_local():
+    client = make_client()
+    repository = client.app.dependency_overrides[get_repository]()
+    first = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    ).json()
+    second = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had customer budget growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-budget",
+                    "source_type": "markdown",
+                    "content": "Customer budget growth was 9 percent in 2026.",
+                }
+            ],
+        },
+    ).json()
+    first_workflow_id = first["workflow_run"]["id"]
+    second_workflow_id = second["workflow_run"]["id"]
+    first_evidence_id = next(
+        row["id"]
+        for row in repository.evidence_ledger_entries
+        if str(row["workflow_run_id"]) == first_workflow_id
+    )
+    second_gate = next(
+        row
+        for row in repository.noise_gate_records
+        if str(row["workflow_run_id"]) == second_workflow_id
+    )
+    second_gate["stage_input_manifest"] = {
+        "input_evidence_ledger_entry_ids": [str(first_evidence_id)],
+    }
+
+    response = client.get(f"/workflow-runs/{second_workflow_id}/lineage")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["workflow_run"]["id"] == second_workflow_id
+    assert payload["summary"]["evidence_ledger_entry_count"] == 1
+    assert payload["summary"]["gate_input_evidence_reference_count"] == 1
+    assert payload["summary"]["missing_reference_count"] == 1
+    assert payload["noise_gate_lineage"][0]["input_evidence_entries"] == []
+    assert payload["noise_gate_lineage"][0]["missing_evidence_entry_ids"] == [
+        str(first_evidence_id)
+    ]
+    assert any("could not be resolved" in warning for warning in payload["warnings"])
+
+
+def test_workflow_run_lineage_preserves_duplicate_manifest_reference_counts():
+    client = make_client()
+    repository = client.app.dependency_overrides[get_repository]()
+    execution = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    ).json()
+    workflow_run_id = execution["workflow_run"]["id"]
+    evidence_entry_id = str(repository.evidence_ledger_entries[0]["id"])
+    repository.noise_gate_records[0]["stage_input_manifest"] = {
+        "input_evidence_ledger_entry_ids": [evidence_entry_id, evidence_entry_id],
+    }
+
+    response = client.get(f"/workflow-runs/{workflow_run_id}/lineage")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["summary"]["gate_input_evidence_reference_count"] == 2
+    assert payload["noise_gate_lineage"][0]["input_evidence_entry_ids"] == [
+        evidence_entry_id,
+        evidence_entry_id,
+    ]
+    assert [
+        entry["id"] for entry in payload["noise_gate_lineage"][0]["input_evidence_entries"]
+    ] == [evidence_entry_id, evidence_entry_id]
+
+
 def test_ops_dashboard_links_workflow_runs_to_detail_and_lineage_views():
     client = make_client()
     execution = client.post(
@@ -692,7 +839,7 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "retrieval_failure" in response.text
     assert "Retrieval Runs" in response.text
     assert "semiconductor backlog" in response.text
-    assert "Phase 34" in response.text
+    assert "Phase 35" in response.text
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():

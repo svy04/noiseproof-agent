@@ -241,7 +241,6 @@ def test_phase34_docs_mark_missing_reference_test_without_schema_expansion():
     assert "missing_reference_count > 0" in goal
     assert "no malformed-manifest mutation endpoint" in goal
     assert "no migrations, columns, or join tables" in goal
-    assert "phase34-workflow-lineage-missing-reference-test" in runbook
     assert "missing-reference fixture" in runbook
 
 
@@ -264,3 +263,17 @@ def test_workflow_lineage_boundary_hardening_review_identifies_manifest_shape_ri
     assert "Workflow lineage manifest-shape hardening v0" in content
     assert "Phase 34.5 - Workflow Lineage Boundary Hardening Review v0" in goal
     assert "Workflow lineage manifest-shape hardening v0" in goal
+
+
+def test_phase35_docs_mark_manifest_shape_hardening_without_schema_expansion():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Phase 35 - Workflow Lineage Manifest-shape Hardening v0" in goal
+    assert "Workflow lineage manifest-shape hardening v0: implemented" in readme
+    assert "input_evidence_ledger_entry_ids must be a list" in goal
+    assert "cross-workflow references remain local missing references" in goal
+    assert "duplicate manifest references preserve order and count" in goal
+    assert "no migrations, columns, or join tables" in goal
+    assert "phase35-workflow-lineage-manifest-shape-hardening" in runbook

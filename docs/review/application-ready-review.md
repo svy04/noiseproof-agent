@@ -1,6 +1,6 @@
 # Application-ready Review
 
-Status: Phase 34.5 review packet.
+Status: Phase 35 review packet.
 
 This is an application-ready review, not a product-complete declaration.
 
@@ -10,7 +10,7 @@ Not product-complete: robust PDF extraction, embeddings, semantic retrieval, dis
 
 Current judgment: Partial application-ready portfolio artifact.
 
-NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, dashboard parent/child provenance links, dashboard Evidence Ledger table, evidence-to-gate/report cross-link review, single workflow parent review, WorkflowRun schema, WorkflowRun metadata persistence, WorkflowRun dashboard visibility, WorkflowRun child-link review, deterministic workflow execution preview, child `workflow_run_id` links, workflow-run child inspection, direct evidence-to-gate/report cross-link review, workflow stage input manifests, direct cross-stage link schema review, workflow lineage read model, dashboard lineage links, missing-reference review and test, boundary hardening review, preview endpoint traces, failure records, and technical decision trail.
+NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, dashboard parent/child provenance links, dashboard Evidence Ledger table, evidence-to-gate/report cross-link review, single workflow parent review, WorkflowRun schema, WorkflowRun metadata persistence, WorkflowRun dashboard visibility, WorkflowRun child-link review, deterministic workflow execution preview, child `workflow_run_id` links, workflow-run child inspection, direct evidence-to-gate/report cross-link review, workflow stage input manifests, direct cross-stage link schema review, workflow lineage read model, dashboard lineage links, missing-reference review and test, boundary hardening review, manifest-shape hardening, preview endpoint traces, failure records, and technical decision trail.
 
 It is not strong enough to claim production RAG quality or autonomous market intelligence.
 
@@ -39,7 +39,7 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | direct stage-level input links exist | Partial / derived read model | workflow-created Noise Gate and Report rows include `stage_input_manifest`; `GET /workflow-runs/{id}/lineage` resolves those manifest ids against existing child records; `docs/review/direct-cross-stage-link-schema-review.md` defers schema links | derived read model only, not direct FK or join-table lineage |
 | workflow lineage is discoverable from dashboard | Pass | workflow rows in `GET /ops/dashboard` link to `GET /workflow-runs/{id}` and `GET /workflow-runs/{id}/lineage` | plain HTML links only, no dashboard polish |
 | missing manifest reference behavior is covered by a bounded fixture | Pass | `test_workflow_run_lineage_reports_missing_manifest_references_without_mutation_api` proves `missing_reference_count > 0` without new schema or mutation paths | fixture-level proof, not production corruption recovery |
-| next manifest-shape risk is scoped | Partial / reviewed | `docs/review/workflow-lineage-boundary-hardening-review.md` identifies non-list values, duplicate references, and cross-workflow references | hardening implementation is not yet done |
+| manifest-shape risk is hardened | Pass | non-list `input_evidence_ledger_entry_ids` values produce empty ids and a warning; duplicate and cross-workflow behavior is tested | still local read-model hardening, not normalized lineage schema |
 
 Historical Phase 31.5 boundary: JSON manifest only, not direct FK or join-table lineage. Phase 32 makes that manifest easier to inspect through a derived read model, but it still does not convert the manifest into a relational contract.
 
@@ -48,7 +48,7 @@ Historical Phase 31.5 boundary: JSON manifest only, not direct FK or join-table 
 Use:
 
 ```text
-NoiseProof Agent is a small, inspectable portfolio service that shows how messy market data can be profiled, retrieved, converted into persisted evidence entries, persisted as gate decisions, stored as claim-bounded report preview records, linked to a deterministic workflow parent with `workflow_run_id` plus `workflow_trace_id` correlation, inspected from the workflow parent detail endpoint, annotated with local stage input manifests for deterministic gate/report stages, projected through a derived workflow lineage read model, reached from dashboard workflow-row links, tested for missing manifest reference surfacing, and reviewed for manifest-shape hardening. It does not yet claim direct evidence -> gate -> report foreign-key lineage.
+NoiseProof Agent is a small, inspectable portfolio service that shows how messy market data can be profiled, retrieved, converted into persisted evidence entries, persisted as gate decisions, stored as claim-bounded report preview records, linked to a deterministic workflow parent with `workflow_run_id` plus `workflow_trace_id` correlation, inspected from the workflow parent detail endpoint, annotated with local stage input manifests for deterministic gate/report stages, projected through a derived workflow lineage read model, reached from dashboard workflow-row links, tested for missing manifest reference surfacing, and hardened against malformed manifest id shapes. It does not yet claim direct evidence -> gate -> report foreign-key lineage.
 ```
 
 Do not use:

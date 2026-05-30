@@ -38,6 +38,8 @@ Phase 34 adds that targeted missing-reference fixture: tests now prove `GET /wor
 
 Phase 34.5 reviews the next lineage hardening boundary: non-list `input_evidence_ledger_entry_ids`, duplicate references, and cross-workflow references should be handled before adding schema. The review adds no runtime behavior.
 
+Phase 35 hardens manifest-shape handling: non-list `input_evidence_ledger_entry_ids` values now produce an empty id list plus a structured warning instead of being treated as iterable evidence id lists.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -145,6 +147,9 @@ Implemented:
 - no migrations, columns, or join tables added by the missing-reference test gate
 - boundary hardening review exists in `docs/review/workflow-lineage-boundary-hardening-review.md`
 - no runtime behavior added by the boundary hardening review gate
+- non-list `input_evidence_ledger_entry_ids` values are ignored as evidence ids and warned about
+- cross-workflow references remain local missing references
+- duplicate manifest references preserve order and count
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
 - direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0
@@ -265,7 +270,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase34-workflow-lineage-missing-reference-test"
+  "workflow_version": "phase35-workflow-lineage-manifest-shape-hardening"
 }
 ```
 
@@ -274,7 +279,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase34-workflow-lineage-missing-reference-test",
+  "workflow_version": "phase35-workflow-lineage-manifest-shape-hardening",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -816,11 +821,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase34-workflow-lineage-missing-reference-test",
+    "workflow_version": "phase35-workflow-lineage-manifest-shape-hardening",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase34-workflow-lineage-missing-reference-test",
+      "phase": "phase35-workflow-lineage-manifest-shape-hardening",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }
