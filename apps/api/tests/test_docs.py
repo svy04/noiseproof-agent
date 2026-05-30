@@ -25,6 +25,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/workflow-lineage-warning-code-documentation-review.md",
         "docs/review/workflow-lineage-warning-code-dashboard-review.md",
         "docs/review/workflow-version-naming-review.md",
+        "docs/review/workflow-version-naming-consistency-review.md",
     ]
 
     for file_path in required_files:
@@ -461,3 +462,23 @@ def test_phase40_5_docs_add_workflow_version_smoke_example():
     assert "curl http://localhost:8000/ops/summary" in runbook
     assert '"workflow_version": "phase40-lineage-warning-code-dashboard"' in runbook
     assert "no workflow semantics changed" in runbook
+
+
+def test_workflow_version_naming_consistency_review_identifies_schema_default_drift():
+    content = (
+        REPO_ROOT / "docs/review/workflow-version-naming-consistency-review.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Workflow version naming consistency review" in content
+    assert "review-only gate" in content
+    assert "phase40-lineage-warning-code-dashboard" in content
+    assert "db/init/001_schema.sql" in content
+    assert "db/migrations/007_workflow_runs.sql" in content
+    assert "stale schema defaults" in content
+    assert "Do not change schema defaults in this review gate" in content
+    assert "schema default workflow version update v0" in content
+    assert "Phase 41 - Workflow Version Naming Consistency Review v0" in goal
+    assert "schema default workflow version update v0" in goal
+    assert "Workflow version naming consistency review v0: implemented" in readme

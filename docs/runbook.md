@@ -60,6 +60,8 @@ Phase 40 updates the runtime `workflow_version` to `phase40-lineage-warning-code
 
 Phase 40.5 adds explicit expected workflow-version smoke checks for `/health` and `/ops/summary`. It documents the smallest reviewer-facing confirmation that the runtime marker changed, with no workflow semantics changed.
 
+Phase 41 reviews workflow-version naming consistency and identifies stale executable schema defaults in `db/init/001_schema.sql` and `db/migrations/007_workflow_runs.sql`. It does not change schema defaults in the review gate.
+
 Implemented:
 
 - FastAPI app skeleton

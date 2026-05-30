@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 40.5:
+Accepted state as of Phase 41:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, and Workflow Version Naming Smoke Example v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, Workflow Version Naming Smoke Example v0, and Workflow Version Naming Consistency Review v0
 ```
 
 Implemented:
@@ -136,6 +136,8 @@ Implemented:
 - workflow version naming review artifact
 - runtime `workflow_version` renamed to `phase40-lineage-warning-code-dashboard`
 - runbook workflow-version smoke checks for `/health` and `/ops/summary`
+- workflow version naming consistency review artifact
+- stale schema defaults identified in `db/init/001_schema.sql` and `db/migrations/007_workflow_runs.sql`
 - Auto Trace Recording v0
 - preview endpoints auto-create `agent_runs` metadata records
 - `trace_json` records endpoint, phase, source type, counts, gate decisions, and report status where available
@@ -372,6 +374,7 @@ Phase 38.5 - Workflow Lineage Warning Code Dashboard Smoke Example v0
 Phase 39  - Workflow Version Naming Review v0
 Phase 40  - Workflow Version Naming Update v0
 Phase 40.5 - Workflow Version Naming Smoke Example v0
+Phase 41  - Workflow Version Naming Consistency Review v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -1544,10 +1547,28 @@ README status entry
 
 Phase 40.5 documents how a reviewer should see `phase40-lineage-warning-code-dashboard` on the smallest service surfaces. It changes no runtime behavior, workflow semantics, migrations, columns, join tables, trace schema, dashboard rendering, LLM calls, embeddings, semantic retrieval, autonomous workflow execution, or free-form final answer generation.
 
+### Phase 41 - Workflow Version Naming Consistency Review v0
+
+Goal:
+
+```text
+review whether the renamed runtime workflow_version is consistent across runtime, docs, tests, and executable schema defaults
+```
+
+Implemented:
+
+```text
+docs/review/workflow-version-naming-consistency-review.md
+runtime-facing workflow_version surfaces reviewed
+stale schema defaults identified
+```
+
+Phase 41 is a review-only gate. It identifies that `db/init/001_schema.sql` and `db/migrations/007_workflow_runs.sql` still contain older executable schema defaults. It changes no runtime behavior, schema defaults, migrations, columns, join tables, trace schema, dashboard rendering, LLM calls, embeddings, semantic retrieval, autonomous workflow execution, or free-form final answer generation.
+
 Next recommended implementation phase:
 
 ```text
-workflow version naming consistency review v0
+schema default workflow version update v0
 ```
 
 ## 6. Ordering Rules
