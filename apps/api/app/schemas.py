@@ -329,7 +329,7 @@ class WorkflowRunExecutePreviewOut(BaseModel):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase29-workflow-child-links"
+    workflow_version: str = "phase30-workflow-run-detail"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None
@@ -345,7 +345,7 @@ class AgentRunOut(AgentRunCreate):
 
 class WorkflowRunCreate(BaseModel):
     question: str = Field(..., min_length=1)
-    workflow_version: str = "phase29-workflow-child-links"
+    workflow_version: str = "phase30-workflow-run-detail"
     status: str = "created"
     trace_json: dict[str, Any] = Field(default_factory=dict)
     started_at: datetime | None = None
@@ -357,6 +357,22 @@ class WorkflowRunCreate(BaseModel):
 class WorkflowRunOut(WorkflowRunCreate):
     id: UUID
     created_at: datetime
+
+
+class WorkflowRunDetailSummaryOut(BaseModel):
+    retrieval_run_count: int
+    evidence_ledger_entry_count: int
+    noise_gate_record_count: int
+    report_record_count: int
+
+
+class WorkflowRunDetailOut(BaseModel):
+    workflow_run: WorkflowRunOut
+    retrieval_runs: list[RetrievalRunOut]
+    evidence_ledger_entries: list[EvidenceLedgerStoredEntryOut]
+    noise_gate_records: list[NoiseGateStoredRecordOut]
+    report_records: list[ReportStoredRecordOut]
+    summary: WorkflowRunDetailSummaryOut
 
 
 class FailureCaseCreate(BaseModel):

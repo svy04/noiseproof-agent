@@ -40,7 +40,7 @@ def render_ops_dashboard(
 </head>
 <body>
   <h1>Operations Dashboard v0</h1>
-  <p class="muted">Phase 29 inspectable operations surface. No LLM calls, no semantic retrieval, child workflow_run_id links are local nullable provenance, no free-form final answer generation.</p>
+  <p class="muted">Phase 30 inspectable operations surface. No LLM calls, no semantic retrieval, child workflow_run_id links are local nullable provenance, no free-form final answer generation.</p>
   <section>
     <h2>Summary</h2>
     <div class="grid">
@@ -74,7 +74,7 @@ def render_ops_dashboard(
   </section>
   <section>
     <h2>Workflow Runs</h2>
-    <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 29 child records can attach to workflow_run_id while still carrying workflow_trace_id.</p>
+    <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 30 child records can attach to workflow_run_id, still carry workflow_trace_id, and be inspected through GET /workflow-runs/{id}.</p>
     {_workflow_runs_table(workflow_runs)}
   </section>
   <section>

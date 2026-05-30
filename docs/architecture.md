@@ -40,6 +40,7 @@ Current status:
 - WorkflowRun Child-link Review v0 exists as a review artifact; child `workflow_run_id` columns were deferred there, then implemented after the Phase 28 execution boundary.
 - Deterministic Workflow Execution Preview v0 exists: `POST /workflow-runs/execute-preview` creates a workflow parent and runs deterministic retrieval -> evidence -> gate -> report preview steps.
 - WorkflowRun Child-record Links v0 exists with nullable `workflow_run_id` on retrieval, Evidence Ledger, Noise Gate, and Report records created by the deterministic workflow preview.
+- WorkflowRun Child Inspection Surface v0 exists: `GET /workflow-runs/{id}` returns the parent workflow row, linked child records, and child summary counts.
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, distributed tracing, hosted observability, and autonomous/LLM-backed agents are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
@@ -333,6 +334,7 @@ citation_coverage
 missing_evidence_count
 status
 metadata_json
+workflow_run_id
 ```
 
 ### EvidenceLedgerEntry
@@ -342,6 +344,7 @@ id
 run_id
 agent_run_id
 workflow_trace_id
+workflow_run_id
 question
 claim
 source_id
@@ -416,6 +419,7 @@ created_at
 id
 workflow_trace_id
 agent_run_id
+workflow_run_id
 question
 decision
 final_response_allowed
@@ -437,6 +441,7 @@ created_at
 id
 workflow_trace_id
 agent_run_id
+workflow_run_id
 question
 status
 report
@@ -453,7 +458,7 @@ created_at
 
 ## Planned API Surface
 
-Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records. Phase 13 added persisted Noise Gate records. Phase 14 added persisted Report Preview records. Phase 15 added shared `workflow_trace_id` correlation across persisted evidence/gate/report records and agent-run traces. Phase 16 added direct trace-id lookup. Phase 17 added read-only filters on persisted Evidence Ledger, Noise Gate, and Report record lists. Phase 18 added trace lookup and filter links to the plain operations dashboard. Phase 18.5 reviewed direct `agent_run_id` foreign-key linkage and kept it unimplemented until the run lifecycle is changed. Phase 19 added parent agent-run lifecycle updates before child-record foreign keys. Phase 20 added `agent_run_id` fields to persisted evidence, gate, and report records. Phase 21 added parent run links for persisted gate and report rows in the plain operations dashboard. Phase 22 added persisted Evidence Ledger rows to the dashboard. Phase 22.5 reviewed direct evidence -> gate -> report links and deferred them until a single workflow parent exists. Phase 23 reviewed workflow parent ownership and deferred a separate `workflow_runs` table to the next implementation gate. Phase 24 added the `workflow_runs` schema and migration without implementing workflow execution. Phase 25 added `workflow_runs` create/list metadata persistence without implementing orchestration. Phase 26 added workflow-run rows to the plain operations dashboard with metadata-only boundary copy. Phase 27 reviewed child `workflow_run_id` links and deferred them until workflow execution owns the sequence. Phase 28 added deterministic workflow execution preview. Phase 29 added nullable child `workflow_run_id` links for retrieval, evidence, gate, and report rows created by that deterministic preview.
+Day 2 implemented metadata and ops skeleton endpoints. Phase 3 added parse-preview for parser adapter boundaries. Phase 4 added chunk-preview for strategy comparison. Phase 5 added retrieval-runs for lexical retrieval candidate search and run recording. Phase 5.5 added collection-plan preview for role-based information needs. Phase 6 added evidence-ledger preview for claim-level evidence records over retrieval candidates. Phase 7 added noise-gate preview for pre-report claim checks. Phase 8 added report preview for claim-bounded output after the gate passes. Phase 9 added a plain operations dashboard over existing metadata. Phase 11 added auto-created `agent_runs.trace_json` records for preview endpoints. Phase 12 added persisted Evidence Ledger records. Phase 13 added persisted Noise Gate records. Phase 14 added persisted Report Preview records. Phase 15 added shared `workflow_trace_id` correlation across persisted evidence/gate/report records and agent-run traces. Phase 16 added direct trace-id lookup. Phase 17 added read-only filters on persisted Evidence Ledger, Noise Gate, and Report record lists. Phase 18 added trace lookup and filter links to the plain operations dashboard. Phase 18.5 reviewed direct `agent_run_id` foreign-key linkage and kept it unimplemented until the run lifecycle is changed. Phase 19 added parent agent-run lifecycle updates before child-record foreign keys. Phase 20 added `agent_run_id` fields to persisted evidence, gate, and report records. Phase 21 added parent run links for persisted gate and report rows in the plain operations dashboard. Phase 22 added persisted Evidence Ledger rows to the dashboard. Phase 22.5 reviewed direct evidence -> gate -> report links and deferred them until a single workflow parent exists. Phase 23 reviewed workflow parent ownership and deferred a separate `workflow_runs` table to the next implementation gate. Phase 24 added the `workflow_runs` schema and migration without implementing workflow execution. Phase 25 added `workflow_runs` create/list metadata persistence without implementing orchestration. Phase 26 added workflow-run rows to the plain operations dashboard with metadata-only boundary copy. Phase 27 reviewed child `workflow_run_id` links and deferred them until workflow execution owns the sequence. Phase 28 added deterministic workflow execution preview. Phase 29 added nullable child `workflow_run_id` links for retrieval, evidence, gate, and report rows created by that deterministic preview. Phase 30 added workflow-run detail lookup for inspecting those linked child records from one workflow parent.
 
 Implemented endpoints:
 
@@ -481,6 +486,7 @@ GET  /agent-runs
 POST /workflow-runs
 GET  /workflow-runs
 POST /workflow-runs/execute-preview
+GET  /workflow-runs/{id}
 POST /failure-cases
 GET  /failure-cases
 GET  /ops/summary

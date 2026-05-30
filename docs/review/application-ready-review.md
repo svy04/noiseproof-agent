@@ -1,6 +1,6 @@
 # Application-ready Review
 
-Status: Phase 29 review packet.
+Status: Phase 30 review packet.
 
 This is an application-ready review, not a product-complete declaration.
 
@@ -10,7 +10,7 @@ Not product-complete: robust PDF extraction, embeddings, semantic retrieval, dis
 
 Current judgment: Partial application-ready portfolio artifact.
 
-NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, dashboard parent/child provenance links, dashboard Evidence Ledger table, evidence-to-gate/report cross-link review, single workflow parent review, WorkflowRun schema, WorkflowRun metadata persistence, WorkflowRun dashboard visibility, WorkflowRun child-link review, deterministic workflow execution preview, child `workflow_run_id` links, preview endpoint traces, failure records, and technical decision trail.
+NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, dashboard parent/child provenance links, dashboard Evidence Ledger table, evidence-to-gate/report cross-link review, single workflow parent review, WorkflowRun schema, WorkflowRun metadata persistence, WorkflowRun dashboard visibility, WorkflowRun child-link review, deterministic workflow execution preview, child `workflow_run_id` links, workflow-run child inspection, preview endpoint traces, failure records, and technical decision trail.
 
 It is not strong enough to claim production RAG quality or autonomous market intelligence.
 
@@ -34,15 +34,15 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | architecture and ADRs exist | Pass | `docs/architecture.md`, `docs/adr/*` | ADRs cover initial decisions only |
 | evaluation report exists | Pass | `docs/evaluation/*` | not a benchmark |
 | Braincrew role map exists | Pass | `docs/application/braincrew-role-map.md` | role fit is an argument, not hiring proof |
-| evidence -> gate -> report lineage exists | Partial | `POST /workflow-runs/execute-preview`, child `workflow_run_id` links, `workflow_trace_id` correlation | direct evidence -> gate -> report foreign-key links are still deferred |
-| single workflow parent exists | Pass for deterministic preview | `POST /workflow-runs`, `GET /workflow-runs`, `POST /workflow-runs/execute-preview`, child `workflow_run_id` links | local deterministic preview only, not autonomous workflow execution |
+| evidence -> gate -> report lineage exists | Partial | `POST /workflow-runs/execute-preview`, `GET /workflow-runs/{id}`, child `workflow_run_id` links, `workflow_trace_id` correlation | direct evidence -> gate -> report foreign-key links are still deferred |
+| single workflow parent exists | Pass for deterministic preview | `POST /workflow-runs`, `GET /workflow-runs`, `GET /workflow-runs/{id}`, `POST /workflow-runs/execute-preview`, child `workflow_run_id` links | local deterministic preview only, not autonomous workflow execution |
 
 ## Best External Claim
 
 Use:
 
 ```text
-NoiseProof Agent is a small, inspectable portfolio service that shows how messy market data can be profiled, retrieved, converted into persisted evidence entries, persisted as gate decisions, stored as claim-bounded report preview records, and linked to a deterministic workflow parent with `workflow_run_id` plus `workflow_trace_id` correlation.
+NoiseProof Agent is a small, inspectable portfolio service that shows how messy market data can be profiled, retrieved, converted into persisted evidence entries, persisted as gate decisions, stored as claim-bounded report preview records, linked to a deterministic workflow parent with `workflow_run_id` plus `workflow_trace_id` correlation, and inspected from the workflow parent detail endpoint.
 ```
 
 Do not use:
@@ -74,6 +74,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - Persisted Child Record Agent-run Linkage v0
 - Deterministic Workflow Execution Preview v0
 - WorkflowRun Child-record Links v0
+- WorkflowRun Child Inspection Surface v0
 - Operations Dashboard v0
 - evaluation/application package
 - Auto Trace Recording v0 for preview endpoint metadata

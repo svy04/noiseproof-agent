@@ -146,7 +146,7 @@ def execute_workflow_preview(
         report=report,
         warnings=[
             "Workflow execution preview is deterministic and does not call an LLM.",
-            "Phase 29 child records are attached to workflow_run_id while still carrying workflow_trace_id.",
+            "child records are attached to workflow_run_id while still carrying workflow_trace_id.",
             "It does not perform semantic retrieval, embeddings, external search, or free-form final answer generation.",
         ],
     )

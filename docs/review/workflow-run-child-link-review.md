@@ -82,3 +82,9 @@ The next gate should review whether this deterministic execution preview provide
 Phase 29 added nullable `workflow_run_id` fields to retrieval, Evidence Ledger, Noise Gate, and Report records. The deterministic workflow execution preview now attaches those child records to the parent workflow run.
 
 This remains local workflow provenance. It is not distributed tracing, autonomous workflow execution, or direct evidence -> gate -> report foreign-key lineage.
+
+## Follow-up status after Phase 30
+
+Phase 30 added `GET /workflow-runs/{id}` so the parent workflow run can be inspected with its linked retrieval, Evidence Ledger, Noise Gate, and Report child records.
+
+This improves workflow-level inspectability, but it still does not create direct evidence -> gate -> report foreign-key lineage. A separate review should decide whether cross-stage links are justified now that the deterministic parent and child inspection surface exist.

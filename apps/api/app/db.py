@@ -45,6 +45,8 @@ class Repository(Protocol):
         trace_json: dict,
     ) -> dict: ...
     def list_workflow_runs(self) -> Sequence[dict]: ...
+    def get_workflow_run(self, workflow_run_id: UUID) -> dict | None: ...
+    def lookup_workflow_run_records(self, workflow_run_id: UUID) -> dict[str, Sequence[dict]]: ...
     def create_evidence_ledger_entries(
         self,
         question: str,
@@ -227,6 +229,55 @@ class PostgresRepository:
                 "SELECT * FROM workflow_runs ORDER BY created_at DESC, id DESC"
             ).fetchall()
             return [dict(row) for row in rows]
+
+    def get_workflow_run(self, workflow_run_id: UUID) -> dict | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT * FROM workflow_runs WHERE id = %s",
+                (workflow_run_id,),
+            ).fetchone()
+            return dict(row) if row else None
+
+    def lookup_workflow_run_records(self, workflow_run_id: UUID) -> dict[str, Sequence[dict]]:
+        with self._connect() as conn:
+            retrieval_runs = conn.execute(
+                """
+                SELECT * FROM retrieval_runs
+                WHERE workflow_run_id = %s
+                ORDER BY created_at DESC, id DESC
+                """,
+                (workflow_run_id,),
+            ).fetchall()
+            evidence_entries = conn.execute(
+                """
+                SELECT * FROM evidence_ledger_entries
+                WHERE workflow_run_id = %s
+                ORDER BY created_at DESC, id DESC
+                """,
+                (workflow_run_id,),
+            ).fetchall()
+            noise_gate_records = conn.execute(
+                """
+                SELECT * FROM noise_gate_records
+                WHERE workflow_run_id = %s
+                ORDER BY created_at DESC, id DESC
+                """,
+                (workflow_run_id,),
+            ).fetchall()
+            report_records = conn.execute(
+                """
+                SELECT * FROM report_records
+                WHERE workflow_run_id = %s
+                ORDER BY created_at DESC, id DESC
+                """,
+                (workflow_run_id,),
+            ).fetchall()
+        return {
+            "retrieval_runs": [dict(row) for row in retrieval_runs],
+            "evidence_ledger_entries": [dict(row) for row in evidence_entries],
+            "noise_gate_records": [dict(row) for row in noise_gate_records],
+            "report_records": [dict(row) for row in report_records],
+        }
 
     def update_workflow_run(
         self,

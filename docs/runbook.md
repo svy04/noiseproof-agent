@@ -20,6 +20,8 @@ Phase 28 adds a deterministic workflow execution preview: `POST /workflow-runs/e
 
 Phase 29 adds nullable child `workflow_run_id` links for retrieval, evidence, gate, and report rows created by the deterministic workflow preview.
 
+Phase 30 adds a workflow-run child inspection surface: `GET /workflow-runs/{id}` returns the parent workflow row, linked retrieval runs, linked Evidence Ledger records, linked Noise Gate records, linked Report records, and child summary counts.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -102,6 +104,10 @@ Implemented:
 - `db/migrations/008_child_workflow_run_ids.sql`
 - `workflow_run_id` on retrieval, Evidence Ledger, Noise Gate, and Report records created by the deterministic workflow preview
 - child records still carry `workflow_trace_id` for correlation
+- WorkflowRun Child Inspection Surface v0
+- `GET /workflow-runs/{id}`
+- workflow detail response with linked retrieval, Evidence Ledger, Noise Gate, and Report records
+- child record summary counts by workflow parent
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -176,6 +182,7 @@ Get-Content db/migrations/004_report_records.sql | docker compose exec -T db psq
 Get-Content db/migrations/005_workflow_trace_ids.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 Get-Content db/migrations/006_child_agent_run_ids.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 Get-Content db/migrations/007_workflow_runs.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
+Get-Content db/migrations/008_child_workflow_run_ids.sql | docker compose exec -T db psql -U noiseproof -d noiseproof
 ```
 
 ## API
@@ -207,6 +214,7 @@ curl http://localhost:8000/workflow-runs
 curl -X POST http://localhost:8000/workflow-runs/execute-preview `
   -H "Content-Type: application/json" `
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"strategy\":\"fixed-window\",\"sources\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"content\":\"Enterprise segment demand growth was 12 percent in 2026.\"}],\"draft_claims\":[\"Enterprise segment demand growth was supported by current retrieved evidence.\"]}"
+curl http://localhost:8000/workflow-runs/<uuid>
 ```
 
 Expected `/health` shape:
@@ -215,7 +223,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase29-workflow-child-links"
+  "workflow_version": "phase30-workflow-run-detail"
 }
 ```
 
@@ -224,7 +232,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase29-workflow-child-links",
+  "workflow_version": "phase30-workflow-run-detail",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -766,11 +774,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase29-workflow-child-links",
+    "workflow_version": "phase30-workflow-run-detail",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase29-workflow-child-links",
+      "phase": "phase30-workflow-run-detail",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }
@@ -835,4 +843,4 @@ docs/review/application-ready-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, and created by a deterministic execution-preview endpoint. That preview runs retrieval -> evidence -> gate -> report deterministically, and Phase 29 attaches those child records to nullable `workflow_run_id` fields while still carrying `workflow_trace_id`. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
+Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, created by a deterministic execution-preview endpoint, and inspected through `GET /workflow-runs/{id}`. That preview runs retrieval -> evidence -> gate -> report deterministically, Phase 29 attaches those child records to nullable `workflow_run_id` fields while still carrying `workflow_trace_id`, and Phase 30 exposes those child records from the parent workflow detail response. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
