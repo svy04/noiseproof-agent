@@ -40,6 +40,8 @@ Phase 34.5 reviews the next lineage hardening boundary: non-list `input_evidence
 
 Phase 35 hardens manifest-shape handling: non-list `input_evidence_ledger_entry_ids` values now produce an empty id list plus a structured warning instead of being treated as iterable evidence id lists.
 
+Phase 35.5 reviews the workflow lineage warning taxonomy before changing the API shape: warning categories are named in `docs/review/workflow-lineage-warning-taxonomy-review.md`, while current warning strings remain human-readable.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -150,6 +152,8 @@ Implemented:
 - non-list `input_evidence_ledger_entry_ids` values are ignored as evidence ids and warned about
 - cross-workflow references remain local missing references
 - duplicate manifest references preserve order and count
+- warning taxonomy review exists in `docs/review/workflow-lineage-warning-taxonomy-review.md`
+- no structured warning code fields, migrations, columns, or join tables added by the taxonomy review gate
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
 - direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0

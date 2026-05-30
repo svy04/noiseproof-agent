@@ -21,6 +21,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/workflow-run-child-link-review.md",
         "docs/review/workflow-lineage-missing-reference-review.md",
         "docs/review/workflow-lineage-boundary-hardening-review.md",
+        "docs/review/workflow-lineage-warning-taxonomy-review.md",
     ]
 
     for file_path in required_files:
@@ -277,3 +278,25 @@ def test_phase35_docs_mark_manifest_shape_hardening_without_schema_expansion():
     assert "duplicate manifest references preserve order and count" in goal
     assert "no migrations, columns, or join tables" in goal
     assert "phase35-workflow-lineage-manifest-shape-hardening" in runbook
+
+
+def test_workflow_lineage_warning_taxonomy_review_keeps_warning_scope_bounded():
+    content = (REPO_ROOT / "docs/review/workflow-lineage-warning-taxonomy-review.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Workflow lineage warning taxonomy review" in content
+    assert "review-only gate" in content
+    assert "derived_read_model_boundary" in content
+    assert "missing_manifest_reference" in content
+    assert "invalid_manifest_shape" in content
+    assert "local_workflow_scope" in content
+    assert "warning strings remain human-readable" in content
+    assert "Do not add warning code fields in this review gate" in content
+    assert "no migrations" in content
+    assert "no columns" in content
+    assert "no join tables" in content
+    assert "structured warning taxonomy v0" in content
+    assert "Workflow lineage warning taxonomy review v0" in goal
+    assert "structured warning taxonomy v0" in goal
