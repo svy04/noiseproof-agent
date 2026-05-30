@@ -891,3 +891,26 @@ def test_failure_case_draft_preview_docs_keep_persistence_boundary_visible():
     assert "human_confirmation_required" in readme
     assert "Expected failure-case draft preview smoke check" in runbook
     assert "does not persist a failure case" in runbook
+
+
+def test_failure_case_draft_preview_application_refresh_surfaces_manual_boundary():
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Failure-case draft preview application refresh v0: implemented" in readme
+    assert "failure-case draft preview application refresh v0" in goal
+    assert "Failure-case draft preview" in portfolio
+    assert "POST /failure-cases/draft-preview" in portfolio
+    assert "human-confirmed draft payload" in role_map
+    assert "preview_only_not_persisted" in role_map
+    assert "failure-case draft preview exists" in review
+    assert "does not persist failure cases automatically" in review

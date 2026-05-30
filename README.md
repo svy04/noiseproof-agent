@@ -170,6 +170,7 @@ Implementation status:
 - Failure-case workflow linkage application refresh v0: implemented across application-facing docs
 - Failure-case creation path review v0: implemented as `docs/review/failure-case-creation-path-review.md`
 - Failure-case draft preview v0: implemented as `POST /failure-cases/draft-preview`
+- Failure-case draft preview application refresh v0: implemented across application-facing docs
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -792,12 +793,21 @@ Implementation status:
 - `human_confirmation_required`: true
 - The preview does not persist a failure case or automatically classify production incidents
 
+### Phase 62 - Failure-case Draft Preview Application Refresh v0
+
+- Failure-case draft preview application refresh v0: implemented
+- `docs/application/portfolio-index.md`: updated with the draft-preview endpoint as an application-facing artifact
+- `docs/application/braincrew-role-map.md`: updated with the human-confirmed draft payload boundary
+- `docs/review/application-ready-review.md`: updated with the preview-only, non-persisting boundary
+- Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
+
 Not implemented yet:
 
 - file upload parsing
 - robust PDF extraction
 - persisted chunks
 - autonomous workflow execution endpoints
+- automatic failure-case persistence from workflow failures
 - embeddings
 - retrieval-run-linked Evidence Ledger records
 - full distributed tracing or hosted observability

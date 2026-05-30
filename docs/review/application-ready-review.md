@@ -10,7 +10,7 @@ Not product-complete: robust PDF extraction, embeddings, semantic retrieval, dis
 
 Current judgment: Partial application-ready portfolio artifact.
 
-NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, dashboard parent/child provenance links, dashboard Evidence Ledger table, evidence-to-gate/report cross-link review, single workflow parent review, WorkflowRun schema, WorkflowRun metadata persistence, WorkflowRun dashboard visibility, WorkflowRun child-link review, deterministic workflow execution preview, child `workflow_run_id` links, workflow-run child inspection, direct evidence-to-gate/report cross-link review, workflow stage input manifests, direct cross-stage link schema review, workflow lineage read model, dashboard lineage links, missing-reference review and test, boundary hardening review, manifest-shape hardening, warning taxonomy review, structured warning codes, warning-code documentation review, warning-code runbook example, warning-code dashboard review, warning-code dashboard surfacing, migration runner review/implementation/runtime verification, fresh DB API smoke evidence, failure-case persistence smoke evidence, agent-run failure linkage smoke evidence, workflow failure linkage smoke evidence, preview endpoint traces, failure records, and technical decision trail.
+NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, dashboard parent/child provenance links, dashboard Evidence Ledger table, evidence-to-gate/report cross-link review, single workflow parent review, WorkflowRun schema, WorkflowRun metadata persistence, WorkflowRun dashboard visibility, WorkflowRun child-link review, deterministic workflow execution preview, child `workflow_run_id` links, workflow-run child inspection, direct evidence-to-gate/report cross-link review, workflow stage input manifests, direct cross-stage link schema review, workflow lineage read model, dashboard lineage links, missing-reference review and test, boundary hardening review, manifest-shape hardening, warning taxonomy review, structured warning codes, warning-code documentation review, warning-code runbook example, warning-code dashboard review, warning-code dashboard surfacing, migration runner review/implementation/runtime verification, fresh DB API smoke evidence, failure-case persistence smoke evidence, agent-run failure linkage smoke evidence, workflow failure linkage smoke evidence, failure-case draft preview exists as a human-confirmed, non-persisting preparation boundary, preview endpoint traces, failure records, and technical decision trail.
 
 It is not strong enough to claim production RAG quality or autonomous market intelligence.
 
@@ -55,6 +55,7 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | agent-run failure linkage smoke works | Pass | `docs/review/agent-run-failure-linkage-smoke-verification.md` | links manual failure records to failed agent runs; complete workflow failure causality is not claimed |
 | workflow failure linkage smoke works | Pass | `docs/review/workflow-failure-linkage-smoke-verification.md` | test-fixture proof only; complete workflow failure causality is not claimed |
 | failure-case workflow linkage review exists | Pass | `docs/review/failure-case-workflow-linkage-review.md` | failure cases are not linked to workflow parents yet |
+| failure-case draft preview exists | Pass | `POST /failure-cases/draft-preview` | returns a suggested payload only; does not persist failure cases automatically |
 
 Historical Phase 31.5 boundary: JSON manifest only, not direct FK or join-table lineage. Phase 32 makes that manifest easier to inspect through a derived read model, but it still does not convert the manifest into a relational contract.
 
@@ -110,6 +111,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - Agent-run Failure Linkage Smoke Verification v0
 - Workflow Failure Linkage Smoke Verification v0
 - Failure-case Workflow Linkage Review v0
+- Failure-case Draft Preview v0
 
 Avoid claims about:
 
@@ -117,6 +119,7 @@ Avoid claims about:
 - hosted deployment evidence
 - automatic failure detection
 - complete workflow failure causality
+- automatic failure-case persistence
 - external users
 - robust PDF extraction
 - semantic retrieval
