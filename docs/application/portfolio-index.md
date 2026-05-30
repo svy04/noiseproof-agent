@@ -64,6 +64,7 @@ This page maps the repository into a reviewer-readable path.
 | Workflow lineage warning code dashboard surfacing | `GET /ops/dashboard` warning-code legend | implemented v0 |
 | Workflow lineage warning code dashboard smoke example | `docs/runbook.md` dashboard legend example | implemented v0 |
 | Workflow version naming review | `docs/review/workflow-version-naming-review.md` | reviewed |
+| Workflow version naming update | `phase40-lineage-warning-code-dashboard` | implemented v0 |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 

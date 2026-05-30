@@ -54,7 +54,9 @@ Phase 38 surfaces the warning-code legend in `GET /ops/dashboard`: the dashboard
 
 Phase 38.5 adds the dashboard warning-code smoke example below, without changing runtime behavior.
 
-Phase 39 reviews workflow-version naming: `docs/review/workflow-version-naming-review.md` keeps `phase36-structured-warning-taxonomy` as the current runtime value until a dedicated update gate changes all affected examples together.
+Phase 39 reviews workflow-version naming: `docs/review/workflow-version-naming-review.md` kept `phase36-structured-warning-taxonomy` as the reviewed runtime value until a dedicated update gate changed all affected examples together.
+
+Phase 40 updates the runtime `workflow_version` to `phase40-lineage-warning-code-dashboard` across settings, schema defaults, tests, and examples without changing workflow semantics.
 
 Implemented:
 
@@ -303,7 +305,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase36-structured-warning-taxonomy"
+  "workflow_version": "phase40-lineage-warning-code-dashboard"
 }
 ```
 
@@ -312,7 +314,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase36-structured-warning-taxonomy",
+  "workflow_version": "phase40-lineage-warning-code-dashboard",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -340,7 +342,7 @@ Expected `/workflow-runs/{id}/lineage` response shape:
   "workflow_run": {
     "id": "uuid",
     "question": "Which segment had enterprise demand growth?",
-    "workflow_version": "phase36-structured-warning-taxonomy",
+    "workflow_version": "phase40-lineage-warning-code-dashboard",
     "status": "completed"
   },
   "lineage_boundary": "derived_read_model_only",
@@ -902,11 +904,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase36-structured-warning-taxonomy",
+    "workflow_version": "phase40-lineage-warning-code-dashboard",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase36-structured-warning-taxonomy",
+      "phase": "phase40-lineage-warning-code-dashboard",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }

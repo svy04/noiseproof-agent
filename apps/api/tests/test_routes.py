@@ -9,7 +9,7 @@ from app.main import create_app
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
 from app.services.run_trace import run_with_trace
 
-WORKFLOW_VERSION = "phase36-structured-warning-taxonomy"
+WORKFLOW_VERSION = "phase40-lineage-warning-code-dashboard"
 
 
 class InMemoryRepository:
@@ -313,6 +313,15 @@ def test_health_endpoint():
         "service": "noiseproof-agent-api",
             "workflow_version": WORKFLOW_VERSION,
     }
+
+
+def test_runtime_workflow_version_names_dashboard_warning_code_surface():
+    client = make_client()
+
+    response = client.get("/health")
+
+    assert response.status_code == 200
+    assert response.json()["workflow_version"] == "phase40-lineage-warning-code-dashboard"
 
 
 def test_document_metadata_roundtrip():

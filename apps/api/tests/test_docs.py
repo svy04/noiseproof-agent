@@ -432,3 +432,17 @@ def test_workflow_version_naming_review_keeps_runtime_scope_bounded():
     assert "workflow version naming update v0" in content
     assert "Phase 39 - Workflow Version Naming Review v0" in goal
     assert "workflow version naming update v0" in goal
+
+
+def test_phase40_docs_mark_workflow_version_naming_update_without_behavior_expansion():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+
+    assert "Phase 40 - Workflow Version Naming Update v0" in goal
+    assert "phase40-lineage-warning-code-dashboard" in goal
+    assert "phase40-lineage-warning-code-dashboard" in runbook
+    assert "Workflow version naming update v0: implemented" in readme
+    assert "no workflow semantics" in goal
+    assert "Workflow Version Naming Update v0 exists" in architecture

@@ -57,7 +57,8 @@ Current status:
 - Workflow Lineage Warning Code Dashboard Review v0 exists: warning-code dashboard surfacing is reviewed before any `GET /ops/dashboard` rendering change.
 - Workflow Lineage Warning Code Dashboard Surfacing v0 exists: `GET /ops/dashboard` shows a compact warning-code legend without adding storage or analytics.
 - Workflow Lineage Warning Code Dashboard Smoke Example v0 exists: the runbook shows the expected dashboard legend text.
-- Workflow Version Naming Review v0 exists: runtime `workflow_version` naming is reviewed before changing `phase36-structured-warning-taxonomy`.
+- Workflow Version Naming Review v0 exists: runtime `workflow_version` naming was reviewed before changing `phase36-structured-warning-taxonomy`.
+- Workflow Version Naming Update v0 exists: runtime `workflow_version` is now `phase40-lineage-warning-code-dashboard`.
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, distributed tracing, hosted observability, and autonomous/LLM-backed agents are planned but not implemented.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
