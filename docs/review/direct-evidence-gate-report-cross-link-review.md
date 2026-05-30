@@ -126,3 +126,15 @@ That gate should add the smallest runtime evidence needed to prove downstream st
 Phase 31 implemented `stage_input_manifest` on deterministic workflow-created Noise Gate and Report records.
 
 The manifest records persisted Evidence Ledger row ids consumed by the gate preview, plus persisted Evidence Ledger row ids and the persisted Noise Gate record id consumed by the report preview. This is enough to show local stage input provenance for the deterministic preview, but it is still not a direct evidence -> gate -> report foreign-key or join-table lineage.
+
+## Follow-up status after Phase 31.5
+
+Phase 31.5 reviewed direct cross-stage link schema again after the manifest existed.
+
+The newer review keeps direct evidence -> gate -> report foreign-key links and join tables deferred. The next safer implementation is a derived Workflow lineage read model that exposes the existing manifest shape without adding storage.
+
+See:
+
+```text
+docs/review/direct-cross-stage-link-schema-review.md
+```

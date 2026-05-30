@@ -16,6 +16,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/agent-run-linkage-review.md",
         "docs/review/evidence-to-gate-report-cross-links-review.md",
         "docs/review/direct-evidence-gate-report-cross-link-review.md",
+        "docs/review/direct-cross-stage-link-schema-review.md",
         "docs/review/single-workflow-parent-review.md",
         "docs/review/workflow-run-child-link-review.md",
     ]
@@ -163,3 +164,19 @@ def test_phase31_goal_and_application_review_document_manifest_boundary():
     assert "Direct cross-stage link schema review v0" in goal
     assert "Workflow Stage Input Manifest v0" in review
     assert "JSON manifest only, not direct FK or join-table lineage" in review
+
+
+def test_direct_cross_stage_link_schema_review_defers_schema_and_points_to_read_model():
+    content = (REPO_ROOT / "docs/review/direct-cross-stage-link-schema-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Direct cross-stage link schema review" in content
+    assert "review-only gate" in content
+    assert "Phase 31" in content
+    assert "stage_input_manifest" in content
+    assert "Do not add direct evidence -> gate -> report foreign-key links yet" in content
+    assert "Do not add join tables yet" in content
+    assert "JSON manifest is enough for local deterministic stage input provenance" in content
+    assert "not enough for strict relational lineage" in content
+    assert "Workflow lineage read model v0" in content
