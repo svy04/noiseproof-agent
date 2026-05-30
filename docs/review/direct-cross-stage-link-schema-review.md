@@ -1,6 +1,6 @@
 # Direct cross-stage link schema review
 
-Status: Phase 31.5 review-only gate.
+Status: Phase 31.5 review-only gate. Follow-up implemented in Phase 32.
 
 This review asks whether Phase 31's `stage_input_manifest` is enough evidence to add direct evidence -> gate -> report foreign-key links or join tables.
 
@@ -127,3 +127,15 @@ Workflow lineage read model v0
 ```
 
 That gate should expose a derived lineage view from existing workflow child records and `stage_input_manifest` values without changing storage.
+
+## Phase 32 Follow-up
+
+Phase 32 implemented the recommended read model:
+
+```text
+GET /workflow-runs/{id}/lineage
+```
+
+It derives lineage from existing workflow child records and `stage_input_manifest` values, resolves referenced Evidence Ledger and Noise Gate ids where possible, and surfaces missing manifest references as warnings.
+
+Direct evidence -> gate -> report foreign-key links and join tables remain unimplemented.

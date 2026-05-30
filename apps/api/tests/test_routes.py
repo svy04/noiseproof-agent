@@ -9,7 +9,7 @@ from app.main import create_app
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
 from app.services.run_trace import run_with_trace
 
-WORKFLOW_VERSION = "phase31-stage-input-manifest"
+WORKFLOW_VERSION = "phase32-workflow-lineage-read-model"
 
 
 class InMemoryRepository:
@@ -502,6 +502,53 @@ def test_workflow_run_detail_returns_child_records_linked_to_workflow_parent():
     assert payload["report_records"][0]["stage_input_manifest"][
         "input_noise_gate_record_id"
     ] == payload["noise_gate_records"][0]["id"]
+
+
+def test_workflow_run_lineage_read_model_resolves_manifest_inputs_without_new_storage():
+    client = make_client()
+    execution = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    ).json()
+    workflow_run_id = execution["workflow_run"]["id"]
+
+    response = client.get(f"/workflow-runs/{workflow_run_id}/lineage")
+
+    assert response.status_code == 200
+    payload = response.json()
+    evidence_entry_ids = [entry["id"] for entry in payload["evidence_ledger_entries"]]
+    gate_id = payload["noise_gate_lineage"][0]["record"]["id"]
+    assert payload["workflow_run"]["id"] == workflow_run_id
+    assert payload["lineage_boundary"] == "derived_read_model_only"
+    assert payload["summary"] == {
+        "evidence_ledger_entry_count": 1,
+        "noise_gate_record_count": 1,
+        "report_record_count": 1,
+        "gate_input_evidence_reference_count": 1,
+        "report_input_evidence_reference_count": 1,
+        "report_input_gate_reference_count": 1,
+        "missing_reference_count": 0,
+    }
+    assert payload["noise_gate_lineage"][0]["input_evidence_entry_ids"] == evidence_entry_ids
+    assert payload["noise_gate_lineage"][0]["input_evidence_entries"][0]["id"] == evidence_entry_ids[0]
+    assert payload["noise_gate_lineage"][0]["missing_evidence_entry_ids"] == []
+    assert payload["report_lineage"][0]["input_evidence_entry_ids"] == evidence_entry_ids
+    assert payload["report_lineage"][0]["input_evidence_entries"][0]["id"] == evidence_entry_ids[0]
+    assert payload["report_lineage"][0]["input_noise_gate_record_id"] == gate_id
+    assert payload["report_lineage"][0]["input_noise_gate_record"]["id"] == gate_id
+    assert payload["report_lineage"][0]["missing_evidence_entry_ids"] == []
+    assert payload["report_lineage"][0]["missing_noise_gate_record_id"] is None
+    assert any("derived read model" in warning for warning in payload["warnings"])
 
 
 def test_ops_summary_placeholder_counts_registered_records():

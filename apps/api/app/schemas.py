@@ -331,7 +331,7 @@ class WorkflowRunExecutePreviewOut(BaseModel):
 
 class AgentRunCreate(BaseModel):
     user_question: str = Field(..., min_length=1)
-    workflow_version: str = "phase31-stage-input-manifest"
+    workflow_version: str = "phase32-workflow-lineage-read-model"
     status: str = "created"
     error_message: str | None = None
     token_cost: Decimal | None = None
@@ -347,7 +347,7 @@ class AgentRunOut(AgentRunCreate):
 
 class WorkflowRunCreate(BaseModel):
     question: str = Field(..., min_length=1)
-    workflow_version: str = "phase31-stage-input-manifest"
+    workflow_version: str = "phase32-workflow-lineage-read-model"
     status: str = "created"
     trace_json: dict[str, Any] = Field(default_factory=dict)
     started_at: datetime | None = None
@@ -375,6 +375,43 @@ class WorkflowRunDetailOut(BaseModel):
     noise_gate_records: list[NoiseGateStoredRecordOut]
     report_records: list[ReportStoredRecordOut]
     summary: WorkflowRunDetailSummaryOut
+
+
+class WorkflowNoiseGateLineageOut(BaseModel):
+    record: NoiseGateStoredRecordOut
+    input_evidence_entry_ids: list[str]
+    input_evidence_entries: list[EvidenceLedgerStoredEntryOut]
+    missing_evidence_entry_ids: list[str]
+
+
+class WorkflowReportLineageOut(BaseModel):
+    record: ReportStoredRecordOut
+    input_evidence_entry_ids: list[str]
+    input_evidence_entries: list[EvidenceLedgerStoredEntryOut]
+    input_noise_gate_record_id: str | None
+    input_noise_gate_record: NoiseGateStoredRecordOut | None
+    missing_evidence_entry_ids: list[str]
+    missing_noise_gate_record_id: str | None
+
+
+class WorkflowLineageSummaryOut(BaseModel):
+    evidence_ledger_entry_count: int
+    noise_gate_record_count: int
+    report_record_count: int
+    gate_input_evidence_reference_count: int
+    report_input_evidence_reference_count: int
+    report_input_gate_reference_count: int
+    missing_reference_count: int
+
+
+class WorkflowLineageOut(BaseModel):
+    workflow_run: WorkflowRunOut
+    lineage_boundary: str
+    evidence_ledger_entries: list[EvidenceLedgerStoredEntryOut]
+    noise_gate_lineage: list[WorkflowNoiseGateLineageOut]
+    report_lineage: list[WorkflowReportLineageOut]
+    summary: WorkflowLineageSummaryOut
+    warnings: list[str]
 
 
 class FailureCaseCreate(BaseModel):

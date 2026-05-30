@@ -138,3 +138,13 @@ See:
 ```text
 docs/review/direct-cross-stage-link-schema-review.md
 ```
+
+## Follow-up status after Phase 32
+
+Phase 32 implemented the derived read model:
+
+```text
+GET /workflow-runs/{id}/lineage
+```
+
+The endpoint resolves manifest references against existing workflow child records where possible. It still does not add direct evidence -> gate -> report foreign-key links, join tables, distributed tracing, or hosted observability.

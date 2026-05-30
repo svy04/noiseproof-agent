@@ -19,7 +19,7 @@ from app.routes import (
 def create_app() -> FastAPI:
     app = FastAPI(
         title="NoiseProof Agent API",
-        version="0.31.0",
+        version="0.32.0",
         description="NoiseProof Agent phased API with collection planning, retrieval, and evidence boundaries.",
     )
     app.include_router(health.router)

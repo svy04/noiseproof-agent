@@ -30,6 +30,7 @@ Implemented in this package:
 - `GET /workflow-runs`
 - `POST /workflow-runs/execute-preview`
 - `GET /workflow-runs/{id}`
+- `GET /workflow-runs/{id}/lineage`
 - `POST /failure-cases`
 - `GET /failure-cases`
 
@@ -48,6 +49,7 @@ Phase 28 adds a deterministic workflow execution preview that creates a workflow
 Phase 29 adds nullable child `workflow_run_id` links for retrieval, evidence, gate, and report rows created by the deterministic workflow preview.
 Phase 30 adds workflow-run detail lookup for inspecting child records attached to one workflow parent.
 Phase 31 adds stage input manifests on deterministic workflow Noise Gate and Report records so downstream previews show persisted upstream ids they consumed.
+Phase 32 adds a derived workflow lineage read model at `GET /workflow-runs/{id}/lineage`, built from existing workflow child records and `stage_input_manifest` values. It does not add new storage, migrations, direct foreign-key lineage, or join tables.
 
 Not implemented yet:
 
@@ -120,6 +122,7 @@ curl -X POST http://localhost:8000/workflow-runs/execute-preview \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"strategy\":\"fixed-window\",\"sources\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"content\":\"Enterprise segment demand growth was 12 percent in 2026.\"}],\"draft_claims\":[\"Enterprise segment demand growth was supported by current retrieved evidence.\"]}"
 curl http://localhost:8000/workflow-runs/<uuid>
+curl http://localhost:8000/workflow-runs/<uuid>/lineage
 ```
 
 The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
@@ -132,4 +135,4 @@ Persisted evidence, gate, and report records include `workflow_trace_id`, which 
 Operations Dashboard v0 is a plain FastAPI HTML view over current metadata. It now links to trace lookup, record filters, parent run provenance, and persisted Evidence Ledger rows, but it is still not a polished product UI.
 Auto Trace Recording v0 is metadata tracing for preview endpoints, not distributed tracing or hosted observability.
 WorkflowRun Metadata Persistence v0 is create/list metadata storage only. WorkflowRun Dashboard Table v0 renders those metadata rows in the plain dashboard.
-Deterministic Workflow Execution Preview v0 creates and updates a parent workflow row, then runs deterministic retrieval -> evidence -> gate -> report preview steps. Phase 29 attaches those child records to the parent `workflow_run_id` while keeping `workflow_trace_id` for correlation. Phase 30 exposes `GET /workflow-runs/{id}` for inspecting those child records from the parent. Phase 31 adds `stage_input_manifest` on workflow-created Noise Gate and Report records so persisted upstream ids are visible without claiming direct foreign-key lineage. It still does not create direct evidence -> gate -> report foreign-key links, use semantic retrieval, compute embeddings, call LLMs, search external sources, or create a free-form final answer.
+Deterministic Workflow Execution Preview v0 creates and updates a parent workflow row, then runs deterministic retrieval -> evidence -> gate -> report preview steps. Phase 29 attaches those child records to the parent `workflow_run_id` while keeping `workflow_trace_id` for correlation. Phase 30 exposes `GET /workflow-runs/{id}` for inspecting those child records from the parent. Phase 31 adds `stage_input_manifest` on workflow-created Noise Gate and Report records so persisted upstream ids are visible without claiming direct foreign-key lineage. Phase 32 exposes `GET /workflow-runs/{id}/lineage` as a derived read model over those existing rows. It still does not create direct evidence -> gate -> report foreign-key links, use semantic retrieval, compute embeddings, call LLMs, search external sources, or create a free-form final answer.

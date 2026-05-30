@@ -180,3 +180,16 @@ def test_direct_cross_stage_link_schema_review_defers_schema_and_points_to_read_
     assert "JSON manifest is enough for local deterministic stage input provenance" in content
     assert "not enough for strict relational lineage" in content
     assert "Workflow lineage read model v0" in content
+
+
+def test_phase32_docs_mark_lineage_read_model_without_storage_claims():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+
+    assert "Phase 32 - Workflow Lineage Read Model v0" in goal
+    assert "GET /workflow-runs/{id}/lineage" in goal
+    assert "derived read model over existing workflow child records and stage_input_manifest values" in goal
+    assert "does not add migrations, columns, join tables" in goal
+    assert "Workflow lineage read model v0: implemented" in readme
+    assert "GET /workflow-runs/{id}/lineage" in architecture

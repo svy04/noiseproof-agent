@@ -28,6 +28,8 @@ Phase 31 adds workflow stage input manifests: deterministic workflow-created Noi
 
 Phase 31.5 reviews direct cross-stage link schema and defers new FK/join-table storage in favor of a derived workflow lineage read model.
 
+Phase 32 adds that derived workflow lineage read model: `GET /workflow-runs/{id}/lineage` reads existing workflow child records and `stage_input_manifest` values, resolves local stage inputs back to linked records where possible, and does not add new storage or direct FK/join-table lineage.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -121,7 +123,10 @@ Implemented:
 - Direct Cross-stage Link Schema Review v0
 - `docs/review/direct-cross-stage-link-schema-review.md`
 - direct evidence -> gate -> report foreign-key links and join tables remain unimplemented
-- next direction is a derived Workflow lineage read model v0
+- Workflow Lineage Read Model v0
+- `GET /workflow-runs/{id}/lineage`
+- derived read model over existing workflow child records and `stage_input_manifest`
+- no migrations, columns, direct foreign keys, or join tables added
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
 - direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0
@@ -150,7 +155,6 @@ Not implemented:
 - persisted chunks
 - autonomous workflow execution endpoints
 - embeddings
-- workflow lineage read model endpoint
 - distributed tracing or hosted observability
 
 ## Local Database
@@ -234,6 +238,7 @@ curl -X POST http://localhost:8000/workflow-runs/execute-preview `
   -H "Content-Type: application/json" `
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"strategy\":\"fixed-window\",\"sources\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"content\":\"Enterprise segment demand growth was 12 percent in 2026.\"}],\"draft_claims\":[\"Enterprise segment demand growth was supported by current retrieved evidence.\"]}"
 curl http://localhost:8000/workflow-runs/<uuid>
+curl http://localhost:8000/workflow-runs/<uuid>/lineage
 ```
 
 Expected `/health` shape:
@@ -242,7 +247,7 @@ Expected `/health` shape:
 {
   "status": "ok",
   "service": "noiseproof-agent-api",
-  "workflow_version": "phase31-stage-input-manifest"
+  "workflow_version": "phase32-workflow-lineage-read-model"
 }
 ```
 
@@ -251,7 +256,7 @@ Expected `/ops/summary` shape:
 ```json
 {
   "status": "placeholder",
-  "workflow_version": "phase31-stage-input-manifest",
+  "workflow_version": "phase32-workflow-lineage-read-model",
   "document_count": 0,
   "agent_run_count": 0,
   "failure_case_count": 0,
@@ -793,11 +798,11 @@ Expected trace boundary:
 ```json
 [
   {
-    "workflow_version": "phase31-stage-input-manifest",
+    "workflow_version": "phase32-workflow-lineage-read-model",
     "status": "completed",
     "trace_json": {
       "endpoint": "POST /reports/preview",
-      "phase": "phase31-stage-input-manifest",
+      "phase": "phase32-workflow-lineage-read-model",
       "workflow_trace_id": "uuid",
       "report_status": "generated"
     }
@@ -863,4 +868,4 @@ docs/review/direct-evidence-gate-report-cross-link-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, created by a deterministic execution-preview endpoint, and inspected through `GET /workflow-runs/{id}`. That preview runs retrieval -> evidence -> gate -> report deterministically, Phase 29 attaches those child records to nullable `workflow_run_id` fields while still carrying `workflow_trace_id`, and Phase 30 exposes those child records from the parent workflow detail response. Phase 31 records `stage_input_manifest` on deterministic workflow-created Noise Gate and Report rows so persisted upstream ids are visible, but Phase 31.5 keeps direct evidence -> gate -> report foreign-key links and join tables deferred. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
+Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, created by a deterministic execution-preview endpoint, and inspected through `GET /workflow-runs/{id}`. That preview runs retrieval -> evidence -> gate -> report deterministically, Phase 29 attaches those child records to nullable `workflow_run_id` fields while still carrying `workflow_trace_id`, and Phase 30 exposes those child records from the parent workflow detail response. Phase 31 records `stage_input_manifest` on deterministic workflow-created Noise Gate and Report rows so persisted upstream ids are visible, Phase 31.5 keeps direct evidence -> gate -> report foreign-key links and join tables deferred, and Phase 32 exposes `GET /workflow-runs/{id}/lineage` as a derived read model over existing records rather than new lineage storage. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
