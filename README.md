@@ -166,6 +166,7 @@ Implementation status:
 - Workflow failure provenance review v0: implemented as `docs/review/workflow-failure-provenance-review.md`
 - Workflow failure linkage smoke verification v0: implemented as `docs/review/workflow-failure-linkage-smoke-verification.md`
 - Workflow failure linkage application refresh v0: implemented across application-facing docs
+- Failure-case workflow linkage review v0: implemented as `docs/review/failure-case-workflow-linkage-review.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -754,6 +755,14 @@ Implementation status:
 - `docs/application/portfolio-index.md`: updated with workflow failure linkage smoke artifact
 - `docs/application/braincrew-role-map.md`: updated with failed workflow parent proof and boundaries
 - `docs/review/application-ready-review.md`: updated with workflow failure linkage smoke evidence
+- Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
+
+### Phase 58 - Failure-case Workflow Linkage Review v0
+
+- Failure-case workflow linkage review v0: implemented
+- `docs/review/failure-case-workflow-linkage-review.md`: added
+- Current decision: do not add `workflow_run_id` to `failure_cases` yet
+- Reason: there is still no failure-case creation path from a failed workflow parent
 - Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
 
 Not implemented yet:

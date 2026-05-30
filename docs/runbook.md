@@ -94,6 +94,8 @@ Phase 55 reviews workflow failure provenance and keeps `failure_cases` at operat
 
 Phase 56 verifies the workflow failure path with a test fixture: a downstream stage exception marks the workflow parent failed, while `failure_cases` remain unchanged and no `workflow_run_id` is added to failure cases.
 
+Phase 58 reviews whether failure cases should link to workflow parents and keeps the schema unchanged until a real failure-case creation path exists.
+
 Implemented:
 
 - FastAPI app skeleton

@@ -35,6 +35,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/agent-run-failure-linkage-smoke-verification.md",
         "docs/review/workflow-failure-provenance-review.md",
         "docs/review/workflow-failure-linkage-smoke-verification.md",
+        "docs/review/failure-case-workflow-linkage-review.md",
     ]
 
     for file_path in required_files:
@@ -816,3 +817,21 @@ def test_workflow_failure_linkage_application_refresh_surfaces_workflow_failure_
     assert "not fresh Docker DB evidence" in role_map
     assert "workflow failure linkage smoke" in review
     assert "complete workflow failure causality is not claimed" in review
+
+
+def test_failure_case_workflow_linkage_review_defers_schema_until_creation_path_exists():
+    content = (REPO_ROOT / "docs/review/failure-case-workflow-linkage-review.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow linkage review" in content
+    assert "review-only gate" in content
+    assert "Do not add workflow_run_id to failure_cases yet" in content
+    assert "manual failure record" in content
+    assert "failed workflow parent" in content
+    assert "no failure-case creation path" in content
+    assert "schema remains unchanged" in content
+    assert "failure-case workflow linkage review v0" in goal
+    assert "Failure-case workflow linkage review v0: implemented" in readme
