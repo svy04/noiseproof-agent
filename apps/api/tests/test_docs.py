@@ -397,3 +397,19 @@ def test_phase38_docs_mark_warning_code_dashboard_surfacing_without_storage_expa
     assert "Lineage warning codes" in runbook
     assert "not persisted dashboard analytics" in runbook
     assert "warning-code dashboard surfacing" in architecture
+
+
+def test_phase38_5_docs_add_dashboard_warning_code_smoke_example():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Phase 38.5 - Workflow Lineage Warning Code Dashboard Smoke Example v0" in goal
+    assert "Expected `/ops/dashboard` warning-code legend" in runbook
+    assert "Lineage warning codes:" in runbook
+    assert "`derived_read_model_boundary`" in runbook
+    assert "`local_workflow_scope`" in runbook
+    assert "`missing_manifest_reference`" in runbook
+    assert "`invalid_manifest_shape`" in runbook
+    assert "not persisted dashboard analytics" in runbook
+    assert "Workflow lineage warning code dashboard smoke example v0: implemented" in readme

@@ -1,6 +1,6 @@
 # Application-ready Review
 
-Status: Phase 38 review packet.
+Status: Phase 38.5 review packet.
 
 This is an application-ready review, not a product-complete declaration.
 
@@ -46,6 +46,7 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | warning-code response example exists | Pass | `docs/runbook.md` shows `warnings` and `warning_codes` together | example only; not runtime proof |
 | warning-code dashboard surfacing is reviewed | Pass | `docs/review/workflow-lineage-warning-code-dashboard-review.md` | review-only; no dashboard rendering yet |
 | warning-code dashboard legend exists | Pass | `GET /ops/dashboard` shows Lineage warning codes | response-level taxonomy only; not persisted analytics |
+| warning-code dashboard smoke example exists | Pass | `docs/runbook.md` expected dashboard legend | docs-only; not runtime proof |
 
 Historical Phase 31.5 boundary: JSON manifest only, not direct FK or join-table lineage. Phase 32 makes that manifest easier to inspect through a derived read model, but it still does not convert the manifest into a relational contract.
 

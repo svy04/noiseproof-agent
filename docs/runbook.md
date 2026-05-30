@@ -52,6 +52,8 @@ Phase 37.5 reviews dashboard surfacing for lineage warning codes: `docs/review/w
 
 Phase 38 surfaces the warning-code legend in `GET /ops/dashboard`: the dashboard now shows Lineage warning codes as response-level taxonomy only, not persisted dashboard analytics.
 
+Phase 38.5 adds the dashboard warning-code smoke example below, without changing runtime behavior.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -364,6 +366,18 @@ Expected `/workflow-runs/{id}/lineage` response shape:
 ```
 
 The `warning_codes` field is response-level taxonomy only. It is not persisted as a warning-code table, dashboard analytics surface, or strict relational lineage contract.
+
+Expected `/ops/dashboard` warning-code legend:
+
+```text
+Lineage warning codes:
+derived_read_model_boundary
+local_workflow_scope
+missing_manifest_reference
+invalid_manifest_shape
+```
+
+The dashboard copy must keep saying these codes are response-level taxonomy only and not persisted dashboard analytics.
 
 Profile fixture-like text:
 

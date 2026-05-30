@@ -62,6 +62,7 @@ This page maps the repository into a reviewer-readable path.
 | Workflow lineage warning code runbook example | `docs/runbook.md` lineage response shape | implemented v0 |
 | Workflow lineage warning code dashboard review | `docs/review/workflow-lineage-warning-code-dashboard-review.md` | reviewed |
 | Workflow lineage warning code dashboard surfacing | `GET /ops/dashboard` warning-code legend | implemented v0 |
+| Workflow lineage warning code dashboard smoke example | `docs/runbook.md` dashboard legend example | implemented v0 |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 
