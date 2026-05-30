@@ -41,6 +41,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-draft-persistence-handoff-review.md",
         "docs/review/failure-case-draft-manual-handoff-smoke-verification.md",
         "docs/review/failure-case-draft-fresh-db-handoff-review.md",
+        "docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md",
     ]
 
     for file_path in required_files:
@@ -1041,3 +1042,24 @@ def test_failure_case_draft_fresh_db_handoff_review_selects_runtime_smoke():
     assert "not hosted deployment evidence" in content
     assert "failure-case draft fresh-db handoff review v0" in goal
     assert "Failure-case draft fresh-db handoff review v0: implemented" in readme
+
+
+def test_failure_case_draft_fresh_db_handoff_smoke_verification_records_runtime_evidence():
+    content = (
+        REPO_ROOT / "docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case draft fresh DB handoff smoke verification" in content
+    assert "fresh migrated Docker DB" in content
+    assert "noiseproof-agent-draft-handoff-smoke" in content
+    assert "POST /failure-cases/draft-preview" in content
+    assert "POST /failure-cases" in content
+    assert "preview_persistence_boundary: preview_only_not_persisted" in content
+    assert "draft_fix_status: draft" in content
+    assert "persisted_fix_status: open" in content
+    assert "ops_failure_case_count: 1" in content
+    assert "not hosted deployment evidence" in content
+    assert "failure-case draft fresh-db handoff smoke verification v0" in goal
+    assert "Failure-case draft fresh-db handoff smoke verification v0: implemented" in readme
