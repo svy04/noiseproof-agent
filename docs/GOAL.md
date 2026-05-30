@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 55:
+Accepted state as of Phase 56:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, Workflow Version Naming Smoke Example v0, Workflow Version Naming Consistency Review v0, Schema Default Workflow Version Update v0, Schema Default Workflow Version Smoke Example v0, Runtime DB Schema Default Verification v0, Migration Runner Review v0, Lightweight SQL Migration Runner v0, Runtime Migration Runner Verification v0, Migration Runner Fresh DB Verification v0, Migration Runner Runbook Cleanup v0, Fresh DB API Smoke Verification v0, Application Evidence Index Refresh v0, Failure-case Persistence Smoke Verification v0, Failure-case Application Evidence Refresh v0, Agent-run Failure Linkage Smoke Verification v0, Agent-run Failure Linkage Application Refresh v0, and Workflow Failure Provenance Review v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, Workflow Version Naming Smoke Example v0, Workflow Version Naming Consistency Review v0, Schema Default Workflow Version Update v0, Schema Default Workflow Version Smoke Example v0, Runtime DB Schema Default Verification v0, Migration Runner Review v0, Lightweight SQL Migration Runner v0, Runtime Migration Runner Verification v0, Migration Runner Fresh DB Verification v0, Migration Runner Runbook Cleanup v0, Fresh DB API Smoke Verification v0, Application Evidence Index Refresh v0, Failure-case Persistence Smoke Verification v0, Failure-case Application Evidence Refresh v0, Agent-run Failure Linkage Smoke Verification v0, Agent-run Failure Linkage Application Refresh v0, Workflow Failure Provenance Review v0, and Workflow Failure Linkage Smoke Verification v0
 ```
 
 Implemented:
@@ -176,6 +176,9 @@ Implemented:
 - workflow failure provenance reviewed before adding schema
 - `workflow_run_id` on `failure_cases` deferred until a real workflow failure path exists
 - automatic failure detection deferred and explicitly unclaimed
+- workflow failure linkage smoke verified with a route-level test fixture
+- failed deterministic workflow preview parents are marked `failed` when a downstream stage raises
+- `failure_cases` remain unchanged by the workflow failure smoke fixture
 - Auto Trace Recording v0
 - preview endpoints auto-create `agent_runs` metadata records
 - `trace_json` records endpoint, phase, source type, counts, gate decisions, and report status where available
@@ -427,6 +430,8 @@ Phase 51  - Failure-case Persistence Smoke Verification v0
 Phase 52  - Failure-case Application Evidence Refresh v0
 Phase 53  - Agent-run Failure Linkage Smoke Verification v0
 Phase 54  - Agent-run Failure Linkage Application Refresh v0
+Phase 55  - Workflow Failure Provenance Review v0
+Phase 56  - Workflow Failure Linkage Smoke Verification v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -1926,10 +1931,32 @@ next bounded direction identified as workflow failure linkage smoke verification
 
 Phase 55 is a review-only gate. It adds no runtime behavior, API endpoint, schema, migration, dashboard rendering, `workflow_run_id` column on `failure_cases`, automatic failure detection, complete workflow failure causality, repair automation, hosted deployment evidence, LLM calls, embeddings, semantic retrieval, autonomous workflow execution, or free-form final answer generation.
 
+### Phase 56 - Workflow Failure Linkage Smoke Verification v0
+
+Goal:
+
+```text
+verify that the deterministic workflow preview marks its parent workflow as failed when a downstream stage raises
+```
+
+Implemented:
+
+```text
+docs/review/workflow-failure-linkage-smoke-verification.md
+tests/test_routes.py workflow failure fixture
+workflow_run.status = failed
+workflow_run.error_message records the stage exception
+workflow_run.trace_json.error_type records RuntimeError
+retrieval child record remains linked to the failed workflow parent
+failure_cases remain unchanged
+```
+
+Phase 56 is a test-fixture smoke gate. It adds no runtime behavior, API endpoint, schema, migration, dashboard rendering, `workflow_run_id` column on `failure_cases`, automatic failure detection, fresh Docker DB evidence, production incident handling, complete workflow failure causality, hosted deployment evidence, LLM calls, embeddings, semantic retrieval, autonomous workflow execution, or free-form final answer generation.
+
 Next recommended implementation phase:
 
 ```text
-workflow failure linkage smoke verification v0
+workflow failure linkage application refresh v0
 ```
 
 ## 6. Ordering Rules

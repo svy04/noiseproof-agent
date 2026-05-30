@@ -295,6 +295,13 @@ class InMemoryRepository:
         )
 
 
+class EvidencePersistenceFailureRepository(InMemoryRepository):
+    def create_evidence_ledger_entries(
+        self, question, entries, workflow_trace_id=None, agent_run_id=None, workflow_run_id=None
+    ):
+        raise RuntimeError("simulated evidence persistence failure")
+
+
 def make_client():
     app = create_app()
     repository = InMemoryRepository()
@@ -469,6 +476,41 @@ def test_workflow_run_execute_preview_links_child_records_to_workflow_parent():
         "source": "workflow_execution_preview",
     }
     assert any("child records are attached to workflow_run_id" in warning for warning in payload["warnings"])
+
+
+def test_workflow_execute_preview_marks_parent_failed_when_stage_errors():
+    app = create_app()
+    repository = EvidencePersistenceFailureRepository()
+    app.dependency_overrides[get_repository] = lambda: repository
+    client = TestClient(app, raise_server_exceptions=False)
+
+    response = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    )
+
+    assert response.status_code == 500
+    assert len(repository.workflow_runs) == 1
+    workflow_run = repository.workflow_runs[0]
+    assert workflow_run["status"] == "failed"
+    assert workflow_run["error_message"] == "simulated evidence persistence failure"
+    assert workflow_run["latency_ms"] >= 0
+    assert workflow_run["ended_at"] is not None
+    assert workflow_run["trace_json"]["stage"] == "workflow_execute_preview"
+    assert workflow_run["trace_json"]["error_type"] == "RuntimeError"
+    assert len(repository.retrieval_runs) == 1
+    assert repository.retrieval_runs[0]["workflow_run_id"] == workflow_run["id"]
+    assert repository.failure_cases == []
 
 
 def test_workflow_run_detail_returns_child_records_linked_to_workflow_parent():

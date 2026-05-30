@@ -92,6 +92,8 @@ Phase 54 refreshes application-facing evidence indexes so the linked failure-cas
 
 Phase 55 reviews workflow failure provenance and keeps `failure_cases` at operation-level linkage until a real workflow failure path exists.
 
+Phase 56 verifies the workflow failure path with a test fixture: a downstream stage exception marks the workflow parent failed, while `failure_cases` remain unchanged and no `workflow_run_id` is added to failure cases.
+
 Implemented:
 
 - FastAPI app skeleton

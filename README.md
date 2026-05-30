@@ -164,6 +164,7 @@ Implementation status:
 - Agent-run failure linkage smoke verification v0: implemented as `docs/review/agent-run-failure-linkage-smoke-verification.md`
 - Agent-run failure linkage application refresh v0: implemented across application-facing docs
 - Workflow failure provenance review v0: implemented as `docs/review/workflow-failure-provenance-review.md`
+- Workflow failure linkage smoke verification v0: implemented as `docs/review/workflow-failure-linkage-smoke-verification.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -736,6 +737,15 @@ Implementation status:
 - Current claim: operation-level failure linkage for a manual failure record
 - Deferred: `workflow_run_id` on `failure_cases`, automatic failure detection, and workflow-level failure causality
 - Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, LLM, and embedding behavior: not changed
+
+### Phase 56 - Workflow Failure Linkage Smoke Verification v0
+
+- Workflow failure linkage smoke verification v0: implemented
+- `docs/review/workflow-failure-linkage-smoke-verification.md`: added
+- Route-level test fixture verifies a failed downstream stage marks the workflow parent as failed
+- Current claim: failed workflow parent state is inspectable in the test fixture
+- Deferred: fresh Docker DB proof, automatic failure detection, `workflow_run_id` on `failure_cases`, and complete workflow failure causality
+- Runtime behavior, schema, API endpoints, dashboard rendering, LLM, and embedding behavior: not changed
 
 Not implemented yet:
 

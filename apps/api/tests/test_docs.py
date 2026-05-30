@@ -34,6 +34,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-persistence-smoke-verification.md",
         "docs/review/agent-run-failure-linkage-smoke-verification.md",
         "docs/review/workflow-failure-provenance-review.md",
+        "docs/review/workflow-failure-linkage-smoke-verification.md",
     ]
 
     for file_path in required_files:
@@ -771,3 +772,23 @@ def test_workflow_failure_provenance_review_defers_schema_until_causality_is_rea
     assert "workflow failure linkage smoke verification v0" in content
     assert "Phase 55 - Workflow Failure Provenance Review v0" in goal
     assert "Workflow failure provenance review v0: implemented" in readme
+
+
+def test_workflow_failure_linkage_smoke_verification_stays_test_fixture_bounded():
+    content = (REPO_ROOT / "docs/review/workflow-failure-linkage-smoke-verification.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Workflow failure linkage smoke verification" in content
+    assert "test-fixture smoke" in content
+    assert "workflow_run.status = failed" in content
+    assert "failure_cases remain unchanged" in content
+    assert "no workflow_run_id on failure_cases" in content
+    assert "not automatic failure detection" in content
+    assert "not fresh Docker DB evidence" in content
+    assert "Phase 56 - Workflow Failure Linkage Smoke Verification v0" in goal
+    assert "Workflow failure linkage smoke verification v0: implemented" in readme
+    assert "Phase 56 verifies the workflow failure path with a test fixture" in runbook
