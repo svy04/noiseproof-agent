@@ -175,6 +175,7 @@ Implementation status:
 - Failure-case draft preview smoke application refresh v0: implemented across application-facing docs
 - Failure-case draft persistence handoff review v0: implemented as `docs/review/failure-case-draft-persistence-handoff-review.md`
 - Failure-case draft manual handoff smoke verification v0: implemented as `docs/review/failure-case-draft-manual-handoff-smoke-verification.md`
+- Failure-case draft manual handoff application refresh v0: implemented across application-facing docs
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -836,6 +837,14 @@ Implementation status:
 - Verified test path: `tests/test_routes.py::test_failure_case_draft_can_be_manually_handed_to_failure_case_persistence`
 - Observed: `1 passed, 66 deselected, 1 warning`
 - Boundary: route-level smoke only; not automatic persistence, a confirm endpoint, fresh Docker DB evidence, or complete workflow failure causality
+
+### Phase 67 - Failure-case Draft Manual Handoff Application Refresh v0
+
+- Failure-case draft manual handoff application refresh v0: implemented
+- `docs/application/portfolio-index.md`: updated with the manual handoff smoke artifact
+- `docs/application/braincrew-role-map.md`: updated with the explicit human edit from `draft` to `open`
+- `docs/review/application-ready-review.md`: updated with the manual handoff smoke boundary
+- Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
 
 Not implemented yet:
 
