@@ -37,6 +37,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/workflow-failure-linkage-smoke-verification.md",
         "docs/review/failure-case-workflow-linkage-review.md",
         "docs/review/failure-case-creation-path-review.md",
+        "docs/review/failure-case-draft-preview-smoke-verification.md",
     ]
 
     for file_path in required_files:
@@ -914,3 +915,22 @@ def test_failure_case_draft_preview_application_refresh_surfaces_manual_boundary
     assert "preview_only_not_persisted" in role_map
     assert "failure-case draft preview exists" in review
     assert "does not persist failure cases automatically" in review
+
+
+def test_failure_case_draft_preview_smoke_verification_keeps_preview_only_boundary():
+    content = (
+        REPO_ROOT / "docs/review/failure-case-draft-preview-smoke-verification.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case draft preview smoke verification" in content
+    assert "route-level smoke" in content
+    assert "POST /failure-cases/draft-preview" in content
+    assert "preview_only_not_persisted" in content
+    assert "human_confirmation_required: true" in content
+    assert "failure_cases remain unchanged" in content
+    assert "not automatic failure detection" in content
+    assert "not fresh Docker DB evidence" in content
+    assert "failure-case draft preview smoke verification v0" in goal
+    assert "Failure-case draft preview smoke verification v0: implemented" in readme
