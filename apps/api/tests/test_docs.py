@@ -38,6 +38,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-workflow-linkage-review.md",
         "docs/review/failure-case-creation-path-review.md",
         "docs/review/failure-case-draft-preview-smoke-verification.md",
+        "docs/review/failure-case-draft-persistence-handoff-review.md",
     ]
 
     for file_path in required_files:
@@ -957,3 +958,22 @@ def test_failure_case_draft_preview_smoke_application_refresh_surfaces_smoke_art
     assert "not fresh Docker DB evidence" in role_map
     assert "failure-case draft preview smoke" in review
     assert "automatic failure-case persistence is not claimed" in review
+
+
+def test_failure_case_draft_persistence_handoff_review_defers_automation():
+    content = (
+        REPO_ROOT / "docs/review/failure-case-draft-persistence-handoff-review.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case draft persistence handoff review" in content
+    assert "review-only gate" in content
+    assert "manual handoff smoke" in content
+    assert "POST /failure-cases/draft-preview" in content
+    assert "POST /failure-cases" in content
+    assert "Do not add automatic persistence in this review gate" in content
+    assert "Do not add a confirm endpoint in this review gate" in content
+    assert "human confirmation boundary" in content
+    assert "failure-case draft persistence handoff review v0" in goal
+    assert "Failure-case draft persistence handoff review v0: implemented" in readme

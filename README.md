@@ -173,6 +173,7 @@ Implementation status:
 - Failure-case draft preview application refresh v0: implemented across application-facing docs
 - Failure-case draft preview smoke verification v0: implemented as `docs/review/failure-case-draft-preview-smoke-verification.md`
 - Failure-case draft preview smoke application refresh v0: implemented across application-facing docs
+- Failure-case draft persistence handoff review v0: implemented as `docs/review/failure-case-draft-persistence-handoff-review.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -817,6 +818,14 @@ Implementation status:
 - `docs/application/portfolio-index.md`: updated with the smoke verification artifact
 - `docs/application/braincrew-role-map.md`: updated with route-level smoke and non-DB-proof boundaries
 - `docs/review/application-ready-review.md`: updated with draft-preview smoke evidence
+- Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
+
+### Phase 65 - Failure-case Draft Persistence Handoff Review v0
+
+- Failure-case draft persistence handoff review v0: implemented
+- `docs/review/failure-case-draft-persistence-handoff-review.md`: added
+- Current decision: prove manual handoff from `POST /failure-cases/draft-preview` to existing `POST /failure-cases` before adding automation
+- Deferred: automatic persistence, confirm endpoint, `workflow_run_id` on `failure_cases`, and complete workflow failure causality
 - Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
 
 Not implemented yet:
