@@ -693,3 +693,20 @@ def test_failure_case_persistence_smoke_verification_records_failure_ledger_path
     assert "isolated test volume was removed" in content
     assert "Phase 51 - Failure-case Persistence Smoke Verification v0" in goal
     assert "Failure-case persistence smoke verification v0: implemented" in readme
+
+
+def test_failure_case_application_evidence_refresh_surfaces_failure_smoke_without_detection_claims():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(encoding="utf-8")
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(encoding="utf-8")
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(encoding="utf-8")
+
+    assert "Phase 52 - Failure-case Application Evidence Refresh v0" in goal
+    assert "Failure-case application evidence refresh v0: implemented" in readme
+    assert "Failure-case persistence smoke verification" in portfolio
+    assert "docs/review/failure-case-persistence-smoke-verification.md" in portfolio
+    assert "failure-case persistence smoke" in role_map
+    assert "not automatic failure detection" in role_map
+    assert "failure-case persistence smoke" in review
+    assert "automatic failure detection is not claimed" in review

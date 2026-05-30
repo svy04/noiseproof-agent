@@ -160,6 +160,7 @@ Implementation status:
 - Fresh DB API smoke verification v0: implemented as `docs/review/fresh-db-api-smoke-verification.md`
 - Application evidence index refresh v0: implemented across application-facing docs
 - Failure-case persistence smoke verification v0: implemented as `docs/review/failure-case-persistence-smoke-verification.md`
+- Failure-case application evidence refresh v0: implemented across application-facing docs
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -699,6 +700,14 @@ Implementation status:
 - Failure smoke record: `parser_timeout` with `root_cause: simulated parser timeout`
 - Ops summary failure count: 0 before create, 1 after create
 - Automatic failure detection, hosted deployment readiness, distributed tracing, LLM, and embedding behavior: not added
+
+### Phase 52 - Failure-case Application Evidence Refresh v0
+
+- Failure-case application evidence refresh v0: implemented
+- `docs/application/portfolio-index.md`: updated with the failure-case persistence smoke artifact
+- `docs/application/braincrew-role-map.md`: updated with failure-ledger proof surface and automatic-detection boundary
+- `docs/review/application-ready-review.md`: updated with failure-case persistence smoke evidence
+- Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, LLM, and embedding behavior: not changed
 
 Not implemented yet:
 

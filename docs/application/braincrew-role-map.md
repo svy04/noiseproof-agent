@@ -44,10 +44,15 @@ The newest local runtime evidence is:
 
 - Migration runner fresh DB verification: `docs/review/migration-runner-fresh-db-verification.md`
 - Fresh DB API smoke verification: `docs/review/fresh-db-api-smoke-verification.md`
+- Failure-case persistence smoke: `docs/review/failure-case-persistence-smoke-verification.md`
 
 These show a fresh migrated Docker DB can run the local service path for `/health`, `/ops/summary`, `POST /documents`, and `GET /documents`.
 
-Boundary: this is fresh migrated Docker DB evidence, not hosted deployment evidence, production migration orchestration, rollback proof, or external customer validation.
+The failure-case persistence smoke shows the service can store and list a `parser_timeout` failure record and reflect the count in `/ops/summary`.
+
+Boundary: this is fresh migrated Docker DB evidence, not hosted deployment evidence, production migration orchestration, rollback proof, automatic failure detection, or external customer validation.
+
+Short boundary phrase: not automatic failure detection.
 
 ## DeepDocurator Alignment
 

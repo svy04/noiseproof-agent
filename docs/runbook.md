@@ -84,6 +84,8 @@ Phase 50 refreshes application-facing evidence indexes so reviewers can find the
 
 Phase 51 verifies failure-case persistence on a fresh migrated Docker DB through `POST /failure-cases`, `GET /failure-cases`, and `/ops/summary` failure counts.
 
+Phase 52 refreshes application-facing evidence indexes so the failure-case persistence smoke artifact is discoverable without claiming automatic failure detection.
+
 Implemented:
 
 - FastAPI app skeleton
