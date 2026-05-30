@@ -44,6 +44,8 @@ Phase 35.5 reviews the workflow lineage warning taxonomy before changing the API
 
 Phase 36 adds structured warning taxonomy to the lineage response: `GET /workflow-runs/{id}/lineage` now returns `warning_codes` while preserving the existing human-readable `warnings`.
 
+Phase 36.5 reviews warning-code documentation: `docs/review/workflow-lineage-warning-code-documentation-review.md` records that warning codes should be explained with their human-readable warnings before any dashboard or persistence expansion.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -159,6 +161,8 @@ Implemented:
 - `warning_codes` are exposed by `GET /workflow-runs/{id}/lineage`
 - human-readable lineage `warnings` remain available
 - no warning-code persistence, migrations, columns, or join tables added by the structured taxonomy gate
+- warning-code documentation review exists in `docs/review/workflow-lineage-warning-code-documentation-review.md`
+- no runtime behavior added by the warning-code documentation review gate
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
 - direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0

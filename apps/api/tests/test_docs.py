@@ -22,6 +22,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/workflow-lineage-missing-reference-review.md",
         "docs/review/workflow-lineage-boundary-hardening-review.md",
         "docs/review/workflow-lineage-warning-taxonomy-review.md",
+        "docs/review/workflow-lineage-warning-code-documentation-review.md",
     ]
 
     for file_path in required_files:
@@ -316,3 +317,26 @@ def test_phase36_docs_mark_structured_warning_taxonomy_without_storage_expansion
     assert "no migrations, columns, or join tables" in goal
     assert "Structured warning taxonomy v0: implemented" in readme
     assert "warning_codes" in architecture
+
+
+def test_workflow_lineage_warning_code_documentation_review_keeps_docs_scope_bounded():
+    content = (
+        REPO_ROOT / "docs/review/workflow-lineage-warning-code-documentation-review.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Workflow lineage warning code documentation review" in content
+    assert "review-only gate" in content
+    assert "warning_codes" in content
+    assert "human-readable warnings remain canonical for readers" in content
+    assert "derived_read_model_boundary" in content
+    assert "missing_manifest_reference" in content
+    assert "invalid_manifest_shape" in content
+    assert "local_workflow_scope" in content
+    assert "Do not add runtime behavior in this review gate" in content
+    assert "no migrations" in content
+    assert "no columns" in content
+    assert "no join tables" in content
+    assert "workflow lineage warning code runbook example v0" in content
+    assert "Workflow lineage warning code documentation review v0" in goal
+    assert "workflow lineage warning code runbook example v0" in goal
