@@ -72,6 +72,8 @@ Phase 44 reviews migration handling and selects a lightweight SQL migration runn
 
 Phase 45 adds the lightweight SQL migration runner. It uses `schema_migrations` tracking over existing SQL files and is not a production migration platform.
 
+Phase 46 verifies the lightweight SQL migration runner against the local Docker DB. The existing already-current database was baselined, and final status showed 9 applied / 0 pending migrations.
+
 Implemented:
 
 - FastAPI app skeleton

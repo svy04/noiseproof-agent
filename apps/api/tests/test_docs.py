@@ -28,6 +28,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/workflow-version-naming-consistency-review.md",
         "docs/review/runtime-db-schema-default-verification.md",
         "docs/review/migration-runner-review.md",
+        "docs/review/runtime-migration-runner-verification.md",
     ]
 
     for file_path in required_files:
@@ -566,3 +567,24 @@ def test_phase45_docs_mark_lightweight_sql_migration_runner_boundary():
     assert "schema_migrations" in runbook
     assert "not a production migration platform" in runbook
     assert "No Alembic dependency" in goal
+
+
+def test_runtime_migration_runner_verification_records_status_baseline_status():
+    content = (REPO_ROOT / "docs/review/runtime-migration-runner-verification.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Runtime migration runner verification" in content
+    assert "Docker runtime verification performed" in content
+    assert "Initial runner status before baseline" in content
+    assert "Applied migrations: 0" in content
+    assert "Pending migrations: 9" in content
+    assert "Runner baseline result" in content
+    assert "baselined 010_workflow_version_defaults.sql" in content
+    assert "Final runner status after baseline" in content
+    assert "Applied migrations: 9" in content
+    assert "Pending migrations: 0" in content
+    assert "Phase 46 - Runtime Migration Runner Verification v0" in goal
+    assert "Runtime migration runner verification v0: implemented" in readme
