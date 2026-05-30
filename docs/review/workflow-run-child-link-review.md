@@ -88,3 +88,9 @@ This remains local workflow provenance. It is not distributed tracing, autonomou
 Phase 30 added `GET /workflow-runs/{id}` so the parent workflow run can be inspected with its linked retrieval, Evidence Ledger, Noise Gate, and Report child records.
 
 This improves workflow-level inspectability, but it still does not create direct evidence -> gate -> report foreign-key lineage. A separate review should decide whether cross-stage links are justified now that the deterministic parent and child inspection surface exist.
+
+## Follow-up status after Phase 30.5
+
+Phase 30.5 reviewed direct evidence -> gate -> report cross-links and kept them deferred.
+
+The next safer implementation direction is a workflow stage input manifest: downstream stages should record the persisted upstream row ids they consumed before the project claims direct stage-level causality.

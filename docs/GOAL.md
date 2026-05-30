@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 30:
+Accepted state as of Phase 30.5:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, and WorkflowRun Child Inspection Surface v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, and Direct Evidence-to-gate/report Cross-link Review v0
 ```
 
 Implemented:
@@ -221,6 +221,9 @@ Implemented:
 - `GET /workflow-runs/{id}`
 - workflow-run detail response with linked retrieval, evidence, gate, and report records
 - child record summary counts by workflow parent
+- Direct Evidence-to-gate/report Cross-link Review v0
+- `docs/review/direct-evidence-gate-report-cross-link-review.md`
+- direct evidence -> gate -> report foreign-key links remain deferred until downstream stages consume persisted upstream row ids
 - Document Profiler v0 fields:
   - source type
   - character count
@@ -297,6 +300,7 @@ Phase 27  - WorkflowRun Child-link Review v0
 Phase 28  - Deterministic Workflow Execution Preview v0
 Phase 29  - WorkflowRun Child-record Links v0
 Phase 30  - WorkflowRun Child Inspection Surface v0
+Phase 30.5 - Direct Evidence-to-gate/report Cross-link Review v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -1087,10 +1091,23 @@ summary counts for child records
 
 Phase 30 is a read-only inspectability surface over existing local workflow child links. It does not add direct evidence -> gate -> report foreign-key links, distributed tracing, hosted observability, LLM calls, embeddings, semantic retrieval, external search, autonomous workflow execution, or free-form final answer generation.
 
+### Phase 30.5 - Direct Evidence-to-gate/report Cross-link Review v0
+
+Implemented:
+
+```text
+docs/review/direct-evidence-gate-report-cross-link-review.md
+decision not to add direct evidence -> gate -> report foreign-key links in this review gate
+acceptance criteria for proving downstream stages consumed persisted upstream row ids
+next direction for a workflow stage input manifest
+```
+
+Phase 30.5 is a review-only gate. It does not add migrations, columns, endpoints, dashboard behavior, distributed tracing, hosted observability, LLM calls, embeddings, semantic retrieval, external search, autonomous workflow execution, or free-form final answer generation.
+
 Next recommended implementation phase:
 
 ```text
-Direct evidence-to-gate/report cross-link review
+Workflow stage input manifest v0
 ```
 
 ## 6. Ordering Rules

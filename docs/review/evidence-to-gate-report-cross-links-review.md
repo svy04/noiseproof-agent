@@ -107,3 +107,15 @@ The current honest claim remains:
 ```text
 Persisted evidence, gate, and report records are locally inspectable through workflow_trace_id and parent agent_run_id. Direct evidence -> gate -> report cross-links are not implemented yet because the service does not yet have a single workflow parent that owns all three stages.
 ```
+
+## Follow-up status after Phase 30.5
+
+Phase 30 added a workflow parent detail endpoint, and Phase 30.5 reviewed direct evidence -> gate -> report links again.
+
+The newer review keeps direct foreign-key links deferred. A workflow parent now proves common workflow membership, but downstream stages still consume evidence-shaped values rather than persisted upstream row ids.
+
+See:
+
+```text
+docs/review/direct-evidence-gate-report-cross-link-review.md
+```

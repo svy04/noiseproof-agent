@@ -15,6 +15,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/application-ready-review.md",
         "docs/review/agent-run-linkage-review.md",
         "docs/review/evidence-to-gate-report-cross-links-review.md",
+        "docs/review/direct-evidence-gate-report-cross-link-review.md",
         "docs/review/single-workflow-parent-review.md",
         "docs/review/workflow-run-child-link-review.md",
     ]
@@ -129,3 +130,18 @@ def test_workflow_run_child_link_review_defers_schema_until_orchestration_bounda
     assert "agent_run_id" in content
     assert "evidence -> gate -> report" in content
     assert "false sense of workflow causality" in content
+
+
+def test_direct_evidence_gate_report_cross_link_review_requires_runtime_order_before_fk_claims():
+    content = (REPO_ROOT / "docs/review/direct-evidence-gate-report-cross-link-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Direct evidence-to-gate/report cross-link review" in content
+    assert "review-only gate" in content
+    assert "Do not add direct evidence -> gate -> report foreign-key links in this review gate" in content
+    assert "GET /workflow-runs/{id}" in content
+    assert "workflow_run_id" in content
+    assert "evidence -> gate -> report" in content
+    assert "execution order" in content
+    assert "false sense of stage-level causality" in content

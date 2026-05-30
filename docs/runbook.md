@@ -22,6 +22,8 @@ Phase 29 adds nullable child `workflow_run_id` links for retrieval, evidence, ga
 
 Phase 30 adds a workflow-run child inspection surface: `GET /workflow-runs/{id}` returns the parent workflow row, linked retrieval runs, linked Evidence Ledger records, linked Noise Gate records, linked Report records, and child summary counts.
 
+Phase 30.5 reviews direct evidence -> gate -> report foreign-key links and defers them until downstream stages consume persisted upstream row ids.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -108,6 +110,9 @@ Implemented:
 - `GET /workflow-runs/{id}`
 - workflow detail response with linked retrieval, Evidence Ledger, Noise Gate, and Report records
 - child record summary counts by workflow parent
+- Direct Evidence-to-gate/report Cross-link Review v0
+- `docs/review/direct-evidence-gate-report-cross-link-review.md`
+- direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -839,8 +844,9 @@ docs/application/braincrew-role-map.md
 docs/application/cover-message.md
 docs/application/portfolio-index.md
 docs/review/application-ready-review.md
+docs/review/direct-evidence-gate-report-cross-link-review.md
 ```
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, created by a deterministic execution-preview endpoint, and inspected through `GET /workflow-runs/{id}`. That preview runs retrieval -> evidence -> gate -> report deterministically, Phase 29 attaches those child records to nullable `workflow_run_id` fields while still carrying `workflow_trace_id`, and Phase 30 exposes those child records from the parent workflow detail response. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
+Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, created by a deterministic execution-preview endpoint, and inspected through `GET /workflow-runs/{id}`. That preview runs retrieval -> evidence -> gate -> report deterministically, Phase 29 attaches those child records to nullable `workflow_run_id` fields while still carrying `workflow_trace_id`, and Phase 30 exposes those child records from the parent workflow detail response. Phase 30.5 keeps direct evidence -> gate -> report foreign-key links deferred because downstream stages do not yet consume persisted upstream row ids. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
