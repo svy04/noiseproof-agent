@@ -58,6 +58,8 @@ Phase 39 reviews workflow-version naming: `docs/review/workflow-version-naming-r
 
 Phase 40 updates the runtime `workflow_version` to `phase40-lineage-warning-code-dashboard` across settings, schema defaults, tests, and examples without changing workflow semantics.
 
+Phase 40.5 adds explicit expected workflow-version smoke checks for `/health` and `/ops/summary`. It documents the smallest reviewer-facing confirmation that the runtime marker changed, with no workflow semantics changed.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -334,6 +336,28 @@ Expected `/ops/summary` shape:
   ]
 }
 ```
+
+Expected workflow-version smoke checks:
+
+```bash
+curl http://localhost:8000/health
+curl http://localhost:8000/ops/summary
+```
+
+Expected workflow-version fields:
+
+```json
+{
+  "health": {
+    "workflow_version": "phase40-lineage-warning-code-dashboard"
+  },
+  "ops_summary": {
+    "workflow_version": "phase40-lineage-warning-code-dashboard"
+  }
+}
+```
+
+These checks confirm the runtime marker used by the smallest service surfaces. They do not mean workflow semantics changed; no workflow semantics changed in Phase 40 or Phase 40.5.
 
 Expected `/workflow-runs/{id}/lineage` response shape:
 

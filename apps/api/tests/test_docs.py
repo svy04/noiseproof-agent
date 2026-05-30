@@ -446,3 +446,18 @@ def test_phase40_docs_mark_workflow_version_naming_update_without_behavior_expan
     assert "Workflow version naming update v0: implemented" in readme
     assert "no workflow semantics" in goal
     assert "Workflow Version Naming Update v0 exists" in architecture
+
+
+def test_phase40_5_docs_add_workflow_version_smoke_example():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Phase 40.5 - Workflow Version Naming Smoke Example v0" in goal
+    assert "workflow version naming smoke example v0" in goal
+    assert "Workflow version naming smoke example v0: implemented" in readme
+    assert "Expected workflow-version smoke checks" in runbook
+    assert "curl http://localhost:8000/health" in runbook
+    assert "curl http://localhost:8000/ops/summary" in runbook
+    assert '"workflow_version": "phase40-lineage-warning-code-dashboard"' in runbook
+    assert "no workflow semantics changed" in runbook
