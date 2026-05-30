@@ -88,6 +88,8 @@ Phase 52 refreshes application-facing evidence indexes so the failure-case persi
 
 Phase 53 verifies that a failure case can carry `agent_run_id` linkage to a persisted failed agent run on a fresh migrated Docker DB.
 
+Phase 54 refreshes application-facing evidence indexes so the linked failure-case proof is discoverable without claiming automatic detection or complete workflow failure causality.
+
 Implemented:
 
 - FastAPI app skeleton

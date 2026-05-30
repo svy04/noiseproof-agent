@@ -45,14 +45,19 @@ The newest local runtime evidence is:
 - Migration runner fresh DB verification: `docs/review/migration-runner-fresh-db-verification.md`
 - Fresh DB API smoke verification: `docs/review/fresh-db-api-smoke-verification.md`
 - Failure-case persistence smoke: `docs/review/failure-case-persistence-smoke-verification.md`
+- Agent-run failure linkage smoke: `docs/review/agent-run-failure-linkage-smoke-verification.md`
 
 These show a fresh migrated Docker DB can run the local service path for `/health`, `/ops/summary`, `POST /documents`, and `GET /documents`.
 
 The failure-case persistence smoke shows the service can store and list a `parser_timeout` failure record and reflect the count in `/ops/summary`.
 
-Boundary: this is fresh migrated Docker DB evidence, not hosted deployment evidence, production migration orchestration, rollback proof, automatic failure detection, or external customer validation.
+The linked failure-case proof shows a manually created `failure_cases` row can retain `agent_run_id` linkage to a failed `agent_runs` row.
+
+Boundary: this is fresh migrated Docker DB evidence, not hosted deployment evidence, production migration orchestration, rollback proof, automatic failure detection, complete workflow failure causality, or external customer validation.
 
 Short boundary phrase: not automatic failure detection.
+
+Second boundary phrase: not complete workflow failure causality.
 
 ## DeepDocurator Alignment
 

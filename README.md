@@ -162,6 +162,7 @@ Implementation status:
 - Failure-case persistence smoke verification v0: implemented as `docs/review/failure-case-persistence-smoke-verification.md`
 - Failure-case application evidence refresh v0: implemented across application-facing docs
 - Agent-run failure linkage smoke verification v0: implemented as `docs/review/agent-run-failure-linkage-smoke-verification.md`
+- Agent-run failure linkage application refresh v0: implemented across application-facing docs
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -718,6 +719,14 @@ Implementation status:
 - Linked failure smoke record: `linked_parser_timeout` with `agent_run_id` pointing at the created failed agent run
 - Ops summary counts: `agent_run_count: 1`, `failure_case_count: 1`
 - Automatic failure detection, complete workflow failure causality, hosted deployment evidence, LLM, and embedding behavior: not added
+
+### Phase 54 - Agent-run Failure Linkage Application Refresh v0
+
+- Agent-run failure linkage application refresh v0: implemented
+- `docs/application/portfolio-index.md`: updated with the linked failure-case proof artifact
+- `docs/application/braincrew-role-map.md`: updated with linked failure-case proof and workflow-causality boundary
+- `docs/review/application-ready-review.md`: updated with agent-run failure linkage smoke evidence
+- Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
 
 Not implemented yet:
 
