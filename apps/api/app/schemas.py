@@ -429,6 +429,23 @@ class FailureCaseOut(FailureCaseCreate):
     created_at: datetime
 
 
+class FailureCaseDraftPreviewRequest(BaseModel):
+    workflow_run_id: UUID | None = None
+    agent_run_id: UUID | None = None
+    question: str = Field(..., min_length=1)
+    workflow_status: str = Field(..., min_length=1)
+    error_message: str | None = None
+    trace_json: dict[str, Any] = Field(default_factory=dict)
+
+
+class FailureCaseDraftPreviewOut(BaseModel):
+    draft: FailureCaseCreate
+    source_summary: dict[str, Any]
+    persistence_boundary: str
+    human_confirmation_required: bool
+    warnings: list[str]
+
+
 class HealthOut(BaseModel):
     status: str
     service: str

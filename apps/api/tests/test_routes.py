@@ -381,6 +381,45 @@ def test_agent_run_and_failure_case_roundtrip():
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
 
+def test_failure_case_draft_preview_suggests_manual_payload_without_persistence():
+    client = make_client()
+    workflow_run_id = str(uuid4())
+
+    response = client.post(
+        "/failure-cases/draft-preview",
+        json={
+            "workflow_run_id": workflow_run_id,
+            "question": "Which segment had enterprise demand growth?",
+            "workflow_status": "failed",
+            "error_message": "simulated evidence persistence failure",
+            "trace_json": {
+                "stage": "workflow_execute_preview",
+                "error_type": "RuntimeError",
+            },
+        },
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["persistence_boundary"] == "preview_only_not_persisted"
+    assert payload["human_confirmation_required"] is True
+    assert payload["source_summary"] == {
+        "workflow_run_id": workflow_run_id,
+        "workflow_status": "failed",
+        "stage": "workflow_execute_preview",
+        "error_type": "RuntimeError",
+    }
+    assert payload["draft"]["agent_run_id"] is None
+    assert payload["draft"]["failure_type"] == "workflow_stage_error"
+    assert "workflow_execute_preview" in payload["draft"]["description"]
+    assert payload["draft"]["root_cause"] == "RuntimeError: simulated evidence persistence failure"
+    assert payload["draft"]["fix_status"] == "draft"
+    assert "Review the failed workflow stage" in payload["draft"]["next_action"]
+    assert any("does not create failure_cases" in warning for warning in payload["warnings"])
+    assert any("human confirmation" in warning for warning in payload["warnings"])
+    assert client.get("/failure-cases").json() == []
+
+
 def test_workflow_run_metadata_roundtrip_without_orchestration():
     client = make_client()
 

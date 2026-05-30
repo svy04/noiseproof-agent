@@ -100,6 +100,24 @@ Phase 59 refreshes application-facing docs with that failure-case workflow linka
 
 Phase 60 reviews failure-case creation paths and selects a manual failure-case draft before any automatic failure-case creation.
 
+Phase 61 adds `POST /failure-cases/draft-preview`, a non-persisting helper that turns workflow failure evidence into a human-confirmed draft payload.
+
+Expected failure-case draft preview smoke check:
+
+```bash
+curl -X POST http://localhost:8000/failure-cases/draft-preview \
+  -H "Content-Type: application/json" \
+  -d '{"question":"Which segment had enterprise demand growth?","workflow_status":"failed","error_message":"simulated evidence persistence failure","trace_json":{"stage":"workflow_execute_preview","error_type":"RuntimeError"}}'
+```
+
+Expected boundary:
+
+```text
+persistence_boundary: preview_only_not_persisted
+human_confirmation_required: true
+does not persist a failure case
+```
+
 Implemented:
 
 - FastAPI app skeleton

@@ -877,3 +877,17 @@ def test_failure_case_creation_path_review_selects_manual_draft_before_automatio
     assert "schema remains unchanged" in content
     assert "failure-case creation path review v0" in goal
     assert "Failure-case creation path review v0: implemented" in readme
+
+
+def test_failure_case_draft_preview_docs_keep_persistence_boundary_visible():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Failure-case draft preview v0: implemented" in readme
+    assert "failure-case draft preview v0" in goal
+    assert "POST /failure-cases/draft-preview" in readme
+    assert "preview_only_not_persisted" in readme
+    assert "human_confirmation_required" in readme
+    assert "Expected failure-case draft preview smoke check" in runbook
+    assert "does not persist a failure case" in runbook
