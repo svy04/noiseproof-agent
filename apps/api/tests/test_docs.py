@@ -20,6 +20,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/single-workflow-parent-review.md",
         "docs/review/workflow-run-child-link-review.md",
         "docs/review/workflow-lineage-missing-reference-review.md",
+        "docs/review/workflow-lineage-boundary-hardening-review.md",
     ]
 
     for file_path in required_files:
@@ -242,3 +243,24 @@ def test_phase34_docs_mark_missing_reference_test_without_schema_expansion():
     assert "no migrations, columns, or join tables" in goal
     assert "phase34-workflow-lineage-missing-reference-test" in runbook
     assert "missing-reference fixture" in runbook
+
+
+def test_workflow_lineage_boundary_hardening_review_identifies_manifest_shape_risk():
+    content = (REPO_ROOT / "docs/review/workflow-lineage-boundary-hardening-review.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Workflow lineage boundary hardening review" in content
+    assert "review-only gate" in content
+    assert "input_evidence_ledger_entry_ids" in content
+    assert "non-list manifest values" in content
+    assert "string values must not be treated as iterable evidence id lists" in content
+    assert "duplicate references" in content
+    assert "cross-workflow references" in content
+    assert "no migrations" in content
+    assert "no columns" in content
+    assert "no join tables" in content
+    assert "Workflow lineage manifest-shape hardening v0" in content
+    assert "Phase 34.5 - Workflow Lineage Boundary Hardening Review v0" in goal
+    assert "Workflow lineage manifest-shape hardening v0" in goal

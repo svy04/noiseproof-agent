@@ -36,6 +36,8 @@ Phase 33.5 reviews missing manifest reference behavior for the derived lineage r
 
 Phase 34 adds that targeted missing-reference fixture: tests now prove `GET /workflow-runs/{id}/lineage` surfaces `missing_reference_count > 0`, missing Evidence Ledger ids, and missing Noise Gate ids without adding a malformed-manifest mutation endpoint or new lineage storage.
 
+Phase 34.5 reviews the next lineage hardening boundary: non-list `input_evidence_ledger_entry_ids`, duplicate references, and cross-workflow references should be handled before adding schema. The review adds no runtime behavior.
+
 Implemented:
 
 - FastAPI app skeleton
@@ -141,6 +143,8 @@ Implemented:
 - no malformed-manifest mutation endpoint, repair endpoint, migration, column, or join table added by the review gate
 - missing-reference fixture exists in `apps/api/tests/test_routes.py`
 - no migrations, columns, or join tables added by the missing-reference test gate
+- boundary hardening review exists in `docs/review/workflow-lineage-boundary-hardening-review.md`
+- no runtime behavior added by the boundary hardening review gate
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
 - direct evidence -> gate -> report foreign-key links remain unimplemented
 - Operations Dashboard v0
