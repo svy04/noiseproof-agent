@@ -1718,3 +1718,17 @@ def test_readme_phase_history_compression_review_selects_readability_gate():
     assert "not complete workflow failure causality" in content
     assert "readme phase-history compression review v0" in goal
     assert "README phase-history compression review v0: implemented" in readme
+
+
+def test_readme_phase_history_compression_replaces_chronological_wall_with_summary():
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    what_this_is = readme.split("## What This Is", 1)[1].split("## What This Is Not", 1)[0]
+
+    assert "Current implemented capability groups" in what_this_is
+    assert "Detailed phase history lives in `docs/GOAL.md`" in what_this_is
+    assert "The project started with a documentation-first Day 1 package." not in what_this_is
+    assert "Phase 46 verified the runner against the local Docker DB" not in what_this_is
+    assert len(what_this_is) < 2500
+    assert "readme phase-history compression v0" in goal
+    assert "README phase-history compression v0: implemented" in readme
