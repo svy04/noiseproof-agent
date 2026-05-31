@@ -147,6 +147,7 @@ Major implementation milestones:
 - Application package final consistency review v0: implemented
 - Portfolio site handoff review v0: implemented
 - Portfolio site proof artifact route verification v0: implemented
+- Demo transcript capture v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The dedicated proof-marker archive in `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers without making the rendered README a chronological wall.
 

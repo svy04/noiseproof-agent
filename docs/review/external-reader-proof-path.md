@@ -22,6 +22,8 @@ Read in this order:
    - Role mapping and application narrative.
 6. `docs/review/portfolio-site-proof-artifact-route-verification.md`
    - Live portfolio route verification for the public NoiseProof proof surface.
+7. `docs/review/demo-transcript-capture.md`
+   - Self-authored local route transcript for collection planning, workflow preview, lineage, and dashboard inspection.
 
 ## Optional source-level provenance
 
@@ -40,6 +42,12 @@ https://svy04.github.io/proof-artifacts/noiseproof-agent-phase-ladder-2026-05-30
 Use `docs/review/portfolio-site-proof-artifact-route-verification.md` for the current route verification record.
 
 This public route is a proof surface for the portfolio. It is not hosted deployment evidence for NoiseProof Agent.
+
+## Demo Transcript
+
+Use `docs/review/demo-transcript-capture.md` for the current self-authored route walkthrough.
+
+It is useful for reader orientation, but it is not external reviewer feedback, not hosted deployment evidence, and not customer validation.
 
 ## What This Path Proves
 
@@ -76,5 +84,5 @@ This is not complete workflow failure causality.
 ## Next Gate
 
 ```text
-external reviewer feedback or demo transcript capture v0
+external reviewer feedback v0 or local browser screenshot walkthrough v0
 ```

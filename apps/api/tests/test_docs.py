@@ -1607,7 +1607,7 @@ def test_external_reader_proof_path_index_gives_five_minute_path_and_boundaries(
     assert "not automatic failure-case creation" in content
     assert "not complete workflow failure causality" in content
     assert "docs/review/portfolio-site-proof-artifact-route-verification.md" in content
-    assert "external reviewer feedback or demo transcript capture v0" in content
+    assert "external reviewer feedback v0 or local browser screenshot walkthrough v0" in content
     assert "external-reader proof path index v0" in goal
     assert "External-reader proof path index v0: implemented" in readme
 
@@ -2102,7 +2102,7 @@ def test_external_reader_proof_path_next_gate_refresh_replaces_stale_next_gate()
 
     next_gate = proof_path.split("## Next Gate", 1)[1]
 
-    assert "external reviewer feedback or demo transcript capture v0" in next_gate
+    assert "external reviewer feedback v0 or local browser screenshot walkthrough v0" in next_gate
     assert "portfolio external proof path refresh v0" not in next_gate
     assert "not hosted deployment evidence" in proof_path
     assert "not automatic failure-case creation" in proof_path
@@ -2183,3 +2183,35 @@ def test_portfolio_site_proof_artifact_route_verification_records_live_surface_b
     assert "portfolio site proof artifact route verification v0" in goal
     assert "docs/review/portfolio-site-proof-artifact-route-verification.md" in portfolio
     assert "docs/review/portfolio-site-proof-artifact-route-verification.md" in proof_path
+
+
+def test_demo_transcript_capture_records_reader_facing_route_walkthrough_boundary():
+    review_path = REPO_ROOT / "docs/review/demo-transcript-capture.md"
+    assert review_path.is_file()
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Demo Transcript Capture" in content
+    assert "demo transcript capture v0" in content
+    assert "POST /collection-plans/preview" in content
+    assert "POST /workflow-runs/execute-preview" in content
+    assert "GET /workflow-runs/{id}/lineage" in content
+    assert "GET /ops/dashboard" in content
+    assert "deterministic_preview_only" in content
+    assert "user_intent_check" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not semantic retrieval" in content
+    assert "external reviewer feedback v0" in content
+    assert "Demo transcript capture v0: implemented" in readme
+    assert "demo transcript capture v0" in goal
+    assert "docs/review/demo-transcript-capture.md" in portfolio
+    assert "docs/review/demo-transcript-capture.md" in proof_path
