@@ -1618,3 +1618,24 @@ def test_portfolio_external_proof_path_refresh_surfaces_compact_reader_path():
     assert "not hosted deployment evidence" in portfolio
     assert "not automatic failure-case creation" in portfolio
     assert "not complete workflow failure causality" in portfolio
+
+
+def test_external_reader_proof_path_application_refresh_review_selects_application_docs():
+    content = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-application-refresh-review.md"
+    ).read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "External-reader proof path application refresh review" in content
+    assert "review-only gate" in content
+    assert "docs/application/braincrew-role-map.md" in content
+    assert "docs/review/application-ready-review.md" in content
+    assert "Do not refresh application-facing docs in this review gate" in content
+    assert "external-reader proof path application refresh v0" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "external-reader proof path application refresh review v0" in goal
+    assert "External-reader proof path application refresh review v0: implemented" in readme
