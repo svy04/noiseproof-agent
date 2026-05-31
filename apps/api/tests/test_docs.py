@@ -2068,3 +2068,25 @@ def test_application_ready_summary_compression_replaces_phase_wall():
     assert len(summary) < 1200
     assert "application-ready summary compression v0" in goal
     assert "Application-ready summary compression v0: implemented" in readme
+
+
+def test_external_reader_final_proof_path_dry_read_review_selects_next_gate_refresh():
+    review_path = (
+        REPO_ROOT / "docs/review/external-reader-final-proof-path-dry-read-review.md"
+    )
+    assert review_path.is_file()
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "External-reader final proof-path dry-read review" in content
+    assert "review-only gate" in content
+    assert "5-minute path remains usable" in content
+    assert "stale Next Gate" in content
+    assert "Do not edit the external-reader proof path in this review gate" in content
+    assert "external-reader proof path next-gate refresh v0" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "external-reader final proof-path dry-read review v0" in goal
+    assert "External-reader final proof-path dry-read review v0: implemented" in readme
