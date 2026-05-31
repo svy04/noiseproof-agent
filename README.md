@@ -197,6 +197,7 @@ Implementation status:
 - Failure-case workflow parent linkage proof consolidation review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-proof-consolidation-review.md`
 - Failure-case workflow parent linkage proof index v0: implemented as `docs/review/failure-case-workflow-parent-linkage-proof-index.md`
 - Failure-case workflow parent linkage proof index application refresh v0: implemented across application-facing docs
+- Failure-case workflow parent linkage proof chain stale-claim review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-stale-claim-review.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -1036,6 +1037,13 @@ Implementation status:
 - `docs/application/braincrew-role-map.md`: updated with proof index reader path
 - `docs/review/application-ready-review.md`: updated with Allowed claim / Forbidden claim language for the proof index
 - Boundary: application-facing documentation only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
+
+### Phase 89 - Failure-case Workflow Parent Linkage Proof Chain Stale-claim Review v0
+
+- Failure-case workflow parent linkage proof chain stale-claim review v0: implemented
+- `docs/review/failure-case-workflow-parent-linkage-stale-claim-review.md`: added
+- Current decision: clean up stale current-facing language that still says manual workflow parent linkage is deferred
+- Boundary: review-only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
 
 Not implemented yet:
 

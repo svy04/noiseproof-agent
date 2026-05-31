@@ -1487,3 +1487,31 @@ def test_failure_case_workflow_parent_linkage_proof_index_application_refresh_su
     assert "proof index reader path" in review
     assert "Allowed claim" in review
     assert "Forbidden claim" in review
+
+
+def test_failure_case_workflow_parent_linkage_stale_claim_review_identifies_cleanup_gate():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-parent-linkage-stale-claim-review.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow parent linkage stale-claim review" in content
+    assert "review-only gate" in content
+    assert "stale claim candidates" in content
+    assert "failure cases are not linked to workflow parents yet" in content
+    assert "workflow_run_id remains deferred" in content
+    assert "Do not rewrite application-facing claims in this review gate" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "failure-case workflow parent linkage stale-claim cleanup v0" in content
+    assert (
+        "failure-case workflow parent linkage proof chain stale-claim review v0"
+        in goal
+    )
+    assert (
+        "Failure-case workflow parent linkage proof chain stale-claim review v0: implemented"
+        in readme
+    )
