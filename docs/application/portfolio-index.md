@@ -16,6 +16,8 @@ Visual local proof surface: `docs/review/local-browser-screenshot-walkthrough.md
 
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
+External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.
+
 Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers after README scanability cleanup. It is source-level provenance, not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 
 ## Start Here
@@ -103,6 +105,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | Demo transcript capture | `docs/review/demo-transcript-capture.md` | self-authored route walkthrough |
 | Local browser screenshot walkthrough | `docs/review/local-browser-screenshot-walkthrough.md` | self-authored local visual walkthrough |
 | External review request packet | `docs/review/external-review-request.md` | request packet only; feedback not yet received |
+| External feedback intake criteria | `docs/review/external-feedback-intake-criteria.md` | qualification criteria only; feedback still pending |
 | README proof-marker archive | `docs/review/readme-proof-marker-archive.md` | source-level provenance only; not product runtime evidence |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
@@ -134,6 +137,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/demo-transcript-capture.md` | self-authored route transcript for collection planning, deterministic workflow preview, lineage, and dashboard inspection |
 | `docs/review/local-browser-screenshot-walkthrough.md` | local browser screenshot walkthrough for the operations dashboard and workflow-run lineage link |
 | `docs/review/external-review-request.md` | structured request packet for external critique; not external reviewer feedback |
+| `docs/review/external-feedback-intake-criteria.md` | qualification criteria for accepting future external reviewer feedback |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

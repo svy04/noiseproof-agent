@@ -1211,6 +1211,7 @@ The external review request packet prepares the next feedback gate:
 docs/review/external-review-request.md
 .github/ISSUE_TEMPLATE/external-review-feedback.md
 https://github.com/svy04/noiseproof-agent/issues/1
+docs/review/external-feedback-intake-criteria.md
 ```
 
 Use it when asking an outside reviewer to inspect the 5-minute proof path and leave bounded critique. This is request infrastructure only; it is not external reviewer feedback, customer validation, Braincrew acceptance, or hosted deployment evidence.
@@ -1220,6 +1221,10 @@ The next evidence gate remains:
 ```text
 external reviewer feedback v0
 ```
+
+Phase marker: external feedback intake criteria v0.
+
+Only comments that satisfy `docs/review/external-feedback-intake-criteria.md` should be counted as external reviewer feedback. A self-authored comment, request for feedback, empty acknowledgement, generic praise, CI status, or bot-generated summary must not close the feedback gate.
 
 Inspect auto-created preview traces:
 

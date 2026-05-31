@@ -2301,3 +2301,38 @@ def test_external_review_request_packet_prepares_feedback_without_claiming_it():
     assert "docs/review/external-review-request.md" in proof_path
     assert "https://github.com/svy04/noiseproof-agent/issues/1" in portfolio
     assert "https://github.com/svy04/noiseproof-agent/issues/1" in proof_path
+
+
+def test_external_feedback_intake_criteria_blocks_self_authored_proof():
+    criteria_path = REPO_ROOT / "docs/review/external-feedback-intake-criteria.md"
+    assert criteria_path.is_file()
+
+    content = criteria_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Feedback Intake Criteria" in content
+    assert "external feedback intake criteria v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "qualifying feedback" in content
+    assert "non-qualifying feedback" in content
+    assert "reviewer is not the repository owner" in content
+    assert "specific artifact inspected" in content
+    assert "actionable critique" in content
+    assert "self-authored comment" in content
+    assert "request for feedback" in content
+    assert "empty acknowledgement" in content
+    assert "External reviewer feedback remains pending" in content
+    assert "not external reviewer feedback" in content
+    assert "External feedback intake criteria v0: implemented" in readme
+    assert "external feedback intake criteria v0" in goal
+    assert "external feedback intake criteria v0" in runbook
+    assert "docs/review/external-feedback-intake-criteria.md" in portfolio
+    assert "docs/review/external-feedback-intake-criteria.md" in request

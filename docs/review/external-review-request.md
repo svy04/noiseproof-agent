@@ -61,6 +61,12 @@ Public request issue:
 https://github.com/svy04/noiseproof-agent/issues/1
 ```
 
+Feedback intake criteria:
+
+```text
+docs/review/external-feedback-intake-criteria.md
+```
+
 Suggested sections:
 
 ```text
