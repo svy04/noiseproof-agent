@@ -1127,3 +1127,26 @@ def test_workflow_failure_to_draft_smoke_verification_documents_route_boundary()
     assert "not complete workflow failure causality" in content
     assert "workflow failure-to-draft smoke verification v0" in goal
     assert "Workflow failure-to-draft smoke verification v0: implemented" in readme
+
+
+def test_workflow_failure_to_draft_application_refresh_surfaces_smoke_boundary():
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Workflow failure-to-draft application refresh v0: implemented" in readme
+    assert "workflow failure-to-draft application refresh v0" in goal
+    assert "Workflow failure-to-draft smoke verification" in portfolio
+    assert "docs/review/workflow-failure-to-draft-smoke-verification.md" in portfolio
+    assert "workflow failure-to-draft smoke" in role_map
+    assert "not automatic failure-case creation" in role_map
+    assert "workflow failure-to-draft smoke" in review
+    assert "automatic failure-case creation remains unclaimed" in review
