@@ -2336,3 +2336,39 @@ def test_external_feedback_intake_criteria_blocks_self_authored_proof():
     assert "external feedback intake criteria v0" in runbook
     assert "docs/review/external-feedback-intake-criteria.md" in portfolio
     assert "docs/review/external-feedback-intake-criteria.md" in request
+
+
+def test_external_reviewer_brief_gives_two_minute_path_without_claiming_feedback():
+    brief_path = REPO_ROOT / "docs/review/external-reviewer-brief.md"
+    assert brief_path.is_file()
+
+    content = brief_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Reviewer Brief" in content
+    assert "external reviewer brief v0" in content
+    assert "2-minute path" in content
+    assert "What this currently proves" in content
+    assert "What this does not prove" in content
+    assert "What I want reviewed" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "docs/review/external-feedback-intake-criteria.md" in content
+    assert "not external reviewer feedback" in content
+    assert "External reviewer feedback remains pending" in content
+    assert "External reviewer brief v0: implemented" in readme
+    assert "external reviewer brief v0" in goal
+    assert "external reviewer brief v0" in runbook
+    assert "docs/review/external-reviewer-brief.md" in portfolio
+    assert "docs/review/external-reviewer-brief.md" in proof_path
+    assert "docs/review/external-reviewer-brief.md" in request

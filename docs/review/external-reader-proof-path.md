@@ -28,6 +28,8 @@ Read in this order:
    - Self-authored local browser screenshot walkthrough for the operations dashboard and workflow-run lineage link.
 9. `docs/review/external-review-request.md`
    - Structured request packet for external critique. This is not feedback itself.
+10. `docs/review/external-reviewer-brief.md`
+    - 2-minute path for a reviewer before leaving feedback.
 
 ## Optional source-level provenance
 
@@ -62,6 +64,8 @@ It records `GET /ops/dashboard` after a deterministic workflow preview and check
 It is useful for local visual inspection, but it is not external reviewer feedback, not hosted deployment evidence, not customer validation, and not production observability.
 
 ## External Review Request
+
+Use `docs/review/external-reviewer-brief.md` first if the reviewer only has a few minutes.
 
 Use `docs/review/external-review-request.md` when asking a reviewer to inspect the proof path.
 

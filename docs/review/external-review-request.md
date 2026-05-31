@@ -16,6 +16,12 @@ external reviewer feedback v0
 
 This page exists so an outside reviewer can inspect the current bounded proof path and leave critique in a structured form.
 
+Shortest reviewer brief:
+
+```text
+docs/review/external-reviewer-brief.md
+```
+
 ## Review Path
 
 Please read in this order:

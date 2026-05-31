@@ -1209,6 +1209,7 @@ The external review request packet prepares the next feedback gate:
 
 ```text
 docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
 .github/ISSUE_TEMPLATE/external-review-feedback.md
 https://github.com/svy04/noiseproof-agent/issues/1
 docs/review/external-feedback-intake-criteria.md
@@ -1225,6 +1226,10 @@ external reviewer feedback v0
 Phase marker: external feedback intake criteria v0.
 
 Only comments that satisfy `docs/review/external-feedback-intake-criteria.md` should be counted as external reviewer feedback. A self-authored comment, request for feedback, empty acknowledgement, generic praise, CI status, or bot-generated summary must not close the feedback gate.
+
+Phase marker: external reviewer brief v0.
+
+Use `docs/review/external-reviewer-brief.md` when the reviewer needs a 2-minute path. This is not external reviewer feedback and must not close the gate by itself.
 
 Inspect auto-created preview traces:
 
