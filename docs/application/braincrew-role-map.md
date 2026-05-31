@@ -40,6 +40,10 @@ It is a small service that shows how I define a messy customer-like data problem
 
 ## Runtime Proof Surfaces
 
+External-reader proof path: `docs/review/external-reader-proof-path.md`.
+
+Use this 5-minute path first when a reviewer needs the shortest repository-native route through the evidence chain. It is not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
+
 The newest local runtime evidence is:
 
 - Migration runner fresh DB verification: `docs/review/migration-runner-fresh-db-verification.md`

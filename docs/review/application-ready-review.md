@@ -64,6 +64,7 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | failure-case workflow parent dashboard link works | Pass | `GET /ops/dashboard` Failure Cases table Workflow Parent column | manual provenance only; not automatic failure-case creation |
 | failure-case workflow parent dashboard fresh DB smoke works | Pass | `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md` | local Docker DB dashboard evidence only; manual provenance only; not hosted deployment evidence |
 | proof index reader path exists | Pass | `docs/review/failure-case-workflow-parent-linkage-proof-index.md` | index-only; no new runtime proof |
+| External-reader proof path exists | Pass | `docs/review/external-reader-proof-path.md` | 5-minute path only; not hosted deployment evidence; not automatic failure-case creation; not complete workflow failure causality |
 
 Historical Phase 31.5 boundary: JSON manifest only, not direct FK or join-table lineage. Phase 32 makes that manifest easier to inspect through a derived read model, but it still does not convert the manifest into a relational contract.
 
@@ -87,6 +88,7 @@ NoiseProof Agent automates trading decisions.
 
 If this repo is linked from the portfolio site, link only these claims:
 
+- External-reader proof path: `docs/review/external-reader-proof-path.md`
 - evidence-first data agent
 - not a trading bot
 - parser/chunk/retrieval preview boundaries

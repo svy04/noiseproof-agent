@@ -1639,3 +1639,26 @@ def test_external_reader_proof_path_application_refresh_review_selects_applicati
     assert "not complete workflow failure causality" in content
     assert "external-reader proof path application refresh review v0" in goal
     assert "External-reader proof path application refresh review v0: implemented" in readme
+
+
+def test_external_reader_proof_path_application_refresh_surfaces_path_in_application_docs():
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "External-reader proof path application refresh v0: implemented" in readme
+    assert "external-reader proof path application refresh v0" in goal
+    assert "External-reader proof path" in role_map
+    assert "docs/review/external-reader-proof-path.md" in role_map
+    assert "5-minute path" in role_map
+    assert "External-reader proof path" in review
+    assert "docs/review/external-reader-proof-path.md" in review
+    assert "5-minute path" in review
+    assert "not hosted deployment evidence" in role_map
+    assert "not automatic failure-case creation" in role_map
+    assert "not complete workflow failure causality" in review
