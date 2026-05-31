@@ -1912,3 +1912,20 @@ def test_readme_proof_marker_archive_external_path_review_selects_compact_note()
     assert "not complete workflow failure causality" in content
     assert "readme proof-marker archive external path review v0" in goal
     assert "README proof-marker archive external path review v0: implemented" in readme
+
+
+def test_readme_proof_marker_archive_external_path_refresh_adds_optional_note():
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Optional source-level provenance" in proof_path
+    assert "docs/review/readme-proof-marker-archive.md" in proof_path
+    assert "not product runtime evidence" in proof_path
+    assert "not hosted deployment evidence" in proof_path
+    assert "not automatic failure-case creation" in proof_path
+    assert "not complete workflow failure causality" in proof_path
+    assert "README proof-marker archive external path refresh v0: implemented" in readme
+    assert "readme proof-marker archive external path refresh v0" in goal

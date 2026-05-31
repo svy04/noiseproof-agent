@@ -21,6 +21,12 @@ Read in this order:
 5. `docs/application/braincrew-role-map.md`
    - Role mapping and application narrative.
 
+## Optional source-level provenance
+
+Use `docs/review/readme-proof-marker-archive.md` only when you need legacy README proof-marker continuity after README scanability cleanup.
+
+This archive is source-level provenance, not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
+
 ## What This Path Proves
 
 Allowed claim:
