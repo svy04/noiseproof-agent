@@ -1,0 +1,60 @@
+# External-reader Proof Path
+
+Status: compact proof index.
+
+Phase marker: external-reader proof path index v0.
+
+This page is the shortest repository-native path for an external reviewer who wants to inspect what NoiseProof Agent currently proves without reading the entire phase history.
+
+## 5-minute path
+
+Read in this order:
+
+1. `README.md`
+   - Purpose, non-goals, implementation status, and current boundaries.
+2. `docs/application/portfolio-index.md`
+   - Repository map from system surface to proof artifacts.
+3. `docs/review/failure-case-workflow-parent-linkage-proof-index.md`
+   - Compact reader path for manual failure-case workflow parent linkage.
+4. `docs/review/application-ready-review.md`
+   - Current application-readiness judgment and claim boundaries.
+5. `docs/application/braincrew-role-map.md`
+   - Role mapping and application narrative.
+
+## What This Path Proves
+
+Allowed claim:
+
+NoiseProof Agent is an inspectable local portfolio service with phased proof artifacts for data profiling, parser boundaries, chunking, lexical retrieval, evidence preview, gate preview, report preview, persisted proof records, workflow parent linkage, failure-case persistence, manual workflow parent provenance, and current application-facing boundaries.
+
+Allowed claim:
+
+Manual failure-case workflow parent linkage exists. A manually persisted `failure_cases` row can retain nullable `workflow_run_id` provenance to a `workflow_runs` parent, and that path has schema/API support, route-level smoke evidence, fresh DB evidence, dashboard surfacing, and a proof index.
+
+## What This Path Does Not Prove
+
+Forbidden claim:
+
+NoiseProof Agent is production-ready, hosted, customer-validated, or a complete RAG/agent platform.
+
+Forbidden claim:
+
+NoiseProof Agent automatically creates failure cases from workflow failures or proves complete workflow failure causality.
+
+Forbidden claim:
+
+NoiseProof Agent has robust PDF extraction, embeddings, semantic retrieval, distributed tracing, market prediction quality, or free-form final answer generation.
+
+## Boundary
+
+This proof path adds no runtime behavior, schema, migration, API endpoint, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure detection, automatic failure-case creation, automatic persistence from workflow failures, complete workflow failure causality, LLM calls, embeddings, semantic retrieval, autonomous workflow execution, or free-form final answer generation.
+
+This is not hosted deployment evidence.
+This is not automatic failure-case creation.
+This is not complete workflow failure causality.
+
+## Next Gate
+
+```text
+portfolio external proof path refresh v0
+```

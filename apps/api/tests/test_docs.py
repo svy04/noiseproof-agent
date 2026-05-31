@@ -1577,3 +1577,27 @@ def test_external_reader_proof_path_review_selects_compact_reader_gate():
     assert "external-reader proof path index v0" in content
     assert "external-reader proof path review v0" in goal
     assert "External-reader proof path review v0: implemented" in readme
+
+
+def test_external_reader_proof_path_index_gives_five_minute_path_and_boundaries():
+    content = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "External-reader Proof Path" in content
+    assert "5-minute path" in content
+    assert "README.md" in content
+    assert "docs/application/portfolio-index.md" in content
+    assert "docs/review/failure-case-workflow-parent-linkage-proof-index.md" in content
+    assert "docs/review/application-ready-review.md" in content
+    assert "docs/application/braincrew-role-map.md" in content
+    assert "Allowed claim" in content
+    assert "Forbidden claim" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "portfolio external proof path refresh v0" in content
+    assert "external-reader proof path index v0" in goal
+    assert "External-reader proof path index v0: implemented" in readme

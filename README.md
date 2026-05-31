@@ -200,6 +200,7 @@ Implementation status:
 - Failure-case workflow parent linkage proof chain stale-claim review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-stale-claim-review.md`
 - Failure-case workflow parent linkage stale-claim cleanup v0: implemented as `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md`
 - External-reader proof path review v0: implemented as `docs/review/external-reader-proof-path-review.md`
+- External-reader proof path index v0: implemented as `docs/review/external-reader-proof-path.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -1061,6 +1062,13 @@ Implementation status:
 - `docs/review/external-reader-proof-path-review.md`: added
 - Current decision: create a compact external-reader proof path next
 - Boundary: review-only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
+
+### Phase 92 - External-reader Proof Path Index v0
+
+- External-reader proof path index v0: implemented
+- `docs/review/external-reader-proof-path.md`: added
+- Reader path: README -> portfolio index -> failure-case workflow parent proof index -> application-ready review -> Braincrew role map
+- Boundary: index-only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
 
 Not implemented yet:
 
