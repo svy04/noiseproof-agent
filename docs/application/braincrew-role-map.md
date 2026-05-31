@@ -44,6 +44,10 @@ External-reader proof path: `docs/review/external-reader-proof-path.md`.
 
 Use this 5-minute path first when a reviewer needs the shortest repository-native route through the evidence chain. It is not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 
+README proof-marker archive: `docs/review/readme-proof-marker-archive.md`.
+
+Use this only when a reviewer wants source-level provenance for legacy README proof markers after README scanability cleanup. It is not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
+
 The newest local runtime evidence is:
 
 - Migration runner fresh DB verification: `docs/review/migration-runner-fresh-db-verification.md`

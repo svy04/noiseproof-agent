@@ -133,6 +133,7 @@ Major implementation milestones:
 - README proof-marker archive review v0: implemented
 - README proof-marker archive extraction v0: implemented
 - README proof-marker archive application refresh review v0: implemented
+- README proof-marker archive application refresh v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The dedicated proof-marker archive in `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers without making the rendered README a chronological wall.
 

@@ -6,6 +6,8 @@ This is an application-ready review, not a product-complete declaration.
 
 Not product-complete: robust PDF extraction, embeddings, semantic retrieval, distributed tracing, hosted deployment, and external user validation are still unproven.
 
+README proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers after README scanability cleanup. It is source-level provenance, not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
+
 ## Summary
 
 Current judgment: Partial application-ready portfolio artifact.
@@ -65,6 +67,7 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | failure-case workflow parent dashboard fresh DB smoke works | Pass | `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md` | local Docker DB dashboard evidence only; manual provenance only; not hosted deployment evidence |
 | proof index reader path exists | Pass | `docs/review/failure-case-workflow-parent-linkage-proof-index.md` | index-only; no new runtime proof |
 | External-reader proof path exists | Pass | `docs/review/external-reader-proof-path.md` | 5-minute path only; not hosted deployment evidence; not automatic failure-case creation; not complete workflow failure causality |
+| README proof-marker archive is discoverable from application docs | Pass | `docs/review/readme-proof-marker-archive.md` | source-level provenance only; not product runtime evidence |
 
 Historical Phase 31.5 boundary: JSON manifest only, not direct FK or join-table lineage. Phase 32 makes that manifest easier to inspect through a derived read model, but it still does not convert the manifest into a relational contract.
 

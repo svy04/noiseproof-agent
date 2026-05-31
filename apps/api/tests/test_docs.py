@@ -1866,3 +1866,28 @@ def test_readme_proof_marker_archive_application_refresh_review_selects_applicat
     assert "not complete workflow failure causality" in content
     assert "readme proof-marker archive application refresh review v0" in goal
     assert "README proof-marker archive application refresh review v0: implemented" in readme
+
+
+def test_readme_proof_marker_archive_application_refresh_surfaces_archive_path():
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    for content in (portfolio, role_map, review):
+        assert "docs/review/readme-proof-marker-archive.md" in content
+        assert "source-level provenance" in content
+        assert "not product runtime evidence" in content
+        assert "not hosted deployment evidence" in content
+        assert "not automatic failure-case creation" in content
+        assert "not complete workflow failure causality" in content
+
+    assert "README proof-marker archive application refresh v0: implemented" in readme
+    assert "readme proof-marker archive application refresh v0" in goal
