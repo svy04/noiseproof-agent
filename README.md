@@ -138,6 +138,7 @@ Major implementation milestones:
 - README proof-marker archive external path refresh v0: implemented
 - Application current-claim compression review v0: implemented
 - Application current-claim compression v0: implemented
+- Braincrew role-map runtime proof compression review v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The dedicated proof-marker archive in `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers without making the rendered README a chronological wall.
 

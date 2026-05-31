@@ -1979,3 +1979,25 @@ def test_application_current_claim_compression_replaces_claim_walls():
     assert "Workflow lineage warning code dashboard smoke example" not in review_claim
     assert "Application current-claim compression v0: implemented" in readme
     assert "application current-claim compression v0" in goal
+
+
+def test_braincrew_role_map_runtime_proof_compression_review_selects_role_map_gate():
+    review_path = (
+        REPO_ROOT / "docs/review/braincrew-role-map-runtime-proof-compression-review.md"
+    )
+    assert review_path.is_file()
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Braincrew role-map runtime proof compression review" in content
+    assert "review-only gate" in content
+    assert "Runtime Proof Surfaces section is too long" in content
+    assert "Do not compress the Braincrew role map in this review gate" in content
+    assert "braincrew role-map runtime proof compression v0" in content
+    assert "FDE-first mapping" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "braincrew role-map runtime proof compression review v0" in goal
+    assert "Braincrew role-map runtime proof compression review v0: implemented" in readme
