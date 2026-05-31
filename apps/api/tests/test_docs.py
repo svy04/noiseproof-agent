@@ -1606,7 +1606,8 @@ def test_external_reader_proof_path_index_gives_five_minute_path_and_boundaries(
     assert "not hosted deployment evidence" in content
     assert "not automatic failure-case creation" in content
     assert "not complete workflow failure causality" in content
-    assert "application package final consistency review v0" in content
+    assert "docs/review/portfolio-site-proof-artifact-route-verification.md" in content
+    assert "external reviewer feedback or demo transcript capture v0" in content
     assert "external-reader proof path index v0" in goal
     assert "External-reader proof path index v0: implemented" in readme
 
@@ -2101,7 +2102,7 @@ def test_external_reader_proof_path_next_gate_refresh_replaces_stale_next_gate()
 
     next_gate = proof_path.split("## Next Gate", 1)[1]
 
-    assert "application package final consistency review v0" in next_gate
+    assert "external reviewer feedback or demo transcript capture v0" in next_gate
     assert "portfolio external proof path refresh v0" not in next_gate
     assert "not hosted deployment evidence" in proof_path
     assert "not automatic failure-case creation" in proof_path
@@ -2151,3 +2152,34 @@ def test_portfolio_site_handoff_review_selects_noiseproof_artifact_refresh():
     assert "portfolio site NoiseProof proof artifact refresh v0" in content
     assert "portfolio site handoff review v0" in goal
     assert "Portfolio site handoff review v0: implemented" in readme
+
+
+def test_portfolio_site_proof_artifact_route_verification_records_live_surface_boundary():
+    review_path = REPO_ROOT / "docs/review/portfolio-site-proof-artifact-route-verification.md"
+    assert review_path.is_file()
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Portfolio Site Proof Artifact Route Verification" in content
+    assert "portfolio site proof artifact route verification v0" in content
+    assert "https://svy04.github.io/proof-artifacts/noiseproof-agent-phase-ladder-2026-05-30/" in content
+    assert "6e8a607" in content
+    assert "35319ac" in content
+    assert "182 passed, 1 warning" in content
+    assert "HasOldTitle" in content
+    assert "false" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "external reviewer feedback or demo transcript capture v0" in content
+    assert "Portfolio site proof artifact route verification v0: implemented" in readme
+    assert "portfolio site proof artifact route verification v0" in goal
+    assert "docs/review/portfolio-site-proof-artifact-route-verification.md" in portfolio
+    assert "docs/review/portfolio-site-proof-artifact-route-verification.md" in proof_path

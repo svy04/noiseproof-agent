@@ -20,12 +20,26 @@ Read in this order:
    - Current application-readiness judgment and claim boundaries.
 5. `docs/application/braincrew-role-map.md`
    - Role mapping and application narrative.
+6. `docs/review/portfolio-site-proof-artifact-route-verification.md`
+   - Live portfolio route verification for the public NoiseProof proof surface.
 
 ## Optional source-level provenance
 
 Use `docs/review/readme-proof-marker-archive.md` only when you need legacy README proof-marker continuity after README scanability cleanup.
 
 This archive is source-level provenance, not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
+
+## Public Portfolio Surface
+
+The live portfolio proof artifact is:
+
+```text
+https://svy04.github.io/proof-artifacts/noiseproof-agent-phase-ladder-2026-05-30/
+```
+
+Use `docs/review/portfolio-site-proof-artifact-route-verification.md` for the current route verification record.
+
+This public route is a proof surface for the portfolio. It is not hosted deployment evidence for NoiseProof Agent.
 
 ## What This Path Proves
 
@@ -62,5 +76,5 @@ This is not complete workflow failure causality.
 ## Next Gate
 
 ```text
-application package final consistency review v0
+external reviewer feedback or demo transcript capture v0
 ```
