@@ -2254,3 +2254,45 @@ def test_local_browser_screenshot_walkthrough_records_visual_dashboard_boundary(
     assert "docs/review/media/local-browser-dashboard-walkthrough.png" in runbook
     assert "docs/review/local-browser-screenshot-walkthrough.md" in portfolio
     assert "docs/review/local-browser-screenshot-walkthrough.md" in proof_path
+
+
+def test_external_review_request_packet_prepares_feedback_without_claiming_it():
+    request_path = REPO_ROOT / "docs/review/external-review-request.md"
+    issue_template_path = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    )
+    assert request_path.is_file()
+    assert issue_template_path.is_file()
+
+    content = request_path.read_text(encoding="utf-8")
+    issue_template = issue_template_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Request" in content
+    assert "external review request packet v0" in content
+    assert "docs/review/external-reader-proof-path.md" in content
+    assert "docs/review/local-browser-screenshot-walkthrough.md" in content
+    assert "What would make this portfolio stronger?" in content
+    assert "What claim feels over-stated?" in content
+    assert "What is missing before you would trust this?" in content
+    assert "not external reviewer feedback" in content
+    assert "not customer validation" in content
+    assert "not Braincrew acceptance" in content
+    assert "external reviewer feedback v0" in content
+    assert "Reviewer role" in issue_template
+    assert "Evidence inspected" in issue_template
+    assert "Feedback" in issue_template
+    assert "Claim boundary" in issue_template
+    assert "External review request packet v0: implemented" in readme
+    assert "external review request packet v0" in goal
+    assert "external review request packet v0" in runbook
+    assert "docs/review/external-review-request.md" in portfolio
+    assert "docs/review/external-review-request.md" in proof_path

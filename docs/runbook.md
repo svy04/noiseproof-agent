@@ -1201,6 +1201,25 @@ GET /workflow-runs/{id}/lineage
 
 The screenshot must remain a local visual proof surface only. It is not hosted deployment evidence, customer validation, external reviewer feedback, production observability, semantic retrieval evidence, or LLM evidence.
 
+### External review request packet
+
+Phase marker: external review request packet v0.
+
+The external review request packet prepares the next feedback gate:
+
+```text
+docs/review/external-review-request.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+```
+
+Use it when asking an outside reviewer to inspect the 5-minute proof path and leave bounded critique. This is request infrastructure only; it is not external reviewer feedback, customer validation, Braincrew acceptance, or hosted deployment evidence.
+
+The next evidence gate remains:
+
+```text
+external reviewer feedback v0
+```
+
 Inspect auto-created preview traces:
 
 ```bash
