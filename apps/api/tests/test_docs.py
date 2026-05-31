@@ -1891,3 +1891,24 @@ def test_readme_proof_marker_archive_application_refresh_surfaces_archive_path()
 
     assert "README proof-marker archive application refresh v0: implemented" in readme
     assert "readme proof-marker archive application refresh v0" in goal
+
+
+def test_readme_proof_marker_archive_external_path_review_selects_compact_note():
+    review_path = REPO_ROOT / "docs/review/readme-proof-marker-archive-external-path-review.md"
+    assert review_path.is_file()
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "README proof-marker archive external path review" in content
+    assert "review-only gate" in content
+    assert "external-reader proof path should stay compact" in content
+    assert "Do not update the external-reader proof path in this review gate" in content
+    assert "readme proof-marker archive external path refresh v0" in content
+    assert "source-level provenance" in content
+    assert "not product runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "readme proof-marker archive external path review v0" in goal
+    assert "README proof-marker archive external path review v0: implemented" in readme
