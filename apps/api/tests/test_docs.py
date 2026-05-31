@@ -4,6 +4,14 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[3]
 
 
+def readme_with_proof_marker_archive() -> str:
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    archive_path = REPO_ROOT / "docs/review/readme-proof-marker-archive.md"
+    if archive_path.is_file():
+        return readme + "\n" + archive_path.read_text(encoding="utf-8")
+    return readme
+
+
 def test_phase10_evaluation_and_application_artifacts_exist():
     required_files = [
         "docs/evaluation/eval-plan.md",
@@ -213,7 +221,7 @@ def test_direct_cross_stage_link_schema_review_defers_schema_and_points_to_read_
 
 def test_phase32_docs_mark_lineage_read_model_without_storage_claims():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
 
     assert "Phase 32 - Workflow Lineage Read Model v0" in goal
@@ -226,7 +234,7 @@ def test_phase32_docs_mark_lineage_read_model_without_storage_claims():
 
 def test_phase33_docs_mark_dashboard_lineage_links_without_ui_polish_claims():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
 
     assert "Phase 33 - Workflow Lineage Dashboard Links v0" in goal
@@ -260,7 +268,7 @@ def test_workflow_lineage_missing_reference_review_keeps_runtime_scope_bounded()
 
 def test_phase34_docs_mark_missing_reference_test_without_schema_expansion():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
 
     assert "Phase 34 - Workflow Lineage Missing-reference Test v0" in goal
@@ -294,7 +302,7 @@ def test_workflow_lineage_boundary_hardening_review_identifies_manifest_shape_ri
 
 def test_phase35_docs_mark_manifest_shape_hardening_without_schema_expansion():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
 
     assert "Phase 35 - Workflow Lineage Manifest-shape Hardening v0" in goal
@@ -330,7 +338,7 @@ def test_workflow_lineage_warning_taxonomy_review_keeps_warning_scope_bounded():
 
 def test_phase36_docs_mark_structured_warning_taxonomy_without_storage_expansion():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
 
     assert "Phase 36 - Structured Warning Taxonomy v0" in goal
@@ -369,7 +377,7 @@ def test_workflow_lineage_warning_code_documentation_review_keeps_docs_scope_bou
 
 def test_phase37_runbook_documents_lineage_warning_code_response_shape():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
 
     assert "Phase 37 - Workflow Lineage Warning Code Runbook Example v0" in goal
@@ -406,7 +414,7 @@ def test_workflow_lineage_warning_code_dashboard_review_keeps_ui_scope_bounded()
 
 def test_phase38_docs_mark_warning_code_dashboard_surfacing_without_storage_expansion():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
     architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
 
@@ -425,7 +433,7 @@ def test_phase38_docs_mark_warning_code_dashboard_surfacing_without_storage_expa
 
 def test_phase38_5_docs_add_dashboard_warning_code_smoke_example():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
 
     assert "Phase 38.5 - Workflow Lineage Warning Code Dashboard Smoke Example v0" in goal
@@ -459,7 +467,7 @@ def test_workflow_version_naming_review_keeps_runtime_scope_bounded():
 
 def test_phase40_docs_mark_workflow_version_naming_update_without_behavior_expansion():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
     architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
 
@@ -473,7 +481,7 @@ def test_phase40_docs_mark_workflow_version_naming_update_without_behavior_expan
 
 def test_phase40_5_docs_add_workflow_version_smoke_example():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
 
     assert "Phase 40.5 - Workflow Version Naming Smoke Example v0" in goal
@@ -491,7 +499,7 @@ def test_workflow_version_naming_consistency_review_identifies_schema_default_dr
         REPO_ROOT / "docs/review/workflow-version-naming-consistency-review.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Workflow version naming consistency review" in content
     assert "review-only gate" in content
@@ -511,7 +519,7 @@ def test_phase42_schema_default_workflow_version_update_uses_forward_migration()
     migration_path = REPO_ROOT / "db/migrations/010_workflow_version_defaults.sql"
     migration = migration_path.read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert migration_path.is_file()
     assert init_schema.count("DEFAULT 'phase40-lineage-warning-code-dashboard'") >= 2
@@ -525,7 +533,7 @@ def test_phase42_schema_default_workflow_version_update_uses_forward_migration()
 
 def test_phase42_5_docs_add_schema_default_workflow_version_smoke_example():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
 
     assert "Phase 42.5 - Schema Default Workflow Version Smoke Example v0" in goal
@@ -543,7 +551,7 @@ def test_runtime_db_schema_default_verification_records_before_and_after_default
         encoding="utf-8"
     )
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Runtime DB schema default verification" in content
     assert "Docker runtime verification performed" in content
@@ -560,7 +568,7 @@ def test_runtime_db_schema_default_verification_records_before_and_after_default
 def test_migration_runner_review_selects_lightweight_sql_runner_next():
     content = (REPO_ROOT / "docs/review/migration-runner-review.md").read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Migration runner review" in content
     assert "review-only gate" in content
@@ -576,7 +584,7 @@ def test_migration_runner_review_selects_lightweight_sql_runner_next():
 
 def test_phase45_docs_mark_lightweight_sql_migration_runner_boundary():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
 
     assert "Phase 45 - Lightweight SQL Migration Runner v0" in goal
@@ -593,7 +601,7 @@ def test_runtime_migration_runner_verification_records_status_baseline_status():
         encoding="utf-8"
     )
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Runtime migration runner verification" in content
     assert "Docker runtime verification performed" in content
@@ -614,7 +622,7 @@ def test_migration_runner_fresh_db_verification_records_apply_path():
         encoding="utf-8"
     )
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Migration runner fresh DB verification" in content
     assert "isolated Compose project" in content
@@ -635,7 +643,7 @@ def test_migration_runner_fresh_db_verification_records_apply_path():
 
 def test_migration_runner_runbook_cleanup_makes_runner_first_and_manual_fallback():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
 
     assert "Phase 48 - Migration Runner Runbook Cleanup v0" in goal
@@ -653,7 +661,7 @@ def test_fresh_db_api_smoke_verification_records_service_path():
         encoding="utf-8"
     )
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Fresh DB API smoke verification" in content
     assert "noiseproof-agent-api-smoke" in content
@@ -673,7 +681,7 @@ def test_fresh_db_api_smoke_verification_records_service_path():
 
 def test_application_evidence_index_refresh_surfaces_runtime_artifacts_without_overclaiming():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(encoding="utf-8")
     role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(encoding="utf-8")
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(encoding="utf-8")
@@ -695,7 +703,7 @@ def test_failure_case_persistence_smoke_verification_records_failure_ledger_path
         REPO_ROOT / "docs/review/failure-case-persistence-smoke-verification.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case persistence smoke verification" in content
     assert "noiseproof-agent-failure-smoke" in content
@@ -713,7 +721,7 @@ def test_failure_case_persistence_smoke_verification_records_failure_ledger_path
 
 def test_failure_case_application_evidence_refresh_surfaces_failure_smoke_without_detection_claims():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(encoding="utf-8")
     role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(encoding="utf-8")
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(encoding="utf-8")
@@ -733,7 +741,7 @@ def test_agent_run_failure_linkage_smoke_verification_records_fk_path():
         REPO_ROOT / "docs/review/agent-run-failure-linkage-smoke-verification.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Agent-run failure linkage smoke verification" in content
     assert "noiseproof-agent-failure-link-smoke" in content
@@ -752,7 +760,7 @@ def test_agent_run_failure_linkage_smoke_verification_records_fk_path():
 
 def test_agent_run_failure_linkage_application_refresh_surfaces_linked_failure_without_causality_claims():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(encoding="utf-8")
     role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(encoding="utf-8")
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(encoding="utf-8")
@@ -772,7 +780,7 @@ def test_workflow_failure_provenance_review_defers_schema_until_causality_is_rea
         encoding="utf-8"
     )
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Workflow failure provenance review" in content
     assert "review-only gate" in content
@@ -792,7 +800,7 @@ def test_workflow_failure_linkage_smoke_verification_stays_test_fixture_bounded(
         encoding="utf-8"
     )
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
 
     assert "Workflow failure linkage smoke verification" in content
@@ -817,7 +825,7 @@ def test_workflow_failure_linkage_application_refresh_surfaces_workflow_failure_
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "Workflow failure linkage application refresh v0: implemented" in readme
@@ -836,7 +844,7 @@ def test_failure_case_workflow_linkage_review_defers_schema_until_creation_path_
         encoding="utf-8"
     )
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case workflow linkage review" in content
     assert "review-only gate" in content
@@ -859,7 +867,7 @@ def test_failure_case_workflow_linkage_application_refresh_surfaces_historical_b
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "Failure-case workflow linkage application refresh v0: implemented" in readme
@@ -877,7 +885,7 @@ def test_failure_case_creation_path_review_selects_manual_draft_before_automatio
         encoding="utf-8"
     )
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case creation path review" in content
     assert "review-only gate" in content
@@ -892,7 +900,7 @@ def test_failure_case_creation_path_review_selects_manual_draft_before_automatio
 
 def test_failure_case_draft_preview_docs_keep_persistence_boundary_visible():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
 
     assert "Failure-case draft preview v0: implemented" in readme
@@ -914,7 +922,7 @@ def test_failure_case_draft_preview_application_refresh_surfaces_manual_boundary
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "Failure-case draft preview application refresh v0: implemented" in readme
@@ -932,7 +940,7 @@ def test_failure_case_draft_preview_smoke_verification_keeps_preview_only_bounda
         REPO_ROOT / "docs/review/failure-case-draft-preview-smoke-verification.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case draft preview smoke verification" in content
     assert "route-level smoke" in content
@@ -956,7 +964,7 @@ def test_failure_case_draft_preview_smoke_application_refresh_surfaces_smoke_art
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "Failure-case draft preview smoke application refresh v0: implemented" in readme
@@ -974,7 +982,7 @@ def test_failure_case_draft_persistence_handoff_review_defers_automation():
         REPO_ROOT / "docs/review/failure-case-draft-persistence-handoff-review.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case draft persistence handoff review" in content
     assert "review-only gate" in content
@@ -993,7 +1001,7 @@ def test_failure_case_draft_manual_handoff_smoke_verification_records_existing_p
         REPO_ROOT / "docs/review/failure-case-draft-manual-handoff-smoke-verification.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case draft manual handoff smoke verification" in content
     assert "route-level smoke" in content
@@ -1018,7 +1026,7 @@ def test_failure_case_draft_manual_handoff_application_refresh_surfaces_human_st
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "Failure-case draft manual handoff application refresh v0: implemented" in readme
@@ -1036,7 +1044,7 @@ def test_failure_case_draft_fresh_db_handoff_review_selects_runtime_smoke():
         REPO_ROOT / "docs/review/failure-case-draft-fresh-db-handoff-review.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case draft fresh DB handoff review" in content
     assert "review-only gate" in content
@@ -1055,7 +1063,7 @@ def test_failure_case_draft_fresh_db_handoff_smoke_verification_records_runtime_
         REPO_ROOT / "docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case draft fresh DB handoff smoke verification" in content
     assert "fresh migrated Docker DB" in content
@@ -1081,7 +1089,7 @@ def test_failure_case_draft_fresh_db_handoff_application_refresh_surfaces_runtim
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "Failure-case draft fresh-db handoff application refresh v0: implemented" in readme
@@ -1099,7 +1107,7 @@ def test_failure_case_workflow_failure_to_draft_review_selects_preview_input_smo
         REPO_ROOT / "docs/review/failure-case-workflow-failure-to-draft-review.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case workflow failure-to-draft review" in content
     assert "review-only gate" in content
@@ -1119,7 +1127,7 @@ def test_workflow_failure_to_draft_smoke_verification_documents_route_boundary()
         REPO_ROOT / "docs/review/workflow-failure-to-draft-smoke-verification.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Workflow failure-to-draft smoke verification" in content
     assert "route-level smoke" in content
@@ -1144,7 +1152,7 @@ def test_workflow_failure_to_draft_application_refresh_surfaces_smoke_boundary()
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "Workflow failure-to-draft application refresh v0: implemented" in readme
@@ -1162,7 +1170,7 @@ def test_failure_case_workflow_creation_path_decision_defers_automation():
         REPO_ROOT / "docs/review/failure-case-workflow-creation-path-decision.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case workflow creation path decision" in content
     assert "decision-only gate" in content
@@ -1179,7 +1187,7 @@ def test_failure_case_workflow_parent_linkage_schema_review_selects_nullable_fk(
         / "docs/review/failure-case-workflow-parent-linkage-schema-review.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case workflow parent linkage schema review" in content
     assert "review-only gate" in content
@@ -1198,7 +1206,7 @@ def test_failure_cases_schema_has_nullable_workflow_parent_link():
     ).read_text(encoding="utf-8")
     combined = init_schema + "\n" + migration
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "workflow_run_id UUID REFERENCES workflow_runs(id) ON DELETE SET NULL" in combined
     assert "ALTER TABLE failure_cases" in migration
@@ -1213,7 +1221,7 @@ def test_failure_case_workflow_parent_linkage_smoke_verification_documents_bound
         / "docs/review/failure-case-workflow-parent-linkage-smoke-verification.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case workflow parent linkage smoke verification" in content
     assert "route-level smoke" in content
@@ -1233,7 +1241,7 @@ def test_failure_case_workflow_parent_linkage_fresh_db_verification_documents_ru
         / "docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case workflow parent linkage fresh DB verification" in content
     assert "local fresh migrated Docker DB evidence" in content
@@ -1257,7 +1265,7 @@ def test_failure_case_workflow_parent_linkage_application_refresh_surfaces_fresh
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "Failure-case workflow parent linkage application refresh v0: implemented" in readme
@@ -1279,7 +1287,7 @@ def test_failure_case_workflow_parent_linkage_dashboard_review_defers_rendering_
         / "docs/review/failure-case-workflow-parent-linkage-dashboard-review.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case workflow parent linkage dashboard review" in content
     assert "review-only gate" in content
@@ -1294,7 +1302,7 @@ def test_failure_case_workflow_parent_linkage_dashboard_review_defers_rendering_
 
 def test_failure_case_workflow_parent_linkage_dashboard_surfacing_docs_keep_manual_boundary():
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
 
     assert "failure-case workflow parent linkage dashboard surfacing v0" in goal
@@ -1315,7 +1323,7 @@ def test_failure_case_workflow_parent_dashboard_application_refresh_surfaces_man
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "Failure-case workflow parent linkage dashboard application refresh v0: implemented" in readme
@@ -1334,7 +1342,7 @@ def test_failure_case_workflow_parent_fresh_db_dashboard_smoke_review_selects_ru
         / "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-review.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case workflow parent linkage fresh DB dashboard smoke review" in content
     assert "review-only gate" in content
@@ -1354,7 +1362,7 @@ def test_failure_case_workflow_parent_fresh_db_dashboard_smoke_verification_docu
         / "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case workflow parent linkage fresh DB dashboard smoke verification" in content
     assert "local fresh migrated Docker DB dashboard evidence" in content
@@ -1383,7 +1391,7 @@ def test_failure_case_workflow_parent_fresh_db_dashboard_smoke_application_refre
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert (
@@ -1412,7 +1420,7 @@ def test_failure_case_workflow_parent_linkage_proof_consolidation_review_selects
         / "docs/review/failure-case-workflow-parent-linkage-proof-consolidation-review.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case workflow parent linkage proof consolidation review" in content
     assert "review-only gate" in content
@@ -1435,7 +1443,7 @@ def test_failure_case_workflow_parent_linkage_proof_index_gives_reader_path_and_
         / "docs/review/failure-case-workflow-parent-linkage-proof-index.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case workflow parent linkage proof index" in content
     assert "reader path" in content
@@ -1469,7 +1477,7 @@ def test_failure_case_workflow_parent_linkage_proof_index_application_refresh_su
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert (
@@ -1495,7 +1503,7 @@ def test_failure_case_workflow_parent_linkage_stale_claim_review_identifies_clea
         / "docs/review/failure-case-workflow-parent-linkage-stale-claim-review.md"
     ).read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
 
     assert "Failure-case workflow parent linkage stale-claim review" in content
     assert "review-only gate" in content
@@ -1528,7 +1536,7 @@ def test_failure_case_workflow_parent_linkage_stale_claim_cleanup_updates_curren
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     stale_current_claims = [
@@ -1561,7 +1569,7 @@ def test_external_reader_proof_path_review_selects_compact_reader_gate():
     content = (REPO_ROOT / "docs/review/external-reader-proof-path-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "External-reader proof path review" in content
@@ -1583,7 +1591,7 @@ def test_external_reader_proof_path_index_gives_five_minute_path_and_boundaries(
     content = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "External-reader Proof Path" in content
@@ -1607,7 +1615,7 @@ def test_portfolio_external_proof_path_refresh_surfaces_compact_reader_path():
     portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "Portfolio external proof path refresh v0: implemented" in readme
@@ -1625,7 +1633,7 @@ def test_external_reader_proof_path_application_refresh_review_selects_applicati
         REPO_ROOT
         / "docs/review/external-reader-proof-path-application-refresh-review.md"
     ).read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "External-reader proof path application refresh review" in content
@@ -1648,7 +1656,7 @@ def test_external_reader_proof_path_application_refresh_surfaces_path_in_applica
     review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "External-reader proof path application refresh v0: implemented" in readme
@@ -1668,7 +1676,7 @@ def test_readme_external_proof_path_refresh_review_selects_readme_fast_path():
     content = (
         REPO_ROOT / "docs/review/readme-external-proof-path-refresh-review.md"
     ).read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "README external proof path refresh review" in content
@@ -1685,7 +1693,7 @@ def test_readme_external_proof_path_refresh_review_selects_readme_fast_path():
 
 
 def test_readme_external_proof_path_refresh_adds_top_level_fast_path():
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     fast_path_index = readme.index("## External Reviewer Fast Path")
@@ -1705,7 +1713,7 @@ def test_readme_phase_history_compression_review_selects_readability_gate():
     content = (
         REPO_ROOT / "docs/review/readme-phase-history-compression-review.md"
     ).read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "README phase-history compression review" in content
@@ -1721,7 +1729,7 @@ def test_readme_phase_history_compression_review_selects_readability_gate():
 
 
 def test_readme_phase_history_compression_replaces_chronological_wall_with_summary():
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
     what_this_is = readme.split("## What This Is", 1)[1].split("## What This Is Not", 1)[0]
 
@@ -1738,7 +1746,7 @@ def test_readme_implementation_status_compression_review_selects_scanability_gat
     content = (
         REPO_ROOT / "docs/review/readme-implementation-status-compression-review.md"
     ).read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "README implementation-status compression review" in content
@@ -1754,7 +1762,7 @@ def test_readme_implementation_status_compression_review_selects_scanability_gat
 
 
 def test_readme_implementation_status_compression_replaces_top_status_wall():
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
     top_status = readme.split("Implementation status:", 1)[1].split(
         "## Implementation Status", 1
@@ -1774,7 +1782,7 @@ def test_readme_detailed_implementation_status_compression_review_selects_lower_
         REPO_ROOT
         / "docs/review/readme-detailed-implementation-status-compression-review.md"
     ).read_text(encoding="utf-8")
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "README detailed implementation-status compression review" in content
@@ -1790,7 +1798,7 @@ def test_readme_detailed_implementation_status_compression_review_selects_lower_
 
 
 def test_readme_detailed_implementation_status_compression_replaces_lower_phase_wall():
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
     lower_status = readme.split("## Implementation Status", 1)[1].split(
         "Not implemented yet:", 1
@@ -1809,7 +1817,7 @@ def test_readme_proof_marker_archive_review_selects_archive_extraction_gate():
     content = (REPO_ROOT / "docs/review/readme-proof-marker-archive-review.md").read_text(
         encoding="utf-8"
     )
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
 
     assert "README proof-marker archive review" in content
@@ -1822,3 +1830,19 @@ def test_readme_proof_marker_archive_review_selects_archive_extraction_gate():
     assert "not complete workflow failure causality" in content
     assert "readme proof-marker archive review v0" in goal
     assert "README proof-marker archive review v0: implemented" in readme
+
+
+def test_readme_proof_marker_archive_extraction_moves_hidden_archive_out_of_readme():
+    archive = (REPO_ROOT / "docs/review/readme-proof-marker-archive.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "README detailed implementation status archive moved during Phase 103" not in readme
+    assert "README proof-marker archive extraction v0: implemented" in readme
+    assert "Legacy README proof markers moved out of README" in archive
+    assert "Workflow lineage read model v0: implemented" in archive
+    assert "Failure-case workflow parent linkage proof index v0: implemented" in archive
+    assert "README detailed implementation-status compression v0: implemented" in archive
+    assert "readme proof-marker archive extraction v0" in goal
