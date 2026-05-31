@@ -47,6 +47,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-review.md",
         "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md",
         "docs/review/failure-case-workflow-parent-linkage-proof-consolidation-review.md",
+        "docs/review/failure-case-workflow-parent-linkage-proof-index.md",
     ]
 
     for file_path in required_files:
@@ -1426,3 +1427,33 @@ def test_failure_case_workflow_parent_linkage_proof_consolidation_review_selects
         "Failure-case workflow parent linkage proof consolidation review v0: implemented"
         in readme
     )
+
+
+def test_failure_case_workflow_parent_linkage_proof_index_gives_reader_path_and_boundaries():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-parent-linkage-proof-index.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow parent linkage proof index" in content
+    assert "reader path" in content
+    assert "schema boundary" in content
+    assert "manual persistence" in content
+    assert "fresh DB persistence" in content
+    assert "dashboard surfacing" in content
+    assert "fresh DB dashboard proof" in content
+    assert "docs/review/failure-case-workflow-parent-linkage-schema-review.md" in content
+    assert "docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md" in content
+    assert (
+        "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md"
+        in content
+    )
+    assert "Allowed claim" in content
+    assert "Forbidden claim" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "failure-case workflow parent linkage proof index v0" in goal
+    assert "Failure-case workflow parent linkage proof index v0: implemented" in readme
