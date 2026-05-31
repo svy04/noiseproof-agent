@@ -1555,3 +1555,25 @@ def test_failure_case_workflow_parent_linkage_stale_claim_cleanup_updates_curren
     assert "automatic failure-case creation remains unclaimed" in role_map
     assert "historical review boundary" in review
     assert "manual workflow parent linkage now exists" in review
+
+
+def test_external_reader_proof_path_review_selects_compact_reader_gate():
+    content = (REPO_ROOT / "docs/review/external-reader-proof-path-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "External-reader proof path review" in content
+    assert "review-only gate" in content
+    assert "reviewer entry path" in content
+    assert "README.md" in content
+    assert "docs/application/portfolio-index.md" in content
+    assert "docs/review/failure-case-workflow-parent-linkage-proof-index.md" in content
+    assert "Do not create a new external-reader path in this review gate" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "external-reader proof path index v0" in content
+    assert "external-reader proof path review v0" in goal
+    assert "External-reader proof path review v0: implemented" in readme
