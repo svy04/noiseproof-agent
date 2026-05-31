@@ -187,6 +187,7 @@ Implementation status:
 - Failure-case workflow parent linkage schema v0: implemented with nullable `workflow_run_id` on `failure_cases`
 - Failure-case workflow parent linkage smoke verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-smoke-verification.md`
 - Failure-case workflow parent linkage fresh-db verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md`
+- Failure-case workflow parent linkage application refresh v0: implemented across application-facing docs
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -951,6 +952,14 @@ Implementation status:
 - Verified real FastAPI/PostgreSQL path: `POST /workflow-runs` -> `POST /failure-cases` -> `GET /failure-cases` -> `GET /ops/summary`
 - Observed: persisted and listed `workflow_run_id` match the workflow parent id; `ops_failure_case_count: 1`
 - Boundary: local fresh migrated Docker DB evidence only; not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality
+
+### Phase 79 - Failure-case Workflow Parent Linkage Application Refresh v0
+
+- Failure-case workflow parent linkage application refresh v0: implemented
+- `docs/application/portfolio-index.md`: updated with the fresh DB workflow parent linkage artifact
+- `docs/application/braincrew-role-map.md`: updated with the workflow parent linkage fresh DB proof and hosted-deployment boundary
+- `docs/review/application-ready-review.md`: updated with the failure-case workflow parent linkage fresh DB boundary
+- Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure-case creation, automatic persistence, complete workflow failure causality, LLM, and embedding behavior: not changed
 
 Not implemented yet:
 

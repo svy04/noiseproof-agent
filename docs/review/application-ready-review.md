@@ -1,6 +1,6 @@
 # Application-ready Review
 
-Status: Phase 73 review packet.
+Status: Phase 79 review packet.
 
 This is an application-ready review, not a product-complete declaration.
 
@@ -10,7 +10,7 @@ Not product-complete: robust PDF extraction, embeddings, semantic retrieval, dis
 
 Current judgment: Partial application-ready portfolio artifact.
 
-NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, dashboard parent/child provenance links, dashboard Evidence Ledger table, evidence-to-gate/report cross-link review, single workflow parent review, WorkflowRun schema, WorkflowRun metadata persistence, WorkflowRun dashboard visibility, WorkflowRun child-link review, deterministic workflow execution preview, child `workflow_run_id` links, workflow-run child inspection, direct evidence-to-gate/report cross-link review, workflow stage input manifests, direct cross-stage link schema review, workflow lineage read model, dashboard lineage links, missing-reference review and test, boundary hardening review, manifest-shape hardening, warning taxonomy review, structured warning codes, warning-code documentation review, warning-code runbook example, warning-code dashboard review, warning-code dashboard surfacing, migration runner review/implementation/runtime verification, fresh DB API smoke evidence, failure-case persistence smoke evidence, agent-run failure linkage smoke evidence, workflow failure linkage smoke evidence, failure-case draft preview exists as a human-confirmed, non-persisting preparation boundary, failure-case draft preview smoke confirms that this preparation path leaves `failure_cases` unchanged, failure-case draft manual handoff smoke shows the human confirmation boundary remains explicit before persistence, failure-case draft fresh DB handoff smoke verifies that path against a local migrated PostgreSQL database while automatic persistence remains unclaimed, workflow failure-to-draft smoke shows that a failed workflow parent can feed draft preview while automatic failure-case creation remains unclaimed, preview endpoint traces, failure records, and technical decision trail.
+NoiseProof Agent is strong enough to show a Braincrew-style reviewer the project shape, service boundary, evidence-first workflow, operations surface, persisted Evidence Ledger v0 records, persisted Noise Gate v0 records, persisted Report Preview v0 records, `workflow_trace_id` correlation, direct trace lookup, persisted record filtering, dashboard trace/filter links, agent-run linkage review, parent agent-run lifecycle, child-record `agent_run_id` linkage, dashboard parent/child provenance links, dashboard Evidence Ledger table, evidence-to-gate/report cross-link review, single workflow parent review, WorkflowRun schema, WorkflowRun metadata persistence, WorkflowRun dashboard visibility, WorkflowRun child-link review, deterministic workflow execution preview, child `workflow_run_id` links, workflow-run child inspection, direct evidence-to-gate/report cross-link review, workflow stage input manifests, direct cross-stage link schema review, workflow lineage read model, dashboard lineage links, missing-reference review and test, boundary hardening review, manifest-shape hardening, warning taxonomy review, structured warning codes, warning-code documentation review, warning-code runbook example, warning-code dashboard review, warning-code dashboard surfacing, migration runner review/implementation/runtime verification, fresh DB API smoke evidence, failure-case persistence smoke evidence, agent-run failure linkage smoke evidence, workflow failure linkage smoke evidence, failure-case draft preview exists as a human-confirmed, non-persisting preparation boundary, failure-case draft preview smoke confirms that this preparation path leaves `failure_cases` unchanged, failure-case draft manual handoff smoke shows the human confirmation boundary remains explicit before persistence, failure-case draft fresh DB handoff smoke verifies that path against a local migrated PostgreSQL database while automatic persistence remains unclaimed, workflow failure-to-draft smoke shows that a failed workflow parent can feed draft preview while automatic failure-case creation remains unclaimed, failure-case workflow parent linkage fresh DB proof verifies manually persisted failure cases can retain `workflow_run_id` while automatic failure-case creation remains unclaimed, preview endpoint traces, failure records, and technical decision trail.
 
 It is not strong enough to claim production RAG quality or autonomous market intelligence.
 
@@ -60,6 +60,7 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | failure-case draft manual handoff smoke works | Pass | `docs/review/failure-case-draft-manual-handoff-smoke-verification.md` | human confirmation boundary remains explicit; not automatic persistence |
 | failure-case draft fresh DB handoff smoke works | Pass | `docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md` | local Docker DB evidence only; not hosted deployment evidence |
 | workflow failure-to-draft smoke works | Pass | `docs/review/workflow-failure-to-draft-smoke-verification.md` | route-level smoke only; automatic failure-case creation remains unclaimed |
+| failure-case workflow parent linkage fresh DB works | Pass | `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md` | local Docker DB evidence only; not hosted deployment evidence; automatic failure-case creation remains unclaimed |
 
 Historical Phase 31.5 boundary: JSON manifest only, not direct FK or join-table lineage. Phase 32 makes that manifest easier to inspect through a derived read model, but it still does not convert the manifest into a relational contract.
 
@@ -119,6 +120,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - Failure-case Draft Preview Smoke Verification v0
 - Failure-case Draft Manual Handoff Smoke Verification v0
 - Failure-case Draft Fresh DB Handoff Smoke Verification v0
+- Failure-case Workflow Parent Linkage Fresh DB Verification v0
 
 Avoid claims about:
 

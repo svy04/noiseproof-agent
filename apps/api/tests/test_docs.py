@@ -1240,3 +1240,29 @@ def test_failure_case_workflow_parent_linkage_fresh_db_verification_documents_ru
     assert "not automatic failure-case creation" in content
     assert "failure-case workflow parent linkage fresh-db verification v0" in goal
     assert "Failure-case workflow parent linkage fresh-db verification v0: implemented" in readme
+
+
+def test_failure_case_workflow_parent_linkage_application_refresh_surfaces_fresh_db_boundary():
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow parent linkage application refresh v0: implemented" in readme
+    assert "failure-case workflow parent linkage application refresh v0" in goal
+    assert "Failure-case workflow parent linkage fresh DB verification" in portfolio
+    assert (
+        "docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md"
+        in portfolio
+    )
+    assert "workflow parent linkage fresh DB proof" in role_map
+    assert "not hosted deployment evidence" in role_map
+    assert "failure-case workflow parent linkage fresh DB" in review
+    assert "automatic failure-case creation remains unclaimed" in review
