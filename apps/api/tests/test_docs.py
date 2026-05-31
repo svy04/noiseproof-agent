@@ -1767,3 +1767,23 @@ def test_readme_implementation_status_compression_replaces_top_status_wall():
     assert len(top_status) < 1800
     assert "readme implementation-status compression v0" in goal
     assert "README implementation-status compression v0: implemented" in readme
+
+
+def test_readme_detailed_implementation_status_compression_review_selects_lower_section_gate():
+    content = (
+        REPO_ROOT
+        / "docs/review/readme-detailed-implementation-status-compression-review.md"
+    ).read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "README detailed implementation-status compression review" in content
+    assert "review-only gate" in content
+    assert "detailed implementation status section is too long" in content
+    assert "Do not compress lower README implementation status in this review gate" in content
+    assert "readme detailed implementation-status compression v0" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "readme detailed implementation-status compression review v0" in goal
+    assert "README detailed implementation-status compression review v0: implemented" in readme

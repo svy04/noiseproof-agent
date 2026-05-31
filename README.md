@@ -1053,6 +1053,12 @@ Still planned or explicitly unclaimed near the top:
 - Detailed implementation history remains in the lower `## Implementation Status` section, `docs/GOAL.md`, and phase-specific `docs/review/*` artifacts
 - Boundary: README documentation only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
 
+### Phase 102 - README Detailed Implementation-status Compression Review v0
+
+- README detailed implementation-status compression review v0: implemented as `docs/review/readme-detailed-implementation-status-compression-review.md`
+- Current decision: compress the lower README implementation status section next
+- Boundary: review-only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
+
 Not implemented yet:
 
 - file upload parsing
