@@ -1150,3 +1150,19 @@ def test_workflow_failure_to_draft_application_refresh_surfaces_smoke_boundary()
     assert "not automatic failure-case creation" in role_map
     assert "workflow failure-to-draft smoke" in review
     assert "automatic failure-case creation remains unclaimed" in review
+
+
+def test_failure_case_workflow_creation_path_decision_defers_automation():
+    content = (
+        REPO_ROOT / "docs/review/failure-case-workflow-creation-path-decision.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow creation path decision" in content
+    assert "decision-only gate" in content
+    assert "automatic failure-case creation remains deferred" in content
+    assert "human-confirmed persistence path" in content
+    assert "workflow_run_id on failure_cases requires a schema gate" in content
+    assert "failure-case workflow creation path decision v0" in goal
+    assert "Failure-case workflow creation path decision v0: implemented" in readme

@@ -182,6 +182,7 @@ Implementation status:
 - Failure-case workflow failure-to-draft review v0: implemented as `docs/review/failure-case-workflow-failure-to-draft-review.md`
 - Workflow failure-to-draft smoke verification v0: implemented as `docs/review/workflow-failure-to-draft-smoke-verification.md`
 - Workflow failure-to-draft application refresh v0: implemented across application-facing docs
+- Failure-case workflow creation path decision v0: implemented as `docs/review/failure-case-workflow-creation-path-decision.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -901,6 +902,14 @@ Implementation status:
 - `docs/application/braincrew-role-map.md`: updated with route-level smoke and automatic-creation boundary
 - `docs/review/application-ready-review.md`: updated with workflow failure-to-draft smoke boundary
 - Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure-case creation, automatic persistence, complete workflow failure causality, LLM, and embedding behavior: not changed
+
+### Phase 74 - Failure-case Workflow Creation Path Decision v0
+
+- Failure-case workflow creation path decision v0: implemented
+- `docs/review/failure-case-workflow-creation-path-decision.md`: added
+- Decision: automatic failure-case creation remains deferred
+- Selected direction: human-confirmed persistence path before durable failure records
+- Boundary: `workflow_run_id` on `failure_cases` requires a schema gate before implementation
 
 Not implemented yet:
 
