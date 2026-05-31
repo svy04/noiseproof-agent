@@ -102,6 +102,8 @@ Phase 60 reviews failure-case creation paths and selects a manual failure-case d
 
 Phase 61 adds `POST /failure-cases/draft-preview`, a non-persisting helper that turns workflow failure evidence into a human-confirmed draft payload.
 
+Phase 72 verifies the narrow workflow failure-to-draft smoke path: a failed `POST /workflow-runs/execute-preview` parent can feed `POST /failure-cases/draft-preview`, while `failure_cases` remain unchanged and no automatic failure-case creation is claimed.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

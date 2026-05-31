@@ -591,6 +591,62 @@ def test_workflow_execute_preview_marks_parent_failed_when_stage_errors():
     assert repository.failure_cases == []
 
 
+def test_failed_workflow_parent_can_feed_failure_case_draft_preview_without_persistence():
+    app = create_app()
+    repository = EvidencePersistenceFailureRepository()
+    app.dependency_overrides[get_repository] = lambda: repository
+    client = TestClient(app, raise_server_exceptions=False)
+
+    execution = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    )
+
+    assert execution.status_code == 500
+    assert len(repository.workflow_runs) == 1
+    workflow_run = repository.workflow_runs[0]
+    assert workflow_run["status"] == "failed"
+    assert repository.failure_cases == []
+
+    preview = client.post(
+        "/failure-cases/draft-preview",
+        json={
+            "workflow_run_id": str(workflow_run["id"]),
+            "question": workflow_run["question"],
+            "workflow_status": workflow_run["status"],
+            "error_message": workflow_run["error_message"],
+            "trace_json": workflow_run["trace_json"],
+        },
+    )
+
+    assert preview.status_code == 200
+    payload = preview.json()
+    assert payload["persistence_boundary"] == "preview_only_not_persisted"
+    assert payload["human_confirmation_required"] is True
+    assert payload["source_summary"] == {
+        "workflow_run_id": str(workflow_run["id"]),
+        "workflow_status": "failed",
+        "stage": "workflow_execute_preview",
+        "error_type": "RuntimeError",
+    }
+    assert payload["draft"]["failure_type"] == "workflow_stage_error"
+    assert payload["draft"]["root_cause"] == "RuntimeError: simulated evidence persistence failure"
+    assert payload["draft"]["fix_status"] == "draft"
+    assert any("does not create failure_cases" in warning for warning in payload["warnings"])
+    assert repository.failure_cases == []
+    assert client.get("/failure-cases").json() == []
+
+
 def test_workflow_run_detail_returns_child_records_linked_to_workflow_parent():
     client = make_client()
     execution = client.post(

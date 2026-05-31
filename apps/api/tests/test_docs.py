@@ -1107,3 +1107,23 @@ def test_failure_case_workflow_failure_to_draft_review_selects_preview_input_smo
     assert "not complete workflow failure causality" in content
     assert "failure-case workflow failure-to-draft review v0" in goal
     assert "Failure-case workflow failure-to-draft review v0: implemented" in readme
+
+
+def test_workflow_failure_to_draft_smoke_verification_documents_route_boundary():
+    content = (
+        REPO_ROOT / "docs/review/workflow-failure-to-draft-smoke-verification.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Workflow failure-to-draft smoke verification" in content
+    assert "route-level smoke" in content
+    assert "POST /workflow-runs/execute-preview" in content
+    assert "POST /failure-cases/draft-preview" in content
+    assert "workflow_run.status: failed" in content
+    assert "preview_only_not_persisted" in content
+    assert "failure_cases remain unchanged" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "workflow failure-to-draft smoke verification v0" in goal
+    assert "Workflow failure-to-draft smoke verification v0: implemented" in readme

@@ -180,6 +180,7 @@ Implementation status:
 - Failure-case draft fresh-db handoff smoke verification v0: implemented as `docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md`
 - Failure-case draft fresh-db handoff application refresh v0: implemented across application-facing docs
 - Failure-case workflow failure-to-draft review v0: implemented as `docs/review/failure-case-workflow-failure-to-draft-review.md`
+- Workflow failure-to-draft smoke verification v0: implemented as `docs/review/workflow-failure-to-draft-smoke-verification.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -882,6 +883,15 @@ Implementation status:
 - Current decision: prove failed workflow parent -> draft-preview input before any automatic failure-case creation
 - Deferred: automatic failure-case creation, automatic persistence, confirm endpoint, `workflow_run_id` on `failure_cases`, and complete workflow failure causality
 - Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure detection, complete workflow failure causality, LLM, and embedding behavior: not changed
+
+### Phase 72 - Workflow Failure-to-draft Smoke Verification v0
+
+- Workflow failure-to-draft smoke verification v0: implemented
+- `docs/review/workflow-failure-to-draft-smoke-verification.md`: added
+- Route-level smoke: failed `POST /workflow-runs/execute-preview` parent -> `POST /failure-cases/draft-preview`
+- Observed: `workflow_run.status: failed`, `persistence_boundary: preview_only_not_persisted`, `human_confirmation_required: true`
+- Confirmed: failure-case draft preview does not persist a failure case; `failure_cases` remain unchanged
+- Boundary: not automatic failure-case creation, not automatic persistence, not fresh Docker DB evidence, and not complete workflow failure causality
 
 Not implemented yet:
 
