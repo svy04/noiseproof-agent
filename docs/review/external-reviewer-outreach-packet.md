@@ -1,0 +1,141 @@
+# External Reviewer Outreach Packet
+
+Status: external reviewer outreach packet.
+
+Phase marker: external reviewer outreach packet v0.
+
+Label: External reviewer outreach packet.
+
+This artifact prepares copy-paste outreach messages for actual human reviewers. It does not claim that external reviewer feedback has been received.
+
+## Purpose
+
+The next evidence gate is:
+
+```text
+external reviewer feedback v0
+```
+
+This packet reduces the friction of asking real reviewers to inspect the bounded proof path and leave critique on the public issue.
+
+Public request issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+Reviewer brief:
+
+```text
+docs/review/external-reviewer-brief.md
+```
+
+Feedback intake criteria:
+
+```text
+docs/review/external-feedback-intake-criteria.md
+```
+
+## Copy-paste outreach messages
+
+### FDE / product engineer reviewer
+
+```text
+Hi, I am preparing NoiseProof Agent as a small portfolio project for Forward Deployed Engineer / product engineer roles.
+
+It is not a trading bot and not a production RAG platform. The current proof path is intentionally bounded: local service surfaces, parser/chunk/retrieval previews, evidence/noise/report previews, workflow lineage, and failure-case provenance.
+
+Could you spend 5 minutes on the reviewer brief and leave one concrete comment on issue #1?
+
+Please focus on:
+- what claim feels over-stated
+- what evidence is easiest to inspect
+- what would make this stronger for an FDE / product engineer reviewer
+
+Reviewer brief:
+docs/review/external-reviewer-brief.md
+
+Public issue:
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+### RAG / data engineer reviewer
+
+```text
+Hi, I am looking for a technical review of NoiseProof Agent before I claim more than it proves.
+
+The project is currently a local, inspectable evidence-first market-intelligence service. It has deterministic previews for collection planning, parser/chunk/retrieval boundaries, Evidence Ledger / Noise Gate / report previews, workflow lineage, and failure-case provenance. It does not claim semantic retrieval quality, embeddings, robust PDF extraction, hosted deployment, or production RAG behavior.
+
+Could you inspect the short proof path and leave one evidence-referenced comment on issue #1?
+
+Please focus on:
+- whether the parser/chunk/retrieval boundaries are honest
+- whether the evidence and warning surfaces are inspectable
+- what is missing before this could be trusted as a RAG/data-agent portfolio artifact
+
+Reviewer brief:
+docs/review/external-reviewer-brief.md
+
+Feedback criteria:
+docs/review/external-feedback-intake-criteria.md
+
+Public issue:
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+### founder / operator reviewer
+
+```text
+Hi, I am stress-testing the clarity of a portfolio project called NoiseProof Agent.
+
+The project tries to show one thing: before an AI system generates a confident market-intelligence answer, it should expose what evidence exists, what conflicts, what is missing, and what claims should be blocked.
+
+Could you spend 5 minutes on the reviewer brief and leave one practical comment on issue #1?
+
+Please focus on:
+- whether the problem is clear
+- whether the proof path is understandable without me explaining it
+- what would make this easier to evaluate for a founder/operator
+
+Reviewer brief:
+docs/review/external-reviewer-brief.md
+
+Public issue:
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+## Qualification Boundary
+
+A sent message, a self-authored note, an empty acknowledgement, generic praise, CI status, or bot summary is not external reviewer feedback.
+
+The gate only advances when an outside reviewer leaves substantive, evidence-referenced feedback that satisfies:
+
+```text
+docs/review/external-feedback-intake-criteria.md
+```
+
+## Allowed Claim
+
+NoiseProof Agent has a copy-paste outreach packet for asking external reviewers to inspect the bounded proof path.
+
+## Boundary
+
+This is not external reviewer feedback.
+
+This is not customer validation.
+
+This is not Braincrew acceptance.
+
+This is not hosted deployment evidence.
+
+This is not production RAG evidence.
+
+This does not prove that anyone has reviewed the repository.
+
+## Next Gate
+
+The next gate remains:
+
+```text
+external reviewer feedback v0
+```

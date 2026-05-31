@@ -32,6 +32,8 @@ Read in this order:
     - 2-minute path for a reviewer before leaving feedback.
 11. `docs/review/external-reviewer-live-proof-route-refresh.md`
     - Latest public portfolio proof route for reviewer orientation. This is not feedback itself.
+12. `docs/review/external-reviewer-outreach-packet.md`
+    - Copy-paste outreach messages for actual human reviewers. This is not feedback itself.
 
 ## Optional source-level provenance
 
@@ -80,6 +82,8 @@ Use `docs/review/external-reviewer-brief.md` first if the reviewer only has a fe
 Use `docs/review/external-review-request.md` when asking a reviewer to inspect the proof path.
 
 It points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and asks for critique on over-stated claims, missing evidence, and hiring signal.
+
+Use `docs/review/external-reviewer-outreach-packet.md` when you need a copy-paste message for an FDE/product engineer, RAG/data engineer, or founder/operator reviewer.
 
 Public request issue:
 

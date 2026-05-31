@@ -22,6 +22,8 @@ External feedback intake surface: `docs/review/external-feedback-intake-criteria
 
 External reviewer brief: `docs/review/external-reviewer-brief.md` gives a 2-minute path for reviewers before they comment on issue #1. It is not external reviewer feedback itself.
 
+External reviewer outreach packet: `docs/review/external-reviewer-outreach-packet.md` gives copy-paste messages for asking FDE/product engineer, RAG/data engineer, and founder/operator reviewers to inspect issue #1. It is not external reviewer feedback itself.
+
 Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers after README scanability cleanup. It is source-level provenance, not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 
 ## Start Here
@@ -112,6 +114,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | External feedback intake criteria | `docs/review/external-feedback-intake-criteria.md` | qualification criteria only; feedback still pending |
 | External reviewer brief | `docs/review/external-reviewer-brief.md` | 2-minute reviewer path only; feedback still pending |
 | External reviewer live proof route refresh | `docs/review/external-reviewer-live-proof-route-refresh.md` | latest public portfolio proof route; feedback still pending |
+| External reviewer outreach packet | `docs/review/external-reviewer-outreach-packet.md` | copy-paste outreach messages only; feedback still pending |
 | README proof-marker archive | `docs/review/readme-proof-marker-archive.md` | source-level provenance only; not product runtime evidence |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
@@ -146,6 +149,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-feedback-intake-criteria.md` | qualification criteria for accepting future external reviewer feedback |
 | `docs/review/external-reviewer-brief.md` | 2-minute path for reviewers before leaving feedback |
 | `docs/review/external-reviewer-live-proof-route-refresh.md` | latest public proof route for reviewer orientation; not external reviewer feedback |
+| `docs/review/external-reviewer-outreach-packet.md` | copy-paste outreach packet for actual human reviewers; not external reviewer feedback |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

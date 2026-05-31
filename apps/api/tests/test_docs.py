@@ -2414,3 +2414,40 @@ def test_external_reviewer_live_proof_route_refresh_links_public_artifact_withou
     assert live_route in portfolio
     assert live_route in proof_path
     assert live_route in brief
+
+
+def test_external_reviewer_outreach_packet_prepares_human_request_without_claiming_feedback():
+    outreach_path = REPO_ROOT / "docs/review/external-reviewer-outreach-packet.md"
+    assert outreach_path.is_file()
+
+    content = outreach_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Reviewer Outreach Packet" in content
+    assert "external reviewer outreach packet v0" in content
+    assert "Copy-paste outreach messages" in content
+    assert "FDE / product engineer reviewer" in content
+    assert "RAG / data engineer reviewer" in content
+    assert "founder / operator reviewer" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "docs/review/external-reviewer-brief.md" in content
+    assert "docs/review/external-feedback-intake-criteria.md" in content
+    assert "not external reviewer feedback" in content
+    assert "external reviewer feedback v0" in content
+    assert "External reviewer outreach packet v0: implemented" in readme
+    assert "external reviewer outreach packet v0" in goal
+    assert "external reviewer outreach packet v0" in runbook
+    assert "docs/review/external-reviewer-outreach-packet.md" in portfolio
+    assert "docs/review/external-reviewer-outreach-packet.md" in proof_path
+    assert "docs/review/external-reviewer-outreach-packet.md" in request

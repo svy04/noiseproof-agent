@@ -22,6 +22,12 @@ Shortest reviewer brief:
 docs/review/external-reviewer-brief.md
 ```
 
+Copy-paste outreach packet:
+
+```text
+docs/review/external-reviewer-outreach-packet.md
+```
+
 ## Review Path
 
 Please read in this order:
@@ -72,6 +78,8 @@ Feedback intake criteria:
 ```text
 docs/review/external-feedback-intake-criteria.md
 ```
+
+Use `docs/review/external-reviewer-outreach-packet.md` when contacting an FDE/product engineer reviewer, RAG/data engineer reviewer, or founder/operator reviewer before they comment on issue #1.
 
 Suggested sections:
 
