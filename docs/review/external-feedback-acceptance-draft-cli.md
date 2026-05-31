@@ -27,6 +27,12 @@ The GitHub Actions screening workflow also writes this output to:
 external-feedback-acceptance-draft.json
 ```
 
+Remote verification:
+
+```text
+docs/review/external-feedback-acceptance-draft-workflow-verification.md
+```
+
 ## Expected candidate output shape
 
 ```json

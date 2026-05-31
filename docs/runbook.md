@@ -1317,6 +1317,23 @@ The GitHub Actions screening workflow uploads `external-feedback-acceptance-draf
 
 The artifact is still a draft. It does not close the gate and is not external reviewer feedback.
 
+Phase marker: external feedback acceptance draft workflow verification v0.
+
+Verified remote run:
+
+```text
+26727047243
+```
+
+Downloaded artifacts:
+
+```text
+external-feedback-screen.json
+external-feedback-acceptance-draft.json
+```
+
+The downloaded acceptance draft result was `pending` with `draft_count: 0`. This proves the workflow uploaded an inspectable draft artifact, but it is not external reviewer feedback.
+
 Inspect auto-created preview traces:
 
 ```bash

@@ -67,6 +67,7 @@ Remote verification:
 
 ```text
 docs/review/external-feedback-screening-workflow-verification.md
+docs/review/external-feedback-acceptance-draft-workflow-verification.md
 ```
 
 ## Boundary

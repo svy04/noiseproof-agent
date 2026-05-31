@@ -2622,6 +2622,58 @@ def test_external_feedback_screening_workflow_artifact_verification_records_remo
     )
 
 
+def test_external_feedback_acceptance_draft_workflow_verification_records_remote_pending_result():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-acceptance-draft-workflow-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    workflow_doc = (
+        REPO_ROOT / "docs/review/external-feedback-screening-workflow.md"
+    ).read_text(encoding="utf-8")
+    draft_cli_doc = (
+        REPO_ROOT / "docs/review/external-feedback-acceptance-draft-cli.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Feedback Acceptance Draft Workflow Verification" in content
+    assert "external feedback acceptance draft workflow verification v0" in content
+    assert "26727047243" in content
+    assert "62a21c2099813570c6475e9547e4609dd046d795" in content
+    assert "external-feedback-screen.json" in content
+    assert "external-feedback-acceptance-draft.json" in content
+    assert '"status": "pending"' in content
+    assert '"candidate_count": 0' in content
+    assert '"draft_count": 0' in content
+    assert "does not close the gate" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "External feedback acceptance draft workflow verification v0: implemented"
+        in readme
+    )
+    assert "external feedback acceptance draft workflow verification v0" in goal
+    assert "external feedback acceptance draft workflow verification v0" in runbook
+    assert (
+        "docs/review/external-feedback-acceptance-draft-workflow-verification.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/external-feedback-acceptance-draft-workflow-verification.md"
+        in workflow_doc
+    )
+    assert (
+        "docs/review/external-feedback-acceptance-draft-workflow-verification.md"
+        in draft_cli_doc
+    )
+
+
 def test_readme_next_gate_matches_external_feedback_state_without_stale_phase_claim():
     refresh_path = REPO_ROOT / "docs/review/readme-next-gate-stale-claim-refresh.md"
     assert refresh_path.is_file()
