@@ -4,6 +4,14 @@ A noise-resilient data agent for messy market intelligence.
 
 This project ingests messy documents and market data, evaluates chunking and retrieval strategies, detects contradictory evidence, and generates claim-bounded reports with citations. It is not a trading bot and does not provide buy/sell recommendations.
 
+## External Reviewer Fast Path
+
+Start with `docs/review/external-reader-proof-path.md`.
+
+That file is the 5-minute repository-native path for reviewing what this project currently proves. It points to the README, portfolio index, failure-case workflow parent proof index, application-ready review, and Braincrew role map.
+
+Boundary: this fast path is not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
+
 ## What This Is
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
@@ -205,6 +213,7 @@ Implementation status:
 - External-reader proof path application refresh review v0: implemented as `docs/review/external-reader-proof-path-application-refresh-review.md`
 - External-reader proof path application refresh v0: implemented across application-facing docs
 - README external proof path refresh review v0: implemented as `docs/review/readme-external-proof-path-refresh-review.md`
+- README external proof path refresh v0: implemented near the top of this README
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -1100,6 +1109,12 @@ Implementation status:
 - `docs/review/readme-external-proof-path-refresh-review.md`: added
 - Current decision: add a short README fast-path block next
 - Boundary: review-only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
+
+### Phase 97 - README External Proof Path Refresh v0
+
+- README external proof path refresh v0: implemented
+- README now links `docs/review/external-reader-proof-path.md` near the top as the 5-minute repository-native path
+- Boundary: README documentation only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
 
 Not implemented yet:
 

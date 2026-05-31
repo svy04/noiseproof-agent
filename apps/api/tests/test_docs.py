@@ -1682,3 +1682,20 @@ def test_readme_external_proof_path_refresh_review_selects_readme_fast_path():
     assert "not complete workflow failure causality" in content
     assert "readme external proof path refresh review v0" in goal
     assert "README external proof path refresh review v0: implemented" in readme
+
+
+def test_readme_external_proof_path_refresh_adds_top_level_fast_path():
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    fast_path_index = readme.index("## External Reviewer Fast Path")
+    what_this_is_index = readme.index("## What This Is")
+
+    assert fast_path_index < what_this_is_index
+    assert "docs/review/external-reader-proof-path.md" in readme
+    assert "5-minute repository-native path" in readme
+    assert "not hosted deployment evidence" in readme
+    assert "not automatic failure-case creation" in readme
+    assert "not complete workflow failure causality" in readme
+    assert "readme external proof path refresh v0" in goal
+    assert "README external proof path refresh v0: implemented" in readme
