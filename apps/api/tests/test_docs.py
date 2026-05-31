@@ -2001,3 +2001,27 @@ def test_braincrew_role_map_runtime_proof_compression_review_selects_role_map_ga
     assert "not complete workflow failure causality" in content
     assert "braincrew role-map runtime proof compression review v0" in goal
     assert "Braincrew role-map runtime proof compression review v0: implemented" in readme
+
+
+def test_braincrew_role_map_runtime_proof_compression_replaces_proof_wall():
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runtime_section = role_map.split("## Runtime Proof Surfaces", 1)[1].split(
+        "## DeepDocurator Alignment", 1
+    )[0]
+
+    assert "Runtime proof summary:" in runtime_section
+    assert "Detailed proof links:" in runtime_section
+    assert "The failure-case draft preview can turn workflow failure evidence" not in runtime_section
+    assert "The fresh DB dashboard Workflow Parent proof verifies" not in runtime_section
+    assert "The workflow parent proof index gives the reader path" not in runtime_section
+    assert "not hosted deployment evidence" in runtime_section
+    assert "not automatic failure-case creation" in runtime_section
+    assert "not complete workflow failure causality" in runtime_section
+    assert "not automatic failure detection" in runtime_section
+    assert len(runtime_section) < 4200
+    assert "Braincrew role-map runtime proof compression v0: implemented" in readme
+    assert "braincrew role-map runtime proof compression v0" in goal
