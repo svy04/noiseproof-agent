@@ -1751,3 +1751,19 @@ def test_readme_implementation_status_compression_review_selects_scanability_gat
     assert "not complete workflow failure causality" in content
     assert "readme implementation-status compression review v0" in goal
     assert "README implementation-status compression review v0: implemented" in readme
+
+
+def test_readme_implementation_status_compression_replaces_top_status_wall():
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    top_status = readme.split("Implementation status:", 1)[1].split(
+        "## Implementation Status", 1
+    )[0]
+
+    assert "Current status groups" in top_status
+    assert "Detailed implementation history remains in the lower detailed Implementation Status section" in top_status
+    assert "Failure-case draft fresh-db handoff review v0" not in top_status
+    assert "README phase-history compression review v0" not in top_status
+    assert len(top_status) < 1800
+    assert "readme implementation-status compression v0" in goal
+    assert "README implementation-status compression v0: implemented" in readme

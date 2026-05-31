@@ -100,131 +100,25 @@ Source Upload / URL Input
 
 Implementation status:
 
-- Product definition: documented
-- Architecture: documented
-- ADRs: documented
-- Local database service: configured
-- FastAPI health endpoint: implemented
-- PostgreSQL schema init: implemented
-- Document metadata endpoints: implemented
-- Agent run metadata endpoints: implemented
-- Failure case endpoints: implemented
-- Ops summary placeholder: implemented
-- Messy market data fixtures: implemented
-- Document Profiler v0: implemented
-- Parser adapter stubs: implemented for markdown, CSV, HTML/URL, PDF text-only fallback, and unknown source types
-- Chunk strategy experiment v0: implemented for fixed-window, heading-aware, and row-aware strategies
-- Retrieval v0: implemented for lexical candidate search over chunk-preview output with source ids
-- Collection Plan Preview: implemented for role-based information needs before Evidence Ledger work
-- Evidence Ledger Preview: implemented for deterministic claim-level entries over retrieval candidates
-- Noise Gate Preview: implemented for deterministic pre-report checks over ledger entries and draft claims
-- Claim-bounded Report Preview: implemented for gate-passing ledger entries
-- Operations Dashboard v0: implemented as a plain FastAPI HTML view over current metadata records
-- Evaluation/Application Package v0: implemented for evaluation planning, failure cases, Braincrew role mapping, cover message, and portfolio index
-- Application-ready review: implemented as a partial/pass boundary checklist
-- Auto Trace Recording v0: implemented for document profile, parse, chunk, collection plan, evidence ledger, noise gate, and report preview endpoints
-- Persisted Evidence Ledger records v0: implemented with `POST /evidence-ledgers`, `GET /evidence-ledgers`, and real ops counts for unsupported and contradicted entries
-- Persisted Noise Gate records v0: implemented with `POST /noise-gates`, `GET /noise-gates`, and ops counts for blocked/revision gate decisions
-- Persisted Report Preview records v0: implemented with `POST /reports`, `GET /reports`, and ops counts for generated/blocked/revision report-shaped outputs
-- Record Linkage v0: implemented with shared `workflow_trace_id` values on persisted evidence, gate, report records, and matching agent-run traces
-- Trace-id lookup v0: implemented with `GET /traces/{workflow_trace_id}`
-- Persisted record filtering v0: implemented for `GET /evidence-ledgers`, `GET /noise-gates`, and `GET /reports`
-- Dashboard trace/filter links v0: implemented in `GET /ops/dashboard`
-- Agent-run linkage review v0: implemented as `docs/review/agent-run-linkage-review.md`
-- Agent-run lifecycle v0: implemented in `run_with_trace()`
-- Persisted child record agent-run linkage v0: implemented for Evidence Ledger, Noise Gate, and Report records
-- Dashboard parent/child provenance links v0: implemented for Noise Gate and Report record rows
-- Evidence Ledger dashboard table v0: implemented for persisted evidence rows
-- Evidence-to-gate/report local cross-links review v0: implemented as a review-only decision artifact
-- Single workflow parent review v0: implemented as a review-only decision artifact
-- WorkflowRun schema v0: implemented as `workflow_runs` table SQL and migration
-- WorkflowRun metadata persistence v0: implemented with `POST /workflow-runs` and `GET /workflow-runs`
-- WorkflowRun dashboard table v0: implemented as metadata-only visibility in `GET /ops/dashboard`
-- WorkflowRun child-link review v0: implemented as a review-only decision artifact
-- Deterministic workflow execution preview v0: implemented with `POST /workflow-runs/execute-preview`
-- WorkflowRun child-record links v0: implemented with nullable `workflow_run_id` on retrieval, evidence, gate, and report records
-- WorkflowRun child inspection surface v0: implemented with `GET /workflow-runs/{id}`
-- Direct evidence-to-gate/report cross-link review v0: implemented as a review-only decision artifact
-- Workflow stage input manifest v0: implemented with `stage_input_manifest` on workflow-created Noise Gate and Report records
-- Direct cross-stage link schema review v0: implemented as a review-only decision artifact
-- Workflow lineage read model v0: implemented with `GET /workflow-runs/{id}/lineage`
-- Workflow lineage dashboard links v0: implemented in `GET /ops/dashboard`
-- Workflow lineage missing-reference review v0: implemented as `docs/review/workflow-lineage-missing-reference-review.md`
-- Workflow lineage missing-reference test v0: implemented for broken `stage_input_manifest` fixtures
-- Workflow lineage boundary hardening review v0: implemented as `docs/review/workflow-lineage-boundary-hardening-review.md`
-- Workflow lineage manifest-shape hardening v0: implemented for non-list manifest values, duplicate references, and cross-workflow references
-- Workflow lineage warning taxonomy review v0: implemented as `docs/review/workflow-lineage-warning-taxonomy-review.md`
-- Structured warning taxonomy v0: implemented as `warning_codes` on `GET /workflow-runs/{id}/lineage`
-- Workflow lineage warning code documentation review v0: implemented as `docs/review/workflow-lineage-warning-code-documentation-review.md`
-- Workflow lineage warning code runbook example v0: implemented in `docs/runbook.md`
-- Workflow lineage warning code dashboard review v0: implemented as `docs/review/workflow-lineage-warning-code-dashboard-review.md`
-- Workflow lineage warning code dashboard surfacing v0: implemented as a bounded legend in `GET /ops/dashboard`
-- Workflow lineage warning code dashboard smoke example v0: implemented in `docs/runbook.md`
-- Workflow version naming review v0: implemented as `docs/review/workflow-version-naming-review.md`
-- Workflow version naming update v0: implemented as `phase40-lineage-warning-code-dashboard`
-- Workflow version naming smoke example v0: implemented in `docs/runbook.md`
-- Workflow version naming consistency review v0: implemented as `docs/review/workflow-version-naming-consistency-review.md`
-- Schema default workflow version update v0: implemented with fresh init defaults and `db/migrations/010_workflow_version_defaults.sql`
-- Schema default workflow version smoke example v0: implemented in `docs/runbook.md`
-- Runtime DB schema default verification v0: implemented as `docs/review/runtime-db-schema-default-verification.md`
-- Migration runner review v0: implemented as `docs/review/migration-runner-review.md`
-- Lightweight SQL migration runner v0: implemented as `python -m app.migration_runner`
-- Runtime migration runner verification v0: implemented as `docs/review/runtime-migration-runner-verification.md`
-- Migration runner fresh DB verification v0: implemented as `docs/review/migration-runner-fresh-db-verification.md`
-- Migration runner runbook cleanup v0: implemented in `docs/runbook.md`
-- Fresh DB API smoke verification v0: implemented as `docs/review/fresh-db-api-smoke-verification.md`
-- Application evidence index refresh v0: implemented across application-facing docs
-- Failure-case persistence smoke verification v0: implemented as `docs/review/failure-case-persistence-smoke-verification.md`
-- Failure-case application evidence refresh v0: implemented across application-facing docs
-- Agent-run failure linkage smoke verification v0: implemented as `docs/review/agent-run-failure-linkage-smoke-verification.md`
-- Agent-run failure linkage application refresh v0: implemented across application-facing docs
-- Workflow failure provenance review v0: implemented as `docs/review/workflow-failure-provenance-review.md`
-- Workflow failure linkage smoke verification v0: implemented as `docs/review/workflow-failure-linkage-smoke-verification.md`
-- Workflow failure linkage application refresh v0: implemented across application-facing docs
-- Failure-case workflow linkage review v0: implemented as `docs/review/failure-case-workflow-linkage-review.md`
-- Failure-case workflow linkage application refresh v0: implemented across application-facing docs
-- Failure-case creation path review v0: implemented as `docs/review/failure-case-creation-path-review.md`
-- Failure-case draft preview v0: implemented as `POST /failure-cases/draft-preview`
-- Failure-case draft preview application refresh v0: implemented across application-facing docs
-- Failure-case draft preview smoke verification v0: implemented as `docs/review/failure-case-draft-preview-smoke-verification.md`
-- Failure-case draft preview smoke application refresh v0: implemented across application-facing docs
-- Failure-case draft persistence handoff review v0: implemented as `docs/review/failure-case-draft-persistence-handoff-review.md`
-- Failure-case draft manual handoff smoke verification v0: implemented as `docs/review/failure-case-draft-manual-handoff-smoke-verification.md`
-- Failure-case draft manual handoff application refresh v0: implemented across application-facing docs
-- Failure-case draft fresh-db handoff review v0: implemented as `docs/review/failure-case-draft-fresh-db-handoff-review.md`
-- Failure-case draft fresh-db handoff smoke verification v0: implemented as `docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md`
-- Failure-case draft fresh-db handoff application refresh v0: implemented across application-facing docs
-- Failure-case workflow failure-to-draft review v0: implemented as `docs/review/failure-case-workflow-failure-to-draft-review.md`
-- Workflow failure-to-draft smoke verification v0: implemented as `docs/review/workflow-failure-to-draft-smoke-verification.md`
-- Workflow failure-to-draft application refresh v0: implemented across application-facing docs
-- Failure-case workflow creation path decision v0: implemented as `docs/review/failure-case-workflow-creation-path-decision.md`
-- Failure-case workflow parent linkage schema review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-schema-review.md`
-- Failure-case workflow parent linkage schema v0: implemented with nullable `workflow_run_id` on `failure_cases`
-- Failure-case workflow parent linkage smoke verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-smoke-verification.md`
-- Failure-case workflow parent linkage fresh-db verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md`
-- Failure-case workflow parent linkage application refresh v0: implemented across application-facing docs
-- Failure-case workflow parent linkage dashboard review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-dashboard-review.md`
-- Failure-case workflow parent linkage dashboard surfacing v0: implemented in `GET /ops/dashboard`
-- Failure-case workflow parent linkage dashboard application refresh v0: implemented across application-facing docs
-- Failure-case workflow parent linkage fresh-db dashboard smoke review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-review.md`
-- Failure-case workflow parent linkage fresh-db dashboard smoke verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md`
-- Failure-case workflow parent linkage fresh-db dashboard smoke application refresh v0: implemented across application-facing docs
-- Failure-case workflow parent linkage proof consolidation review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-proof-consolidation-review.md`
-- Failure-case workflow parent linkage proof index v0: implemented as `docs/review/failure-case-workflow-parent-linkage-proof-index.md`
-- Failure-case workflow parent linkage proof index application refresh v0: implemented across application-facing docs
-- Failure-case workflow parent linkage proof chain stale-claim review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-stale-claim-review.md`
-- Failure-case workflow parent linkage stale-claim cleanup v0: implemented as `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md`
-- External-reader proof path review v0: implemented as `docs/review/external-reader-proof-path-review.md`
-- External-reader proof path index v0: implemented as `docs/review/external-reader-proof-path.md`
-- Portfolio external proof path refresh v0: implemented in `docs/application/portfolio-index.md`
-- External-reader proof path application refresh review v0: implemented as `docs/review/external-reader-proof-path-application-refresh-review.md`
-- External-reader proof path application refresh v0: implemented across application-facing docs
-- README external proof path refresh review v0: implemented as `docs/review/readme-external-proof-path-refresh-review.md`
-- README external proof path refresh v0: implemented near the top of this README
-- README phase-history compression review v0: implemented as `docs/review/readme-phase-history-compression-review.md`
-- README phase-history compression v0: implemented in the `What This Is` section
-- README implementation-status compression review v0: implemented as `docs/review/readme-implementation-status-compression-review.md`
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
+Current status groups:
+
+- documentation: product brief, architecture, ADRs, runbook, application package, and review artifacts
+- service skeleton: FastAPI health, ops summary/dashboard, metadata routes, PostgreSQL schema, migration runner, and CI
+- ingestion/RAG boundaries: document profiling, parser adapters, chunk strategy comparison, lexical retrieval, and collection planning
+- evidence/report boundaries: Evidence Ledger, Noise Gate, claim-bounded report previews, trace lookup, filters, workflow parents, lineage, and warning codes
+- proof surfaces: fresh DB smoke artifacts, failure-case persistence/linkage artifacts, manual handoff proofs, external reviewer path, and Braincrew application mapping
+
+Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*` artifacts.
+
+Still planned or explicitly unclaimed near the top:
+
+- web app and polished dashboard UI
+- file upload parsing and robust PDF extraction
+- persisted chunks, embeddings, semantic retrieval, and LLM calls
+- hosted deployment evidence
+- automatic failure-case creation from workflow failures
+- complete workflow failure causality
+- free-form final report generation
 
 ## Implementation Status
 
@@ -537,6 +431,7 @@ Implementation status:
 
 ### Phase 32 - Workflow Lineage Read Model v0
 
+- Workflow lineage read model v0: implemented
 - `GET /workflow-runs/{id}/lineage`: done
 - Derived lineage from existing workflow child records and `stage_input_manifest`: done
 - Noise Gate input Evidence Ledger ids are resolved back to linked Evidence Ledger records: done
@@ -546,6 +441,7 @@ Implementation status:
 
 ### Phase 33 - Workflow Lineage Dashboard Links v0
 
+- Workflow lineage dashboard links v0: implemented
 - `GET /ops/dashboard` workflow rows link to `GET /workflow-runs/{id}`: done
 - `GET /ops/dashboard` workflow rows link to `GET /workflow-runs/{id}/lineage`: done
 - Dashboard copy labels lineage as a derived read model: done
@@ -560,6 +456,7 @@ Implementation status:
 
 ### Phase 34 - Workflow Lineage Missing-reference Test v0
 
+- Workflow lineage missing-reference test v0: implemented
 - Broken `stage_input_manifest` fixture for `GET /workflow-runs/{id}/lineage`: done
 - `missing_reference_count > 0` assertion: done
 - missing Evidence Ledger ids and missing Noise Gate id assertions: done
@@ -575,6 +472,7 @@ Implementation status:
 
 ### Phase 35 - Workflow Lineage Manifest-shape Hardening v0
 
+- Workflow lineage manifest-shape hardening v0: implemented
 - Non-list `input_evidence_ledger_entry_ids` values return an empty id list: done
 - Invalid manifest shape warning says `input_evidence_ledger_entry_ids must be a list`: done
 - Cross-workflow references remain local missing references: done
@@ -592,6 +490,7 @@ Implementation status:
 
 ### Phase 36 - Structured Warning Taxonomy v0
 
+- Structured warning taxonomy v0: implemented
 - `GET /workflow-runs/{id}/lineage` returns `warning_codes`: done
 - Existing human-readable `warnings` remain available: done
 - Codes implemented: `derived_read_model_boundary`, `local_workflow_scope`, `missing_manifest_reference`, `invalid_manifest_shape`
@@ -608,6 +507,7 @@ Implementation status:
 
 ### Phase 37 - Workflow Lineage Warning Code Runbook Example v0
 
+- Workflow lineage warning code runbook example v0: implemented
 - `docs/runbook.md` shows expected `/workflow-runs/{id}/lineage` response shape: done
 - Example includes both `warnings` and `warning_codes`: done
 - Example includes `derived_read_model_boundary` and `local_workflow_scope`: done
@@ -1145,6 +1045,13 @@ Implementation status:
 - README implementation-status compression review v0: implemented as `docs/review/readme-implementation-status-compression-review.md`
 - Current decision: compress the top README implementation status list next
 - Boundary: review-only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
+
+### Phase 101 - README Implementation-status Compression v0
+
+- README implementation-status compression v0: implemented
+- The top `Implementation status:` wall now summarizes current status groups and explicit non-claims
+- Detailed implementation history remains in the lower `## Implementation Status` section, `docs/GOAL.md`, and phase-specific `docs/review/*` artifacts
+- Boundary: README documentation only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
 
 Not implemented yet:
 
