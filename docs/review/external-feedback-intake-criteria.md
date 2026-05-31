@@ -85,6 +85,8 @@ rejected changes with reason
 what remains unproven
 ```
 
+Use `docs/review/external-feedback-acceptance-template.md` as the recording shape after a candidate comment passes manual acceptance.
+
 ## Local Screening Helper
 
 Before writing a follow-up artifact, use the local preview helper to separate obvious non-qualifying comments from comments that may deserve manual acceptance:

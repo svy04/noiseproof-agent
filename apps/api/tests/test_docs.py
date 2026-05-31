@@ -2613,3 +2613,32 @@ def test_readme_next_gate_matches_external_feedback_state_without_stale_phase_cl
     assert "readme next-gate stale-claim refresh v0" in goal
     assert "readme next-gate stale-claim refresh v0" in runbook
     assert "docs/review/readme-next-gate-stale-claim-refresh.md" in portfolio
+
+
+def test_external_feedback_acceptance_template_exists_without_claiming_feedback():
+    template_path = REPO_ROOT / "docs/review/external-feedback-acceptance-template.md"
+    assert template_path.is_file()
+
+    content = template_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    criteria = (REPO_ROOT / "docs/review/external-feedback-intake-criteria.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Feedback Acceptance Template" in content
+    assert "external feedback acceptance template v0" in content
+    assert "Reviewer identity" in content
+    assert "Inspected evidence" in content
+    assert "Accepted critique" in content
+    assert "Manual acceptance decision" in content
+    assert "not external reviewer feedback" in content
+    assert "External feedback acceptance template v0: implemented" in readme
+    assert "external feedback acceptance template v0" in goal
+    assert "external feedback acceptance template v0" in runbook
+    assert "docs/review/external-feedback-acceptance-template.md" in portfolio
+    assert "docs/review/external-feedback-acceptance-template.md" in criteria

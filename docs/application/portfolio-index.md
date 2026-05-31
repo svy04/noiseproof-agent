@@ -34,6 +34,8 @@ External feedback screening workflow verification: `docs/review/external-feedbac
 
 README next-gate stale-claim refresh: `docs/review/readme-next-gate-stale-claim-refresh.md` updates the README next-step section so it points to `external reviewer feedback v0` instead of an older workflow-lineage gate. It is not external reviewer feedback itself.
 
+External feedback acceptance template: `docs/review/external-feedback-acceptance-template.md` defines how to record a future qualifying public review comment after manual acceptance. It is not external reviewer feedback itself.
+
 Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers after README scanability cleanup. It is source-level provenance, not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 
 ## Start Here
@@ -169,6 +171,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-feedback-screening-workflow.md` | GitHub Actions wrapper over the screening CLI; not external reviewer feedback |
 | `docs/review/external-feedback-screening-workflow-verification.md` | downloaded remote screening artifact; pending and not external reviewer feedback |
 | `docs/review/readme-next-gate-stale-claim-refresh.md` | README next-step now points to external reviewer feedback v0; not external reviewer feedback |
+| `docs/review/external-feedback-acceptance-template.md` | template for recording future accepted public review comments; not external reviewer feedback |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

@@ -159,6 +159,7 @@ Major implementation milestones:
 - External feedback screening workflow v0: implemented
 - External feedback screening workflow verification v0: implemented
 - README next-gate stale-claim refresh v0: implemented
+- External feedback acceptance template v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The dedicated proof-marker archive in `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers without making the rendered README a chronological wall.
 

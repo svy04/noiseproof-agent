@@ -1299,6 +1299,12 @@ Use `docs/review/readme-next-gate-stale-claim-refresh.md` when checking why the 
 
 The refresh only removes a stale next-step claim from the repository front door. It is not external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, or production readiness.
 
+Phase marker: external feedback acceptance template v0.
+
+Use `docs/review/external-feedback-acceptance-template.md` only after issue #1 receives a public outside comment that passes the screening workflow and satisfies `docs/review/external-feedback-intake-criteria.md`.
+
+The template is empty proof infrastructure. It is not external reviewer feedback until a future qualifying public comment is manually accepted and recorded.
+
 Inspect auto-created preview traces:
 
 ```bash
