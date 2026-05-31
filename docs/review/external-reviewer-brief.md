@@ -20,6 +20,12 @@ Read only these:
 4. `docs/review/local-browser-screenshot-walkthrough.md`
 5. `docs/review/external-feedback-intake-criteria.md`
 
+Optional public proof route:
+
+```text
+https://svy04.github.io/proof-artifacts/noiseproof-live-route-verification-2026-06-01/
+```
+
 Then leave feedback here:
 
 ```text

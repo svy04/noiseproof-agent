@@ -10,6 +10,8 @@ Boundary: this fast path is not hosted deployment evidence, not automatic failur
 
 Public portfolio surface: `docs/review/portfolio-site-proof-artifact-route-verification.md` records that the live portfolio proof artifact points back to this repo without converting that route into NoiseProof hosted deployment evidence.
 
+Latest public proof route refresh: `docs/review/external-reviewer-live-proof-route-refresh.md` points reviewers to `https://svy04.github.io/proof-artifacts/noiseproof-live-route-verification-2026-06-01/`. It is not external reviewer feedback and not NoiseProof hosted deployment evidence.
+
 Demo surface: `docs/review/demo-transcript-capture.md` records a self-authored route walkthrough for collection planning, deterministic workflow preview, lineage, and dashboard inspection. It is not external reviewer feedback or hosted deployment evidence.
 
 Visual local proof surface: `docs/review/local-browser-screenshot-walkthrough.md` records a local browser screenshot of `GET /ops/dashboard` with workflow-run lineage links. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, and not production observability.
@@ -109,6 +111,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | External review request packet | `docs/review/external-review-request.md` | request packet only; feedback not yet received |
 | External feedback intake criteria | `docs/review/external-feedback-intake-criteria.md` | qualification criteria only; feedback still pending |
 | External reviewer brief | `docs/review/external-reviewer-brief.md` | 2-minute reviewer path only; feedback still pending |
+| External reviewer live proof route refresh | `docs/review/external-reviewer-live-proof-route-refresh.md` | latest public portfolio proof route; feedback still pending |
 | README proof-marker archive | `docs/review/readme-proof-marker-archive.md` | source-level provenance only; not product runtime evidence |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
@@ -142,6 +145,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-review-request.md` | structured request packet for external critique; not external reviewer feedback |
 | `docs/review/external-feedback-intake-criteria.md` | qualification criteria for accepting future external reviewer feedback |
 | `docs/review/external-reviewer-brief.md` | 2-minute path for reviewers before leaving feedback |
+| `docs/review/external-reviewer-live-proof-route-refresh.md` | latest public proof route for reviewer orientation; not external reviewer feedback |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
@@ -165,7 +169,7 @@ Short current claim:
 
 NoiseProof Agent is a small, inspectable portfolio service for evidence-first market-intelligence workflows. It shows local service boundaries for profiling, parser/chunk/retrieval previews, persisted evidence/gate/report records, workflow-parent lineage, failure-case persistence, and manual failure-case workflow-parent provenance before any free-form final answer is claimed.
 
-Detailed proof history remains in `docs/review/external-reader-proof-path.md`, `docs/review/failure-case-workflow-parent-linkage-proof-index.md`, `docs/review/application-ready-review.md`, `docs/review/readme-proof-marker-archive.md`, and `docs/GOAL.md`.
+Detailed proof history remains in `docs/review/external-reader-proof-path.md`, `docs/review/failure-case-workflow-parent-linkage-proof-index.md`, `docs/review/application-ready-review.md`, `docs/review/external-reviewer-live-proof-route-refresh.md`, `docs/review/readme-proof-marker-archive.md`, and `docs/GOAL.md`.
 
 Allowed claim: local, inspectable portfolio evidence exists for the current bounded workflow surfaces.
 

@@ -30,6 +30,8 @@ Read in this order:
    - Structured request packet for external critique. This is not feedback itself.
 10. `docs/review/external-reviewer-brief.md`
     - 2-minute path for a reviewer before leaving feedback.
+11. `docs/review/external-reviewer-live-proof-route-refresh.md`
+    - Latest public portfolio proof route for reviewer orientation. This is not feedback itself.
 
 ## Optional source-level provenance
 
@@ -46,6 +48,14 @@ https://svy04.github.io/proof-artifacts/noiseproof-agent-phase-ladder-2026-05-30
 ```
 
 Use `docs/review/portfolio-site-proof-artifact-route-verification.md` for the current route verification record.
+
+Latest public proof route refresh:
+
+```text
+https://svy04.github.io/proof-artifacts/noiseproof-live-route-verification-2026-06-01/
+```
+
+Use `docs/review/external-reviewer-live-proof-route-refresh.md` for the latest reviewer-facing public route refresh.
 
 This public route is a proof surface for the portfolio. It is not hosted deployment evidence for NoiseProof Agent.
 

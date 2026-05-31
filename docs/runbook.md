@@ -1231,6 +1231,16 @@ Phase marker: external reviewer brief v0.
 
 Use `docs/review/external-reviewer-brief.md` when the reviewer needs a 2-minute path. This is not external reviewer feedback and must not close the gate by itself.
 
+Phase marker: external reviewer live proof route refresh v0.
+
+Use `docs/review/external-reviewer-live-proof-route-refresh.md` when the reviewer needs the latest public portfolio proof route:
+
+```text
+https://svy04.github.io/proof-artifacts/noiseproof-live-route-verification-2026-06-01/
+```
+
+This route refresh helps external reviewers find the public proof surface, reviewer brief, and issue #1. It is not external reviewer feedback, not hosted deployment evidence for NoiseProof Agent, not customer validation, and not a product-complete claim.
+
 Inspect auto-created preview traces:
 
 ```bash

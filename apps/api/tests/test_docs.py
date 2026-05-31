@@ -2372,3 +2372,45 @@ def test_external_reviewer_brief_gives_two_minute_path_without_claiming_feedback
     assert "docs/review/external-reviewer-brief.md" in portfolio
     assert "docs/review/external-reviewer-brief.md" in proof_path
     assert "docs/review/external-reviewer-brief.md" in request
+
+
+def test_external_reviewer_live_proof_route_refresh_links_public_artifact_without_claiming_feedback():
+    refresh_path = REPO_ROOT / "docs/review/external-reviewer-live-proof-route-refresh.md"
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+
+    live_route = (
+        "https://svy04.github.io/proof-artifacts/"
+        "noiseproof-live-route-verification-2026-06-01/"
+    )
+    assert "External Reviewer Live Proof Route Refresh" in content
+    assert "external reviewer live proof route refresh v0" in content
+    assert live_route in content
+    assert "39ab5e4" in content
+    assert "71c6062" in content
+    assert "3dfe5e4" in content
+    assert "26720601344" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "external reviewer feedback v0" in content
+    assert "External reviewer live proof route refresh v0: implemented" in readme
+    assert "external reviewer live proof route refresh v0" in goal
+    assert "external reviewer live proof route refresh v0" in runbook
+    assert "docs/review/external-reviewer-live-proof-route-refresh.md" in portfolio
+    assert "docs/review/external-reviewer-live-proof-route-refresh.md" in proof_path
+    assert live_route in portfolio
+    assert live_route in proof_path
+    assert live_route in brief
