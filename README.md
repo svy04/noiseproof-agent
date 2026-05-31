@@ -193,6 +193,7 @@ Implementation status:
 - Failure-case workflow parent linkage dashboard application refresh v0: implemented across application-facing docs
 - Failure-case workflow parent linkage fresh-db dashboard smoke review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-review.md`
 - Failure-case workflow parent linkage fresh-db dashboard smoke verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md`
+- Failure-case workflow parent linkage fresh-db dashboard smoke application refresh v0: implemented across application-facing docs
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -1002,6 +1003,14 @@ Implementation status:
 - `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md`: added
 - Runtime proof: fresh Docker DB, migrations through `011_failure_case_workflow_run_id.sql`, FastAPI on port 8025, manual workflow-linked failure case, and `GET /ops/dashboard` HTML containing the Workflow Parent link
 - Boundary: local smoke only; not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality
+
+### Phase 85 - Failure-case Workflow Parent Linkage Fresh-db Dashboard Smoke Application Refresh v0
+
+- Failure-case workflow parent linkage fresh-db dashboard smoke application refresh v0: implemented
+- `docs/application/portfolio-index.md`: updated with the fresh DB dashboard Workflow Parent proof
+- `docs/application/braincrew-role-map.md`: updated with the fresh DB dashboard Workflow Parent proof and boundaries
+- `docs/review/application-ready-review.md`: updated with the application-ready claim boundary
+- Boundary: application-facing documentation only; no runtime behavior, schema, dashboard rendering, automatic failure-case creation, or complete workflow failure causality changed
 
 Not implemented yet:
 
