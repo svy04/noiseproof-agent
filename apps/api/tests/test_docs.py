@@ -42,6 +42,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-draft-manual-handoff-smoke-verification.md",
         "docs/review/failure-case-draft-fresh-db-handoff-review.md",
         "docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md",
+        "docs/review/failure-case-workflow-failure-to-draft-review.md",
     ]
 
     for file_path in required_files:
@@ -1086,3 +1087,23 @@ def test_failure_case_draft_fresh_db_handoff_application_refresh_surfaces_runtim
     assert "not hosted deployment evidence" in role_map
     assert "failure-case draft fresh DB handoff smoke" in review
     assert "automatic persistence remains unclaimed" in review
+
+
+def test_failure_case_workflow_failure_to_draft_review_selects_preview_input_smoke():
+    content = (
+        REPO_ROOT / "docs/review/failure-case-workflow-failure-to-draft-review.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow failure-to-draft review" in content
+    assert "review-only gate" in content
+    assert "failed workflow parent" in content
+    assert "POST /failure-cases/draft-preview" in content
+    assert "workflow_run.status = failed" in content
+    assert "Do not add automatic failure-case creation in this review gate" in content
+    assert "Do not add workflow_run_id to failure_cases in this review gate" in content
+    assert "workflow failure-to-draft smoke verification v0" in content
+    assert "not complete workflow failure causality" in content
+    assert "failure-case workflow failure-to-draft review v0" in goal
+    assert "Failure-case workflow failure-to-draft review v0: implemented" in readme
