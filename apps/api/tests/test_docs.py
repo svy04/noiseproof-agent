@@ -1662,3 +1662,23 @@ def test_external_reader_proof_path_application_refresh_surfaces_path_in_applica
     assert "not hosted deployment evidence" in role_map
     assert "not automatic failure-case creation" in role_map
     assert "not complete workflow failure causality" in review
+
+
+def test_readme_external_proof_path_refresh_review_selects_readme_fast_path():
+    content = (
+        REPO_ROOT / "docs/review/readme-external-proof-path-refresh-review.md"
+    ).read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "README external proof path refresh review" in content
+    assert "review-only gate" in content
+    assert "README.md" in content
+    assert "docs/review/external-reader-proof-path.md" in content
+    assert "Do not edit README fast path in this review gate" in content
+    assert "readme external proof path refresh v0" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "readme external proof path refresh review v0" in goal
+    assert "README external proof path refresh review v0: implemented" in readme

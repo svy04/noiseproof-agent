@@ -204,6 +204,7 @@ Implementation status:
 - Portfolio external proof path refresh v0: implemented in `docs/application/portfolio-index.md`
 - External-reader proof path application refresh review v0: implemented as `docs/review/external-reader-proof-path-application-refresh-review.md`
 - External-reader proof path application refresh v0: implemented across application-facing docs
+- README external proof path refresh review v0: implemented as `docs/review/readme-external-proof-path-refresh-review.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -1092,6 +1093,13 @@ Implementation status:
 - `docs/application/braincrew-role-map.md`: updated with `docs/review/external-reader-proof-path.md`
 - `docs/review/application-ready-review.md`: updated with the 5-minute path and boundaries
 - Boundary: application-facing documentation only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
+
+### Phase 96 - README External Proof Path Refresh Review v0
+
+- README external proof path refresh review v0: implemented
+- `docs/review/readme-external-proof-path-refresh-review.md`: added
+- Current decision: add a short README fast-path block next
+- Boundary: review-only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
 
 Not implemented yet:
 
