@@ -43,6 +43,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-draft-fresh-db-handoff-review.md",
         "docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md",
         "docs/review/failure-case-workflow-failure-to-draft-review.md",
+        "docs/review/failure-case-workflow-parent-linkage-dashboard-review.md",
     ]
 
     for file_path in required_files:
@@ -1266,3 +1267,22 @@ def test_failure_case_workflow_parent_linkage_application_refresh_surfaces_fresh
     assert "not hosted deployment evidence" in role_map
     assert "failure-case workflow parent linkage fresh DB" in review
     assert "automatic failure-case creation remains unclaimed" in review
+
+
+def test_failure_case_workflow_parent_linkage_dashboard_review_defers_rendering_change():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-parent-linkage-dashboard-review.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow parent linkage dashboard review" in content
+    assert "review-only gate" in content
+    assert "Failure Cases table" in content
+    assert "workflow_run_id" in content
+    assert "Do not add dashboard rendering in this review gate" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "failure-case workflow parent linkage dashboard review v0" in goal
+    assert "Failure-case workflow parent linkage dashboard review v0: implemented" in readme

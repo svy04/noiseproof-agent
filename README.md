@@ -188,6 +188,7 @@ Implementation status:
 - Failure-case workflow parent linkage smoke verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-smoke-verification.md`
 - Failure-case workflow parent linkage fresh-db verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md`
 - Failure-case workflow parent linkage application refresh v0: implemented across application-facing docs
+- Failure-case workflow parent linkage dashboard review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-dashboard-review.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -960,6 +961,13 @@ Implementation status:
 - `docs/application/braincrew-role-map.md`: updated with the workflow parent linkage fresh DB proof and hosted-deployment boundary
 - `docs/review/application-ready-review.md`: updated with the failure-case workflow parent linkage fresh DB boundary
 - Runtime behavior, schema, API endpoints, dashboard rendering, automatic failure-case creation, automatic persistence, complete workflow failure causality, LLM, and embedding behavior: not changed
+
+### Phase 80 - Failure-case Workflow Parent Linkage Dashboard Review v0
+
+- Failure-case workflow parent linkage dashboard review v0: implemented
+- `docs/review/failure-case-workflow-parent-linkage-dashboard-review.md`: added
+- Current decision: surface manual `failure_cases.workflow_run_id` in the Failure Cases table as a link to `/workflow-runs/{id}` in the next gate
+- Boundary: this review does not add dashboard rendering, automatic failure-case creation, automatic failure detection, or complete workflow failure causality
 
 Not implemented yet:
 
