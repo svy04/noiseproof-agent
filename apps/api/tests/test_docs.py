@@ -1699,3 +1699,22 @@ def test_readme_external_proof_path_refresh_adds_top_level_fast_path():
     assert "not complete workflow failure causality" in readme
     assert "readme external proof path refresh v0" in goal
     assert "README external proof path refresh v0: implemented" in readme
+
+
+def test_readme_phase_history_compression_review_selects_readability_gate():
+    content = (
+        REPO_ROOT / "docs/review/readme-phase-history-compression-review.md"
+    ).read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "README phase-history compression review" in content
+    assert "review-only gate" in content
+    assert "phase-history paragraph is too long" in content
+    assert "Do not compress README in this review gate" in content
+    assert "readme phase-history compression v0" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "readme phase-history compression review v0" in goal
+    assert "README phase-history compression review v0: implemented" in readme

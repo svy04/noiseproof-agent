@@ -214,6 +214,7 @@ Implementation status:
 - External-reader proof path application refresh v0: implemented across application-facing docs
 - README external proof path refresh review v0: implemented as `docs/review/readme-external-proof-path-refresh-review.md`
 - README external proof path refresh v0: implemented near the top of this README
+- README phase-history compression review v0: implemented as `docs/review/readme-phase-history-compression-review.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -1115,6 +1116,13 @@ Implementation status:
 - README external proof path refresh v0: implemented
 - README now links `docs/review/external-reader-proof-path.md` near the top as the 5-minute repository-native path
 - Boundary: README documentation only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
+
+### Phase 98 - README Phase-history Compression Review v0
+
+- README phase-history compression review v0: implemented
+- `docs/review/readme-phase-history-compression-review.md`: added
+- Current decision: compress the long README chronological phase paragraph next
+- Boundary: review-only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
 
 Not implemented yet:
 
