@@ -381,6 +381,38 @@ def test_agent_run_and_failure_case_roundtrip():
     assert client.get("/failure-cases").json()[0]["fix_status"] == "open"
 
 
+def test_failure_case_can_retain_manual_workflow_parent_link():
+    client = make_client()
+    workflow_run = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which workflow failure should be reviewed?",
+            "status": "failed",
+            "error_message": "simulated evidence persistence failure",
+        },
+    )
+    workflow_run_id = workflow_run.json()["id"]
+
+    failure = client.post(
+        "/failure-cases",
+        json={
+            "workflow_run_id": workflow_run_id,
+            "failure_type": "workflow_stage_error",
+            "description": "Workflow evidence persistence failed after retrieval.",
+            "root_cause": "RuntimeError: simulated evidence persistence failure",
+            "fix_status": "open",
+            "next_action": "Inspect failed workflow parent before retry.",
+        },
+    )
+    listed = client.get("/failure-cases")
+
+    assert workflow_run.status_code == 201
+    assert failure.status_code == 201
+    assert failure.json()["workflow_run_id"] == workflow_run_id
+    assert listed.status_code == 200
+    assert listed.json()[0]["workflow_run_id"] == workflow_run_id
+
+
 def test_failure_case_draft_preview_suggests_manual_payload_without_persistence():
     client = make_client()
     workflow_run_id = str(uuid4())
@@ -410,6 +442,7 @@ def test_failure_case_draft_preview_suggests_manual_payload_without_persistence(
         "error_type": "RuntimeError",
     }
     assert payload["draft"]["agent_run_id"] is None
+    assert payload["draft"]["workflow_run_id"] == workflow_run_id
     assert payload["draft"]["failure_type"] == "workflow_stage_error"
     assert "workflow_execute_preview" in payload["draft"]["description"]
     assert payload["draft"]["root_cause"] == "RuntimeError: simulated evidence persistence failure"

@@ -143,6 +143,7 @@ CREATE TABLE IF NOT EXISTS report_records (
 CREATE TABLE IF NOT EXISTS failure_cases (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   agent_run_id UUID REFERENCES agent_runs(id) ON DELETE SET NULL,
+  workflow_run_id UUID REFERENCES workflow_runs(id) ON DELETE SET NULL,
   failure_type TEXT NOT NULL,
   description TEXT NOT NULL,
   root_cause TEXT,

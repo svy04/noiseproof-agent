@@ -417,6 +417,7 @@ class WorkflowLineageOut(BaseModel):
 
 class FailureCaseCreate(BaseModel):
     agent_run_id: UUID | None = None
+    workflow_run_id: UUID | None = None
     failure_type: str = Field(..., min_length=1)
     description: str = Field(..., min_length=1)
     root_cause: str | None = None

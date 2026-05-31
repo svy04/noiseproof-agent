@@ -184,6 +184,7 @@ Implementation status:
 - Workflow failure-to-draft application refresh v0: implemented across application-facing docs
 - Failure-case workflow creation path decision v0: implemented as `docs/review/failure-case-workflow-creation-path-decision.md`
 - Failure-case workflow parent linkage schema review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-schema-review.md`
+- Failure-case workflow parent linkage schema v0: implemented with nullable `workflow_run_id` on `failure_cases`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -919,6 +920,16 @@ Implementation status:
 - Selected schema direction: nullable `workflow_run_id` on `failure_cases`
 - Intended FK: `REFERENCES workflow_runs(id) ON DELETE SET NULL`
 - Boundary: no migration is added in this review gate; automatic failure-case creation remains deferred
+
+### Phase 76 - Failure-case Workflow Parent Linkage Schema v0
+
+- Failure-case workflow parent linkage schema v0: implemented
+- `failure_cases.workflow_run_id`: added as nullable `UUID REFERENCES workflow_runs(id) ON DELETE SET NULL`
+- `db/migrations/011_failure_case_workflow_run_id.sql`: added
+- `FailureCaseCreate` / `FailureCaseOut`: now include optional `workflow_run_id`
+- `POST /failure-cases`: can manually persist workflow parent linkage
+- `POST /failure-cases/draft-preview`: now carries `workflow_run_id` into the suggested draft payload
+- Boundary: automatic failure-case creation and complete workflow failure causality remain unclaimed
 
 Not implemented yet:
 

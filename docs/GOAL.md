@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 75:
+Accepted state as of Phase 76:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, Workflow Version Naming Smoke Example v0, Workflow Version Naming Consistency Review v0, Schema Default Workflow Version Update v0, Schema Default Workflow Version Smoke Example v0, Runtime DB Schema Default Verification v0, Migration Runner Review v0, Lightweight SQL Migration Runner v0, Runtime Migration Runner Verification v0, Migration Runner Fresh DB Verification v0, Migration Runner Runbook Cleanup v0, Fresh DB API Smoke Verification v0, Application Evidence Index Refresh v0, Failure-case Persistence Smoke Verification v0, Failure-case Application Evidence Refresh v0, Agent-run Failure Linkage Smoke Verification v0, Agent-run Failure Linkage Application Refresh v0, Workflow Failure Provenance Review v0, Workflow Failure Linkage Smoke Verification v0, Workflow Failure Linkage Application Refresh v0, Failure-case Workflow Linkage Review v0, Failure-case Workflow Linkage Application Refresh v0, Failure-case Creation Path Review v0, Failure-case Draft Preview v0, Failure-case Draft Preview Application Refresh v0, Failure-case Draft Preview Smoke Verification v0, Failure-case Draft Preview Smoke Application Refresh v0, Failure-case Draft Persistence Handoff Review v0, Failure-case Draft Manual Handoff Smoke Verification v0, Failure-case Draft Manual Handoff Application Refresh v0, Failure-case Draft Fresh-db Handoff Review v0, Failure-case Draft Fresh-db Handoff Smoke Verification v0, Failure-case Draft Fresh-db Handoff Application Refresh v0, Failure-case Workflow Failure-to-draft Review v0, Workflow Failure-to-draft Smoke Verification v0, Workflow Failure-to-draft Application Refresh v0, Failure-case Workflow Creation Path Decision v0, and Failure-case Workflow Parent Linkage Schema Review v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, Workflow Version Naming Smoke Example v0, Workflow Version Naming Consistency Review v0, Schema Default Workflow Version Update v0, Schema Default Workflow Version Smoke Example v0, Runtime DB Schema Default Verification v0, Migration Runner Review v0, Lightweight SQL Migration Runner v0, Runtime Migration Runner Verification v0, Migration Runner Fresh DB Verification v0, Migration Runner Runbook Cleanup v0, Fresh DB API Smoke Verification v0, Application Evidence Index Refresh v0, Failure-case Persistence Smoke Verification v0, Failure-case Application Evidence Refresh v0, Agent-run Failure Linkage Smoke Verification v0, Agent-run Failure Linkage Application Refresh v0, Workflow Failure Provenance Review v0, Workflow Failure Linkage Smoke Verification v0, Workflow Failure Linkage Application Refresh v0, Failure-case Workflow Linkage Review v0, Failure-case Workflow Linkage Application Refresh v0, Failure-case Creation Path Review v0, Failure-case Draft Preview v0, Failure-case Draft Preview Application Refresh v0, Failure-case Draft Preview Smoke Verification v0, Failure-case Draft Preview Smoke Application Refresh v0, Failure-case Draft Persistence Handoff Review v0, Failure-case Draft Manual Handoff Smoke Verification v0, Failure-case Draft Manual Handoff Application Refresh v0, Failure-case Draft Fresh-db Handoff Review v0, Failure-case Draft Fresh-db Handoff Smoke Verification v0, Failure-case Draft Fresh-db Handoff Application Refresh v0, Failure-case Workflow Failure-to-draft Review v0, Workflow Failure-to-draft Smoke Verification v0, Workflow Failure-to-draft Application Refresh v0, Failure-case Workflow Creation Path Decision v0, Failure-case Workflow Parent Linkage Schema Review v0, and Failure-case Workflow Parent Linkage Schema v0
 ```
 
 Implemented:
@@ -249,6 +249,11 @@ Implemented:
 - selected nullable workflow_run_id on failure_cases
 - intended foreign key: REFERENCES workflow_runs(id) ON DELETE SET NULL
 - no migration added in review gate
+- failure-case workflow parent linkage schema v0
+- db/migrations/011_failure_case_workflow_run_id.sql
+- failure_cases.workflow_run_id nullable FK to workflow_runs
+- POST /failure-cases manual workflow parent linkage
+- draft-preview carries workflow_run_id into suggested draft payload
 - Auto Trace Recording v0
 - preview endpoints auto-create `agent_runs` metadata records
 - `trace_json` records endpoint, phase, source type, counts, gate decisions, and report status where available
@@ -521,6 +526,7 @@ Phase 72  - Workflow Failure-to-draft Smoke Verification v0
 Phase 73  - Workflow Failure-to-draft Application Refresh v0
 Phase 74  - Failure-case Workflow Creation Path Decision v0
 Phase 75  - Failure-case Workflow Parent Linkage Schema Review v0
+Phase 76  - Failure-case Workflow Parent Linkage Schema v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -2455,6 +2461,34 @@ Next recommended implementation phase:
 
 ```text
 failure-case workflow parent linkage schema v0
+```
+
+### Phase 76 - Failure-case Workflow Parent Linkage Schema v0
+
+Goal:
+
+```text
+add nullable workflow parent linkage to manually persisted failure cases
+```
+
+Implemented:
+
+```text
+failure-case workflow parent linkage schema v0
+db/init/001_schema.sql failure_cases.workflow_run_id
+db/migrations/011_failure_case_workflow_run_id.sql
+FailureCaseCreate and FailureCaseOut optional workflow_run_id
+PostgreSQLRepository.create_failure_case stores workflow_run_id
+POST /failure-cases can manually persist workflow parent linkage
+POST /failure-cases/draft-preview carries workflow_run_id into draft payload
+```
+
+Phase 76 adds nullable schema/API support for manual workflow-parent linkage on failure cases. It adds no dashboard rendering, automatic failure detection, automatic failure-case creation, automatic failure-case persistence, hosted deployment evidence, complete workflow failure causality, LLM calls, embeddings, semantic retrieval, autonomous workflow execution, or free-form final answer generation.
+
+Next recommended implementation phase:
+
+```text
+failure-case workflow parent linkage smoke verification v0
 ```
 
 ## 6. Ordering Rules

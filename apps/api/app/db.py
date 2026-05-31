@@ -550,14 +550,15 @@ class PostgresRepository:
             row = conn.execute(
                 """
                 INSERT INTO failure_cases (
-                  agent_run_id, failure_type, description, root_cause,
-                  fix_status, next_action
+                  agent_run_id, workflow_run_id, failure_type, description,
+                  root_cause, fix_status, next_action
                 )
-                VALUES (%s, %s, %s, %s, %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
                 RETURNING *
                 """,
                 (
                     payload.agent_run_id,
+                    payload.workflow_run_id,
                     payload.failure_type,
                     payload.description,
                     payload.root_cause,

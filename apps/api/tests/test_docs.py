@@ -1184,3 +1184,19 @@ def test_failure_case_workflow_parent_linkage_schema_review_selects_nullable_fk(
     assert "no migration is added in this review gate" in content
     assert "failure-case workflow parent linkage schema review v0" in goal
     assert "Failure-case workflow parent linkage schema review v0: implemented" in readme
+
+
+def test_failure_cases_schema_has_nullable_workflow_parent_link():
+    init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
+    migration = (
+        REPO_ROOT / "db/migrations/011_failure_case_workflow_run_id.sql"
+    ).read_text(encoding="utf-8")
+    combined = init_schema + "\n" + migration
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "workflow_run_id UUID REFERENCES workflow_runs(id) ON DELETE SET NULL" in combined
+    assert "ALTER TABLE failure_cases" in migration
+    assert "idx_failure_cases_workflow_run_id" in migration
+    assert "failure-case workflow parent linkage schema v0" in goal
+    assert "Failure-case workflow parent linkage schema v0: implemented" in readme

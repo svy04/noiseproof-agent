@@ -17,6 +17,7 @@ def preview_failure_case_draft(
 
     draft = FailureCaseCreate(
         agent_run_id=payload.agent_run_id,
+        workflow_run_id=payload.workflow_run_id,
         failure_type=failure_type,
         description=(
             f"Workflow question '{payload.question}' reached status "
