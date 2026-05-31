@@ -45,6 +45,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-workflow-failure-to-draft-review.md",
         "docs/review/failure-case-workflow-parent-linkage-dashboard-review.md",
         "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-review.md",
+        "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md",
     ]
 
     for file_path in required_files:
@@ -1343,3 +1344,28 @@ def test_failure_case_workflow_parent_fresh_db_dashboard_smoke_review_selects_ru
     assert "not complete workflow failure causality" in content
     assert "failure-case workflow parent linkage fresh-db dashboard smoke review v0" in goal
     assert "Failure-case workflow parent linkage fresh-db dashboard smoke review v0: implemented" in readme
+
+
+def test_failure_case_workflow_parent_fresh_db_dashboard_smoke_verification_documents_runtime_html_proof():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow parent linkage fresh DB dashboard smoke verification" in content
+    assert "local fresh migrated Docker DB dashboard evidence" in content
+    assert "applied 011_failure_case_workflow_run_id.sql" in content
+    assert "dashboard_contains_workflow_parent: true" in content
+    assert "dashboard_contains_workflow_link: true" in content
+    assert "dashboard_contains_manual_boundary: true" in content
+    assert "dashboard_contains_not_automatic_creation: true" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "failure-case workflow parent linkage fresh-db dashboard smoke verification v0" in goal
+    assert (
+        "Failure-case workflow parent linkage fresh-db dashboard smoke verification v0: implemented"
+        in readme
+    )
