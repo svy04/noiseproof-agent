@@ -2451,3 +2451,32 @@ def test_external_reviewer_outreach_packet_prepares_human_request_without_claimi
     assert "docs/review/external-reviewer-outreach-packet.md" in portfolio
     assert "docs/review/external-reviewer-outreach-packet.md" in proof_path
     assert "docs/review/external-reviewer-outreach-packet.md" in request
+
+
+def test_external_feedback_qualification_preview_screens_comments_without_closing_gate():
+    preview_path = REPO_ROOT / "docs/review/external-feedback-qualification-preview.md"
+    assert preview_path.is_file()
+
+    content = preview_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    criteria = (REPO_ROOT / "docs/review/external-feedback-intake-criteria.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Feedback Qualification Preview" in content
+    assert "external feedback qualification preview v0" in content
+    assert "packages/review/external_feedback.py" in content
+    assert "candidate_found_manual_review_required" in content
+    assert "does not close the gate" in content
+    assert "not external reviewer feedback" in content
+    assert "external reviewer feedback v0" in content
+    assert "External feedback qualification preview v0: implemented" in readme
+    assert "external feedback qualification preview v0" in goal
+    assert "external feedback qualification preview v0" in runbook
+    assert "docs/review/external-feedback-qualification-preview.md" in portfolio
+    assert "docs/review/external-feedback-qualification-preview.md" in criteria

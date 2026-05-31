@@ -1247,6 +1247,12 @@ Use `docs/review/external-reviewer-outreach-packet.md` when you need copy-paste 
 
 The outreach packet is request infrastructure only. It is not external reviewer feedback, customer validation, Braincrew acceptance, or hosted deployment evidence.
 
+Phase marker: external feedback qualification preview v0.
+
+Use `packages/review/external_feedback.py` when issue #1 has public comments and you need a local pre-screen before writing any proof artifact. The helper can flag obvious non-qualifying comments and possible candidates that still require manual acceptance.
+
+The qualification preview does not close the gate. `candidate_found_manual_review_required` means a human still needs to compare the comment against `docs/review/external-feedback-intake-criteria.md` before recording external reviewer feedback.
+
 Inspect auto-created preview traces:
 
 ```bash
@@ -1305,7 +1311,7 @@ If Docker is unavailable, run the API compile and smoke tests:
 ```bash
 cd apps/api
 uv sync
-uv run python -m compileall app ../../packages/ingestion
+uv run python -m compileall app ../../packages/ingestion ../../packages/review
 uv run pytest -q
 ```
 

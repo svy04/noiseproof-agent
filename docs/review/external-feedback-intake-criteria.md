@@ -85,6 +85,17 @@ rejected changes with reason
 what remains unproven
 ```
 
+## Local Screening Helper
+
+Before writing a follow-up artifact, use the local preview helper to separate obvious non-qualifying comments from comments that may deserve manual acceptance:
+
+```text
+packages/review/external_feedback.py
+docs/review/external-feedback-qualification-preview.md
+```
+
+The helper can return `candidate_found_manual_review_required`, but that does not close the gate. It is only a pre-screen against this intake criteria.
+
 ## Current State
 
 External reviewer feedback remains pending.
