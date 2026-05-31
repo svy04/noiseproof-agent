@@ -2550,6 +2550,40 @@ def test_external_feedback_screening_workflow_runs_cli_without_closing_gate():
     assert "docs/review/external-feedback-screening-workflow.md" in cli_doc
 
 
+def test_external_feedback_screening_workflow_uploads_acceptance_draft_without_accepting_feedback():
+    workflow_path = REPO_ROOT / ".github/workflows/external-feedback-screen.yml"
+    workflow_doc_path = REPO_ROOT / "docs/review/external-feedback-screening-workflow.md"
+    draft_cli_doc_path = (
+        REPO_ROOT / "docs/review/external-feedback-acceptance-draft-cli.md"
+    )
+    assert workflow_path.is_file()
+    assert workflow_doc_path.is_file()
+    assert draft_cli_doc_path.is_file()
+
+    workflow = workflow_path.read_text(encoding="utf-8")
+    workflow_doc = workflow_doc_path.read_text(encoding="utf-8")
+    draft_cli_doc = draft_cli_doc_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "python -m packages.review.external_feedback_acceptance_cli" in workflow
+    assert "external-feedback-acceptance-draft.json" in workflow
+    assert "name: external-feedback-acceptance-draft" in workflow
+    assert "external feedback acceptance draft workflow v0" in workflow_doc
+    assert "external-feedback-acceptance-draft.json" in workflow_doc
+    assert "does not close the gate" in workflow_doc
+    assert "not external reviewer feedback" in workflow_doc
+    assert "external-feedback-acceptance-draft.json" in draft_cli_doc
+    assert "External feedback acceptance draft workflow v0: implemented" in readme
+    assert "external feedback acceptance draft workflow v0" in goal
+    assert "external feedback acceptance draft workflow v0" in runbook
+    assert "external feedback acceptance draft workflow" in portfolio
+
+
 def test_external_feedback_screening_workflow_artifact_verification_records_remote_pending_result():
     verification_path = (
         REPO_ROOT / "docs/review/external-feedback-screening-workflow-verification.md"

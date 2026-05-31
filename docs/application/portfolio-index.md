@@ -38,6 +38,8 @@ External feedback acceptance template: `docs/review/external-feedback-acceptance
 
 External feedback acceptance draft CLI: `docs/review/external-feedback-acceptance-draft-cli.md` documents `python -m packages.review.external_feedback_acceptance_cli`, which turns candidate screening artifacts into draft manual acceptance records. It is not external reviewer feedback itself.
 
+External feedback acceptance draft workflow: `.github/workflows/external-feedback-screen.yml` now uploads `external-feedback-acceptance-draft.json` next to the screening artifact. The external feedback acceptance draft workflow is not external reviewer feedback itself.
+
 Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers after README scanability cleanup. It is source-level provenance, not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 
 ## Start Here

@@ -1311,6 +1311,12 @@ Use `python -m packages.review.external_feedback_acceptance_cli --input external
 
 The CLI produces `manual_acceptance_required` drafts. It does not close the gate and is not external reviewer feedback.
 
+Phase marker: external feedback acceptance draft workflow v0.
+
+The GitHub Actions screening workflow uploads `external-feedback-acceptance-draft.json` next to `external-feedback-screen.json`.
+
+The artifact is still a draft. It does not close the gate and is not external reviewer feedback.
+
 Inspect auto-created preview traces:
 
 ```bash

@@ -21,6 +21,12 @@ python -m packages.review.external_feedback_acceptance_cli \
   --input external-feedback-screen.json
 ```
 
+The GitHub Actions screening workflow also writes this output to:
+
+```text
+external-feedback-acceptance-draft.json
+```
+
 ## Expected candidate output shape
 
 ```json

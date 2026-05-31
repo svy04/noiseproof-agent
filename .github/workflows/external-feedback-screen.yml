@@ -36,8 +36,21 @@ jobs:
             > external-feedback-screen.json
           cat external-feedback-screen.json
 
+      - name: Draft manual acceptance records
+        run: |
+          python -m packages.review.external_feedback_acceptance_cli \
+            --input external-feedback-screen.json \
+            > external-feedback-acceptance-draft.json
+          cat external-feedback-acceptance-draft.json
+
       - name: Upload screening artifact
         uses: actions/upload-artifact@v4
         with:
           name: external-feedback-screen
           path: external-feedback-screen.json
+
+      - name: Upload acceptance draft artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-feedback-acceptance-draft
+          path: external-feedback-acceptance-draft.json
