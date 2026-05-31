@@ -54,6 +54,7 @@ The newest local runtime evidence is:
 - Failure-case draft fresh DB handoff smoke: `docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md`
 - Workflow failure-to-draft smoke: `docs/review/workflow-failure-to-draft-smoke-verification.md`
 - Failure-case workflow parent linkage fresh DB proof: `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md`
+- Failure-case dashboard manual workflow parent link: `GET /ops/dashboard`
 
 These show a fresh migrated Docker DB can run the local service path for `/health`, `/ops/summary`, `POST /documents`, and `GET /documents`.
 
@@ -76,6 +77,8 @@ The fresh migrated Docker DB handoff proof verifies the same manual path through
 The workflow failure-to-draft smoke is a route-level smoke showing that a failed deterministic workflow parent can feed `POST /failure-cases/draft-preview` while preserving `preview_only_not_persisted` and unchanged `failure_cases`. This is not automatic failure-case creation, not automatic persistence, and not complete workflow failure causality.
 
 The workflow parent linkage fresh DB proof verifies that a manually persisted `failure_cases` row can retain `workflow_run_id` through FastAPI and PostgreSQL, and that `/ops/summary` reports one linked failure case afterward. This is local runtime proof for manual workflow parent linkage only; it is not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
+
+The dashboard manual workflow parent link surfaces the same manual `workflow_run_id` value in the Failure Cases table and links to `/workflow-runs/{id}`. It is a reviewer navigation aid over persisted manual provenance, not automatic failure-case creation or automatic failure detection.
 
 Boundary: the DB smoke checks are fresh migrated Docker DB evidence. The workflow failure linkage smoke is not fresh Docker DB evidence. None of these proofs are hosted deployment evidence, production migration orchestration, rollback proof, automatic failure detection, complete workflow failure causality, or external customer validation.
 

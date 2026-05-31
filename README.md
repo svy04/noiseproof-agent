@@ -190,6 +190,7 @@ Implementation status:
 - Failure-case workflow parent linkage application refresh v0: implemented across application-facing docs
 - Failure-case workflow parent linkage dashboard review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-dashboard-review.md`
 - Failure-case workflow parent linkage dashboard surfacing v0: implemented in `GET /ops/dashboard`
+- Failure-case workflow parent linkage dashboard application refresh v0: implemented across application-facing docs
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -977,6 +978,14 @@ Implementation status:
 - Manual `failure_cases.workflow_run_id` values link to `/workflow-runs/{id}`
 - Dashboard copy labels the link as manual workflow parent link provenance, not automatic failure-case creation
 - Boundary: no schema, migration, new endpoint, automatic failure-case creation, automatic detection, complete workflow failure causality, LLM, or embedding behavior changed
+
+### Phase 82 - Failure-case Workflow Parent Linkage Dashboard Application Refresh v0
+
+- Failure-case workflow parent linkage dashboard application refresh v0: implemented
+- `docs/application/portfolio-index.md`: updated with dashboard Workflow Parent column behavior
+- `docs/application/braincrew-role-map.md`: updated with dashboard manual workflow parent link boundary
+- `docs/review/application-ready-review.md`: updated with manual provenance-only dashboard link boundary
+- Runtime behavior, schema, API endpoints, automatic failure-case creation, automatic detection, complete workflow failure causality, LLM, and embedding behavior: not changed
 
 Not implemented yet:
 

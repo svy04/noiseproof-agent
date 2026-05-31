@@ -1299,3 +1299,26 @@ def test_failure_case_workflow_parent_linkage_dashboard_surfacing_docs_keep_manu
     assert "Workflow Parent" in runbook
     assert "manual workflow parent link" in runbook
     assert "not automatic failure-case creation" in runbook
+
+
+def test_failure_case_workflow_parent_dashboard_application_refresh_surfaces_manual_link_boundary():
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow parent linkage dashboard application refresh v0: implemented" in readme
+    assert "failure-case workflow parent linkage dashboard application refresh v0" in goal
+    assert "Failure-case workflow parent linkage dashboard surfacing" in portfolio
+    assert "`GET /ops/dashboard` Failure Cases table Workflow Parent column" in portfolio
+    assert "dashboard manual workflow parent link" in role_map
+    assert "not automatic failure-case creation" in role_map
+    assert "failure-case workflow parent dashboard link" in review
+    assert "manual provenance only" in review
