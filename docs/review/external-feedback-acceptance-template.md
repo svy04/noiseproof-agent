@@ -10,6 +10,8 @@ Label: External feedback acceptance template.
 
 Use this template only after issue #1 receives a public outside comment that passes the screening workflow and satisfies `docs/review/external-feedback-intake-criteria.md`.
 
+Use `docs/review/external-feedback-acceptance-draft-cli.md` to produce a draft from a candidate screening artifact before manually filling this template.
+
 This template exists so accepted external feedback can be recorded consistently without mixing request infrastructure, bot output, generic praise, or self-authored notes into the proof path.
 
 ## Template

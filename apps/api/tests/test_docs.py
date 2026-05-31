@@ -2642,3 +2642,31 @@ def test_external_feedback_acceptance_template_exists_without_claiming_feedback(
     assert "external feedback acceptance template v0" in runbook
     assert "docs/review/external-feedback-acceptance-template.md" in portfolio
     assert "docs/review/external-feedback-acceptance-template.md" in criteria
+
+
+def test_external_feedback_acceptance_draft_cli_is_documented_without_accepting_feedback():
+    draft_cli_path = REPO_ROOT / "docs/review/external-feedback-acceptance-draft-cli.md"
+    assert draft_cli_path.is_file()
+
+    content = draft_cli_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    template = (
+        REPO_ROOT / "docs/review/external-feedback-acceptance-template.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Feedback Acceptance Draft CLI" in content
+    assert "external feedback acceptance draft cli v0" in content
+    assert "python -m packages.review.external_feedback_acceptance_cli" in content
+    assert "manual_acceptance_required" in content
+    assert "does not close the gate" in content
+    assert "not external reviewer feedback" in content
+    assert "External feedback acceptance draft CLI v0: implemented" in readme
+    assert "external feedback acceptance draft cli v0" in goal
+    assert "external feedback acceptance draft cli v0" in runbook
+    assert "docs/review/external-feedback-acceptance-draft-cli.md" in portfolio
+    assert "docs/review/external-feedback-acceptance-draft-cli.md" in template

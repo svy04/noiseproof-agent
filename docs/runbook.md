@@ -1305,6 +1305,12 @@ Use `docs/review/external-feedback-acceptance-template.md` only after issue #1 r
 
 The template is empty proof infrastructure. It is not external reviewer feedback until a future qualifying public comment is manually accepted and recorded.
 
+Phase marker: external feedback acceptance draft cli v0.
+
+Use `python -m packages.review.external_feedback_acceptance_cli --input external-feedback-screen.json` only after the screening artifact contains candidate comments.
+
+The CLI produces `manual_acceptance_required` drafts. It does not close the gate and is not external reviewer feedback.
+
 Inspect auto-created preview traces:
 
 ```bash

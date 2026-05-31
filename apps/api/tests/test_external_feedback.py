@@ -8,6 +8,9 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.append(str(REPO_ROOT))
 
 from packages.review.external_feedback import screen_external_feedback_comments
+from packages.review.external_feedback_acceptance import (
+    build_external_feedback_acceptance_drafts,
+)
 
 
 def test_external_feedback_screen_keeps_empty_issue_pending():
@@ -165,3 +168,99 @@ def test_external_feedback_cli_accepts_utf8_bom_issue_payload(tmp_path):
     output = json.loads(result.stdout)
     assert output["status"] == "pending"
     assert output["candidate_count"] == 0
+
+
+def test_external_feedback_acceptance_draft_requires_manual_decision_for_candidate():
+    screen_result = screen_external_feedback_comments(
+        [
+            {
+                "author": {"login": "external-reviewer"},
+                "url": "https://github.com/svy04/noiseproof-agent/issues/1#issuecomment-5",
+                "body": (
+                    "Reviewer role: FDE. I inspected README.md and "
+                    "docs/review/external-reader-proof-path.md. The proof path "
+                    "is useful, but the claim boundary should say the browser "
+                    "screenshot is self-authored and missing evidence remains."
+                ),
+            }
+        ],
+        repository_owner="svy04",
+    )
+
+    draft_result = build_external_feedback_acceptance_drafts(screen_result)
+
+    assert draft_result.status == "manual_acceptance_required"
+    assert draft_result.draft_count == 1
+    assert draft_result.does_not_close_gate is True
+    assert draft_result.next_gate == "external reviewer feedback v0"
+    draft = draft_result.drafts[0]
+    assert draft.reviewer_identity["reviewer"] == "external-reviewer"
+    assert draft.public_comment_url.endswith("#issuecomment-5")
+    assert draft.inspected_evidence == [
+        "README.md",
+        "docs/review/external-reader-proof-path.md",
+    ]
+    assert "claim boundary" in draft.accepted_critique.lower()
+    assert draft.manual_acceptance_decision == "pending"
+    assert draft.accepted_as_external_reviewer_feedback is False
+    assert "manual_acceptance_required" in draft.required_next_actions
+
+
+def test_external_feedback_acceptance_draft_does_not_create_records_without_candidates():
+    screen_result = screen_external_feedback_comments([], repository_owner="svy04")
+
+    draft_result = build_external_feedback_acceptance_drafts(screen_result)
+
+    assert draft_result.status == "pending"
+    assert draft_result.draft_count == 0
+    assert draft_result.drafts == []
+    assert draft_result.does_not_close_gate is True
+    assert draft_result.warnings == [
+        "No candidate comments were available for acceptance drafting."
+    ]
+
+
+def test_external_feedback_acceptance_cli_converts_screening_artifact_to_draft(tmp_path):
+    screening_path = tmp_path / "external-feedback-screen.json"
+    screening_path.write_text(
+        json.dumps(
+            {
+                "status": "candidate_found_manual_review_required",
+                "candidate_count": 1,
+                "next_gate": "external reviewer feedback v0",
+                "does_not_close_gate": True,
+                "warnings": [],
+                "screened_comments": [
+                    {
+                        "author_login": "external-reviewer",
+                        "source_url": "https://github.com/svy04/noiseproof-agent/issues/1#issuecomment-6",
+                        "artifacts": ["docs/review/external-reader-proof-path.md"],
+                        "classification": "candidate_requires_manual_acceptance",
+                        "reasons": [],
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "packages.review.external_feedback_acceptance_cli",
+            "--input",
+            str(screening_path),
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    output = json.loads(result.stdout)
+    assert output["status"] == "manual_acceptance_required"
+    assert output["draft_count"] == 1
+    assert output["does_not_close_gate"] is True
+    assert output["drafts"][0]["manual_acceptance_decision"] == "pending"
+    assert output["drafts"][0]["accepted_as_external_reviewer_feedback"] is False

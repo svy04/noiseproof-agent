@@ -26,6 +26,7 @@ class ScreenedExternalFeedbackComment:
     artifacts: list[str]
     classification: str
     reasons: list[str]
+    comment_body: str = ""
 
 
 @dataclass(frozen=True)
@@ -113,6 +114,7 @@ def _screen_comment(
         artifacts=artifacts,
         classification=classification,
         reasons=reasons,
+        comment_body=body,
     )
 
 
