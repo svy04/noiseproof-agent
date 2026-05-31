@@ -1210,6 +1210,7 @@ The external review request packet prepares the next feedback gate:
 ```text
 docs/review/external-review-request.md
 .github/ISSUE_TEMPLATE/external-review-feedback.md
+https://github.com/svy04/noiseproof-agent/issues/1
 ```
 
 Use it when asking an outside reviewer to inspect the 5-minute proof path and leave bounded critique. This is request infrastructure only; it is not external reviewer feedback, customer validation, Braincrew acceptance, or hosted deployment evidence.

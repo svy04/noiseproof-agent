@@ -409,6 +409,7 @@ Implemented:
 - external review request packet v0
 - docs/review/external-review-request.md
 - .github/ISSUE_TEMPLATE/external-review-feedback.md
+- public request issue `https://github.com/svy04/noiseproof-agent/issues/1`
 - request packet asks reviewers which claims are over-stated, what evidence is missing, and what would make the portfolio stronger
 - request packet remains request infrastructure only and is not external reviewer feedback, customer validation, Braincrew acceptance, or hosted deployment evidence
 - Auto Trace Recording v0
@@ -3810,6 +3811,7 @@ Implemented:
 external review request packet v0
 docs/review/external-review-request.md
 .github/ISSUE_TEMPLATE/external-review-feedback.md
+public request issue `https://github.com/svy04/noiseproof-agent/issues/1`
 README implementation marker
 docs/application/portfolio-index.md request artifact link
 docs/review/external-reader-proof-path.md request path

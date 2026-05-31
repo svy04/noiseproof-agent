@@ -55,6 +55,12 @@ Use the GitHub issue template:
 .github/ISSUE_TEMPLATE/external-review-feedback.md
 ```
 
+Public request issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
 Suggested sections:
 
 ```text
@@ -86,6 +92,8 @@ This is not production RAG evidence.
 This is not a claim that the portfolio is application-ready for every role.
 
 This does not prove that any reviewer has inspected the repository.
+
+The public issue above is a request surface only. It becomes external reviewer feedback only after an outside reviewer leaves a substantive comment that references inspected evidence.
 
 ## Next Gate
 

@@ -2287,6 +2287,7 @@ def test_external_review_request_packet_prepares_feedback_without_claiming_it():
     assert "not customer validation" in content
     assert "not Braincrew acceptance" in content
     assert "external reviewer feedback v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
     assert "Reviewer role" in issue_template
     assert "Evidence inspected" in issue_template
     assert "Feedback" in issue_template
@@ -2294,5 +2295,9 @@ def test_external_review_request_packet_prepares_feedback_without_claiming_it():
     assert "External review request packet v0: implemented" in readme
     assert "external review request packet v0" in goal
     assert "external review request packet v0" in runbook
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in goal
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in runbook
     assert "docs/review/external-review-request.md" in portfolio
     assert "docs/review/external-review-request.md" in proof_path
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in portfolio
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in proof_path

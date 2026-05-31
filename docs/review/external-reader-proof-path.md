@@ -67,6 +67,12 @@ Use `docs/review/external-review-request.md` when asking a reviewer to inspect t
 
 It points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and asks for critique on over-stated claims, missing evidence, and hiring signal.
 
+Public request issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
 It is not external reviewer feedback.
 
 ## What This Path Proves
