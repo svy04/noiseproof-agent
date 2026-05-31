@@ -1803,3 +1803,22 @@ def test_readme_detailed_implementation_status_compression_replaces_lower_phase_
     assert len(lower_status) < 4500
     assert "readme detailed implementation-status compression v0" in goal
     assert "README detailed implementation-status compression v0: implemented" in readme
+
+
+def test_readme_proof_marker_archive_review_selects_archive_extraction_gate():
+    content = (REPO_ROOT / "docs/review/readme-proof-marker-archive-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "README proof-marker archive review" in content
+    assert "review-only gate" in content
+    assert "hidden README archive is a temporary compatibility bridge" in content
+    assert "Do not extract the archive in this review gate" in content
+    assert "readme proof-marker archive extraction v0" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "readme proof-marker archive review v0" in goal
+    assert "README proof-marker archive review v0: implemented" in readme

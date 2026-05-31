@@ -130,6 +130,7 @@ Major implementation milestones:
 - Operations path: ops summary/dashboard, warning-code surfacing, workflow version/schema migration runner, fresh DB/API smoke evidence, and failure-case persistence/linkage proofs
 - Application path: evaluation docs, Braincrew role map, cover message, portfolio index, external-reader proof path, and README scanability refreshes
 - README detailed implementation-status compression v0: implemented
+- README proof-marker archive review v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The hidden archive below preserves legacy README proof markers for source-level continuity without making the rendered README a chronological wall.
 
