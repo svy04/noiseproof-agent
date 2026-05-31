@@ -1846,3 +1846,23 @@ def test_readme_proof_marker_archive_extraction_moves_hidden_archive_out_of_read
     assert "Failure-case workflow parent linkage proof index v0: implemented" in archive
     assert "README detailed implementation-status compression v0: implemented" in archive
     assert "readme proof-marker archive extraction v0" in goal
+
+
+def test_readme_proof_marker_archive_application_refresh_review_selects_application_docs():
+    content = (
+        REPO_ROOT
+        / "docs/review/readme-proof-marker-archive-application-refresh-review.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "README proof-marker archive application refresh review" in content
+    assert "review-only gate" in content
+    assert "application-facing docs do not yet mention the extracted proof-marker archive" in content
+    assert "Do not refresh application-facing docs in this review gate" in content
+    assert "readme proof-marker archive application refresh v0" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "readme proof-marker archive application refresh review v0" in goal
+    assert "README proof-marker archive application refresh review v0: implemented" in readme
