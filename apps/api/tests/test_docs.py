@@ -2131,3 +2131,23 @@ def test_application_package_final_consistency_review_selects_portfolio_handoff(
     assert "portfolio site handoff review v0" in content
     assert "application package final consistency review v0" in goal
     assert "Application package final consistency review v0: implemented" in readme
+
+
+def test_portfolio_site_handoff_review_selects_noiseproof_artifact_refresh():
+    review_path = REPO_ROOT / "docs/review/portfolio-site-handoff-review.md"
+    assert review_path.is_file()
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Portfolio site handoff review" in content
+    assert "review-only gate" in content
+    assert "svy04.github.io" in content
+    assert "existing NoiseProof proof artifact" in content
+    assert "do not edit the portfolio site" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "portfolio site NoiseProof proof artifact refresh v0" in content
+    assert "portfolio site handoff review v0" in goal
+    assert "Portfolio site handoff review v0: implemented" in readme

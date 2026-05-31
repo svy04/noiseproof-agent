@@ -145,6 +145,7 @@ Major implementation milestones:
 - External-reader final proof-path dry-read review v0: implemented
 - External-reader proof path next-gate refresh v0: implemented
 - Application package final consistency review v0: implemented
+- Portfolio site handoff review v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The dedicated proof-marker archive in `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers without making the rendered README a chronological wall.
 
