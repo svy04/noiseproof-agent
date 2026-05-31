@@ -1277,6 +1277,22 @@ It runs on `workflow_dispatch`, `issue_comment` created/edited events, and push 
 
 The uploaded artifact is only a screen result. It is not accepted external reviewer feedback and does not close `external reviewer feedback v0`.
 
+Phase marker: external feedback screening workflow verification v0.
+
+Verified remote run:
+
+```text
+26724730074
+```
+
+Downloaded artifact:
+
+```text
+external-feedback-screen.json
+```
+
+The downloaded result was `pending` with `candidate_count: 0`. This proves the screening workflow uploaded an inspectable artifact, but it is not external reviewer feedback.
+
 Inspect auto-created preview traces:
 
 ```bash

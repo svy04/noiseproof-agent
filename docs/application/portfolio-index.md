@@ -30,6 +30,8 @@ External feedback screening CLI: `docs/review/external-feedback-screening-cli.md
 
 External feedback screening workflow: `docs/review/external-feedback-screening-workflow.md` documents `.github/workflows/external-feedback-screen.yml`, which runs the CLI from GitHub Actions and uploads `external-feedback-screen.json`. It is not external reviewer feedback itself.
 
+External feedback screening workflow verification: `docs/review/external-feedback-screening-workflow-verification.md` records remote run `26724730074` and the downloaded `external-feedback-screen.json` artifact. It is not external reviewer feedback itself.
+
 Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers after README scanability cleanup. It is source-level provenance, not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 
 ## Start Here
@@ -124,6 +126,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | External feedback qualification preview | `docs/review/external-feedback-qualification-preview.md` | local comment screen only; feedback still pending |
 | External feedback screening CLI | `docs/review/external-feedback-screening-cli.md` | CLI over real issue-comment JSON; feedback still pending |
 | External feedback screening workflow | `docs/review/external-feedback-screening-workflow.md` | Actions wrapper over screening CLI; feedback still pending |
+| External feedback screening workflow verification | `docs/review/external-feedback-screening-workflow-verification.md` | remote pending artifact verification; feedback still pending |
 | README proof-marker archive | `docs/review/readme-proof-marker-archive.md` | source-level provenance only; not product runtime evidence |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
@@ -162,6 +165,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-feedback-qualification-preview.md` | local screening helper for public issue comments; not external reviewer feedback |
 | `docs/review/external-feedback-screening-cli.md` | command-line path for screening real issue-comment JSON; not external reviewer feedback |
 | `docs/review/external-feedback-screening-workflow.md` | GitHub Actions wrapper over the screening CLI; not external reviewer feedback |
+| `docs/review/external-feedback-screening-workflow-verification.md` | downloaded remote screening artifact; pending and not external reviewer feedback |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

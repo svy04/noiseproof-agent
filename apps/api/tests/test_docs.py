@@ -2548,3 +2548,41 @@ def test_external_feedback_screening_workflow_runs_cli_without_closing_gate():
     assert "external feedback screening workflow v0" in runbook
     assert "docs/review/external-feedback-screening-workflow.md" in portfolio
     assert "docs/review/external-feedback-screening-workflow.md" in cli_doc
+
+
+def test_external_feedback_screening_workflow_artifact_verification_records_remote_pending_result():
+    verification_path = (
+        REPO_ROOT / "docs/review/external-feedback-screening-workflow-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    workflow_doc = (
+        REPO_ROOT / "docs/review/external-feedback-screening-workflow.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Feedback Screening Workflow Verification" in content
+    assert "external feedback screening workflow verification v0" in content
+    assert "26724730074" in content
+    assert "external-feedback-screen.json" in content
+    assert '"status": "pending"' in content
+    assert '"candidate_count": 0' in content
+    assert "does not close the gate" in content
+    assert "not external reviewer feedback" in content
+    assert "External feedback screening workflow verification v0: implemented" in readme
+    assert "external feedback screening workflow verification v0" in goal
+    assert "external feedback screening workflow verification v0" in runbook
+    assert (
+        "docs/review/external-feedback-screening-workflow-verification.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/external-feedback-screening-workflow-verification.md"
+        in workflow_doc
+    )

@@ -52,6 +52,12 @@ It uploads:
 external-feedback-screen.json
 ```
 
+Remote verification:
+
+```text
+docs/review/external-feedback-screening-workflow-verification.md
+```
+
 ## Boundary
 
 This workflow does not close the gate and is not external reviewer feedback.
