@@ -1601,3 +1601,20 @@ def test_external_reader_proof_path_index_gives_five_minute_path_and_boundaries(
     assert "portfolio external proof path refresh v0" in content
     assert "external-reader proof path index v0" in goal
     assert "External-reader proof path index v0: implemented" in readme
+
+
+def test_portfolio_external_proof_path_refresh_surfaces_compact_reader_path():
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Portfolio external proof path refresh v0: implemented" in readme
+    assert "portfolio external proof path refresh v0" in goal
+    assert "External-reader proof path" in portfolio
+    assert "docs/review/external-reader-proof-path.md" in portfolio
+    assert "5-minute path" in portfolio
+    assert "not hosted deployment evidence" in portfolio
+    assert "not automatic failure-case creation" in portfolio
+    assert "not complete workflow failure causality" in portfolio

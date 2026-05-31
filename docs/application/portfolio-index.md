@@ -4,13 +4,18 @@ Status: Phase 10 application artifact.
 
 This page maps the repository into a reviewer-readable path.
 
+Fast path: `docs/review/external-reader-proof-path.md` is the 5-minute path for external readers. It starts with `README.md`, then points to this portfolio index, the failure-case workflow parent proof index, the application-ready review, and the Braincrew role map.
+
+Boundary: this fast path is not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
+
 ## Start Here
 
 1. `README.md`
-2. `docs/product-brief.md`
-3. `docs/architecture.md`
-4. `docs/runbook.md`
-5. `docs/application/braincrew-role-map.md`
+2. `docs/review/external-reader-proof-path.md`
+3. `docs/product-brief.md`
+4. `docs/architecture.md`
+5. `docs/runbook.md`
+6. `docs/application/braincrew-role-map.md`
 
 ## Implementation Artifacts
 
@@ -83,6 +88,7 @@ This page maps the repository into a reviewer-readable path.
 | Failure-case workflow parent linkage fresh DB dashboard smoke verification | `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md` | verified local |
 | Failure-case workflow parent linkage proof index | `docs/review/failure-case-workflow-parent-linkage-proof-index.md` | implemented v0 |
 | Failure-case workflow parent linkage stale-claim cleanup | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | implemented v0 |
+| External-reader proof path | `docs/review/external-reader-proof-path.md` | implemented v0 |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 
