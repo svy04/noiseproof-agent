@@ -1606,7 +1606,7 @@ def test_external_reader_proof_path_index_gives_five_minute_path_and_boundaries(
     assert "not hosted deployment evidence" in content
     assert "not automatic failure-case creation" in content
     assert "not complete workflow failure causality" in content
-    assert "portfolio external proof path refresh v0" in content
+    assert "application package final consistency review v0" in content
     assert "external-reader proof path index v0" in goal
     assert "External-reader proof path index v0: implemented" in readme
 
@@ -2090,3 +2090,21 @@ def test_external_reader_final_proof_path_dry_read_review_selects_next_gate_refr
     assert "not complete workflow failure causality" in content
     assert "external-reader final proof-path dry-read review v0" in goal
     assert "External-reader final proof-path dry-read review v0: implemented" in readme
+
+
+def test_external_reader_proof_path_next_gate_refresh_replaces_stale_next_gate():
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    next_gate = proof_path.split("## Next Gate", 1)[1]
+
+    assert "application package final consistency review v0" in next_gate
+    assert "portfolio external proof path refresh v0" not in next_gate
+    assert "not hosted deployment evidence" in proof_path
+    assert "not automatic failure-case creation" in proof_path
+    assert "not complete workflow failure causality" in proof_path
+    assert "external-reader proof path next-gate refresh v0" in goal
+    assert "External-reader proof path next-gate refresh v0: implemented" in readme

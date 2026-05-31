@@ -62,5 +62,5 @@ This is not complete workflow failure causality.
 ## Next Gate
 
 ```text
-portfolio external proof path refresh v0
+application package final consistency review v0
 ```
