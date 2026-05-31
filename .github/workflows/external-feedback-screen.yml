@@ -1,0 +1,43 @@
+name: External Feedback Screen
+
+on:
+  workflow_dispatch:
+  issue_comment:
+    types: [created, edited]
+  push:
+    branches: ["main", "codex/**"]
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  screen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Capture issue comments
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue view 1 --repo "${{ github.repository }}" --json comments > issue-comments.json
+
+      - name: Screen issue comments
+        run: |
+          python -m packages.review.external_feedback_cli \
+            --input issue-comments.json \
+            --repository-owner "${{ github.repository_owner }}" \
+            > external-feedback-screen.json
+          cat external-feedback-screen.json
+
+      - name: Upload screening artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-feedback-screen
+          path: external-feedback-screen.json

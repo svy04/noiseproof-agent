@@ -72,6 +72,17 @@ docs/review/external-feedback-intake-criteria.md
 
 Only then can a separate proof artifact record accepted external reviewer feedback.
 
+## Workflow Wrapper
+
+GitHub Actions wrapper:
+
+```text
+.github/workflows/external-feedback-screen.yml
+docs/review/external-feedback-screening-workflow.md
+```
+
+The workflow uploads `external-feedback-screen.json`, but that artifact is still only a screening result.
+
 ## Allowed Claim
 
 NoiseProof Agent can run a local CLI against issue-comment JSON to pre-screen possible external feedback candidates.

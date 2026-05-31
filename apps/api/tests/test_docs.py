@@ -2510,3 +2510,41 @@ def test_external_feedback_screening_cli_documents_real_issue_json_path_without_
     assert "external feedback screening cli v0" in runbook
     assert "docs/review/external-feedback-screening-cli.md" in portfolio
     assert "docs/review/external-feedback-screening-cli.md" in preview
+
+
+def test_external_feedback_screening_workflow_runs_cli_without_closing_gate():
+    workflow_path = REPO_ROOT / ".github/workflows/external-feedback-screen.yml"
+    review_path = REPO_ROOT / "docs/review/external-feedback-screening-workflow.md"
+    assert workflow_path.is_file()
+    assert review_path.is_file()
+
+    workflow = workflow_path.read_text(encoding="utf-8")
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    cli_doc = (REPO_ROOT / "docs/review/external-feedback-screening-cli.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Feedback Screen" in workflow
+    assert "workflow_dispatch:" in workflow
+    assert "issue_comment:" in workflow
+    assert "issues: read" in workflow
+    assert "gh issue view 1" in workflow
+    assert "python -m packages.review.external_feedback_cli" in workflow
+    assert "external-feedback-screen.json" in workflow
+    assert "actions/upload-artifact@v4" in workflow
+    assert "External Feedback Screening Workflow" in content
+    assert "external feedback screening workflow v0" in content
+    assert "does not close the gate" in content
+    assert "not external reviewer feedback" in content
+    assert "external reviewer feedback v0" in content
+    assert "External feedback screening workflow v0: implemented" in readme
+    assert "external feedback screening workflow v0" in goal
+    assert "external feedback screening workflow v0" in runbook
+    assert "docs/review/external-feedback-screening-workflow.md" in portfolio
+    assert "docs/review/external-feedback-screening-workflow.md" in cli_doc

@@ -1265,6 +1265,18 @@ python -m packages.review.external_feedback_cli --input $tmp --repository-owner 
 
 The current smoke result for issue #1 is `pending` with `comment_count: 0`. This does not close the gate and is not external reviewer feedback.
 
+Phase marker: external feedback screening workflow v0.
+
+GitHub Actions workflow:
+
+```text
+.github/workflows/external-feedback-screen.yml
+```
+
+It runs on `workflow_dispatch`, `issue_comment` created/edited events, and push verification. It uploads `external-feedback-screen.json`.
+
+The uploaded artifact is only a screen result. It is not accepted external reviewer feedback and does not close `external reviewer feedback v0`.
+
 Inspect auto-created preview traces:
 
 ```bash

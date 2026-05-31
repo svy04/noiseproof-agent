@@ -25,9 +25,9 @@ jobs:
         working-directory: apps/api
         run: uv sync
 
-      - name: Compile API package
+      - name: Compile API and local packages
         working-directory: apps/api
-        run: uv run python -m compileall app ../../packages/ingestion
+        run: uv run python -m compileall app ../../packages/ingestion ../../packages/review
 
       - name: Run API smoke tests
         working-directory: apps/api
