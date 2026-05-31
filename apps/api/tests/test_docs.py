@@ -2586,3 +2586,30 @@ def test_external_feedback_screening_workflow_artifact_verification_records_remo
         "docs/review/external-feedback-screening-workflow-verification.md"
         in workflow_doc
     )
+
+
+def test_readme_next_gate_matches_external_feedback_state_without_stale_phase_claim():
+    refresh_path = REPO_ROOT / "docs/review/readme-next-gate-stale-claim-refresh.md"
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "README Next-gate Stale-claim Refresh" in content
+    assert "readme next-gate stale-claim refresh v0" in content
+    assert "external reviewer feedback v0" in content
+    assert "not external reviewer feedback" in content
+    assert "What I Would Improve Next" in readme
+    assert "external reviewer feedback v0" in readme
+    assert "issue #1" in readme
+    assert "External review request packet v0: implemented" in readme
+    assert "After Workflow Lineage Warning Code Dashboard Surfacing v0" not in readme
+    assert "README next-gate stale-claim refresh v0" in readme
+    assert "readme next-gate stale-claim refresh v0" in goal
+    assert "readme next-gate stale-claim refresh v0" in runbook
+    assert "docs/review/readme-next-gate-stale-claim-refresh.md" in portfolio

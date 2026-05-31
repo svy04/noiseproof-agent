@@ -1293,6 +1293,12 @@ external-feedback-screen.json
 
 The downloaded result was `pending` with `candidate_count: 0`. This proves the screening workflow uploaded an inspectable artifact, but it is not external reviewer feedback.
 
+Phase marker: readme next-gate stale-claim refresh v0.
+
+Use `docs/review/readme-next-gate-stale-claim-refresh.md` when checking why the README `What I Would Improve Next` section points to `external reviewer feedback v0`.
+
+The refresh only removes a stale next-step claim from the repository front door. It is not external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, or production readiness.
+
 Inspect auto-created preview traces:
 
 ```bash

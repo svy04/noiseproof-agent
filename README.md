@@ -158,6 +158,7 @@ Major implementation milestones:
 - External feedback screening CLI v0: implemented
 - External feedback screening workflow v0: implemented
 - External feedback screening workflow verification v0: implemented
+- README next-gate stale-claim refresh v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The dedicated proof-marker archive in `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers without making the rendered README a chronological wall.
 
@@ -355,13 +356,13 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-After Workflow Lineage Warning Code Dashboard Surfacing v0, the next phase should improve lineage inspectability carefully without overstating the runtime:
+The current next evidence gate is `external reviewer feedback v0`.
 
-- update the runtime workflow-version name only after the review boundary
-- keep lineage inspectable without adding new storage, LLM calls, dashboard polish, semantic retrieval, or free-form answer generation
-- keep deterministic preview behavior before adding LLM calls or embeddings
+The project already has a reviewer request packet, intake criteria, reviewer brief, outreach packet, screening CLI, screening workflow, and remote pending artifact verification. Those artifacts prepare the path, but they do not prove that an outside reviewer inspected the work.
 
-It should not start with UI polish, LLM prompt tuning, new retrieval behavior, or broad agent abstractions.
+The next useful step is not another implementation feature. It is getting a substantive outside comment on issue #1 that names inspected evidence and gives actionable critique.
+
+Until that happens, do not claim external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, or production readiness.
 
 ## Braincrew Role Alignment
 
