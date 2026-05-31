@@ -191,6 +191,7 @@ Implementation status:
 - Failure-case workflow parent linkage dashboard review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-dashboard-review.md`
 - Failure-case workflow parent linkage dashboard surfacing v0: implemented in `GET /ops/dashboard`
 - Failure-case workflow parent linkage dashboard application refresh v0: implemented across application-facing docs
+- Failure-case workflow parent linkage fresh-db dashboard smoke review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-review.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -986,6 +987,13 @@ Implementation status:
 - `docs/application/braincrew-role-map.md`: updated with dashboard manual workflow parent link boundary
 - `docs/review/application-ready-review.md`: updated with manual provenance-only dashboard link boundary
 - Runtime behavior, schema, API endpoints, automatic failure-case creation, automatic detection, complete workflow failure causality, LLM, and embedding behavior: not changed
+
+### Phase 83 - Failure-case Workflow Parent Linkage Fresh-db Dashboard Smoke Review v0
+
+- Failure-case workflow parent linkage fresh-db dashboard smoke review v0: implemented
+- `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-review.md`: added
+- Current decision: run a fresh migrated Docker DB smoke for `GET /ops/dashboard` showing the manual Workflow Parent link
+- Boundary: this review does not run the smoke, claim hosted deployment evidence, claim automatic failure-case creation, or claim complete workflow failure causality
 
 Not implemented yet:
 

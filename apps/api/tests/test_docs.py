@@ -44,6 +44,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md",
         "docs/review/failure-case-workflow-failure-to-draft-review.md",
         "docs/review/failure-case-workflow-parent-linkage-dashboard-review.md",
+        "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-review.md",
     ]
 
     for file_path in required_files:
@@ -1322,3 +1323,23 @@ def test_failure_case_workflow_parent_dashboard_application_refresh_surfaces_man
     assert "not automatic failure-case creation" in role_map
     assert "failure-case workflow parent dashboard link" in review
     assert "manual provenance only" in review
+
+
+def test_failure_case_workflow_parent_fresh_db_dashboard_smoke_review_selects_runtime_html_check():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-review.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow parent linkage fresh DB dashboard smoke review" in content
+    assert "review-only gate" in content
+    assert "GET /ops/dashboard" in content
+    assert "Workflow Parent" in content
+    assert "fresh migrated Docker DB" in content
+    assert "Do not run the fresh DB smoke in this review gate" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "failure-case workflow parent linkage fresh-db dashboard smoke review v0" in goal
+    assert "Failure-case workflow parent linkage fresh-db dashboard smoke review v0: implemented" in readme
