@@ -66,7 +66,7 @@ The linked failure-case proof shows a manually created `failure_cases` row can r
 
 The failed workflow parent proof shows a route-level test fixture can make a downstream workflow stage raise and leave the deterministic workflow parent as `failed`.
 
-The failure-case workflow linkage review states that workflow_run_id on failure_cases remains deferred because there is still no failure-case creation path from failed workflow parents.
+The historical failure-case workflow linkage review explains why workflow parent linkage was deferred before the manual linkage path existed. manual workflow parent linkage now exists for reviewer-confirmed failure cases, while automatic failure-case creation remains unclaimed.
 
 The failure-case draft preview can turn workflow failure evidence into a human-confirmed draft payload with `preview_only_not_persisted`. It is a preparation boundary only; it does not persist the failure case, classify incidents automatically, or prove complete workflow failure causality.
 

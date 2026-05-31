@@ -82,6 +82,7 @@ This page maps the repository into a reviewer-readable path.
 | Failure-case workflow parent linkage dashboard surfacing | `GET /ops/dashboard` Failure Cases table Workflow Parent column | implemented v0 |
 | Failure-case workflow parent linkage fresh DB dashboard smoke verification | `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md` | verified local |
 | Failure-case workflow parent linkage proof index | `docs/review/failure-case-workflow-parent-linkage-proof-index.md` | implemented v0 |
+| Failure-case workflow parent linkage stale-claim cleanup | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | implemented v0 |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 
@@ -108,6 +109,7 @@ This page maps the repository into a reviewer-readable path.
 | `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md` | fresh migrated Docker DB proof for manual failure-case workflow parent linkage |
 | `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md` | local fresh migrated Docker DB dashboard evidence for manual failure-case Workflow Parent links |
 | `docs/review/failure-case-workflow-parent-linkage-proof-index.md` | reviewer reader path for schema boundary -> manual persistence -> fresh DB persistence -> dashboard surfacing -> fresh DB dashboard proof |
+| `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 
 ## What Not To Claim
 

@@ -54,7 +54,7 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | failure-case persistence smoke works | Pass | `docs/review/failure-case-persistence-smoke-verification.md` | stores manually submitted failure records; automatic failure detection is not claimed |
 | agent-run failure linkage smoke works | Pass | `docs/review/agent-run-failure-linkage-smoke-verification.md` | links manual failure records to failed agent runs; complete workflow failure causality is not claimed |
 | workflow failure linkage smoke works | Pass | `docs/review/workflow-failure-linkage-smoke-verification.md` | test-fixture proof only; complete workflow failure causality is not claimed |
-| failure-case workflow linkage review exists | Pass | `docs/review/failure-case-workflow-linkage-review.md` | failure cases are not linked to workflow parents yet |
+| failure-case workflow linkage review exists | Pass | `docs/review/failure-case-workflow-linkage-review.md` | historical review boundary; manual workflow parent linkage now exists, while automatic failure-case creation remains unclaimed |
 | failure-case draft preview exists | Pass | `POST /failure-cases/draft-preview` | returns a suggested payload only; does not persist failure cases automatically |
 | failure-case draft preview smoke works | Pass | `docs/review/failure-case-draft-preview-smoke-verification.md` | route-level smoke only; automatic failure-case persistence is not claimed |
 | failure-case draft manual handoff smoke works | Pass | `docs/review/failure-case-draft-manual-handoff-smoke-verification.md` | human confirmation boundary remains explicit; not automatic persistence |

@@ -849,7 +849,7 @@ def test_failure_case_workflow_linkage_review_defers_schema_until_creation_path_
     assert "Failure-case workflow linkage review v0: implemented" in readme
 
 
-def test_failure_case_workflow_linkage_application_refresh_surfaces_deferred_schema_boundary():
+def test_failure_case_workflow_linkage_application_refresh_surfaces_historical_boundary():
     portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
         encoding="utf-8"
     )
@@ -866,10 +866,10 @@ def test_failure_case_workflow_linkage_application_refresh_surfaces_deferred_sch
     assert "failure-case workflow linkage application refresh v0" in goal
     assert "Failure-case workflow linkage review" in portfolio
     assert "docs/review/failure-case-workflow-linkage-review.md" in portfolio
-    assert "workflow_run_id on failure_cases remains deferred" in role_map
-    assert "no failure-case creation path from failed workflow parents" in role_map
+    assert "historical failure-case workflow linkage review" in role_map
+    assert "manual workflow parent linkage now exists" in role_map
     assert "failure-case workflow linkage review" in review
-    assert "failure cases are not linked to workflow parents yet" in review
+    assert "historical review boundary" in review
 
 
 def test_failure_case_creation_path_review_selects_manual_draft_before_automation():
@@ -1515,3 +1515,43 @@ def test_failure_case_workflow_parent_linkage_stale_claim_review_identifies_clea
         "Failure-case workflow parent linkage proof chain stale-claim review v0: implemented"
         in readme
     )
+
+
+def test_failure_case_workflow_parent_linkage_stale_claim_cleanup_updates_current_facing_docs():
+    cleanup = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md"
+    ).read_text(encoding="utf-8")
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    stale_current_claims = [
+        "workflow_run_id on failure_cases remains deferred",
+        "failure cases are not linked to workflow parents yet",
+        "The failure-case workflow linkage review states that workflow_run_id on failure_cases remains deferred",
+    ]
+    for claim in stale_current_claims:
+        assert claim not in role_map
+        assert claim not in review
+
+    assert "Failure-case workflow parent linkage stale-claim cleanup" in cleanup
+    assert "application-facing cleanup" in cleanup
+    assert "historical review artifacts are preserved" in cleanup
+    assert "manual workflow parent linkage now exists" in cleanup
+    assert "not automatic failure-case creation" in cleanup
+    assert "not complete workflow failure causality" in cleanup
+    assert "failure-case workflow parent linkage stale-claim cleanup v0" in goal
+    assert (
+        "Failure-case workflow parent linkage stale-claim cleanup v0: implemented"
+        in readme
+    )
+    assert "manual workflow parent linkage now exists" in role_map
+    assert "automatic failure-case creation remains unclaimed" in role_map
+    assert "historical review boundary" in review
+    assert "manual workflow parent linkage now exists" in review
