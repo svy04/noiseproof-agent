@@ -1090,6 +1090,40 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "Phase 35" in response.text
 
 
+def test_ops_dashboard_links_failure_cases_to_manual_workflow_parent():
+    client = make_client()
+    workflow_run = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which failed workflow should be reviewed?",
+            "status": "failed",
+            "workflow_version": WORKFLOW_VERSION,
+        },
+    )
+    workflow_run_id = workflow_run.json()["id"]
+    client.post(
+        "/failure-cases",
+        json={
+            "workflow_run_id": workflow_run_id,
+            "failure_type": "workflow_stage_error",
+            "description": "Evidence persistence failed after retrieval.",
+            "fix_status": "open",
+            "next_action": "Inspect the workflow parent before retry.",
+        },
+    )
+
+    response = client.get("/ops/dashboard")
+
+    assert response.status_code == 200
+    assert "Workflow Parent" in response.text
+    assert (
+        f'href="/workflow-runs/{workflow_run_id}">{workflow_run_id}</a>'
+        in response.text
+    )
+    assert "manual workflow parent link" in response.text
+    assert "not automatic failure-case creation" in response.text
+
+
 def test_core_preview_endpoints_auto_record_agent_run_traces():
     client = make_client()
 

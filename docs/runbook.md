@@ -104,6 +104,10 @@ Phase 61 adds `POST /failure-cases/draft-preview`, a non-persisting helper that 
 
 Phase 72 verifies the narrow workflow failure-to-draft smoke path: a failed `POST /workflow-runs/execute-preview` parent can feed `POST /failure-cases/draft-preview`, while `failure_cases` remain unchanged and no automatic failure-case creation is claimed.
 
+Phase 80 reviews dashboard surfacing for manual failure-case workflow parent links and selects the Failure Cases table Workflow Parent column as the next bounded surface.
+
+Phase 81 implements that bounded surface: `GET /ops/dashboard` now shows a Workflow Parent column in the Failure Cases table, and present `workflow_run_id` values link to `/workflow-runs/{id}`. This is a manual workflow parent link only, not automatic failure-case creation.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
@@ -129,6 +133,9 @@ Implemented:
 - document metadata create/list endpoints
 - agent run metadata create/list endpoints
 - failure case create/list endpoints
+- Failure-case workflow parent linkage dashboard surfacing v0
+- `GET /ops/dashboard` Failure Cases table Workflow Parent column
+- manual `workflow_run_id` values link to `/workflow-runs/{id}`
 - messy market data fixtures
 - Document Profiler v0
 - parser adapter stubs for markdown, CSV, HTML/URL, PDF text-only fallback, and unknown source types
@@ -939,6 +946,16 @@ Expected `/ops/dashboard` behavior:
 
 ```text
 Returns text/html with Operations Dashboard v0, summary counts, recent agent runs, failure cases, and retrieval runs.
+```
+
+Expected failure-case workflow parent dashboard smoke check:
+
+```text
+Failure Cases
+Workflow Parent
+href="/workflow-runs/<workflow_run_id>">...
+manual workflow parent link
+not automatic failure-case creation
 ```
 
 Expected `/evidence-ledgers/preview` response shape:

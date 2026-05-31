@@ -70,6 +70,7 @@ def render_ops_dashboard(
   </section>
   <section>
     <h2>Failure Cases</h2>
+    <p class="muted">Workflow parent links are manual workflow parent link provenance only, not automatic failure-case creation.</p>
     {_failure_cases_table(failure_cases)}
   </section>
   <section>
@@ -134,6 +135,7 @@ def _failure_cases_table(rows: list[dict[str, Any]]) -> str:
     body = "\n".join(
         "<tr>"
         f"<td>{_cell(row.get('created_at'))}</td>"
+        f"<td>{_workflow_parent_cell(row)}</td>"
         f"<td>{_cell(row.get('failure_type'))}</td>"
         f"<td>{_cell(row.get('description'))}</td>"
         f"<td>{_cell(row.get('fix_status'))}</td>"
@@ -141,7 +143,7 @@ def _failure_cases_table(rows: list[dict[str, Any]]) -> str:
         "</tr>"
         for row in rows[:10]
     )
-    return f"<table><thead><tr><th>Created</th><th>Type</th><th>Description</th><th>Fix Status</th><th>Next Action</th></tr></thead><tbody>{body}</tbody></table>"
+    return f"<table><thead><tr><th>Created</th><th>Workflow Parent</th><th>Type</th><th>Description</th><th>Fix Status</th><th>Next Action</th></tr></thead><tbody>{body}</tbody></table>"
 
 
 def _workflow_runs_table(rows: list[dict[str, Any]]) -> str:
@@ -311,6 +313,13 @@ def _workflow_run_links_cell(row: dict[str, Any]) -> str:
     detail = _link(f"/workflow-runs/{workflow_run_id}", "detail")
     lineage = _link(f"/workflow-runs/{workflow_run_id}/lineage", "lineage")
     return f"{detail} / {lineage}"
+
+
+def _workflow_parent_cell(row: dict[str, Any]) -> str:
+    workflow_run_id = row.get("workflow_run_id")
+    if not workflow_run_id:
+        return '<span class="muted">n/a</span>'
+    return _link(f"/workflow-runs/{workflow_run_id}", workflow_run_id)
 
 
 def _filter_cell(base_path: str, field: str, value: object) -> str:

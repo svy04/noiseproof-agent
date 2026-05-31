@@ -189,6 +189,7 @@ Implementation status:
 - Failure-case workflow parent linkage fresh-db verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md`
 - Failure-case workflow parent linkage application refresh v0: implemented across application-facing docs
 - Failure-case workflow parent linkage dashboard review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-dashboard-review.md`
+- Failure-case workflow parent linkage dashboard surfacing v0: implemented in `GET /ops/dashboard`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -968,6 +969,14 @@ Implementation status:
 - `docs/review/failure-case-workflow-parent-linkage-dashboard-review.md`: added
 - Current decision: surface manual `failure_cases.workflow_run_id` in the Failure Cases table as a link to `/workflow-runs/{id}` in the next gate
 - Boundary: this review does not add dashboard rendering, automatic failure-case creation, automatic failure detection, or complete workflow failure causality
+
+### Phase 81 - Failure-case Workflow Parent Linkage Dashboard Surfacing v0
+
+- Failure-case workflow parent linkage dashboard surfacing v0: implemented
+- `GET /ops/dashboard`: Failure Cases table now shows a Workflow Parent column
+- Manual `failure_cases.workflow_run_id` values link to `/workflow-runs/{id}`
+- Dashboard copy labels the link as manual workflow parent link provenance, not automatic failure-case creation
+- Boundary: no schema, migration, new endpoint, automatic failure-case creation, automatic detection, complete workflow failure causality, LLM, or embedding behavior changed
 
 Not implemented yet:
 

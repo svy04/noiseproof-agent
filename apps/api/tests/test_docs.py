@@ -1286,3 +1286,16 @@ def test_failure_case_workflow_parent_linkage_dashboard_review_defers_rendering_
     assert "not complete workflow failure causality" in content
     assert "failure-case workflow parent linkage dashboard review v0" in goal
     assert "Failure-case workflow parent linkage dashboard review v0: implemented" in readme
+
+
+def test_failure_case_workflow_parent_linkage_dashboard_surfacing_docs_keep_manual_boundary():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "failure-case workflow parent linkage dashboard surfacing v0" in goal
+    assert "Failure-case workflow parent linkage dashboard surfacing v0: implemented" in readme
+    assert "Expected failure-case workflow parent dashboard smoke check" in runbook
+    assert "Workflow Parent" in runbook
+    assert "manual workflow parent link" in runbook
+    assert "not automatic failure-case creation" in runbook
