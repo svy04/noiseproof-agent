@@ -1732,3 +1732,22 @@ def test_readme_phase_history_compression_replaces_chronological_wall_with_summa
     assert len(what_this_is) < 2500
     assert "readme phase-history compression v0" in goal
     assert "README phase-history compression v0: implemented" in readme
+
+
+def test_readme_implementation_status_compression_review_selects_scanability_gate():
+    content = (
+        REPO_ROOT / "docs/review/readme-implementation-status-compression-review.md"
+    ).read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "README implementation-status compression review" in content
+    assert "review-only gate" in content
+    assert "implementation status list is too long" in content
+    assert "Do not compress README implementation status in this review gate" in content
+    assert "readme implementation-status compression v0" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "readme implementation-status compression review v0" in goal
+    assert "README implementation-status compression review v0: implemented" in readme

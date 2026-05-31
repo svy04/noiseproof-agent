@@ -223,6 +223,7 @@ Implementation status:
 - README external proof path refresh v0: implemented near the top of this README
 - README phase-history compression review v0: implemented as `docs/review/readme-phase-history-compression-review.md`
 - README phase-history compression v0: implemented in the `What This Is` section
+- README implementation-status compression review v0: implemented as `docs/review/readme-implementation-status-compression-review.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -1138,6 +1139,12 @@ Implementation status:
 - `README.md` now replaces the long chronological wall with current implemented capability groups
 - Detailed phase history remains in `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts
 - Boundary: README documentation only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
+
+### Phase 100 - README Implementation-status Compression Review v0
+
+- README implementation-status compression review v0: implemented as `docs/review/readme-implementation-status-compression-review.md`
+- Current decision: compress the top README implementation status list next
+- Boundary: review-only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
 
 Not implemented yet:
 
