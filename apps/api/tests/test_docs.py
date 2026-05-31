@@ -1220,3 +1220,23 @@ def test_failure_case_workflow_parent_linkage_smoke_verification_documents_bound
     assert "not fresh Docker DB evidence" in content
     assert "failure-case workflow parent linkage smoke verification v0" in goal
     assert "Failure-case workflow parent linkage smoke verification v0: implemented" in readme
+
+
+def test_failure_case_workflow_parent_linkage_fresh_db_verification_documents_runtime_proof():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow parent linkage fresh DB verification" in content
+    assert "local fresh migrated Docker DB evidence" in content
+    assert "applied 011_failure_case_workflow_run_id.sql" in content
+    assert "persisted_workflow_run_id_matches: true" in content
+    assert "listed_workflow_run_id_matches: true" in content
+    assert "ops_failure_case_count: 1" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "failure-case workflow parent linkage fresh-db verification v0" in goal
+    assert "Failure-case workflow parent linkage fresh-db verification v0: implemented" in readme

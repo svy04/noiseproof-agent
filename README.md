@@ -186,6 +186,7 @@ Implementation status:
 - Failure-case workflow parent linkage schema review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-schema-review.md`
 - Failure-case workflow parent linkage schema v0: implemented with nullable `workflow_run_id` on `failure_cases`
 - Failure-case workflow parent linkage smoke verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-smoke-verification.md`
+- Failure-case workflow parent linkage fresh-db verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -940,6 +941,16 @@ Implementation status:
 - Observed: workflow parent link is retained in failure-case create/list responses
 - Observed: draft-preview carries workflow_run_id into the suggested draft payload
 - Boundary: not automatic failure-case creation, not fresh Docker DB evidence, and not complete workflow failure causality
+
+### Phase 78 - Failure-case Workflow Parent Linkage Fresh-db Verification v0
+
+- Failure-case workflow parent linkage fresh-db verification v0: implemented
+- `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md`: added
+- Fresh DB project: `noiseproof-agent-workflow-link-smoke`
+- Verified migration runner applied `011_failure_case_workflow_run_id.sql`
+- Verified real FastAPI/PostgreSQL path: `POST /workflow-runs` -> `POST /failure-cases` -> `GET /failure-cases` -> `GET /ops/summary`
+- Observed: persisted and listed `workflow_run_id` match the workflow parent id; `ops_failure_case_count: 1`
+- Boundary: local fresh migrated Docker DB evidence only; not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality
 
 Not implemented yet:
 
