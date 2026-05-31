@@ -106,7 +106,7 @@ Current status groups:
 - service skeleton: FastAPI health, ops summary/dashboard, metadata routes, PostgreSQL schema, migration runner, and CI
 - ingestion/RAG boundaries: document profiling, parser adapters, chunk strategy comparison, lexical retrieval, and collection planning
 - evidence/report boundaries: Evidence Ledger, Noise Gate, claim-bounded report previews, trace lookup, filters, workflow parents, lineage, and warning codes
-- proof surfaces: fresh DB smoke artifacts, failure-case persistence/linkage artifacts, manual handoff proofs, external reviewer path, and Braincrew application mapping
+- proof surfaces: fresh DB smoke artifacts, failure-case persistence/linkage artifacts, manual handoff proofs, external reviewer path, local browser screenshot walkthrough, and Braincrew application mapping
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*` artifacts.
 
@@ -148,6 +148,7 @@ Major implementation milestones:
 - Portfolio site handoff review v0: implemented
 - Portfolio site proof artifact route verification v0: implemented
 - Demo transcript capture v0: implemented
+- Local browser screenshot walkthrough v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The dedicated proof-marker archive in `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers without making the rendered README a chronological wall.
 

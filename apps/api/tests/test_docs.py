@@ -1607,7 +1607,8 @@ def test_external_reader_proof_path_index_gives_five_minute_path_and_boundaries(
     assert "not automatic failure-case creation" in content
     assert "not complete workflow failure causality" in content
     assert "docs/review/portfolio-site-proof-artifact-route-verification.md" in content
-    assert "external reviewer feedback v0 or local browser screenshot walkthrough v0" in content
+    assert "docs/review/local-browser-screenshot-walkthrough.md" in content
+    assert "external reviewer feedback v0" in content
     assert "external-reader proof path index v0" in goal
     assert "External-reader proof path index v0: implemented" in readme
 
@@ -2102,7 +2103,8 @@ def test_external_reader_proof_path_next_gate_refresh_replaces_stale_next_gate()
 
     next_gate = proof_path.split("## Next Gate", 1)[1]
 
-    assert "external reviewer feedback v0 or local browser screenshot walkthrough v0" in next_gate
+    assert "external reviewer feedback v0" in next_gate
+    assert "local browser screenshot walkthrough v0" not in next_gate
     assert "portfolio external proof path refresh v0" not in next_gate
     assert "not hosted deployment evidence" in proof_path
     assert "not automatic failure-case creation" in proof_path
@@ -2215,3 +2217,40 @@ def test_demo_transcript_capture_records_reader_facing_route_walkthrough_boundar
     assert "demo transcript capture v0" in goal
     assert "docs/review/demo-transcript-capture.md" in portfolio
     assert "docs/review/demo-transcript-capture.md" in proof_path
+
+
+def test_local_browser_screenshot_walkthrough_records_visual_dashboard_boundary():
+    review_path = REPO_ROOT / "docs/review/local-browser-screenshot-walkthrough.md"
+    screenshot_path = REPO_ROOT / "docs/review/media/local-browser-dashboard-walkthrough.png"
+    assert review_path.is_file()
+    assert screenshot_path.is_file()
+    assert screenshot_path.stat().st_size > 10_000
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Local Browser Screenshot Walkthrough" in content
+    assert "local browser screenshot walkthrough v0" in content
+    assert "docs/review/media/local-browser-dashboard-walkthrough.png" in content
+    assert "GET /ops/dashboard" in content
+    assert "GET /workflow-runs/{id}/lineage" in content
+    assert "contains_lineage_link: true" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not external reviewer feedback" in content
+    assert "not production observability" in content
+    assert "external reviewer feedback v0" in content
+    assert "Local browser screenshot walkthrough v0: implemented" in readme
+    assert "local browser screenshot walkthrough v0" in goal
+    assert "Local browser screenshot walkthrough" in runbook
+    assert "docs/review/media/local-browser-dashboard-walkthrough.png" in runbook
+    assert "docs/review/local-browser-screenshot-walkthrough.md" in portfolio
+    assert "docs/review/local-browser-screenshot-walkthrough.md" in proof_path

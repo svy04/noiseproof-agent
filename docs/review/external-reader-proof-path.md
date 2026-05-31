@@ -24,6 +24,8 @@ Read in this order:
    - Live portfolio route verification for the public NoiseProof proof surface.
 7. `docs/review/demo-transcript-capture.md`
    - Self-authored local route transcript for collection planning, workflow preview, lineage, and dashboard inspection.
+8. `docs/review/local-browser-screenshot-walkthrough.md`
+   - Self-authored local browser screenshot walkthrough for the operations dashboard and workflow-run lineage link.
 
 ## Optional source-level provenance
 
@@ -48,6 +50,14 @@ This public route is a proof surface for the portfolio. It is not hosted deploym
 Use `docs/review/demo-transcript-capture.md` for the current self-authored route walkthrough.
 
 It is useful for reader orientation, but it is not external reviewer feedback, not hosted deployment evidence, and not customer validation.
+
+## Local Browser Screenshot
+
+Use `docs/review/local-browser-screenshot-walkthrough.md` for the current visual walkthrough.
+
+It records `GET /ops/dashboard` after a deterministic workflow preview and checks that the dashboard includes workflow runs and lineage links.
+
+It is useful for local visual inspection, but it is not external reviewer feedback, not hosted deployment evidence, not customer validation, and not production observability.
 
 ## What This Path Proves
 
@@ -84,5 +94,5 @@ This is not complete workflow failure causality.
 ## Next Gate
 
 ```text
-external reviewer feedback v0 or local browser screenshot walkthrough v0
+external reviewer feedback v0
 ```

@@ -1183,6 +1183,24 @@ curl http://localhost:8000/ops/dashboard
 
 The dashboard links are navigation aids over existing records. Evidence Ledger, Noise Gate, and Report rows also expose parent run links through `GET /traces/{workflow_trace_id}`. They do not add ranking, search, LLM calls, distributed tracing, hosted observability, or UI polish.
 
+### Local browser screenshot walkthrough
+
+The local browser screenshot walkthrough records the current dashboard as a visual inspection artifact:
+
+```text
+docs/review/local-browser-screenshot-walkthrough.md
+docs/review/media/local-browser-dashboard-walkthrough.png
+```
+
+To reproduce the same class of artifact, start the local database, apply migrations, run the API, create or reuse a deterministic workflow preview, and open:
+
+```text
+GET /ops/dashboard
+GET /workflow-runs/{id}/lineage
+```
+
+The screenshot must remain a local visual proof surface only. It is not hosted deployment evidence, customer validation, external reviewer feedback, production observability, semantic retrieval evidence, or LLM evidence.
+
 Inspect auto-created preview traces:
 
 ```bash
