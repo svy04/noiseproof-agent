@@ -2108,3 +2108,26 @@ def test_external_reader_proof_path_next_gate_refresh_replaces_stale_next_gate()
     assert "not complete workflow failure causality" in proof_path
     assert "external-reader proof path next-gate refresh v0" in goal
     assert "External-reader proof path next-gate refresh v0: implemented" in readme
+
+
+def test_application_package_final_consistency_review_selects_portfolio_handoff():
+    review_path = REPO_ROOT / "docs/review/application-package-final-consistency-review.md"
+    assert review_path.is_file()
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Application package final consistency review" in content
+    assert "review-only gate" in content
+    assert "no stale Next Gate" in content
+    assert "README.md" in content
+    assert "external-reader proof path" in content
+    assert "portfolio index" in content
+    assert "application-ready review" in content
+    assert "Braincrew role map" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "portfolio site handoff review v0" in content
+    assert "application package final consistency review v0" in goal
+    assert "Application package final consistency review v0: implemented" in readme
