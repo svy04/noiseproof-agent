@@ -2480,3 +2480,33 @@ def test_external_feedback_qualification_preview_screens_comments_without_closin
     assert "external feedback qualification preview v0" in runbook
     assert "docs/review/external-feedback-qualification-preview.md" in portfolio
     assert "docs/review/external-feedback-qualification-preview.md" in criteria
+
+
+def test_external_feedback_screening_cli_documents_real_issue_json_path_without_closing_gate():
+    cli_path = REPO_ROOT / "docs/review/external-feedback-screening-cli.md"
+    assert cli_path.is_file()
+
+    content = cli_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    preview = (
+        REPO_ROOT / "docs/review/external-feedback-qualification-preview.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Feedback Screening CLI" in content
+    assert "external feedback screening cli v0" in content
+    assert "python -m packages.review.external_feedback_cli" in content
+    assert "gh issue view 1 --repo svy04/noiseproof-agent --json comments" in content
+    assert "comment_count: 0" in content
+    assert "pending" in content
+    assert "does not close the gate" in content
+    assert "not external reviewer feedback" in content
+    assert "External feedback screening CLI v0: implemented" in readme
+    assert "external feedback screening cli v0" in goal
+    assert "external feedback screening cli v0" in runbook
+    assert "docs/review/external-feedback-screening-cli.md" in portfolio
+    assert "docs/review/external-feedback-screening-cli.md" in preview

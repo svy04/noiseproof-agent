@@ -30,6 +30,13 @@ Tests:
 apps/api/tests/test_external_feedback.py
 ```
 
+CLI:
+
+```text
+python -m packages.review.external_feedback_cli
+docs/review/external-feedback-screening-cli.md
+```
+
 ## What It Screens
 
 The helper accepts issue comment dictionaries, such as comments returned by:

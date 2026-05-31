@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from dataclasses import asdict
 import re
 from typing import Any
 
@@ -70,6 +71,20 @@ def screen_external_feedback_comments(
         candidate_count=candidate_count,
         screened_comments=screened,
     )
+
+
+def screen_issue_view_payload(
+    payload: dict[str, Any] | list[dict[str, Any]], *, repository_owner: str
+) -> ExternalFeedbackScreenResult:
+    if isinstance(payload, list):
+        comments = payload
+    else:
+        comments = payload.get("comments") or []
+    return screen_external_feedback_comments(comments, repository_owner=repository_owner)
+
+
+def screen_result_to_dict(result: ExternalFeedbackScreenResult) -> dict[str, Any]:
+    return asdict(result)
 
 
 def _screen_comment(

@@ -1253,6 +1253,18 @@ Use `packages/review/external_feedback.py` when issue #1 has public comments and
 
 The qualification preview does not close the gate. `candidate_found_manual_review_required` means a human still needs to compare the comment against `docs/review/external-feedback-intake-criteria.md` before recording external reviewer feedback.
 
+Phase marker: external feedback screening cli v0.
+
+Capture issue #1 comments and run the local CLI:
+
+```powershell
+$tmp = Join-Path $env:TEMP "noiseproof-issue-1-comments.json"
+gh issue view 1 --repo svy04/noiseproof-agent --json comments | Set-Content -Path $tmp -Encoding utf8
+python -m packages.review.external_feedback_cli --input $tmp --repository-owner svy04
+```
+
+The current smoke result for issue #1 is `pending` with `comment_count: 0`. This does not close the gate and is not external reviewer feedback.
+
 Inspect auto-created preview traces:
 
 ```bash
