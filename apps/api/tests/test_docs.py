@@ -1457,3 +1457,33 @@ def test_failure_case_workflow_parent_linkage_proof_index_gives_reader_path_and_
     assert "not complete workflow failure causality" in content
     assert "failure-case workflow parent linkage proof index v0" in goal
     assert "Failure-case workflow parent linkage proof index v0: implemented" in readme
+
+
+def test_failure_case_workflow_parent_linkage_proof_index_application_refresh_surfaces_reader_path():
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert (
+        "Failure-case workflow parent linkage proof index application refresh v0: implemented"
+        in readme
+    )
+    assert "failure-case workflow parent linkage proof index application refresh v0" in goal
+    assert "Failure-case workflow parent linkage proof index" in portfolio
+    assert "docs/review/failure-case-workflow-parent-linkage-proof-index.md" in portfolio
+    assert "schema boundary -> manual persistence -> fresh DB persistence" in portfolio
+    assert "workflow parent proof index" in role_map
+    assert "reader path" in role_map
+    assert "not automatic failure-case creation" in role_map
+    assert "not complete workflow failure causality" in role_map
+    assert "proof index reader path" in review
+    assert "Allowed claim" in review
+    assert "Forbidden claim" in review

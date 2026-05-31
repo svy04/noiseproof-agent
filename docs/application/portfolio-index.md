@@ -81,6 +81,7 @@ This page maps the repository into a reviewer-readable path.
 | Failure-case workflow parent linkage application refresh | `docs/application/portfolio-index.md`, `docs/application/braincrew-role-map.md`, `docs/review/application-ready-review.md` | implemented v0 |
 | Failure-case workflow parent linkage dashboard surfacing | `GET /ops/dashboard` Failure Cases table Workflow Parent column | implemented v0 |
 | Failure-case workflow parent linkage fresh DB dashboard smoke verification | `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md` | verified local |
+| Failure-case workflow parent linkage proof index | `docs/review/failure-case-workflow-parent-linkage-proof-index.md` | implemented v0 |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
 
@@ -106,6 +107,7 @@ This page maps the repository into a reviewer-readable path.
 | `docs/review/workflow-failure-to-draft-smoke-verification.md` | route-level smoke for failed workflow parent evidence feeding non-persisting draft preview |
 | `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md` | fresh migrated Docker DB proof for manual failure-case workflow parent linkage |
 | `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md` | local fresh migrated Docker DB dashboard evidence for manual failure-case Workflow Parent links |
+| `docs/review/failure-case-workflow-parent-linkage-proof-index.md` | reviewer reader path for schema boundary -> manual persistence -> fresh DB persistence -> dashboard surfacing -> fresh DB dashboard proof |
 
 ## What Not To Claim
 
@@ -130,5 +132,7 @@ Failure cases can now be linked to workflow parents manually. `failure_cases.wor
 The operations dashboard now surfaces that manual parent link in the Failure Cases table as a Workflow Parent column pointing to `/workflow-runs/{id}`. This is a navigation aid over already persisted manual provenance, not automatic failure-case creation.
 
 The Failure-case workflow parent linkage fresh DB dashboard smoke verification proves that same dashboard link through a local fresh migrated Docker DB and real FastAPI process. The recorded dashboard checks include `dashboard_contains_workflow_link: true`, `dashboard_contains_workflow_parent: true`, and `dashboard_contains_not_automatic_creation: true`. This is local fresh migrated Docker DB dashboard evidence only, not hosted deployment evidence and not complete workflow failure causality.
+
+The Failure-case workflow parent linkage proof index gives the shortest reviewer path through the chain: schema boundary -> manual persistence -> fresh DB persistence -> dashboard surfacing -> fresh DB dashboard proof -> application-facing boundary. It also separates the allowed claim from the forbidden claim.
 
 The Workflow failure-to-draft smoke verification shows that a failed deterministic workflow parent can feed the same non-persisting draft-preview endpoint while leaving `failure_cases` unchanged. It is route-level smoke evidence, not automatic failure-case creation, not automatic persistence, and not complete workflow failure causality.

@@ -196,6 +196,7 @@ Implementation status:
 - Failure-case workflow parent linkage fresh-db dashboard smoke application refresh v0: implemented across application-facing docs
 - Failure-case workflow parent linkage proof consolidation review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-proof-consolidation-review.md`
 - Failure-case workflow parent linkage proof index v0: implemented as `docs/review/failure-case-workflow-parent-linkage-proof-index.md`
+- Failure-case workflow parent linkage proof index application refresh v0: implemented across application-facing docs
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -1027,6 +1028,14 @@ Implementation status:
 - `docs/review/failure-case-workflow-parent-linkage-proof-index.md`: added
 - Reader path: schema boundary -> manual persistence -> fresh DB persistence -> dashboard surfacing -> fresh DB dashboard proof -> application-facing boundary
 - Boundary: index-only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
+
+### Phase 88 - Failure-case Workflow Parent Linkage Proof Index Application Refresh v0
+
+- Failure-case workflow parent linkage proof index application refresh v0: implemented
+- `docs/application/portfolio-index.md`: updated with proof index reader path
+- `docs/application/braincrew-role-map.md`: updated with proof index reader path
+- `docs/review/application-ready-review.md`: updated with Allowed claim / Forbidden claim language for the proof index
+- Boundary: application-facing documentation only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
 
 Not implemented yet:
 

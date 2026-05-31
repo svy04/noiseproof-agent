@@ -63,6 +63,7 @@ It is not strong enough to claim production RAG quality or autonomous market int
 | failure-case workflow parent linkage fresh DB works | Pass | `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md` | local Docker DB evidence only; not hosted deployment evidence; automatic failure-case creation remains unclaimed |
 | failure-case workflow parent dashboard link works | Pass | `GET /ops/dashboard` Failure Cases table Workflow Parent column | manual provenance only; not automatic failure-case creation |
 | failure-case workflow parent dashboard fresh DB smoke works | Pass | `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md` | local Docker DB dashboard evidence only; manual provenance only; not hosted deployment evidence |
+| proof index reader path exists | Pass | `docs/review/failure-case-workflow-parent-linkage-proof-index.md` | index-only; no new runtime proof |
 
 Historical Phase 31.5 boundary: JSON manifest only, not direct FK or join-table lineage. Phase 32 makes that manifest easier to inspect through a derived read model, but it still does not convert the manifest into a relational contract.
 
@@ -125,6 +126,9 @@ If this repo is linked from the portfolio site, link only these claims:
 - Failure-case Workflow Parent Linkage Fresh DB Verification v0
 - Failure-case Workflow Parent Linkage Dashboard Surfacing v0
 - Failure-case Workflow Parent Linkage Fresh DB Dashboard Smoke Verification v0
+- Failure-case Workflow Parent Linkage Proof Index v0
+
+For this proof chain, start with the proof index reader path. Its Allowed claim is limited to manual workflow parent provenance being persisted, fresh-DB verified, and surfaced in the plain operations dashboard. Its Forbidden claim keeps automatic failure-case creation, complete workflow failure causality, and hosted production deployment evidence out of bounds.
 
 Avoid claims about:
 
