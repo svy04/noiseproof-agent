@@ -1787,3 +1787,19 @@ def test_readme_detailed_implementation_status_compression_review_selects_lower_
     assert "not complete workflow failure causality" in content
     assert "readme detailed implementation-status compression review v0" in goal
     assert "README detailed implementation-status compression review v0: implemented" in readme
+
+
+def test_readme_detailed_implementation_status_compression_replaces_lower_phase_wall():
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    lower_status = readme.split("## Implementation Status", 1)[1].split(
+        "Not implemented yet:", 1
+    )[0]
+
+    assert "Major implementation milestones" in lower_status
+    assert "For exhaustive phase history, use `docs/GOAL.md`" in lower_status
+    assert "### Phase 46 - Runtime Migration Runner Verification v0" not in lower_status
+    assert "### Phase 101 - README Implementation-status Compression v0" not in lower_status
+    assert len(lower_status) < 4500
+    assert "readme detailed implementation-status compression v0" in goal
+    assert "README detailed implementation-status compression v0: implemented" in readme

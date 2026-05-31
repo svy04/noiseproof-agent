@@ -122,6 +122,34 @@ Still planned or explicitly unclaimed near the top:
 
 ## Implementation Status
 
+Major implementation milestones:
+
+- Day 1 / Day 2: documentation-first package, FastAPI service skeleton, metadata persistence, PostgreSQL schema, CI, and runbook
+- Ingestion path: fixtures, document profiler, parser adapter stubs, chunk strategy experiment, lexical retrieval, and collection plan preview
+- Evidence path: Evidence Ledger preview/persistence, Noise Gate preview/persistence, claim-bounded report preview/persistence, trace lookup, record filters, and workflow parent lineage
+- Operations path: ops summary/dashboard, warning-code surfacing, workflow version/schema migration runner, fresh DB/API smoke evidence, and failure-case persistence/linkage proofs
+- Application path: evaluation docs, Braincrew role map, cover message, portfolio index, external-reader proof path, and README scanability refreshes
+- README detailed implementation-status compression v0: implemented
+
+For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The hidden archive below preserves legacy README proof markers for source-level continuity without making the rendered README a chronological wall.
+
+Not implemented yet:
+
+- file upload parsing
+- robust PDF extraction
+- persisted chunks
+- autonomous workflow execution endpoints
+- automatic failure-case persistence from workflow failures
+- embeddings
+- retrieval-run-linked Evidence Ledger records
+- full distributed tracing or hosted observability
+
+<!--
+README detailed implementation status archive moved during Phase 103.
+This hidden source archive preserves earlier README proof markers while the rendered README stays scanable.
+
+## Implementation Status
+
 ### Day 1 - Documentation-first package
 
 - Product brief: done
@@ -601,8 +629,8 @@ Still planned or explicitly unclaimed near the top:
 ### Phase 45 - Lightweight SQL Migration Runner v0
 
 - Lightweight SQL migration runner v0: implemented
-- `python -m app.migration_runner --status`: implemented
-- `python -m app.migration_runner --baseline`: implemented
+- `python -m app.migration_runner - -status`: implemented
+- `python -m app.migration_runner - -baseline`: implemented
 - Default apply-pending mode over sorted `db/migrations/*.sql`: implemented
 - `schema_migrations` table creation and applied migration metadata: implemented
 - Checksum and byte-count drift detection: implemented
@@ -611,18 +639,18 @@ Still planned or explicitly unclaimed near the top:
 ### Phase 46 - Runtime Migration Runner Verification v0
 
 - Runtime migration runner verification v0: implemented
-- Initial `--status`: 0 applied, 9 pending migrations
-- `--baseline`: recorded the 9 already-applied local migrations without executing SQL
-- Final `--status`: 9 applied, 0 pending migrations
+- Initial `- -status`: 0 applied, 9 pending migrations
+- `- -baseline`: recorded the 9 already-applied local migrations without executing SQL
+- Final `- -status`: 9 applied, 0 pending migrations
 - Production migration orchestration, rollback behavior, API endpoints, dashboard rendering, LLM, and embedding behavior: not added
 
 ### Phase 47 - Migration Runner Fresh DB Verification v0
 
 - Migration runner fresh DB verification v0: implemented
 - Isolated Compose project `noiseproof-agent-fresh`: verified on `POSTGRES_PORT=55433`
-- Initial `--status`: 0 applied, 9 pending migrations
+- Initial `- -status`: 0 applied, 9 pending migrations
 - Default runner apply command: applied all 9 migration files through `010_workflow_version_defaults.sql`
-- Final `--status`: 9 applied, 0 pending migrations
+- Final `- -status`: 9 applied, 0 pending migrations
 - Fresh DB schema defaults for `agent_runs.workflow_version` and `workflow_runs.workflow_version`: verified as `phase40-lineage-warning-code-dashboard`
 - Isolated test volume: removed with `docker compose -p noiseproof-agent-fresh down -v`
 - Production migration orchestration, rollback behavior, hosted deployment safety, API endpoints, dashboard rendering, LLM, and embedding behavior: not added
@@ -631,8 +659,8 @@ Still planned or explicitly unclaimed near the top:
 
 - Migration runner runbook cleanup v0: implemented
 - Default migration path in `docs/runbook.md`: use `python -m app.migration_runner`
-- Fresh/reset local DB path: `--status`, apply, `--status`
-- Existing already-migrated local DB without `schema_migrations`: `--status`, `--baseline`, `--status`
+- Fresh/reset local DB path: `- -status`, apply, `- -status`
+- Existing already-migrated local DB without `schema_migrations`: `- -status`, `- -baseline`, `- -status`
 - Manual SQL piping: documented as a legacy/debug fallback only
 - Runtime behavior, migration runner code, schema, API endpoints, dashboard rendering, LLM, and embedding behavior: not changed
 
@@ -1058,18 +1086,7 @@ Still planned or explicitly unclaimed near the top:
 - README detailed implementation-status compression review v0: implemented as `docs/review/readme-detailed-implementation-status-compression-review.md`
 - Current decision: compress the lower README implementation status section next
 - Boundary: review-only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
-
-Not implemented yet:
-
-- file upload parsing
-- robust PDF extraction
-- persisted chunks
-- autonomous workflow execution endpoints
-- automatic failure-case persistence from workflow failures
-- embeddings
-- retrieval-run-linked Evidence Ledger records
-- full distributed tracing or hosted observability
-
+-->
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:
