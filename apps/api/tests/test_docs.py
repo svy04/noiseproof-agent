@@ -1166,3 +1166,21 @@ def test_failure_case_workflow_creation_path_decision_defers_automation():
     assert "workflow_run_id on failure_cases requires a schema gate" in content
     assert "failure-case workflow creation path decision v0" in goal
     assert "Failure-case workflow creation path decision v0: implemented" in readme
+
+
+def test_failure_case_workflow_parent_linkage_schema_review_selects_nullable_fk():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-parent-linkage-schema-review.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow parent linkage schema review" in content
+    assert "review-only gate" in content
+    assert "nullable workflow_run_id on failure_cases" in content
+    assert "REFERENCES workflow_runs(id) ON DELETE SET NULL" in content
+    assert "automatic failure-case creation remains deferred" in content
+    assert "no migration is added in this review gate" in content
+    assert "failure-case workflow parent linkage schema review v0" in goal
+    assert "Failure-case workflow parent linkage schema review v0: implemented" in readme

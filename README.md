@@ -183,6 +183,7 @@ Implementation status:
 - Workflow failure-to-draft smoke verification v0: implemented as `docs/review/workflow-failure-to-draft-smoke-verification.md`
 - Workflow failure-to-draft application refresh v0: implemented across application-facing docs
 - Failure-case workflow creation path decision v0: implemented as `docs/review/failure-case-workflow-creation-path-decision.md`
+- Failure-case workflow parent linkage schema review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-schema-review.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -910,6 +911,14 @@ Implementation status:
 - Decision: automatic failure-case creation remains deferred
 - Selected direction: human-confirmed persistence path before durable failure records
 - Boundary: `workflow_run_id` on `failure_cases` requires a schema gate before implementation
+
+### Phase 75 - Failure-case Workflow Parent Linkage Schema Review v0
+
+- Failure-case workflow parent linkage schema review v0: implemented
+- `docs/review/failure-case-workflow-parent-linkage-schema-review.md`: added
+- Selected schema direction: nullable `workflow_run_id` on `failure_cases`
+- Intended FK: `REFERENCES workflow_runs(id) ON DELETE SET NULL`
+- Boundary: no migration is added in this review gate; automatic failure-case creation remains deferred
 
 Not implemented yet:
 
