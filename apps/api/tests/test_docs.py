@@ -2045,3 +2045,26 @@ def test_application_proof_surface_final_scan_review_selects_final_cleanup_gate(
     assert "not complete workflow failure causality" in content
     assert "application proof surface final scan review v0" in goal
     assert "Application proof surface final scan review v0: implemented" in readme
+
+
+def test_application_ready_summary_compression_replaces_phase_wall():
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    summary = review.split("## Summary", 1)[1].split("## Checklist", 1)[0]
+
+    assert "Current judgment: Partial application-ready portfolio artifact." in summary
+    assert "not a product-complete declaration" in summary
+    assert "Detailed evidence remains in the checklist below" in summary
+    assert "external-reader proof path" in summary
+    assert "not hosted deployment evidence" in summary
+    assert "not automatic failure-case creation" in summary
+    assert "not complete workflow failure causality" in summary
+    assert "workflow stage input manifests" not in summary
+    assert "failure-case workflow parent dashboard fresh DB smoke" not in summary
+    assert len(summary) < 1200
+    assert "application-ready summary compression v0" in goal
+    assert "Application-ready summary compression v0: implemented" in readme
