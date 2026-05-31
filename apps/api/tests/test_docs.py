@@ -1949,3 +1949,33 @@ def test_application_current_claim_compression_review_selects_claim_scanability_
     assert "not complete workflow failure causality" in content
     assert "application current-claim compression review v0" in goal
     assert "Application current-claim compression review v0: implemented" in readme
+
+
+def test_application_current_claim_compression_replaces_claim_walls():
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    portfolio_claim = portfolio.split("## Current Best Claim", 1)[1].split(
+        "##", 1
+    )[0]
+    review_claim = review.split("## Best External Claim", 1)[1].split(
+        "Do not use:", 1
+    )[0]
+
+    assert "Short current claim:" in portfolio_claim
+    assert "Detailed proof history remains in" in portfolio_claim
+    assert "Short external claim:" in review_claim
+    assert "Detailed phase history remains in" in review_claim
+    assert "not product-complete declaration" in review_claim
+    assert len(portfolio_claim) < 1800
+    assert len(review_claim) < 1400
+    assert "README proof-marker archive external path refresh v0" not in portfolio_claim
+    assert "Workflow lineage warning code dashboard smoke example" not in review_claim
+    assert "Application current-claim compression v0: implemented" in readme
+    assert "application current-claim compression v0" in goal

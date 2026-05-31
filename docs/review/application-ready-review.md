@@ -76,7 +76,13 @@ Historical Phase 31.5 boundary: JSON manifest only, not direct FK or join-table 
 Use:
 
 ```text
-NoiseProof Agent is a small, inspectable portfolio service that shows how messy market data can be profiled, retrieved, converted into persisted evidence entries, persisted as gate decisions, stored as claim-bounded report preview records, linked to a deterministic workflow parent with `workflow_run_id` plus `workflow_trace_id` correlation, inspected from the workflow parent detail endpoint, annotated with local stage input manifests for deterministic gate/report stages, projected through a derived workflow lineage read model, reached from dashboard workflow-row links, tested for missing manifest reference surfacing, hardened against malformed manifest id shapes, reviewed for lineage warning taxonomy, given structured lineage warning codes without dropping human-readable warnings, reviewed for warning-code documentation boundaries, documented with a runbook response-shape example, reviewed for bounded dashboard surfacing before UI changes, and surfaced in the plain dashboard as response-level taxonomy only. It does not yet claim direct evidence -> gate -> report foreign-key lineage.
+Short external claim:
+
+NoiseProof Agent is a small, inspectable portfolio service that demonstrates evidence-first workflow surfaces for messy market intelligence: source profiling, parser/chunk/retrieval previews, persisted evidence/gate/report records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
+
+Detailed phase history remains in `docs/GOAL.md`, `docs/review/external-reader-proof-path.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts.
+
+Boundary: this is not product-complete declaration language, not hosted deployment evidence, not automatic failure-case creation, not complete workflow failure causality, and not production RAG quality.
 ```
 
 Do not use:
