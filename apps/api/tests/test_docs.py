@@ -1200,3 +1200,23 @@ def test_failure_cases_schema_has_nullable_workflow_parent_link():
     assert "idx_failure_cases_workflow_run_id" in migration
     assert "failure-case workflow parent linkage schema v0" in goal
     assert "Failure-case workflow parent linkage schema v0: implemented" in readme
+
+
+def test_failure_case_workflow_parent_linkage_smoke_verification_documents_boundary():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-parent-linkage-smoke-verification.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow parent linkage smoke verification" in content
+    assert "route-level smoke" in content
+    assert "POST /workflow-runs" in content
+    assert "POST /failure-cases" in content
+    assert "workflow_run_id retained" in content
+    assert "draft-preview carries workflow_run_id" in content
+    assert "not automatic failure-case creation" in content
+    assert "not fresh Docker DB evidence" in content
+    assert "failure-case workflow parent linkage smoke verification v0" in goal
+    assert "Failure-case workflow parent linkage smoke verification v0: implemented" in readme

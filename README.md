@@ -185,6 +185,7 @@ Implementation status:
 - Failure-case workflow creation path decision v0: implemented as `docs/review/failure-case-workflow-creation-path-decision.md`
 - Failure-case workflow parent linkage schema review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-schema-review.md`
 - Failure-case workflow parent linkage schema v0: implemented with nullable `workflow_run_id` on `failure_cases`
+- Failure-case workflow parent linkage smoke verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-smoke-verification.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -930,6 +931,15 @@ Implementation status:
 - `POST /failure-cases`: can manually persist workflow parent linkage
 - `POST /failure-cases/draft-preview`: now carries `workflow_run_id` into the suggested draft payload
 - Boundary: automatic failure-case creation and complete workflow failure causality remain unclaimed
+
+### Phase 77 - Failure-case Workflow Parent Linkage Smoke Verification v0
+
+- Failure-case workflow parent linkage smoke verification v0: implemented
+- `docs/review/failure-case-workflow-parent-linkage-smoke-verification.md`: added
+- Route-level smoke: `POST /workflow-runs` -> `POST /failure-cases` -> `GET /failure-cases`
+- Observed: workflow parent link is retained in failure-case create/list responses
+- Observed: draft-preview carries workflow_run_id into the suggested draft payload
+- Boundary: not automatic failure-case creation, not fresh Docker DB evidence, and not complete workflow failure causality
 
 Not implemented yet:
 
