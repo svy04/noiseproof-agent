@@ -140,6 +140,7 @@ Major implementation milestones:
 - Application current-claim compression v0: implemented
 - Braincrew role-map runtime proof compression review v0: implemented
 - Braincrew role-map runtime proof compression v0: implemented
+- Application proof surface final scan review v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The dedicated proof-marker archive in `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers without making the rendered README a chronological wall.
 

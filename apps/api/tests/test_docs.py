@@ -2025,3 +2025,23 @@ def test_braincrew_role_map_runtime_proof_compression_replaces_proof_wall():
     assert len(runtime_section) < 4200
     assert "Braincrew role-map runtime proof compression v0: implemented" in readme
     assert "braincrew role-map runtime proof compression v0" in goal
+
+
+def test_application_proof_surface_final_scan_review_selects_final_cleanup_gate():
+    review_path = REPO_ROOT / "docs/review/application-proof-surface-final-scan-review.md"
+    assert review_path.is_file()
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    assert "Application proof surface final scan review" in content
+    assert "review-only gate" in content
+    assert "scan result" in content
+    assert "Do not edit proof surfaces in this review gate" in content
+    assert "application proof surface final cleanup v0" in content
+    assert "no broad product-complete claim" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "application proof surface final scan review v0" in goal
+    assert "Application proof surface final scan review v0: implemented" in readme
