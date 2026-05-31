@@ -46,6 +46,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-workflow-parent-linkage-dashboard-review.md",
         "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-review.md",
         "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md",
+        "docs/review/failure-case-workflow-parent-linkage-proof-consolidation-review.md",
     ]
 
     for file_path in required_files:
@@ -1402,3 +1403,26 @@ def test_failure_case_workflow_parent_fresh_db_dashboard_smoke_application_refre
     assert "not complete workflow failure causality" in role_map
     assert "failure-case workflow parent dashboard fresh DB smoke" in review
     assert "manual provenance only" in review
+
+
+def test_failure_case_workflow_parent_linkage_proof_consolidation_review_selects_index_gate():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-parent-linkage-proof-consolidation-review.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case workflow parent linkage proof consolidation review" in content
+    assert "review-only gate" in content
+    assert "proof chain is now too distributed" in content
+    assert "Do not create a new proof index in this review gate" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "failure-case workflow parent linkage proof index v0" in content
+    assert "failure-case workflow parent linkage proof consolidation review v0" in goal
+    assert (
+        "Failure-case workflow parent linkage proof consolidation review v0: implemented"
+        in readme
+    )

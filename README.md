@@ -194,6 +194,7 @@ Implementation status:
 - Failure-case workflow parent linkage fresh-db dashboard smoke review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-review.md`
 - Failure-case workflow parent linkage fresh-db dashboard smoke verification v0: implemented as `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md`
 - Failure-case workflow parent linkage fresh-db dashboard smoke application refresh v0: implemented across application-facing docs
+- Failure-case workflow parent linkage proof consolidation review v0: implemented as `docs/review/failure-case-workflow-parent-linkage-proof-consolidation-review.md`
 - Web app, file upload parsing, robust PDF extraction, persisted chunks, embeddings, and free-form final report generation: planned, not implemented
 
 ## Implementation Status
@@ -1011,6 +1012,13 @@ Implementation status:
 - `docs/application/braincrew-role-map.md`: updated with the fresh DB dashboard Workflow Parent proof and boundaries
 - `docs/review/application-ready-review.md`: updated with the application-ready claim boundary
 - Boundary: application-facing documentation only; no runtime behavior, schema, dashboard rendering, automatic failure-case creation, or complete workflow failure causality changed
+
+### Phase 86 - Failure-case Workflow Parent Linkage Proof Consolidation Review v0
+
+- Failure-case workflow parent linkage proof consolidation review v0: implemented
+- `docs/review/failure-case-workflow-parent-linkage-proof-consolidation-review.md`: added
+- Current decision: create a compact proof index next because the workflow-parent/failure-case proof chain is now too distributed for fast review
+- Boundary: review-only; no proof index, runtime behavior, schema, dashboard rendering, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
 
 Not implemented yet:
 
