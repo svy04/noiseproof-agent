@@ -2460,6 +2460,39 @@ no embeddings
 no retrieval persistence
 ```
 
+## Uploaded file chunk persistence handoff endpoint
+
+Phase marker: uploaded file chunk persistence handoff endpoint v0.
+
+Use `POST /documents/upload-chunks` when you want an explicit uploaded-file-to-document-chunks handoff. This is separate from `POST /documents/upload-chunk-preview`, which remains preview-only.
+
+```bash
+curl -F "source_type=markdown" \
+  -F "title=Uploaded market note" \
+  -F "strategy=fixed-window" \
+  -F "max_characters=120" \
+  -F "overlap=0" \
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown" \
+  http://localhost:8000/documents/upload-chunks
+```
+
+Expected boundary:
+
+```text
+POST /documents/upload-chunks -> 201
+UploadChunkPersistenceOut
+creates a document row
+creates document_chunks rows
+explicit_upload_to_chunks_no_raw_file_storage
+chunk_text_only_no_raw_file_storage
+no raw uploaded byte storage
+no full parsed text persistence
+no embeddings
+no retrieval persistence
+```
+
+This route-level implementation is not hosted deployment evidence. The next bounded proof gate is a local runtime smoke.
+
 ## Metadata Examples
 
 Create a document metadata record:

@@ -4762,3 +4762,46 @@ def test_uploaded_file_chunk_persistence_handoff_review_selects_explicit_endpoin
         "docs/review/uploaded-file-chunk-persistence-handoff-review.md"
         in portfolio
     )
+
+
+def test_uploaded_file_chunk_persistence_handoff_endpoint_documents_route_boundary():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-file-chunk-persistence-handoff-endpoint.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Chunk Persistence Handoff Endpoint" in content
+    assert "uploaded file chunk persistence handoff endpoint v0" in content
+    assert "POST /documents/upload-chunks" in content
+    assert "UploadChunkPersistenceOut" in content
+    assert "creates a document row" in content
+    assert "creates document_chunks rows" in content
+    assert "chunk_text_only_no_raw_file_storage" in content
+    assert "explicit_upload_to_chunks_no_raw_file_storage" in content
+    assert "existing upload chunk preview remains preview-only" in content
+    assert "no raw uploaded byte storage" in content
+    assert "no full parsed text persistence" in content
+    assert "no embeddings" in content
+    assert "no retrieval persistence" in content
+    assert "not hosted deployment evidence" in content
+    assert (
+        "Uploaded file chunk persistence handoff endpoint v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 189 - Uploaded File Chunk Persistence Handoff Endpoint v0"
+        in goal
+    )
+    assert "uploaded file chunk persistence handoff endpoint v0" in runbook
+    assert (
+        "docs/review/uploaded-file-chunk-persistence-handoff-endpoint.md"
+        in portfolio
+    )

@@ -182,6 +182,23 @@ class UploadChunkPreviewOut(ChunkPreviewOut):
     persistence_boundary: str
 
 
+class UploadChunkPersistenceOut(BaseModel):
+    filename: str | None = None
+    content_type: str | None = None
+    byte_count: int
+    source_type: str
+    parser: str
+    chunk_strategy: str
+    chunk_count: int
+    persistence_boundary: str
+    handoff_boundary: str
+    raw_file_storage: bool
+    parsed_text_storage: bool
+    document: DocumentOut
+    chunks: list[DocumentChunkOut]
+    warnings: list[str]
+
+
 class RetrievalSourceIn(BaseModel):
     source_id: str = Field(..., min_length=1)
     source_type: str = Field(..., min_length=1)

@@ -98,6 +98,8 @@ External feedback current-state chunk issue verification: `docs/review/external-
 
 Uploaded file chunk persistence handoff review: `docs/review/uploaded-file-chunk-persistence-handoff-review.md` selects an explicit future `POST /documents/upload-chunks` endpoint as the next product gate. It is review-only, keeps the existing upload chunk preview preview-only, uses existing documents and document_chunks tables, and adds no endpoint, schema, raw uploaded byte storage, embeddings, or retrieval persistence.
 
+Uploaded file chunk persistence handoff endpoint: `docs/review/uploaded-file-chunk-persistence-handoff-endpoint.md` records `POST /documents/upload-chunks` route-level behavior. It creates a document row and document_chunks rows through an explicit handoff endpoint while keeping upload chunk preview preview-only, storing no raw uploaded bytes, storing no full parsed text, and adding no embeddings or retrieval persistence.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.

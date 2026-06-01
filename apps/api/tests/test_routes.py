@@ -765,6 +765,73 @@ def test_document_upload_chunk_preview_compares_uploaded_csv_without_persistence
     assert client.get("/documents").json() == []
 
 
+def test_document_upload_chunks_persists_document_and_chunks_without_raw_file_storage():
+    client = make_client()
+    content = (
+        b"# Market note\n"
+        b"Enterprise demand growth was 12 percent in 2026.\n"
+        b"Consumer demand declined.\n"
+    )
+
+    response = client.post(
+        "/documents/upload-chunks",
+        data={
+            "source_type": "markdown",
+            "title": "Uploaded market note",
+            "strategy": "fixed-window",
+            "max_characters": "80",
+            "overlap": "0",
+        },
+        files={"file": ("sample-note.md", content, "text/markdown")},
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    document = body["document"]
+    chunks = body["chunks"]
+
+    assert body["filename"] == "sample-note.md"
+    assert body["content_type"] == "text/markdown"
+    assert body["byte_count"] == len(content)
+    assert body["source_type"] == "markdown"
+    assert body["chunk_strategy"] == "fixed-window"
+    assert body["chunk_count"] == len(chunks)
+    assert body["persistence_boundary"] == "chunk_text_only_no_raw_file_storage"
+    assert body["handoff_boundary"] == "explicit_upload_to_chunks_no_raw_file_storage"
+    assert body["raw_file_storage"] is False
+    assert body["parsed_text_storage"] is False
+    assert any("does not store raw uploaded bytes" in warning for warning in body["warnings"])
+
+    assert document["source_type"] == "markdown"
+    assert document["filename"] == "sample-note.md"
+    assert document["source_uri"] == "upload://sample-note.md"
+    assert document["title"] == "Uploaded market note"
+    assert document["status"] == "chunked_metadata_only"
+    assert document["profile_json"]["persistence_boundary"] == (
+        "document_metadata_and_chunks_only_no_raw_file_storage"
+    )
+    assert document["profile_json"]["raw_file_storage"] is False
+    assert document["profile_json"]["parsed_text_storage"] is False
+    assert document["profile_json"]["chunk_count"] == len(chunks)
+    assert "Enterprise demand growth" not in str(document["profile_json"])
+
+    assert len(chunks) >= 1
+    assert all(chunk["document_id"] == document["id"] for chunk in chunks)
+    assert all(chunk["source_type"] == "markdown" for chunk in chunks)
+    assert all(chunk["filename"] == "sample-note.md" for chunk in chunks)
+    assert all(chunk["chunk_strategy"] == "fixed-window" for chunk in chunks)
+    assert all(
+        chunk["persistence_boundary"] == "chunk_text_only_no_raw_file_storage"
+        for chunk in chunks
+    )
+    assert any("Enterprise demand growth" in chunk["chunk_text"] for chunk in chunks)
+
+    listed_documents = client.get("/documents").json()
+    listed_chunks = client.get(f"/documents/{document['id']}/chunks").json()
+    assert len(listed_documents) == 1
+    assert listed_chunks == chunks
+
+
 def test_document_upload_retrieval_preview_searches_uploaded_markdown_without_persistence():
     client = make_client()
     content = b"# Market note\nEnterprise demand growth was 12 percent in 2026.\nConsumer demand declined.\n"

@@ -161,7 +161,15 @@ Phase 4 records comparison metrics only:
 - estimated token count
 - structural boundary count
 
-The goal is to compare chunk shapes before retrieval, not to assume one chunking method is always best. Chunks are not persisted yet.
+The goal is to compare chunk shapes before retrieval, not to assume one chunking method is always best.
+
+Current persistence boundary:
+
+- `POST /documents/{document_id}/chunks` can manually persist derived chunk text for an explicit document id.
+- `POST /documents/upload-chunks` can explicitly hand off uploaded content into a document row plus `document_chunks` rows.
+- `POST /documents/upload-chunk-preview` remains preview-only and does not create documents or chunks.
+
+Chunk persistence stores derived chunk text only. It stores no raw uploaded bytes, no full parsed text, no embeddings, and no retrieval persistence.
 
 Research scope note:
 

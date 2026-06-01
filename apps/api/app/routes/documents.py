@@ -16,6 +16,7 @@ from app.schemas import (
     ParsePreviewOut,
     ParsePreviewRequest,
     UploadChunkPreviewOut,
+    UploadChunkPersistenceOut,
     UploadEvidencePreviewOut,
     UploadFailureCaseDraftPreviewOut,
     UploadIntakeManifestPreviewOut,
@@ -330,6 +331,154 @@ async def upload_document_chunk_preview(
             max_characters=max_characters,
             overlap=overlap,
         ),
+    )
+
+
+@router.post("/upload-chunks", response_model=UploadChunkPersistenceOut, status_code=201)
+async def upload_document_chunks(
+    file: UploadFile = File(...),
+    source_type: str | None = Form(default=None),
+    title: str | None = Form(default=None),
+    strategy: str = Form(default="fixed-window"),
+    max_characters: int = Form(default=500),
+    overlap: int = Form(default=0),
+    repository: Repository = Depends(get_repository),
+) -> dict:
+    content = await file.read()
+
+    def operation(_agent_run_id) -> dict:
+        preview = preview_uploaded_chunks(
+            filename=file.filename,
+            content_type=file.content_type,
+            source_type=source_type,
+            content=content,
+            max_characters=max_characters,
+            overlap=overlap,
+        )
+        selected_strategy = next(
+            (
+                chunk_strategy
+                for chunk_strategy in preview.strategies
+                if chunk_strategy.strategy == strategy
+            ),
+            None,
+        )
+        if selected_strategy is None and preview.strategies:
+            selected_strategy = preview.strategies[0]
+
+        selected_chunks = selected_strategy.chunks if selected_strategy else []
+        chunk_strategy_name = selected_strategy.strategy if selected_strategy else strategy
+        warnings = [
+            warning
+            for warning in preview.parse_warnings
+            if "does not create documents, chunks, or retrieval runs" not in warning
+        ]
+        warnings.append(
+            "Upload chunk handoff creates document metadata and derived chunk rows only; "
+            "it does not store raw uploaded bytes or full parsed text."
+        )
+        if selected_strategy is None:
+            warnings.append(
+                "No chunk strategy produced chunks; the document metadata was persisted without chunk rows."
+            )
+
+        document = repository.create_document(
+            DocumentCreate(
+                source_type=preview.source_type,
+                source_uri=f"upload://{file.filename}" if file.filename else "upload://unnamed",
+                filename=file.filename,
+                title=title or file.filename,
+                profile_json={
+                    "persistence_boundary": "document_metadata_and_chunks_only_no_raw_file_storage",
+                    "handoff_boundary": "explicit_upload_to_chunks_no_raw_file_storage",
+                    "raw_file_storage": False,
+                    "parsed_text_storage": False,
+                    "parser": preview.parser,
+                    "profile": preview.profile.model_dump(),
+                    "chunk_strategy": chunk_strategy_name,
+                    "chunk_count": len(selected_chunks),
+                    "chunk_metrics": selected_strategy.metrics if selected_strategy else {},
+                    "chunk_warnings": selected_strategy.warnings if selected_strategy else [],
+                    "parse_warnings": warnings,
+                    "upload": {
+                        "filename": preview.filename,
+                        "content_type": preview.content_type,
+                        "byte_count": preview.byte_count,
+                    },
+                },
+                extraction_quality=preview.profile.extraction_quality,
+                status=(
+                    "chunked_metadata_only"
+                    if selected_chunks
+                    else "chunk_handoff_no_chunks"
+                ),
+            )
+        )
+
+        persisted_chunks = []
+        for chunk in selected_chunks:
+            metadata = dict(chunk.metadata)
+            metadata.update(
+                {
+                    "handoff_boundary": "explicit_upload_to_chunks_no_raw_file_storage",
+                    "raw_file_storage": False,
+                    "parsed_text_storage": False,
+                    "source_profile": preview.profile.model_dump(),
+                }
+            )
+            persisted_chunks.append(
+                repository.create_document_chunk(
+                    DocumentChunkCreate(
+                        document_id=document["id"],
+                        source_type=preview.source_type,
+                        source_uri=f"upload://{file.filename}" if file.filename else "upload://unnamed",
+                        filename=file.filename,
+                        chunk_strategy=chunk_strategy_name,
+                        chunk_index=chunk.chunk_index,
+                        chunk_text=chunk.text,
+                        character_start=chunk.metadata.get("start"),
+                        character_end=chunk.metadata.get("end"),
+                        metadata_json=metadata,
+                        persistence_boundary="chunk_text_only_no_raw_file_storage",
+                    )
+                )
+            )
+
+        return {
+            "filename": file.filename,
+            "content_type": file.content_type,
+            "byte_count": len(content),
+            "source_type": preview.source_type,
+            "parser": preview.parser,
+            "chunk_strategy": chunk_strategy_name,
+            "chunk_count": len(persisted_chunks),
+            "persistence_boundary": "chunk_text_only_no_raw_file_storage",
+            "handoff_boundary": "explicit_upload_to_chunks_no_raw_file_storage",
+            "raw_file_storage": False,
+            "parsed_text_storage": False,
+            "document": document,
+            "chunks": persisted_chunks,
+            "warnings": warnings,
+        }
+
+    return run_with_trace(
+        repository,
+        endpoint="POST /documents/upload-chunks",
+        user_question=f"upload chunks persist: {source_type or file.filename or 'unknown'}",
+        trace_json={
+            "source_type": source_type,
+            "filename": file.filename,
+            "content_type": file.content_type,
+            "byte_count": len(content),
+            "strategy": strategy,
+            "max_characters": max_characters,
+            "overlap": overlap,
+            "persistence_boundary": "chunk_text_only_no_raw_file_storage",
+            "handoff_boundary": "explicit_upload_to_chunks_no_raw_file_storage",
+            "raw_file_storage": False,
+            "parsed_text_storage": False,
+        },
+        operation=operation,
     )
 
 
