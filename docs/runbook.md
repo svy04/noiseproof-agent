@@ -1733,6 +1733,26 @@ curl.exe -s http://127.0.0.1:8030/failure-cases
 
 This packet is local runtime evidence only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not automatic failure-case creation, and not production readiness.
 
+Phase marker: persisted uploaded file intake review v0.
+
+Use `docs/review/persisted-uploaded-file-intake-review.md` before adding any upload persistence behavior.
+
+Current decision:
+
+```text
+preview-only remains the current runtime boundary
+```
+
+Do not persist raw uploaded bytes yet. Do not create file storage, document rows, chunks, retrieval runs, Evidence Ledger entries, Noise Gate records, reports, workflow runs, or failure cases from upload preview automatically.
+
+Next bounded implementation candidate:
+
+```text
+uploaded file intake manifest preview v0
+```
+
+That candidate should expose the manifest shape a future persisted intake boundary would need while keeping `persistence_boundary = preview_only_not_persisted`.
+
 ## Metadata Examples
 
 Create a document metadata record:

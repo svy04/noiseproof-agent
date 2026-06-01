@@ -3453,3 +3453,36 @@ def test_uploaded_file_runtime_smoke_packet_records_local_http_proof_without_hos
     assert "Phase 155 - Uploaded File Runtime Smoke Packet v0" in goal
     assert "uploaded file runtime smoke packet v0" in runbook
     assert "docs/review/uploaded-file-runtime-smoke-packet.md" in portfolio
+
+
+def test_persisted_uploaded_file_intake_review_keeps_storage_boundary_before_schema():
+    review_path = REPO_ROOT / "docs/review/persisted-uploaded-file-intake-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Persisted Uploaded File Intake Review" in content
+    assert "persisted uploaded file intake review v0" in content
+    assert "review-only" in content
+    assert "preview-only remains the current runtime boundary" in content
+    assert "do not persist raw uploaded bytes yet" in content
+    assert "uploaded file intake manifest preview v0" in content
+    for blocked_scope in [
+        "no schema",
+        "no migration",
+        "no endpoint",
+        "no file storage",
+        "no retrieval persistence",
+        "not automatic failure-case creation",
+    ]:
+        assert blocked_scope in content
+    assert "Persisted uploaded file intake review v0: implemented" in readme
+    assert "Phase 156 - Persisted Uploaded File Intake Review v0" in goal
+    assert "persisted uploaded file intake review v0" in runbook
+    assert "docs/review/persisted-uploaded-file-intake-review.md" in portfolio
