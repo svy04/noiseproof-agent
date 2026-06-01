@@ -3298,3 +3298,32 @@ def test_uploaded_file_noise_gate_preview_is_documented_as_preview_only_boundary
     assert "Phase 150 - Uploaded File Noise Gate Preview v0" in goal
     assert "uploaded file Noise Gate preview v0" in runbook
     assert "docs/review/uploaded-file-noise-gate-preview.md" in portfolio
+
+
+def test_uploaded_file_report_preview_is_documented_as_preview_only_boundary():
+    review_path = REPO_ROOT / "docs/review/uploaded-file-report-preview.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Report Preview" in content
+    assert "uploaded file report preview v0" in content
+    assert "POST /documents/upload-report-preview" in content
+    assert "preview-only" in content
+    assert "does not create report records" in content
+    assert "does not create Noise Gate records" in content
+    assert "does not create Evidence Ledger entries" in content
+    assert "does not create retrieval_runs" in content
+    assert "not LLM output" in content
+    assert "needs_revision" in content
+    assert "buy/sell" in content
+    assert "Uploaded file report preview v0: implemented" in readme
+    assert "Phase 151 - Uploaded File Report Preview v0" in goal
+    assert "uploaded file report preview v0" in runbook
+    assert "docs/review/uploaded-file-report-preview.md" in portfolio

@@ -737,6 +737,66 @@ def test_document_upload_noise_gate_preview_blocks_trading_drift_without_persist
     assert client.get("/noise-gates").json() == []
 
 
+def test_document_upload_report_preview_formats_uploaded_gate_output_without_persistence():
+    client = make_client()
+    content = b"# Market note\nEnterprise demand growth was 12 percent in 2026.\n"
+
+    response = client.post(
+        "/documents/upload-report-preview",
+        data={
+            "question": "Which source supports enterprise demand growth?",
+            "source_type": "markdown",
+            "strategy": "fixed-window",
+            "top_k": "3",
+            "max_characters": "120",
+            "overlap": "0",
+        },
+        files={"file": ("sample-note.md", content, "text/markdown")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["filename"] == "sample-note.md"
+    assert body["retrieval"]["result_count"] >= 1
+    assert body["evidence"]["summary"]["supported_count"] >= 1
+    assert body["report"]["status"] in {"generated", "needs_revision"}
+    assert body["report"]["gate"]["decision"] in {"pass", "needs_revision"}
+    assert any("does not create report records" in warning for warning in body["warnings"])
+    assert client.get("/retrieval-runs").json() == []
+    assert client.get("/evidence-ledgers").json() == []
+    assert client.get("/noise-gates").json() == []
+    assert client.get("/reports").json() == []
+
+
+def test_document_upload_report_preview_blocks_trading_drift_without_persistence():
+    client = make_client()
+
+    response = client.post(
+        "/documents/upload-report-preview",
+        data={"question": "Should I sell this stock?", "source_type": "markdown"},
+        files={
+            "file": (
+                "earnings-note.md",
+                b"Revenue declined after earnings.",
+                "text/markdown",
+            )
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["status"] == "blocked"
+    assert body["retrieval"]["status"] == "blocked"
+    assert body["evidence"]["summary"]["blocked_count"] == 1
+    assert body["report"]["status"] == "blocked"
+    assert body["report"]["report"] is None
+    assert body["report"]["gate"]["decision"] == "blocked"
+    assert any("buy/sell" in warning for warning in body["warnings"])
+    assert client.get("/reports").json() == []
+
+
 def test_workflow_run_metadata_roundtrip_without_orchestration():
     client = make_client()
 

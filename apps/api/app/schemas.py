@@ -360,6 +360,20 @@ class ReportPreviewOut(BaseModel):
     warnings: list[str]
 
 
+class UploadReportPreviewOut(BaseModel):
+    filename: str | None = None
+    content_type: str | None = None
+    byte_count: int
+    persistence_boundary: str
+    source_type: str
+    question: str
+    status: str
+    retrieval: UploadRetrievalPreviewOut
+    evidence: EvidenceLedgerPreviewOut
+    report: ReportPreviewOut
+    warnings: list[str]
+
+
 class ReportStoredRecordOut(ReportPreviewOut):
     id: UUID
     workflow_trace_id: UUID
