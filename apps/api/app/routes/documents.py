@@ -12,6 +12,7 @@ from app.schemas import (
     ParsePreviewRequest,
     UploadChunkPreviewOut,
     UploadPreviewOut,
+    UploadRetrievalPreviewOut,
 )
 from app.services.chunk_preview import preview_chunks
 from app.services.document_profiler import profile_document
@@ -19,6 +20,7 @@ from app.services.parse_preview import preview_parse
 from app.services.run_trace import run_with_trace
 from app.services.upload_chunk_preview import preview_uploaded_chunks
 from app.services.upload_preview import preview_upload
+from app.services.upload_retrieval_preview import preview_uploaded_retrieval
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 
@@ -123,6 +125,48 @@ async def upload_document_chunk_preview(
             content_type=file.content_type,
             source_type=source_type,
             content=content,
+            max_characters=max_characters,
+            overlap=overlap,
+        ),
+    )
+
+
+@router.post("/upload-retrieval-preview", response_model=UploadRetrievalPreviewOut)
+async def upload_document_retrieval_preview(
+    file: UploadFile = File(...),
+    question: str = Form(...),
+    source_type: str | None = Form(default=None),
+    strategy: str = Form(default="fixed-window"),
+    top_k: int = Form(default=5),
+    max_characters: int = Form(default=500),
+    overlap: int = Form(default=0),
+    repository: Repository = Depends(get_repository),
+) -> UploadRetrievalPreviewOut:
+    content = await file.read()
+
+    return run_with_trace(
+        repository,
+        endpoint="POST /documents/upload-retrieval-preview",
+        user_question=question,
+        trace_json={
+            "source_type": source_type,
+            "filename": file.filename,
+            "content_type": file.content_type,
+            "byte_count": len(content),
+            "strategy": strategy,
+            "top_k": top_k,
+            "max_characters": max_characters,
+            "overlap": overlap,
+            "persistence_boundary": "preview_only_not_persisted",
+        },
+        operation=lambda _agent_run_id: preview_uploaded_retrieval(
+            question=question,
+            filename=file.filename,
+            content_type=file.content_type,
+            source_type=source_type,
+            content=content,
+            strategy=strategy,
+            top_k=top_k,
             max_characters=max_characters,
             overlap=overlap,
         ),

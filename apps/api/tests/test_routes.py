@@ -561,6 +561,67 @@ def test_document_upload_chunk_preview_compares_uploaded_csv_without_persistence
     assert client.get("/documents").json() == []
 
 
+def test_document_upload_retrieval_preview_searches_uploaded_markdown_without_persistence():
+    client = make_client()
+    content = b"# Market note\nEnterprise demand growth was 12 percent in 2026.\nConsumer demand declined.\n"
+
+    response = client.post(
+        "/documents/upload-retrieval-preview",
+        data={
+            "question": "Which source mentions enterprise demand growth?",
+            "source_type": "markdown",
+            "strategy": "fixed-window",
+            "top_k": "3",
+            "max_characters": "120",
+            "overlap": "0",
+        },
+        files={"file": ("sample-note.md", content, "text/markdown")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["filename"] == "sample-note.md"
+    assert body["content_type"] == "text/markdown"
+    assert body["byte_count"] == len(content)
+    assert body["source_type"] == "markdown"
+    assert body["question"] == "Which source mentions enterprise demand growth?"
+    assert body["status"] == "completed"
+    assert body["result_count"] >= 1
+    assert body["results"][0]["source_id"] == "upload://sample-note.md"
+    assert "enterprise" in body["results"][0]["matched_terms"]
+    assert any("does not create retrieval_runs" in warning for warning in body["warnings"])
+    assert client.get("/retrieval-runs").json() == []
+
+
+def test_document_upload_retrieval_preview_keeps_buy_sell_boundary():
+    client = make_client()
+
+    response = client.post(
+        "/documents/upload-retrieval-preview",
+        data={
+            "question": "Should I buy this stock?",
+            "source_type": "markdown",
+        },
+        files={
+            "file": (
+                "earnings-note.md",
+                b"Revenue grew 12 percent after earnings.",
+                "text/markdown",
+            )
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["trading_advice_boundary"] == "question_contains_trading_advice_drift"
+    assert body["status"] == "blocked"
+    assert body["results"] == []
+    assert any("buy/sell" in warning for warning in body["warnings"])
+    assert client.get("/retrieval-runs").json() == []
+
+
 def test_workflow_run_metadata_roundtrip_without_orchestration():
     client = make_client()
 

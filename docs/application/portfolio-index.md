@@ -210,6 +210,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/owner-approved-product-continuation-decision.md` | owner-approved continuation decision; external reviewer feedback remains pending |
 | `docs/review/file-upload-preview.md` | preview-only upload boundary for parser/profile inspection; not retrieval |
 | `docs/review/uploaded-file-chunk-preview.md` | preview-only upload-to-chunk boundary; not retrieval |
+| `docs/review/uploaded-file-retrieval-preview.md` | preview-only upload-to-retrieval boundary; lexical retrieval only |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

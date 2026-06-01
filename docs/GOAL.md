@@ -43,7 +43,7 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 147:
+Accepted state as of Phase 148:
 
 ```text
 Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, Workflow Version Naming Smoke Example v0, Workflow Version Naming Consistency Review v0, Schema Default Workflow Version Update v0, Schema Default Workflow Version Smoke Example v0, Runtime DB Schema Default Verification v0, Migration Runner Review v0, Lightweight SQL Migration Runner v0, Runtime Migration Runner Verification v0, Migration Runner Fresh DB Verification v0, Migration Runner Runbook Cleanup v0, Fresh DB API Smoke Verification v0, Application Evidence Index Refresh v0, Failure-case Persistence Smoke Verification v0, Failure-case Application Evidence Refresh v0, Agent-run Failure Linkage Smoke Verification v0, Agent-run Failure Linkage Application Refresh v0, Workflow Failure Provenance Review v0, Workflow Failure Linkage Smoke Verification v0, Workflow Failure Linkage Application Refresh v0, Failure-case Workflow Linkage Review v0, Failure-case Workflow Linkage Application Refresh v0, Failure-case Creation Path Review v0, Failure-case Draft Preview v0, Failure-case Draft Preview Application Refresh v0, Failure-case Draft Preview Smoke Verification v0, Failure-case Draft Preview Smoke Application Refresh v0, Failure-case Draft Persistence Handoff Review v0, Failure-case Draft Manual Handoff Smoke Verification v0, Failure-case Draft Manual Handoff Application Refresh v0, Failure-case Draft Fresh-db Handoff Review v0, Failure-case Draft Fresh-db Handoff Smoke Verification v0, Failure-case Draft Fresh-db Handoff Application Refresh v0, Failure-case Workflow Failure-to-draft Review v0, Workflow Failure-to-draft Smoke Verification v0, Failure-case Workflow Failure-to-draft Application Refresh v0, Failure-case Workflow Creation Path Decision v0, Failure-case Workflow Parent Linkage Schema Review v0, Failure-case Workflow Parent Linkage Schema v0, Failure-case Workflow Parent Linkage Smoke Verification v0, Failure-case Workflow Parent Linkage Fresh-db Verification v0, Failure-case Workflow Parent Linkage Application Refresh v0, Failure-case Workflow Parent Linkage Dashboard Review v0, Failure-case Workflow Parent Linkage Dashboard Surfacing v0, Failure-case Workflow Parent Linkage Dashboard Application Refresh v0, Failure-case Workflow Parent Linkage Fresh-db Dashboard Smoke Review v0, Failure-case Workflow Parent Linkage Fresh-db Dashboard Smoke Verification v0, Failure-case Workflow Parent Linkage Fresh-db Dashboard Smoke Application Refresh v0, Failure-case Workflow Parent Linkage Proof Consolidation Review v0, Failure-case Workflow Parent Linkage Proof Index v0, Failure-case Workflow Parent Linkage Proof Index Application Refresh v0, Failure-case Workflow Parent Linkage Proof Chain Stale-claim Review v0, Failure-case Workflow Parent Linkage Stale-claim Cleanup v0, External-reader Proof Path Review v0, External-reader Proof Path Index v0, Portfolio External Proof Path Refresh v0, External-reader Proof Path Application Refresh Review v0, External-reader Proof Path Application Refresh v0, README External Proof Path Refresh Review v0, README External Proof Path Refresh v0, README Phase-history Compression Review v0, README Phase-history Compression v0, README Implementation-status Compression Review v0, README Implementation-status Compression v0, README Detailed Implementation-status Compression v0, README Detailed Implementation-status Compression v0, README Proof-marker Archive Review v0, README Proof-marker Archive Extraction v0, README Proof-marker Archive Application Refresh Review v0, README Proof-marker Archive Application Refresh v0, README Proof-marker Archive External Path Review v0, README Proof-marker Archive External Path Refresh v0, Application Current-claim Compression Review v0, Application Current-claim Compression v0, Braincrew Role-map Runtime Proof Compression Review v0, Braincrew Role-map Runtime Proof Compression v0, Application Proof Surface Final Scan Review v0, Application-ready Summary Compression v0, External-reader Final Proof-path Dry-read Review v0, External-reader Proof Path Next-gate Refresh v0, Application Package Final Consistency Review v0, Portfolio Site Handoff Review v0, Portfolio Site Proof Artifact Route Verification v0, Demo Transcript Capture v0, Local Browser Screenshot Walkthrough v0, External Review Request Packet v0, External Feedback Intake Criteria v0, External Reviewer Brief v0, External Reviewer Live Proof Route Refresh v0, External Reviewer Link Map v0, External Review Root Guide v0, External Review Issue Body Encoding Verification v0, External Review Issue Body Root-guide Verification v0, External Review Issue Body Link-map Verification v0, External Review Issue Template Link-map Refresh v0, External Review Issue Label Verification v0, External Review Owner Request Comment Verification v0, External Reviewer Outreach Packet v0, External Feedback Qualification Preview v0, External Feedback Screening CLI v0, External Feedback Screening Workflow v0, External Feedback Screening Workflow Verification v0, README Next-gate Stale-claim Refresh v0, External Feedback Acceptance Template v0, External Feedback Acceptance Draft CLI v0, External Feedback Acceptance Draft Workflow v0, and External Feedback Acceptance Draft Workflow Verification v0
@@ -90,6 +90,8 @@ Phase 145 adds Owner-approved Product Continuation Decision v0 as a bounded owne
 Phase 146 adds File Upload Preview v0 as a preview-only upload boundary that runs parser/profile inspection without creating documents or claiming robust PDF extraction.
 
 Phase 147 adds Uploaded File Chunk Preview v0 as a preview-only upload-to-chunk boundary that compares chunk strategies without creating documents, chunks, or retrieval runs.
+
+Phase 148 adds Uploaded File Retrieval Preview v0 as a preview-only upload-to-lexical-retrieval boundary that does not create retrieval_runs and blocks buy/sell drift.
 
 Implemented:
 
@@ -555,6 +557,11 @@ Implemented:
 - `POST /documents/upload-chunk-preview`
 - docs/review/uploaded-file-chunk-preview.md
 - upload chunk preview returns chunk strategy metrics without creating documents or chunks
+- uploaded file retrieval preview v0
+- `POST /documents/upload-retrieval-preview`
+- docs/review/uploaded-file-retrieval-preview.md
+- upload retrieval preview returns lexical retrieval candidates without creating retrieval_runs
+- upload retrieval preview blocks buy/sell drift
 - verification remains a workflow proof artifact and is not external reviewer feedback
 - Auto Trace Recording v0
 - preview endpoints auto-create `agent_runs` metadata records
@@ -900,6 +907,7 @@ Phase 144 - External Review Issue Body Encoding Verification v0
 Phase 145 - Owner-approved Product Continuation Decision v0
 Phase 146 - File Upload Preview v0
 Phase 147 - Uploaded File Chunk Preview v0
+Phase 148 - Uploaded File Retrieval Preview v0
 ```
 
 ### Phase 1.5 - Runtime Persistence Verification
@@ -4261,6 +4269,42 @@ Current next product implementation gate:
 
 ```text
 uploaded file retrieval preview v0
+```
+
+### Phase 148 - Uploaded File Retrieval Preview v0
+
+Goal:
+
+```text
+run lexical retrieval over uploaded files without persistence
+```
+
+Implemented:
+
+```text
+POST /documents/upload-retrieval-preview
+multipart upload to lexical retrieval preview
+source-type inference from explicit source_type, filename extension, or content type
+preview-only retrieval response with upload metadata
+buy/sell drift blocking at the upload retrieval preview boundary
+docs/review/uploaded-file-retrieval-preview.md
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md curl example
+```
+
+Phase 148 is a preview-only product gate. It does not create retrieval_runs, documents, chunks, Evidence Ledger entries, Noise Gate records, reports, workflow runs, or failure cases. It also adds no robust PDF extraction, embeddings, semantic retrieval, LLM calls, final report generation, dashboard polish, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete claim.
+
+Current next evidence gate:
+
+```text
+external reviewer feedback v0
+```
+
+Current next product implementation gate:
+
+```text
+uploaded file Evidence Ledger preview v0
 ```
 
 ### Phase 138 - External Review Issue Body Link-map Verification v0
