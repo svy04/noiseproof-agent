@@ -2072,6 +2072,27 @@ Use `docs/review/external-reviewer-parsed-document-persistence-request-refresh.m
 
 This is request infrastructure only. It does not update the live public issue body and is not external reviewer feedback. The next request gate is `external reviewer parsed-document persistence issue-body refresh v0`.
 
+## External reviewer parsed-document persistence issue-body refresh
+
+Phase marker: external reviewer parsed-document persistence issue-body refresh v0.
+
+This is an owner-authored live public issue #1 body update. It points reviewers to uploaded-file parsed document persistence proof while keeping the external reviewer feedback gate open.
+
+Verification artifact:
+
+```text
+docs/review/external-review-issue-body-parsed-document-persistence-refresh.md
+```
+
+Boundary:
+
+```text
+not external reviewer feedback
+not raw file storage
+not hosted deployment evidence
+not parsed text persistence
+```
+
 ## Metadata Examples
 
 Create a document metadata record:

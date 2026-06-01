@@ -72,6 +72,8 @@ Uploaded file parsed document persistence application refresh: `docs/review/uplo
 
 External reviewer parsed-document persistence request refresh: `docs/review/external-reviewer-parsed-document-persistence-request-refresh.md` points the reviewer request path to the uploaded-file parsed document persistence proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.
 
+External review issue body parsed document persistence refresh: `docs/review/external-review-issue-body-parsed-document-persistence-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file parsed document persistence proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.

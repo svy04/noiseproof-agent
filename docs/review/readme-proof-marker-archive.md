@@ -8,6 +8,7 @@ This file preserves source-level continuity for older README proof markers after
 
 README detailed implementation-status compression v0: implemented
 README next-gate stale-claim refresh v0: implemented
+External reviewer upload-manifest issue-body refresh v0: implemented
 
 README detailed implementation status archive moved during Phase 103.
 This hidden source archive preserves earlier README proof markers while the rendered README stays scanable.
