@@ -124,8 +124,6 @@ Still planned or explicitly unclaimed near the top:
 
 Major implementation milestones:
 
-- Core: docs, FastAPI, metadata, schema, CI, runbook
-- Proof: ingestion, evidence, ops, application, external-review surfaces
 - README detailed implementation-status compression v0: implemented
 - README proof-marker archive review v0: implemented
 - README proof-marker archive extraction v0: implemented
@@ -196,6 +194,7 @@ Major implementation milestones:
 - External reviewer upload-manifest persistence request refresh v0: implemented
 - External reviewer upload-manifest persistence issue-body refresh v0: implemented
 - Uploaded file parsed document persistence v0: implemented
+- Uploaded file parsed document persistence runtime smoke v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`.
 

@@ -4078,3 +4078,43 @@ def test_uploaded_file_parsed_document_persistence_keeps_raw_storage_boundary_vi
         "docs/review/uploaded-file-parsed-document-persistence.md"
         in portfolio
     )
+
+
+def test_uploaded_file_parsed_document_persistence_runtime_smoke_records_local_evidence():
+    smoke_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md"
+    )
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Parsed Document Persistence Runtime Smoke" in content
+    assert "uploaded file parsed document persistence runtime smoke v0" in content
+    assert "docker compose config" in content
+    assert "POST /documents/upload-parsed-documents" in content
+    assert "GET /documents" in content
+    assert "parsed_metadata_only" in content
+    assert "document_metadata_and_profile_only_no_raw_file_storage" in content
+    assert "raw_file_storage -> false" in content
+    assert "parsed_text_storage -> false" in content
+    assert "not hosted deployment" in content
+    assert (
+        "Uploaded file parsed document persistence runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 173 - Uploaded File Parsed Document Persistence Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded file parsed document persistence runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md"
+        in portfolio
+    )

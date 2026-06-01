@@ -2024,6 +2024,38 @@ parsed_text_storage = false
 
 This endpoint creates a `documents` row with upload filename, source URI, parser name, parser metadata, profile summary, parse warnings, and upload byte count. It does not store raw uploaded bytes, does not persist parsed text, does not create chunks, does not create retrieval runs, does not generate Evidence Ledger entries, and does not claim robust PDF extraction.
 
+Phase marker: uploaded file parsed document persistence runtime smoke v0.
+
+Observed local smoke path:
+
+```text
+docker compose config
+docker compose up -d db
+uv run python -m app.migration_runner --status
+uv run python -m app.migration_runner
+uv run python -m app.migration_runner --status
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8033
+GET /health
+POST /documents/upload-parsed-documents
+GET /documents
+docker compose down
+```
+
+Observed result:
+
+```text
+Applied migrations: 11
+Pending migrations: 0
+POST /documents/upload-parsed-documents -> 201
+GET /documents -> 200
+status -> parsed_metadata_only
+persistence_boundary -> document_metadata_and_profile_only_no_raw_file_storage
+raw_file_storage -> false
+parsed_text_storage -> false
+```
+
+This is local runtime evidence, not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, and not raw file storage.
+
 ## Metadata Examples
 
 Create a document metadata record:

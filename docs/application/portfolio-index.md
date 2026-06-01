@@ -66,6 +66,8 @@ Uploaded file intake manifest persistence application refresh: `docs/review/uplo
 
 Uploaded file parsed document persistence: `docs/review/uploaded-file-parsed-document-persistence.md` records `POST /documents/upload-parsed-documents`, which persists uploaded-file document metadata and parser/profile output with `document_metadata_and_profile_only_no_raw_file_storage`. It stores no raw uploaded bytes and no parsed text, and it is not robust PDF extraction.
 
+Uploaded file parsed document persistence runtime smoke: `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for `POST /documents/upload-parsed-documents` and `GET /documents`. It is local runtime evidence only, not hosted deployment or external reviewer feedback.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.
