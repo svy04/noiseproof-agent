@@ -3514,3 +3514,32 @@ def test_uploaded_file_intake_manifest_preview_documents_preview_only_manifest_e
     assert "Phase 157 - Uploaded File Intake Manifest Preview v0" in goal
     assert "uploaded file intake manifest preview v0" in runbook
     assert "docs/review/uploaded-file-intake-manifest-preview.md" in portfolio
+
+
+def test_uploaded_file_intake_manifest_runtime_smoke_records_local_http_evidence():
+    smoke_path = REPO_ROOT / "docs/review/uploaded-file-intake-manifest-runtime-smoke.md"
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Intake Manifest Runtime Smoke" in content
+    assert "uploaded file intake manifest runtime smoke v0" in content
+    assert "docker compose up -d db" in content
+    assert "uv run uvicorn app.main:app" in content
+    assert "POST /documents/upload-intake-manifest-preview" in content
+    assert "content_sha256" in content
+    assert "do_not_persist_raw_upload_yet" in content
+    assert "preview_only_not_persisted" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not raw file storage" in content
+    assert "Uploaded file intake manifest runtime smoke v0: implemented" in readme
+    assert "Phase 158 - Uploaded File Intake Manifest Runtime Smoke v0" in goal
+    assert "uploaded file intake manifest runtime smoke v0" in runbook
+    assert "docs/review/uploaded-file-intake-manifest-runtime-smoke.md" in portfolio

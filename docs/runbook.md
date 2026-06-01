@@ -1767,6 +1767,22 @@ Expected fields include `content_sha256`, `manifest.source_uri`, `manifest.profi
 
 This endpoint is preview-only. It is not raw file storage, not retrieval persistence, not document row creation, and not production readiness.
 
+Phase marker: uploaded file intake manifest runtime smoke v0.
+
+Use `docs/review/uploaded-file-intake-manifest-runtime-smoke.md` for the local HTTP proof packet for the intake manifest endpoint.
+
+Observed local smoke fields include:
+
+```text
+POST /documents/upload-intake-manifest-preview -> 200
+content_sha256 -> 4e253da30538337b4fd8ceaaf24f1bdb6b1287a085b91d38c08b9b78eb4cd7a4
+storage_decision -> do_not_persist_raw_upload_yet
+replayable -> false
+persistence_boundary -> preview_only_not_persisted
+```
+
+This smoke is not hosted deployment evidence, not external reviewer feedback, not raw file storage, and not retrieval persistence.
+
 ## Metadata Examples
 
 Create a document metadata record:
