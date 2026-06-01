@@ -68,6 +68,8 @@ Uploaded file parsed document persistence: `docs/review/uploaded-file-parsed-doc
 
 Uploaded file parsed document persistence runtime smoke: `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for `POST /documents/upload-parsed-documents` and `GET /documents`. It is local runtime evidence only, not hosted deployment or external reviewer feedback.
 
+Uploaded file parsed document persistence application refresh: `docs/review/uploaded-file-parsed-document-persistence-application-refresh.md` surfaces the parsed document persistence runtime smoke in the portfolio, Braincrew role map, application-ready review, README, and runbook. It is not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, not robust PDF extraction, and not raw file storage.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.

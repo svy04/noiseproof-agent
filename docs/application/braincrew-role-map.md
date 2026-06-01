@@ -59,6 +59,7 @@ Runtime proof summary:
 - Workflow parent proof: workflow parent linkage fresh DB proof, dashboard manual workflow parent link, and fresh DB dashboard Workflow Parent proof show manual provenance only; not automatic failure-case creation, automatic failure detection, or complete workflow failure causality.
 - Reader path: workflow parent proof index is the reader path for schema boundary, manual persistence, fresh DB persistence, dashboard surfacing, and fresh DB dashboard proof.
 - Upload intake: upload intake manifest runtime smoke records content hash plus parser/profile summary; upload intake manifest persistence runtime smoke records `POST /documents/upload-intake-manifests`, `GET /documents/upload-intake-manifests`, and `manifest_only_no_raw_file_storage`; not raw file storage, hosted deployment evidence, external reviewer feedback, or retrieval persistence.
+- Upload parsed documents: upload parsed document persistence runtime smoke records `POST /documents/upload-parsed-documents`, `GET /documents`, `parsed_metadata_only`, and `document_metadata_and_profile_only_no_raw_file_storage`; not raw file storage, parsed text persistence, robust PDF extraction, hosted deployment evidence, external reviewer feedback, or retrieval persistence.
 
 Detailed proof links:
 
@@ -68,6 +69,8 @@ Detailed proof links:
 - `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
 - `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
 - `docs/review/uploaded-file-intake-manifest-persistence-application-refresh.md`
+- `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
+- `docs/review/uploaded-file-parsed-document-persistence-application-refresh.md`
 
 ## DeepDocurator Alignment
 

@@ -2056,6 +2056,16 @@ parsed_text_storage -> false
 
 This is local runtime evidence, not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, and not raw file storage.
 
+Phase marker: uploaded file parsed document persistence application refresh v0.
+
+Application-facing refresh:
+
+```text
+docs/review/uploaded-file-parsed-document-persistence-application-refresh.md
+```
+
+This refresh points README, GOAL, runbook, portfolio index, Braincrew role map, and application-ready review surfaces to `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`. It is not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, not robust PDF extraction, not raw file storage, and not parsed text persistence.
+
 ## Metadata Examples
 
 Create a document metadata record:
