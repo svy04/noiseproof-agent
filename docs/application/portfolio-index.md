@@ -52,6 +52,8 @@ Uploaded file intake manifest persistence repository review: `docs/review/upload
 
 Uploaded file intake manifest persistence repository: `docs/review/uploaded-file-intake-manifest-persistence-repository.md` records the first repository code for `UploadedFileIntakeManifestCreate`, `create_uploaded_file_intake_manifest`, and `list_uploaded_file_intake_manifests`. It is not automatic persistence from upload preview and adds no endpoint.
 
+Uploaded file intake manifest persistence endpoint review: `docs/review/uploaded-file-intake-manifest-persistence-endpoint-review.md` defines `POST /documents/upload-intake-manifests` and `GET /documents/upload-intake-manifests` as the future API boundary, with no raw uploaded bytes and no document creation.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.
@@ -240,6 +242,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-file-intake-manifest-persistence-schema.md` | schema-only manifest metadata table; no raw uploaded bytes |
 | `docs/review/uploaded-file-intake-manifest-persistence-repository-review.md` | review-only repository boundary for manifest metadata persistence; no endpoint |
 | `docs/review/uploaded-file-intake-manifest-persistence-repository.md` | repository code for manifest metadata create/list; no endpoint |
+| `docs/review/uploaded-file-intake-manifest-persistence-endpoint-review.md` | review-only API boundary for manifest metadata persistence; no endpoint code |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

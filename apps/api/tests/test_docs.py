@@ -3789,3 +3789,43 @@ def test_uploaded_file_intake_manifest_persistence_repository_documents_code_bou
         "docs/review/uploaded-file-intake-manifest-persistence-repository.md"
         in portfolio
     )
+
+
+def test_uploaded_file_intake_manifest_persistence_endpoint_review_defines_api_boundary():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-file-intake-manifest-persistence-endpoint-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Intake Manifest Persistence Endpoint Review" in content
+    assert "uploaded file intake manifest persistence endpoint review v0" in content
+    assert "review-only" in content
+    assert "POST /documents/upload-intake-manifests" in content
+    assert "GET /documents/upload-intake-manifests" in content
+    assert "create_uploaded_file_intake_manifest" in content
+    assert "list_uploaded_file_intake_manifests" in content
+    assert "no raw uploaded bytes" in content
+    assert "not document creation" in content
+    assert "uploaded file intake manifest persistence endpoint v0" in content
+    assert (
+        "Uploaded file intake manifest persistence endpoint review v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 166 - Uploaded File Intake Manifest Persistence Endpoint Review v0"
+        in goal
+    )
+    assert "uploaded file intake manifest persistence endpoint review v0" in runbook
+    assert (
+        "docs/review/uploaded-file-intake-manifest-persistence-endpoint-review.md"
+        in portfolio
+    )

@@ -1914,6 +1914,17 @@ list_uploaded_file_intake_manifests(limit)
 
 This is repository code only. It adds no endpoint, stores no raw uploaded bytes, and is not automatic persistence from upload preview. The next product gate is `uploaded file intake manifest persistence endpoint review v0`.
 
+Phase marker: uploaded file intake manifest persistence endpoint review v0.
+
+Proposed endpoint surface:
+
+```text
+POST /documents/upload-intake-manifests
+GET /documents/upload-intake-manifests
+```
+
+This review routes the future POST through `create_uploaded_file_intake_manifest` and the future GET through `list_uploaded_file_intake_manifests`. It adds no endpoint code, no raw uploaded bytes, and is not document creation. The next product gate is `uploaded file intake manifest persistence endpoint v0`.
+
 ## Metadata Examples
 
 Create a document metadata record:
