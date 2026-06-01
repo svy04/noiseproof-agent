@@ -4720,3 +4720,45 @@ def test_external_feedback_current_state_chunk_issue_verification_keeps_gate_pen
         "docs/review/external-feedback-current-state-chunk-issue-verification.md"
         in portfolio
     )
+
+
+def test_uploaded_file_chunk_persistence_handoff_review_selects_explicit_endpoint():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-file-chunk-persistence-handoff-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Chunk Persistence Handoff Review" in content
+    assert "uploaded file chunk persistence handoff review v0" in content
+    assert "review-only" in content
+    assert "POST /documents/upload-chunks" in content
+    assert "explicit handoff endpoint" in content
+    assert "existing upload chunk preview remains preview-only" in content
+    assert "uses existing documents and document_chunks tables" in content
+    assert "no raw uploaded byte storage" in content
+    assert "no full parsed text persistence" in content
+    assert "no embeddings" in content
+    assert "no retrieval persistence" in content
+    assert "not automatic persistence from upload preview" in content
+    assert "uploaded file chunk persistence handoff endpoint v0" in content
+    assert (
+        "Uploaded file chunk persistence handoff review v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 188 - Uploaded File Chunk Persistence Handoff Review v0"
+        in goal
+    )
+    assert "uploaded file chunk persistence handoff review v0" in runbook
+    assert (
+        "docs/review/uploaded-file-chunk-persistence-handoff-review.md"
+        in portfolio
+    )

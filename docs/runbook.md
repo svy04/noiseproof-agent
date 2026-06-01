@@ -2434,6 +2434,32 @@ not Braincrew acceptance
 not hosted deployment evidence
 ```
 
+## Uploaded file chunk persistence handoff review
+
+Phase marker: uploaded file chunk persistence handoff review v0.
+
+Use `docs/review/uploaded-file-chunk-persistence-handoff-review.md` when checking why the next product gate should be an explicit upload-to-chunks handoff endpoint instead of mutating the existing preview route.
+
+Selected next product gate:
+
+```text
+uploaded file chunk persistence handoff endpoint v0
+POST /documents/upload-chunks
+```
+
+Boundary:
+
+```text
+review-only
+existing upload chunk preview remains preview-only
+uses existing documents and document_chunks tables
+not automatic persistence from upload preview
+no raw uploaded byte storage
+no full parsed text persistence
+no embeddings
+no retrieval persistence
+```
+
 ## Metadata Examples
 
 Create a document metadata record:

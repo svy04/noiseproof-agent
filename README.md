@@ -402,6 +402,8 @@ File upload preview v0 through uploaded file chunk persistence application refre
 
 The latest current-state screen after the uploaded-file chunk persistence issue-body refresh is recorded in `docs/review/external-feedback-current-state-chunk-issue-verification.md`. It observes `comment_count: 1`, `candidate_count: 0`, and `draft_count: 0`; the only public comment is owner-authored and does not close `external reviewer feedback v0`.
 
+The next bounded product gate is selected in `docs/review/uploaded-file-chunk-persistence-handoff-review.md`: add a future explicit `POST /documents/upload-chunks` handoff endpoint while keeping the existing upload chunk preview preview-only.
+
 ## Braincrew Role Alignment
 
 Primary hiring target:

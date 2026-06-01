@@ -96,6 +96,8 @@ External review issue body chunk persistence refresh: `docs/review/external-revi
 
 External feedback current-state chunk issue verification: `docs/review/external-feedback-current-state-chunk-issue-verification.md` records the current issue #1 screen after the chunk persistence issue-body refresh. It observes `comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`; it does not close external reviewer feedback v0.
 
+Uploaded file chunk persistence handoff review: `docs/review/uploaded-file-chunk-persistence-handoff-review.md` selects an explicit future `POST /documents/upload-chunks` endpoint as the next product gate. It is review-only, keeps the existing upload chunk preview preview-only, uses existing documents and document_chunks tables, and adds no endpoint, schema, raw uploaded byte storage, embeddings, or retrieval persistence.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.
