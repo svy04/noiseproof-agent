@@ -3681,3 +3681,40 @@ def test_persisted_uploaded_file_intake_schema_review_keeps_raw_storage_blocked(
     assert "Phase 162 - Persisted Uploaded File Intake Schema Review v0" in goal
     assert "persisted uploaded file intake schema review v0" in runbook
     assert "docs/review/persisted-uploaded-file-intake-schema-review.md" in portfolio
+
+
+def test_uploaded_file_intake_manifest_persistence_schema_adds_manifest_only_table():
+    init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
+    migration_path = REPO_ROOT / "db/migrations/012_uploaded_file_intake_manifests.sql"
+    assert migration_path.is_file()
+
+    migration = migration_path.read_text(encoding="utf-8")
+    combined = init_schema + "\n" + migration
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "CREATE TABLE IF NOT EXISTS uploaded_file_intake_manifests" in combined
+    for field in [
+        "content_sha256 TEXT NOT NULL",
+        "filename TEXT",
+        "source_type TEXT NOT NULL",
+        "content_type TEXT",
+        "size_bytes INTEGER NOT NULL DEFAULT 0",
+        "parser TEXT",
+        "profile_json JSONB NOT NULL DEFAULT '{}'::jsonb",
+        "storage_decision TEXT NOT NULL DEFAULT 'do_not_persist_raw_upload_yet'",
+        "replayable BOOLEAN NOT NULL DEFAULT false",
+        "persistence_boundary TEXT NOT NULL DEFAULT 'manifest_only_no_raw_file_storage'",
+        "warnings_json JSONB NOT NULL DEFAULT '[]'::jsonb",
+    ]:
+        assert field in combined
+    assert "idx_uploaded_file_intake_manifests_content_sha256" in combined
+    assert "BYTEA" not in combined
+    assert "Uploaded file intake manifest persistence schema v0: implemented" in readme
+    assert "Phase 163 - Uploaded File Intake Manifest Persistence Schema v0" in goal
+    assert "uploaded file intake manifest persistence schema v0" in runbook
+    assert "uploaded_file_intake_manifests" in portfolio

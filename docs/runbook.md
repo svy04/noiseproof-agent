@@ -1851,6 +1851,40 @@ uploaded_file_intake_manifests
 
 This review is not a migration, not an endpoint, and not raw file storage. The next product gate is `uploaded file intake manifest persistence schema v0`.
 
+Phase marker: uploaded file intake manifest persistence schema v0.
+
+The manifest-only upload intake table is:
+
+```text
+uploaded_file_intake_manifests
+```
+
+Schema files:
+
+```text
+db/init/001_schema.sql
+db/migrations/012_uploaded_file_intake_manifests.sql
+```
+
+Manifest metadata fields:
+
+```text
+content_sha256
+filename
+source_type
+content_type
+size_bytes
+parser
+profile_json
+storage_decision
+replayable
+persistence_boundary
+warnings_json
+created_at
+```
+
+This schema stores manifest metadata only. It is not raw file storage and adds no endpoint. The next product gate is `uploaded file intake manifest persistence repository review v0`.
+
 ## Metadata Examples
 
 Create a document metadata record:
