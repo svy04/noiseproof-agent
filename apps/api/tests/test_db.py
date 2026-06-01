@@ -107,3 +107,83 @@ def test_list_uploaded_file_intake_manifests_reads_recent_manifest_metadata():
     assert "LIMIT %s" in sql
     assert params == (2,)
     assert listed == rows
+
+
+def test_create_document_chunk_inserts_chunk_text_without_embeddings():
+    created_at = datetime(2026, 6, 2, tzinfo=UTC)
+    document_id = UUID("22222222-2222-2222-2222-222222222222")
+    chunk_id = UUID("33333333-3333-3333-3333-333333333333")
+    row = {
+        "id": chunk_id,
+        "document_id": document_id,
+        "source_type": "markdown",
+        "source_uri": "upload://sample.md",
+        "filename": "sample.md",
+        "chunk_strategy": "heading-aware",
+        "chunk_index": 0,
+        "chunk_text": "Revenue increased in Q1.",
+        "character_start": 0,
+        "character_end": 24,
+        "metadata_json": {"header_path": ["Revenue"]},
+        "persistence_boundary": "chunk_text_only_no_raw_file_storage",
+        "created_at": created_at,
+    }
+    connection = FakeConnection(row=row)
+    repository = PostgresRepository(Settings())
+    repository._connect = lambda: connection
+
+    payload = schemas.DocumentChunkCreate(
+        document_id=document_id,
+        source_type="markdown",
+        source_uri="upload://sample.md",
+        filename="sample.md",
+        chunk_strategy="heading-aware",
+        chunk_index=0,
+        chunk_text="Revenue increased in Q1.",
+        character_start=0,
+        character_end=24,
+        metadata_json={"header_path": ["Revenue"]},
+    )
+
+    created = repository.create_document_chunk(payload)
+
+    sql, params = connection.calls[0]
+    assert "INSERT INTO document_chunks" in sql
+    assert "embedding" not in sql.lower()
+    assert params[:8] == (
+        document_id,
+        "markdown",
+        "upload://sample.md",
+        "sample.md",
+        "heading-aware",
+        0,
+        "Revenue increased in Q1.",
+        0,
+    )
+    assert params[8] == 24
+    assert getattr(params[9], "obj", params[9]) == {"header_path": ["Revenue"]}
+    assert params[10] == "chunk_text_only_no_raw_file_storage"
+    assert created["id"] == chunk_id
+    assert created["document_id"] == document_id
+    assert connection.committed is True
+
+
+def test_list_document_chunks_reads_recent_chunks_for_document():
+    document_id = UUID("22222222-2222-2222-2222-222222222222")
+    rows = [
+        {"chunk_index": 0, "chunk_text": "first"},
+        {"chunk_index": 1, "chunk_text": "second"},
+    ]
+    connection = FakeConnection(rows=rows)
+    repository = PostgresRepository(Settings())
+    repository._connect = lambda: connection
+
+    listed = repository.list_document_chunks(document_id=document_id, limit=2)
+
+    sql, params = connection.calls[0]
+    assert "SELECT * FROM document_chunks" in sql
+    assert "WHERE document_id = %s" in sql
+    assert "ORDER BY chunk_strategy ASC, chunk_index ASC, created_at DESC, id DESC" in sql
+    assert "LIMIT %s" in sql
+    assert params == (document_id, 2)
+    assert listed == rows

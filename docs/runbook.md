@@ -2176,6 +2176,35 @@ Next bounded product gate:
 uploaded file chunk persistence repository v0
 ```
 
+## Uploaded file chunk persistence repository
+
+Phase marker: uploaded file chunk persistence repository v0.
+
+Repository surface:
+
+```text
+DocumentChunkCreate
+create_document_chunk(payload)
+list_document_chunks(document_id, limit)
+```
+
+Boundary:
+
+```text
+no endpoint
+not automatic persistence from upload preview
+no embeddings
+no retrieval persistence
+not raw file storage
+not full parsed text persistence
+```
+
+Next bounded product gate:
+
+```text
+uploaded file chunk persistence endpoint review v0
+```
+
 ## Metadata Examples
 
 Create a document metadata record:

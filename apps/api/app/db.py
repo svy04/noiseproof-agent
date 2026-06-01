@@ -8,6 +8,7 @@ from psycopg.types.json import Jsonb
 
 from app.schemas import (
     AgentRunCreate,
+    DocumentChunkCreate,
     DocumentCreate,
     EvidenceLedgerEntryOut,
     FailureCaseCreate,
@@ -24,6 +25,12 @@ from app.settings import Settings, get_settings
 class Repository(Protocol):
     def create_document(self, payload: DocumentCreate) -> dict: ...
     def list_documents(self) -> Sequence[dict]: ...
+    def create_document_chunk(self, payload: DocumentChunkCreate) -> dict: ...
+    def list_document_chunks(
+        self,
+        document_id: UUID,
+        limit: int = 20,
+    ) -> Sequence[dict]: ...
     def create_uploaded_file_intake_manifest(
         self,
         payload: UploadedFileIntakeManifestCreate,
@@ -140,6 +147,54 @@ class PostgresRepository:
         with self._connect() as conn:
             rows = conn.execute(
                 "SELECT * FROM documents ORDER BY created_at DESC, id DESC"
+            ).fetchall()
+            return [dict(row) for row in rows]
+
+    def create_document_chunk(self, payload: DocumentChunkCreate) -> dict:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                INSERT INTO document_chunks (
+                  document_id, source_type, source_uri, filename,
+                  chunk_strategy, chunk_index, chunk_text,
+                  character_start, character_end, metadata_json,
+                  persistence_boundary
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING *
+                """,
+                (
+                    payload.document_id,
+                    payload.source_type,
+                    payload.source_uri,
+                    payload.filename,
+                    payload.chunk_strategy,
+                    payload.chunk_index,
+                    payload.chunk_text,
+                    payload.character_start,
+                    payload.character_end,
+                    Jsonb(payload.metadata_json),
+                    payload.persistence_boundary,
+                ),
+            ).fetchone()
+            conn.commit()
+            return dict(row)
+
+    def list_document_chunks(
+        self,
+        document_id: UUID,
+        limit: int = 20,
+    ) -> Sequence[dict]:
+        safe_limit = max(1, min(limit, 100))
+        with self._connect() as conn:
+            rows = conn.execute(
+                """
+                SELECT * FROM document_chunks
+                WHERE document_id = %s
+                ORDER BY chunk_strategy ASC, chunk_index ASC, created_at DESC, id DESC
+                LIMIT %s
+                """,
+                (document_id, safe_limit),
             ).fetchall()
             return [dict(row) for row in rows]
 

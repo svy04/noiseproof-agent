@@ -4390,3 +4390,31 @@ def test_uploaded_file_chunk_persistence_repository_review_defines_small_boundar
         "docs/review/uploaded-file-chunk-persistence-repository-review.md"
         in portfolio
     )
+
+
+def test_uploaded_file_chunk_persistence_repository_documents_code_boundary():
+    review_path = REPO_ROOT / "docs/review/uploaded-file-chunk-persistence-repository.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Chunk Persistence Repository" in content
+    assert "uploaded file chunk persistence repository v0" in content
+    assert "DocumentChunkCreate" in content
+    assert "create_document_chunk" in content
+    assert "list_document_chunks" in content
+    assert "document_chunks" in content
+    assert "chunk_text_only_no_raw_file_storage" in content
+    assert "no endpoint" in content
+    assert "no embeddings" in content
+    assert "not automatic persistence from upload preview" in content
+    assert "Uploaded file chunk persistence repository v0: implemented" in readme
+    assert "Phase 180 - Uploaded File Chunk Persistence Repository v0" in goal
+    assert "uploaded file chunk persistence repository v0" in runbook
+    assert "docs/review/uploaded-file-chunk-persistence-repository.md" in portfolio
