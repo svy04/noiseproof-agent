@@ -88,6 +88,8 @@ Uploaded file chunk persistence endpoint: `docs/review/uploaded-file-chunk-persi
 
 Uploaded file chunk persistence runtime smoke: `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md` records local Docker DB plus API smoke evidence for `POST /documents/{document_id}/chunks` and `GET /documents/{document_id}/chunks`. It confirms upload chunk preview stayed `preview_only_not_persisted` and adds no embeddings or retrieval persistence.
 
+Uploaded file chunk persistence application refresh: `docs/review/uploaded-file-chunk-persistence-application-refresh.md` surfaces the chunk persistence runtime smoke in the portfolio, Braincrew role map, application-ready review, README, and runbook. It is not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, not automatic upload-preview-to-chunk persistence, and not retrieval persistence.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.

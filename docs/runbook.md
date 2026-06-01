@@ -2318,6 +2318,41 @@ Next bounded product gate:
 uploaded file chunk persistence application refresh v0
 ```
 
+## Uploaded file chunk persistence application refresh
+
+Phase marker: uploaded file chunk persistence application refresh v0.
+
+Application-facing artifact:
+
+```text
+docs/review/uploaded-file-chunk-persistence-application-refresh.md
+```
+
+This refresh surfaces the local runtime smoke for explicit document-scoped chunk persistence in README, GOAL, runbook, portfolio, Braincrew role map, and application-ready review.
+
+Allowed claim:
+
+```text
+local Docker DB plus FastAPI HTTP evidence exists for manual document-scoped chunk persistence through POST /documents/{document_id}/chunks and GET /documents/{document_id}/chunks
+```
+
+Boundary:
+
+```text
+not automatic persistence from upload preview
+not hosted deployment evidence
+not external reviewer feedback
+not product-complete
+no embeddings
+no retrieval persistence
+```
+
+Next bounded request gate:
+
+```text
+external reviewer chunk persistence request refresh v0
+```
+
 ## Metadata Examples
 
 Create a document metadata record:

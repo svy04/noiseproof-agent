@@ -60,6 +60,7 @@ Runtime proof summary:
 - Reader path: workflow parent proof index is the reader path for schema boundary, manual persistence, fresh DB persistence, dashboard surfacing, and fresh DB dashboard proof.
 - Upload intake: upload intake manifest runtime smoke records content hash plus parser/profile summary; upload intake manifest persistence runtime smoke records `POST /documents/upload-intake-manifests`, `GET /documents/upload-intake-manifests`, and `manifest_only_no_raw_file_storage`; not raw file storage, hosted deployment evidence, external reviewer feedback, or retrieval persistence.
 - Upload parsed documents: upload parsed document persistence runtime smoke records `POST /documents/upload-parsed-documents`, `GET /documents`, `parsed_metadata_only`, and `document_metadata_and_profile_only_no_raw_file_storage`; not raw file storage, parsed text persistence, robust PDF extraction, hosted deployment evidence, external reviewer feedback, or retrieval persistence.
+- Upload chunks: upload chunk persistence runtime smoke records `POST /documents/{document_id}/chunks`, `GET /documents/{document_id}/chunks`, `chunk_text_only_no_raw_file_storage`, and unchanged `preview_only_not_persisted`; the application refresh keeps this as local manual chunk persistence evidence, not hosted deployment evidence, not external reviewer feedback, not automatic upload-preview-to-chunk persistence, and not retrieval persistence.
 
 Detailed proof links:
 
@@ -71,6 +72,7 @@ Detailed proof links:
 - `docs/review/uploaded-file-intake-manifest-persistence-application-refresh.md`
 - `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
 - `docs/review/uploaded-file-parsed-document-persistence-application-refresh.md`
+- `docs/review/uploaded-file-chunk-persistence-application-refresh.md`
 
 ## DeepDocurator Alignment
 

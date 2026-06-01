@@ -58,6 +58,7 @@ Forbidden claim: this is not hosted deployment evidence, automatic persistence r
 | uploaded file intake manifest preview exists | Pass | `POST /documents/upload-intake-manifest-preview`, `docs/review/uploaded-file-intake-manifest-runtime-smoke.md` | preview-only content hash and storage boundary; not raw file storage |
 | uploaded file intake manifest persistence exists | Pass | `POST /documents/upload-intake-manifests`, `GET /documents/upload-intake-manifests`, `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md` | manifest metadata only; no raw uploaded bytes; not hosted deployment evidence |
 | uploaded file parsed document persistence exists | Pass | `POST /documents/upload-parsed-documents`, `GET /documents`, `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md` | metadata/profile row only; no raw uploaded bytes; no parsed text persistence; not robust PDF extraction |
+| uploaded file chunk persistence exists | Pass | `POST /documents/{document_id}/chunks`, `GET /documents/{document_id}/chunks`, `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`, `docs/review/uploaded-file-chunk-persistence-application-refresh.md` | manual document-scoped chunk text persistence only; no automatic upload-preview-to-chunk persistence; no embeddings; no retrieval persistence |
 | migration runner can apply on fresh DB | Pass | `docs/review/migration-runner-fresh-db-verification.md` | local Docker only; not production migration orchestration |
 | fresh DB API smoke path works | Pass | `docs/review/fresh-db-api-smoke-verification.md` | local Docker/API smoke only; not hosted deployment evidence |
 | failure-case persistence smoke works | Pass | `docs/review/failure-case-persistence-smoke-verification.md` | stores manually submitted failure records; automatic failure detection is not claimed |
@@ -85,7 +86,7 @@ Use:
 ```text
 Short external claim:
 
-NoiseProof Agent is a small, inspectable portfolio service that demonstrates evidence-first workflow surfaces for messy market intelligence: source profiling, parser/chunk/retrieval previews, uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence with metadata/profile-only no-raw-storage boundary, persisted evidence/gate/report records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
+NoiseProof Agent is a small, inspectable portfolio service that demonstrates evidence-first workflow surfaces for messy market intelligence: source profiling, parser/chunk/retrieval previews, uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence with metadata/profile-only no-raw-storage boundary, uploaded file chunk persistence with manual document-scoped no-raw-storage boundary, persisted evidence/gate/report records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
 
 Detailed phase history remains in `docs/GOAL.md`, `docs/review/external-reader-proof-path.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts.
 
@@ -108,7 +109,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - evidence-first data agent
 - not a trading bot
 - parser/chunk/retrieval preview boundaries
-- uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence, and runtime smoke
+- uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence, uploaded file chunk persistence, and runtime smoke
 - Evidence Ledger Preview
 - Persisted Evidence Ledger Records v0
 - Noise Gate Preview

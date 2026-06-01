@@ -123,7 +123,6 @@ Still planned or explicitly unclaimed near the top:
 ## Implementation Status
 
 Major implementation milestones:
-
 - README proof-marker archive review v0: implemented
 - README proof-marker archive extraction v0: implemented
 - README proof-marker archive application refresh review v0: implemented
@@ -195,6 +194,7 @@ Major implementation milestones:
 - Uploaded file chunk persistence schema v0: implemented
 - Uploaded file chunk persistence repository v0: implemented
 - Uploaded file chunk persistence runtime smoke v0: implemented
+- Uploaded file chunk persistence application refresh v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`.
 
@@ -398,7 +398,7 @@ The project already has a reviewer request packet, intake criteria, reviewer bri
 
 The owner approved continuing implementation while that external-review gate stays pending. That approval is recorded in `docs/review/owner-approved-product-continuation-decision.md`; it is not external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, or production readiness.
 
-File upload preview v0 through uploaded file chunk persistence runtime smoke v0 are now implemented as bounded upload proof steps. The current next evidence gate remains `external reviewer feedback v0`; external reviewer feedback is still pending.
+File upload preview v0 through uploaded file chunk persistence application refresh v0 are now implemented as bounded upload proof steps. The current next evidence gate remains `external reviewer feedback v0`; external reviewer feedback is still pending.
 
 ## Braincrew Role Alignment
 
