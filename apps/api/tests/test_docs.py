@@ -4486,3 +4486,38 @@ def test_uploaded_file_chunk_persistence_endpoint_documents_route_boundary():
     assert "Phase 182 - Uploaded File Chunk Persistence Endpoint v0" in goal
     assert "uploaded file chunk persistence endpoint v0" in runbook
     assert "docs/review/uploaded-file-chunk-persistence-endpoint.md" in portfolio
+
+
+def test_uploaded_file_chunk_persistence_runtime_smoke_records_runtime_evidence():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-file-chunk-persistence-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Chunk Persistence Runtime Smoke" in content
+    assert "uploaded file chunk persistence runtime smoke v0" in content
+    assert "Applied migrations: 12" in content
+    assert "Pending migrations: 0" in content
+    assert "POST /documents/{document_id}/chunks" in content
+    assert "GET /documents/{document_id}/chunks" in content
+    assert "chunk_text_only_no_raw_file_storage" in content
+    assert "preview_only_not_persisted" in content
+    assert "chunk_count_after_upload_preview" in content
+    assert "document_chunk_count" in content
+    assert "not automatic persistence from upload preview" in content
+    assert "no embeddings" in content
+    assert "Uploaded file chunk persistence runtime smoke v0: implemented" in readme
+    assert "Phase 183 - Uploaded File Chunk Persistence Runtime Smoke v0" in goal
+    assert "uploaded file chunk persistence runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-file-chunk-persistence-runtime-smoke.md"
+        in portfolio
+    )

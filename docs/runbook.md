@@ -2280,6 +2280,44 @@ Next bounded product gate:
 uploaded file chunk persistence runtime smoke v0
 ```
 
+## Uploaded file chunk persistence runtime smoke
+
+Phase marker: uploaded file chunk persistence runtime smoke v0.
+
+Observed local runtime evidence:
+
+```text
+Applied migrations: 12
+Pending migrations: 0
+POST /documents/{document_id}/chunks -> persisted chunk_text_only_no_raw_file_storage
+GET /documents/{document_id}/chunks -> chunk_count 1
+POST /documents/upload-chunk-preview -> preview_only_not_persisted
+chunk_count_after_upload_preview -> 1
+document_chunk_count -> 1
+```
+
+Artifact:
+
+```text
+docs/review/uploaded-file-chunk-persistence-runtime-smoke.md
+```
+
+Boundary:
+
+```text
+not automatic persistence from upload preview
+no embeddings
+no retrieval persistence
+not raw file storage
+not full parsed text persistence
+```
+
+Next bounded product gate:
+
+```text
+uploaded file chunk persistence application refresh v0
+```
+
 ## Metadata Examples
 
 Create a document metadata record:
