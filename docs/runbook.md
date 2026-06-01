@@ -1783,6 +1783,22 @@ persistence_boundary -> preview_only_not_persisted
 
 This smoke is not hosted deployment evidence, not external reviewer feedback, not raw file storage, and not retrieval persistence.
 
+Phase marker: uploaded file intake manifest application refresh v0.
+
+Use `docs/review/uploaded-file-intake-manifest-application-refresh.md` when updating application-facing claims about the upload intake manifest endpoint.
+
+Allowed application claim:
+
+```text
+NoiseProof can expose a preview-only uploaded-file intake manifest with content hash, parser/profile summary, and explicit storage boundary before opening raw file persistence.
+```
+
+Forbidden application claim:
+
+```text
+This is not hosted deployment evidence, not raw file storage, not retrieval persistence, and not production readiness.
+```
+
 ## Metadata Examples
 
 Create a document metadata record:

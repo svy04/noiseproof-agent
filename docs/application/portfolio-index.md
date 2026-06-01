@@ -221,6 +221,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/persisted-uploaded-file-intake-review.md` | review-only decision to keep uploads preview-only before adding persisted file intake storage or schema |
 | `docs/review/uploaded-file-intake-manifest-preview.md` | preview-only upload intake manifest endpoint with content hash and explicit no-raw-storage decision |
 | `docs/review/uploaded-file-intake-manifest-runtime-smoke.md` | local FastAPI HTTP smoke for the intake manifest endpoint; not hosted deployment evidence or raw file storage |
+| `docs/review/uploaded-file-intake-manifest-application-refresh.md` | application-facing refresh for upload intake manifest runtime smoke; not hosted deployment evidence or raw file storage |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
@@ -242,10 +243,10 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 
 Short current claim:
 
-NoiseProof Agent is a small, inspectable portfolio service for evidence-first market-intelligence workflows. It shows local service boundaries for profiling, parser/chunk/retrieval previews, persisted evidence/gate/report records, workflow-parent lineage, failure-case persistence, and manual failure-case workflow-parent provenance before any free-form final answer is claimed.
+NoiseProof Agent is a small, inspectable portfolio service for evidence-first market-intelligence workflows. It shows local service boundaries for profiling, parser/chunk/retrieval previews, upload intake manifest runtime smoke with content hash and no-raw-storage decision, persisted evidence/gate/report records, workflow-parent lineage, failure-case persistence, and manual failure-case workflow-parent provenance before any free-form final answer is claimed.
 
 Detailed proof history remains in `docs/review/external-reader-proof-path.md`, `docs/review/failure-case-workflow-parent-linkage-proof-index.md`, `docs/review/application-ready-review.md`, `docs/review/external-reviewer-live-proof-route-refresh.md`, `docs/review/readme-proof-marker-archive.md`, and `docs/GOAL.md`.
 
 Allowed claim: local, inspectable portfolio evidence exists for the current bounded workflow surfaces.
 
-Forbidden claim: this is not hosted deployment evidence, not automatic failure-case creation, not complete workflow failure causality, not production RAG quality, and not a product-complete declaration.
+Forbidden claim: this is not hosted deployment evidence, not raw file storage, not automatic failure-case creation, not complete workflow failure causality, not production RAG quality, and not a product-complete declaration.

@@ -185,6 +185,7 @@ Major implementation milestones:
 - Persisted uploaded file intake review v0: implemented
 - Uploaded file intake manifest preview v0: implemented
 - Uploaded file intake manifest runtime smoke v0: implemented
+- Uploaded file intake manifest application refresh v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The dedicated proof-marker archive in `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers without making the rendered README a chronological wall.
 
@@ -388,7 +389,7 @@ The project already has a reviewer request packet, intake criteria, reviewer bri
 
 The owner approved continuing implementation while that external-review gate stays pending. That approval is recorded in `docs/review/owner-approved-product-continuation-decision.md`; it is not external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, or production readiness.
 
-File upload preview v0, uploaded file chunk preview v0, uploaded file retrieval preview v0, uploaded file Evidence Ledger preview v0, uploaded file Noise Gate preview v0, uploaded file report preview v0, uploaded file failure-case draft preview v0, uploaded file failure-case manual handoff smoke v0, uploaded file proof path index refresh v0, uploaded file runtime smoke packet v0, persisted uploaded file intake review v0, uploaded file intake manifest preview v0, and uploaded file intake manifest runtime smoke v0 are now implemented as bounded upload proof steps. The current next product implementation gate is `uploaded file intake manifest application refresh v0`.
+File upload preview v0, uploaded file chunk preview v0, uploaded file retrieval preview v0, uploaded file Evidence Ledger preview v0, uploaded file Noise Gate preview v0, uploaded file report preview v0, uploaded file failure-case draft preview v0, uploaded file failure-case manual handoff smoke v0, uploaded file proof path index refresh v0, uploaded file runtime smoke packet v0, persisted uploaded file intake review v0, uploaded file intake manifest preview v0, uploaded file intake manifest runtime smoke v0, and uploaded file intake manifest application refresh v0 are now implemented as bounded upload proof steps. The current next product implementation gate is `external reviewer upload-manifest request refresh v0`.
 
 ## Braincrew Role Alignment
 

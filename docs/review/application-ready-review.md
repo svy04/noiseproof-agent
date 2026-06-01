@@ -55,6 +55,7 @@ Forbidden claim: this is not hosted deployment evidence, automatic persistence r
 | warning-code dashboard smoke example exists | Pass | `docs/runbook.md` expected dashboard legend | docs-only; not runtime proof |
 | workflow-version naming reviewed | Pass | `docs/review/workflow-version-naming-review.md` | review-only; runtime value unchanged |
 | workflow-version naming updated | Pass | `phase40-lineage-warning-code-dashboard` in runtime defaults and examples | identifier-only; no workflow semantic change |
+| uploaded file intake manifest preview exists | Pass | `POST /documents/upload-intake-manifest-preview`, `docs/review/uploaded-file-intake-manifest-runtime-smoke.md` | preview-only content hash and storage boundary; not raw file storage |
 | migration runner can apply on fresh DB | Pass | `docs/review/migration-runner-fresh-db-verification.md` | local Docker only; not production migration orchestration |
 | fresh DB API smoke path works | Pass | `docs/review/fresh-db-api-smoke-verification.md` | local Docker/API smoke only; not hosted deployment evidence |
 | failure-case persistence smoke works | Pass | `docs/review/failure-case-persistence-smoke-verification.md` | stores manually submitted failure records; automatic failure detection is not claimed |
@@ -82,7 +83,7 @@ Use:
 ```text
 Short external claim:
 
-NoiseProof Agent is a small, inspectable portfolio service that demonstrates evidence-first workflow surfaces for messy market intelligence: source profiling, parser/chunk/retrieval previews, persisted evidence/gate/report records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
+NoiseProof Agent is a small, inspectable portfolio service that demonstrates evidence-first workflow surfaces for messy market intelligence: source profiling, parser/chunk/retrieval previews, uploaded file intake manifest preview with content hash and storage boundary, persisted evidence/gate/report records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
 
 Detailed phase history remains in `docs/GOAL.md`, `docs/review/external-reader-proof-path.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts.
 
@@ -105,6 +106,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - evidence-first data agent
 - not a trading bot
 - parser/chunk/retrieval preview boundaries
+- uploaded file intake manifest preview and runtime smoke
 - Evidence Ledger Preview
 - Persisted Evidence Ledger Records v0
 - Noise Gate Preview

@@ -61,6 +61,7 @@ Runtime proof summary:
 - Workflow parent linkage: workflow parent linkage fresh DB proof and dashboard manual workflow parent link show manual provenance only, not automatic failure-case creation or automatic failure detection.
 - Dashboard proof: fresh DB dashboard Workflow Parent proof includes `dashboard_contains_workflow_link: true`; it is not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 - Reader path: workflow parent proof index is the reader path for schema boundary, manual persistence, fresh DB persistence, dashboard surfacing, and fresh DB dashboard proof.
+- upload intake manifest runtime smoke: content hash, parser/profile summary, and no-raw-storage decision; not raw file storage, hosted deployment evidence, or retrieval persistence.
 
 Detailed proof links:
 
@@ -76,6 +77,7 @@ Detailed proof links:
 - Failure-case workflow parent linkage fresh DB proof: `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md`
 - Failure-case fresh DB dashboard Workflow Parent proof: `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md`
 - Failure-case workflow parent proof index: `docs/review/failure-case-workflow-parent-linkage-proof-index.md`
+- Uploaded-file intake manifest runtime smoke: `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
 
 ## DeepDocurator Alignment
 

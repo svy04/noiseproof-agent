@@ -3543,3 +3543,38 @@ def test_uploaded_file_intake_manifest_runtime_smoke_records_local_http_evidence
     assert "Phase 158 - Uploaded File Intake Manifest Runtime Smoke v0" in goal
     assert "uploaded file intake manifest runtime smoke v0" in runbook
     assert "docs/review/uploaded-file-intake-manifest-runtime-smoke.md" in portfolio
+
+
+def test_uploaded_file_intake_manifest_application_refresh_surfaces_application_claims():
+    review_path = REPO_ROOT / "docs/review/uploaded-file-intake-manifest-application-refresh.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Intake Manifest Application Refresh" in content
+    assert "uploaded file intake manifest application refresh v0" in content
+    assert "application-facing documents only" in content
+    assert "not hosted deployment evidence" in content
+    assert "not raw file storage" in content
+    assert "not retrieval persistence" in content
+    assert "Uploaded file intake manifest application refresh v0: implemented" in readme
+    assert "Phase 159 - Uploaded File Intake Manifest Application Refresh v0" in goal
+    assert "uploaded file intake manifest application refresh v0" in runbook
+    assert "docs/review/uploaded-file-intake-manifest-application-refresh.md" in portfolio
+    assert "upload intake manifest runtime smoke" in portfolio
+    assert "upload intake manifest runtime smoke" in role_map
+    assert "not raw file storage" in role_map
+    assert "uploaded file intake manifest preview" in app_review
+    assert "content hash and storage boundary" in app_review
