@@ -2093,6 +2093,28 @@ not hosted deployment evidence
 not parsed text persistence
 ```
 
+## Uploaded file chunk persistence review
+
+Phase marker: uploaded file chunk persistence review v0.
+
+Use `docs/review/uploaded-file-chunk-persistence-review.md` before adding chunk persistence schema. This is review-only and selects `document_chunks` as the next candidate persistence boundary.
+
+Current boundary:
+
+```text
+no migration
+no endpoint
+no raw file storage
+not full parsed text persistence
+no embeddings
+```
+
+Next bounded product gate:
+
+```text
+uploaded file chunk persistence schema v0
+```
+
 ## Metadata Examples
 
 Create a document metadata record:
