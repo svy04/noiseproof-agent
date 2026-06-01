@@ -216,6 +216,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-file-report-preview.md` | preview-only uploaded file report preview; not LLM output or persisted report |
 | `docs/review/uploaded-file-failure-case-draft-preview.md` | preview-only uploaded file failure-case draft; human confirmation still required |
 | `docs/review/uploaded-file-failure-case-manual-handoff-smoke.md` | upload failure-case draft manually persisted through existing failure-case endpoint; not automatic creation |
+| `docs/review/uploaded-file-proof-path-index.md` | compact uploaded-file proof path from upload preview through manual failure-case handoff |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

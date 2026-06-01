@@ -3379,3 +3379,38 @@ def test_uploaded_file_failure_case_manual_handoff_smoke_is_documented_without_a
     assert "Phase 153 - Uploaded File Failure-case Manual Handoff Smoke v0" in goal
     assert "uploaded file failure-case manual handoff smoke v0" in runbook
     assert "docs/review/uploaded-file-failure-case-manual-handoff-smoke.md" in portfolio
+
+
+def test_uploaded_file_proof_path_index_refresh_collects_current_upload_chain():
+    index_path = REPO_ROOT / "docs/review/uploaded-file-proof-path-index.md"
+    assert index_path.is_file()
+
+    content = index_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Proof Path Index" in content
+    assert "uploaded file proof path index refresh v0" in content
+    for artifact in [
+        "docs/review/file-upload-preview.md",
+        "docs/review/uploaded-file-chunk-preview.md",
+        "docs/review/uploaded-file-retrieval-preview.md",
+        "docs/review/uploaded-file-evidence-preview.md",
+        "docs/review/uploaded-file-noise-gate-preview.md",
+        "docs/review/uploaded-file-report-preview.md",
+        "docs/review/uploaded-file-failure-case-draft-preview.md",
+        "docs/review/uploaded-file-failure-case-manual-handoff-smoke.md",
+    ]:
+        assert artifact in content
+        assert artifact in portfolio
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not automatic failure-case creation" in content
+    assert "Uploaded file proof path index refresh v0: implemented" in readme
+    assert "Phase 154 - Uploaded File Proof Path Index Refresh v0" in goal
+    assert "uploaded file proof path index refresh v0" in runbook
+    assert "docs/review/uploaded-file-proof-path-index.md" in portfolio

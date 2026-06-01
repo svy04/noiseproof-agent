@@ -1636,6 +1636,23 @@ curl http://localhost:8000/failure-cases
 
 This smoke path is a manual handoff. It is not automatic failure-case creation, not automatic failure detection, and not root-cause automation.
 
+Phase marker: uploaded file proof path index refresh v0.
+
+Use `docs/review/uploaded-file-proof-path-index.md` when a reviewer needs the compact uploaded-file proof chain:
+
+```text
+file upload preview
+-> uploaded file chunk preview
+-> uploaded file retrieval preview
+-> uploaded file Evidence Ledger preview
+-> uploaded file Noise Gate preview
+-> uploaded file report preview
+-> uploaded file failure-case draft preview
+-> uploaded file failure-case manual handoff smoke
+```
+
+The index is documentation only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not automatic failure-case creation, and not runtime smoke evidence by itself.
+
 ## Metadata Examples
 
 Create a document metadata record:
