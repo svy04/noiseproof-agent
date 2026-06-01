@@ -113,7 +113,7 @@ Detailed implementation history remains in the lower detailed Implementation Sta
 Still planned or explicitly unclaimed near the top:
 
 - web app and polished dashboard UI
-- file upload parsing and robust PDF extraction
+- persisted file upload parsing and robust PDF extraction
 - persisted chunks, embeddings, semantic retrieval, and LLM calls
 - hosted deployment evidence
 - automatic failure-case creation from workflow failures
@@ -171,12 +171,14 @@ Major implementation milestones:
 - External feedback acceptance draft CLI v0: implemented
 - External feedback acceptance draft workflow v0: implemented
 - External feedback acceptance draft workflow verification v0: implemented
+- Owner-approved product continuation decision v0: implemented
+- File upload preview v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The dedicated proof-marker archive in `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers without making the rendered README a chronological wall.
 
 Not implemented yet:
 
-- file upload parsing
+- persisted file upload parsing
 - robust PDF extraction
 - persisted chunks
 - autonomous workflow execution endpoints
@@ -368,13 +370,13 @@ Planned demo flow after implementation:
 
 ## What I Would Improve Next
 
-The current next evidence gate is `external reviewer feedback v0`.
+The current next evidence gate remains external reviewer feedback v0.
 
 The project already has a reviewer request packet, intake criteria, reviewer brief, direct link map, root review guide, live issue-body encoding verification, live issue-body root-guide verification, live issue-body link-map verification, issue-template link-map refresh, issue-label verification, owner request comment rejection verification, outreach packet, screening CLI, screening workflow, and remote pending artifact verification. Those artifacts prepare the path, but they do not prove that an outside reviewer inspected the work.
 
-The next useful step is not another implementation feature. It is getting a substantive outside comment on issue #1 that names inspected evidence and gives actionable critique.
+The owner approved continuing implementation while that external-review gate stays pending. That approval is recorded in `docs/review/owner-approved-product-continuation-decision.md`; it is not external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, or production readiness.
 
-Until that happens, do not claim external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, or production readiness.
+File upload preview v0 is now implemented as a preview-only, non-persisting boundary. The current next product implementation gate is `uploaded file chunk preview v0`.
 
 ## Braincrew Role Alignment
 

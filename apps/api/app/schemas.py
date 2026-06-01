@@ -67,6 +67,13 @@ class ParsePreviewOut(BaseModel):
     profile: DocumentProfileOut
 
 
+class UploadPreviewOut(ParsePreviewOut):
+    filename: str | None = None
+    content_type: str | None = None
+    byte_count: int
+    persistence_boundary: str
+
+
 class ChunkPreviewRequest(BaseModel):
     source_type: str = Field(..., min_length=1)
     content: str = ""

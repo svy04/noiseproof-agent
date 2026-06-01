@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, File, Form, UploadFile
 
 from app.db import Repository, get_repository
 from app.schemas import (
@@ -10,11 +10,13 @@ from app.schemas import (
     DocumentProfileRequest,
     ParsePreviewOut,
     ParsePreviewRequest,
+    UploadPreviewOut,
 )
 from app.services.chunk_preview import preview_chunks
 from app.services.document_profiler import profile_document
 from app.services.parse_preview import preview_parse
 from app.services.run_trace import run_with_trace
+from app.services.upload_preview import preview_upload
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 
@@ -60,6 +62,34 @@ def parse_document_preview(
         user_question=f"parse preview: {payload.source_type}",
         trace_json={"source_type": payload.source_type},
         operation=lambda _agent_run_id: preview_parse(payload),
+    )
+
+
+@router.post("/upload-preview", response_model=UploadPreviewOut)
+async def upload_document_preview(
+    file: UploadFile = File(...),
+    source_type: str | None = Form(default=None),
+    repository: Repository = Depends(get_repository),
+) -> UploadPreviewOut:
+    content = await file.read()
+
+    return run_with_trace(
+        repository,
+        endpoint="POST /documents/upload-preview",
+        user_question=f"upload preview: {source_type or file.filename or 'unknown'}",
+        trace_json={
+            "source_type": source_type,
+            "filename": file.filename,
+            "content_type": file.content_type,
+            "byte_count": len(content),
+            "persistence_boundary": "preview_only_not_persisted",
+        },
+        operation=lambda _agent_run_id: preview_upload(
+            filename=file.filename,
+            content_type=file.content_type,
+            source_type=source_type,
+            content=content,
+        ),
     )
 
 

@@ -276,7 +276,7 @@ Implemented:
 
 Not implemented:
 
-- file upload
+- persisted file upload parsing
 - robust PDF extraction
 - persisted parse records
 - persisted chunks
@@ -1366,6 +1366,12 @@ external-feedback-acceptance-draft.json
 
 The downloaded acceptance draft result was `pending` with `draft_count: 0`. This proves the workflow uploaded an inspectable draft artifact, but it is not external reviewer feedback.
 
+Phase marker: owner-approved product continuation decision v0.
+
+Use `docs/review/owner-approved-product-continuation-decision.md` when checking why product implementation is allowed to continue while `external reviewer feedback v0` remains pending.
+
+This decision is not external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, production readiness, or a product-complete claim. It unblocked `file upload preview v0` while the evidence gate stayed pending.
+
 Inspect auto-created preview traces:
 
 ```bash
@@ -1390,6 +1396,32 @@ Expected trace boundary:
 ```
 
 The trace is metadata for inspectability. It is not distributed tracing or hosted observability.
+
+Phase marker: file upload preview v0.
+
+Use `POST /documents/upload-preview` to inspect an uploaded file through parser preview and document profiling without creating a document record.
+
+```bash
+curl -X POST http://localhost:8000/documents/upload-preview \
+  -F "source_type=markdown" \
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown"
+```
+
+Expected boundary:
+
+```json
+{
+  "persistence_boundary": "preview_only_not_persisted",
+  "filename": "sample-note.md",
+  "parser": "markdown",
+  "warnings": [
+    "Upload preview is preview-only and does not create documents or persist parse records.",
+    "File upload preview does not claim robust PDF extraction."
+  ]
+}
+```
+
+The upload preview is preview-only. It does not create documents, parse records, chunks, retrieval runs, Evidence Ledger entries, Noise Gate records, reports, workflow runs, or failure cases.
 
 ## Metadata Examples
 

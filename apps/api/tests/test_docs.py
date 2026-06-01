@@ -3139,3 +3139,58 @@ def test_external_feedback_acceptance_draft_cli_is_documented_without_accepting_
     assert "external feedback acceptance draft cli v0" in runbook
     assert "docs/review/external-feedback-acceptance-draft-cli.md" in portfolio
     assert "docs/review/external-feedback-acceptance-draft-cli.md" in template
+
+
+def test_owner_approved_product_continuation_keeps_external_feedback_pending():
+    decision_path = (
+        REPO_ROOT / "docs/review/owner-approved-product-continuation-decision.md"
+    )
+    assert decision_path.is_file()
+
+    content = decision_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Owner-approved Product Continuation Decision" in content
+    assert "owner-approved product continuation decision v0" in content
+    assert "external reviewer feedback v0 remains pending" in content
+    assert "not external reviewer feedback" in content
+    assert "not customer validation" in content
+    assert "product implementation may resume" in content
+    assert "file upload preview v0" in content
+    assert "Owner-approved product continuation decision v0: implemented" in readme
+    assert "owner-approved product continuation decision v0" in goal
+    assert "Phase 145 - Owner-approved Product Continuation Decision v0" in goal
+    assert "current next evidence gate remains external reviewer feedback v0" in readme
+    assert "File upload preview v0" in readme
+    assert "owner-approved product continuation decision v0" in runbook
+    assert "docs/review/owner-approved-product-continuation-decision.md" in portfolio
+
+
+def test_file_upload_preview_is_documented_as_preview_only_boundary():
+    review_path = REPO_ROOT / "docs/review/file-upload-preview.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "File Upload Preview" in content
+    assert "file upload preview v0" in content
+    assert "POST /documents/upload-preview" in content
+    assert "preview-only" in content
+    assert "does not create documents" in content
+    assert "does not claim robust PDF extraction" in content
+    assert "not retrieval" in content
+    assert "File upload preview v0: implemented" in readme
+    assert "Phase 146 - File Upload Preview v0" in goal
+    assert "file upload preview v0" in runbook
+    assert "docs/review/file-upload-preview.md" in portfolio

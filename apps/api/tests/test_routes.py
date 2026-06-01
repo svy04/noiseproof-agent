@@ -492,6 +492,50 @@ def test_failure_case_draft_can_be_manually_handed_to_failure_case_persistence()
     assert listed.json()[0]["fix_status"] == "open"
 
 
+def test_document_upload_preview_parses_markdown_without_persistence():
+    client = make_client()
+    content = b"# Demand note\nEnterprise demand grew 12% in 2026.\n"
+
+    response = client.post(
+        "/documents/upload-preview",
+        data={"source_type": "markdown"},
+        files={"file": ("sample-note.md", content, "text/markdown")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["filename"] == "sample-note.md"
+    assert body["content_type"] == "text/markdown"
+    assert body["byte_count"] == len(content)
+    assert body["source_type"] == "markdown"
+    assert body["parser"] == "markdown"
+    assert "Enterprise demand grew" in body["text"]
+    assert body["profile"]["has_numbers"] is True
+    assert any("does not create documents" in warning for warning in body["warnings"])
+    assert client.get("/documents").json() == []
+
+
+def test_document_upload_preview_surfaces_unknown_binary_boundary():
+    client = make_client()
+
+    response = client.post(
+        "/documents/upload-preview",
+        files={"file": ("sample.bin", b"\xff\xfe\x00\x01", "application/octet-stream")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["filename"] == "sample.bin"
+    assert body["content_type"] == "application/octet-stream"
+    assert body["source_type"] == "unknown"
+    assert body["parser"] == "unknown"
+    assert body["failure_case_candidate"]["failure_type"] == "unknown_source_type"
+    assert any("could not infer a supported source_type" in warning for warning in body["warnings"])
+    assert any("does not claim robust PDF extraction" in warning for warning in body["warnings"])
+
+
 def test_workflow_run_metadata_roundtrip_without_orchestration():
     client = make_client()
 

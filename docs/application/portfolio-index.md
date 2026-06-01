@@ -58,6 +58,8 @@ External feedback acceptance draft workflow: `.github/workflows/external-feedbac
 
 External feedback acceptance draft workflow verification: `docs/review/external-feedback-acceptance-draft-workflow-verification.md` records remote run `26727047243` and the downloaded screening plus acceptance-draft artifacts. It is not external reviewer feedback itself.
 
+Owner-approved product continuation decision: `docs/review/owner-approved-product-continuation-decision.md` records owner approval to resume product implementation while `external reviewer feedback v0` remains pending. It is not external reviewer feedback, not customer validation, and not Braincrew acceptance.
+
 Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers after README scanability cleanup. It is source-level provenance, not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 
 ## Start Here
@@ -153,6 +155,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | External feedback screening CLI | `docs/review/external-feedback-screening-cli.md` | CLI over real issue-comment JSON; feedback still pending |
 | External feedback screening workflow | `docs/review/external-feedback-screening-workflow.md` | Actions wrapper over screening CLI; feedback still pending |
 | External feedback screening workflow verification | `docs/review/external-feedback-screening-workflow-verification.md` | remote pending artifact verification; feedback still pending |
+| Owner-approved product continuation decision | `docs/review/owner-approved-product-continuation-decision.md` | owner-approved continuation; external reviewer feedback still pending |
 | README proof-marker archive | `docs/review/readme-proof-marker-archive.md` | source-level provenance only; not product runtime evidence |
 | Operations dashboard | `GET /ops/dashboard` | implemented |
 | Auto trace recording | `apps/api/app/services/run_trace.py` | implemented for preview endpoint metadata |
@@ -204,6 +207,8 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-feedback-acceptance-template.md` | template for recording future accepted public review comments; not external reviewer feedback |
 | `docs/review/external-feedback-acceptance-draft-cli.md` | CLI for converting candidate screen artifacts into manual acceptance drafts; not external reviewer feedback |
 | `docs/review/external-feedback-acceptance-draft-workflow-verification.md` | downloaded remote acceptance-draft artifact; pending and not external reviewer feedback |
+| `docs/review/owner-approved-product-continuation-decision.md` | owner-approved continuation decision; external reviewer feedback remains pending |
+| `docs/review/file-upload-preview.md` | preview-only upload boundary for parser/profile inspection; not retrieval |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

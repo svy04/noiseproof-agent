@@ -1,0 +1,97 @@
+from pathlib import Path
+
+from app.schemas import ParsePreviewRequest, UploadPreviewOut
+from app.services.parse_preview import preview_parse
+
+EXTENSION_SOURCE_TYPES = {
+    ".md": "markdown",
+    ".markdown": "markdown",
+    ".txt": "markdown",
+    ".csv": "csv",
+    ".html": "html",
+    ".htm": "html",
+    ".pdf": "pdf",
+}
+
+CONTENT_TYPE_SOURCE_TYPES = {
+    "text/markdown": "markdown",
+    "text/plain": "markdown",
+    "text/csv": "csv",
+    "application/csv": "csv",
+    "text/html": "html",
+    "application/xhtml+xml": "html",
+    "application/pdf": "pdf",
+}
+
+
+def preview_upload(
+    *,
+    filename: str | None,
+    content_type: str | None,
+    source_type: str | None,
+    content: bytes,
+) -> UploadPreviewOut:
+    warnings: list[str] = [
+        "Upload preview is preview-only and does not create documents or persist parse records.",
+        "File upload preview does not claim robust PDF extraction.",
+    ]
+    inferred_source_type = _infer_source_type(
+        source_type=source_type,
+        filename=filename,
+        content_type=content_type,
+        warnings=warnings,
+    )
+    text = _decode_upload(content, warnings)
+    parsed = preview_parse(
+        ParsePreviewRequest(
+            source_type=inferred_source_type,
+            content=text,
+            filename=filename,
+            source_uri=f"upload://{filename}" if filename else "upload://unnamed",
+        )
+    )
+
+    return UploadPreviewOut(
+        filename=filename,
+        content_type=content_type,
+        byte_count=len(content),
+        persistence_boundary="preview_only_not_persisted",
+        source_type=parsed.source_type,
+        parser=parsed.parser,
+        text=parsed.text,
+        metadata=parsed.metadata,
+        warnings=warnings + parsed.warnings,
+        failure_case_candidate=parsed.failure_case_candidate,
+        profile=parsed.profile,
+    )
+
+
+def _infer_source_type(
+    *,
+    source_type: str | None,
+    filename: str | None,
+    content_type: str | None,
+    warnings: list[str],
+) -> str:
+    explicit = (source_type or "").strip().lower()
+    if explicit:
+        return explicit
+
+    suffix = Path(filename or "").suffix.lower()
+    if suffix in EXTENSION_SOURCE_TYPES:
+        return EXTENSION_SOURCE_TYPES[suffix]
+
+    normalized_content_type = (content_type or "").split(";")[0].strip().lower()
+    if normalized_content_type in CONTENT_TYPE_SOURCE_TYPES:
+        return CONTENT_TYPE_SOURCE_TYPES[normalized_content_type]
+
+    warnings.append("Upload preview could not infer a supported source_type.")
+    return "unknown"
+
+
+def _decode_upload(content: bytes, warnings: list[str]) -> str:
+    try:
+        return content.decode("utf-8")
+    except UnicodeDecodeError:
+        warnings.append("Uploaded bytes were decoded with replacement characters.")
+        return content.decode("utf-8", errors="replace")
