@@ -622,6 +622,62 @@ def test_document_upload_retrieval_preview_keeps_buy_sell_boundary():
     assert client.get("/retrieval-runs").json() == []
 
 
+def test_document_upload_evidence_preview_builds_ledger_without_persistence():
+    client = make_client()
+    content = b"# Market note\nEnterprise demand growth was 12 percent in 2026.\n"
+
+    response = client.post(
+        "/documents/upload-evidence-preview",
+        data={
+            "question": "Which source supports enterprise demand growth?",
+            "source_type": "markdown",
+            "strategy": "fixed-window",
+            "top_k": "3",
+            "max_characters": "120",
+            "overlap": "0",
+        },
+        files={"file": ("sample-note.md", content, "text/markdown")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["filename"] == "sample-note.md"
+    assert body["retrieval"]["result_count"] >= 1
+    assert body["evidence"]["summary"]["supported_count"] >= 1
+    assert body["evidence"]["entries"][0]["source_id"] == "upload://sample-note.md"
+    assert "enterprise demand growth" in body["evidence"]["entries"][0]["claim"].lower()
+    assert any("does not create Evidence Ledger entries" in warning for warning in body["warnings"])
+    assert client.get("/retrieval-runs").json() == []
+    assert client.get("/evidence-ledgers").json() == []
+
+
+def test_document_upload_evidence_preview_blocks_trading_drift_before_ledger():
+    client = make_client()
+
+    response = client.post(
+        "/documents/upload-evidence-preview",
+        data={"question": "Should I sell this stock?", "source_type": "markdown"},
+        files={
+            "file": (
+                "earnings-note.md",
+                b"Revenue declined after earnings.",
+                "text/markdown",
+            )
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["status"] == "blocked"
+    assert body["retrieval"]["status"] == "blocked"
+    assert body["evidence"]["summary"]["blocked_count"] == 1
+    assert body["evidence"]["entries"][0]["status"] == "blocked"
+    assert any("buy/sell" in warning for warning in body["warnings"])
+    assert client.get("/evidence-ledgers").json() == []
+
+
 def test_workflow_run_metadata_roundtrip_without_orchestration():
     client = make_client()
 

@@ -3245,3 +3245,29 @@ def test_uploaded_file_retrieval_preview_is_documented_as_preview_only_boundary(
     assert "Phase 148 - Uploaded File Retrieval Preview v0" in goal
     assert "uploaded file retrieval preview v0" in runbook
     assert "docs/review/uploaded-file-retrieval-preview.md" in portfolio
+
+
+def test_uploaded_file_evidence_preview_is_documented_as_preview_only_boundary():
+    review_path = REPO_ROOT / "docs/review/uploaded-file-evidence-preview.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Evidence Ledger Preview" in content
+    assert "uploaded file Evidence Ledger preview v0" in content
+    assert "POST /documents/upload-evidence-preview" in content
+    assert "preview-only" in content
+    assert "does not create Evidence Ledger entries" in content
+    assert "does not create retrieval_runs" in content
+    assert "not Noise Gate" in content
+    assert "buy/sell" in content
+    assert "Uploaded file Evidence Ledger preview v0: implemented" in readme
+    assert "Phase 149 - Uploaded File Evidence Ledger Preview v0" in goal
+    assert "uploaded file Evidence Ledger preview v0" in runbook
+    assert "docs/review/uploaded-file-evidence-preview.md" in portfolio
