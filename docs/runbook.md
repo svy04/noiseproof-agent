@@ -1241,6 +1241,10 @@ https://svy04.github.io/proof-artifacts/noiseproof-live-route-verification-2026-
 
 This route refresh helps external reviewers find the public proof surface, reviewer brief, and issue #1. It is not external reviewer feedback, not hosted deployment evidence for NoiseProof Agent, not customer validation, and not a product-complete claim.
 
+Phase marker: external reviewer link map v0.
+
+Use `docs/review/external-reviewer-link-map.md` when an outside reviewer needs direct links to issue #1, README, the proof path, the portfolio index, the screenshot walkthrough, and feedback criteria. This is link hygiene only. It is not external reviewer feedback, customer validation, Braincrew acceptance, or hosted deployment evidence.
+
 Phase marker: external reviewer outreach packet v0.
 
 Use `docs/review/external-reviewer-outreach-packet.md` when you need copy-paste outreach messages for an actual human reviewer. It has separate messages for an FDE / product engineer reviewer, a RAG / data engineer reviewer, and a founder / operator reviewer.

@@ -2674,6 +2674,60 @@ def test_external_feedback_acceptance_draft_workflow_verification_records_remote
     )
 
 
+def test_external_reviewer_link_map_reduces_review_friction_without_claiming_feedback():
+    link_map_path = REPO_ROOT / "docs/review/external-reviewer-link-map.md"
+    assert link_map_path.is_file()
+
+    content = link_map_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    outreach = (REPO_ROOT / "docs/review/external-reviewer-outreach-packet.md").read_text(
+        encoding="utf-8"
+    )
+
+    issue_url = "https://github.com/svy04/noiseproof-agent/issues/1"
+    readme_url = "https://github.com/svy04/noiseproof-agent/blob/main/README.md"
+    proof_path_url = (
+        "https://github.com/svy04/noiseproof-agent/blob/main/"
+        "docs/review/external-reader-proof-path.md"
+    )
+    portfolio_url = (
+        "https://github.com/svy04/noiseproof-agent/blob/main/"
+        "docs/application/portfolio-index.md"
+    )
+    brief_url = (
+        "https://github.com/svy04/noiseproof-agent/blob/main/"
+        "docs/review/external-reviewer-brief.md"
+    )
+
+    assert "External Reviewer Link Map" in content
+    assert "external reviewer link map v0" in content
+    assert issue_url in content
+    assert readme_url in content
+    assert proof_path_url in content
+    assert portfolio_url in content
+    assert brief_url in content
+    assert "not external reviewer feedback" in content
+    assert "external reviewer feedback v0" in content
+    assert "External reviewer link map v0: implemented" in readme
+    assert "external reviewer link map v0" in goal
+    assert "external reviewer link map v0" in runbook
+    assert "docs/review/external-reviewer-link-map.md" in portfolio
+    assert "docs/review/external-reviewer-link-map.md" in request
+    assert "docs/review/external-reviewer-link-map.md" in brief
+    assert "docs/review/external-reviewer-link-map.md" in outreach
+
+
 def test_readme_next_gate_matches_external_feedback_state_without_stale_phase_claim():
     refresh_path = REPO_ROOT / "docs/review/readme-next-gate-stale-claim-refresh.md"
     assert refresh_path.is_file()

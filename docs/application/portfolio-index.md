@@ -22,6 +22,8 @@ External feedback intake surface: `docs/review/external-feedback-intake-criteria
 
 External reviewer brief: `docs/review/external-reviewer-brief.md` gives a 2-minute path for reviewers before they comment on issue #1. It is not external reviewer feedback itself.
 
+External reviewer link map: `docs/review/external-reviewer-link-map.md` gives direct GitHub and public route links for reviewers who should not need to navigate the repository tree manually. It is not external reviewer feedback itself.
+
 External reviewer outreach packet: `docs/review/external-reviewer-outreach-packet.md` gives copy-paste messages for asking FDE/product engineer, RAG/data engineer, and founder/operator reviewers to inspect issue #1. It is not external reviewer feedback itself.
 
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
@@ -171,6 +173,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-feedback-intake-criteria.md` | qualification criteria for accepting future external reviewer feedback |
 | `docs/review/external-reviewer-brief.md` | 2-minute path for reviewers before leaving feedback |
 | `docs/review/external-reviewer-live-proof-route-refresh.md` | latest public proof route for reviewer orientation; not external reviewer feedback |
+| `docs/review/external-reviewer-link-map.md` | direct reviewer links for issue #1, README, proof path, portfolio index, and feedback criteria; not external reviewer feedback |
 | `docs/review/external-reviewer-outreach-packet.md` | copy-paste outreach packet for actual human reviewers; not external reviewer feedback |
 | `docs/review/external-feedback-qualification-preview.md` | local screening helper for public issue comments; not external reviewer feedback |
 | `docs/review/external-feedback-screening-cli.md` | command-line path for screening real issue-comment JSON; not external reviewer feedback |

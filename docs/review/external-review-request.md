@@ -28,6 +28,12 @@ Copy-paste outreach packet:
 docs/review/external-reviewer-outreach-packet.md
 ```
 
+Direct reviewer link map:
+
+```text
+docs/review/external-reviewer-link-map.md
+```
+
 ## Review Path
 
 Please read in this order:

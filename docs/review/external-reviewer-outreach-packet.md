@@ -30,6 +30,12 @@ Reviewer brief:
 docs/review/external-reviewer-brief.md
 ```
 
+Direct link map:
+
+```text
+docs/review/external-reviewer-link-map.md
+```
+
 Feedback intake criteria:
 
 ```text

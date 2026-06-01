@@ -32,6 +32,12 @@ Then leave feedback here:
 https://github.com/svy04/noiseproof-agent/issues/1
 ```
 
+Direct link map:
+
+```text
+docs/review/external-reviewer-link-map.md
+```
+
 ## What this currently proves
 
 NoiseProof Agent currently proves a local, inspectable portfolio workflow:

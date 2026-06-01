@@ -34,6 +34,8 @@ Read in this order:
     - Latest public portfolio proof route for reviewer orientation. This is not feedback itself.
 12. `docs/review/external-reviewer-outreach-packet.md`
     - Copy-paste outreach messages for actual human reviewers. This is not feedback itself.
+13. `docs/review/external-reviewer-link-map.md`
+    - Direct GitHub and public route links for reviewers. This is not feedback itself.
 
 ## Optional source-level provenance
 
@@ -84,6 +86,8 @@ Use `docs/review/external-review-request.md` when asking a reviewer to inspect t
 It points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and asks for critique on over-stated claims, missing evidence, and hiring signal.
 
 Use `docs/review/external-reviewer-outreach-packet.md` when you need a copy-paste message for an FDE/product engineer, RAG/data engineer, or founder/operator reviewer.
+
+Use `docs/review/external-reviewer-link-map.md` when a reviewer needs clickable links instead of repository-relative paths.
 
 Public request issue:
 
