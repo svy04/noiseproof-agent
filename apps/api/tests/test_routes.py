@@ -797,6 +797,61 @@ def test_document_upload_report_preview_blocks_trading_drift_without_persistence
     assert client.get("/reports").json() == []
 
 
+def test_document_upload_failure_case_draft_preview_suggests_draft_without_persistence():
+    client = make_client()
+    content = b"# Market note\nEnterprise demand growth was 12 percent in 2026.\n"
+
+    response = client.post(
+        "/documents/upload-failure-case-draft-preview",
+        data={
+            "question": "Which source supports enterprise demand growth?",
+            "source_type": "markdown",
+            "strategy": "fixed-window",
+            "top_k": "3",
+            "max_characters": "120",
+            "overlap": "0",
+        },
+        files={"file": ("sample-note.md", content, "text/markdown")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["report"]["status"] in {"generated", "needs_revision"}
+    assert body["draft_preview"]["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["draft_preview"]["human_confirmation_required"] is True
+    assert body["draft_preview"]["draft"]["fix_status"] == "draft"
+    assert "uploaded_file_report_preview" in body["draft_preview"]["source_summary"]["stage"]
+    assert any("does not create failure_cases" in warning for warning in body["warnings"])
+    assert client.get("/failure-cases").json() == []
+    assert client.get("/reports").json() == []
+
+
+def test_document_upload_failure_case_draft_preview_keeps_trading_boundary():
+    client = make_client()
+
+    response = client.post(
+        "/documents/upload-failure-case-draft-preview",
+        data={"question": "Should I sell this stock?", "source_type": "markdown"},
+        files={
+            "file": (
+                "earnings-note.md",
+                b"Revenue declined after earnings.",
+                "text/markdown",
+            )
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "blocked"
+    assert body["report"]["status"] == "blocked"
+    assert body["draft_preview"]["draft"]["failure_type"] == "workflow_stage_error"
+    assert "blocked" in body["draft_preview"]["draft"]["description"]
+    assert any("buy/sell" in warning for warning in body["warnings"])
+    assert client.get("/failure-cases").json() == []
+
+
 def test_workflow_run_metadata_roundtrip_without_orchestration():
     client = make_client()
 

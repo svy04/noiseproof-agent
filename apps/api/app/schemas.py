@@ -520,6 +520,19 @@ class FailureCaseDraftPreviewOut(BaseModel):
     warnings: list[str]
 
 
+class UploadFailureCaseDraftPreviewOut(BaseModel):
+    filename: str | None = None
+    content_type: str | None = None
+    byte_count: int
+    persistence_boundary: str
+    source_type: str
+    question: str
+    status: str
+    report: UploadReportPreviewOut
+    draft_preview: FailureCaseDraftPreviewOut
+    warnings: list[str]
+
+
 class HealthOut(BaseModel):
     status: str
     service: str

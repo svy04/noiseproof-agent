@@ -1581,6 +1581,39 @@ Expected boundary:
 
 The uploaded file report preview is preview-only. It does not create report records, Noise Gate records, Evidence Ledger entries, retrieval_runs, documents, chunks, workflow runs, or failure cases. It is not LLM output. If the embedded Noise Gate returns `needs_revision` or `blocked`, the report body remains null. Buy/sell questions are blocked at this preview boundary.
 
+Phase marker: uploaded file failure-case draft preview v0.
+
+Use `POST /documents/upload-failure-case-draft-preview` to run the uploaded file report preview chain and turn the result into a human-confirmed failure-case draft payload without creating `failure_cases`.
+
+```bash
+curl -X POST http://localhost:8000/documents/upload-failure-case-draft-preview \
+  -F "question=Which source supports enterprise demand growth?" \
+  -F "source_type=markdown" \
+  -F "strategy=fixed-window" \
+  -F "top_k=3" \
+  -F "max_characters=500" \
+  -F "overlap=0" \
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown"
+```
+
+Expected boundary:
+
+```json
+{
+  "persistence_boundary": "preview_only_not_persisted",
+  "status": "needs_revision",
+  "draft_preview": {
+    "persistence_boundary": "preview_only_not_persisted",
+    "human_confirmation_required": true,
+    "draft": {
+      "fix_status": "draft"
+    }
+  }
+}
+```
+
+The uploaded file failure-case draft preview is preview-only. It does not create failure_cases. It is not automatic failure detection and not root-cause automation. A human must confirm or edit the draft before submitting it through `POST /failure-cases`. Buy/sell questions remain blocked at this preview boundary.
+
 ## Metadata Examples
 
 Create a document metadata record:

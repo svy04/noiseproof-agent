@@ -214,6 +214,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-file-evidence-preview.md` | preview-only uploaded file Evidence Ledger preview; not Noise Gate or final report |
 | `docs/review/uploaded-file-noise-gate-preview.md` | preview-only uploaded file Noise Gate preview; not final report |
 | `docs/review/uploaded-file-report-preview.md` | preview-only uploaded file report preview; not LLM output or persisted report |
+| `docs/review/uploaded-file-failure-case-draft-preview.md` | preview-only uploaded file failure-case draft; human confirmation still required |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
