@@ -4007,3 +4007,43 @@ def test_external_reviewer_upload_manifest_persistence_request_refresh_routes_re
             in reviewer_surface
         )
         assert "not raw file storage" in reviewer_surface
+
+
+def test_external_reviewer_upload_manifest_persistence_issue_body_refresh_records_live_issue_update():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-upload-manifest-persistence-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Upload-manifest Persistence Refresh" in content
+    assert "external reviewer upload-manifest persistence issue-body refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "uploaded-file intake manifest persistence proof" in content
+    assert "docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md" in content
+    assert "POST /documents/upload-intake-manifests" in content
+    assert "manifest_only_no_raw_file_storage" in content
+    assert "not raw file storage" in content
+    assert "not external reviewer feedback" in content
+    assert "owner-authored issue edit" in content
+    assert (
+        "External reviewer upload-manifest persistence issue-body refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 171 - External Reviewer Upload-manifest Persistence Issue-body Refresh v0"
+        in goal
+    )
+    assert "external reviewer upload-manifest persistence issue-body refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-upload-manifest-persistence-refresh.md"
+        in portfolio
+    )

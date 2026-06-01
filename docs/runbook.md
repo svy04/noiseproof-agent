@@ -1987,6 +1987,21 @@ Use `docs/review/external-reviewer-upload-manifest-persistence-request-refresh.m
 
 This is request infrastructure only. It does not update the live public issue body and is not external reviewer feedback. The next request gate is `external reviewer upload-manifest persistence issue-body refresh v0`.
 
+Phase marker: external reviewer upload-manifest persistence issue-body refresh v0.
+
+Use `docs/review/external-review-issue-body-upload-manifest-persistence-refresh.md` when checking the live issue #1 body update that points reviewers to uploaded-file intake manifest persistence proof.
+
+Observed live issue markers:
+
+```text
+first_codepoint=35
+uploaded-file intake manifest persistence proof
+docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md
+manifest_only_no_raw_file_storage
+```
+
+This is an owner-authored issue edit, not external reviewer feedback.
+
 ## Metadata Examples
 
 Create a document metadata record:
