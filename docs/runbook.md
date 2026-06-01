@@ -1971,6 +1971,16 @@ replayable = false
 
 This is local runtime evidence, not hosted deployment evidence. The next product gate is `uploaded file intake manifest persistence application refresh v0`.
 
+Phase marker: uploaded file intake manifest persistence application refresh v0.
+
+Application-facing refresh:
+
+```text
+docs/review/uploaded-file-intake-manifest-persistence-application-refresh.md
+```
+
+This refresh points reviewer-facing artifacts to the local runtime smoke for `POST /documents/upload-intake-manifests` and `GET /documents/upload-intake-manifests`. It keeps `manifest_only_no_raw_file_storage` and `do_not_persist_raw_upload_yet` explicit. It is not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, and not raw file storage.
+
 ## Metadata Examples
 
 Create a document metadata record:

@@ -58,6 +58,8 @@ Uploaded file intake manifest persistence endpoint: `docs/review/uploaded-file-i
 
 Uploaded file intake manifest persistence runtime smoke: `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md` records local Docker DB plus FastAPI POST/GET evidence for persisting manifest metadata. It is local runtime evidence only, not hosted deployment or external reviewer feedback.
 
+Uploaded file intake manifest persistence application refresh: `docs/review/uploaded-file-intake-manifest-persistence-application-refresh.md` surfaces the persistence runtime smoke in the portfolio, Braincrew role map, application-ready review, README, and runbook. It is not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, and not raw file storage.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.
@@ -249,6 +251,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-file-intake-manifest-persistence-endpoint-review.md` | review-only API boundary for manifest metadata persistence; no endpoint code |
 | `docs/review/uploaded-file-intake-manifest-persistence-endpoint.md` | POST/GET manifest metadata persistence endpoint; no raw uploaded bytes |
 | `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md` | local Docker DB plus FastAPI POST/GET manifest persistence smoke; not hosted evidence |
+| `docs/review/uploaded-file-intake-manifest-persistence-application-refresh.md` | application-facing refresh for manifest persistence runtime smoke; not hosted evidence |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

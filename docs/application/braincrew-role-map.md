@@ -50,34 +50,24 @@ Use this only when a reviewer wants source-level provenance for legacy README pr
 
 Runtime proof summary:
 
-- Migration/API smoke: migration runner, fresh DB API smoke, and fresh migrated Docker DB evidence exist for local service paths only.
-- Failure ledger smoke: failure-case persistence smoke stores manual records; this is not automatic failure detection.
-- Agent linkage: linked failure-case proof preserves manual `agent_run_id` linkage; this is not complete workflow failure causality.
+- Migration/API: migration runner, fresh DB API smoke, and fresh migrated Docker DB evidence exist for local service paths only.
+- Failure evidence: failure-case persistence smoke stores manual records; linked failure-case proof preserves manual `agent_run_id` linkage. This is not automatic failure detection and not complete workflow failure causality.
 - Workflow failure boundary: failed workflow parent proof and workflow failure linkage smoke are route-level smoke, not fresh Docker DB evidence.
 - Historical linkage boundary: historical failure-case workflow linkage review remains as context; manual workflow parent linkage now exists and automatic failure-case creation remains unclaimed.
-- Draft boundary: human-confirmed draft payload, `preview_only_not_persisted`, route-level smoke, and `draft.fix_status from draft to open` keep human handoff explicit; this is not automatic failure-case persistence.
-- Fresh handoff proof: fresh migrated Docker DB handoff proof verifies manual draft persistence handoff only, not hosted deployment evidence.
-- Workflow-to-draft boundary: workflow failure-to-draft smoke is not automatic failure-case creation and not complete workflow failure causality.
-- Workflow parent linkage: workflow parent linkage fresh DB proof and dashboard manual workflow parent link show manual provenance only, not automatic failure-case creation or automatic failure detection.
-- Dashboard proof: fresh DB dashboard Workflow Parent proof includes `dashboard_contains_workflow_link: true`; it is not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
+- Draft handoff: human-confirmed draft payload, `preview_only_not_persisted`, route-level smoke, `draft.fix_status from draft to open`, and fresh migrated Docker DB handoff proof keep human handoff explicit; not automatic failure-case persistence or hosted deployment evidence.
+- Workflow-to-draft: workflow failure-to-draft smoke is not automatic failure-case creation and not complete workflow failure causality.
+- Workflow parent proof: workflow parent linkage fresh DB proof, dashboard manual workflow parent link, and fresh DB dashboard Workflow Parent proof show manual provenance only; not automatic failure-case creation, automatic failure detection, or complete workflow failure causality.
 - Reader path: workflow parent proof index is the reader path for schema boundary, manual persistence, fresh DB persistence, dashboard surfacing, and fresh DB dashboard proof.
-- upload intake manifest runtime smoke: content hash, parser/profile summary, and no-raw-storage decision; not raw file storage, hosted deployment evidence, or retrieval persistence.
+- Upload intake: upload intake manifest runtime smoke records content hash plus parser/profile summary; upload intake manifest persistence runtime smoke records `POST /documents/upload-intake-manifests`, `GET /documents/upload-intake-manifests`, and `manifest_only_no_raw_file_storage`; not raw file storage, hosted deployment evidence, external reviewer feedback, or retrieval persistence.
 
 Detailed proof links:
 
-- Migration runner fresh DB verification: `docs/review/migration-runner-fresh-db-verification.md`
-- Fresh DB API smoke verification: `docs/review/fresh-db-api-smoke-verification.md`
-- Failure-case persistence smoke: `docs/review/failure-case-persistence-smoke-verification.md`
-- Agent-run failure linkage smoke: `docs/review/agent-run-failure-linkage-smoke-verification.md`
-- Workflow failure linkage smoke: `docs/review/workflow-failure-linkage-smoke-verification.md`
-- Failure-case draft preview smoke: `docs/review/failure-case-draft-preview-smoke-verification.md`
-- Failure-case draft manual handoff smoke: `docs/review/failure-case-draft-manual-handoff-smoke-verification.md`
-- Failure-case draft fresh DB handoff smoke: `docs/review/failure-case-draft-fresh-db-handoff-smoke-verification.md`
-- Workflow failure-to-draft smoke: `docs/review/workflow-failure-to-draft-smoke-verification.md`
-- Failure-case workflow parent linkage fresh DB proof: `docs/review/failure-case-workflow-parent-linkage-fresh-db-verification.md`
-- Failure-case fresh DB dashboard Workflow Parent proof: `docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md`
-- Failure-case workflow parent proof index: `docs/review/failure-case-workflow-parent-linkage-proof-index.md`
-- Uploaded-file intake manifest runtime smoke: `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
+- `docs/review/migration-runner-fresh-db-verification.md`
+- `docs/review/fresh-db-api-smoke-verification.md`
+- `docs/review/failure-case-workflow-parent-linkage-proof-index.md`
+- `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
+- `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
+- `docs/review/uploaded-file-intake-manifest-persistence-application-refresh.md`
 
 ## DeepDocurator Alignment
 
