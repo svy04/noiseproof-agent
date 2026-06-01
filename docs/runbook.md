@@ -1653,6 +1653,86 @@ file upload preview
 
 The index is documentation only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not automatic failure-case creation, and not runtime smoke evidence by itself.
 
+Phase marker: uploaded file runtime smoke packet v0.
+
+Use `docs/review/uploaded-file-runtime-smoke-packet.md` for the local HTTP proof packet over the uploaded-file chain.
+
+Local smoke shape:
+
+```powershell
+docker compose up -d db
+docker compose ps
+cd apps/api
+uv run python -m app.migration_runner --database-url postgresql://noiseproof:noiseproof@localhost:55432/noiseproof --status
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8030
+
+curl.exe -s http://127.0.0.1:8030/health
+
+curl.exe -s -X POST http://127.0.0.1:8030/documents/upload-preview `
+  -F "source_type=markdown" `
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown"
+
+curl.exe -s -X POST http://127.0.0.1:8030/documents/upload-chunk-preview `
+  -F "source_type=markdown" `
+  -F "max_characters=120" `
+  -F "overlap=0" `
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown"
+
+curl.exe -s -X POST http://127.0.0.1:8030/documents/upload-retrieval-preview `
+  -F "question=Which source supports enterprise demand growth?" `
+  -F "source_type=markdown" `
+  -F "strategy=fixed-window" `
+  -F "top_k=3" `
+  -F "max_characters=120" `
+  -F "overlap=0" `
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown"
+
+curl.exe -s -X POST http://127.0.0.1:8030/documents/upload-evidence-preview `
+  -F "question=Which source supports enterprise demand growth?" `
+  -F "source_type=markdown" `
+  -F "strategy=fixed-window" `
+  -F "top_k=3" `
+  -F "max_characters=120" `
+  -F "overlap=0" `
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown"
+
+curl.exe -s -X POST http://127.0.0.1:8030/documents/upload-noise-gate-preview `
+  -F "question=Which source supports enterprise demand growth?" `
+  -F "source_type=markdown" `
+  -F "strategy=fixed-window" `
+  -F "top_k=3" `
+  -F "max_characters=120" `
+  -F "overlap=0" `
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown"
+
+curl.exe -s -X POST http://127.0.0.1:8030/documents/upload-report-preview `
+  -F "question=Which source supports enterprise demand growth?" `
+  -F "source_type=markdown" `
+  -F "strategy=fixed-window" `
+  -F "top_k=3" `
+  -F "max_characters=120" `
+  -F "overlap=0" `
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown"
+
+curl.exe -s -X POST http://127.0.0.1:8030/documents/upload-failure-case-draft-preview `
+  -F "question=Which source supports enterprise demand growth?" `
+  -F "source_type=markdown" `
+  -F "strategy=fixed-window" `
+  -F "top_k=3" `
+  -F "max_characters=120" `
+  -F "overlap=0" `
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown"
+
+# Manually submit the returned draft_preview.draft payload:
+curl.exe -s -X POST http://127.0.0.1:8030/failure-cases `
+  -H "Content-Type: application/json" `
+  -d "<confirmed draft_preview.draft JSON>"
+
+curl.exe -s http://127.0.0.1:8030/failure-cases
+```
+
+This packet is local runtime evidence only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not automatic failure-case creation, and not production readiness.
+
 ## Metadata Examples
 
 Create a document metadata record:

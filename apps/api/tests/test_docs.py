@@ -3414,3 +3414,42 @@ def test_uploaded_file_proof_path_index_refresh_collects_current_upload_chain():
     assert "Phase 154 - Uploaded File Proof Path Index Refresh v0" in goal
     assert "uploaded file proof path index refresh v0" in runbook
     assert "docs/review/uploaded-file-proof-path-index.md" in portfolio
+
+
+def test_uploaded_file_runtime_smoke_packet_records_local_http_proof_without_hosted_claims():
+    packet_path = REPO_ROOT / "docs/review/uploaded-file-runtime-smoke-packet.md"
+    assert packet_path.is_file()
+
+    content = packet_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Runtime Smoke Packet" in content
+    assert "uploaded file runtime smoke packet v0" in content
+    assert "docker compose up -d db" in content
+    assert "uv run uvicorn app.main:app" in content
+    for endpoint in [
+        "GET /health",
+        "POST /documents/upload-preview",
+        "POST /documents/upload-chunk-preview",
+        "POST /documents/upload-retrieval-preview",
+        "POST /documents/upload-evidence-preview",
+        "POST /documents/upload-noise-gate-preview",
+        "POST /documents/upload-report-preview",
+        "POST /documents/upload-failure-case-draft-preview",
+        "POST /failure-cases",
+        "GET /failure-cases",
+    ]:
+        assert endpoint in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not customer validation" in content
+    assert "not automatic failure-case creation" in content
+    assert "Uploaded file runtime smoke packet v0: implemented" in readme
+    assert "Phase 155 - Uploaded File Runtime Smoke Packet v0" in goal
+    assert "uploaded file runtime smoke packet v0" in runbook
+    assert "docs/review/uploaded-file-runtime-smoke-packet.md" in portfolio
