@@ -46,6 +46,12 @@ Issue template link-map refresh:
 docs/review/external-review-issue-template-link-map-refresh.md
 ```
 
+Issue label verification:
+
+```text
+docs/review/external-review-issue-label-verification.md
+```
+
 ## Review Path
 
 Please read in this order:

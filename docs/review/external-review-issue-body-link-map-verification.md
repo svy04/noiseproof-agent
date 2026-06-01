@@ -66,6 +66,12 @@ Related issue template refresh:
 docs/review/external-review-issue-template-link-map-refresh.md
 ```
 
+Related issue label verification:
+
+```text
+docs/review/external-review-issue-label-verification.md
+```
+
 The issue body still preserves the boundary that self-authored issue edits or comments do not close the `external reviewer feedback v0` gate.
 
 ## Allowed Claim

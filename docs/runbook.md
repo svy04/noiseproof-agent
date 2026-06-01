@@ -1253,6 +1253,10 @@ Phase marker: external review issue template link-map refresh v0.
 
 Use `docs/review/external-review-issue-template-link-map-refresh.md` when checking why `.github/ISSUE_TEMPLATE/external-review-feedback.md` includes direct reviewer links. This refresh helps future reviewers who open a new issue from the template, but it is not external reviewer feedback.
 
+Phase marker: external review issue label verification v0.
+
+Use `docs/review/external-review-issue-label-verification.md` when checking whether the live public issue #1 is labeled as an external review / feedback request. The verified labels are `external-review` and `feedback`; the verified `comment_count` remains `0`, so this does not close the external reviewer feedback gate.
+
 Phase marker: external reviewer outreach packet v0.
 
 Use `docs/review/external-reviewer-outreach-packet.md` when you need copy-paste outreach messages for an actual human reviewer. It has separate messages for an FDE / product engineer reviewer, a RAG / data engineer reviewer, and a founder / operator reviewer.
