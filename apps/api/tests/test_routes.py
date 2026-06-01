@@ -589,6 +589,40 @@ def test_list_document_upload_intake_manifests_returns_recent_manifest_metadata(
     assert client.get("/documents").json() == []
 
 
+def test_document_upload_parsed_document_persists_profile_without_raw_file_storage():
+    client = make_client()
+    content = b"# Market note\nEnterprise demand growth was 12 percent in 2026.\n"
+
+    response = client.post(
+        "/documents/upload-parsed-documents",
+        data={"source_type": "markdown", "title": "Uploaded market note"},
+        files={"file": ("sample-note.md", content, "text/markdown")},
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    profile_json = body["profile_json"]
+
+    assert body["filename"] == "sample-note.md"
+    assert body["source_uri"] == "upload://sample-note.md"
+    assert body["source_type"] == "markdown"
+    assert body["title"] == "Uploaded market note"
+    assert body["status"] == "parsed_metadata_only"
+    assert body["extraction_quality"] in {"medium", "high"}
+    assert profile_json["persistence_boundary"] == (
+        "document_metadata_and_profile_only_no_raw_file_storage"
+    )
+    assert profile_json["raw_file_storage"] is False
+    assert profile_json["parsed_text_storage"] is False
+    assert profile_json["parser"] == "markdown"
+    assert profile_json["profile"]["recommended_strategy"]
+    assert profile_json["upload"]["byte_count"] == len(content)
+    assert any("metadata/profile only" in warning for warning in profile_json["parse_warnings"])
+    assert not any("does not create documents" in warning for warning in profile_json["parse_warnings"])
+    assert "Enterprise demand growth" not in str(profile_json)
+    assert len(client.get("/documents").json()) == 1
+
+
 def test_document_upload_preview_parses_markdown_without_persistence():
     client = make_client()
     content = b"# Demand note\nEnterprise demand grew 12% in 2026.\n"

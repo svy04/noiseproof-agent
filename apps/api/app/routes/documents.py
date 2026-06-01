@@ -198,6 +198,82 @@ def list_upload_document_intake_manifests(
     return list(repository.list_uploaded_file_intake_manifests(limit=limit))
 
 
+@router.post(
+    "/upload-parsed-documents",
+    response_model=DocumentOut,
+    status_code=201,
+)
+async def upload_parsed_document(
+    file: UploadFile = File(...),
+    source_type: str | None = Form(default=None),
+    title: str | None = Form(default=None),
+    repository: Repository = Depends(get_repository),
+) -> dict:
+    content = await file.read()
+
+    def operation(_agent_run_id) -> dict:
+        preview = preview_upload(
+            filename=file.filename,
+            content_type=file.content_type,
+            source_type=source_type,
+            content=content,
+        )
+        failure_case_candidate = (
+            preview.failure_case_candidate.model_dump()
+            if preview.failure_case_candidate
+            else None
+        )
+        parse_warnings = [
+            warning
+            for warning in preview.warnings
+            if "does not create documents" not in warning
+        ]
+        parse_warnings.append(
+            "Upload parsed document persistence stores document metadata/profile only and "
+            "does not store raw uploaded bytes or parsed text."
+        )
+        payload = DocumentCreate(
+            source_type=preview.source_type,
+            source_uri=f"upload://{file.filename}" if file.filename else "upload://unnamed",
+            filename=file.filename,
+            title=title or file.filename,
+            profile_json={
+                "persistence_boundary": "document_metadata_and_profile_only_no_raw_file_storage",
+                "raw_file_storage": False,
+                "parsed_text_storage": False,
+                "parser": preview.parser,
+                "metadata": preview.metadata,
+                "profile": preview.profile.model_dump(),
+                "parse_warnings": parse_warnings,
+                "failure_case_candidate": failure_case_candidate,
+                "upload": {
+                    "filename": preview.filename,
+                    "content_type": preview.content_type,
+                    "byte_count": preview.byte_count,
+                },
+            },
+            extraction_quality=preview.profile.extraction_quality,
+            status="parsed_metadata_only",
+        )
+        return repository.create_document(payload)
+
+    return run_with_trace(
+        repository,
+        endpoint="POST /documents/upload-parsed-documents",
+        user_question=f"upload parsed document persist: {source_type or file.filename or 'unknown'}",
+        trace_json={
+            "source_type": source_type,
+            "filename": file.filename,
+            "content_type": file.content_type,
+            "byte_count": len(content),
+            "persistence_boundary": "document_metadata_and_profile_only_no_raw_file_storage",
+            "raw_file_storage": False,
+            "parsed_text_storage": False,
+        },
+        operation=operation,
+    )
+
+
 @router.post("/upload-chunk-preview", response_model=UploadChunkPreviewOut)
 async def upload_document_chunk_preview(
     file: UploadFile = File(...),

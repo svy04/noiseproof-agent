@@ -64,6 +64,8 @@ Uploaded file intake manifest persistence runtime smoke: `docs/review/uploaded-f
 
 Uploaded file intake manifest persistence application refresh: `docs/review/uploaded-file-intake-manifest-persistence-application-refresh.md` surfaces the persistence runtime smoke in the portfolio, Braincrew role map, application-ready review, README, and runbook. It is not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, and not raw file storage.
 
+Uploaded file parsed document persistence: `docs/review/uploaded-file-parsed-document-persistence.md` records `POST /documents/upload-parsed-documents`, which persists uploaded-file document metadata and parser/profile output with `document_metadata_and_profile_only_no_raw_file_storage`. It stores no raw uploaded bytes and no parsed text, and it is not robust PDF extraction.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.

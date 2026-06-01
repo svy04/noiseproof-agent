@@ -276,7 +276,7 @@ Implemented:
 
 Not implemented:
 
-- persisted file upload parsing
+- raw uploaded file storage
 - robust PDF extraction
 - persisted parse records
 - persisted chunks
@@ -2001,6 +2001,28 @@ manifest_only_no_raw_file_storage
 ```
 
 This is an owner-authored issue edit, not external reviewer feedback.
+
+Phase marker: uploaded file parsed document persistence v0.
+
+Use `POST /documents/upload-parsed-documents` to persist uploaded-file document metadata and parser/profile output into the existing `documents` table without storing raw uploaded bytes or parsed text.
+
+Endpoint smoke command:
+
+```bash
+curl -F "source_type=markdown" -F "title=Uploaded market note" -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown" http://localhost:8000/documents/upload-parsed-documents
+curl http://localhost:8000/documents
+```
+
+Expected boundary:
+
+```text
+status = parsed_metadata_only
+persistence_boundary = document_metadata_and_profile_only_no_raw_file_storage
+raw_file_storage = false
+parsed_text_storage = false
+```
+
+This endpoint creates a `documents` row with upload filename, source URI, parser name, parser metadata, profile summary, parse warnings, and upload byte count. It does not store raw uploaded bytes, does not persist parsed text, does not create chunks, does not create retrieval runs, does not generate Evidence Ledger entries, and does not claim robust PDF extraction.
 
 ## Metadata Examples
 

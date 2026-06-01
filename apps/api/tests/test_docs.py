@@ -4047,3 +4047,34 @@ def test_external_reviewer_upload_manifest_persistence_issue_body_refresh_record
         "docs/review/external-review-issue-body-upload-manifest-persistence-refresh.md"
         in portfolio
     )
+
+
+def test_uploaded_file_parsed_document_persistence_keeps_raw_storage_boundary_visible():
+    review_path = REPO_ROOT / "docs/review/uploaded-file-parsed-document-persistence.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Parsed Document Persistence" in content
+    assert "uploaded file parsed document persistence v0" in content
+    assert "POST /documents/upload-parsed-documents" in content
+    assert "document_metadata_and_profile_only_no_raw_file_storage" in content
+    assert "no raw uploaded bytes" in content
+    assert "no parsed text persistence" in content
+    assert "not robust PDF extraction" in content
+    assert (
+        "Uploaded file parsed document persistence v0: implemented"
+        in readme
+    )
+    assert "Phase 172 - Uploaded File Parsed Document Persistence v0" in goal
+    assert "uploaded file parsed document persistence v0" in runbook
+    assert (
+        "docs/review/uploaded-file-parsed-document-persistence.md"
+        in portfolio
+    )

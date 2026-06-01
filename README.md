@@ -113,7 +113,7 @@ Detailed implementation history remains in the lower detailed Implementation Sta
 Still planned or explicitly unclaimed near the top:
 
 - web app and polished dashboard UI
-- persisted file upload parsing and robust PDF extraction
+- raw uploaded file storage and robust PDF extraction
 - persisted chunks, embeddings, semantic retrieval, and LLM calls
 - hosted deployment evidence
 - automatic failure-case creation from workflow failures
@@ -195,12 +195,13 @@ Major implementation milestones:
 - Uploaded file intake manifest persistence application refresh v0: implemented
 - External reviewer upload-manifest persistence request refresh v0: implemented
 - External reviewer upload-manifest persistence issue-body refresh v0: implemented
+- Uploaded file parsed document persistence v0: implemented
 
-For exhaustive phase history, use `docs/GOAL.md`. Artifacts: `docs/review/*`, `docs/application/portfolio-index.md`.
+For exhaustive phase history, use `docs/GOAL.md`.
 
 Not implemented yet:
 
-- persisted file upload parsing
+- raw uploaded file storage
 - robust PDF extraction
 - persisted chunks
 - autonomous workflow execution endpoints
