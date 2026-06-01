@@ -34,6 +34,13 @@ Direct reviewer link map:
 docs/review/external-reviewer-link-map.md
 ```
 
+Root review guide:
+
+```text
+CONTRIBUTING.md
+docs/review/external-review-root-guide.md
+```
+
 Live issue body verification:
 
 ```text

@@ -18,15 +18,17 @@ https://github.com/svy04/noiseproof-agent/issues/1
 
 1. Reviewer brief:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-brief.md
-2. README:
+2. Root review guide:
+   https://github.com/svy04/noiseproof-agent/blob/main/CONTRIBUTING.md
+3. README:
    https://github.com/svy04/noiseproof-agent/blob/main/README.md
-3. External-reader proof path:
+4. External-reader proof path:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path.md
-4. Portfolio index:
+5. Portfolio index:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/application/portfolio-index.md
-5. Local browser screenshot walkthrough:
+6. Local browser screenshot walkthrough:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/local-browser-screenshot-walkthrough.md
-6. Feedback intake criteria:
+7. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route

@@ -2901,6 +2901,49 @@ def test_external_review_owner_request_comment_verification_records_self_authore
     )
 
 
+def test_external_review_root_guide_reduces_github_entry_friction_without_claiming_feedback():
+    contributing_path = REPO_ROOT / "CONTRIBUTING.md"
+    guide_path = REPO_ROOT / "docs/review/external-review-root-guide.md"
+    assert contributing_path.is_file()
+    assert guide_path.is_file()
+
+    contributing = contributing_path.read_text(encoding="utf-8")
+    guide = guide_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Review Guide" in contributing
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in contributing
+    assert "docs/review/external-reader-proof-path.md" in contributing
+    assert "docs/review/external-feedback-intake-criteria.md" in contributing
+    assert "external reviewer feedback v0" in contributing
+    assert "not external reviewer feedback" in contributing
+    assert "External Review Root Guide" in guide
+    assert "external review root guide v0" in guide
+    assert "CONTRIBUTING.md" in guide
+    assert "not external reviewer feedback" in guide
+    assert "External review root guide v0: implemented" in readme
+    assert "external review root guide v0" in goal
+    assert "external review root guide v0" in runbook
+    assert "docs/review/external-review-root-guide.md" in portfolio
+    assert "CONTRIBUTING.md" in request
+    assert "CONTRIBUTING.md" in link_map
+    assert "CONTRIBUTING.md" in issue_template
+
+
 def test_readme_next_gate_matches_external_feedback_state_without_stale_phase_claim():
     refresh_path = REPO_ROOT / "docs/review/readme-next-gate-stale-claim-refresh.md"
     assert refresh_path.is_file()

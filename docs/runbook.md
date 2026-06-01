@@ -1245,6 +1245,10 @@ Phase marker: external reviewer link map v0.
 
 Use `docs/review/external-reviewer-link-map.md` when an outside reviewer needs direct links to issue #1, README, the proof path, the portfolio index, the screenshot walkthrough, and feedback criteria. This is link hygiene only. It is not external reviewer feedback, customer validation, Braincrew acceptance, or hosted deployment evidence.
 
+Phase marker: external review root guide v0.
+
+Use `CONTRIBUTING.md` when an outside reviewer starts from the repository root. `docs/review/external-review-root-guide.md` records why the root guide exists. It is review-entry infrastructure only and is not external reviewer feedback.
+
 Phase marker: external review issue body link-map verification v0.
 
 Use `docs/review/external-review-issue-body-link-map-verification.md` when verifying that the live public issue #1 body includes the reviewer link map and direct README link. The verified `comment_count` remains `0`, so this does not close the external reviewer feedback gate.

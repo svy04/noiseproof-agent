@@ -17,6 +17,7 @@ assignees: ""
 Fast links:
 
 - Reviewer link map: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-link-map.md
+- Root review guide: https://github.com/svy04/noiseproof-agent/blob/main/CONTRIBUTING.md
 - README: https://github.com/svy04/noiseproof-agent/blob/main/README.md
 - External-reader proof path: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path.md
 - Portfolio index: https://github.com/svy04/noiseproof-agent/blob/main/docs/application/portfolio-index.md
