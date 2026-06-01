@@ -2409,6 +2409,31 @@ no retrieval persistence
 no embeddings
 ```
 
+## External feedback current-state chunk issue verification
+
+Phase marker: external feedback current-state chunk issue verification v0.
+
+Use `docs/review/external-feedback-current-state-chunk-issue-verification.md` when checking the live issue #1 feedback state after the uploaded-file chunk persistence issue-body refresh.
+
+Observed current-state screen:
+
+```text
+comment_count: 1
+candidate_count: 0
+draft_count: 0
+self_authored_comment
+```
+
+Boundary:
+
+```text
+not external reviewer feedback
+does not close external reviewer feedback v0
+not customer validation
+not Braincrew acceptance
+not hosted deployment evidence
+```
+
 ## Metadata Examples
 
 Create a document metadata record:

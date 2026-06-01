@@ -400,6 +400,8 @@ The owner approved continuing implementation while that external-review gate sta
 
 File upload preview v0 through uploaded file chunk persistence application refresh v0 are now implemented as bounded upload proof steps. The current next evidence gate remains `external reviewer feedback v0`; external reviewer feedback is still pending.
 
+The latest current-state screen after the uploaded-file chunk persistence issue-body refresh is recorded in `docs/review/external-feedback-current-state-chunk-issue-verification.md`. It observes `comment_count: 1`, `candidate_count: 0`, and `draft_count: 0`; the only public comment is owner-authored and does not close `external reviewer feedback v0`.
+
 ## Braincrew Role Alignment
 
 Primary hiring target:

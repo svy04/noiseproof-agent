@@ -4679,3 +4679,44 @@ def test_external_reviewer_chunk_persistence_issue_body_refresh_records_live_iss
         "docs/review/external-review-issue-body-chunk-persistence-refresh.md"
         in portfolio
     )
+
+
+def test_external_feedback_current_state_chunk_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-chunk-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Feedback Current-state Chunk Issue Verification" in content
+    assert "external feedback current-state chunk issue verification v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "self_authored_comment" in content
+    assert "non_qualifying" in content
+    assert "uploaded-file chunk persistence proof" in content
+    assert "not external reviewer feedback" in content
+    assert "does not close external reviewer feedback v0" in content
+    assert (
+        "External feedback current-state chunk issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 187 - External Feedback Current-state Chunk Issue Verification v0"
+        in goal
+    )
+    assert "external feedback current-state chunk issue verification v0" in runbook
+    assert (
+        "docs/review/external-feedback-current-state-chunk-issue-verification.md"
+        in portfolio
+    )
