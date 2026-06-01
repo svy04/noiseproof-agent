@@ -4305,3 +4305,48 @@ def test_uploaded_file_chunk_persistence_review_selects_chunk_boundary_before_sc
     assert "Phase 177 - Uploaded File Chunk Persistence Review v0" in goal
     assert "uploaded file chunk persistence review v0" in runbook
     assert "docs/review/uploaded-file-chunk-persistence-review.md" in portfolio
+
+
+def test_uploaded_file_chunk_persistence_schema_adds_document_chunks_without_embeddings():
+    review_path = REPO_ROOT / "docs/review/uploaded-file-chunk-persistence-schema.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    init_sql = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
+    migration_sql = (
+        REPO_ROOT / "db/migrations/013_document_chunks.sql"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded File Chunk Persistence Schema" in content
+    assert "uploaded file chunk persistence schema v0" in content
+    assert "schema-only" in content
+    assert "CREATE TABLE IF NOT EXISTS document_chunks" in init_sql
+    assert "CREATE TABLE IF NOT EXISTS document_chunks" in migration_sql
+    assert "document_id UUID NOT NULL REFERENCES documents(id) ON DELETE CASCADE" in migration_sql
+    assert "chunk_strategy TEXT NOT NULL" in migration_sql
+    assert "chunk_index INTEGER NOT NULL" in migration_sql
+    assert "chunk_text TEXT NOT NULL" in migration_sql
+    assert "metadata_json JSONB NOT NULL DEFAULT '{}'::jsonb" in migration_sql
+    assert (
+        "persistence_boundary TEXT NOT NULL DEFAULT 'chunk_text_only_no_raw_file_storage'"
+        in migration_sql
+    )
+    assert "CREATE INDEX IF NOT EXISTS idx_document_chunks_document_id" in migration_sql
+    assert "embedding" not in migration_sql.lower()
+    assert "no endpoint" in content
+    assert "no repository code" in content
+    assert "no chunk rows" in content
+    assert "not raw file storage" in content
+    assert "not full parsed text persistence" in content
+    assert "no embeddings" in content
+    assert "uploaded file chunk persistence repository review v0" in content
+    assert "Uploaded file chunk persistence schema v0: implemented" in readme
+    assert "Phase 178 - Uploaded File Chunk Persistence Schema v0" in goal
+    assert "uploaded file chunk persistence schema v0" in runbook
+    assert "docs/review/uploaded-file-chunk-persistence-schema.md" in portfolio

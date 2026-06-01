@@ -2115,6 +2115,37 @@ Next bounded product gate:
 uploaded file chunk persistence schema v0
 ```
 
+## Uploaded file chunk persistence schema
+
+Phase marker: uploaded file chunk persistence schema v0.
+
+Schema files:
+
+```text
+db/init/001_schema.sql
+db/migrations/013_document_chunks.sql
+```
+
+This creates `document_chunks` with `document_id`, `chunk_strategy`, `chunk_index`, `chunk_text`, `metadata_json`, and `persistence_boundary = chunk_text_only_no_raw_file_storage`.
+
+Current boundary:
+
+```text
+schema-only
+no endpoint
+no repository code
+no chunk rows
+no embeddings
+not raw file storage
+not full parsed text persistence
+```
+
+Next bounded product gate:
+
+```text
+uploaded file chunk persistence repository review v0
+```
+
 ## Metadata Examples
 
 Create a document metadata record:
