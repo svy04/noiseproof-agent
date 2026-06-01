@@ -1614,6 +1614,28 @@ Expected boundary:
 
 The uploaded file failure-case draft preview is preview-only. It does not create failure_cases. It is not automatic failure detection and not root-cause automation. A human must confirm or edit the draft before submitting it through `POST /failure-cases`. Buy/sell questions remain blocked at this preview boundary.
 
+Phase marker: uploaded file failure-case manual handoff smoke v0.
+
+Manual handoff smoke path:
+
+```bash
+# 1. Create an uploaded-file failure-case draft.
+curl -X POST http://localhost:8000/documents/upload-failure-case-draft-preview \
+  -F "question=Should I sell this stock?" \
+  -F "source_type=markdown" \
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown"
+
+# 2. Inspect the returned draft_preview.draft payload.
+# 3. Manually submit the confirmed or edited draft payload.
+curl -X POST http://localhost:8000/failure-cases \
+  -H "Content-Type: application/json" \
+  -d "{\"failure_type\":\"workflow_stage_error\",\"description\":\"Workflow question 'Should I sell this stock?' reached status blocked at uploaded_file_report_preview.\",\"root_cause\":\"UploadedReportBlocked: Reframe buy/sell or target-price intent into evidence-based market intelligence.\",\"fix_status\":\"draft\",\"next_action\":\"Review the failed workflow stage, confirm the failure type, then manually submit or edit the failure case.\"}"
+
+curl http://localhost:8000/failure-cases
+```
+
+This smoke path is a manual handoff. It is not automatic failure-case creation, not automatic failure detection, and not root-cause automation.
+
 ## Metadata Examples
 
 Create a document metadata record:

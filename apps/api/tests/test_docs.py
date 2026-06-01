@@ -3354,3 +3354,28 @@ def test_uploaded_file_failure_case_draft_preview_is_documented_as_preview_only_
     assert "Phase 152 - Uploaded File Failure-case Draft Preview v0" in goal
     assert "uploaded file failure-case draft preview v0" in runbook
     assert "docs/review/uploaded-file-failure-case-draft-preview.md" in portfolio
+
+
+def test_uploaded_file_failure_case_manual_handoff_smoke_is_documented_without_automation_claim():
+    review_path = REPO_ROOT / "docs/review/uploaded-file-failure-case-manual-handoff-smoke.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Failure-case Manual Handoff Smoke" in content
+    assert "uploaded file failure-case manual handoff smoke v0" in content
+    assert "POST /documents/upload-failure-case-draft-preview" in content
+    assert "POST /failure-cases" in content
+    assert "manual handoff" in content
+    assert "not automatic failure-case creation" in content
+    assert "not automatic failure detection" in content
+    assert "Uploaded file failure-case manual handoff smoke v0: implemented" in readme
+    assert "Phase 153 - Uploaded File Failure-case Manual Handoff Smoke v0" in goal
+    assert "uploaded file failure-case manual handoff smoke v0" in runbook
+    assert "docs/review/uploaded-file-failure-case-manual-handoff-smoke.md" in portfolio

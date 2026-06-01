@@ -852,6 +852,40 @@ def test_document_upload_failure_case_draft_preview_keeps_trading_boundary():
     assert client.get("/failure-cases").json() == []
 
 
+def test_document_upload_failure_case_draft_can_be_manually_persisted_without_automation():
+    client = make_client()
+
+    draft_response = client.post(
+        "/documents/upload-failure-case-draft-preview",
+        data={"question": "Should I sell this stock?", "source_type": "markdown"},
+        files={
+            "file": (
+                "earnings-note.md",
+                b"Revenue declined after earnings.",
+                "text/markdown",
+            )
+        },
+    )
+    draft_body = draft_response.json()
+
+    assert draft_response.status_code == 200
+    assert client.get("/failure-cases").json() == []
+
+    manual_response = client.post(
+        "/failure-cases",
+        json=draft_body["draft_preview"]["draft"],
+    )
+
+    assert manual_response.status_code == 201
+    persisted = manual_response.json()
+    assert persisted["failure_type"] == "workflow_stage_error"
+    assert persisted["fix_status"] == "draft"
+    assert "Should I sell this stock?" in persisted["description"]
+    listed = client.get("/failure-cases").json()
+    assert len(listed) == 1
+    assert listed[0]["id"] == persisted["id"]
+
+
 def test_workflow_run_metadata_roundtrip_without_orchestration():
     client = make_client()
 
