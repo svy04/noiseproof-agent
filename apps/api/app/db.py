@@ -15,6 +15,7 @@ from app.schemas import (
     OpsSummaryOut,
     ReportPreviewOut,
     RetrievalRunCreate,
+    UploadedFileIntakeManifestCreate,
     WorkflowRunCreate,
 )
 from app.settings import Settings, get_settings
@@ -23,6 +24,11 @@ from app.settings import Settings, get_settings
 class Repository(Protocol):
     def create_document(self, payload: DocumentCreate) -> dict: ...
     def list_documents(self) -> Sequence[dict]: ...
+    def create_uploaded_file_intake_manifest(
+        self,
+        payload: UploadedFileIntakeManifestCreate,
+    ) -> dict: ...
+    def list_uploaded_file_intake_manifests(self, limit: int = 20) -> Sequence[dict]: ...
     def create_agent_run(self, payload: AgentRunCreate) -> dict: ...
     def update_agent_run(
         self,
@@ -134,6 +140,51 @@ class PostgresRepository:
         with self._connect() as conn:
             rows = conn.execute(
                 "SELECT * FROM documents ORDER BY created_at DESC, id DESC"
+            ).fetchall()
+            return [dict(row) for row in rows]
+
+    def create_uploaded_file_intake_manifest(
+        self,
+        payload: UploadedFileIntakeManifestCreate,
+    ) -> dict:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                INSERT INTO uploaded_file_intake_manifests (
+                  content_sha256, filename, source_type, content_type,
+                  size_bytes, parser, profile_json, storage_decision,
+                  replayable, persistence_boundary, warnings_json
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING *
+                """,
+                (
+                    payload.content_sha256,
+                    payload.filename,
+                    payload.source_type,
+                    payload.content_type,
+                    payload.size_bytes,
+                    payload.parser,
+                    Jsonb(payload.profile_json),
+                    payload.storage_decision,
+                    payload.replayable,
+                    payload.persistence_boundary,
+                    Jsonb(payload.warnings_json),
+                ),
+            ).fetchone()
+            conn.commit()
+            return dict(row)
+
+    def list_uploaded_file_intake_manifests(self, limit: int = 20) -> Sequence[dict]:
+        safe_limit = max(1, min(limit, 100))
+        with self._connect() as conn:
+            rows = conn.execute(
+                """
+                SELECT * FROM uploaded_file_intake_manifests
+                ORDER BY created_at DESC, id DESC
+                LIMIT %s
+                """,
+                (safe_limit,),
             ).fetchall()
             return [dict(row) for row in rows]
 

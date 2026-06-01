@@ -1902,6 +1902,18 @@ list_recent_manifests(limit)
 
 This review keeps repository scope to manifest metadata in `uploaded_file_intake_manifests`. It adds no endpoint, no repository code, and no raw uploaded bytes. The next product gate is `uploaded file intake manifest persistence repository v0`.
 
+Phase marker: uploaded file intake manifest persistence repository v0.
+
+Implemented repository surface:
+
+```text
+UploadedFileIntakeManifestCreate
+create_uploaded_file_intake_manifest(payload)
+list_uploaded_file_intake_manifests(limit)
+```
+
+This is repository code only. It adds no endpoint, stores no raw uploaded bytes, and is not automatic persistence from upload preview. The next product gate is `uploaded file intake manifest persistence endpoint review v0`.
+
 ## Metadata Examples
 
 Create a document metadata record:

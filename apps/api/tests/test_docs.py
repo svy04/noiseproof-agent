@@ -3759,3 +3759,33 @@ def test_uploaded_file_intake_manifest_persistence_repository_review_defines_sma
         "docs/review/uploaded-file-intake-manifest-persistence-repository-review.md"
         in portfolio
     )
+
+
+def test_uploaded_file_intake_manifest_persistence_repository_documents_code_boundary():
+    review_path = REPO_ROOT / "docs/review/uploaded-file-intake-manifest-persistence-repository.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Intake Manifest Persistence Repository" in content
+    assert "uploaded file intake manifest persistence repository v0" in content
+    assert "UploadedFileIntakeManifestCreate" in content
+    assert "create_uploaded_file_intake_manifest" in content
+    assert "list_uploaded_file_intake_manifests" in content
+    assert "uploaded_file_intake_manifests" in content
+    assert "no endpoint" in content
+    assert "no raw uploaded bytes" in content
+    assert "not automatic persistence from upload preview" in content
+    assert "Uploaded file intake manifest persistence repository v0: implemented" in readme
+    assert "Phase 165 - Uploaded File Intake Manifest Persistence Repository v0" in goal
+    assert "uploaded file intake manifest persistence repository v0" in runbook
+    assert (
+        "docs/review/uploaded-file-intake-manifest-persistence-repository.md"
+        in portfolio
+    )

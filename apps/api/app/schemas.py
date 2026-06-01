@@ -90,6 +90,25 @@ class UploadIntakeManifestPreviewOut(BaseModel):
     warnings: list[str]
 
 
+class UploadedFileIntakeManifestCreate(BaseModel):
+    content_sha256: str = Field(..., min_length=1)
+    filename: str | None = None
+    source_type: str = Field(..., min_length=1)
+    content_type: str | None = None
+    size_bytes: int = Field(default=0, ge=0)
+    parser: str | None = None
+    profile_json: dict[str, Any] = Field(default_factory=dict)
+    storage_decision: str = "do_not_persist_raw_upload_yet"
+    replayable: bool = False
+    persistence_boundary: str = "manifest_only_no_raw_file_storage"
+    warnings_json: list[str] = Field(default_factory=list)
+
+
+class UploadedFileIntakeManifestOut(UploadedFileIntakeManifestCreate):
+    id: UUID
+    created_at: datetime
+
+
 class ChunkPreviewRequest(BaseModel):
     source_type: str = Field(..., min_length=1)
     content: str = ""
