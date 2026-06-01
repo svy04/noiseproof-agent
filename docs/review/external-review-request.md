@@ -34,6 +34,12 @@ Direct reviewer link map:
 docs/review/external-reviewer-link-map.md
 ```
 
+Live issue body verification:
+
+```text
+docs/review/external-review-issue-body-link-map-verification.md
+```
+
 ## Review Path
 
 Please read in this order:

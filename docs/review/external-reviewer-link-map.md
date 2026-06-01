@@ -39,6 +39,10 @@ Repository route verification:
 
 https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-live-proof-route-refresh.md
 
+Live issue body verification:
+
+https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-review-issue-body-link-map-verification.md
+
 ## Review Questions
 
 Please leave one evidence-referenced comment on issue #1.
