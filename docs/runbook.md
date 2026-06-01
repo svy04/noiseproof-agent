@@ -2378,6 +2378,37 @@ no retrieval persistence
 no embeddings
 ```
 
+## External reviewer chunk persistence issue-body refresh
+
+Phase marker: external reviewer chunk persistence issue-body refresh v0.
+
+This is an owner-authored live public issue #1 body update. It points reviewers to uploaded-file chunk persistence proof while keeping the external reviewer feedback gate open.
+
+Verification artifact:
+
+```text
+docs/review/external-review-issue-body-chunk-persistence-refresh.md
+```
+
+Observed live markers:
+
+```text
+first_codepoint -> 35
+uploaded-file chunk persistence proof -> present
+9. uploaded-file chunk persistence proof -> present
+not automatic persistence from upload preview -> present
+```
+
+Boundary:
+
+```text
+not external reviewer feedback
+not automatic persistence from upload preview
+not hosted deployment evidence
+no retrieval persistence
+no embeddings
+```
+
 ## Metadata Examples
 
 Create a document metadata record:

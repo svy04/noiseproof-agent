@@ -4636,3 +4636,46 @@ def test_external_reviewer_chunk_persistence_request_refresh_routes_reviewers_to
             in reviewer_surface
         )
         assert "not automatic persistence from upload preview" in reviewer_surface
+
+
+def test_external_reviewer_chunk_persistence_issue_body_refresh_records_live_issue_update():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-chunk-persistence-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Chunk Persistence Refresh" in content
+    assert "external reviewer chunk persistence issue-body refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "uploaded-file chunk persistence proof" in content
+    assert "docs/review/uploaded-file-chunk-persistence-runtime-smoke.md" in content
+    assert "POST /documents/{document_id}/chunks" in content
+    assert "GET /documents/{document_id}/chunks" in content
+    assert "chunk_text_only_no_raw_file_storage" in content
+    assert "preview_only_not_persisted" in content
+    assert "not automatic persistence from upload preview" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "owner-authored issue edit" in content
+    assert (
+        "External reviewer chunk persistence issue-body refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 186 - External Reviewer Chunk Persistence Issue-body Refresh v0"
+        in goal
+    )
+    assert "external reviewer chunk persistence issue-body refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-chunk-persistence-refresh.md"
+        in portfolio
+    )
