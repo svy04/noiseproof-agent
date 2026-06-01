@@ -14,6 +14,8 @@ from app.schemas import (
     UploadEvidencePreviewOut,
     UploadFailureCaseDraftPreviewOut,
     UploadIntakeManifestPreviewOut,
+    UploadedFileIntakeManifestCreate,
+    UploadedFileIntakeManifestOut,
     UploadNoiseGatePreviewOut,
     UploadPreviewOut,
     UploadReportPreviewOut,
@@ -133,6 +135,67 @@ async def upload_document_intake_manifest_preview(
             content=content,
         ),
     )
+
+
+@router.post(
+    "/upload-intake-manifests",
+    response_model=UploadedFileIntakeManifestOut,
+    status_code=201,
+)
+async def upload_document_intake_manifest(
+    file: UploadFile = File(...),
+    source_type: str | None = Form(default=None),
+    repository: Repository = Depends(get_repository),
+) -> dict:
+    content = await file.read()
+
+    def operation(_agent_run_id) -> dict:
+        preview = preview_uploaded_intake_manifest(
+            filename=file.filename,
+            content_type=file.content_type,
+            source_type=source_type,
+            content=content,
+        )
+        payload = UploadedFileIntakeManifestCreate(
+            content_sha256=preview.content_sha256,
+            filename=preview.filename,
+            source_type=preview.source_type,
+            content_type=preview.content_type,
+            size_bytes=preview.byte_count,
+            parser=preview.parser,
+            profile_json=preview.profile.model_dump(),
+            storage_decision=preview.storage_decision,
+            replayable=preview.replayable,
+            persistence_boundary="manifest_only_no_raw_file_storage",
+            warnings_json=preview.warnings,
+        )
+        return repository.create_uploaded_file_intake_manifest(payload)
+
+    return run_with_trace(
+        repository,
+        endpoint="POST /documents/upload-intake-manifests",
+        user_question=f"upload intake manifest persist: {source_type or file.filename or 'unknown'}",
+        trace_json={
+            "source_type": source_type,
+            "filename": file.filename,
+            "content_type": file.content_type,
+            "byte_count": len(content),
+            "persistence_boundary": "manifest_only_no_raw_file_storage",
+            "raw_file_storage": False,
+        },
+        operation=operation,
+    )
+
+
+@router.get(
+    "/upload-intake-manifests",
+    response_model=list[UploadedFileIntakeManifestOut],
+)
+def list_upload_document_intake_manifests(
+    limit: int = 20,
+    repository: Repository = Depends(get_repository),
+) -> list[dict]:
+    return list(repository.list_uploaded_file_intake_manifests(limit=limit))
 
 
 @router.post("/upload-chunk-preview", response_model=UploadChunkPreviewOut)

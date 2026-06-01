@@ -23,6 +23,7 @@ class InMemoryRepository:
         self.report_records = []
         self.retrieval_runs = []
         self.workflow_runs = []
+        self.uploaded_file_intake_manifests = []
 
     def create_document(self, payload: DocumentCreate) -> dict:
         row = payload.model_dump()
@@ -33,6 +34,16 @@ class InMemoryRepository:
 
     def list_documents(self):
         return self.documents
+
+    def create_uploaded_file_intake_manifest(self, payload) -> dict:
+        row = payload.model_dump()
+        row["id"] = uuid4()
+        row["created_at"] = datetime.now(timezone.utc)
+        self.uploaded_file_intake_manifests.append(row)
+        return row
+
+    def list_uploaded_file_intake_manifests(self, limit=20):
+        return self.uploaded_file_intake_manifests[:limit]
 
     def create_agent_run(self, payload: AgentRunCreate) -> dict:
         row = payload.model_dump()
@@ -518,6 +529,63 @@ def test_document_upload_intake_manifest_preview_hashes_file_without_persistence
     assert body["manifest"]["profile"]["extraction_quality"] in {"medium", "high"}
     assert body["manifest"]["future_persistence_candidate"] == "uploaded_file_intake"
     assert any("does not create documents" in warning for warning in body["warnings"])
+    assert client.get("/documents").json() == []
+
+
+def test_document_upload_intake_manifest_persists_manifest_metadata_without_raw_file_storage():
+    client = make_client()
+    content = b"# Market note\nEnterprise demand growth was 12 percent in 2026.\n"
+
+    response = client.post(
+        "/documents/upload-intake-manifests",
+        data={"source_type": "markdown"},
+        files={"file": ("sample-note.md", content, "text/markdown")},
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["filename"] == "sample-note.md"
+    assert body["content_type"] == "text/markdown"
+    assert body["size_bytes"] == len(content)
+    assert body["content_sha256"] == sha256(content).hexdigest()
+    assert body["source_type"] == "markdown"
+    assert body["parser"] == "markdown"
+    assert body["storage_decision"] == "do_not_persist_raw_upload_yet"
+    assert body["replayable"] is False
+    assert body["persistence_boundary"] == "manifest_only_no_raw_file_storage"
+    assert body["profile_json"]["extraction_quality"] in {"medium", "high"}
+    assert any(
+        "does not create documents" in warning for warning in body["warnings_json"]
+    )
+    assert client.get("/documents").json() == []
+
+
+def test_list_document_upload_intake_manifests_returns_recent_manifest_metadata():
+    client = make_client()
+    first_content = b"# First\nDemand grew 12 percent.\n"
+    second_content = b"# Second\nDemand fell 4 percent.\n"
+
+    first = client.post(
+        "/documents/upload-intake-manifests",
+        data={"source_type": "markdown"},
+        files={"file": ("first.md", first_content, "text/markdown")},
+    )
+    second = client.post(
+        "/documents/upload-intake-manifests",
+        data={"source_type": "markdown"},
+        files={"file": ("second.md", second_content, "text/markdown")},
+    )
+
+    listed = client.get("/documents/upload-intake-manifests")
+
+    assert first.status_code == 201
+    assert second.status_code == 201
+    assert listed.status_code == 200
+    body = listed.json()
+    assert [item["filename"] for item in body] == ["first.md", "second.md"]
+    assert body[0]["content_sha256"] == sha256(first_content).hexdigest()
+    assert body[1]["content_sha256"] == sha256(second_content).hexdigest()
+    assert all(item["persistence_boundary"] == "manifest_only_no_raw_file_storage" for item in body)
     assert client.get("/documents").json() == []
 
 

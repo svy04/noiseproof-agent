@@ -1925,6 +1925,25 @@ GET /documents/upload-intake-manifests
 
 This review routes the future POST through `create_uploaded_file_intake_manifest` and the future GET through `list_uploaded_file_intake_manifests`. It adds no endpoint code, no raw uploaded bytes, and is not document creation. The next product gate is `uploaded file intake manifest persistence endpoint v0`.
 
+Phase marker: uploaded file intake manifest persistence endpoint v0.
+
+Endpoint smoke commands:
+
+```bash
+curl -F "source_type=markdown" -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown" http://localhost:8000/documents/upload-intake-manifests
+curl http://localhost:8000/documents/upload-intake-manifests
+```
+
+Expected boundary:
+
+```text
+persistence_boundary = manifest_only_no_raw_file_storage
+storage_decision = do_not_persist_raw_upload_yet
+replayable = false
+```
+
+This endpoint stores no raw uploaded bytes, is not document creation, and is not parser output persistence. The next product gate is `uploaded file intake manifest persistence runtime smoke v0`.
+
 ## Metadata Examples
 
 Create a document metadata record:
