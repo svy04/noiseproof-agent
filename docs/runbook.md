@@ -1885,6 +1885,23 @@ created_at
 
 This schema stores manifest metadata only. It is not raw file storage and adds no endpoint. The next product gate is `uploaded file intake manifest persistence repository review v0`.
 
+Phase marker: uploaded file intake manifest persistence repository review v0.
+
+Repository review artifact:
+
+```text
+docs/review/uploaded-file-intake-manifest-persistence-repository-review.md
+```
+
+Proposed repository surface:
+
+```text
+create_manifest(manifest)
+list_recent_manifests(limit)
+```
+
+This review keeps repository scope to manifest metadata in `uploaded_file_intake_manifests`. It adds no endpoint, no repository code, and no raw uploaded bytes. The next product gate is `uploaded file intake manifest persistence repository v0`.
+
 ## Metadata Examples
 
 Create a document metadata record:

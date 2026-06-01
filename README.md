@@ -190,6 +190,7 @@ Major implementation milestones:
 - External reviewer upload-manifest issue-body refresh v0: implemented
 - Persisted uploaded file intake schema review v0: implemented
 - Uploaded file intake manifest persistence schema v0: implemented
+- Uploaded file intake manifest persistence repository review v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`; artifacts live in `docs/review/*` and `docs/application/portfolio-index.md`.
 
@@ -393,7 +394,7 @@ The project already has a reviewer request packet, intake criteria, reviewer bri
 
 The owner approved continuing implementation while that external-review gate stays pending. That approval is recorded in `docs/review/owner-approved-product-continuation-decision.md`; it is not external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, or production readiness.
 
-File upload preview v0 through uploaded file intake manifest persistence schema v0 are now implemented as bounded upload proof steps. The current next evidence gate remains `external reviewer feedback v0`; the current next product implementation gate is `uploaded file intake manifest persistence repository review v0`.
+File upload preview v0 through uploaded file intake manifest persistence repository review v0 are now implemented as bounded upload proof steps. The current next evidence gate remains `external reviewer feedback v0`; the current next product implementation gate is `uploaded file intake manifest persistence repository v0`.
 
 ## Braincrew Role Alignment
 

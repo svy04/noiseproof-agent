@@ -48,6 +48,8 @@ Persisted uploaded file intake schema review: `docs/review/persisted-uploaded-fi
 
 Uploaded file intake manifest persistence schema: `uploaded_file_intake_manifests` now exists in `db/init/001_schema.sql` and `db/migrations/012_uploaded_file_intake_manifests.sql`. It stores manifest metadata only, not raw uploaded bytes.
 
+Uploaded file intake manifest persistence repository review: `docs/review/uploaded-file-intake-manifest-persistence-repository-review.md` defines the small repository boundary before code: `create_manifest` and `list_recent_manifests`, metadata only, no raw uploaded bytes, no endpoint.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.
@@ -234,6 +236,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-review-issue-body-upload-manifest-refresh.md` | owner-authored issue #1 body update pointing to uploaded-file intake manifest proof; not external reviewer feedback |
 | `docs/review/persisted-uploaded-file-intake-schema-review.md` | review-only decision to persist manifest metadata before raw uploaded bytes |
 | `docs/review/uploaded-file-intake-manifest-persistence-schema.md` | schema-only manifest metadata table; no raw uploaded bytes |
+| `docs/review/uploaded-file-intake-manifest-persistence-repository-review.md` | review-only repository boundary for manifest metadata persistence; no endpoint |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

@@ -3718,3 +3718,44 @@ def test_uploaded_file_intake_manifest_persistence_schema_adds_manifest_only_tab
     assert "Phase 163 - Uploaded File Intake Manifest Persistence Schema v0" in goal
     assert "uploaded file intake manifest persistence schema v0" in runbook
     assert "uploaded_file_intake_manifests" in portfolio
+
+
+def test_uploaded_file_intake_manifest_persistence_repository_review_defines_small_boundary():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-file-intake-manifest-persistence-repository-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Intake Manifest Persistence Repository Review" in content
+    assert "uploaded file intake manifest persistence repository review v0" in content
+    assert "review-only" in content
+    assert "uploaded_file_intake_manifests" in content
+    assert "create_manifest" in content
+    assert "list_recent_manifests" in content
+    assert "content_sha256" in content
+    assert "storage_decision" in content
+    assert "no endpoint" in content
+    assert "no raw uploaded bytes" in content
+    assert "uploaded file intake manifest persistence repository v0" in content
+    assert (
+        "Uploaded file intake manifest persistence repository review v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 164 - Uploaded File Intake Manifest Persistence Repository Review v0"
+        in goal
+    )
+    assert "uploaded file intake manifest persistence repository review v0" in runbook
+    assert (
+        "docs/review/uploaded-file-intake-manifest-persistence-repository-review.md"
+        in portfolio
+    )
