@@ -302,6 +302,20 @@ class NoiseGatePreviewOut(BaseModel):
     warnings: list[str]
 
 
+class UploadNoiseGatePreviewOut(BaseModel):
+    filename: str | None = None
+    content_type: str | None = None
+    byte_count: int
+    persistence_boundary: str
+    source_type: str
+    question: str
+    status: str
+    retrieval: UploadRetrievalPreviewOut
+    evidence: EvidenceLedgerPreviewOut
+    gate: NoiseGatePreviewOut
+    warnings: list[str]
+
+
 class NoiseGateStoredRecordOut(NoiseGatePreviewOut):
     id: UUID
     workflow_trace_id: UUID

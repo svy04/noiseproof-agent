@@ -1516,6 +1516,37 @@ Expected boundary:
 
 The uploaded file Evidence Ledger preview is preview-only. It does not create Evidence Ledger entries, retrieval_runs, documents, chunks, Noise Gate records, reports, workflow runs, or failure cases. It is not Noise Gate and not a final report. Buy/sell questions are blocked at this preview boundary.
 
+Phase marker: uploaded file Noise Gate preview v0.
+
+Use `POST /documents/upload-noise-gate-preview` to run lexical retrieval over an uploaded file, convert the returned candidates into preview Evidence Ledger entries, and check them with the deterministic Noise Gate without creating retrieval run, Evidence Ledger, or Noise Gate records.
+
+```bash
+curl -X POST http://localhost:8000/documents/upload-noise-gate-preview \
+  -F "question=Which source supports enterprise demand growth?" \
+  -F "source_type=markdown" \
+  -F "strategy=fixed-window" \
+  -F "top_k=3" \
+  -F "max_characters=500" \
+  -F "overlap=0" \
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown"
+```
+
+Expected boundary:
+
+```json
+{
+  "persistence_boundary": "preview_only_not_persisted",
+  "filename": "sample-note.md",
+  "status": "needs_revision",
+  "gate": {
+    "decision": "needs_revision",
+    "final_response_allowed": false
+  }
+}
+```
+
+The uploaded file Noise Gate preview is preview-only. It does not create Noise Gate records, Evidence Ledger entries, retrieval_runs, documents, chunks, reports, workflow runs, or failure cases. It is not final report generation. Buy/sell questions are blocked at this preview boundary.
+
 ## Metadata Examples
 
 Create a document metadata record:
