@@ -1833,6 +1833,24 @@ not raw file storage
 
 This is an owner-authored issue edit. It is not external reviewer feedback, not raw file storage, not hosted deployment evidence, and not production readiness.
 
+Phase marker: persisted uploaded file intake schema review v0.
+
+Use `docs/review/persisted-uploaded-file-intake-schema-review.md` before adding upload persistence schema.
+
+Current decision:
+
+```text
+persist manifest metadata before raw uploaded bytes
+```
+
+Candidate table:
+
+```text
+uploaded_file_intake_manifests
+```
+
+This review is not a migration, not an endpoint, and not raw file storage. The next product gate is `uploaded file intake manifest persistence schema v0`.
+
 ## Metadata Examples
 
 Create a document metadata record:

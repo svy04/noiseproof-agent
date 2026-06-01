@@ -44,6 +44,8 @@ External reviewer upload-manifest request refresh: `docs/review/external-reviewe
 
 External review issue body upload-manifest refresh: `docs/review/external-review-issue-body-upload-manifest-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file intake manifest proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.
 
+Persisted uploaded file intake schema review: `docs/review/persisted-uploaded-file-intake-schema-review.md` selects manifest metadata before raw uploaded bytes. It is review-only and adds no migration or endpoint.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.
@@ -228,6 +230,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-file-intake-manifest-application-refresh.md` | application-facing refresh for upload intake manifest runtime smoke; not hosted deployment evidence or raw file storage |
 | `docs/review/external-reviewer-upload-manifest-request-refresh.md` | request-path refresh that points external reviewers to uploaded-file intake manifest proof; not external reviewer feedback |
 | `docs/review/external-review-issue-body-upload-manifest-refresh.md` | owner-authored issue #1 body update pointing to uploaded-file intake manifest proof; not external reviewer feedback |
+| `docs/review/persisted-uploaded-file-intake-schema-review.md` | review-only decision to persist manifest metadata before raw uploaded bytes |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

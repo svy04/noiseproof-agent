@@ -3652,3 +3652,32 @@ def test_external_reviewer_upload_manifest_issue_body_refresh_records_live_issue
     assert "Phase 161 - External Reviewer Upload-manifest Issue-body Refresh v0" in goal
     assert "external reviewer upload-manifest issue-body refresh v0" in runbook
     assert "docs/review/external-review-issue-body-upload-manifest-refresh.md" in portfolio
+
+
+def test_persisted_uploaded_file_intake_schema_review_keeps_raw_storage_blocked():
+    review_path = REPO_ROOT / "docs/review/persisted-uploaded-file-intake-schema-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Persisted Uploaded File Intake Schema Review" in content
+    assert "persisted uploaded file intake schema review v0" in content
+    assert "review-only" in content
+    assert "manifest metadata before raw uploaded bytes" in content
+    assert "uploaded_file_intake_manifests" in content
+    assert "content_sha256" in content
+    assert "storage_decision" in content
+    assert "no raw uploaded bytes" in content
+    assert "no migration" in content
+    assert "no endpoint" in content
+    assert "uploaded file intake manifest persistence schema v0" in content
+    assert "Persisted uploaded file intake schema review v0: implemented" in readme
+    assert "Phase 162 - Persisted Uploaded File Intake Schema Review v0" in goal
+    assert "persisted uploaded file intake schema review v0" in runbook
+    assert "docs/review/persisted-uploaded-file-intake-schema-review.md" in portfolio
