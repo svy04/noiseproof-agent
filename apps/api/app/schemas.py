@@ -74,6 +74,22 @@ class UploadPreviewOut(ParsePreviewOut):
     persistence_boundary: str
 
 
+class UploadIntakeManifestPreviewOut(BaseModel):
+    filename: str | None = None
+    content_type: str | None = None
+    byte_count: int
+    content_sha256: str
+    source_type: str
+    parser: str
+    profile: DocumentProfileOut
+    parse_warnings: list[str]
+    manifest: dict[str, Any]
+    storage_decision: str
+    replayable: bool
+    persistence_boundary: str
+    warnings: list[str]
+
+
 class ChunkPreviewRequest(BaseModel):
     source_type: str = Field(..., min_length=1)
     content: str = ""

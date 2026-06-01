@@ -219,6 +219,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-file-proof-path-index.md` | compact uploaded-file proof path from upload preview through manual failure-case handoff |
 | `docs/review/uploaded-file-runtime-smoke-packet.md` | local Docker DB plus FastAPI HTTP smoke over uploaded-file proof path through manual failure-case handoff; not hosted deployment evidence |
 | `docs/review/persisted-uploaded-file-intake-review.md` | review-only decision to keep uploads preview-only before adding persisted file intake storage or schema |
+| `docs/review/uploaded-file-intake-manifest-preview.md` | preview-only upload intake manifest endpoint with content hash and explicit no-raw-storage decision |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

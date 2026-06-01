@@ -1,4 +1,5 @@
 from datetime import date, datetime, timezone
+from hashlib import sha256
 from uuid import uuid4
 
 import pytest
@@ -490,6 +491,34 @@ def test_failure_case_draft_can_be_manually_handed_to_failure_case_persistence()
     assert len(listed.json()) == 1
     assert listed.json()[0]["failure_type"] == "workflow_stage_error"
     assert listed.json()[0]["fix_status"] == "open"
+
+
+def test_document_upload_intake_manifest_preview_hashes_file_without_persistence():
+    client = make_client()
+    content = b"# Market note\nEnterprise demand growth was 12 percent in 2026.\n"
+
+    response = client.post(
+        "/documents/upload-intake-manifest-preview",
+        data={"source_type": "markdown"},
+        files={"file": ("sample-note.md", content, "text/markdown")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["filename"] == "sample-note.md"
+    assert body["content_type"] == "text/markdown"
+    assert body["byte_count"] == len(content)
+    assert body["content_sha256"] == sha256(content).hexdigest()
+    assert body["source_type"] == "markdown"
+    assert body["parser"] == "markdown"
+    assert body["storage_decision"] == "do_not_persist_raw_upload_yet"
+    assert body["replayable"] is False
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["manifest"]["source_uri"] == "upload://sample-note.md"
+    assert body["manifest"]["profile"]["extraction_quality"] in {"medium", "high"}
+    assert body["manifest"]["future_persistence_candidate"] == "uploaded_file_intake"
+    assert any("does not create documents" in warning for warning in body["warnings"])
+    assert client.get("/documents").json() == []
 
 
 def test_document_upload_preview_parses_markdown_without_persistence():

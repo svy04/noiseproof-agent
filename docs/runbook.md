@@ -1753,6 +1753,20 @@ uploaded file intake manifest preview v0
 
 That candidate should expose the manifest shape a future persisted intake boundary would need while keeping `persistence_boundary = preview_only_not_persisted`.
 
+Phase marker: uploaded file intake manifest preview v0.
+
+Use `POST /documents/upload-intake-manifest-preview` to inspect the future upload intake manifest without persisting raw uploaded bytes.
+
+```powershell
+curl.exe -s -X POST http://127.0.0.1:8030/documents/upload-intake-manifest-preview `
+  -F "source_type=markdown" `
+  -F "file=@examples/messy-market-data/sample-note.md;type=text/markdown"
+```
+
+Expected fields include `content_sha256`, `manifest.source_uri`, `manifest.profile`, `storage_decision = do_not_persist_raw_upload_yet`, `replayable = false`, and `persistence_boundary = preview_only_not_persisted`.
+
+This endpoint is preview-only. It is not raw file storage, not retrieval persistence, not document row creation, and not production readiness.
+
 ## Metadata Examples
 
 Create a document metadata record:

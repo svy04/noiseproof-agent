@@ -3486,3 +3486,31 @@ def test_persisted_uploaded_file_intake_review_keeps_storage_boundary_before_sch
     assert "Phase 156 - Persisted Uploaded File Intake Review v0" in goal
     assert "persisted uploaded file intake review v0" in runbook
     assert "docs/review/persisted-uploaded-file-intake-review.md" in portfolio
+
+
+def test_uploaded_file_intake_manifest_preview_documents_preview_only_manifest_endpoint():
+    review_path = REPO_ROOT / "docs/review/uploaded-file-intake-manifest-preview.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Intake Manifest Preview" in content
+    assert "uploaded file intake manifest preview v0" in content
+    assert "POST /documents/upload-intake-manifest-preview" in content
+    assert "content_sha256" in content
+    assert "do_not_persist_raw_upload_yet" in content
+    assert "preview_only_not_persisted" in content
+    assert "not raw file storage" in content
+    assert "no schema" in content
+    assert "no migration" in content
+    assert "not retrieval persistence" in content
+    assert "Uploaded file intake manifest preview v0: implemented" in readme
+    assert "Phase 157 - Uploaded File Intake Manifest Preview v0" in goal
+    assert "uploaded file intake manifest preview v0" in runbook
+    assert "docs/review/uploaded-file-intake-manifest-preview.md" in portfolio

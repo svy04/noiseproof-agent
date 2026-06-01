@@ -13,6 +13,7 @@ from app.schemas import (
     UploadChunkPreviewOut,
     UploadEvidencePreviewOut,
     UploadFailureCaseDraftPreviewOut,
+    UploadIntakeManifestPreviewOut,
     UploadNoiseGatePreviewOut,
     UploadPreviewOut,
     UploadReportPreviewOut,
@@ -25,6 +26,7 @@ from app.services.run_trace import run_with_trace
 from app.services.upload_chunk_preview import preview_uploaded_chunks
 from app.services.upload_evidence_preview import preview_uploaded_evidence
 from app.services.upload_failure_case_draft_preview import preview_uploaded_failure_case_draft
+from app.services.upload_intake_manifest_preview import preview_uploaded_intake_manifest
 from app.services.upload_noise_gate_preview import preview_uploaded_noise_gate
 from app.services.upload_preview import preview_upload
 from app.services.upload_report_preview import preview_uploaded_report
@@ -97,6 +99,34 @@ async def upload_document_preview(
             "persistence_boundary": "preview_only_not_persisted",
         },
         operation=lambda _agent_run_id: preview_upload(
+            filename=file.filename,
+            content_type=file.content_type,
+            source_type=source_type,
+            content=content,
+        ),
+    )
+
+
+@router.post("/upload-intake-manifest-preview", response_model=UploadIntakeManifestPreviewOut)
+async def upload_document_intake_manifest_preview(
+    file: UploadFile = File(...),
+    source_type: str | None = Form(default=None),
+    repository: Repository = Depends(get_repository),
+) -> UploadIntakeManifestPreviewOut:
+    content = await file.read()
+
+    return run_with_trace(
+        repository,
+        endpoint="POST /documents/upload-intake-manifest-preview",
+        user_question=f"upload intake manifest preview: {source_type or file.filename or 'unknown'}",
+        trace_json={
+            "source_type": source_type,
+            "filename": file.filename,
+            "content_type": file.content_type,
+            "byte_count": len(content),
+            "persistence_boundary": "preview_only_not_persisted",
+        },
+        operation=lambda _agent_run_id: preview_uploaded_intake_manifest(
             filename=file.filename,
             content_type=file.content_type,
             source_type=source_type,
