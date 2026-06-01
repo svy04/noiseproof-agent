@@ -24,6 +24,8 @@ Fast links:
 - Local browser screenshot walkthrough: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/local-browser-screenshot-walkthrough.md
 - uploaded-file intake manifest proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-intake-manifest-runtime-smoke.md
   - Boundary: not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
+- uploaded-file intake manifest persistence proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md
+  - Boundary: manifest metadata only, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 - Feedback intake criteria: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 - Public feedback issue: https://github.com/svy04/noiseproof-agent/issues/1
 

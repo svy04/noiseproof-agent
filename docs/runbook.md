@@ -1981,6 +1981,12 @@ docs/review/uploaded-file-intake-manifest-persistence-application-refresh.md
 
 This refresh points reviewer-facing artifacts to the local runtime smoke for `POST /documents/upload-intake-manifests` and `GET /documents/upload-intake-manifests`. It keeps `manifest_only_no_raw_file_storage` and `do_not_persist_raw_upload_yet` explicit. It is not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, and not raw file storage.
 
+Phase marker: external reviewer upload-manifest persistence request refresh v0.
+
+Use `docs/review/external-reviewer-upload-manifest-persistence-request-refresh.md` when checking why the reviewer request path now points to uploaded-file intake manifest persistence proof.
+
+This is request infrastructure only. It does not update the live public issue body and is not external reviewer feedback. The next request gate is `external reviewer upload-manifest persistence issue-body refresh v0`.
+
 ## Metadata Examples
 
 Create a document metadata record:

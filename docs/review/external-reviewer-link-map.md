@@ -31,7 +31,10 @@ https://github.com/svy04/noiseproof-agent/issues/1
 7. uploaded-file intake manifest proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-intake-manifest-runtime-smoke.md
    Boundary: not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
-8. Feedback intake criteria:
+8. uploaded-file intake manifest persistence proof:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md
+   Boundary: manifest metadata only, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
+9. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route

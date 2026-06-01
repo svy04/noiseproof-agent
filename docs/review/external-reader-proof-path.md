@@ -38,6 +38,8 @@ Read in this order:
     - Direct GitHub and public route links for reviewers. This is not feedback itself.
 14. `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
     - uploaded-file intake manifest proof with content hash and storage boundary. This is not raw file storage.
+15. `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
+    - uploaded-file intake manifest persistence proof with manifest metadata persistence and no raw file storage.
 
 ## Optional source-level provenance
 
@@ -100,6 +102,15 @@ docs/review/uploaded-file-intake-manifest-application-refresh.md
 ```
 
 This proof is not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
+
+uploaded-file intake manifest persistence proof:
+
+```text
+docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md
+docs/review/uploaded-file-intake-manifest-persistence-application-refresh.md
+```
+
+This proof is manifest metadata only, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 
 Public request issue:
 

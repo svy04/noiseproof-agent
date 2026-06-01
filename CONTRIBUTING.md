@@ -18,7 +18,9 @@ Please start here:
 4. `docs/application/portfolio-index.md`
 5. `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
    - uploaded-file intake manifest proof; not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
-6. `docs/review/external-feedback-intake-criteria.md`
+6. `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
+   - uploaded-file intake manifest persistence proof; not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
+7. `docs/review/external-feedback-intake-criteria.md`
 
 Public feedback issue:
 
