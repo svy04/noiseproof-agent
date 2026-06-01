@@ -4570,3 +4570,69 @@ def test_uploaded_file_chunk_persistence_application_refresh_surfaces_runtime_pr
         in role_map
     )
     assert "uploaded file chunk persistence exists" in application_ready
+
+
+def test_external_reviewer_chunk_persistence_request_refresh_routes_reviewers_to_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-chunk-persistence-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+
+    assert "External Reviewer Chunk Persistence Request Refresh" in content
+    assert "external reviewer chunk persistence request refresh v0" in content
+    assert "request infrastructure only" in content
+    assert "uploaded-file chunk persistence proof" in content
+    assert "docs/review/uploaded-file-chunk-persistence-runtime-smoke.md" in content
+    assert "docs/review/uploaded-file-chunk-persistence-application-refresh.md" in content
+    assert "POST /documents/{document_id}/chunks" in content
+    assert "GET /documents/{document_id}/chunks" in content
+    assert "chunk_text_only_no_raw_file_storage" in content
+    assert "preview_only_not_persisted" in content
+    assert "not external reviewer feedback" in content
+    assert "not automatic persistence from upload preview" in content
+    assert "not hosted deployment evidence" in content
+    assert (
+        "External reviewer chunk persistence request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 185 - External Reviewer Chunk Persistence Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer chunk persistence request refresh v0" in runbook
+    assert (
+        "docs/review/external-reviewer-chunk-persistence-request-refresh.md"
+        in portfolio
+    )
+    for reviewer_surface in [proof_path, request, brief, link_map, issue_template, contributing]:
+        assert "uploaded-file chunk persistence proof" in reviewer_surface
+        assert (
+            "docs/review/uploaded-file-chunk-persistence-runtime-smoke.md"
+            in reviewer_surface
+        )
+        assert "not automatic persistence from upload preview" in reviewer_surface

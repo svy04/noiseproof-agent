@@ -2353,6 +2353,31 @@ Next bounded request gate:
 external reviewer chunk persistence request refresh v0
 ```
 
+## External reviewer chunk persistence request refresh
+
+Phase marker: external reviewer chunk persistence request refresh v0.
+
+Use `docs/review/external-reviewer-chunk-persistence-request-refresh.md` when checking why the reviewer request path now points to uploaded-file chunk persistence proof.
+
+Reviewer proof path:
+
+```text
+docs/review/uploaded-file-chunk-persistence-runtime-smoke.md
+docs/review/uploaded-file-chunk-persistence-application-refresh.md
+```
+
+This is request infrastructure only. It does not update the live public issue body and is not external reviewer feedback. The next request gate is `external reviewer chunk persistence issue-body refresh v0`.
+
+Boundary:
+
+```text
+not automatic persistence from upload preview
+not hosted deployment evidence
+not external reviewer feedback
+no retrieval persistence
+no embeddings
+```
+
 ## Metadata Examples
 
 Create a document metadata record:

@@ -123,6 +123,15 @@ docs/review/uploaded-file-parsed-document-persistence-application-refresh.md
 
 This proof is document metadata/profile only, not raw file storage, not parsed text persistence, not hosted deployment evidence, and not external reviewer feedback.
 
+uploaded-file chunk persistence proof:
+
+```text
+docs/review/uploaded-file-chunk-persistence-runtime-smoke.md
+docs/review/uploaded-file-chunk-persistence-application-refresh.md
+```
+
+This proof is not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
+
 Public request issue:
 
 ```text

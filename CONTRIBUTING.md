@@ -22,7 +22,9 @@ Please start here:
    - uploaded-file intake manifest persistence proof; not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 7. `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
    - uploaded-file parsed document persistence proof; not raw file storage, not parsed text persistence, not hosted deployment evidence, and not external reviewer feedback.
-8. `docs/review/external-feedback-intake-criteria.md`
+8. `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`
+   - uploaded-file chunk persistence proof; not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
+9. `docs/review/external-feedback-intake-criteria.md`
 
 Public feedback issue:
 

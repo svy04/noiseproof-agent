@@ -89,6 +89,15 @@ docs/review/uploaded-file-parsed-document-persistence-application-refresh.md
 
 Boundary: this proof is document metadata/profile only, not raw file storage, not parsed text persistence, not hosted deployment evidence, and not external reviewer feedback.
 
+uploaded-file chunk persistence proof:
+
+```text
+docs/review/uploaded-file-chunk-persistence-runtime-smoke.md
+docs/review/uploaded-file-chunk-persistence-application-refresh.md
+```
+
+Boundary: this proof is not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
+
 ## Review Path
 
 Please read in this order:
@@ -100,7 +109,8 @@ Please read in this order:
 5. `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
 6. `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
 7. `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
-8. `docs/application/braincrew-role-map.md`
+8. `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`
+9. `docs/application/braincrew-role-map.md`
 
 Optional source-level provenance:
 

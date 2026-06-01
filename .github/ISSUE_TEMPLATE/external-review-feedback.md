@@ -28,6 +28,8 @@ Fast links:
   - Boundary: manifest metadata only, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 - uploaded-file parsed document persistence proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md
   - Boundary: document metadata/profile only, not raw file storage, not parsed text persistence, not hosted deployment evidence, and not external reviewer feedback.
+- uploaded-file chunk persistence proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-chunk-persistence-runtime-smoke.md
+  - Boundary: not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
 - Feedback intake criteria: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 - Public feedback issue: https://github.com/svy04/noiseproof-agent/issues/1
 
