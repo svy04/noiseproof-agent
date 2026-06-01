@@ -114,7 +114,7 @@ Still planned or explicitly unclaimed near the top:
 
 - web app and polished dashboard UI
 - raw uploaded file storage and robust PDF extraction
-- automatic uploaded-file chunk endpoint wiring, embeddings, semantic retrieval, and LLM calls
+- automatic upload-preview-to-chunk persistence wiring, embeddings, semantic retrieval, and LLM calls
 - hosted deployment evidence
 - automatic failure-case creation from workflow failures
 - complete workflow failure causality
@@ -194,7 +194,7 @@ Major implementation milestones:
 - Uploaded file chunk persistence review v0: implemented
 - Uploaded file chunk persistence schema v0: implemented
 - Uploaded file chunk persistence repository v0: implemented
-- Uploaded file chunk persistence endpoint review v0: implemented
+- Uploaded file chunk persistence endpoint v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`.
 
@@ -202,7 +202,7 @@ Not implemented yet:
 
 - raw uploaded file storage
 - robust PDF extraction
-- automatic uploaded-file chunk endpoint wiring
+- automatic upload-preview-to-chunk persistence wiring
 - autonomous workflow execution endpoints
 - automatic failure-case persistence from workflow failures
 - embeddings
@@ -398,7 +398,7 @@ The project already has a reviewer request packet, intake criteria, reviewer bri
 
 The owner approved continuing implementation while that external-review gate stays pending. That approval is recorded in `docs/review/owner-approved-product-continuation-decision.md`; it is not external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, or production readiness.
 
-File upload preview v0 through uploaded file chunk persistence endpoint review v0 are now implemented as bounded upload proof steps. The current next evidence gate remains `external reviewer feedback v0`; external reviewer feedback is still pending.
+File upload preview v0 through uploaded file chunk persistence endpoint v0 are now implemented as bounded upload proof steps. The current next evidence gate remains `external reviewer feedback v0`; external reviewer feedback is still pending.
 
 ## Braincrew Role Alignment
 

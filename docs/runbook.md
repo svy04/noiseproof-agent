@@ -2245,6 +2245,41 @@ Next bounded product gate:
 uploaded file chunk persistence endpoint v0
 ```
 
+## Uploaded file chunk persistence endpoint
+
+Phase marker: uploaded file chunk persistence endpoint v0.
+
+Persist one derived chunk row for an existing document:
+
+```bash
+curl -X POST http://localhost:8000/documents/{document_id}/chunks \
+  -H "Content-Type: application/json" \
+  -d "{\"source_type\":\"markdown\",\"source_uri\":\"upload://sample.md\",\"filename\":\"sample.md\",\"chunk_strategy\":\"fixed-window\",\"chunk_index\":0,\"chunk_text\":\"Revenue increased in Q1.\",\"character_start\":0,\"character_end\":24,\"metadata_json\":{\"strategy\":\"fixed-window\"}}"
+```
+
+List persisted chunks for a document:
+
+```bash
+curl http://localhost:8000/documents/{document_id}/chunks
+```
+
+Boundary:
+
+```text
+persistence_boundary = chunk_text_only_no_raw_file_storage
+not automatic persistence from upload preview
+no embeddings
+no retrieval persistence
+not raw file storage
+not full parsed text persistence
+```
+
+Next bounded product gate:
+
+```text
+uploaded file chunk persistence runtime smoke v0
+```
+
 ## Metadata Examples
 
 Create a document metadata record:

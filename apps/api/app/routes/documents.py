@@ -1,9 +1,14 @@
+from uuid import UUID
+
 from fastapi import APIRouter, Depends, File, Form, UploadFile
 
 from app.db import Repository, get_repository
 from app.schemas import (
     ChunkPreviewOut,
     ChunkPreviewRequest,
+    DocumentChunkCreate,
+    DocumentChunkOut,
+    DocumentChunkRequest,
     DocumentCreate,
     DocumentOut,
     DocumentProfileOut,
@@ -48,6 +53,26 @@ def create_document(
 @router.get("", response_model=list[DocumentOut])
 def list_documents(repository: Repository = Depends(get_repository)) -> list[dict]:
     return list(repository.list_documents())
+
+
+@router.post("/{document_id}/chunks", response_model=DocumentChunkOut, status_code=201)
+def create_document_chunk(
+    document_id: UUID,
+    payload: DocumentChunkRequest,
+    repository: Repository = Depends(get_repository),
+) -> dict:
+    return repository.create_document_chunk(
+        DocumentChunkCreate(document_id=document_id, **payload.model_dump())
+    )
+
+
+@router.get("/{document_id}/chunks", response_model=list[DocumentChunkOut])
+def list_document_chunks(
+    document_id: UUID,
+    limit: int = 20,
+    repository: Repository = Depends(get_repository),
+) -> list[dict]:
+    return list(repository.list_document_chunks(document_id=document_id, limit=limit))
 
 
 @router.post("/profile", response_model=DocumentProfileOut)

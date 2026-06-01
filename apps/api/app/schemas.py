@@ -128,6 +128,19 @@ class DocumentChunkOut(DocumentChunkCreate):
     created_at: datetime
 
 
+class DocumentChunkRequest(BaseModel):
+    source_type: str = Field(..., min_length=1)
+    source_uri: str | None = None
+    filename: str | None = None
+    chunk_strategy: str = Field(..., min_length=1)
+    chunk_index: int = Field(..., ge=0)
+    chunk_text: str = Field(..., min_length=1)
+    character_start: int | None = Field(default=None, ge=0)
+    character_end: int | None = Field(default=None, ge=0)
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
+    persistence_boundary: str = "chunk_text_only_no_raw_file_storage"
+
+
 class ChunkPreviewRequest(BaseModel):
     source_type: str = Field(..., min_length=1)
     content: str = ""

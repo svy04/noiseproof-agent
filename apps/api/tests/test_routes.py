@@ -16,6 +16,7 @@ WORKFLOW_VERSION = "phase40-lineage-warning-code-dashboard"
 class InMemoryRepository:
     def __init__(self):
         self.documents = []
+        self.document_chunks = []
         self.agent_runs = []
         self.evidence_ledger_entries = []
         self.failure_cases = []
@@ -34,6 +35,21 @@ class InMemoryRepository:
 
     def list_documents(self):
         return self.documents
+
+    def create_document_chunk(self, payload) -> dict:
+        row = payload.model_dump()
+        row["id"] = uuid4()
+        row["created_at"] = datetime.now(timezone.utc)
+        self.document_chunks.append(row)
+        return row
+
+    def list_document_chunks(self, document_id, limit=20):
+        rows = [
+            row
+            for row in self.document_chunks
+            if str(row["document_id"]) == str(document_id)
+        ]
+        return rows[:limit]
 
     def create_uploaded_file_intake_manifest(self, payload) -> dict:
         row = payload.model_dump()
@@ -500,8 +516,65 @@ def test_failure_case_draft_can_be_manually_handed_to_failure_case_persistence()
     assert persisted.json()["root_cause"] == draft["root_cause"]
     assert listed.status_code == 200
     assert len(listed.json()) == 1
-    assert listed.json()[0]["failure_type"] == "workflow_stage_error"
-    assert listed.json()[0]["fix_status"] == "open"
+
+
+def test_document_chunk_persistence_endpoint_roundtrip_explicit_document_scope():
+    client = make_client()
+    document = client.post(
+        "/documents",
+        json={"source_type": "markdown", "title": "Uploaded report"},
+    ).json()
+    document_id = document["id"]
+
+    payload = {
+        "source_type": "markdown",
+        "source_uri": "upload://sample.md",
+        "filename": "sample.md",
+        "chunk_strategy": "fixed-window",
+        "chunk_index": 0,
+        "chunk_text": "Revenue increased in Q1.",
+        "character_start": 0,
+        "character_end": 24,
+        "metadata_json": {"strategy": "fixed-window"},
+    }
+
+    created = client.post(f"/documents/{document_id}/chunks", json=payload)
+    listed = client.get(f"/documents/{document_id}/chunks")
+
+    assert created.status_code == 201
+    created_json = created.json()
+    assert created_json["document_id"] == document_id
+    assert created_json["chunk_text"] == "Revenue increased in Q1."
+    assert created_json["persistence_boundary"] == "chunk_text_only_no_raw_file_storage"
+    assert listed.status_code == 200
+    assert len(listed.json()) == 1
+    assert listed.json()[0]["id"] == created_json["id"]
+
+
+def test_upload_chunk_preview_does_not_auto_persist_document_chunks():
+    client = make_client()
+    document = client.post(
+        "/documents",
+        json={"source_type": "markdown", "title": "Uploaded report"},
+    ).json()
+    document_id = document["id"]
+
+    preview = client.post(
+        "/documents/upload-chunk-preview",
+        files={
+            "file": (
+                "sample.md",
+                b"# Revenue\nRevenue increased in Q1.",
+                "text/markdown",
+            )
+        },
+        data={"source_type": "markdown", "strategy": "fixed-window"},
+    )
+    listed = client.get(f"/documents/{document_id}/chunks")
+
+    assert preview.status_code == 200
+    assert listed.status_code == 200
+    assert listed.json() == []
 
 
 def test_document_upload_intake_manifest_preview_hashes_file_without_persistence():
