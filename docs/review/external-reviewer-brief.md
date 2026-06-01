@@ -18,7 +18,16 @@ Read only these:
 2. `docs/review/external-reader-proof-path.md`
 3. `docs/application/portfolio-index.md`
 4. `docs/review/local-browser-screenshot-walkthrough.md`
-5. `docs/review/external-feedback-intake-criteria.md`
+5. `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
+6. `docs/review/external-feedback-intake-criteria.md`
+
+uploaded-file intake manifest proof:
+
+```text
+docs/review/uploaded-file-intake-manifest-runtime-smoke.md
+```
+
+This proof is not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 
 Optional public proof route:
 

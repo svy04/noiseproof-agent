@@ -16,7 +16,9 @@ Please start here:
 2. `docs/review/external-reader-proof-path.md`
 3. `docs/review/external-reviewer-link-map.md`
 4. `docs/application/portfolio-index.md`
-5. `docs/review/external-feedback-intake-criteria.md`
+5. `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
+   - uploaded-file intake manifest proof; not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
+6. `docs/review/external-feedback-intake-criteria.md`
 
 Public feedback issue:
 

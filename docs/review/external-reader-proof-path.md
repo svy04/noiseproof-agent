@@ -36,6 +36,8 @@ Read in this order:
     - Copy-paste outreach messages for actual human reviewers. This is not feedback itself.
 13. `docs/review/external-reviewer-link-map.md`
     - Direct GitHub and public route links for reviewers. This is not feedback itself.
+14. `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
+    - uploaded-file intake manifest proof with content hash and storage boundary. This is not raw file storage.
 
 ## Optional source-level provenance
 
@@ -88,6 +90,16 @@ It points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and 
 Use `docs/review/external-reviewer-outreach-packet.md` when you need a copy-paste message for an FDE/product engineer, RAG/data engineer, or founder/operator reviewer.
 
 Use `docs/review/external-reviewer-link-map.md` when a reviewer needs clickable links instead of repository-relative paths.
+
+uploaded-file intake manifest proof:
+
+```text
+docs/review/uploaded-file-intake-manifest-preview.md
+docs/review/uploaded-file-intake-manifest-runtime-smoke.md
+docs/review/uploaded-file-intake-manifest-application-refresh.md
+```
+
+This proof is not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 
 Public request issue:
 

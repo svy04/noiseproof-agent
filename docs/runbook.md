@@ -1799,6 +1799,20 @@ Forbidden application claim:
 This is not hosted deployment evidence, not raw file storage, not retrieval persistence, and not production readiness.
 ```
 
+Phase marker: external reviewer upload-manifest request refresh v0.
+
+Use `docs/review/external-reviewer-upload-manifest-request-refresh.md` when checking why the reviewer request path now points to uploaded-file intake manifest proof.
+
+Reviewer-facing manifest proof:
+
+```text
+docs/review/uploaded-file-intake-manifest-preview.md
+docs/review/uploaded-file-intake-manifest-runtime-smoke.md
+docs/review/uploaded-file-intake-manifest-application-refresh.md
+```
+
+This request refresh is not external reviewer feedback, not raw file storage, not hosted deployment evidence, and not production readiness.
+
 ## Metadata Examples
 
 Create a document metadata record:

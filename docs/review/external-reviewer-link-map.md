@@ -28,7 +28,10 @@ https://github.com/svy04/noiseproof-agent/issues/1
    https://github.com/svy04/noiseproof-agent/blob/main/docs/application/portfolio-index.md
 6. Local browser screenshot walkthrough:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/local-browser-screenshot-walkthrough.md
-7. Feedback intake criteria:
+7. uploaded-file intake manifest proof:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-intake-manifest-runtime-smoke.md
+   Boundary: not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
+8. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route
