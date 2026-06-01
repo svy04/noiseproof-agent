@@ -2205,6 +2205,46 @@ Next bounded product gate:
 uploaded file chunk persistence endpoint review v0
 ```
 
+## Uploaded file chunk persistence endpoint review
+
+Phase marker: uploaded file chunk persistence endpoint review v0.
+
+Use `docs/review/uploaded-file-chunk-persistence-endpoint-review.md` before adding route code for persisted document chunks.
+
+Selected endpoint boundary:
+
+```text
+POST /documents/{document_id}/chunks
+GET /documents/{document_id}/chunks
+```
+
+Selected repository calls:
+
+```text
+DocumentChunkCreate
+DocumentChunkOut
+create_document_chunk(payload)
+list_document_chunks(document_id, limit)
+```
+
+Boundary:
+
+```text
+review-only
+no endpoint code
+not automatic persistence from upload preview
+no embeddings
+no retrieval persistence
+not raw file storage
+not full parsed text persistence
+```
+
+Next bounded product gate:
+
+```text
+uploaded file chunk persistence endpoint v0
+```
+
 ## Metadata Examples
 
 Create a document metadata record:

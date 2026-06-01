@@ -4418,3 +4418,41 @@ def test_uploaded_file_chunk_persistence_repository_documents_code_boundary():
     assert "Phase 180 - Uploaded File Chunk Persistence Repository v0" in goal
     assert "uploaded file chunk persistence repository v0" in runbook
     assert "docs/review/uploaded-file-chunk-persistence-repository.md" in portfolio
+
+
+def test_uploaded_file_chunk_persistence_endpoint_review_defines_explicit_routes():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-file-chunk-persistence-endpoint-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Chunk Persistence Endpoint Review" in content
+    assert "uploaded file chunk persistence endpoint review v0" in content
+    assert "review-only" in content
+    assert "POST /documents/{document_id}/chunks" in content
+    assert "GET /documents/{document_id}/chunks" in content
+    assert "DocumentChunkCreate" in content
+    assert "DocumentChunkOut" in content
+    assert "create_document_chunk" in content
+    assert "list_document_chunks" in content
+    assert "chunk_text_only_no_raw_file_storage" in content
+    assert "not automatic persistence from upload preview" in content
+    assert "no embeddings" in content
+    assert "no retrieval persistence" in content
+    assert "no endpoint code" in content
+    assert "uploaded file chunk persistence endpoint v0" in content
+    assert "Uploaded file chunk persistence endpoint review v0: implemented" in readme
+    assert "Phase 181 - Uploaded File Chunk Persistence Endpoint Review v0" in goal
+    assert "uploaded file chunk persistence endpoint review v0" in runbook
+    assert (
+        "docs/review/uploaded-file-chunk-persistence-endpoint-review.md"
+        in portfolio
+    )

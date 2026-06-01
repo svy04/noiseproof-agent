@@ -82,6 +82,8 @@ Uploaded file chunk persistence repository review: `docs/review/uploaded-file-ch
 
 Uploaded file chunk persistence repository: `docs/review/uploaded-file-chunk-persistence-repository.md` records `DocumentChunkCreate`, `create_document_chunk`, and `list_document_chunks` code over `document_chunks`. It adds no endpoint, upload-preview automation, embeddings, or retrieval persistence.
 
+Uploaded file chunk persistence endpoint review: `docs/review/uploaded-file-chunk-persistence-endpoint-review.md` selects `POST /documents/{document_id}/chunks` and `GET /documents/{document_id}/chunks` as the next explicit document-scoped endpoint boundary. It adds no endpoint code, upload-preview automation, embeddings, or retrieval persistence.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.
