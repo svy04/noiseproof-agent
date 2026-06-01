@@ -1813,6 +1813,26 @@ docs/review/uploaded-file-intake-manifest-application-refresh.md
 
 This request refresh is not external reviewer feedback, not raw file storage, not hosted deployment evidence, and not production readiness.
 
+Phase marker: external reviewer upload-manifest issue-body refresh v0.
+
+Use `docs/review/external-review-issue-body-upload-manifest-refresh.md` when checking the live issue #1 body update that points reviewers to uploaded-file intake manifest proof.
+
+Live issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+Expected issue-body marker:
+
+```text
+uploaded-file intake manifest proof
+docs/review/uploaded-file-intake-manifest-runtime-smoke.md
+not raw file storage
+```
+
+This is an owner-authored issue edit. It is not external reviewer feedback, not raw file storage, not hosted deployment evidence, and not production readiness.
+
 ## Metadata Examples
 
 Create a document metadata record:
