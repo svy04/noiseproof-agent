@@ -43,6 +43,8 @@ https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewe
 
 Live issue body verification:
 
+https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-review-issue-body-encoding-verification.md
+
 https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-review-issue-body-root-guide-verification.md
 
 https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-review-issue-body-link-map-verification.md

@@ -1,12 +1,12 @@
-# External Review Issue Body Root-guide Verification
+# External Review Issue Body Encoding Verification
 
 Status: external request surface verification artifact.
 
-Phase marker: external review issue body root-guide verification v0.
+Phase marker: external review issue body encoding verification v0.
 
-Label: External review issue body root-guide verification.
+Label: External review issue body encoding verification.
 
-This artifact records that the live public GitHub issue body now points reviewers to the root-level external review guide. It verifies the request surface only. It does not claim that external reviewer feedback has been received.
+This artifact records that the live public GitHub issue body starts directly with the request heading and does not carry a UTF-8 byte order mark in front of `## Request`. It verifies issue-body readability only. It does not claim that external reviewer feedback has been received.
 
 ## Verified Surface
 
@@ -14,12 +14,6 @@ Public request issue:
 
 ```text
 https://github.com/svy04/noiseproof-agent/issues/1
-```
-
-Root review guide:
-
-```text
-https://github.com/svy04/noiseproof-agent/blob/main/CONTRIBUTING.md
 ```
 
 ## Verification Command
@@ -59,7 +53,15 @@ $json = gh issue view 1 --repo svy04/noiseproof-agent --json number,state,title,
 
 ## What This Proves
 
-The public issue request body is live and points reviewers to:
+The live issue body begins with:
+
+```text
+## Request
+```
+
+The first codepoint is `35`, which is the `#` character. This confirms that the public request surface is not prefixed by a byte order mark that would make `StartsWith('## Request')` false.
+
+The issue body still points reviewers to:
 
 ```text
 CONTRIBUTING.md
@@ -71,29 +73,15 @@ docs/application/portfolio-index.md
 docs/review/external-feedback-intake-criteria.md
 ```
 
-Related root guide artifact:
+Related root-guide issue-body verification:
 
 ```text
-docs/review/external-review-root-guide.md
+docs/review/external-review-issue-body-root-guide-verification.md
 ```
-
-Related issue body link-map verification:
-
-```text
-docs/review/external-review-issue-body-link-map-verification.md
-```
-
-Related issue body encoding verification:
-
-```text
-docs/review/external-review-issue-body-encoding-verification.md
-```
-
-The issue body still preserves the boundary that self-authored issue edits or comments do not close the `external reviewer feedback v0` gate.
 
 ## Allowed Claim
 
-NoiseProof Agent has a public GitHub issue request body that includes a direct link to the root-level external review guide.
+NoiseProof Agent has a public GitHub issue request body that starts cleanly with the request heading and includes direct reviewer links.
 
 ## Boundary
 

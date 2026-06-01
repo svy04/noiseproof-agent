@@ -3003,6 +3003,60 @@ def test_external_review_issue_body_root_guide_verification_records_live_issue_l
     assert "blob/main/CONTRIBUTING.md" in body_link_map_verification
 
 
+def test_external_review_issue_body_encoding_verification_records_bom_free_request_start():
+    verification_path = (
+        REPO_ROOT / "docs/review/external-review-issue-body-encoding-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    root_guide_verification = (
+        REPO_ROOT / "docs/review/external-review-issue-body-root-guide-verification.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Review Issue Body Encoding Verification" in content
+    assert "external review issue body encoding verification v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_root_review_guide": true' in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "External review issue body encoding verification v0: implemented"
+        in readme
+    )
+    assert "external review issue body encoding verification v0" in goal
+    assert "external review issue body encoding verification v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-encoding-verification.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/external-review-issue-body-encoding-verification.md"
+        in request
+    )
+    assert (
+        "docs/review/external-review-issue-body-encoding-verification.md"
+        in link_map
+    )
+    assert (
+        "docs/review/external-review-issue-body-encoding-verification.md"
+        in root_guide_verification
+    )
+
+
 def test_readme_next_gate_matches_external_feedback_state_without_stale_phase_claim():
     refresh_path = REPO_ROOT / "docs/review/readme-next-gate-stale-claim-refresh.md"
     assert refresh_path.is_file()

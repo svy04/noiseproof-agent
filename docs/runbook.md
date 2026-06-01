@@ -1249,6 +1249,10 @@ Phase marker: external review root guide v0.
 
 Use `CONTRIBUTING.md` when an outside reviewer starts from the repository root. `docs/review/external-review-root-guide.md` records why the root guide exists. It is review-entry infrastructure only and is not external reviewer feedback.
 
+Phase marker: external review issue body encoding verification v0.
+
+Use `docs/review/external-review-issue-body-encoding-verification.md` when verifying that the live public issue #1 body begins directly with `## Request` and first codepoint `35`. This is request-surface readability evidence only and is not external reviewer feedback.
+
 Phase marker: external review issue body root-guide verification v0.
 
 Use `docs/review/external-review-issue-body-root-guide-verification.md` when verifying that the live public issue #1 body includes the root review guide link. The verified `comment_count` is `1`, and the only current comment is owner-authored request/status context, so this does not close the external reviewer feedback gate.

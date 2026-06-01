@@ -106,7 +106,7 @@ Current status groups:
 - service skeleton: FastAPI health, ops summary/dashboard, metadata routes, PostgreSQL schema, migration runner, and CI
 - ingestion/RAG boundaries: document profiling, parser adapters, chunk strategy comparison, lexical retrieval, and collection planning
 - evidence/report boundaries: Evidence Ledger, Noise Gate, claim-bounded report previews, trace lookup, filters, workflow parents, lineage, and warning codes
-- proof surfaces: fresh DB smoke artifacts, failure-case persistence/linkage artifacts, manual handoff proofs, external reviewer path, local browser screenshot walkthrough, external review request packet, external feedback intake criteria, external reviewer brief, live proof route refresh, external reviewer link map, root review guide, issue-body root-guide verification, issue-body link-map verification, issue-template link-map refresh, issue-label verification, owner request comment rejection verification, external reviewer outreach packet, external feedback qualification preview, external feedback screening CLI, external feedback screening workflow, remote screening artifact verification, and Braincrew application mapping
+- proof surfaces: DB/failure smoke artifacts, reviewer path/request/brief/link-map/root-guide, live issue/request-surface checks, feedback screening artifacts, and Braincrew application mapping
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*` artifacts.
 
@@ -155,6 +155,7 @@ Major implementation milestones:
 - External reviewer live proof route refresh v0: implemented
 - External reviewer link map v0: implemented
 - External review root guide v0: implemented
+- External review issue body encoding verification v0: implemented
 - External review issue body root-guide verification v0: implemented
 - External review issue body link-map verification v0: implemented
 - External review issue template link-map refresh v0: implemented
@@ -369,7 +370,7 @@ Planned demo flow after implementation:
 
 The current next evidence gate is `external reviewer feedback v0`.
 
-The project already has a reviewer request packet, intake criteria, reviewer brief, direct link map, root review guide, live issue-body root-guide verification, live issue-body link-map verification, issue-template link-map refresh, issue-label verification, owner request comment rejection verification, outreach packet, screening CLI, screening workflow, and remote pending artifact verification. Those artifacts prepare the path, but they do not prove that an outside reviewer inspected the work.
+The project already has a reviewer request packet, intake criteria, reviewer brief, direct link map, root review guide, live issue-body encoding verification, live issue-body root-guide verification, live issue-body link-map verification, issue-template link-map refresh, issue-label verification, owner request comment rejection verification, outreach packet, screening CLI, screening workflow, and remote pending artifact verification. Those artifacts prepare the path, but they do not prove that an outside reviewer inspected the work.
 
 The next useful step is not another implementation feature. It is getting a substantive outside comment on issue #1 that names inspected evidence and gives actionable critique.
 
