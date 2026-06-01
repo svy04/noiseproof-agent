@@ -4350,3 +4350,43 @@ def test_uploaded_file_chunk_persistence_schema_adds_document_chunks_without_emb
     assert "Phase 178 - Uploaded File Chunk Persistence Schema v0" in goal
     assert "uploaded file chunk persistence schema v0" in runbook
     assert "docs/review/uploaded-file-chunk-persistence-schema.md" in portfolio
+
+
+def test_uploaded_file_chunk_persistence_repository_review_defines_small_boundary():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-file-chunk-persistence-repository-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Chunk Persistence Repository Review" in content
+    assert "uploaded file chunk persistence repository review v0" in content
+    assert "review-only" in content
+    assert "document_chunks" in content
+    assert "DocumentChunkCreate" in content
+    assert "create_document_chunk" in content
+    assert "list_document_chunks" in content
+    assert "document_id" in content
+    assert "chunk_text_only_no_raw_file_storage" in content
+    assert "no endpoint" in content
+    assert "no chunk rows" in content
+    assert "no embeddings" in content
+    assert "uploaded file chunk persistence repository v0" in content
+    assert "Uploaded file chunk persistence repository review v0: implemented" in readme
+    assert (
+        "Phase 179 - Uploaded File Chunk Persistence Repository Review v0"
+        in goal
+    )
+    assert "uploaded file chunk persistence repository review v0" in runbook
+    assert (
+        "docs/review/uploaded-file-chunk-persistence-repository-review.md"
+        in portfolio
+    )

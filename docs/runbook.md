@@ -2146,6 +2146,36 @@ Next bounded product gate:
 uploaded file chunk persistence repository review v0
 ```
 
+## Uploaded file chunk persistence repository review
+
+Phase marker: uploaded file chunk persistence repository review v0.
+
+Use `docs/review/uploaded-file-chunk-persistence-repository-review.md` before adding repository code for `document_chunks`.
+
+Selected boundary:
+
+```text
+DocumentChunkCreate
+create_document_chunk(payload)
+list_document_chunks(document_id, limit)
+```
+
+Current boundary:
+
+```text
+review-only
+no repository code
+no endpoint
+no chunk rows
+no embeddings
+```
+
+Next bounded product gate:
+
+```text
+uploaded file chunk persistence repository v0
+```
+
 ## Metadata Examples
 
 Create a document metadata record:

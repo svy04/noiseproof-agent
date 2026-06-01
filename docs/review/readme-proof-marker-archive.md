@@ -8,6 +8,7 @@ This file preserves source-level continuity for older README proof markers after
 
 README detailed implementation-status compression v0: implemented
 README next-gate stale-claim refresh v0: implemented
+External reviewer upload-manifest request refresh v0: implemented
 External reviewer upload-manifest issue-body refresh v0: implemented
 External reviewer upload-manifest persistence request refresh v0: implemented
 External reviewer upload-manifest persistence issue-body refresh v0: implemented
