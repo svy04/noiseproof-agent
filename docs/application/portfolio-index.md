@@ -30,6 +30,8 @@ External review issue template link-map refresh: `docs/review/external-review-is
 
 External review issue label verification: `docs/review/external-review-issue-label-verification.md` records that issue #1 is open and labeled `external-review` and `feedback`, while `comment_count` remains `0`. It is not external reviewer feedback itself.
 
+External review owner request comment verification: `docs/review/external-review-owner-request-comment-verification.md` records that a public owner-authored request/status comment was screened as `non_qualifying` with `self_authored_comment`, leaving `candidate_count: 0` and `draft_count: 0`. It is not external reviewer feedback itself.
+
 External reviewer outreach packet: `docs/review/external-reviewer-outreach-packet.md` gives copy-paste messages for asking FDE/product engineer, RAG/data engineer, and founder/operator reviewers to inspect issue #1. It is not external reviewer feedback itself.
 
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
@@ -183,6 +185,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-review-issue-body-link-map-verification.md` | live issue #1 body verification for direct reviewer links; comment count remains 0 |
 | `docs/review/external-review-issue-template-link-map-refresh.md` | issue template direct-link refresh for future external review issues; not external reviewer feedback |
 | `docs/review/external-review-issue-label-verification.md` | live issue #1 label verification for `external-review` and `feedback`; comment count remains 0 |
+| `docs/review/external-review-owner-request-comment-verification.md` | live owner-authored issue comment rejection proof; `self_authored_comment`, candidate count 0, draft count 0 |
 | `docs/review/external-reviewer-outreach-packet.md` | copy-paste outreach packet for actual human reviewers; not external reviewer feedback |
 | `docs/review/external-feedback-qualification-preview.md` | local screening helper for public issue comments; not external reviewer feedback |
 | `docs/review/external-feedback-screening-cli.md` | command-line path for screening real issue-comment JSON; not external reviewer feedback |

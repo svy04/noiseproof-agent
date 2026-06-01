@@ -64,6 +64,7 @@ The observed `comment_count` is still `0`.
 ```text
 docs/review/external-review-request.md
 docs/review/external-review-issue-body-link-map-verification.md
+docs/review/external-review-owner-request-comment-verification.md
 docs/review/external-reviewer-link-map.md
 docs/review/external-feedback-intake-criteria.md
 ```

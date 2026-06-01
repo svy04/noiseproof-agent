@@ -1257,6 +1257,10 @@ Phase marker: external review issue label verification v0.
 
 Use `docs/review/external-review-issue-label-verification.md` when checking whether the live public issue #1 is labeled as an external review / feedback request. The verified labels are `external-review` and `feedback`; the verified `comment_count` remains `0`, so this does not close the external reviewer feedback gate.
 
+Phase marker: external review owner request comment verification v0.
+
+Use `docs/review/external-review-owner-request-comment-verification.md` when checking why the owner-authored issue #1 request/status comment does not count as feedback. The remote workflow screened the comment as `non_qualifying` with `self_authored_comment`; the downloaded artifacts kept `candidate_count: 0` and `draft_count: 0`.
+
 Phase marker: external reviewer outreach packet v0.
 
 Use `docs/review/external-reviewer-outreach-packet.md` when you need copy-paste outreach messages for an actual human reviewer. It has separate messages for an FDE / product engineer reviewer, a RAG / data engineer reviewer, and a founder / operator reviewer.

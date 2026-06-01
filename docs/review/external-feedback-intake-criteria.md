@@ -98,6 +98,14 @@ docs/review/external-feedback-qualification-preview.md
 
 The helper can return `candidate_found_manual_review_required`, but that does not close the gate. It is only a pre-screen against this intake criteria.
 
+Live owner-comment rejection verification:
+
+```text
+docs/review/external-review-owner-request-comment-verification.md
+```
+
+That artifact records that an owner-authored public request/status comment was screened as `non_qualifying` with `self_authored_comment`, leaving the external reviewer feedback gate pending.
+
 ## Current State
 
 External reviewer feedback remains pending.

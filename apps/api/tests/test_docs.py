@@ -2851,6 +2851,56 @@ def test_external_review_issue_label_verification_records_remote_triage_surface(
     assert "docs/review/external-review-issue-label-verification.md" in body_verification
 
 
+def test_external_review_owner_request_comment_verification_records_self_authored_rejection():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/external-review-owner-request-comment-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    criteria = (
+        REPO_ROOT / "docs/review/external-feedback-intake-criteria.md"
+    ).read_text(encoding="utf-8")
+    label_verification = (
+        REPO_ROOT / "docs/review/external-review-issue-label-verification.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Review Owner Request Comment Verification" in content
+    assert "external review owner request comment verification v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1#issuecomment-" in content
+    assert '"status": "pending"' in content
+    assert '"candidate_count": 0' in content
+    assert '"draft_count": 0' in content
+    assert "self_authored_comment" in content
+    assert "non_qualifying" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "External review owner request comment verification v0: implemented"
+        in readme
+    )
+    assert "external review owner request comment verification v0" in goal
+    assert "external review owner request comment verification v0" in runbook
+    assert (
+        "docs/review/external-review-owner-request-comment-verification.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/external-review-owner-request-comment-verification.md"
+        in criteria
+    )
+    assert (
+        "docs/review/external-review-owner-request-comment-verification.md"
+        in label_verification
+    )
+
+
 def test_readme_next_gate_matches_external_feedback_state_without_stale_phase_claim():
     refresh_path = REPO_ROOT / "docs/review/readme-next-gate-stale-claim-refresh.md"
     assert refresh_path.is_file()
