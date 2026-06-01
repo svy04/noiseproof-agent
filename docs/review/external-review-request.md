@@ -44,6 +44,7 @@ docs/review/external-review-root-guide.md
 Live issue body verification:
 
 ```text
+docs/review/external-review-issue-body-root-guide-verification.md
 docs/review/external-review-issue-body-link-map-verification.md
 ```
 

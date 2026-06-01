@@ -59,6 +59,12 @@ This does not prove that any outside reviewer has inspected the repository.
 
 This does not accept any issue comment into the proof path.
 
+Related live issue body verification:
+
+```text
+docs/review/external-review-issue-body-root-guide-verification.md
+```
+
 ## Next Gate
 
 The next gate remains:

@@ -1,12 +1,12 @@
-# External Review Issue Body Link-map Verification
+# External Review Issue Body Root-guide Verification
 
 Status: external request surface verification artifact.
 
-Phase marker: external review issue body link-map verification v0.
+Phase marker: external review issue body root-guide verification v0.
 
-Label: External review issue body link-map verification.
+Label: External review issue body root-guide verification.
 
-This artifact records that the live public GitHub issue body points reviewers to the direct link map and shortest proof path. It verifies the request surface only. It does not claim that external reviewer feedback has been received.
+This artifact records that the live public GitHub issue body now points reviewers to the root-level external review guide. It verifies the request surface only. It does not claim that external reviewer feedback has been received.
 
 ## Verified Surface
 
@@ -14,6 +14,12 @@ Public request issue:
 
 ```text
 https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+Root review guide:
+
+```text
+https://github.com/svy04/noiseproof-agent/blob/main/CONTRIBUTING.md
 ```
 
 ## Verification Command
@@ -54,8 +60,8 @@ $json = gh issue view 1 --repo svy04/noiseproof-agent --json number,state,title,
 The public issue request body is live and points reviewers to:
 
 ```text
-docs/review/external-reviewer-link-map.md
 CONTRIBUTING.md
+docs/review/external-reviewer-link-map.md
 README.md
 docs/review/external-reviewer-brief.md
 docs/review/external-reader-proof-path.md
@@ -63,29 +69,23 @@ docs/application/portfolio-index.md
 docs/review/external-feedback-intake-criteria.md
 ```
 
-Related issue template refresh:
+Related root guide artifact:
 
 ```text
-docs/review/external-review-issue-template-link-map-refresh.md
+docs/review/external-review-root-guide.md
 ```
 
-Related issue label verification:
+Related issue body link-map verification:
 
 ```text
-docs/review/external-review-issue-label-verification.md
-```
-
-Related issue body root-guide verification:
-
-```text
-docs/review/external-review-issue-body-root-guide-verification.md
+docs/review/external-review-issue-body-link-map-verification.md
 ```
 
 The issue body still preserves the boundary that self-authored issue edits or comments do not close the `external reviewer feedback v0` gate.
 
 ## Allowed Claim
 
-NoiseProof Agent has a public GitHub issue request body that includes direct links to the reviewer link map and README.
+NoiseProof Agent has a public GitHub issue request body that includes a direct link to the root-level external review guide.
 
 ## Boundary
 

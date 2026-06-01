@@ -26,7 +26,9 @@ External reviewer link map: `docs/review/external-reviewer-link-map.md` gives di
 
 External review root guide: `CONTRIBUTING.md` is a root-level GitHub entry guide for external reviewers. `docs/review/external-review-root-guide.md` records why it exists. It is not external reviewer feedback itself.
 
-External review issue body link-map verification: `docs/review/external-review-issue-body-link-map-verification.md` records that issue #1 currently contains direct reviewer links and still has `comment_count: 0`. It is not external reviewer feedback itself.
+External review issue body root-guide verification: `docs/review/external-review-issue-body-root-guide-verification.md` records that issue #1 currently contains a direct root review guide link. It is not external reviewer feedback itself.
+
+External review issue body link-map verification: `docs/review/external-review-issue-body-link-map-verification.md` records that issue #1 currently contains direct reviewer links and has `comment_count: 1` with only owner-authored request/status context. It is not external reviewer feedback itself.
 
 External review issue template link-map refresh: `docs/review/external-review-issue-template-link-map-refresh.md` records that `.github/ISSUE_TEMPLATE/external-review-feedback.md` now contains direct reviewer links. It is not external reviewer feedback itself.
 
@@ -185,7 +187,8 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-reviewer-live-proof-route-refresh.md` | latest public proof route for reviewer orientation; not external reviewer feedback |
 | `docs/review/external-reviewer-link-map.md` | direct reviewer links for issue #1, README, proof path, portfolio index, and feedback criteria; not external reviewer feedback |
 | `CONTRIBUTING.md` / `docs/review/external-review-root-guide.md` | root-level GitHub review guide; not external reviewer feedback |
-| `docs/review/external-review-issue-body-link-map-verification.md` | live issue #1 body verification for direct reviewer links; comment count remains 0 |
+| `docs/review/external-review-issue-body-root-guide-verification.md` | live issue #1 body verification for direct root review guide link; comment count is 1 with owner-authored request/status context |
+| `docs/review/external-review-issue-body-link-map-verification.md` | live issue #1 body verification for direct reviewer links; comment count is 1 with owner-authored request/status context |
 | `docs/review/external-review-issue-template-link-map-refresh.md` | issue template direct-link refresh for future external review issues; not external reviewer feedback |
 | `docs/review/external-review-issue-label-verification.md` | live issue #1 label verification for `external-review` and `feedback`; comment count remains 0 |
 | `docs/review/external-review-owner-request-comment-verification.md` | live owner-authored issue comment rejection proof; `self_authored_comment`, candidate count 0, draft count 0 |
