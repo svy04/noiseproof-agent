@@ -2066,6 +2066,12 @@ docs/review/uploaded-file-parsed-document-persistence-application-refresh.md
 
 This refresh points README, GOAL, runbook, portfolio index, Braincrew role map, and application-ready review surfaces to `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`. It is not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, not robust PDF extraction, not raw file storage, and not parsed text persistence.
 
+Phase marker: external reviewer parsed-document persistence request refresh v0.
+
+Use `docs/review/external-reviewer-parsed-document-persistence-request-refresh.md` when checking why the reviewer request path now points to uploaded-file parsed document persistence proof.
+
+This is request infrastructure only. It does not update the live public issue body and is not external reviewer feedback. The next request gate is `external reviewer parsed-document persistence issue-body refresh v0`.
+
 ## Metadata Examples
 
 Create a document metadata record:

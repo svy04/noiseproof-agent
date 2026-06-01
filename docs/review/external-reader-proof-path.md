@@ -40,6 +40,8 @@ Read in this order:
     - uploaded-file intake manifest proof with content hash and storage boundary. This is not raw file storage.
 15. `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
     - uploaded-file intake manifest persistence proof with manifest metadata persistence and no raw file storage.
+16. `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
+    - uploaded-file parsed document persistence proof with document metadata/profile persistence and no raw file storage.
 
 ## Optional source-level provenance
 
@@ -111,6 +113,15 @@ docs/review/uploaded-file-intake-manifest-persistence-application-refresh.md
 ```
 
 This proof is manifest metadata only, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
+
+uploaded-file parsed document persistence proof:
+
+```text
+docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md
+docs/review/uploaded-file-parsed-document-persistence-application-refresh.md
+```
+
+This proof is document metadata/profile only, not raw file storage, not parsed text persistence, not hosted deployment evidence, and not external reviewer feedback.
 
 Public request issue:
 

@@ -160,7 +160,6 @@ Major implementation milestones:
 - External feedback screening CLI v0: implemented
 - External feedback screening workflow v0: implemented
 - External feedback screening workflow verification v0: implemented
-- README next-gate stale-claim refresh v0: implemented
 - External feedback acceptance template v0: implemented
 - External feedback acceptance draft CLI v0: implemented
 - External feedback acceptance draft workflow v0: implemented
@@ -195,6 +194,7 @@ Major implementation milestones:
 - Uploaded file parsed document persistence v0: implemented
 - Uploaded file parsed document persistence runtime smoke v0: implemented
 - Uploaded file parsed document persistence application refresh v0: implemented
+- External reviewer parsed-document persistence request refresh v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`.
 

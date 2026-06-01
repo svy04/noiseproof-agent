@@ -7,6 +7,7 @@ Phase marker: readme proof-marker archive extraction v0.
 This file preserves source-level continuity for older README proof markers after the rendered README was compressed for external-reader scanability.
 
 README detailed implementation-status compression v0: implemented
+README next-gate stale-claim refresh v0: implemented
 
 README detailed implementation status archive moved during Phase 103.
 This hidden source archive preserves earlier README proof markers while the rendered README stays scanable.

@@ -20,7 +20,8 @@ Read only these:
 4. `docs/review/local-browser-screenshot-walkthrough.md`
 5. `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
 6. `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
-7. `docs/review/external-feedback-intake-criteria.md`
+7. `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
+8. `docs/review/external-feedback-intake-criteria.md`
 
 uploaded-file intake manifest proof:
 
@@ -37,6 +38,14 @@ docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md
 ```
 
 This proof is manifest metadata only, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
+
+uploaded-file parsed document persistence proof:
+
+```text
+docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md
+```
+
+This proof is document metadata/profile only, not raw file storage, not parsed text persistence, not hosted deployment evidence, and not external reviewer feedback.
 
 Optional public proof route:
 
