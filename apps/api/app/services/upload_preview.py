@@ -35,13 +35,13 @@ def preview_upload(
         "Upload preview is preview-only and does not create documents or persist parse records.",
         "File upload preview does not claim robust PDF extraction.",
     ]
-    inferred_source_type = _infer_source_type(
+    inferred_source_type = infer_upload_source_type(
         source_type=source_type,
         filename=filename,
         content_type=content_type,
         warnings=warnings,
     )
-    text = _decode_upload(content, warnings)
+    text = decode_upload_content(content, warnings)
     parsed = preview_parse(
         ParsePreviewRequest(
             source_type=inferred_source_type,
@@ -66,7 +66,7 @@ def preview_upload(
     )
 
 
-def _infer_source_type(
+def infer_upload_source_type(
     *,
     source_type: str | None,
     filename: str | None,
@@ -89,7 +89,7 @@ def _infer_source_type(
     return "unknown"
 
 
-def _decode_upload(content: bytes, warnings: list[str]) -> str:
+def decode_upload_content(content: bytes, warnings: list[str]) -> str:
     try:
         return content.decode("utf-8")
     except UnicodeDecodeError:

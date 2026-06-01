@@ -1423,6 +1423,34 @@ Expected boundary:
 
 The upload preview is preview-only. It does not create documents, parse records, chunks, retrieval runs, Evidence Ledger entries, Noise Gate records, reports, workflow runs, or failure cases.
 
+Phase marker: uploaded file chunk preview v0.
+
+Use `POST /documents/upload-chunk-preview` to inspect an uploaded file through parser preview, document profiling, and chunk strategy comparison without creating documents or chunks.
+
+```bash
+curl -X POST http://localhost:8000/documents/upload-chunk-preview \
+  -F "source_type=csv" \
+  -F "max_characters=500" \
+  -F "overlap=0" \
+  -F "file=@examples/messy-market-data/sample-market.csv;type=text/csv"
+```
+
+Expected boundary:
+
+```json
+{
+  "persistence_boundary": "preview_only_not_persisted",
+  "filename": "sample-market.csv",
+  "parser": "csv",
+  "strategies": [
+    {"strategy": "fixed-window"},
+    {"strategy": "row-aware"}
+  ]
+}
+```
+
+The uploaded file chunk preview is preview-only. It does not create documents, chunks, retrieval runs, Evidence Ledger entries, Noise Gate records, reports, workflow runs, or failure cases.
+
 ## Metadata Examples
 
 Create a document metadata record:

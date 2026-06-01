@@ -3194,3 +3194,28 @@ def test_file_upload_preview_is_documented_as_preview_only_boundary():
     assert "Phase 146 - File Upload Preview v0" in goal
     assert "file upload preview v0" in runbook
     assert "docs/review/file-upload-preview.md" in portfolio
+
+
+def test_uploaded_file_chunk_preview_is_documented_as_preview_only_boundary():
+    review_path = REPO_ROOT / "docs/review/uploaded-file-chunk-preview.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Chunk Preview" in content
+    assert "uploaded file chunk preview v0" in content
+    assert "POST /documents/upload-chunk-preview" in content
+    assert "preview-only" in content
+    assert "does not create documents" in content
+    assert "does not create chunks" in content
+    assert "not retrieval" in content
+    assert "Uploaded file chunk preview v0: implemented" in readme
+    assert "Phase 147 - Uploaded File Chunk Preview v0" in goal
+    assert "uploaded file chunk preview v0" in runbook
+    assert "docs/review/uploaded-file-chunk-preview.md" in portfolio

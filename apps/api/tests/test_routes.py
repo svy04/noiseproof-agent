@@ -536,6 +536,31 @@ def test_document_upload_preview_surfaces_unknown_binary_boundary():
     assert any("does not claim robust PDF extraction" in warning for warning in body["warnings"])
 
 
+def test_document_upload_chunk_preview_compares_uploaded_csv_without_persistence():
+    client = make_client()
+    content = b"date,segment,growth\n2026-05-28,enterprise,12\n2026-05-29,consumer,-3\n"
+
+    response = client.post(
+        "/documents/upload-chunk-preview",
+        data={"source_type": "csv", "max_characters": "80", "overlap": "0"},
+        files={"file": ("sample-market.csv", content, "text/csv")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["filename"] == "sample-market.csv"
+    assert body["content_type"] == "text/csv"
+    assert body["byte_count"] == len(content)
+    assert body["source_type"] == "csv"
+    assert body["parser"] == "csv"
+    strategy_names = {strategy["strategy"] for strategy in body["strategies"]}
+    assert {"fixed-window", "row-aware"}.issubset(strategy_names)
+    assert body["profile"]["has_tables"] is True
+    assert any("does not create documents" in warning for warning in body["parse_warnings"])
+    assert client.get("/documents").json() == []
+
+
 def test_workflow_run_metadata_roundtrip_without_orchestration():
     client = make_client()
 

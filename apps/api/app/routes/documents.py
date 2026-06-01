@@ -10,12 +10,14 @@ from app.schemas import (
     DocumentProfileRequest,
     ParsePreviewOut,
     ParsePreviewRequest,
+    UploadChunkPreviewOut,
     UploadPreviewOut,
 )
 from app.services.chunk_preview import preview_chunks
 from app.services.document_profiler import profile_document
 from app.services.parse_preview import preview_parse
 from app.services.run_trace import run_with_trace
+from app.services.upload_chunk_preview import preview_uploaded_chunks
 from app.services.upload_preview import preview_upload
 
 router = APIRouter(prefix="/documents", tags=["documents"])
@@ -89,6 +91,40 @@ async def upload_document_preview(
             content_type=file.content_type,
             source_type=source_type,
             content=content,
+        ),
+    )
+
+
+@router.post("/upload-chunk-preview", response_model=UploadChunkPreviewOut)
+async def upload_document_chunk_preview(
+    file: UploadFile = File(...),
+    source_type: str | None = Form(default=None),
+    max_characters: int = Form(default=500),
+    overlap: int = Form(default=0),
+    repository: Repository = Depends(get_repository),
+) -> UploadChunkPreviewOut:
+    content = await file.read()
+
+    return run_with_trace(
+        repository,
+        endpoint="POST /documents/upload-chunk-preview",
+        user_question=f"upload chunk preview: {source_type or file.filename or 'unknown'}",
+        trace_json={
+            "source_type": source_type,
+            "filename": file.filename,
+            "content_type": file.content_type,
+            "byte_count": len(content),
+            "max_characters": max_characters,
+            "overlap": overlap,
+            "persistence_boundary": "preview_only_not_persisted",
+        },
+        operation=lambda _agent_run_id: preview_uploaded_chunks(
+            filename=file.filename,
+            content_type=file.content_type,
+            source_type=source_type,
+            content=content,
+            max_characters=max_characters,
+            overlap=overlap,
         ),
     )
 

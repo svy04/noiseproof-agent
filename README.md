@@ -173,6 +173,7 @@ Major implementation milestones:
 - External feedback acceptance draft workflow verification v0: implemented
 - Owner-approved product continuation decision v0: implemented
 - File upload preview v0: implemented
+- Uploaded file chunk preview v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts. The dedicated proof-marker archive in `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers without making the rendered README a chronological wall.
 
@@ -376,7 +377,7 @@ The project already has a reviewer request packet, intake criteria, reviewer bri
 
 The owner approved continuing implementation while that external-review gate stays pending. That approval is recorded in `docs/review/owner-approved-product-continuation-decision.md`; it is not external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, or production readiness.
 
-File upload preview v0 is now implemented as a preview-only, non-persisting boundary. The current next product implementation gate is `uploaded file chunk preview v0`.
+File upload preview v0 and uploaded file chunk preview v0 are now implemented as preview-only, non-persisting boundaries. The current next product implementation gate is `uploaded file retrieval preview v0`.
 
 ## Braincrew Role Alignment
 

@@ -108,6 +108,13 @@ class ChunkPreviewOut(BaseModel):
     strategies: list[ChunkStrategyOut]
 
 
+class UploadChunkPreviewOut(ChunkPreviewOut):
+    filename: str | None = None
+    content_type: str | None = None
+    byte_count: int
+    persistence_boundary: str
+
+
 class RetrievalSourceIn(BaseModel):
     source_id: str = Field(..., min_length=1)
     source_type: str = Field(..., min_length=1)
