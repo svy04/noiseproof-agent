@@ -40,6 +40,12 @@ Live issue body verification:
 docs/review/external-review-issue-body-link-map-verification.md
 ```
 
+Issue template link-map refresh:
+
+```text
+docs/review/external-review-issue-template-link-map-refresh.md
+```
+
 ## Review Path
 
 Please read in this order:

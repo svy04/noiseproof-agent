@@ -14,10 +14,15 @@ assignees: ""
 
 <!-- Link or list the artifacts you actually inspected. Please include only what you opened. -->
 
-- `README.md`
-- `docs/review/external-reader-proof-path.md`
-- `docs/application/portfolio-index.md`
-- `docs/review/local-browser-screenshot-walkthrough.md`
+Fast links:
+
+- Reviewer link map: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-link-map.md
+- README: https://github.com/svy04/noiseproof-agent/blob/main/README.md
+- External-reader proof path: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path.md
+- Portfolio index: https://github.com/svy04/noiseproof-agent/blob/main/docs/application/portfolio-index.md
+- Local browser screenshot walkthrough: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/local-browser-screenshot-walkthrough.md
+- Feedback intake criteria: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
+- Public feedback issue: https://github.com/svy04/noiseproof-agent/issues/1
 
 ## Feedback
 

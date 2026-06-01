@@ -60,6 +60,12 @@ docs/application/portfolio-index.md
 docs/review/external-feedback-intake-criteria.md
 ```
 
+Related issue template refresh:
+
+```text
+docs/review/external-review-issue-template-link-map-refresh.md
+```
+
 The issue body still preserves the boundary that self-authored issue edits or comments do not close the `external reviewer feedback v0` gate.
 
 ## Allowed Claim

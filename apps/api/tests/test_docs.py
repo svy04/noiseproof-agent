@@ -2303,6 +2303,55 @@ def test_external_review_request_packet_prepares_feedback_without_claiming_it():
     assert "https://github.com/svy04/noiseproof-agent/issues/1" in proof_path
 
 
+def test_external_review_issue_template_link_map_refresh_keeps_template_current():
+    refresh_path = REPO_ROOT / "docs/review/external-review-issue-template-link-map-refresh.md"
+    issue_template_path = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    )
+    assert refresh_path.is_file()
+    assert issue_template_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    issue_template = issue_template_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    issue_body_verification = (
+        REPO_ROOT / "docs/review/external-review-issue-body-link-map-verification.md"
+    ).read_text(encoding="utf-8")
+
+    link_map_url = (
+        "https://github.com/svy04/noiseproof-agent/blob/main/"
+        "docs/review/external-reviewer-link-map.md"
+    )
+    readme_url = "https://github.com/svy04/noiseproof-agent/blob/main/README.md"
+
+    assert "External Review Issue Template Link-map Refresh" in content
+    assert "external review issue template link-map refresh v0" in content
+    assert link_map_url in content
+    assert readme_url in content
+    assert "not external reviewer feedback" in content
+    assert link_map_url in issue_template
+    assert readme_url in issue_template
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in issue_template
+    assert "`docs/review/external-reviewer-link-map.md`" not in issue_template
+    assert "External review issue template link-map refresh v0: implemented" in readme
+    assert "external review issue template link-map refresh v0" in goal
+    assert "external review issue template link-map refresh v0" in runbook
+    assert "docs/review/external-review-issue-template-link-map-refresh.md" in portfolio
+    assert "docs/review/external-review-issue-template-link-map-refresh.md" in request
+    assert (
+        "docs/review/external-review-issue-template-link-map-refresh.md"
+        in issue_body_verification
+    )
+
+
 def test_external_feedback_intake_criteria_blocks_self_authored_proof():
     criteria_path = REPO_ROOT / "docs/review/external-feedback-intake-criteria.md"
     assert criteria_path.is_file()
