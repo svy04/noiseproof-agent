@@ -3855,3 +3855,44 @@ def test_uploaded_file_intake_manifest_persistence_endpoint_documents_runtime_bo
     assert "Phase 167 - Uploaded File Intake Manifest Persistence Endpoint v0" in goal
     assert "uploaded file intake manifest persistence endpoint v0" in runbook
     assert "docs/review/uploaded-file-intake-manifest-persistence-endpoint.md" in portfolio
+
+
+def test_uploaded_file_intake_manifest_persistence_runtime_smoke_records_local_evidence():
+    smoke_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md"
+    )
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Intake Manifest Persistence Runtime Smoke" in content
+    assert "uploaded file intake manifest persistence runtime smoke v0" in content
+    assert "docker compose config" in content
+    assert "Applied migrations: 11" in content
+    assert "Pending migrations: 0" in content
+    assert "POST /documents/upload-intake-manifests" in content
+    assert "GET /documents/upload-intake-manifests" in content
+    assert "manifest_only_no_raw_file_storage" in content
+    assert "do_not_persist_raw_upload_yet" in content
+    assert "no raw uploaded bytes" in content
+    assert "not hosted deployment" in content
+    assert (
+        "Uploaded file intake manifest persistence runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 168 - Uploaded File Intake Manifest Persistence Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded file intake manifest persistence runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md"
+        in portfolio
+    )

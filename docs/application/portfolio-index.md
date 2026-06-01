@@ -56,6 +56,8 @@ Uploaded file intake manifest persistence endpoint review: `docs/review/uploaded
 
 Uploaded file intake manifest persistence endpoint: `docs/review/uploaded-file-intake-manifest-persistence-endpoint.md` records the POST/GET API for manifest metadata only. It stores no raw uploaded bytes, is not document creation, and is not parser output persistence.
 
+Uploaded file intake manifest persistence runtime smoke: `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md` records local Docker DB plus FastAPI POST/GET evidence for persisting manifest metadata. It is local runtime evidence only, not hosted deployment or external reviewer feedback.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.
@@ -246,6 +248,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-file-intake-manifest-persistence-repository.md` | repository code for manifest metadata create/list; no endpoint |
 | `docs/review/uploaded-file-intake-manifest-persistence-endpoint-review.md` | review-only API boundary for manifest metadata persistence; no endpoint code |
 | `docs/review/uploaded-file-intake-manifest-persistence-endpoint.md` | POST/GET manifest metadata persistence endpoint; no raw uploaded bytes |
+| `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md` | local Docker DB plus FastAPI POST/GET manifest persistence smoke; not hosted evidence |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

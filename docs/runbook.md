@@ -1944,6 +1944,33 @@ replayable = false
 
 This endpoint stores no raw uploaded bytes, is not document creation, and is not parser output persistence. The next product gate is `uploaded file intake manifest persistence runtime smoke v0`.
 
+Phase marker: uploaded file intake manifest persistence runtime smoke v0.
+
+Observed local smoke path:
+
+```text
+docker compose config
+docker compose up -d db
+uv run python -m app.migration_runner --status
+uv run python -m app.migration_runner
+uv run python -m app.migration_runner --status
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8032
+POST /documents/upload-intake-manifests
+GET /documents/upload-intake-manifests
+```
+
+Observed result:
+
+```text
+Applied migrations: 11
+Pending migrations: 0
+manifest row persisted with manifest_only_no_raw_file_storage
+storage_decision = do_not_persist_raw_upload_yet
+replayable = false
+```
+
+This is local runtime evidence, not hosted deployment evidence. The next product gate is `uploaded file intake manifest persistence application refresh v0`.
+
 ## Metadata Examples
 
 Create a document metadata record:

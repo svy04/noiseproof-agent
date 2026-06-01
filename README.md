@@ -124,11 +124,8 @@ Still planned or explicitly unclaimed near the top:
 
 Major implementation milestones:
 
-- Day 1 / Day 2: docs, FastAPI skeleton, metadata persistence, schema, CI, runbook
-- Ingestion: fixtures, profiler, parsers, chunks, lexical retrieval, collection plan
-- Evidence: ledger, gate, report records, trace lookup, filters, workflow lineage
-- Operations: dashboard, warnings, versions, migration runner, DB/API smoke, failure proofs
-- Application: evaluation docs, Braincrew map, cover message, portfolio, external proof path
+- Core: docs, FastAPI skeleton, metadata persistence, schema, CI, runbook
+- Proof paths: ingestion, evidence, ops, application package, external-review surfaces
 - README detailed implementation-status compression v0: implemented
 - README proof-marker archive review v0: implemented
 - README proof-marker archive extraction v0: implemented
@@ -194,6 +191,7 @@ Major implementation milestones:
 - Uploaded file intake manifest persistence repository v0: implemented
 - Uploaded file intake manifest persistence endpoint review v0: implemented
 - Uploaded file intake manifest persistence endpoint v0: implemented
+- Uploaded file intake manifest persistence runtime smoke v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`; artifacts live in `docs/review/*` and `docs/application/portfolio-index.md`.
 
@@ -397,7 +395,7 @@ The project already has a reviewer request packet, intake criteria, reviewer bri
 
 The owner approved continuing implementation while that external-review gate stays pending. That approval is recorded in `docs/review/owner-approved-product-continuation-decision.md`; it is not external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, or production readiness.
 
-File upload preview v0 through uploaded file intake manifest persistence endpoint v0 are now implemented as bounded upload proof steps. The current next evidence gate remains `external reviewer feedback v0`; the current next product implementation gate is `uploaded file intake manifest persistence runtime smoke v0`.
+File upload preview v0 through uploaded file intake manifest persistence runtime smoke v0 are now implemented as bounded upload proof steps. The current next evidence gate remains `external reviewer feedback v0`; the current next product implementation gate is `uploaded file intake manifest persistence application refresh v0`.
 
 ## Braincrew Role Alignment
 
