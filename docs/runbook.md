@@ -3122,3 +3122,32 @@ retrieval-run-linked Report persistence exists
 ```
 
 This is documentation-only checklist hygiene. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+## Retrieval-run-linked Proof Surface Regression Coverage
+
+Phase 212 adds a docs regression guard for the retrieval-run-linked proof chain.
+
+The phase marker is:
+
+```text
+retrieval-run-linked proof surface regression coverage v0
+```
+
+The coverage artifact is:
+
+```text
+docs/review/retrieval-run-linked-proof-surface-regression-coverage.md
+```
+
+It keeps these endpoint docs and runtime smoke docs together:
+
+```text
+docs/review/retrieval-run-linked-evidence-ledger-endpoint.md
+docs/review/retrieval-run-linked-noise-gate-endpoint.md
+docs/review/retrieval-run-linked-report-endpoint.md
+docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md
+docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md
+docs/review/retrieval-run-linked-report-runtime-smoke.md
+```
+
+This is documentation regression coverage only. It is not runtime behavior, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.

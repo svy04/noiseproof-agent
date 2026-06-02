@@ -1130,3 +1130,10 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/application-ready-report-handoff-checklist-refresh.md`: added
 - `docs/review/application-ready-review.md`: added linked Noise Gate and Report persistence checklist rows
 - Boundary: documentation-only checklist hygiene; no runtime behavior, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 212 - Retrieval-run-linked Proof Surface Regression Coverage v0
+
+- Retrieval-run-linked proof surface regression coverage v0: implemented
+- `docs/review/retrieval-run-linked-proof-surface-regression-coverage.md`: added
+- `apps/api/tests/test_docs.py`: added a regression test that keeps endpoint docs and runtime smoke docs discoverable together
+- Boundary: documentation regression coverage only; no runtime behavior, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

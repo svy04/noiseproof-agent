@@ -143,6 +143,67 @@ def test_application_ready_report_handoff_checklist_refresh_surfaces_linked_gate
     assert "input_noise_gate_record_id" in application_ready
 
 
+def test_retrieval_run_linked_proof_surface_regression_coverage_keeps_endpoint_and_smoke_docs_together():
+    coverage_path = (
+        REPO_ROOT
+        / "docs/review/retrieval-run-linked-proof-surface-regression-coverage.md"
+    )
+    assert coverage_path.is_file()
+
+    content = coverage_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    endpoint_docs = [
+        "docs/review/retrieval-run-linked-evidence-ledger-endpoint.md",
+        "docs/review/retrieval-run-linked-noise-gate-endpoint.md",
+        "docs/review/retrieval-run-linked-report-endpoint.md",
+    ]
+    smoke_docs = [
+        "docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md",
+        "docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md",
+        "docs/review/retrieval-run-linked-report-runtime-smoke.md",
+    ]
+    endpoint_markers = [
+        "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger",
+        "POST /retrieval-runs/{retrieval_run_id}/noise-gate",
+        "POST /retrieval-runs/{retrieval_run_id}/report",
+    ]
+
+    assert "Retrieval-run-linked Proof Surface Regression Coverage" in content
+    assert "retrieval-run-linked proof surface regression coverage v0" in content
+    assert "endpoint docs" in content
+    assert "runtime smoke docs" in content
+    assert "pre_gate_status: 409" in content
+    assert "pre_report_status: 409" in content
+    assert "input_noise_gate_record_id" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    for doc_path in endpoint_docs + smoke_docs:
+        assert doc_path in content
+        assert (REPO_ROOT / doc_path).is_file()
+    for marker in endpoint_markers:
+        assert marker in content
+
+    assert (
+        "Retrieval-run-linked proof surface regression coverage v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 212 - Retrieval-run-linked Proof Surface Regression Coverage v0"
+        in goal
+    )
+    assert "retrieval-run-linked proof surface regression coverage v0" in runbook
+    assert (
+        "docs/review/retrieval-run-linked-proof-surface-regression-coverage.md"
+        in portfolio
+    )
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 
