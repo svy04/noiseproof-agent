@@ -6875,3 +6875,45 @@ def test_semantic_retrieval_quality_report_ci_check_is_documented():
         "docs/review/semantic-retrieval-quality-report-ci-check.md"
         in portfolio
     )
+
+
+def test_semantic_retrieval_quality_report_ci_remote_verification_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-report-ci-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Quality Report CI Remote Verification" in content
+    assert "semantic retrieval quality report ci remote verification v0" in content
+    assert "remote run: 26846871670" in content
+    assert "job: api-smoke" in content
+    assert "job id: 79168651555" in content
+    assert "head: 5c9ac05" in content
+    assert "Check semantic retrieval quality report staleness" in content
+    assert "step number: 7" in content
+    assert "conclusion: success" in content
+    assert "not vector search quality evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "does not close external reviewer feedback v0" in content
+    assert (
+        "Semantic retrieval quality report CI remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 245 - Semantic Retrieval Quality Report CI Remote Verification v0"
+        in goal
+    )
+    assert "semantic retrieval quality report ci remote verification v0" in runbook
+    assert (
+        "docs/review/semantic-retrieval-quality-report-ci-remote-verification.md"
+        in portfolio
+    )

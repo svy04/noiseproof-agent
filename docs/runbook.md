@@ -4127,6 +4127,26 @@ Current marker: `semantic_quality_report_current`.
 
 This is CI staleness protection only. It is not vector search quality evidence, not a benchmark result, not a model comparison, and not external reviewer feedback.
 
+## Semantic Retrieval Quality Report CI Remote Verification
+
+Phase marker: semantic retrieval quality report ci remote verification v0.
+
+Use `docs/review/semantic-retrieval-quality-report-ci-remote-verification.md` when checking the remote GitHub Actions evidence for the semantic retrieval quality report staleness step.
+
+Verified remote run:
+
+```text
+remote run: 26846871670
+job: api-smoke
+job id: 79168651555
+head: 5c9ac05
+step number: 7
+step name: Check semantic retrieval quality report staleness
+conclusion: success
+```
+
+This is remote CI execution evidence for staleness protection only. It is not vector search quality evidence, not a benchmark result, not a model comparison, not hosted deployment evidence, and not external reviewer feedback.
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.
