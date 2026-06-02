@@ -1,6 +1,7 @@
-from uuid import UUID
+from hashlib import sha256
+from uuid import UUID, uuid4
 
-from fastapi import APIRouter, Depends, File, Form, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 
 from app.db import Repository, get_repository
 from app.schemas import (
@@ -27,11 +28,14 @@ from app.schemas import (
     UploadIntakeManifestPreviewOut,
     UploadedFileIntakeManifestCreate,
     UploadedFileIntakeManifestOut,
+    UploadedRawFileCreate,
+    UploadedRawFileOut,
     UploadNoiseGatePreviewOut,
     UploadPreviewOut,
     UploadReportPreviewOut,
     UploadRetrievalPreviewOut,
 )
+from app.settings import Settings, get_settings
 from app.services.chunk_preview import preview_chunks
 from app.services.document_chunk_retrieval import run_document_chunk_retrieval
 from app.services.document_profiler import profile_document
@@ -298,6 +302,61 @@ def list_upload_document_intake_manifests(
     repository: Repository = Depends(get_repository),
 ) -> list[dict]:
     return list(repository.list_uploaded_file_intake_manifests(limit=limit))
+
+
+@router.post(
+    "/upload-raw-files",
+    response_model=UploadedRawFileOut,
+    status_code=201,
+)
+async def upload_document_raw_file(
+    file: UploadFile = File(...),
+    source_type: str | None = Form(default=None),
+    repository: Repository = Depends(get_repository),
+    settings: Settings = Depends(get_settings),
+) -> dict:
+    content = await file.read()
+    byte_count = len(content)
+    if byte_count > settings.max_raw_upload_bytes:
+        raise HTTPException(
+            status_code=413,
+            detail=(
+                f"raw upload size {byte_count} exceeds max_raw_upload_bytes "
+                f"{settings.max_raw_upload_bytes}"
+            ),
+        )
+
+    warnings = [
+        "Raw upload storage is quarantine-only and stores bytes in PostgreSQL bytea.",
+        "The original filename is recorded as metadata only and is not used as a storage key.",
+        "No download endpoint, malware scan, robust PDF extraction, parsing guarantee, or hosted deployment evidence is claimed.",
+    ]
+    payload = UploadedRawFileCreate(
+        content_sha256=sha256(content).hexdigest(),
+        storage_key=uuid4().hex,
+        filename=file.filename,
+        source_type=source_type or "unknown",
+        content_type=file.content_type,
+        size_bytes=byte_count,
+        storage_backend="postgres_bytea",
+        quarantine_status="stored_quarantined",
+        persistence_boundary="raw_upload_quarantine_db_bytea_no_download_endpoint",
+        raw_file_storage=True,
+        raw_bytes=content,
+        warnings_json=warnings,
+    )
+    return repository.create_uploaded_raw_file(payload)
+
+
+@router.get(
+    "/upload-raw-files",
+    response_model=list[UploadedRawFileOut],
+)
+def list_upload_document_raw_files(
+    limit: int = 20,
+    repository: Repository = Depends(get_repository),
+) -> list[dict]:
+    return list(repository.list_uploaded_raw_files(limit=limit))
 
 
 @router.post(

@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     service_name: str = "noiseproof-agent-api"
     workflow_version: str = "phase40-lineage-warning-code-dashboard"
     database_url: str = "postgresql://noiseproof:noiseproof@localhost:5432/noiseproof"
+    max_raw_upload_bytes: int = 1_000_000
 
     model_config = SettingsConfigDict(
         env_file=("../../.env", ".env"),

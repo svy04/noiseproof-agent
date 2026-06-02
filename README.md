@@ -113,7 +113,7 @@ Detailed implementation history remains in the lower detailed Implementation Sta
 Still planned or explicitly unclaimed near the top:
 
 - web app and polished dashboard UI
-- raw uploaded file storage and robust PDF extraction
+- raw upload quarantine storage is implemented; robust PDF extraction is still unclaimed
 - automatic upload-preview-to-chunk persistence wiring, embedding generation, vector search quality evidence, and LLM calls
 - hosted deployment evidence
 - automatic failure-case creation from workflow failures
@@ -200,13 +200,16 @@ For exhaustive phase history, use `docs/GOAL.md`.
 
 Not implemented yet:
 
-- raw uploaded file storage
 - robust PDF extraction
+- download endpoint for stored raw uploads
+- malware scanning for stored raw uploads
 - automatic upload-preview-to-chunk persistence wiring
 - autonomous workflow execution endpoints
 - automatic failure-case persistence from workflow failures
 - embedding generation and vector search quality evidence
 - full distributed tracing or hosted observability
+
+Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
 
 ## Planned Agent Workflow

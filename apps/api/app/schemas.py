@@ -109,6 +109,29 @@ class UploadedFileIntakeManifestOut(UploadedFileIntakeManifestCreate):
     created_at: datetime
 
 
+class UploadedRawFileMetadata(BaseModel):
+    content_sha256: str = Field(..., min_length=1)
+    storage_key: str = Field(..., min_length=1)
+    filename: str | None = None
+    source_type: str = Field(..., min_length=1)
+    content_type: str | None = None
+    size_bytes: int = Field(default=0, ge=0)
+    storage_backend: str = "postgres_bytea"
+    quarantine_status: str = "stored_quarantined"
+    persistence_boundary: str = "raw_upload_quarantine_db_bytea_no_download_endpoint"
+    raw_file_storage: bool = True
+    warnings_json: list[str] = Field(default_factory=list)
+
+
+class UploadedRawFileCreate(UploadedRawFileMetadata):
+    raw_bytes: bytes
+
+
+class UploadedRawFileOut(UploadedRawFileMetadata):
+    id: UUID
+    created_at: datetime
+
+
 class DocumentChunkCreate(BaseModel):
     document_id: UUID
     source_type: str = Field(..., min_length=1)

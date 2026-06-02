@@ -69,6 +69,8 @@ Phase 245 adds Semantic Retrieval Quality Report CI Remote Verification v0 as re
 
 Phase 246 adds Semantic Retrieval Quality Report CI Remote Issue-body Refresh v0 as an owner-authored issue #1 body update that points reviewers to `docs/review/semantic-retrieval-quality-report-ci-remote-verification.md`. It observes `candidate_count: 0` and `self_authored_comment`, so it does not close external reviewer feedback v0.
 
+Phase 247 adds Uploaded Raw File Storage v0 as a quarantined raw upload persistence boundary. It introduces `uploaded_raw_files`, `db/migrations/016_uploaded_raw_files.sql`, `POST /documents/upload-raw-files`, and `GET /documents/upload-raw-files`. It stores raw bytes in PostgreSQL BYTEA while returning metadata only, generates an internal UUID storage key, keeps the original filename as metadata only, rejects uploads over `max_raw_upload_bytes`, and records `raw_upload_quarantine_db_bytea_no_download_endpoint`. It is not malware scanning, not a download endpoint, not robust PDF extraction, not parser quality evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 Phase 127 adds External Reviewer Outreach Packet v0 as request infrastructure only. It does not close external reviewer feedback v0.
 
 Phase 128 adds External Feedback Qualification Preview v0 as a local screening helper only. It does not close external reviewer feedback v0.
@@ -983,7 +985,7 @@ Implemented:
 
 Not yet implemented:
 
-- raw uploaded file storage
+- raw upload quarantine storage exists; download endpoint and malware scanning do not
 - robust PDF extraction
 - persisted parse records
 - persisted chunks
@@ -7609,6 +7611,50 @@ README proof-marker archive entry
 ```
 
 Phase 246 is an owner-authored request-surface refresh only. It adds no runtime API behavior, schema, migration, endpoint code, embedding generation, HNSW or IVFFlat index behavior, vector search quality evidence, benchmark result, model comparison, Evidence Ledger generation from semantic retrieval, Critic/Noise Gate behavior, final report generation, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, financial advice behavior, or product-complete claim. It does not close external reviewer feedback v0.
+
+Current next product gate:
+
+```text
+external reviewer feedback v0 remains pending, or select the next source-first product gate
+```
+
+### Phase 247 - Uploaded Raw File Storage v0
+
+Goal:
+
+```text
+persist original uploaded bytes behind a quarantined metadata-only API response without using the original filename as the storage key
+```
+
+Source-first anchors:
+
+```text
+FastAPI file upload handling: https://fastapi.tiangolo.com/tutorial/request-files/
+OWASP File Upload Cheat Sheet: https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html
+```
+
+Implemented:
+
+```text
+uploaded raw file storage v0
+db/init/001_schema.sql uploaded_raw_files
+db/migrations/016_uploaded_raw_files.sql
+POST /documents/upload-raw-files
+GET /documents/upload-raw-files
+UploadedRawFileCreate
+UploadedRawFileOut
+Repository.create_uploaded_raw_file
+Repository.list_uploaded_raw_files
+max_raw_upload_bytes default 1000000
+raw_upload_quarantine_db_bytea_no_download_endpoint
+docs/review/uploaded-raw-file-storage.md
+README implementation marker
+docs/application/portfolio-index.md proof link
+docs/application/braincrew-role-map.md raw upload quarantine metadata marker
+docs/runbook.md smoke command
+```
+
+Phase 247 is quarantined raw upload storage only. It adds a schema, migration, repository methods, and route-level API behavior for storing uploaded bytes in PostgreSQL BYTEA while returning metadata only. It adds no download endpoint, malware scanning, robust PDF extraction, parser quality evidence, semantic retrieval evidence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim.
 
 Current next product gate:
 

@@ -4617,7 +4617,7 @@ def test_uploaded_file_intake_manifest_persistence_schema_adds_manifest_only_tab
     ]:
         assert field in combined
     assert "idx_uploaded_file_intake_manifests_content_sha256" in combined
-    assert "BYTEA" not in combined
+    assert "BYTEA" not in migration
     assert "Uploaded file intake manifest persistence schema v0: implemented" in readme
     assert "Phase 163 - Uploaded File Intake Manifest Persistence Schema v0" in goal
     assert "uploaded file intake manifest persistence schema v0" in runbook
@@ -6964,3 +6964,44 @@ def test_semantic_retrieval_quality_report_ci_remote_issue_body_refresh_is_docum
         "docs/review/semantic-retrieval-quality-report-ci-remote-issue-body-refresh.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_storage_is_documented_without_overclaim():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-storage.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
+    migration = (REPO_ROOT / "db/migrations/016_uploaded_raw_files.sql").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Storage" in content
+    assert "uploaded raw file storage v0" in content
+    assert "POST /documents/upload-raw-files" in content
+    assert "GET /documents/upload-raw-files" in content
+    assert "uploaded_raw_files" in content
+    assert "raw_upload_quarantine_db_bytea_no_download_endpoint" in content
+    assert "original filename is recorded as metadata only" in content
+    assert "not used as a storage key" in content
+    assert "not malware scanning" in content
+    assert "not robust PDF extraction" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert "Uploaded raw file storage v0: implemented" in readme
+    assert "Phase 247 - Uploaded Raw File Storage v0" in goal
+    assert "uploaded raw file storage v0" in runbook
+    assert "docs/review/uploaded-raw-file-storage.md" in portfolio
+    assert "raw upload quarantine metadata" in role_map
+    assert "CREATE TABLE IF NOT EXISTS uploaded_raw_files" in init_schema
+    assert "CREATE TABLE IF NOT EXISTS uploaded_raw_files" in migration

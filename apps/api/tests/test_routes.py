@@ -25,6 +25,7 @@ class InMemoryRepository:
         self.retrieval_runs = []
         self.workflow_runs = []
         self.uploaded_file_intake_manifests = []
+        self.uploaded_raw_files = []
         self.chunk_embeddings = []
 
     def create_document(self, payload: DocumentCreate) -> dict:
@@ -133,6 +134,16 @@ class InMemoryRepository:
 
     def list_uploaded_file_intake_manifests(self, limit=20):
         return self.uploaded_file_intake_manifests[:limit]
+
+    def create_uploaded_raw_file(self, payload) -> dict:
+        row = payload.model_dump()
+        row["id"] = uuid4()
+        row["created_at"] = datetime.now(timezone.utc)
+        self.uploaded_raw_files.append(row)
+        return row
+
+    def list_uploaded_raw_files(self, limit=20):
+        return self.uploaded_raw_files[:limit]
 
     def create_agent_run(self, payload: AgentRunCreate) -> dict:
         row = payload.model_dump()
@@ -1099,6 +1110,58 @@ def test_document_upload_intake_manifest_persists_manifest_metadata_without_raw_
         "does not create documents" in warning for warning in body["warnings_json"]
     )
     assert client.get("/documents").json() == []
+
+
+def test_document_upload_raw_file_persists_quarantined_bytes_without_filename_storage_key():
+    client = make_client()
+    content = b"ticker,revenue\nALPHA,120\n"
+    expected_hash = sha256(content).hexdigest()
+
+    response = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("../../evil.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["content_sha256"] == expected_hash
+    assert body["filename"] == "../../evil.csv"
+    assert body["source_type"] == "csv"
+    assert body["content_type"] == "text/csv"
+    assert body["size_bytes"] == len(content)
+    assert body["raw_file_storage"] is True
+    assert body["storage_backend"] == "postgres_bytea"
+    assert body["quarantine_status"] == "stored_quarantined"
+    assert body["persistence_boundary"] == "raw_upload_quarantine_db_bytea_no_download_endpoint"
+    assert body["storage_key"] != "../../evil.csv"
+    assert ".." not in body["storage_key"]
+    assert "/" not in body["storage_key"]
+    assert "\\" not in body["storage_key"]
+    assert "evil.csv" not in body["storage_key"]
+    assert "raw_bytes" not in body
+    assert any("not used as a storage key" in warning for warning in body["warnings_json"])
+
+    listed = client.get("/documents/upload-raw-files")
+    assert listed.status_code == 200
+    listed_body = listed.json()
+    assert listed_body[0]["id"] == body["id"]
+    assert listed_body[0]["content_sha256"] == expected_hash
+    assert "raw_bytes" not in listed_body[0]
+
+
+def test_document_upload_raw_file_rejects_oversized_file_without_persistence():
+    client = make_client()
+
+    response = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("large.bin", b"x" * 1_000_001, "application/octet-stream")},
+        data={"source_type": "binary"},
+    )
+
+    assert response.status_code == 413
+    assert "exceeds max_raw_upload_bytes" in response.json()["detail"]
+    assert client.get("/documents/upload-raw-files").json() == []
 
 
 def test_list_document_upload_intake_manifests_returns_recent_manifest_metadata():

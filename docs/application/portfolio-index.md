@@ -366,6 +366,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/semantic-retrieval-quality-report-ci-check.md` | CI staleness protection for committed toy semantic retrieval quality report regeneration |
 | `docs/review/semantic-retrieval-quality-report-ci-remote-verification.md` | remote GitHub Actions evidence that the toy report staleness CI step ran successfully |
 | `docs/review/semantic-retrieval-quality-report-ci-remote-issue-body-refresh.md` | owner-authored issue #1 refresh pointing reviewers to the semantic quality CI remote verification proof |
+| `docs/review/uploaded-raw-file-storage.md` | raw upload quarantine metadata plus PostgreSQL BYTEA storage; no download endpoint, malware scanning, robust PDF extraction, hosted deployment evidence, or external reviewer feedback |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
@@ -387,10 +388,10 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 
 Short current claim:
 
-NoiseProof Agent is a small, inspectable portfolio service for evidence-first market-intelligence workflows. It shows local service boundaries for profiling, parser/chunk/retrieval previews, upload intake manifest runtime smoke with content hash and no-raw-storage decision, persisted evidence/gate/report records, retrieval-run-linked Evidence Ledger, Noise Gate, and Report handoffs, workflow-parent lineage, failure-case persistence, and manual failure-case workflow-parent provenance before any free-form final answer is claimed.
+NoiseProof Agent is a small, inspectable portfolio service for evidence-first market-intelligence workflows. It shows local service boundaries for profiling, parser/chunk/retrieval previews, upload intake manifest runtime smoke with content hash, raw upload quarantine metadata with PostgreSQL BYTEA storage, persisted evidence/gate/report records, retrieval-run-linked Evidence Ledger, Noise Gate, and Report handoffs, workflow-parent lineage, failure-case persistence, and manual failure-case workflow-parent provenance before any free-form final answer is claimed.
 
 Detailed proof history remains in `docs/review/external-reader-proof-path.md`, `docs/review/failure-case-workflow-parent-linkage-proof-index.md`, `docs/review/application-ready-review.md`, `docs/review/external-reviewer-live-proof-route-refresh.md`, `docs/review/readme-proof-marker-archive.md`, and `docs/GOAL.md`.
 
 Allowed claim: local, inspectable portfolio evidence exists for the current bounded workflow surfaces.
 
-Forbidden claim: this is not hosted deployment evidence, not raw file storage, not automatic failure-case creation, not complete workflow failure causality, not production RAG quality, and not a product-complete declaration.
+Forbidden claim: this is not hosted deployment evidence, not a raw-file download/scanning system, not automatic failure-case creation, not complete workflow failure causality, not production RAG quality, and not a product-complete declaration.

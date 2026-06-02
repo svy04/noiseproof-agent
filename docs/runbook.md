@@ -276,7 +276,7 @@ Implemented:
 
 Not implemented:
 
-- raw uploaded file storage
+- raw upload quarantine storage exists; download endpoint and malware scanning do not
 - robust PDF extraction
 - persisted parse records
 - persisted chunks
@@ -2432,6 +2432,89 @@ does not close external reviewer feedback v0
 not customer validation
 not Braincrew acceptance
 not hosted deployment evidence
+```
+
+## Uploaded Raw File Storage
+
+Phase 247 adds uploaded raw file storage v0 as a quarantine-only raw upload persistence boundary.
+
+The phase marker is:
+
+```text
+uploaded raw file storage v0
+```
+
+Review artifact:
+
+```text
+docs/review/uploaded-raw-file-storage.md
+```
+
+API:
+
+```text
+POST /documents/upload-raw-files
+GET /documents/upload-raw-files
+```
+
+Fresh schema and migration:
+
+```text
+db/init/001_schema.sql
+db/migrations/016_uploaded_raw_files.sql
+uploaded_raw_files
+```
+
+Persistence boundary:
+
+```text
+raw_upload_quarantine_db_bytea_no_download_endpoint
+```
+
+Local smoke shape:
+
+```powershell
+curl.exe -s -X POST "http://127.0.0.1:8000/documents/upload-raw-files" `
+  -F "source_type=csv" `
+  -F "file=@.\examples\messy-market-data\sample-market.csv;type=text/csv"
+
+curl.exe -s "http://127.0.0.1:8000/documents/upload-raw-files"
+```
+
+Test command:
+
+```bash
+cd apps/api
+uv run pytest tests/test_routes.py -q -k "upload_raw_file"
+```
+
+Expected route-test result:
+
+```text
+2 passed
+```
+
+Behavior checked:
+
+```text
+raw bytes are persisted in PostgreSQL BYTEA
+response metadata exposes content hash, size, and internal storage_key
+raw_bytes are not returned by POST or GET responses
+original filename is recorded as metadata only and is not used as a storage key
+oversized uploads over max_raw_upload_bytes are rejected with 413
+```
+
+Claim boundary:
+
+```text
+not malware scanning
+not download endpoint
+not robust PDF extraction
+not parser quality evidence
+not semantic retrieval evidence
+not hosted deployment evidence
+not external reviewer feedback
+not product-complete
 ```
 
 ## Uploaded file chunk persistence handoff review

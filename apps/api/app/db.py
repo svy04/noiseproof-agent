@@ -18,6 +18,7 @@ from app.schemas import (
     ReportPreviewOut,
     RetrievalRunCreate,
     UploadedFileIntakeManifestCreate,
+    UploadedRawFileCreate,
     WorkflowRunCreate,
 )
 from app.settings import Settings, get_settings
@@ -81,6 +82,8 @@ class Repository(Protocol):
         payload: UploadedFileIntakeManifestCreate,
     ) -> dict: ...
     def list_uploaded_file_intake_manifests(self, limit: int = 20) -> Sequence[dict]: ...
+    def create_uploaded_raw_file(self, payload: UploadedRawFileCreate) -> dict: ...
+    def list_uploaded_raw_files(self, limit: int = 20) -> Sequence[dict]: ...
     def create_agent_run(self, payload: AgentRunCreate) -> dict: ...
     def update_agent_run(
         self,
@@ -393,6 +396,55 @@ class PostgresRepository:
             rows = conn.execute(
                 """
                 SELECT * FROM uploaded_file_intake_manifests
+                ORDER BY created_at DESC, id DESC
+                LIMIT %s
+                """,
+                (safe_limit,),
+            ).fetchall()
+            return [dict(row) for row in rows]
+
+    def create_uploaded_raw_file(self, payload: UploadedRawFileCreate) -> dict:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                INSERT INTO uploaded_raw_files (
+                  content_sha256, storage_key, filename, source_type,
+                  content_type, size_bytes, storage_backend, quarantine_status,
+                  persistence_boundary, raw_bytes, warnings_json
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING
+                  id, content_sha256, storage_key, filename, source_type,
+                  content_type, size_bytes, storage_backend, quarantine_status,
+                  persistence_boundary, true AS raw_file_storage, warnings_json, created_at
+                """,
+                (
+                    payload.content_sha256,
+                    payload.storage_key,
+                    payload.filename,
+                    payload.source_type,
+                    payload.content_type,
+                    payload.size_bytes,
+                    payload.storage_backend,
+                    payload.quarantine_status,
+                    payload.persistence_boundary,
+                    payload.raw_bytes,
+                    Jsonb(payload.warnings_json),
+                ),
+            ).fetchone()
+            conn.commit()
+            return dict(row)
+
+    def list_uploaded_raw_files(self, limit: int = 20) -> Sequence[dict]:
+        safe_limit = max(1, min(limit, 100))
+        with self._connect() as conn:
+            rows = conn.execute(
+                """
+                SELECT
+                  id, content_sha256, storage_key, filename, source_type,
+                  content_type, size_bytes, storage_backend, quarantine_status,
+                  persistence_boundary, true AS raw_file_storage, warnings_json, created_at
+                FROM uploaded_raw_files
                 ORDER BY created_at DESC, id DESC
                 LIMIT %s
                 """,
