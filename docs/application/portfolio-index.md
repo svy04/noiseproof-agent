@@ -336,6 +336,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/semantic-retrieval-readiness-review.md` | source-first review for future semantic retrieval; selects embedding schema review before implementation |
 | `docs/review/embedding-schema-review.md` | review-only schema decision for future `chunk_embeddings`; no migration, vector column, embeddings, or semantic retrieval |
 | `docs/review/embedding-schema-migration.md` | schema-only `chunk_embeddings` migration and fresh-db schema update; no embedding generation or semantic retrieval |
+| `docs/review/embedding-schema-runtime-verification.md` | local Docker PostgreSQL/pgvector verification that migration `015_chunk_embeddings.sql` applies and `embedding` uses vector |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

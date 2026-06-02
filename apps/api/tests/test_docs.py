@@ -320,6 +320,40 @@ def test_embedding_schema_migration_adds_chunk_embeddings_without_runtime_behavi
     assert "not runtime evidence" in readme
 
 
+def test_embedding_schema_runtime_verification_records_fresh_db_migration_evidence():
+    review_path = REPO_ROOT / "docs/review/embedding-schema-runtime-verification.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Schema Runtime Verification" in content
+    assert "embedding schema runtime verification v0" in content
+    assert "Docker runtime verification performed" in content
+    assert "Docker version" in content
+    assert "Docker Compose version" in content
+    assert "Applied migrations: 0" in content
+    assert "Pending migrations: 14" in content
+    assert "Applied migrations: 14" in content
+    assert "Pending migrations: 0" in content
+    assert "015_chunk_embeddings.sql" in content
+    assert "chunk_embeddings" in content
+    assert "embedding_model" in content
+    assert "embedding vector" in content
+    assert "not embedding generation" in content
+    assert "not semantic retrieval implementation" in content
+    assert "not hosted deployment evidence" in content
+    assert "Embedding schema runtime verification v0: implemented" in readme
+    assert "Phase 216 - Embedding Schema Runtime Verification v0" in goal
+    assert "embedding schema runtime verification v0" in runbook
+    assert "docs/review/embedding-schema-runtime-verification.md" in portfolio
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

@@ -1162,3 +1162,13 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `db/init/001_schema.sql`: updated with the same `chunk_embeddings` fresh-db schema
 - `docs/review/embedding-schema-migration.md`: added
 - Boundary: schema-only; not embedding generation, not semantic retrieval implementation, not runtime evidence, not vector index tuning, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 216 - Embedding Schema Runtime Verification v0
+
+- Embedding schema runtime verification v0: implemented
+- `docs/review/embedding-schema-runtime-verification.md`: added
+- Docker runtime verification performed with an ephemeral `pgvector/pgvector:pg16` container on port `55433`
+- Observed migration runner status: `Applied migrations: 0 / Pending migrations: 14` before apply; `Applied migrations: 14 / Pending migrations: 0` after apply
+- Observed `schema_migrations.filename = 015_chunk_embeddings.sql`
+- Observed `chunk_embeddings.embedding` as pgvector `udt_name = vector`
+- Boundary: local runtime evidence only; not embedding generation, not semantic retrieval implementation, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

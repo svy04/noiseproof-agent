@@ -3243,3 +3243,39 @@ Next verification gate:
 ```text
 embedding schema runtime verification v0
 ```
+
+## Embedding Schema Runtime Verification
+
+Phase 216 records local Docker PostgreSQL/pgvector runtime evidence.
+
+The phase marker is:
+
+```text
+embedding schema runtime verification v0
+```
+
+Review artifact:
+
+```text
+docs/review/embedding-schema-runtime-verification.md
+```
+
+Observed migration runner status:
+
+```text
+Applied migrations: 0
+Pending migrations: 14
+Applied migrations: 14
+Pending migrations: 0
+```
+
+Observed schema target:
+
+```text
+015_chunk_embeddings.sql
+chunk_embeddings
+embedding vector
+embedding_model
+```
+
+This is local runtime evidence only. It is not embedding generation, not semantic retrieval implementation, not hosted deployment evidence, and not external reviewer feedback.
