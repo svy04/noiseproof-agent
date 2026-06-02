@@ -686,6 +686,37 @@ def test_semantic_retrieval_persistence_review_selects_explicit_persisted_run_bo
     assert "docs/review/semantic-retrieval-persistence-review.md" in portfolio
 
 
+def test_semantic_retrieval_persistence_endpoint_records_endpoint_without_runtime_smoke_claim():
+    review_path = REPO_ROOT / "docs/review/semantic-retrieval-persistence-endpoint.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    visible_readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Semantic Retrieval Persistence Endpoint" in content
+    assert "semantic retrieval persistence endpoint v0" in content
+    assert "POST /documents/{document_id}/semantic-retrieval-runs" in content
+    assert "semantic-cosine" in content
+    assert "metadata_json.retrieval_mode = semantic_persisted" in content
+    assert "metadata_json.candidate_embedding_ids" in content
+    assert "semantic_retrieval_run_only_no_evidence_ledger" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger generation" in content
+    assert "not runtime smoke evidence" in content
+    assert "Semantic retrieval persistence endpoint v0: implemented" in readme
+    assert "Phase 227 - Semantic Retrieval Persistence Endpoint v0" in goal
+    assert "semantic retrieval persistence endpoint v0" in runbook
+    assert "docs/review/semantic-retrieval-persistence-endpoint.md" in portfolio
+    assert "Semantic retrieval persistence endpoint v0: implemented" in visible_readme
+    assert "embedding generation, semantic retrieval runtime smoke, and vector search quality evidence" in visible_readme
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

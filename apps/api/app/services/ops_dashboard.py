@@ -40,7 +40,7 @@ def render_ops_dashboard(
 </head>
 <body>
   <h1>Operations Dashboard v0</h1>
-  <p class="muted">Phase 35 inspectable operations surface. No LLM calls, no semantic retrieval, workflow and stage input manifests are local nullable provenance, no free-form final answer generation.</p>
+  <p class="muted">Phase 35 inspectable operations surface. No LLM calls, no embedding generation, semantic retrieval quality evidence remains unclaimed, workflow and stage input manifests are local nullable provenance, no free-form final answer generation.</p>
   <section>
     <h2>Summary</h2>
     <div class="grid">
@@ -101,7 +101,7 @@ def render_ops_dashboard(
       <li>This dashboard renders existing metadata and preview records only.</li>
       <li>Unsupported claim and contradiction counts come from persisted Evidence Ledger entries.</li>
       <li>Persisted evidence, gate, and report records link back to their parent agent run through trace lookup.</li>
-      <li>Embeddings, semantic retrieval, distributed tracing, and free-form final reports are still not implemented.</li>
+      <li>Embedding generation, semantic retrieval quality evidence, distributed tracing, and free-form final reports are still not implemented.</li>
       <li>Visual polish is intentionally deferred until failure behavior is more complete.</li>
     </ul>
   </section>

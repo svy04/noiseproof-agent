@@ -6,6 +6,7 @@ Phase marker: readme proof-marker archive extraction v0.
 
 This file preserves source-level continuity for older README proof markers after the rendered README was compressed for external-reader scanability.
 
+README proof-marker archive application refresh review v0: implemented
 README detailed implementation-status compression v0: implemented
 README next-gate stale-claim refresh v0: implemented
 External feedback acceptance template v0: implemented
@@ -1258,3 +1259,12 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Required metadata: `metadata_json.candidate_chunk_ids`, `metadata_json.candidate_embedding_ids`, `metadata_json.missing_embedding_chunk_ids`
 - Boundary: preview endpoint remains preview-only; do not overload `POST /documents/{document_id}/retrieval-runs`
 - Claim boundary: review-only; no endpoint code, no embedding generation, no Evidence Ledger generation, no hosted deployment evidence
+
+### Phase 227 - Semantic Retrieval Persistence Endpoint v0
+
+- Semantic retrieval persistence endpoint v0: implemented
+- `POST /documents/{document_id}/semantic-retrieval-runs`: added
+- `docs/review/semantic-retrieval-persistence-endpoint.md`: added
+- Persists one `retrieval_runs` row with `strategy = semantic-cosine`
+- Required metadata: `metadata_json.retrieval_mode = semantic_persisted`, `metadata_json.candidate_chunk_ids`, `metadata_json.candidate_embedding_ids`, `metadata_json.missing_embedding_chunk_ids`
+- Boundary: no embedding generation, no Evidence Ledger generation, no semantic retrieval runtime smoke yet, no vector search quality claim, no hosted deployment evidence

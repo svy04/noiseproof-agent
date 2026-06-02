@@ -104,7 +104,7 @@ Current status groups:
 
 - documentation: product brief, architecture, ADRs, runbook, application package, and review artifacts
 - service skeleton: FastAPI health, ops summary/dashboard, metadata routes, PostgreSQL schema, document chunk repository, migration runner, and CI
-- ingestion/RAG boundaries: document profiling, parser adapters, chunk strategy comparison, lexical retrieval, semantic retrieval preview, and collection planning
+- ingestion/RAG boundaries: document profiling, parser adapters, chunk strategy comparison, lexical retrieval, semantic retrieval preview/persistence, and collection planning
 - evidence/report boundaries: Evidence Ledger, Noise Gate, claim-bounded report previews, trace lookup, filters, workflow parents, lineage, and warning codes
 - proof surfaces: DB/failure smoke artifacts, reviewer path/request/brief/link-map/root-guide, live issue/request-surface checks, feedback screening artifacts, and Braincrew application mapping
 
@@ -114,7 +114,7 @@ Still planned or explicitly unclaimed near the top:
 
 - web app and polished dashboard UI
 - raw uploaded file storage and robust PDF extraction
-- automatic upload-preview-to-chunk persistence wiring, embedding generation, semantic retrieval persistence, and LLM calls
+- automatic upload-preview-to-chunk persistence wiring, embedding generation, semantic retrieval runtime smoke, vector search quality evidence, and LLM calls
 - hosted deployment evidence
 - automatic failure-case creation from workflow failures
 - complete workflow failure causality
@@ -125,7 +125,6 @@ Still planned or explicitly unclaimed near the top:
 Major implementation milestones:
 - README proof-marker archive review v0: implemented
 - README proof-marker archive extraction v0: implemented
-- README proof-marker archive application refresh review v0: implemented
 - README proof-marker archive application refresh v0: implemented
 - README proof-marker archive external path review v0: implemented
 - README proof-marker archive external path refresh v0: implemented
@@ -195,6 +194,7 @@ Major implementation milestones:
 - Embedding endpoint runtime smoke v0: implemented
 - Embedding endpoint application refresh v0: implemented
 - Semantic retrieval preview endpoint v0: implemented
+- Semantic retrieval persistence endpoint v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`.
 
@@ -205,7 +205,7 @@ Not implemented yet:
 - automatic upload-preview-to-chunk persistence wiring
 - autonomous workflow execution endpoints
 - automatic failure-case persistence from workflow failures
-- embedding generation, persisted semantic retrieval, and vector search quality evidence
+- embedding generation, semantic retrieval runtime smoke, and vector search quality evidence
 - full distributed tracing or hosted observability
 
 
@@ -293,7 +293,7 @@ See:
 - `docs/evaluation/retrieval-eval-report.md`
 - `docs/evaluation/failure-cases.md`
 
-The project does not claim model, semantic retrieval, or answer quality success.
+The project does not claim model quality, semantic retrieval quality, or answer quality success.
 
 ## Failure Cases
 

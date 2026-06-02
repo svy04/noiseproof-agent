@@ -568,7 +568,7 @@ Expected `/ops/summary` shape:
   "average_latency_ms": null,
   "notes": [
     "Retrieval runs recorded: 0. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
-    "Embeddings, semantic retrieval, distributed tracing, and final report generation beyond deterministic previews are still not implemented."
+    "Embedding generation, semantic retrieval quality evidence, distributed tracing, and final report generation beyond deterministic previews are still not implemented."
   ]
 }
 ```
@@ -3553,6 +3553,62 @@ Claim boundary:
 ```text
 caller-provided query vector only
 not retrieval_runs persistence
+not embedding generation
+not Evidence Ledger generation
+not vector search quality evidence
+not hosted deployment evidence
+```
+
+## Semantic Retrieval Persistence Endpoint
+
+Phase 227 implements the endpoint selected by the semantic retrieval persistence review.
+
+The phase marker is:
+
+```text
+semantic retrieval persistence endpoint v0
+```
+
+Review artifact:
+
+```text
+docs/review/semantic-retrieval-persistence-endpoint.md
+```
+
+Endpoint:
+
+```text
+POST /documents/{document_id}/semantic-retrieval-runs
+```
+
+Request:
+
+```json
+{
+  "question": "Which chunk is closest to demand growth?",
+  "query_embedding": [1.0, 0.0],
+  "embedding_model": "local-test-model",
+  "embedding_dimension": 2,
+  "limit": 2
+}
+```
+
+Expected behavior:
+
+```text
+creates one retrieval_runs row
+strategy = semantic-cosine
+metadata_json.retrieval_mode = semantic_persisted
+metadata_json.candidate_chunk_ids
+metadata_json.candidate_embedding_ids
+metadata_json.missing_embedding_chunk_ids
+metadata_json.persistence_boundary = semantic_retrieval_run_only_no_evidence_ledger
+```
+
+Claim boundary:
+
+```text
+not runtime smoke evidence
 not embedding generation
 not Evidence Ledger generation
 not vector search quality evidence

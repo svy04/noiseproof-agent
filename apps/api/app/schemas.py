@@ -153,6 +153,10 @@ class SemanticRetrievalPreviewRequest(BaseModel):
     limit: int = Field(default=5, ge=1, le=20)
 
 
+class SemanticRetrievalRunRequest(SemanticRetrievalPreviewRequest):
+    pass
+
+
 class SemanticRetrievalCandidateOut(BaseModel):
     chunk_id: UUID
     embedding_id: UUID

@@ -107,6 +107,7 @@ class InMemoryRepository:
                         "chunk_id": chunk["id"],
                         "embedding_id": embedding["id"],
                         "document_id": chunk["document_id"],
+                        "source_type": chunk["source_type"],
                         "chunk_strategy": chunk["chunk_strategy"],
                         "chunk_index": chunk["chunk_index"],
                         "chunk_text": chunk["chunk_text"],
@@ -855,6 +856,167 @@ def test_semantic_retrieval_preview_rejects_query_dimension_mismatch():
     assert "query_embedding length must match embedding_dimension" in response.json()[
         "detail"
     ]
+
+
+def test_semantic_retrieval_run_persists_candidates_without_evidence_ledger():
+    client = make_client()
+    document, demand_chunk, noise_chunk, missing_chunk = _create_semantic_fixture(client)
+
+    response = client.post(
+        f"/documents/{document['id']}/semantic-retrieval-runs",
+        json={
+            "question": "Which chunk is closest to demand growth?",
+            "query_embedding": [1.0, 0.0],
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+            "limit": 2,
+        },
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["question"] == "Which chunk is closest to demand growth?"
+    assert body["strategy"] == "semantic-cosine"
+    assert body["status"] == "completed"
+    assert body["result_count"] == 2
+    assert body["citation_coverage"] == 1.0
+    assert body["missing_evidence_count"] == 0
+    assert body["metadata_json"]["source_table"] == "document_chunks"
+    assert body["metadata_json"]["embedding_table"] == "chunk_embeddings"
+    assert body["metadata_json"]["retrieval_mode"] == "semantic_persisted"
+    assert body["metadata_json"]["preview_source"] == "semantic_preview_runtime_smoke"
+    assert body["metadata_json"]["candidate_chunk_ids"] == [
+        demand_chunk["id"],
+        noise_chunk["id"],
+    ]
+    assert len(body["metadata_json"]["candidate_embedding_ids"]) == 2
+    assert missing_chunk["id"] in body["metadata_json"]["missing_embedding_chunk_ids"]
+    assert body["metadata_json"]["query_vector_source"] == "caller_provided_vector"
+    assert body["metadata_json"]["ranking_boundary"] == (
+        "exact_cosine_caller_provided_query_vector"
+    )
+    assert body["metadata_json"]["persistence_boundary"] == (
+        "semantic_retrieval_run_only_no_evidence_ledger"
+    )
+    assert body["metadata_json"]["no_embedding_generation"] is True
+    assert body["metadata_json"]["no_evidence_ledger_generation"] is True
+    assert body["metadata_json"]["not_financial_advice"] is True
+    assert [result["source_id"] for result in body["results"]] == [
+        demand_chunk["id"],
+        noise_chunk["id"],
+    ]
+    assert body["results"][0]["source_type"] == "markdown"
+    assert body["results"][0]["score"] >= body["results"][1]["score"]
+    assert body["results"][0]["matched_terms"] == []
+    assert body["results"][0]["metadata"]["embedding_table"] == "chunk_embeddings"
+    assert any("does not generate embeddings" in warning for warning in body["warnings"])
+    assert any("does not generate Evidence Ledger" in warning for warning in body["warnings"])
+
+    listed = client.get("/retrieval-runs")
+    assert listed.status_code == 200
+    stored = listed.json()[0]
+    assert stored["id"] == body["id"]
+    assert stored["metadata_json"]["retrieval_mode"] == "semantic_persisted"
+    assert stored["metadata_json"]["candidate_chunk_ids"] == [
+        demand_chunk["id"],
+        noise_chunk["id"],
+    ]
+    assert client.get("/evidence-ledgers").json() == []
+
+
+def test_semantic_retrieval_run_rejects_query_dimension_mismatch_without_persistence():
+    client = make_client()
+    document, *_ = _create_semantic_fixture(client)
+
+    response = client.post(
+        f"/documents/{document['id']}/semantic-retrieval-runs",
+        json={
+            "question": "bad vector",
+            "query_embedding": [1.0],
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+            "limit": 2,
+        },
+    )
+
+    assert response.status_code == 400
+    assert "query_embedding length must match embedding_dimension" in response.json()[
+        "detail"
+    ]
+    assert client.get("/retrieval-runs").json() == []
+
+
+def _create_semantic_fixture(client):
+    document = client.post(
+        "/documents",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://semantic.md",
+            "filename": "semantic.md",
+            "title": "Semantic retrieval persistence fixture",
+        },
+    ).json()
+    demand_chunk = client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://semantic.md",
+            "filename": "semantic.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 0,
+            "chunk_text": "Enterprise demand growth reached 12% in 2026.",
+            "metadata_json": {"header_path": ["Demand"]},
+        },
+    ).json()
+    noise_chunk = client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://semantic.md",
+            "filename": "semantic.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 1,
+            "chunk_text": "Weather noise was unrelated to the market question.",
+            "metadata_json": {"header_path": ["Noise"]},
+        },
+    ).json()
+    missing_chunk = client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://semantic.md",
+            "filename": "semantic.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 2,
+            "chunk_text": "Supply chain data has no embedding yet.",
+            "metadata_json": {"header_path": ["Missing"]},
+        },
+    ).json()
+    client.post(
+        f"/chunks/{demand_chunk['id']}/embeddings",
+        json={
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+            "embedding_text_hash": "sha256:demand",
+            "distance_metric": "cosine",
+            "embedding_status": "created",
+            "embedding": [1.0, 0.0],
+            "metadata_json": {"embedding_source": "caller_provided_vector"},
+        },
+    )
+    client.post(
+        f"/chunks/{noise_chunk['id']}/embeddings",
+        json={
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+            "embedding_text_hash": "sha256:noise",
+            "distance_metric": "cosine",
+            "embedding_status": "created",
+            "embedding": [0.0, 1.0],
+            "metadata_json": {"embedding_source": "caller_provided_vector"},
+        },
+    )
+    return document, demand_chunk, noise_chunk, missing_chunk
 
 
 def test_upload_chunk_preview_does_not_auto_persist_document_chunks():

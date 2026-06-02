@@ -324,6 +324,7 @@ class PostgresRepository:
                   dc.id AS chunk_id,
                   ce.id AS embedding_id,
                   dc.document_id,
+                  dc.source_type,
                   dc.chunk_strategy,
                   dc.chunk_index,
                   dc.chunk_text,

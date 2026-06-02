@@ -19,6 +19,7 @@ from app.schemas import (
     RetrievalRunResponse,
     SemanticRetrievalPreviewOut,
     SemanticRetrievalPreviewRequest,
+    SemanticRetrievalRunRequest,
     UploadChunkPreviewOut,
     UploadChunkPersistenceOut,
     UploadEvidencePreviewOut,
@@ -37,6 +38,7 @@ from app.services.document_profiler import profile_document
 from app.services.parse_preview import preview_parse
 from app.services.run_trace import run_with_trace
 from app.services.semantic_retrieval_preview import preview_semantic_retrieval
+from app.services.semantic_retrieval_run import run_semantic_retrieval
 from app.services.upload_chunk_preview import preview_uploaded_chunks
 from app.services.upload_evidence_preview import preview_uploaded_evidence
 from app.services.upload_failure_case_draft_preview import preview_uploaded_failure_case_draft
@@ -115,6 +117,34 @@ def semantic_retrieval_preview(
             "query_vector_source": "caller_provided_vector",
         },
         operation=lambda _agent_run_id: preview_semantic_retrieval(
+            document_id=document_id,
+            payload=payload,
+            repository=repository,
+        ),
+    )
+
+
+@router.post(
+    "/{document_id}/semantic-retrieval-runs",
+    response_model=RetrievalRunResponse,
+    status_code=201,
+)
+def create_semantic_retrieval_run(
+    document_id: UUID,
+    payload: SemanticRetrievalRunRequest,
+    repository: Repository = Depends(get_repository),
+) -> RetrievalRunResponse:
+    return run_with_trace(
+        repository,
+        endpoint="POST /documents/{document_id}/semantic-retrieval-runs",
+        user_question=payload.question,
+        trace_json={
+            "document_id": str(document_id),
+            "retrieval_mode": "semantic_persisted",
+            "persistence_boundary": "semantic_retrieval_run_only_no_evidence_ledger",
+            "query_vector_source": "caller_provided_vector",
+        },
+        operation=lambda _agent_run_id: run_semantic_retrieval(
             document_id=document_id,
             payload=payload,
             repository=repository,
