@@ -2493,6 +2493,46 @@ no retrieval persistence
 
 This route-level implementation is not hosted deployment evidence. The next bounded proof gate is a local runtime smoke.
 
+## Uploaded file chunk persistence handoff runtime smoke
+
+Phase marker: uploaded file chunk persistence handoff runtime smoke v0.
+
+This smoke uses Docker because NoiseProof's persistence claims depend on PostgreSQL/pgvector behavior, migration status, and live FastAPI HTTP calls against a database service rather than only in-memory route tests.
+
+```powershell
+docker compose config
+docker compose up -d db
+docker compose ps
+cd apps/api
+$env:DATABASE_URL="postgresql://noiseproof:noiseproof@localhost:55432/noiseproof"
+uv run python -m app.migration_runner --status
+uv run python -m app.migration_runner
+uv run python -m app.migration_runner --status
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8034
+```
+
+Observed boundary:
+
+```text
+Applied migrations: 12
+Pending migrations: 0
+GET /health -> 200
+POST /documents/upload-chunks -> 201
+GET /documents -> 200
+GET /documents/{document_id}/chunks -> 200
+document_count_after_upload_chunks -> 4
+chunk_count_after_upload_chunks -> 5
+chunk_count_for_created_document -> 4
+explicit_upload_to_chunks_no_raw_file_storage
+chunk_text_only_no_raw_file_storage
+no raw uploaded byte storage
+no full parsed text persistence
+no embeddings
+no retrieval persistence
+```
+
+This is local runtime evidence only, not hosted deployment evidence or external reviewer feedback.
+
 ## Metadata Examples
 
 Create a document metadata record:

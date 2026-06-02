@@ -4805,3 +4805,51 @@ def test_uploaded_file_chunk_persistence_handoff_endpoint_documents_route_bounda
         "docs/review/uploaded-file-chunk-persistence-handoff-endpoint.md"
         in portfolio
     )
+
+
+def test_uploaded_file_chunk_persistence_handoff_runtime_smoke_records_live_boundary():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Chunk Persistence Handoff Runtime Smoke" in content
+    assert "uploaded file chunk persistence handoff runtime smoke v0" in content
+    assert "docker compose config" in content
+    assert "docker compose up -d db" in content
+    assert "uv run uvicorn app.main:app" in content
+    assert "POST /documents/upload-chunks" in content
+    assert "GET /documents" in content
+    assert "GET /documents/{document_id}/chunks" in content
+    assert "explicit_upload_to_chunks_no_raw_file_storage" in content
+    assert "chunk_text_only_no_raw_file_storage" in content
+    assert "document_count_after_upload_chunks" in content
+    assert "chunk_count_after_upload_chunks" in content
+    assert "no raw uploaded byte storage" in content
+    assert "no full parsed text persistence" in content
+    assert "no embeddings" in content
+    assert "no retrieval persistence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Uploaded file chunk persistence handoff runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 190 - Uploaded File Chunk Persistence Handoff Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded file chunk persistence handoff runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md"
+        in portfolio
+    )

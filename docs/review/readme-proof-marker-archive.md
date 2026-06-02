@@ -963,3 +963,9 @@ This hidden source archive preserves earlier README proof markers while the rend
 - README detailed implementation-status compression review v0: implemented as `docs/review/readme-detailed-implementation-status-compression-review.md`
 - Current decision: compress the lower README implementation status section next
 - Boundary: review-only; no runtime behavior, schema, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality added
+
+### Phase 190 - Uploaded File Chunk Persistence Handoff Runtime Smoke v0
+
+- Uploaded file chunk persistence handoff runtime smoke v0: implemented
+- `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`: added
+- Boundary: local runtime smoke evidence only; no hosted deployment evidence, external reviewer feedback, retrieval persistence, embeddings, raw uploaded byte storage, or product-complete claim added
