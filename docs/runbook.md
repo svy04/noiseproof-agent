@@ -2633,6 +2633,41 @@ no new retrieval_candidates table
 
 This is review-only. It adds no runtime behavior, endpoint code, schema, migration, embeddings, semantic retrieval, Evidence Ledger generation, Noise Gate generation, report generation, financial advice behavior, hosted deployment evidence, external reviewer feedback, or product-complete claim.
 
+## Uploaded file retrieval persistence endpoint
+
+Phase marker: uploaded file retrieval persistence endpoint v0.
+
+Use `POST /documents/{document_id}/retrieval-runs` after a document already has persisted `document_chunks` rows.
+
+Example:
+
+```bash
+curl -X POST http://localhost:8000/documents/$DOCUMENT_ID/retrieval-runs \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which chunk supports enterprise demand growth?\",\"strategy\":\"fixed-window\",\"top_k\":3}"
+```
+
+Expected boundary markers:
+
+```text
+existing document_chunks table
+existing retrieval_runs table
+metadata_json.source_table = document_chunks
+metadata_json.document_id
+metadata_json.candidate_chunk_ids
+document_chunk_retrieval_run_only_no_evidence_ledger
+lexical only
+no new retrieval_candidates table
+no embeddings
+no semantic retrieval
+no Evidence Ledger generation
+not financial advice
+```
+
+This endpoint creates a retrieval run row and candidate chunk references only. It does not create Evidence Ledger entries, Noise Gate records, report records, embeddings, semantic retrieval records, hosted deployment evidence, external reviewer feedback, or product-complete proof.
+
+Next proof gate: uploaded file retrieval persistence runtime smoke v0.
+
 ## Metadata Examples
 
 Create a document metadata record:

@@ -26,6 +26,7 @@ External reviewer chunk handoff issue-body refresh v0: implemented
 External feedback current-state chunk handoff issue verification v0: implemented
 Uploaded file chunk persistence handoff application refresh v0: implemented
 Uploaded file retrieval persistence review v0: implemented
+Uploaded file retrieval persistence endpoint v0: implemented
 
 README detailed implementation status archive moved during Phase 103.
 This hidden source archive preserves earlier README proof markers while the rendered README stays scanable.
@@ -1008,3 +1009,11 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Selected future endpoint: `POST /documents/{document_id}/retrieval-runs`
 - Selected boundary: reuse existing `document_chunks`, existing `retrieval_runs`, and `metadata_json.candidate_chunk_ids` before adding any retrieval-candidates table
 - Boundary: review-only; no runtime behavior, schema, endpoint code, embeddings, semantic retrieval, Evidence Ledger generation, financial advice behavior, hosted deployment evidence, external reviewer feedback, or product-complete claim added
+
+### Phase 196 - Uploaded File Retrieval Persistence Endpoint v0
+
+- Uploaded file retrieval persistence endpoint v0: implemented
+- `docs/review/uploaded-file-retrieval-persistence-endpoint.md`: added
+- `POST /documents/{document_id}/retrieval-runs`: added as document-scoped retrieval persistence endpoint
+- `metadata_json.candidate_chunk_ids`: stores selected chunk ids in the existing `retrieval_runs` row
+- Boundary: route-level behavior only; no schema, migration, retrieval-candidates table, embeddings, semantic retrieval, Evidence Ledger generation, financial advice behavior, hosted deployment evidence, external reviewer feedback, or product-complete claim added

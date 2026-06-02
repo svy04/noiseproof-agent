@@ -13,8 +13,10 @@ from app.schemas import (
     DocumentOut,
     DocumentProfileOut,
     DocumentProfileRequest,
+    DocumentRetrievalRunRequest,
     ParsePreviewOut,
     ParsePreviewRequest,
+    RetrievalRunResponse,
     UploadChunkPreviewOut,
     UploadChunkPersistenceOut,
     UploadEvidencePreviewOut,
@@ -28,6 +30,7 @@ from app.schemas import (
     UploadRetrievalPreviewOut,
 )
 from app.services.chunk_preview import preview_chunks
+from app.services.document_chunk_retrieval import run_document_chunk_retrieval
 from app.services.document_profiler import profile_document
 from app.services.parse_preview import preview_parse
 from app.services.run_trace import run_with_trace
@@ -74,6 +77,19 @@ def list_document_chunks(
     repository: Repository = Depends(get_repository),
 ) -> list[dict]:
     return list(repository.list_document_chunks(document_id=document_id, limit=limit))
+
+
+@router.post(
+    "/{document_id}/retrieval-runs",
+    response_model=RetrievalRunResponse,
+    status_code=201,
+)
+def create_document_retrieval_run(
+    document_id: UUID,
+    payload: DocumentRetrievalRunRequest,
+    repository: Repository = Depends(get_repository),
+) -> RetrievalRunResponse:
+    return run_document_chunk_retrieval(document_id, payload, repository)
 
 
 @router.post("/profile", response_model=DocumentProfileOut)

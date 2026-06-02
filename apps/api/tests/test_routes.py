@@ -2989,6 +2989,128 @@ def test_retrieval_run_records_no_results_case():
     assert listed.json()[0]["missing_evidence_count"] == 1
 
 
+def test_document_retrieval_run_persists_candidates_from_existing_chunks():
+    client = make_client()
+
+    document = client.post(
+        "/documents",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "title": "Sample market note",
+        },
+    ).json()
+    demand_chunk = client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 0,
+            "chunk_text": "Enterprise demand growth reached 12% in 2026.",
+            "metadata_json": {"header_path": ["Demand"]},
+        },
+    ).json()
+    client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 1,
+            "chunk_text": "Weather noise was unrelated to the market question.",
+            "metadata_json": {"header_path": ["Noise"]},
+        },
+    )
+
+    response = client.post(
+        f"/documents/{document['id']}/retrieval-runs",
+        json={
+            "question": "Which chunk supports enterprise demand growth?",
+            "strategy": "fixed-window",
+            "top_k": 2,
+        },
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["question"] == "Which chunk supports enterprise demand growth?"
+    assert body["strategy"] == "fixed-window"
+    assert body["status"] == "completed"
+    assert body["result_count"] == 1
+    assert body["missing_evidence_count"] == 0
+    assert body["metadata_json"]["source_table"] == "document_chunks"
+    assert body["metadata_json"]["document_id"] == document["id"]
+    assert body["metadata_json"]["candidate_chunk_ids"] == [demand_chunk["id"]]
+    assert body["metadata_json"]["source_count"] == 2
+    assert body["metadata_json"]["top_k"] == 2
+    assert body["results"][0]["source_id"] == demand_chunk["id"]
+    assert body["results"][0]["metadata"]["chunk_id"] == demand_chunk["id"]
+    assert body["results"][0]["metadata"]["document_id"] == document["id"]
+    assert body["results"][0]["metadata"]["source_table"] == "document_chunks"
+    assert "Enterprise demand growth" in body["results"][0]["text"]
+    assert {
+        "enterprise",
+        "demand",
+        "growth",
+    }.issubset(set(body["results"][0]["matched_terms"]))
+    assert any("existing document_chunks" in warning for warning in body["warnings"])
+    assert any("not financial advice" in warning for warning in body["warnings"])
+
+    listed = client.get("/retrieval-runs")
+    assert listed.status_code == 200
+    stored = listed.json()[0]
+    assert stored["id"] == body["id"]
+    assert stored["metadata_json"]["source_table"] == "document_chunks"
+    assert stored["metadata_json"]["candidate_chunk_ids"] == [demand_chunk["id"]]
+    assert stored["metadata_json"]["persistence_boundary"] == (
+        "document_chunk_retrieval_run_only_no_evidence_ledger"
+    )
+
+
+def test_document_retrieval_run_records_no_results_when_document_has_no_chunks():
+    client = make_client()
+
+    document = client.post(
+        "/documents",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://empty.md",
+            "filename": "empty.md",
+            "title": "Empty note",
+        },
+    ).json()
+
+    response = client.post(
+        f"/documents/{document['id']}/retrieval-runs",
+        json={
+            "question": "enterprise demand growth",
+            "strategy": "fixed-window",
+            "top_k": 3,
+        },
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["status"] == "no_results"
+    assert body["results"] == []
+    assert body["result_count"] == 0
+    assert body["missing_evidence_count"] == 1
+    assert body["metadata_json"]["source_table"] == "document_chunks"
+    assert body["metadata_json"]["document_id"] == document["id"]
+    assert body["metadata_json"]["candidate_chunk_ids"] == []
+    assert body["metadata_json"]["source_count"] == 0
+    assert any("No persisted document_chunks" in warning for warning in body["warnings"])
+
+    listed = client.get("/retrieval-runs")
+    assert listed.status_code == 200
+    assert listed.json()[0]["status"] == "no_results"
+    assert listed.json()[0]["metadata_json"]["candidate_chunk_ids"] == []
+
+
 def test_collection_plan_preview_for_general_market_question():
     client = make_client()
 

@@ -5110,3 +5110,43 @@ def test_uploaded_file_retrieval_persistence_review_selects_document_chunk_sourc
     )
     assert "uploaded file retrieval persistence review v0" in runbook
     assert "docs/review/uploaded-file-retrieval-persistence-review.md" in portfolio
+
+
+def test_uploaded_file_retrieval_persistence_endpoint_surfaces_runtime_boundary():
+    endpoint_path = (
+        REPO_ROOT / "docs/review/uploaded-file-retrieval-persistence-endpoint.md"
+    )
+    assert endpoint_path.is_file()
+
+    content = endpoint_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Retrieval Persistence Endpoint" in content
+    assert "uploaded file retrieval persistence endpoint v0" in content
+    assert "POST /documents/{document_id}/retrieval-runs" in content
+    assert "existing retrieval_runs table" in content
+    assert "existing document_chunks table" in content
+    assert "metadata_json.candidate_chunk_ids" in content
+    assert "document_chunk_retrieval_run_only_no_evidence_ledger" in content
+    assert "lexical only" in content
+    assert "no new retrieval_candidates table" in content
+    assert "no embeddings" in content
+    assert "no semantic retrieval" in content
+    assert "no Evidence Ledger generation" in content
+    assert "not financial advice" in content
+    assert "uploaded file retrieval persistence runtime smoke v0" in content
+    assert (
+        "Uploaded file retrieval persistence endpoint v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 196 - Uploaded File Retrieval Persistence Endpoint v0"
+        in goal
+    )
+    assert "uploaded file retrieval persistence endpoint v0" in runbook
+    assert "docs/review/uploaded-file-retrieval-persistence-endpoint.md" in portfolio
