@@ -6567,3 +6567,63 @@ def test_external_feedback_current_state_semantic_quality_report_issue_verificat
         "docs/review/external-feedback-current-state-semantic-quality-report-issue-verification.md"
         in portfolio
     )
+
+
+def test_semantic_retrieval_quality_report_proof_surface_regression_coverage_links_whole_chain():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-report-proof-surface-regression-coverage.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Quality Report Proof Surface Regression Coverage" in content
+    assert (
+        "semantic retrieval quality report proof surface regression coverage v0"
+        in content
+    )
+    for artifact in [
+        "docs/review/semantic-retrieval-quality-review.md",
+        "examples/semantic-retrieval-quality/README.md",
+        "examples/semantic-retrieval-quality/manifest.json",
+        "packages/ingestion/retrieval/quality_fixture.py",
+        "packages/ingestion/retrieval/quality_metrics.py",
+        "packages/ingestion/retrieval/quality_report.py",
+        "docs/evaluation/semantic-retrieval-quality-report.md",
+        "docs/review/semantic-retrieval-quality-report-application-refresh.md",
+        "docs/review/semantic-retrieval-quality-report-reviewer-request-refresh.md",
+        "docs/review/semantic-retrieval-quality-report-issue-body-refresh.md",
+        "docs/review/external-feedback-current-state-semantic-quality-report-issue-verification.md",
+    ]:
+        assert artifact in content
+    assert "q-what-missing" in content
+    assert "toy_fixture_metric_only_not_search_quality" in content
+    assert "not embedding generation" in content
+    assert "not vector search quality evidence" in content
+    assert "not benchmark result" in content
+    assert "not model comparison" in content
+    assert "not external reviewer feedback" in content
+    assert "does not close external reviewer feedback v0" in content
+    assert (
+        "Semantic retrieval quality report proof surface regression coverage v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 238 - Semantic Retrieval Quality Report Proof Surface Regression Coverage v0"
+        in goal
+    )
+    assert (
+        "semantic retrieval quality report proof surface regression coverage v0"
+        in runbook
+    )
+    assert (
+        "docs/review/semantic-retrieval-quality-report-proof-surface-regression-coverage.md"
+        in portfolio
+    )

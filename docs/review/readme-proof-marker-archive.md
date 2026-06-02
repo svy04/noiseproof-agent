@@ -1355,3 +1355,10 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/external-feedback-current-state-semantic-quality-report-issue-verification.md`: added
 - Observed current live issue state after semantic quality report issue-body refresh: `comment_count = 1`, `self_authored_comments = 1`, `candidate_count = 0`, `draft_count = 0`
 - Boundary: current-state screen only; not vector search quality evidence, not benchmark result, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 238 - Semantic Retrieval Quality Report Proof Surface Regression Coverage v0
+
+- Semantic retrieval quality report proof surface regression coverage v0: implemented
+- `docs/review/semantic-retrieval-quality-report-proof-surface-regression-coverage.md`: added
+- The semantic quality report proof chain now has a single regression coverage index from review to fixture to metric code to report to application/reviewer/live issue/current-state surfaces
+- Boundary: documentation/test coverage only; not embedding generation, not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0

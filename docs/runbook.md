@@ -4013,6 +4013,20 @@ has_q = true
 
 This is a current-state screen only. It is not external reviewer feedback and does not close external reviewer feedback v0.
 
+## Semantic Retrieval Quality Report Proof Surface Regression Coverage
+
+Phase marker: semantic retrieval quality report proof surface regression coverage v0.
+
+Use `docs/review/semantic-retrieval-quality-report-proof-surface-regression-coverage.md` when checking that the semantic retrieval quality report chain still links the review, fixture, metric code, report, application refresh, reviewer request refresh, live issue-body refresh, and current-state screen.
+
+This is documentation/test regression coverage only. It is not embedding generation, not vector search quality evidence, not a benchmark result, not a model comparison, not hosted deployment evidence, and not external reviewer feedback.
+
+The visible miss marker remains:
+
+```text
+q-what-missing
+```
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.
