@@ -1297,3 +1297,14 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Selected next gate: semantic retrieval quality fixture v0
 - Candidate metrics: Hit@k, Recall@k, MRR@k, nDCG@k, missing_embedding_rate, semantic_vs_lexical_disagreement, role_coverage_at_k
 - Boundary: review-only; no embedding generation, no vector search quality evidence, no benchmark result, no Evidence Ledger generation, no hosted deployment evidence
+
+### Phase 231 - Semantic Retrieval Quality Fixture v0
+
+- Semantic retrieval quality fixture v0: implemented
+- `examples/semantic-retrieval-quality/README.md`: added
+- `examples/semantic-retrieval-quality/manifest.json`: added
+- `examples/semantic-retrieval-quality/corpus.json`: added
+- `examples/semantic-retrieval-quality/queries.json`: added
+- `packages/ingestion/retrieval/quality_fixture.py`: added
+- Fixture includes 4 queries, 6 corpus chunks, 8 qrels, caller-provided toy vectors, one missing embedding case, and information-role labels
+- Boundary: fixture-only; no embedding generation, no vector search quality evidence, no benchmark result, no model comparison, no Evidence Ledger generation

@@ -3752,6 +3752,58 @@ not model comparison
 not Evidence Ledger generation
 ```
 
+## Semantic Retrieval Quality Fixture
+
+Phase 231 adds the small local fixture selected by the semantic retrieval quality review.
+
+The phase marker is:
+
+```text
+semantic retrieval quality fixture v0
+```
+
+Fixture path:
+
+```text
+examples/semantic-retrieval-quality/README.md
+examples/semantic-retrieval-quality/manifest.json
+examples/semantic-retrieval-quality/corpus.json
+examples/semantic-retrieval-quality/queries.json
+```
+
+Loader:
+
+```text
+packages/ingestion/retrieval/quality_fixture.py
+```
+
+Fixture contents:
+
+```text
+4 queries
+6 corpus chunks
+8 qrels
+caller-provided 3-dimensional toy vectors
+one missing embedding case
+information-role labels
+```
+
+Smoke check:
+
+```bash
+uv run pytest tests/test_semantic_quality_fixture.py -q
+```
+
+Claim boundary:
+
+```text
+not embedding generation
+not vector search quality evidence
+not benchmark result
+not model comparison
+not Evidence Ledger generation
+```
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

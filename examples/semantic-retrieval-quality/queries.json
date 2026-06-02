@@ -1,0 +1,30 @@
+[
+  {
+    "query_id": "q-demand-growth",
+    "question": "What supports the claim that regional demand grew?",
+    "query_embedding": [1.0, 0.0, 0.0],
+    "relevant_chunk_ids": ["chunk-demand-growth", "chunk-revenue-growth"],
+    "information_roles": ["direct_support", "quantitative_anchor"]
+  },
+  {
+    "query_id": "q-risk-contradiction",
+    "question": "What could contradict the demand growth story?",
+    "query_embedding": [0.0, 1.0, 0.0],
+    "relevant_chunk_ids": ["chunk-contradictory-channel", "chunk-source-quality"],
+    "information_roles": ["contradiction", "source_quality_check"]
+  },
+  {
+    "query_id": "q-source-quality",
+    "question": "Which sources need quality checks before making a strong claim?",
+    "query_embedding": [0.0, 0.8, 0.5],
+    "relevant_chunk_ids": ["chunk-source-quality", "chunk-missing-source"],
+    "information_roles": ["source_quality_check", "missing_data_signal"]
+  },
+  {
+    "query_id": "q-what-missing",
+    "question": "What is missing before this becomes an actionable conclusion?",
+    "query_embedding": [0.0, 0.1, 1.0],
+    "relevant_chunk_ids": ["chunk-missing-source", "chunk-scope-boundary"],
+    "information_roles": ["missing_data_signal", "scope_boundary", "user_intent_check"]
+  }
+]

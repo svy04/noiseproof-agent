@@ -820,6 +820,31 @@ def test_semantic_retrieval_quality_review_selects_fixture_before_quality_claims
     assert "docs/review/semantic-retrieval-quality-review.md" in portfolio
 
 
+def test_semantic_retrieval_quality_fixture_records_fixture_boundary():
+    fixture_readme = REPO_ROOT / "examples/semantic-retrieval-quality/README.md"
+    assert fixture_readme.is_file()
+
+    content = fixture_readme.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Quality Fixture" in content
+    assert "semantic retrieval quality fixture v0" in content
+    assert "4 queries" in content
+    assert "6 corpus chunks" in content
+    assert "8 qrels" in content
+    assert "not embedding generation" in content
+    assert "not vector search quality evidence" in content
+    assert "Semantic retrieval quality fixture v0: implemented" in readme
+    assert "Phase 231 - Semantic Retrieval Quality Fixture v0" in goal
+    assert "semantic retrieval quality fixture v0" in runbook
+    assert "examples/semantic-retrieval-quality/README.md" in portfolio
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

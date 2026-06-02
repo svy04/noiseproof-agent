@@ -1,0 +1,50 @@
+[
+  {
+    "chunk_id": "chunk-demand-growth",
+    "document_id": "doc-market-note",
+    "source_type": "markdown",
+    "text": "North region demand grew 18 percent in Q2 after distributor onboarding improved.",
+    "information_roles": ["direct_support", "quantitative_anchor", "timeline_anchor"],
+    "embedding": [1.0, 0.1, 0.0]
+  },
+  {
+    "chunk_id": "chunk-revenue-growth",
+    "document_id": "doc-market-csv",
+    "source_type": "csv",
+    "text": "North revenue increased from 42 to 49 while retention stayed flat.",
+    "information_roles": ["direct_support", "quantitative_anchor"],
+    "embedding": [0.8, 0.3, 0.0]
+  },
+  {
+    "chunk_id": "chunk-contradictory-channel",
+    "document_id": "doc-channel-report",
+    "source_type": "html",
+    "text": "Two regional distributors reported that demand was pulled forward by a temporary promotion.",
+    "information_roles": ["contradiction", "source_quality_check", "timeline_anchor"],
+    "embedding": [0.0, 1.0, 0.1]
+  },
+  {
+    "chunk_id": "chunk-source-quality",
+    "document_id": "doc-source-review",
+    "source_type": "markdown",
+    "text": "The CSV source is internal and current, while the promotional channel report is third party and unverified.",
+    "information_roles": ["source_quality_check", "definition_anchor"],
+    "embedding": [0.0, 0.8, 0.4]
+  },
+  {
+    "chunk_id": "chunk-scope-boundary",
+    "document_id": "doc-boundary-note",
+    "source_type": "markdown",
+    "text": "The available sources can describe what happened but cannot support buy, sell, target price, or return claims.",
+    "information_roles": ["scope_boundary", "user_intent_check"],
+    "embedding": [0.0, 0.1, 1.0]
+  },
+  {
+    "chunk_id": "chunk-missing-source",
+    "document_id": "doc-gap-note",
+    "source_type": "markdown",
+    "text": "The analysis is missing renewal cohort data and distributor-level sell-through before a strong demand claim can be made.",
+    "information_roles": ["missing_data_signal", "source_quality_check"],
+    "embedding": null
+  }
+]

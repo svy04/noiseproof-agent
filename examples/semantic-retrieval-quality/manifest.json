@@ -1,0 +1,34 @@
+{
+  "name": "semantic-retrieval-quality-fixture-v0",
+  "embedding_model": "local-fixture-caller-provided",
+  "embedding_dimension": 3,
+  "no_embedding_generation": true,
+  "claim_boundary": "fixture_only_not_quality_evidence",
+  "candidate_metrics": [
+    "Hit@k",
+    "Recall@k",
+    "MRR@k",
+    "nDCG@k",
+    "missing_embedding_rate",
+    "semantic_vs_lexical_disagreement",
+    "role_coverage_at_k"
+  ],
+  "qrels": {
+    "q-demand-growth": {
+      "chunk-demand-growth": 3,
+      "chunk-revenue-growth": 2
+    },
+    "q-risk-contradiction": {
+      "chunk-contradictory-channel": 3,
+      "chunk-source-quality": 1
+    },
+    "q-source-quality": {
+      "chunk-source-quality": 3,
+      "chunk-missing-source": 2
+    },
+    "q-what-missing": {
+      "chunk-missing-source": 3,
+      "chunk-scope-boundary": 1
+    }
+  }
+}
