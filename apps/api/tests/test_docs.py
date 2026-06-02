@@ -560,6 +560,39 @@ def test_embedding_endpoint_application_refresh_surfaces_runtime_proof():
     assert "docs/review/embedding-endpoint-runtime-smoke.md" in external_path
 
 
+def test_semantic_retrieval_implementation_review_selects_small_safe_next_gate():
+    review_path = REPO_ROOT / "docs/review/semantic-retrieval-implementation-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Implementation Review" in content
+    assert "semantic retrieval implementation review v0" in content
+    assert "review-only" in content
+    assert "https://github.com/pgvector/pgvector" in content
+    assert "https://sbert.net/examples/sentence_transformer/applications/semantic-search/README.html" in content
+    assert "https://www.postgresql.org/docs/current/static/pgtrgm.html" in content
+    assert "caller-provided query vector" in content
+    assert "chunk_embeddings.embedding <=> query_embedding" in content
+    assert "document_chunks" in content
+    assert "retrieval_runs.metadata_json.candidate_chunk_ids" in content
+    assert "exact cosine ranking first" in content
+    assert "no embedding generation" in content
+    assert "no HNSW or IVFFlat index" in content
+    assert "no LLM calls" in content
+    assert "next product gate: semantic retrieval preview endpoint v0" in content
+    assert "Semantic retrieval implementation review v0: implemented" in readme
+    assert "Phase 223 - Semantic Retrieval Implementation Review v0" in goal
+    assert "semantic retrieval implementation review v0" in runbook
+    assert "docs/review/semantic-retrieval-implementation-review.md" in portfolio
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

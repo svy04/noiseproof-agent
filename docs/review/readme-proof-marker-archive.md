@@ -1220,3 +1220,11 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/embedding-endpoint-application-refresh.md`: added
 - Application-facing docs now surface `docs/review/embedding-endpoint-runtime-smoke.md` as caller-provided chunk embedding endpoint evidence
 - Claim boundary updated: caller-provided embedding persistence exists; embedding generation, semantic retrieval, vector search quality, hosted deployment evidence, and external reviewer feedback remain unclaimed
+
+### Phase 223 - Semantic Retrieval Implementation Review v0
+
+- Semantic retrieval implementation review v0: implemented
+- `docs/review/semantic-retrieval-implementation-review.md`: added
+- Selected next gate: semantic retrieval preview endpoint v0
+- Selected boundary: caller-provided query vector over existing `chunk_embeddings` and `document_chunks`
+- Claim boundary: no embedding generation, no HNSW or IVFFlat index, no semantic retrieval persistence, no vector search quality claim, no hosted deployment evidence

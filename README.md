@@ -192,9 +192,9 @@ Major implementation milestones:
 - Uploaded file chunk persistence runtime smoke v0: implemented
 - Uploaded file chunk persistence application refresh v0: implemented
 - Uploaded file retrieval persistence application refresh v0: implemented
-- Embedding endpoint v0: implemented
 - Embedding endpoint runtime smoke v0: implemented
 - Embedding endpoint application refresh v0: implemented
+- Semantic retrieval implementation review v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`.
 

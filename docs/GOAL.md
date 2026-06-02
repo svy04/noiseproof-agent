@@ -6852,6 +6852,39 @@ Current next product gate:
 semantic retrieval implementation review v0
 ```
 
+### Phase 223 - Semantic Retrieval Implementation Review v0
+
+Goal:
+
+```text
+choose the smallest safe semantic retrieval implementation boundary after caller-provided chunk embedding endpoint proof
+```
+
+Implemented:
+
+```text
+semantic retrieval implementation review v0
+docs/review/semantic-retrieval-implementation-review.md
+README.md marker
+docs/application/portfolio-index.md proof artifact link
+docs/runbook.md review note
+apps/api/tests/test_docs.py documentation marker
+```
+
+Selected next product gate:
+
+```text
+semantic retrieval preview endpoint v0
+```
+
+Phase 223 is review-only. It adds no runtime behavior, route code, repository code, schema, migration, embedding generation, HNSW or IVFFlat index behavior, vector search quality claim, persisted semantic retrieval run, Evidence Ledger generation, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, financial advice behavior, or product-complete claim.
+
+Current next product gate:
+
+```text
+semantic retrieval preview endpoint v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

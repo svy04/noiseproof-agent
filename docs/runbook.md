@@ -3466,3 +3466,44 @@ not embedding generation
 not semantic retrieval implementation
 not hosted deployment evidence
 ```
+
+## Semantic Retrieval Implementation Review
+
+Phase 223 selects the next semantic retrieval implementation boundary without adding runtime behavior.
+
+The phase marker is:
+
+```text
+semantic retrieval implementation review v0
+```
+
+Review artifact:
+
+```text
+docs/review/semantic-retrieval-implementation-review.md
+```
+
+Selected next gate:
+
+```text
+semantic retrieval preview endpoint v0
+```
+
+Implementation boundary selected by the review:
+
+```text
+POST /documents/{document_id}/semantic-retrieval-preview
+caller-provided query vector
+chunk_embeddings.embedding <=> query_embedding
+exact cosine ranking first
+```
+
+Claim boundary:
+
+```text
+no embedding generation
+no HNSW or IVFFlat index
+no LLM calls
+not persisted semantic retrieval
+not hosted deployment evidence
+```
