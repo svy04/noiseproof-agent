@@ -5068,3 +5068,45 @@ def test_uploaded_file_chunk_persistence_handoff_application_refresh_surfaces_ru
         in role_map
     )
     assert "uploaded file chunk handoff persistence exists" in application_ready
+
+
+def test_uploaded_file_retrieval_persistence_review_selects_document_chunk_source_boundary():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-file-retrieval-persistence-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Retrieval Persistence Review" in content
+    assert "uploaded file retrieval persistence review v0" in content
+    assert "review-only" in content
+    assert "existing retrieval_runs table" in content
+    assert "existing document_chunks table" in content
+    assert "POST /documents/{document_id}/retrieval-runs" in content
+    assert "GET /retrieval-runs" in content
+    assert "metadata_json" in content
+    assert "source_table = document_chunks" in content
+    assert "candidate_chunk_ids" in content
+    assert "no new retrieval_candidates table" in content
+    assert "no embeddings" in content
+    assert "no semantic retrieval" in content
+    assert "no Evidence Ledger generation" in content
+    assert "not financial advice" in content
+    assert "uploaded file retrieval persistence endpoint v0" in content
+    assert (
+        "Uploaded file retrieval persistence review v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 195 - Uploaded File Retrieval Persistence Review v0"
+        in goal
+    )
+    assert "uploaded file retrieval persistence review v0" in runbook
+    assert "docs/review/uploaded-file-retrieval-persistence-review.md" in portfolio

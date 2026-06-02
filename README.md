@@ -404,6 +404,8 @@ The latest current-state screen after the uploaded-file chunk persistence issue-
 
 The explicit upload-to-chunks handoff endpoint is now implemented and recorded in `docs/review/uploaded-file-chunk-persistence-handoff-endpoint.md`: `POST /documents/upload-chunks` creates document metadata plus derived chunk rows while keeping the existing upload chunk preview preview-only. Local runtime evidence and application-facing proof refresh for that endpoint are recorded in `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md` and `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md`.
 
+The next local product gate is review-first: `docs/review/uploaded-file-retrieval-persistence-review.md` selects a future `POST /documents/{document_id}/retrieval-runs` boundary over existing `document_chunks` and `retrieval_runs` without adding embeddings, semantic retrieval, Evidence Ledger generation, or financial advice behavior.
+
 ## Braincrew Role Alignment
 
 Primary hiring target:

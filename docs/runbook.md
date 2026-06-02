@@ -2613,6 +2613,26 @@ chunk_text_only_no_raw_file_storage
 
 This is a current-state screen only. It does not close external reviewer feedback v0.
 
+## Uploaded file retrieval persistence review
+
+Phase marker: uploaded file retrieval persistence review v0.
+
+Use `docs/review/uploaded-file-retrieval-persistence-review.md` before adding retrieval persistence over uploaded-file chunks.
+
+Selected future boundary:
+
+```text
+POST /documents/{document_id}/retrieval-runs
+GET /retrieval-runs
+existing retrieval_runs table
+existing document_chunks table
+source_table = document_chunks
+metadata_json.candidate_chunk_ids
+no new retrieval_candidates table
+```
+
+This is review-only. It adds no runtime behavior, endpoint code, schema, migration, embeddings, semantic retrieval, Evidence Ledger generation, Noise Gate generation, report generation, financial advice behavior, hosted deployment evidence, external reviewer feedback, or product-complete claim.
+
 ## Metadata Examples
 
 Create a document metadata record:

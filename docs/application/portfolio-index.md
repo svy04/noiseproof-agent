@@ -104,6 +104,8 @@ Uploaded file chunk persistence handoff runtime smoke: `docs/review/uploaded-fil
 
 Uploaded file chunk persistence handoff application refresh: `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md` surfaces the handoff runtime smoke in the portfolio, Braincrew role map, application-ready review, README, and runbook. It is not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, not raw uploaded byte storage, and not retrieval persistence.
 
+Uploaded file retrieval persistence review: `docs/review/uploaded-file-retrieval-persistence-review.md` selects a future `POST /documents/{document_id}/retrieval-runs` endpoint over existing `document_chunks` and `retrieval_runs`. It is review-only and adds no schema, endpoint code, embeddings, semantic retrieval, Evidence Ledger generation, or financial advice behavior.
+
 External reviewer chunk handoff request refresh: `docs/review/external-reviewer-chunk-handoff-request-refresh.md` points reviewer-facing request surfaces to the uploaded-file chunk handoff proof. It is request infrastructure only and does not close external reviewer feedback.
 
 External reviewer chunk handoff issue-body refresh: `docs/review/external-review-issue-body-chunk-handoff-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file chunk handoff proof. It is not external reviewer feedback.

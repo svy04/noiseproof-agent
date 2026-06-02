@@ -25,6 +25,7 @@ External reviewer chunk handoff request refresh v0: implemented
 External reviewer chunk handoff issue-body refresh v0: implemented
 External feedback current-state chunk handoff issue verification v0: implemented
 Uploaded file chunk persistence handoff application refresh v0: implemented
+Uploaded file retrieval persistence review v0: implemented
 
 README detailed implementation status archive moved during Phase 103.
 This hidden source archive preserves earlier README proof markers while the rendered README stays scanable.
@@ -999,3 +1000,11 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/application/braincrew-role-map.md`: updated with the handoff runtime proof link
 - `docs/review/application-ready-review.md`: updated with the explicit upload-to-chunks handoff boundary
 - Boundary: documentation-only application packaging; no runtime behavior, hosted deployment evidence, external reviewer feedback, raw uploaded byte storage, retrieval persistence, or product-complete claim added
+
+### Phase 195 - Uploaded File Retrieval Persistence Review v0
+
+- Uploaded file retrieval persistence review v0: implemented
+- `docs/review/uploaded-file-retrieval-persistence-review.md`: added
+- Selected future endpoint: `POST /documents/{document_id}/retrieval-runs`
+- Selected boundary: reuse existing `document_chunks`, existing `retrieval_runs`, and `metadata_json.candidate_chunk_ids` before adding any retrieval-candidates table
+- Boundary: review-only; no runtime behavior, schema, endpoint code, embeddings, semantic retrieval, Evidence Ledger generation, financial advice behavior, hosted deployment evidence, external reviewer feedback, or product-complete claim added
