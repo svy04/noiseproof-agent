@@ -1137,3 +1137,11 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/retrieval-run-linked-proof-surface-regression-coverage.md`: added
 - `apps/api/tests/test_docs.py`: added a regression test that keeps endpoint docs and runtime smoke docs discoverable together
 - Boundary: documentation regression coverage only; no runtime behavior, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 213 - Semantic Retrieval Readiness Review v0
+
+- Semantic retrieval readiness review v0: implemented
+- `docs/review/semantic-retrieval-readiness-review.md`: added
+- Primary sources checked: pgvector, Sentence Transformers, PostgreSQL `pg_trgm`
+- Selected next product gate: embedding schema review v0
+- Boundary: source-first review only; no embeddings, semantic retrieval, vector index, runtime behavior, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

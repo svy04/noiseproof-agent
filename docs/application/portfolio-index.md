@@ -333,6 +333,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-feedback-current-state-report-handoff-issue-verification.md` | live issue #1 current-state screen after report handoff refresh; feedback gate remains pending |
 | `docs/review/application-ready-report-handoff-checklist-refresh.md` | application-ready checklist rows for linked Noise Gate and Report persistence; documentation-only |
 | `docs/review/retrieval-run-linked-proof-surface-regression-coverage.md` | regression coverage index that keeps linked Evidence Ledger, Noise Gate, and Report endpoint/smoke docs together |
+| `docs/review/semantic-retrieval-readiness-review.md` | source-first review for future semantic retrieval; selects embedding schema review before implementation |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

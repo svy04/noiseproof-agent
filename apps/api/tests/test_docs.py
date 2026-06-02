@@ -204,6 +204,41 @@ def test_retrieval_run_linked_proof_surface_regression_coverage_keeps_endpoint_a
     )
 
 
+def test_semantic_retrieval_readiness_review_uses_primary_sources_and_keeps_scope_review_only():
+    review_path = REPO_ROOT / "docs/review/semantic-retrieval-readiness-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Readiness Review" in content
+    assert "semantic retrieval readiness review v0" in content
+    assert "source-first review" in content
+    assert "https://github.com/pgvector/pgvector" in content
+    assert "https://sbert.net/docs/quickstart.html" in content
+    assert "https://www.postgresql.org/docs/current/static/pgtrgm.html" in content
+    assert "pgvector" in content
+    assert "HNSW" in content
+    assert "IVFFlat" in content
+    assert "cosine distance" in content
+    assert "SentenceTransformer.encode" in content
+    assert "pg_trgm" in content
+    assert "do not implement embeddings in this gate" in content
+    assert "next product gate: embedding schema review v0" in content
+    assert "not external reviewer feedback" in content
+    assert "not semantic retrieval implementation" in content
+    assert "not product-complete" in content
+    assert "Semantic retrieval readiness review v0: implemented" in readme
+    assert "Phase 213 - Semantic Retrieval Readiness Review v0" in goal
+    assert "semantic retrieval readiness review v0" in runbook
+    assert "docs/review/semantic-retrieval-readiness-review.md" in portfolio
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

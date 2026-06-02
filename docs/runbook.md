@@ -3151,3 +3151,29 @@ docs/review/retrieval-run-linked-report-runtime-smoke.md
 ```
 
 This is documentation regression coverage only. It is not runtime behavior, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+## Semantic Retrieval Readiness Review
+
+Phase 213 is a source-first review before any semantic retrieval work.
+
+The phase marker is:
+
+```text
+semantic retrieval readiness review v0
+```
+
+Primary sources:
+
+```text
+https://github.com/pgvector/pgvector
+https://sbert.net/docs/quickstart.html
+https://www.postgresql.org/docs/current/static/pgtrgm.html
+```
+
+Selected next product gate:
+
+```text
+embedding schema review v0
+```
+
+Do not implement embeddings in this gate. Do not add HNSW, IVFFlat, vector indexes, semantic retrieval, or model dependencies until the schema boundary is reviewed.
