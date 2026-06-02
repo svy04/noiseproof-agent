@@ -192,6 +192,8 @@ Major implementation milestones:
 - Uploaded file chunk persistence runtime smoke v0: implemented
 - Uploaded file chunk persistence application refresh v0: implemented
 - Uploaded file retrieval persistence application refresh v0: implemented
+- Retrieval-run-linked Evidence Ledger endpoint v0: implemented
+- Retrieval-run-linked Evidence Ledger runtime smoke v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`.
 
@@ -203,7 +205,6 @@ Not implemented yet:
 - autonomous workflow execution endpoints
 - automatic failure-case persistence from workflow failures
 - embeddings
-- retrieval-run-linked Evidence Ledger records
 - full distributed tracing or hosted observability
 
 
@@ -223,7 +224,7 @@ Auto Trace behavior records preview endpoint metadata in `agent_runs.trace_json`
 
 ## Evidence Ledger
 
-The Evidence Ledger is the control surface between retrieval and final answer generation. Phase 6 implements a deterministic preview boundary. Phase 12 persists generated ledger entries so operations views can count unsupported and contradicted claims.
+The Evidence Ledger is the control surface between retrieval and final answer generation. Phase 6 implements a deterministic preview boundary. Phase 12 persists generated ledger entries so operations views can count unsupported and contradicted claims. Phase 202 adds a retrieval-run-linked handoff endpoint that reads a persisted retrieval run's `metadata_json.candidate_chunk_ids`, reloads the referenced `document_chunks`, and stores Evidence Ledger rows with `retrieval_run_id`.
 
 Each ledger entry records:
 
@@ -346,6 +347,7 @@ curl -X POST http://localhost:8000/evidence-ledgers \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Should I buy this company?\",\"retrieval_results\":[]}"
 curl http://localhost:8000/evidence-ledgers
+curl -X POST http://localhost:8000/retrieval-runs/<uuid>/evidence-ledger
 curl -X POST http://localhost:8000/noise-gates/preview \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
@@ -402,6 +404,8 @@ The latest current-state screen after the uploaded-file chunk persistence issue-
 The explicit upload-to-chunks handoff endpoint is now implemented and recorded in `docs/review/uploaded-file-chunk-persistence-handoff-endpoint.md`: `POST /documents/upload-chunks` creates document metadata plus derived chunk rows while keeping the existing upload chunk preview preview-only. Local runtime evidence and application-facing proof refresh for that endpoint are recorded in `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md` and `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md`.
 
 The document-scoped retrieval persistence endpoint is now implemented and recorded in `docs/review/uploaded-file-retrieval-persistence-endpoint.md`: `POST /documents/{document_id}/retrieval-runs` reads existing `document_chunks`, persists one row in the existing `retrieval_runs` table, and stores `metadata_json.candidate_chunk_ids` without adding embeddings, semantic retrieval, Evidence Ledger generation, or financial advice behavior. Local runtime evidence is recorded in `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`, and the application-facing refresh is recorded in `docs/review/uploaded-file-retrieval-persistence-application-refresh.md`.
+
+The retrieval-run-linked Evidence Ledger endpoint is implemented as `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`: it uses an existing persisted `retrieval_runs` row and its `metadata_json.candidate_chunk_ids` to reload `document_chunks`, generate deterministic Evidence Ledger entries, and persist those rows with `retrieval_run_id`. Local Docker runtime evidence is recorded in `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`. It does not call an LLM, create embeddings, perform semantic retrieval, generate a Noise Gate or report, or provide financial advice.
 
 ## Braincrew Role Alignment
 

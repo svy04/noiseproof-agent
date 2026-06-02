@@ -2930,3 +2930,41 @@ docs/review/direct-evidence-gate-report-cross-link-review.md
 ## Boundary
 
 Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, created by a deterministic execution-preview endpoint, and inspected through `GET /workflow-runs/{id}`. That preview runs retrieval -> evidence -> gate -> report deterministically, Phase 29 attaches those child records to nullable `workflow_run_id` fields while still carrying `workflow_trace_id`, and Phase 30 exposes those child records from the parent workflow detail response. Phase 31 records `stage_input_manifest` on deterministic workflow-created Noise Gate and Report rows so persisted upstream ids are visible, Phase 31.5 keeps direct evidence -> gate -> report foreign-key links and join tables deferred, and Phase 32 exposes `GET /workflow-runs/{id}/lineage` as a derived read model over existing records rather than new lineage storage. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
+## Retrieval-run-linked Evidence Ledger Endpoint
+
+Phase 202 adds a bounded handoff from persisted retrieval runs to persisted Evidence Ledger rows. Phase 203 records the local Docker DB plus live FastAPI HTTP smoke for that handoff.
+
+Endpoint:
+
+```text
+POST /retrieval-runs/{retrieval_run_id}/evidence-ledger
+```
+
+Minimal local sequence:
+
+```powershell
+docker compose up -d db
+cd apps/api
+uv run python -m app.migration_runner --status
+uv run python -m app.migration_runner
+uv run python -m app.migration_runner --status
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8000
+```
+
+In another shell, create a document with chunks, create a document-scoped retrieval run, then hand the persisted retrieval run to the Evidence Ledger:
+
+```powershell
+$document = Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/documents -ContentType 'application/json' -Body '{"source_type":"markdown","source_uri":"upload://sample.md","filename":"sample.md","title":"Sample market note"}'
+$chunk = Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/documents/$($document.id)/chunks" -ContentType 'application/json' -Body '{"source_type":"markdown","source_uri":"upload://sample.md","filename":"sample.md","chunk_strategy":"fixed-window","chunk_index":0,"chunk_text":"Enterprise demand growth reached 12% in 2026.","metadata_json":{"header_path":["Demand"]}}'
+$retrieval = Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/documents/$($document.id)/retrieval-runs" -ContentType 'application/json' -Body '{"question":"Which chunk supports enterprise demand growth?","strategy":"fixed-window","top_k":2}'
+$ledger = Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/retrieval-runs/$($retrieval.id)/evidence-ledger"
+$ledger.entries[0].retrieval_run_id
+```
+
+Expected boundary markers:
+
+- `stored_entry_count` is greater than zero when candidate chunks exist.
+- `entries[].retrieval_run_id` matches the persisted retrieval run id.
+- warnings mention persisted `retrieval_run`, no LLM, no embeddings, no semantic retrieval, and no final truth judgment.
+
+This is not a Noise Gate, not a report, not hosted deployment evidence, not external reviewer feedback, and not financial advice.

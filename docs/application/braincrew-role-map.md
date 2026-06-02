@@ -46,20 +46,18 @@ README proof-marker archive: `docs/review/readme-proof-marker-archive.md`.
 
 These are the 5-minute path and source-level provenance path, not product runtime evidence, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality.
 
+The runtime proof links below are local proof surfaces, not hosted deployment evidence.
+
 Runtime proof summary:
 
-- Migration/API: migration runner, fresh DB API smoke, and fresh migrated Docker DB evidence exist for local service paths only.
-- Failure evidence: failure-case persistence smoke stores manual records; linked failure-case proof preserves manual `agent_run_id` linkage. This is not automatic failure detection and not complete workflow failure causality.
-- Workflow failure boundary: failed workflow parent proof and workflow failure linkage smoke are route-level smoke, not fresh Docker DB evidence.
-- Historical linkage boundary: historical failure-case workflow linkage review remains as context; manual workflow parent linkage now exists and automatic failure-case creation remains unclaimed.
-- Draft handoff: human-confirmed draft payload, `preview_only_not_persisted`, route-level smoke, `draft.fix_status from draft to open`, and fresh migrated Docker DB handoff proof keep human handoff explicit; not automatic failure-case persistence or hosted deployment evidence.
-- Workflow-to-draft: workflow failure-to-draft smoke is not automatic failure-case creation and not complete workflow failure causality.
-- Workflow parent proof: workflow parent linkage fresh DB proof, dashboard manual workflow parent link, and fresh DB dashboard Workflow Parent proof show manual provenance only; not automatic failure-case creation, automatic failure detection, or complete workflow failure causality.
-- Reader path: workflow parent proof index is the reader path for schema boundary, manual persistence, fresh DB persistence, dashboard surfacing, and fresh DB dashboard proof.
-- Upload intake: upload intake manifest runtime smoke records content hash plus parser/profile summary; upload intake manifest persistence runtime smoke records `POST /documents/upload-intake-manifests`, `GET /documents/upload-intake-manifests`, and `manifest_only_no_raw_file_storage`; not raw file storage, hosted deployment evidence, external reviewer feedback, or retrieval persistence.
-- Upload parsed documents: upload parsed document persistence runtime smoke records `POST /documents/upload-parsed-documents`, `GET /documents`, `parsed_metadata_only`, and `document_metadata_and_profile_only_no_raw_file_storage`; not raw file storage, parsed text persistence, robust PDF extraction, hosted deployment evidence, external reviewer feedback, or retrieval persistence.
-- Upload chunks: chunk persistence and handoff smokes cover `POST /documents/{document_id}/chunks`, `GET /documents/{document_id}/chunks`, `POST /documents/upload-chunks`, `chunk_text_only_no_raw_file_storage`, `explicit_upload_to_chunks_no_raw_file_storage`, and unchanged `preview_only_not_persisted`; not hosted deployment evidence, external reviewer feedback, raw uploaded byte storage, automatic preview persistence, or retrieval persistence.
-- Upload retrieval: runtime smoke covers `POST /documents/{document_id}/retrieval-runs`, `GET /retrieval-runs`, `metadata_json.candidate_chunk_ids`, and `metadata_source_table = document_chunks`; no hosted deployment evidence, external feedback, semantic retrieval, Evidence Ledger, or financial advice.
+- Migration/API: migration runner, fresh DB API smoke, and local Docker DB runtime checks exist for bounded service paths only.
+- Failure/provenance: manual failure-case persistence, workflow parent linkage, and dashboard proof keep human handoff visible; not automatic failure-case creation, not automatic failure detection, and not complete workflow failure causality.
+- Preserved proof markers: failure-case persistence smoke; linked failure-case proof; failed workflow parent proof; historical failure-case workflow linkage review; human-confirmed draft payload; route-level smoke; draft.fix_status from draft to open; fresh migrated Docker DB handoff proof; workflow failure-to-draft smoke; workflow parent linkage fresh DB proof; dashboard manual workflow parent link; fresh DB dashboard Workflow Parent proof; workflow parent proof index; reader path; manual workflow parent linkage now exists.
+- Preserved boundary markers: preview_only_not_persisted; not fresh Docker DB evidence; not automatic failure-case persistence; automatic failure-case creation remains unclaimed.
+- Upload path: intake manifest, parsed-document metadata, chunk persistence/handoff, and document-scoped retrieval persistence are locally smoke-tested with no raw file storage, no robust PDF claim, no semantic retrieval, and no hosted deployment evidence.
+- Preserved upload proof markers: upload intake manifest runtime smoke; upload intake manifest persistence runtime smoke; upload parsed document persistence runtime smoke.
+- Preserved upload boundary markers: not raw file storage.
+- Retrieval-to-evidence handoff: local Docker runtime smoke covers `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, migration `014_evidence_ledger_retrieval_run_id.sql`, and persisted Evidence Ledger rows with `retrieval_run_id`; no external feedback, embeddings, LLM judgment, Noise Gate, or report generation.
 
 Detailed proof links:
 
@@ -72,6 +70,8 @@ Detailed proof links:
 - `docs/review/uploaded-file-chunk-persistence-application-refresh.md`
 - `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md`
 - `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
+- `docs/review/retrieval-run-linked-evidence-ledger-endpoint.md`
+- `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
 
 ## DeepDocurator Alignment
 

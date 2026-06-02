@@ -111,6 +111,7 @@ CREATE TABLE IF NOT EXISTS evidence_ledger_entries (
   run_id UUID REFERENCES agent_runs(id) ON DELETE SET NULL,
   agent_run_id UUID REFERENCES agent_runs(id) ON DELETE SET NULL,
   workflow_run_id UUID REFERENCES workflow_runs(id) ON DELETE SET NULL,
+  retrieval_run_id UUID REFERENCES retrieval_runs(id) ON DELETE SET NULL,
   workflow_trace_id UUID NOT NULL DEFAULT gen_random_uuid(),
   question TEXT NOT NULL,
   claim TEXT NOT NULL,

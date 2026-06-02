@@ -118,6 +118,10 @@ External review issue body retrieval persistence refresh: `docs/review/external-
 
 External feedback current-state retrieval persistence issue verification: `docs/review/external-feedback-current-state-retrieval-persistence-issue-verification.md` records the current issue #1 screen after the retrieval persistence issue-body refresh. It observes `comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`; it does not close external reviewer feedback v0.
 
+Retrieval-run-linked Evidence Ledger endpoint: `docs/review/retrieval-run-linked-evidence-ledger-endpoint.md` records `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, migration `014_evidence_ledger_retrieval_run_id.sql`, and deterministic Evidence Ledger persistence linked to `retrieval_run_id`. It is not semantic retrieval, not embeddings, not LLM judgment, not hosted deployment evidence, and not external reviewer feedback.
+
+Retrieval-run-linked Evidence Ledger runtime smoke: `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md` records local Docker DB migration status (`13 applied / 0 pending`) plus live FastAPI HTTP calls through `GET /health`, document/chunk/retrieval persistence, `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, and `GET /evidence-ledgers`. It is local runtime evidence only, not hosted deployment evidence or external reviewer feedback.
+
 External reviewer chunk handoff request refresh: `docs/review/external-reviewer-chunk-handoff-request-refresh.md` points reviewer-facing request surfaces to the uploaded-file chunk handoff proof. It is request infrastructure only and does not close external reviewer feedback.
 
 External reviewer chunk handoff issue-body refresh: `docs/review/external-review-issue-body-chunk-handoff-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file chunk handoff proof. It is not external reviewer feedback.

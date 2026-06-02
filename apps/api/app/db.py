@@ -67,6 +67,7 @@ class Repository(Protocol):
         workflow_trace_id: UUID,
         agent_run_id: UUID | None = None,
         workflow_run_id: UUID | None = None,
+        retrieval_run_id: UUID | None = None,
     ) -> Sequence[dict]: ...
     def list_evidence_ledger_entries(
         self,
@@ -107,6 +108,7 @@ class Repository(Protocol):
     def create_failure_case(self, payload: FailureCaseCreate) -> dict: ...
     def list_failure_cases(self) -> Sequence[dict]: ...
     def create_retrieval_run(self, payload: RetrievalRunCreate) -> dict: ...
+    def get_retrieval_run(self, retrieval_run_id: UUID) -> dict | None: ...
     def list_retrieval_runs(self) -> Sequence[dict]: ...
     def ops_summary(self) -> OpsSummaryOut: ...
 
@@ -426,6 +428,7 @@ class PostgresRepository:
         workflow_trace_id: UUID,
         agent_run_id: UUID | None = None,
         workflow_run_id: UUID | None = None,
+        retrieval_run_id: UUID | None = None,
     ) -> Sequence[dict]:
         with self._connect() as conn:
             rows = []
@@ -433,18 +436,19 @@ class PostgresRepository:
                 row = conn.execute(
                     """
                     INSERT INTO evidence_ledger_entries (
-                      run_id, agent_run_id, workflow_run_id, workflow_trace_id,
+                      run_id, agent_run_id, workflow_run_id, retrieval_run_id, workflow_trace_id,
                       question, claim, source_id, source_type, source_date,
                       evidence_span, confidence, limitation,
                       contradicting_source_ids, status, matched_terms, role
                     )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     RETURNING *
                     """,
                     (
                         agent_run_id,
                         agent_run_id,
                         workflow_run_id,
+                        retrieval_run_id,
                         workflow_trace_id,
                         question,
                         entry.claim,
@@ -708,6 +712,14 @@ class PostgresRepository:
             ).fetchone()
             conn.commit()
             return dict(row)
+
+    def get_retrieval_run(self, retrieval_run_id: UUID) -> dict | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT * FROM retrieval_runs WHERE id = %s",
+                (retrieval_run_id,),
+            ).fetchone()
+            return dict(row) if row else None
 
     def list_retrieval_runs(self) -> Sequence[dict]:
         with self._connect() as conn:

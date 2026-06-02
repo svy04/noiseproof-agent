@@ -1046,3 +1046,20 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/application/braincrew-role-map.md`: updated with the retrieval persistence runtime proof link
 - `docs/review/application-ready-review.md`: updated with the explicit retrieval persistence boundary
 - Boundary: documentation-only application packaging; no runtime behavior, hosted deployment evidence, external reviewer feedback, Evidence Ledger generation, semantic retrieval, embeddings, financial advice behavior, or product-complete claim added
+
+### Phase 202 - Retrieval-run-linked Evidence Ledger Endpoint v0
+
+- Retrieval-run-linked Evidence Ledger endpoint v0: implemented
+- `docs/review/retrieval-run-linked-evidence-ledger-endpoint.md`: added
+- `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`: added as persisted retrieval-to-evidence handoff endpoint
+- `db/migrations/014_evidence_ledger_retrieval_run_id.sql`: added to link Evidence Ledger rows back to persisted retrieval runs
+- Boundary: deterministic lexical retrieval-run handoff only; no embeddings, semantic retrieval, LLM judgment, Noise Gate generation, report generation, hosted deployment evidence, external reviewer feedback, financial advice behavior, or product-complete claim added
+
+### Phase 203 - Retrieval-run-linked Evidence Ledger Runtime Smoke v0
+
+- Retrieval-run-linked Evidence Ledger runtime smoke v0: implemented
+- `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`: added
+- Local Docker DB observed `Applied migrations: 13` and `Pending migrations: 0`
+- Live HTTP observed `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger -> 201`
+- Live HTTP observed `GET /evidence-ledgers -> 200` with matching `retrieval_run_id`
+- Boundary: local runtime evidence only; no hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, embeddings, semantic retrieval, LLM judgment, Noise Gate generation, report generation, financial advice behavior, or product-complete claim added

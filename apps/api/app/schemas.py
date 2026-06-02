@@ -356,6 +356,7 @@ class EvidenceLedgerStoredEntryOut(EvidenceLedgerEntryOut):
     workflow_trace_id: UUID
     agent_run_id: UUID | None = None
     workflow_run_id: UUID | None = None
+    retrieval_run_id: UUID | None = None
     created_at: datetime
 
 

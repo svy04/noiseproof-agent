@@ -92,7 +92,13 @@ class InMemoryRepository:
         return self.agent_runs
 
     def create_evidence_ledger_entries(
-        self, question, entries, workflow_trace_id=None, agent_run_id=None, workflow_run_id=None
+        self,
+        question,
+        entries,
+        workflow_trace_id=None,
+        agent_run_id=None,
+        workflow_run_id=None,
+        retrieval_run_id=None,
     ):
         workflow_trace_id = workflow_trace_id or uuid4()
         created = []
@@ -104,6 +110,7 @@ class InMemoryRepository:
             row["workflow_trace_id"] = workflow_trace_id
             row["agent_run_id"] = agent_run_id
             row["workflow_run_id"] = workflow_run_id
+            row["retrieval_run_id"] = retrieval_run_id
             row["created_at"] = datetime.now(timezone.utc)
             self.evidence_ledger_entries.append(row)
             created.append(row)
@@ -230,6 +237,12 @@ class InMemoryRepository:
     def list_retrieval_runs(self):
         return self.retrieval_runs
 
+    def get_retrieval_run(self, retrieval_run_id):
+        for row in self.retrieval_runs:
+            if str(row["id"]) == str(retrieval_run_id):
+                return row
+        return None
+
     def create_workflow_run(self, payload) -> dict:
         row = payload.model_dump()
         row["id"] = uuid4()
@@ -325,7 +338,13 @@ class InMemoryRepository:
 
 class EvidencePersistenceFailureRepository(InMemoryRepository):
     def create_evidence_ledger_entries(
-        self, question, entries, workflow_trace_id=None, agent_run_id=None, workflow_run_id=None
+        self,
+        question,
+        entries,
+        workflow_trace_id=None,
+        agent_run_id=None,
+        workflow_run_id=None,
+        retrieval_run_id=None,
     ):
         raise RuntimeError("simulated evidence persistence failure")
 
@@ -3109,6 +3128,70 @@ def test_document_retrieval_run_records_no_results_when_document_has_no_chunks()
     assert listed.status_code == 200
     assert listed.json()[0]["status"] == "no_results"
     assert listed.json()[0]["metadata_json"]["candidate_chunk_ids"] == []
+
+
+def test_retrieval_run_can_generate_persisted_evidence_ledger_from_candidate_chunks():
+    client = make_client()
+
+    document = client.post(
+        "/documents",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "title": "Sample market note",
+        },
+    ).json()
+    demand_chunk = client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 0,
+            "chunk_text": "Enterprise demand growth reached 12% in 2026.",
+            "metadata_json": {"header_path": ["Demand"]},
+        },
+    ).json()
+    client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 1,
+            "chunk_text": "Weather noise was unrelated to the market question.",
+            "metadata_json": {"header_path": ["Noise"]},
+        },
+    )
+    retrieval_run = client.post(
+        f"/documents/{document['id']}/retrieval-runs",
+        json={
+            "question": "Which chunk supports enterprise demand growth?",
+            "strategy": "fixed-window",
+            "top_k": 2,
+        },
+    ).json()
+
+    response = client.post(f"/retrieval-runs/{retrieval_run['id']}/evidence-ledger")
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["question"] == retrieval_run["question"]
+    assert body["stored_entry_count"] == 1
+    assert body["summary"]["supported_count"] == 1
+    assert body["entries"][0]["retrieval_run_id"] == retrieval_run["id"]
+    assert body["entries"][0]["source_id"] == demand_chunk["id"]
+    assert body["entries"][0]["status"] == "supported"
+    assert "Enterprise demand growth" in body["entries"][0]["evidence_span"]
+    assert any("persisted retrieval_run" in warning for warning in body["warnings"])
+    assert any("no LLM" in warning for warning in body["warnings"])
+
+    listed = client.get("/evidence-ledgers")
+    assert listed.status_code == 200
+    assert listed.json()[0]["retrieval_run_id"] == retrieval_run["id"]
 
 
 def test_collection_plan_preview_for_general_market_question():
