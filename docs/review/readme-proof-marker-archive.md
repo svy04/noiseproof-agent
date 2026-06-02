@@ -1340,3 +1340,11 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/semantic-retrieval-quality-report-reviewer-request-refresh.md`: added
 - Reviewer-facing request surfaces now point to `docs/evaluation/semantic-retrieval-quality-report.md`
 - Boundary: request infrastructure only; not live issue body update, not vector search quality evidence, not benchmark result, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 236 - Semantic Retrieval Quality Report Reviewer Issue-body Refresh v0
+
+- Semantic retrieval quality report reviewer issue-body refresh v0: implemented
+- `docs/review/semantic-retrieval-quality-report-issue-body-refresh.md`: added
+- Live issue #1 body now points to `docs/evaluation/semantic-retrieval-quality-report.md`
+- Observed markers: `has_report = true`, `has_boundary = true`, `has_q = true`, `comment_count = 1`
+- Boundary: owner-authored issue edit only; not vector search quality evidence, not benchmark result, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

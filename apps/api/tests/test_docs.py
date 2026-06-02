@@ -6429,6 +6429,46 @@ def test_external_reviewer_report_handoff_issue_body_refresh_records_live_issue_
     )
 
 
+def test_semantic_retrieval_quality_report_issue_body_refresh_records_live_issue_update():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-report-issue-body-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Quality Report Issue Body Refresh" in content
+    assert "semantic retrieval quality report reviewer issue-body refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "toy semantic retrieval quality report" in content
+    assert "docs/evaluation/semantic-retrieval-quality-report.md" in content
+    assert "q-what-missing" in content
+    assert "owner-authored issue edit" in content
+    assert "not vector search quality evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert (
+        "Semantic retrieval quality report reviewer issue-body refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 236 - Semantic Retrieval Quality Report Reviewer Issue-body Refresh v0"
+        in goal
+    )
+    assert "semantic retrieval quality report reviewer issue-body refresh v0" in runbook
+    assert (
+        "docs/review/semantic-retrieval-quality-report-issue-body-refresh.md"
+        in portfolio
+    )
+
+
 def test_external_feedback_current_state_report_handoff_issue_verification_keeps_gate_pending():
     review_path = (
         REPO_ROOT

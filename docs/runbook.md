@@ -3968,6 +3968,29 @@ not hosted deployment evidence
 not Braincrew acceptance
 ```
 
+## Semantic Retrieval Quality Report Issue Body Refresh
+
+Phase marker: semantic retrieval quality report reviewer issue-body refresh v0.
+
+Use `docs/review/semantic-retrieval-quality-report-issue-body-refresh.md` when checking the live owner-authored issue body update that points issue #1 to the toy semantic retrieval quality report.
+
+Public issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+Observed after edit:
+
+```text
+has_report = true
+has_boundary = true
+has_q = true
+comment_count = 1
+```
+
+This is an owner-authored issue edit only. It is not external reviewer feedback, not hosted deployment evidence, and not Braincrew acceptance.
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.
