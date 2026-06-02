@@ -2533,6 +2533,24 @@ no retrieval persistence
 
 This is local runtime evidence only, not hosted deployment evidence or external reviewer feedback.
 
+## Uploaded file chunk persistence handoff application refresh
+
+Phase marker: uploaded file chunk persistence handoff application refresh v0.
+
+Use `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md` when checking how the upload-to-chunks handoff proof is surfaced in the application package.
+
+This refresh points README, GOAL, runbook, portfolio index, Braincrew role map, and application-ready review surfaces to:
+
+```text
+docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md
+POST /documents/upload-chunks
+GET /documents/{document_id}/chunks
+explicit_upload_to_chunks_no_raw_file_storage
+chunk_text_only_no_raw_file_storage
+```
+
+This is documentation-only application packaging. It adds no runtime behavior, raw uploaded byte storage, full parsed text persistence, embeddings, retrieval persistence, hosted deployment evidence, external reviewer feedback, or product-complete claim.
+
 ## External reviewer chunk handoff request refresh
 
 Phase marker: external reviewer chunk handoff request refresh v0.

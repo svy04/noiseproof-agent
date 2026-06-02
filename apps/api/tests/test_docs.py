@@ -5013,3 +5013,58 @@ def test_uploaded_file_chunk_persistence_handoff_runtime_smoke_records_live_boun
         "docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_uploaded_file_chunk_persistence_handoff_application_refresh_surfaces_runtime_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded File Chunk Persistence Handoff Application Refresh" in content
+    assert "uploaded file chunk persistence handoff application refresh v0" in content
+    assert (
+        "docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md"
+        in content
+    )
+    assert "POST /documents/upload-chunks" in content
+    assert "GET /documents/{document_id}/chunks" in content
+    assert "explicit_upload_to_chunks_no_raw_file_storage" in content
+    assert "chunk_text_only_no_raw_file_storage" in content
+    assert "not raw uploaded byte storage" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Uploaded file chunk persistence handoff application refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 194 - Uploaded File Chunk Persistence Handoff Application Refresh v0"
+        in goal
+    )
+    assert "uploaded file chunk persistence handoff application refresh v0" in runbook
+    assert (
+        "docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md"
+        in role_map
+    )
+    assert "uploaded file chunk handoff persistence exists" in application_ready

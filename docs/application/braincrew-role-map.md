@@ -42,11 +42,9 @@ It is a small service that shows how I define a messy customer-like data problem
 
 External-reader proof path: `docs/review/external-reader-proof-path.md`.
 
-Use this 5-minute path first when a reviewer needs the shortest repository-native route through the evidence chain. It is not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
-
 README proof-marker archive: `docs/review/readme-proof-marker-archive.md`.
 
-Use this only when a reviewer wants source-level provenance for legacy README proof markers after README scanability cleanup. It is not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
+These are the 5-minute path and source-level provenance path, not product runtime evidence, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality.
 
 Runtime proof summary:
 
@@ -60,7 +58,7 @@ Runtime proof summary:
 - Reader path: workflow parent proof index is the reader path for schema boundary, manual persistence, fresh DB persistence, dashboard surfacing, and fresh DB dashboard proof.
 - Upload intake: upload intake manifest runtime smoke records content hash plus parser/profile summary; upload intake manifest persistence runtime smoke records `POST /documents/upload-intake-manifests`, `GET /documents/upload-intake-manifests`, and `manifest_only_no_raw_file_storage`; not raw file storage, hosted deployment evidence, external reviewer feedback, or retrieval persistence.
 - Upload parsed documents: upload parsed document persistence runtime smoke records `POST /documents/upload-parsed-documents`, `GET /documents`, `parsed_metadata_only`, and `document_metadata_and_profile_only_no_raw_file_storage`; not raw file storage, parsed text persistence, robust PDF extraction, hosted deployment evidence, external reviewer feedback, or retrieval persistence.
-- Upload chunks: upload chunk persistence runtime smoke records `POST /documents/{document_id}/chunks`, `GET /documents/{document_id}/chunks`, `chunk_text_only_no_raw_file_storage`, and unchanged `preview_only_not_persisted`; the application refresh keeps this as local manual chunk persistence evidence, not hosted deployment evidence, not external reviewer feedback, not automatic upload-preview-to-chunk persistence, and not retrieval persistence.
+- Upload chunks: chunk persistence and handoff smokes cover `POST /documents/{document_id}/chunks`, `GET /documents/{document_id}/chunks`, `POST /documents/upload-chunks`, `chunk_text_only_no_raw_file_storage`, `explicit_upload_to_chunks_no_raw_file_storage`, and unchanged `preview_only_not_persisted`; not hosted deployment evidence, external reviewer feedback, raw uploaded byte storage, automatic preview persistence, or retrieval persistence.
 
 Detailed proof links:
 
@@ -73,6 +71,7 @@ Detailed proof links:
 - `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
 - `docs/review/uploaded-file-parsed-document-persistence-application-refresh.md`
 - `docs/review/uploaded-file-chunk-persistence-application-refresh.md`
+- `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md`
 
 ## DeepDocurator Alignment
 

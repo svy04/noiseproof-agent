@@ -24,6 +24,7 @@ Uploaded file chunk persistence handoff endpoint v0: implemented
 External reviewer chunk handoff request refresh v0: implemented
 External reviewer chunk handoff issue-body refresh v0: implemented
 External feedback current-state chunk handoff issue verification v0: implemented
+Uploaded file chunk persistence handoff application refresh v0: implemented
 
 README detailed implementation status archive moved during Phase 103.
 This hidden source archive preserves earlier README proof markers while the rendered README stays scanable.
@@ -990,3 +991,11 @@ This hidden source archive preserves earlier README proof markers while the rend
 - External feedback current-state chunk handoff issue verification v0: implemented
 - `docs/review/external-feedback-current-state-chunk-handoff-issue-verification.md`: added
 - Boundary: current-state screen only; no external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 194 - Uploaded File Chunk Persistence Handoff Application Refresh v0
+
+- Uploaded file chunk persistence handoff application refresh v0: implemented
+- `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md`: added
+- `docs/application/braincrew-role-map.md`: updated with the handoff runtime proof link
+- `docs/review/application-ready-review.md`: updated with the explicit upload-to-chunks handoff boundary
+- Boundary: documentation-only application packaging; no runtime behavior, hosted deployment evidence, external reviewer feedback, raw uploaded byte storage, retrieval persistence, or product-complete claim added

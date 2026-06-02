@@ -102,6 +102,8 @@ Uploaded file chunk persistence handoff endpoint: `docs/review/uploaded-file-chu
 
 Uploaded file chunk persistence handoff runtime smoke: `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for `POST /documents/upload-chunks`. It observed a document row and four chunk rows for the created document while keeping `explicit_upload_to_chunks_no_raw_file_storage` and `chunk_text_only_no_raw_file_storage` boundaries.
 
+Uploaded file chunk persistence handoff application refresh: `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md` surfaces the handoff runtime smoke in the portfolio, Braincrew role map, application-ready review, README, and runbook. It is not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, not raw uploaded byte storage, and not retrieval persistence.
+
 External reviewer chunk handoff request refresh: `docs/review/external-reviewer-chunk-handoff-request-refresh.md` points reviewer-facing request surfaces to the uploaded-file chunk handoff proof. It is request infrastructure only and does not close external reviewer feedback.
 
 External reviewer chunk handoff issue-body refresh: `docs/review/external-review-issue-body-chunk-handoff-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file chunk handoff proof. It is not external reviewer feedback.
