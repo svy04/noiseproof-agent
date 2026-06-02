@@ -36,7 +36,7 @@ It is a small service that shows how I define a messy customer-like data problem
 | Full-stack service design | API service and operations dashboard exist | Next.js app is not implemented |
 | Infrastructure judgment | Docker Compose DB, migration runner, CI, and fresh migrated Docker DB API smoke exist | hosted deployment is not claimed |
 | Product surface ownership | dashboard and docs explain workflow | not a polished product UI |
-| RAG/Agent platform interest | phased retrieval/evidence/gate/report workflow plus caller-provided chunk embedding endpoint | no LLM, embedding generation, or semantic retrieval yet |
+| RAG/Agent platform interest | phased retrieval/evidence/gate/report workflow plus caller-provided chunk embedding endpoint and caller-provided semantic retrieval persistence | no LLM, embedding generation, vector search quality evidence, or hosted deployment evidence |
 
 ## Runtime Proof Surfaces
 
@@ -58,7 +58,8 @@ Runtime proof summary:
 - Preserved upload proof markers: upload intake manifest runtime smoke; upload intake manifest persistence runtime smoke; upload parsed document persistence runtime smoke.
 - Preserved upload boundary markers: not raw file storage.
 - Retrieval handoffs: linked Evidence Ledger, Noise Gate, and Report endpoints have local Docker runtime smoke; no external feedback, LLM judgment, free-form final answer, or automatic failure-case creation.
-- Caller-provided chunk embedding endpoint: `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, generated-claim rejection `400`, and pgvector normalization are locally smoke-tested; no embedding generation, semantic retrieval, vector search quality claim, or hosted deployment evidence.
+- Caller-provided chunk embedding endpoint: `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, generated-claim rejection `400`, and pgvector normalization are locally smoke-tested; no embedding generation, vector search quality claim, or hosted deployment evidence.
+- Caller-provided semantic retrieval persistence: `POST /documents/{document_id}/semantic-retrieval-runs`, `GET /retrieval-runs`, dimension mismatch rejection `400`, and unchanged Evidence Ledger counts are locally smoke-tested; no embedding generation, no vector search quality evidence, no Evidence Ledger generation from semantic retrieval, and no hosted deployment evidence.
 
 Detailed proof links:
 
@@ -70,6 +71,8 @@ Detailed proof links:
 - `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
 - `docs/review/retrieval-run-linked-report-runtime-smoke.md`
 - `docs/review/embedding-endpoint-runtime-smoke.md`
+- `docs/review/semantic-retrieval-persistence-runtime-smoke.md`
+- `docs/review/semantic-retrieval-persistence-application-refresh.md`
 
 ## DeepDocurator Alignment
 

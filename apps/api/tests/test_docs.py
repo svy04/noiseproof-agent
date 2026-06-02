@@ -750,6 +750,45 @@ def test_semantic_retrieval_persistence_runtime_smoke_records_live_http_boundary
     assert "embedding generation and vector search quality evidence" in visible_readme
 
 
+def test_semantic_retrieval_persistence_application_refresh_surfaces_runtime_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-persistence-application-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Semantic Retrieval Persistence Application Refresh" in content
+    assert "semantic retrieval persistence application refresh v0" in content
+    assert "docs/review/semantic-retrieval-persistence-runtime-smoke.md" in content
+    assert "caller-provided-vector semantic retrieval persistence" in content
+    assert "not embedding generation" in content
+    assert "not vector search quality evidence" in content
+    assert "Semantic retrieval persistence application refresh v0: implemented" in readme
+    assert "Phase 229 - Semantic Retrieval Persistence Application Refresh v0" in goal
+    assert "semantic retrieval persistence application refresh v0" in runbook
+    assert "docs/review/semantic-retrieval-persistence-application-refresh.md" in portfolio
+    assert "caller-provided semantic retrieval persistence" in role_map
+    assert "semantic retrieval quality remains unproven" in app_review
+    assert "docs/review/semantic-retrieval-persistence-runtime-smoke.md" in proof_path
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

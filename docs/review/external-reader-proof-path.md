@@ -54,6 +54,8 @@ Read in this order:
     - retrieval-run-linked Report proof with explicit `POST /retrieval-runs/{retrieval_run_id}/report`, `pre_report_status: 409`, and `input_noise_gate_record_id`.
 22. `docs/review/embedding-endpoint-runtime-smoke.md`
     - caller-provided chunk embedding endpoint proof with explicit `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, and generated-claim rejection `400`.
+23. `docs/review/semantic-retrieval-persistence-runtime-smoke.md`
+    - caller-provided semantic retrieval persistence proof with explicit `POST /documents/{document_id}/semantic-retrieval-runs`, `GET /retrieval-runs`, dimension mismatch `400`, and unchanged Evidence Ledger counts.
 
 ## Optional source-level provenance
 
@@ -178,6 +180,15 @@ docs/review/embedding-endpoint-runtime-smoke.md
 
 This proof shows local Docker DB plus live FastAPI HTTP evidence for `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, and generated embedding claim rejection `400`. It is caller-provided vector persistence only. It is not embedding generation, not semantic retrieval implementation, not HNSW or IVFFlat index behavior, not vector search quality, not hosted deployment evidence, and not external reviewer feedback.
 
+caller-provided semantic retrieval persistence proof:
+
+```text
+docs/review/semantic-retrieval-persistence-runtime-smoke.md
+docs/review/semantic-retrieval-persistence-application-refresh.md
+```
+
+This proof shows local Docker DB plus live FastAPI HTTP evidence for `POST /documents/{document_id}/semantic-retrieval-runs -> 201`, `GET /retrieval-runs -> 200`, dimension mismatch `-> 400`, and unchanged Evidence Ledger counts. It is caller-provided semantic retrieval persistence only. It is not embedding generation, not vector search quality evidence, not Evidence Ledger generation from semantic retrieval, not hosted deployment evidence, and not external reviewer feedback.
+
 Public request issue:
 
 ```text
@@ -190,7 +201,7 @@ It is not external reviewer feedback.
 
 Allowed claim:
 
-NoiseProof Agent is an inspectable local portfolio service with phased proof artifacts for data profiling, parser boundaries, chunking, lexical retrieval, evidence preview, gate preview, report preview, persisted proof records, workflow parent linkage, failure-case persistence, manual workflow parent provenance, and current application-facing boundaries.
+NoiseProof Agent is an inspectable local portfolio service with phased proof artifacts for data profiling, parser boundaries, chunking, lexical retrieval, caller-provided semantic retrieval persistence, evidence preview, gate preview, report preview, persisted proof records, workflow parent linkage, failure-case persistence, manual workflow parent provenance, and current application-facing boundaries.
 
 Allowed claim:
 
@@ -208,11 +219,11 @@ NoiseProof Agent automatically creates failure cases from workflow failures or p
 
 Forbidden claim:
 
-NoiseProof Agent has robust PDF extraction, embedding generation, semantic retrieval, distributed tracing, market prediction quality, or free-form final answer generation.
+NoiseProof Agent has robust PDF extraction, embedding generation, semantic retrieval quality evidence, distributed tracing, market prediction quality, or free-form final answer generation.
 
 ## Boundary
 
-This proof path adds no runtime behavior, schema, migration, API endpoint, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure detection, automatic failure-case creation, automatic persistence from workflow failures, complete workflow failure causality, LLM calls, embeddings, semantic retrieval, autonomous workflow execution, or free-form final answer generation.
+This proof path adds no new runtime behavior, schema, migration, API endpoint, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure detection, automatic failure-case creation, automatic persistence from workflow failures, complete workflow failure causality, LLM calls, embeddings, semantic retrieval quality evidence, autonomous workflow execution, or free-form final answer generation.
 
 This is not hosted deployment evidence.
 This is not automatic failure-case creation.

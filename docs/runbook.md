@@ -3662,6 +3662,43 @@ not vector search quality evidence
 not hosted deployment evidence
 ```
 
+## Semantic Retrieval Persistence Application Refresh
+
+Phase 229 surfaces the semantic retrieval persistence runtime proof in application-facing docs.
+
+The phase marker is:
+
+```text
+semantic retrieval persistence application refresh v0
+```
+
+Review artifact:
+
+```text
+docs/review/semantic-retrieval-persistence-application-refresh.md
+```
+
+Primary runtime proof:
+
+```text
+docs/review/semantic-retrieval-persistence-runtime-smoke.md
+```
+
+Allowed claim:
+
+```text
+caller-provided semantic retrieval persistence has local runtime proof
+```
+
+Claim boundary:
+
+```text
+not embedding generation
+not vector search quality evidence
+not Evidence Ledger generation from semantic retrieval
+not hosted deployment evidence
+```
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

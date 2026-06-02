@@ -1280,3 +1280,11 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `evidence_ledger_count_unchanged -> true`
 - Required metadata observed: `metadata_json.retrieval_mode = semantic_persisted`
 - Boundary: local runtime evidence only; not embedding generation, not Evidence Ledger generation, not vector search quality evidence, not hosted deployment evidence
+
+### Phase 229 - Semantic Retrieval Persistence Application Refresh v0
+
+- Semantic retrieval persistence application refresh v0: implemented
+- `docs/review/semantic-retrieval-persistence-application-refresh.md`: added
+- Application-facing docs now surface `docs/review/semantic-retrieval-persistence-runtime-smoke.md`
+- Allowed claim: caller-provided semantic retrieval persistence has local runtime proof
+- Boundary: no embedding generation, no vector search quality evidence, no Evidence Ledger generation from semantic retrieval, no hosted deployment evidence
