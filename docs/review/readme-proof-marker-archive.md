@@ -1172,3 +1172,10 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Observed `schema_migrations.filename = 015_chunk_embeddings.sql`
 - Observed `chunk_embeddings.embedding` as pgvector `udt_name = vector`
 - Boundary: local runtime evidence only; not embedding generation, not semantic retrieval implementation, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 217 - Embedding Repository Review v0
+
+- Embedding repository review v0: implemented
+- `docs/review/embedding-repository-review.md`: added
+- Selected next repository boundary: `ChunkEmbeddingCreate`, `create_chunk_embedding`, and `list_chunk_embeddings`
+- Boundary: review-only; not repository code, not embedding generation, not semantic retrieval implementation, not runtime evidence, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

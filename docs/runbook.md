@@ -3279,3 +3279,29 @@ embedding_model
 ```
 
 This is local runtime evidence only. It is not embedding generation, not semantic retrieval implementation, not hosted deployment evidence, and not external reviewer feedback.
+
+## Embedding Repository Review
+
+Phase 217 is a review-only repository boundary gate.
+
+The phase marker is:
+
+```text
+embedding repository review v0
+```
+
+Review artifact:
+
+```text
+docs/review/embedding-repository-review.md
+```
+
+Selected next boundary:
+
+```text
+ChunkEmbeddingCreate
+create_chunk_embedding
+list_chunk_embeddings
+```
+
+This review adds no repository code. It selects a metadata/persistence boundary only. Do not generate embeddings in repository code.
