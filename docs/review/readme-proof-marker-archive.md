@@ -1154,3 +1154,11 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Required future metadata: `embedding_model`, `embedding_dimension`, `embedding_text_hash`, `embedding_created_at`, `distance_metric`, `embedding_status`, rebuild strategy, and lexical baseline notes
 - Selected next product gate: embedding schema migration v0
 - Boundary: review-only; no schema, migration, vector column, embeddings, semantic retrieval, vector index, runtime behavior, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 215 - Embedding Schema Migration v0
+
+- Embedding schema migration v0: implemented
+- `db/migrations/015_chunk_embeddings.sql`: added
+- `db/init/001_schema.sql`: updated with the same `chunk_embeddings` fresh-db schema
+- `docs/review/embedding-schema-migration.md`: added
+- Boundary: schema-only; not embedding generation, not semantic retrieval implementation, not runtime evidence, not vector index tuning, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

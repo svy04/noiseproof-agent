@@ -3207,3 +3207,39 @@ embedding schema migration v0
 ```
 
 Do not add a vector column in this gate. Do not add embedding generation, semantic retrieval, HNSW, IVFFlat, model dependencies, or retrieval ranking behavior until the migration and runtime gates explicitly open.
+
+## Embedding Schema Migration
+
+Phase 215 is a schema-only migration gate.
+
+The phase marker is:
+
+```text
+embedding schema migration v0
+```
+
+Review artifact:
+
+```text
+docs/review/embedding-schema-migration.md
+```
+
+Migration file:
+
+```text
+db/migrations/015_chunk_embeddings.sql
+```
+
+Fresh DB schema mirror:
+
+```text
+db/init/001_schema.sql
+```
+
+This gate adds `chunk_embeddings` only as a schema boundary. It does not generate embeddings, create repository functions, create API endpoints, run semantic retrieval, or add HNSW/IVFFlat indexes.
+
+Next verification gate:
+
+```text
+embedding schema runtime verification v0
+```

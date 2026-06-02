@@ -281,6 +281,45 @@ def test_embedding_schema_review_keeps_vector_storage_decision_review_only():
     assert "docs/review/embedding-schema-review.md" in portfolio
 
 
+def test_embedding_schema_migration_adds_chunk_embeddings_without_runtime_behavior():
+    migration_path = REPO_ROOT / "db/migrations/015_chunk_embeddings.sql"
+    assert migration_path.is_file()
+
+    init_sql = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
+    migration_sql = migration_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    for sql in (init_sql, migration_sql):
+        assert "CREATE TABLE IF NOT EXISTS chunk_embeddings" in sql
+        assert "chunk_id UUID NOT NULL REFERENCES document_chunks(id) ON DELETE CASCADE" in sql
+        assert "embedding_model TEXT NOT NULL" in sql
+        assert "embedding_dimension INTEGER NOT NULL CHECK (embedding_dimension > 0)" in sql
+        assert "embedding_text_hash TEXT NOT NULL" in sql
+        assert "embedding_created_at TIMESTAMPTZ NOT NULL DEFAULT now()" in sql
+        assert "distance_metric TEXT NOT NULL DEFAULT 'cosine'" in sql
+        assert "embedding_status TEXT NOT NULL DEFAULT 'planned'" in sql
+        assert "embedding vector" in sql
+        assert "UNIQUE (chunk_id, embedding_model, embedding_text_hash, distance_metric)" in sql
+        assert "idx_chunk_embeddings_chunk_id" in sql
+        assert "idx_chunk_embeddings_model" in sql
+        assert "idx_chunk_embeddings_status" in sql
+
+    assert "USING hnsw" not in migration_sql.lower()
+    assert "USING ivfflat" not in migration_sql.lower()
+    assert "Embedding schema migration v0: implemented" in readme
+    assert "Phase 215 - Embedding Schema Migration v0" in goal
+    assert "embedding schema migration v0" in runbook
+    assert "docs/review/embedding-schema-migration.md" in portfolio
+    assert "not embedding generation" in readme
+    assert "not semantic retrieval implementation" in readme
+    assert "not runtime evidence" in readme
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 
