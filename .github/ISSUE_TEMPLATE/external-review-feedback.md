@@ -34,6 +34,12 @@ Fast links:
   - Boundary: explicit `POST /documents/upload-chunks`, not raw uploaded byte storage, not hosted deployment evidence, and not external reviewer feedback.
 - uploaded-file retrieval persistence proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
   - Boundary: `POST /documents/{document_id}/retrieval-runs` over persisted `document_chunks`, not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.
+- retrieval-run-linked Evidence Ledger proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md
+  - Boundary: `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, no LLM, no embeddings, no semantic retrieval, not hosted deployment evidence, and not external reviewer feedback.
+- retrieval-run-linked Noise Gate proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md
+  - Boundary: `POST /retrieval-runs/{retrieval_run_id}/noise-gate`, not report generation, not hosted deployment evidence, and not external reviewer feedback.
+- retrieval-run-linked Report proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/retrieval-run-linked-report-runtime-smoke.md
+  - Boundary: `POST /retrieval-runs/{retrieval_run_id}/report`, `pre_report_status: 409`, `input_noise_gate_record_id`, no free-form final report generation, not hosted deployment evidence, and not external reviewer feedback.
 - Feedback intake criteria: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 - Public feedback issue: https://github.com/svy04/noiseproof-agent/issues/1
 

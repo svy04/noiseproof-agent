@@ -3059,3 +3059,47 @@ Expected boundary markers:
 - warnings mention retrieval-run-linked Noise Gate and Evidence Ledger rows, no LLM, no embeddings, no semantic retrieval, no failure-case creation, and no financial advice.
 
 This is not free-form final report generation, not automatic failure-case creation, not hosted deployment evidence, not external reviewer feedback, and not financial advice.
+
+## External Reviewer Report Handoff Refresh
+
+Phase 208 updates the reviewer-facing request surfaces so outside reviewers can find the latest retrieval-run-linked Report proof without walking the whole repository history.
+
+Proof links to check:
+
+```text
+docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md
+docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md
+docs/review/retrieval-run-linked-report-runtime-smoke.md
+```
+
+The phase marker is:
+
+```text
+external reviewer report handoff request refresh v0
+```
+
+Phase 209 records the owner-authored public issue #1 body refresh:
+
+```text
+docs/review/external-review-issue-body-report-handoff-refresh.md
+external reviewer report handoff issue-body refresh v0
+```
+
+Phase 210 records the current live issue state after that refresh:
+
+```text
+docs/review/external-feedback-current-state-report-handoff-issue-verification.md
+external feedback current-state report handoff issue verification v0
+```
+
+Expected issue-state boundary:
+
+```text
+comment_count: 1
+candidate_count: 0
+draft_count: 0
+self_authored_comment
+non_qualifying
+```
+
+This is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.

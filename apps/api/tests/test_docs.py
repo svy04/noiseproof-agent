@@ -5413,3 +5413,161 @@ def test_uploaded_file_retrieval_persistence_application_refresh_surfaces_runtim
         in role_map
     )
     assert "uploaded file retrieval persistence exists" in application_ready
+
+
+def test_external_reviewer_report_handoff_request_refresh_routes_reviewers_to_latest_chain_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-report-handoff-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+
+    assert "External Reviewer Report Handoff Request Refresh" in content
+    assert "external reviewer report handoff request refresh v0" in content
+    assert "request infrastructure only" in content
+    assert "retrieval-run-linked Report proof" in content
+    assert "docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md" in content
+    assert "docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md" in content
+    assert "docs/review/retrieval-run-linked-report-runtime-smoke.md" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/noise-gate" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/report" in content
+    assert "pre_report_status: 409" in content
+    assert "input_noise_gate_record_id" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "does not edit the live public issue body" in content
+    assert (
+        "External reviewer report handoff request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 208 - External Reviewer Report Handoff Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer report handoff request refresh v0" in runbook
+    assert (
+        "docs/review/external-reviewer-report-handoff-request-refresh.md"
+        in portfolio
+    )
+    for reviewer_surface in [proof_path, request, brief, link_map, issue_template, contributing]:
+        assert "retrieval-run-linked Report proof" in reviewer_surface
+        assert "docs/review/retrieval-run-linked-report-runtime-smoke.md" in reviewer_surface
+        assert "POST /retrieval-runs/{retrieval_run_id}/report" in reviewer_surface
+
+
+def test_external_reviewer_report_handoff_issue_body_refresh_records_live_issue_update():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-report-handoff-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Report Handoff Refresh" in content
+    assert "external reviewer report handoff issue-body refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "retrieval-run-linked Report proof" in content
+    assert "docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md" in content
+    assert "docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md" in content
+    assert "docs/review/retrieval-run-linked-report-runtime-smoke.md" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/noise-gate" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/report" in content
+    assert "pre_report_status: 409" in content
+    assert "input_noise_gate_record_id" in content
+    assert "owner-authored issue edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert (
+        "External reviewer report handoff issue-body refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 209 - External Reviewer Report Handoff Issue-body Refresh v0"
+        in goal
+    )
+    assert "external reviewer report handoff issue-body refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-report-handoff-refresh.md"
+        in portfolio
+    )
+
+
+def test_external_feedback_current_state_report_handoff_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-report-handoff-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Feedback Current-state Report Handoff Issue Verification" in content
+    assert (
+        "external feedback current-state report handoff issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "self_authored_comment" in content
+    assert "non_qualifying" in content
+    assert "retrieval-run-linked Report proof" in content
+    assert "docs/review/retrieval-run-linked-report-runtime-smoke.md" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/report" in content
+    assert "does not close external reviewer feedback v0" in content
+    assert (
+        "External feedback current-state report handoff issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 210 - External Feedback Current-state Report Handoff Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state report handoff issue verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-report-handoff-issue-verification.md"
+        in portfolio
+    )

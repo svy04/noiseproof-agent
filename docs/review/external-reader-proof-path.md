@@ -46,6 +46,12 @@ Read in this order:
     - uploaded-file chunk handoff proof with explicit `POST /documents/upload-chunks` and no raw uploaded byte storage.
 18. `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
     - uploaded-file retrieval persistence proof with explicit `POST /documents/{document_id}/retrieval-runs`, persisted `retrieval_runs`, and no Evidence Ledger generation.
+19. `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
+    - retrieval-run-linked Evidence Ledger proof with explicit `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`.
+20. `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
+    - retrieval-run-linked Noise Gate proof with explicit `POST /retrieval-runs/{retrieval_run_id}/noise-gate` after linked ledger rows.
+21. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
+    - retrieval-run-linked Report proof with explicit `POST /retrieval-runs/{retrieval_run_id}/report`, `pre_report_status: 409`, and `input_noise_gate_record_id`.
 
 ## Optional source-level provenance
 
@@ -151,6 +157,16 @@ docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
 ```
 
 This proof is explicit `POST /documents/{document_id}/retrieval-runs` over persisted `document_chunks`, not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.
+
+retrieval-run-linked Report proof:
+
+```text
+docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md
+docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md
+docs/review/retrieval-run-linked-report-runtime-smoke.md
+```
+
+This proof shows the persisted retrieval run handoff through `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, `POST /retrieval-runs/{retrieval_run_id}/noise-gate`, and `POST /retrieval-runs/{retrieval_run_id}/report`. The report smoke records `pre_report_status: 409` before a linked Noise Gate exists and `input_noise_gate_record_id` after the gate exists. It is not hosted deployment evidence, not external reviewer feedback, not LLM judgment, not embeddings, not semantic retrieval, not free-form final report generation, and not financial advice.
 
 Public request issue:
 

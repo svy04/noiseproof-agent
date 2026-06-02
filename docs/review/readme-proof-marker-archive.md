@@ -1102,3 +1102,24 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Live HTTP observed `POST /retrieval-runs/{retrieval_run_id}/report` after linked gate -> `201`
 - Live HTTP observed `GET /reports -> 200` with matching `stage_input_manifest.retrieval_run_id`
 - Boundary: local runtime evidence only; no hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, embeddings, semantic retrieval, LLM judgment, free-form report generation, financial advice behavior, automatic failure-case creation, or product-complete claim added
+
+### Phase 208 - External Reviewer Report Handoff Request Refresh v0
+
+- External reviewer report handoff request refresh v0: implemented
+- `docs/review/external-reviewer-report-handoff-request-refresh.md`: added
+- Reviewer-facing request surfaces now include retrieval-run-linked Evidence Ledger, Noise Gate, and Report runtime smoke links
+- Boundary: request infrastructure only; no runtime behavior, live issue edit, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 209 - External Reviewer Report Handoff Issue-body Refresh v0
+
+- External reviewer report handoff issue-body refresh v0: implemented
+- `docs/review/external-review-issue-body-report-handoff-refresh.md`: added
+- Public issue #1 body updated with retrieval-run-linked Evidence Ledger, Noise Gate, and Report proof links
+- Boundary: owner-authored issue edit only; no external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 210 - External Feedback Current-state Report Handoff Issue Verification v0
+
+- External feedback current-state report handoff issue verification v0: implemented
+- `docs/review/external-feedback-current-state-report-handoff-issue-verification.md`: added
+- Observed `comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`
+- Boundary: current-state screen only; no external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete claim added

@@ -328,6 +328,9 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md` | local Docker DB plus FastAPI smoke for pre-ledger 409 and post-ledger Noise Gate persistence |
 | `docs/review/retrieval-run-linked-report-endpoint.md` | persisted retrieval run plus linked Evidence Ledger and Noise Gate rows to Report handoff endpoint; no LLM |
 | `docs/review/retrieval-run-linked-report-runtime-smoke.md` | local Docker DB plus FastAPI smoke for pre-gate 409 and post-gate Report persistence |
+| `docs/review/external-reviewer-report-handoff-request-refresh.md` | reviewer-facing request-path refresh for retrieval-run-linked Report proof; not external reviewer feedback |
+| `docs/review/external-review-issue-body-report-handoff-refresh.md` | owner-authored issue #1 body update for retrieval-run-linked Report proof; not external reviewer feedback |
+| `docs/review/external-feedback-current-state-report-handoff-issue-verification.md` | live issue #1 current-state screen after report handoff refresh; feedback gate remains pending |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

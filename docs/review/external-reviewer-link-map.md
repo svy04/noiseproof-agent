@@ -46,7 +46,16 @@ https://github.com/svy04/noiseproof-agent/issues/1
 12. uploaded-file retrieval persistence proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
    Boundary: `POST /documents/{document_id}/retrieval-runs` over persisted `document_chunks`, not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.
-13. Feedback intake criteria:
+13. retrieval-run-linked Evidence Ledger proof:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md
+   Boundary: `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, no LLM, no embeddings, no semantic retrieval, not hosted deployment evidence, and not external reviewer feedback.
+14. retrieval-run-linked Noise Gate proof:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md
+   Boundary: `POST /retrieval-runs/{retrieval_run_id}/noise-gate` after linked Evidence Ledger rows, not report generation, not hosted deployment evidence, and not external reviewer feedback.
+15. retrieval-run-linked Report proof:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/retrieval-run-linked-report-runtime-smoke.md
+   Boundary: `POST /retrieval-runs/{retrieval_run_id}/report` after linked Evidence Ledger and Noise Gate rows, `pre_report_status: 409`, `input_noise_gate_record_id`, no free-form final report generation, not hosted deployment evidence, and not external reviewer feedback.
+16. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route

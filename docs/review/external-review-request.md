@@ -114,6 +114,16 @@ docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
 
 Boundary: this proof is explicit `POST /documents/{document_id}/retrieval-runs` over persisted `document_chunks`, not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.
 
+retrieval-run-linked Report proof:
+
+```text
+docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md
+docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md
+docs/review/retrieval-run-linked-report-runtime-smoke.md
+```
+
+Boundary: this proof is explicit `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, `POST /retrieval-runs/{retrieval_run_id}/noise-gate`, and `POST /retrieval-runs/{retrieval_run_id}/report`; the report handoff records `pre_report_status: 409` and `input_noise_gate_record_id`, but it is not hosted deployment evidence, not external reviewer feedback, not LLM judgment, not embeddings, not semantic retrieval, not free-form final report generation, and not financial advice.
+
 ## Review Path
 
 Please read in this order:
@@ -128,7 +138,10 @@ Please read in this order:
 8. `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`
 9. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
 10. `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
-11. `docs/application/braincrew-role-map.md`
+11. `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
+12. `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
+13. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
+14. `docs/application/braincrew-role-map.md`
 
 Optional source-level provenance:
 
