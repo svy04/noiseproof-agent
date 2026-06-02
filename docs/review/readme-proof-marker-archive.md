@@ -1333,3 +1333,10 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/semantic-retrieval-quality-report-application-refresh.md`: added
 - Application-facing docs now surface `docs/evaluation/semantic-retrieval-quality-report.md`
 - Boundary: documentation-only application packaging; toy fixture metric output only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 235 - Semantic Retrieval Quality Report Reviewer Request Refresh v0
+
+- Semantic retrieval quality report reviewer request refresh v0: implemented
+- `docs/review/semantic-retrieval-quality-report-reviewer-request-refresh.md`: added
+- Reviewer-facing request surfaces now point to `docs/evaluation/semantic-retrieval-quality-report.md`
+- Boundary: request infrastructure only; not live issue body update, not vector search quality evidence, not benchmark result, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

@@ -55,7 +55,10 @@ https://github.com/svy04/noiseproof-agent/issues/1
 15. retrieval-run-linked Report proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/retrieval-run-linked-report-runtime-smoke.md
    Boundary: `POST /retrieval-runs/{retrieval_run_id}/report` after linked Evidence Ledger and Noise Gate rows, `pre_report_status: 409`, `input_noise_gate_record_id`, no free-form final report generation, not hosted deployment evidence, and not external reviewer feedback.
-16. Feedback intake criteria:
+16. toy semantic retrieval quality report:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/evaluation/semantic-retrieval-quality-report.md
+   Boundary: toy fixture metric output with visible `q-what-missing`; not vector search quality evidence, not a benchmark result, not a model comparison, and not external reviewer feedback.
+17. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route

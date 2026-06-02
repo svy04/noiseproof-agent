@@ -933,6 +933,71 @@ def test_semantic_retrieval_quality_report_application_refresh_surfaces_bounded_
     assert "semantic retrieval quality report is toy fixture output" in app_review
 
 
+def test_semantic_retrieval_quality_report_reviewer_request_refresh_updates_request_surfaces():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-report-reviewer-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+
+    assert "Semantic Retrieval Quality Report Reviewer Request Refresh" in content
+    assert "semantic retrieval quality report reviewer request refresh v0" in content
+    assert "request infrastructure only" in content
+    assert "docs/evaluation/semantic-retrieval-quality-report.md" in content
+    assert "q-what-missing" in content
+    assert "not vector search quality evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "does not edit the live public issue body" in content
+    assert (
+        "Semantic retrieval quality report reviewer request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 235 - Semantic Retrieval Quality Report Reviewer Request Refresh v0"
+        in goal
+    )
+    assert "semantic retrieval quality report reviewer request refresh v0" in runbook
+    assert (
+        "docs/review/semantic-retrieval-quality-report-reviewer-request-refresh.md"
+        in portfolio
+    )
+    for reviewer_surface in [
+        proof_path,
+        request,
+        brief,
+        link_map,
+        issue_template,
+        contributing,
+    ]:
+        assert "toy semantic retrieval quality report" in reviewer_surface
+        assert "docs/evaluation/semantic-retrieval-quality-report.md" in reviewer_surface
+        assert "not vector search quality evidence" in reviewer_surface
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

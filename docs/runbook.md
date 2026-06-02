@@ -3935,6 +3935,39 @@ not model comparison
 not production semantic retrieval quality
 ```
 
+## Semantic Retrieval Quality Report Reviewer Request Refresh
+
+Phase marker: semantic retrieval quality report reviewer request refresh v0.
+
+Use `docs/review/semantic-retrieval-quality-report-reviewer-request-refresh.md` when checking why reviewer-facing request surfaces now point to the toy semantic retrieval quality report.
+
+Reviewer-facing surfaces:
+
+```text
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+```
+
+Report:
+
+```text
+docs/evaluation/semantic-retrieval-quality-report.md
+```
+
+This is request infrastructure only. It does not update the live public issue body and is not external reviewer feedback. The next request gate is `semantic retrieval quality report reviewer issue-body refresh v0`.
+
+Boundary:
+
+```text
+toy semantic retrieval quality report
+not vector search quality evidence
+not hosted deployment evidence
+not Braincrew acceptance
+```
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

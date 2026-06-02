@@ -34,7 +34,9 @@ Please start here:
    - retrieval-run-linked Noise Gate proof via `POST /retrieval-runs/{retrieval_run_id}/noise-gate`; not report generation, not hosted deployment evidence, and not external reviewer feedback.
 13. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
    - retrieval-run-linked Report proof via `POST /retrieval-runs/{retrieval_run_id}/report`; records `pre_report_status: 409` and `input_noise_gate_record_id`, not hosted deployment evidence, and not external reviewer feedback.
-14. `docs/review/external-feedback-intake-criteria.md`
+14. `docs/evaluation/semantic-retrieval-quality-report.md`
+   - toy semantic retrieval quality report; keeps `q-what-missing` visible, not vector search quality evidence, not a benchmark result, and not external reviewer feedback.
+15. `docs/review/external-feedback-intake-criteria.md`
 
 Public feedback issue:
 

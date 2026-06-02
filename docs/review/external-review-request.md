@@ -124,6 +124,15 @@ docs/review/retrieval-run-linked-report-runtime-smoke.md
 
 Boundary: this proof is explicit `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, `POST /retrieval-runs/{retrieval_run_id}/noise-gate`, and `POST /retrieval-runs/{retrieval_run_id}/report`; the report handoff records `pre_report_status: 409` and `input_noise_gate_record_id`, but it is not hosted deployment evidence, not external reviewer feedback, not LLM judgment, not embeddings, not semantic retrieval, not free-form final report generation, and not financial advice.
 
+toy semantic retrieval quality report:
+
+```text
+docs/evaluation/semantic-retrieval-quality-report.md
+docs/review/semantic-retrieval-quality-report-application-refresh.md
+```
+
+Boundary: this report is toy fixture metric output with `q-what-missing` kept visible. It is not vector search quality evidence, not a benchmark result, not a model comparison, not hosted deployment evidence, and not external reviewer feedback.
+
 ## Review Path
 
 Please read in this order:
@@ -141,7 +150,8 @@ Please read in this order:
 11. `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
 12. `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
 13. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
-14. `docs/application/braincrew-role-map.md`
+14. `docs/evaluation/semantic-retrieval-quality-report.md`
+15. `docs/application/braincrew-role-map.md`
 
 Optional source-level provenance:
 
