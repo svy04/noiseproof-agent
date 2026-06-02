@@ -3299,6 +3299,105 @@ def test_retrieval_run_noise_gate_requires_linked_ledger_entries_first():
     assert client.get("/noise-gates").json() == []
 
 
+def test_retrieval_run_can_generate_persisted_report_from_linked_gate_and_ledger():
+    client = make_client()
+
+    document = client.post(
+        "/documents",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "title": "Sample market note",
+        },
+    ).json()
+    client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 0,
+            "chunk_text": "Enterprise demand growth reached 12% in 2026.",
+            "metadata_json": {"header_path": ["Demand"]},
+        },
+    )
+    retrieval_run = client.post(
+        f"/documents/{document['id']}/retrieval-runs",
+        json={
+            "question": "Which chunk supports enterprise demand growth?",
+            "strategy": "fixed-window",
+            "top_k": 1,
+        },
+    ).json()
+    ledger = client.post(f"/retrieval-runs/{retrieval_run['id']}/evidence-ledger").json()
+    gate = client.post(f"/retrieval-runs/{retrieval_run['id']}/noise-gate").json()
+
+    response = client.post(f"/retrieval-runs/{retrieval_run['id']}/report")
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["question"] == retrieval_run["question"]
+    assert body["status"] in {"generated", "needs_revision", "blocked"}
+    assert body["evidence_entry_count"] == ledger["stored_entry_count"]
+    assert body["draft_claim_count"] == 0
+    assert body["stage_input_manifest"]["retrieval_run_id"] == retrieval_run["id"]
+    assert body["stage_input_manifest"]["input_evidence_ledger_entry_ids"] == [
+        ledger["entries"][0]["id"]
+    ]
+    assert body["stage_input_manifest"]["input_noise_gate_record_id"] == gate["id"]
+    assert any("retrieval_run-linked Noise Gate" in warning for warning in body["warnings"])
+    assert any("does not call an LLM" in warning for warning in body["warnings"])
+
+    listed = client.get("/reports")
+    assert listed.status_code == 200
+    assert listed.json()[0]["stage_input_manifest"]["retrieval_run_id"] == retrieval_run["id"]
+
+
+def test_retrieval_run_report_requires_linked_noise_gate_first():
+    client = make_client()
+
+    document = client.post(
+        "/documents",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "title": "Sample market note",
+        },
+    ).json()
+    client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 0,
+            "chunk_text": "Enterprise demand growth reached 12% in 2026.",
+            "metadata_json": {"header_path": ["Demand"]},
+        },
+    )
+    retrieval_run = client.post(
+        f"/documents/{document['id']}/retrieval-runs",
+        json={
+            "question": "Which chunk supports enterprise demand growth?",
+            "strategy": "fixed-window",
+            "top_k": 1,
+        },
+    ).json()
+    client.post(f"/retrieval-runs/{retrieval_run['id']}/evidence-ledger")
+
+    response = client.post(f"/retrieval-runs/{retrieval_run['id']}/report")
+
+    assert response.status_code == 409
+    assert "Run POST /retrieval-runs/{retrieval_run_id}/noise-gate first" in response.json()[
+        "detail"
+    ]
+    assert client.get("/reports").json() == []
+
+
 def test_collection_plan_preview_for_general_market_question():
     client = make_client()
 

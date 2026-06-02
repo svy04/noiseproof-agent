@@ -6,6 +6,7 @@ from app.db import Repository, get_repository
 from app.schemas import (
     EvidenceLedgerPersistedOut,
     NoiseGateStoredRecordOut,
+    ReportStoredRecordOut,
     RetrievalRunOut,
     RetrievalRunRequest,
     RetrievalRunResponse,
@@ -17,6 +18,7 @@ from app.services.retrieval_run_evidence import (
 from app.services.retrieval_run_noise_gate import (
     persist_noise_gate_from_retrieval_run,
 )
+from app.services.retrieval_run_report import persist_report_from_retrieval_run
 
 router = APIRouter(prefix="/retrieval-runs", tags=["retrieval-runs"])
 
@@ -56,3 +58,15 @@ def create_noise_gate_from_retrieval_run(
     repository: Repository = Depends(get_repository),
 ) -> NoiseGateStoredRecordOut:
     return persist_noise_gate_from_retrieval_run(retrieval_run_id, repository)
+
+
+@router.post(
+    "/{retrieval_run_id}/report",
+    response_model=ReportStoredRecordOut,
+    status_code=201,
+)
+def create_report_from_retrieval_run(
+    retrieval_run_id: UUID,
+    repository: Repository = Depends(get_repository),
+) -> ReportStoredRecordOut:
+    return persist_report_from_retrieval_run(retrieval_run_id, repository)

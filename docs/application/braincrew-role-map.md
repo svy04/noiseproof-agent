@@ -59,6 +59,7 @@ Runtime proof summary:
 - Preserved upload boundary markers: not raw file storage.
 - Retrieval-to-evidence handoff: local Docker runtime smoke covers `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, migration `014_evidence_ledger_retrieval_run_id.sql`, and persisted Evidence Ledger rows with `retrieval_run_id`; no external feedback, embeddings, LLM judgment, Noise Gate, or report generation.
 - Retrieval-to-gate handoff: local Docker runtime smoke covers `POST /retrieval-runs/{retrieval_run_id}/noise-gate`, pre-ledger `409`, and persisted Noise Gate records with `stage_input_manifest.input_evidence_ledger_entry_ids`; no external feedback, embeddings, LLM judgment, report generation, or automatic failure-case creation.
+- Retrieval-to-report handoff: local Docker runtime smoke covers `POST /retrieval-runs/{retrieval_run_id}/report`, pre-gate `409`, and persisted Report records with upstream evidence and gate ids in `stage_input_manifest`; no external feedback, embeddings, LLM judgment, free-form final answer claim, or automatic failure-case creation.
 
 Detailed proof links:
 
@@ -75,6 +76,8 @@ Detailed proof links:
 - `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
 - `docs/review/retrieval-run-linked-noise-gate-endpoint.md`
 - `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
+- `docs/review/retrieval-run-linked-report-endpoint.md`
+- `docs/review/retrieval-run-linked-report-runtime-smoke.md`
 
 ## DeepDocurator Alignment
 

@@ -89,7 +89,7 @@ Use:
 ```text
 Short external claim:
 
-NoiseProof Agent is a small, inspectable portfolio service that demonstrates evidence-first workflow surfaces for messy market intelligence: source profiling, parser/chunk/retrieval previews, uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence with metadata/profile-only no-raw-storage boundary, uploaded file chunk persistence with manual document-scoped no-raw-storage boundary, uploaded file retrieval persistence with `metadata_json.candidate_chunk_ids` over persisted `document_chunks`, retrieval-run-linked Evidence Ledger persistence, retrieval-run-linked Noise Gate persistence with pre-ledger `409`, persisted evidence/gate/report records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
+NoiseProof Agent is a small, inspectable portfolio service that demonstrates evidence-first workflow surfaces for messy market intelligence: source profiling, parser/chunk/retrieval previews, uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence with metadata/profile-only no-raw-storage boundary, uploaded file chunk persistence with manual document-scoped no-raw-storage boundary, uploaded file retrieval persistence with `metadata_json.candidate_chunk_ids` over persisted `document_chunks`, retrieval-run-linked Evidence Ledger persistence, retrieval-run-linked Noise Gate persistence with pre-ledger `409`, retrieval-run-linked Report persistence with pre-gate `409`, persisted evidence/gate/report records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
 
 Detailed phase history remains in `docs/GOAL.md`, `docs/review/external-reader-proof-path.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts.
 
@@ -114,6 +114,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - parser/chunk/retrieval preview boundaries
 - uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence, uploaded file chunk persistence, uploaded file retrieval persistence, retrieval-run-linked Evidence Ledger persistence, and runtime smoke
 - retrieval-run-linked Noise Gate persistence and pre-ledger `409` runtime smoke
+- retrieval-run-linked Report persistence and pre-gate `409` runtime smoke
 - Evidence Ledger Preview
 - Persisted Evidence Ledger Records v0
 - Noise Gate Preview
