@@ -94,6 +94,55 @@ def test_application_ready_review_marks_partial_boundaries():
     assert "every agent run leaves a trace" in content
 
 
+def test_application_ready_report_handoff_checklist_refresh_surfaces_linked_gate_and_report_rows():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/application-ready-report-handoff-checklist-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Application-ready Report Handoff Checklist Refresh" in content
+    assert "application-ready report handoff checklist refresh v0" in content
+    assert "docs/review/application-ready-review.md" in content
+    assert "retrieval-run-linked Noise Gate persistence exists" in content
+    assert "retrieval-run-linked Report persistence exists" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Application-ready report handoff checklist refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 211 - Application-ready Report Handoff Checklist Refresh v0"
+        in goal
+    )
+    assert "application-ready report handoff checklist refresh v0" in runbook
+    assert (
+        "docs/review/application-ready-report-handoff-checklist-refresh.md"
+        in portfolio
+    )
+    assert "retrieval-run-linked Noise Gate persistence exists" in application_ready
+    assert "docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md" in application_ready
+    assert "`POST /retrieval-runs/{retrieval_run_id}/noise-gate`" in application_ready
+    assert "pre-ledger `409`" in application_ready
+    assert "retrieval-run-linked Report persistence exists" in application_ready
+    assert "docs/review/retrieval-run-linked-report-runtime-smoke.md" in application_ready
+    assert "`POST /retrieval-runs/{retrieval_run_id}/report`" in application_ready
+    assert "pre-gate `409`" in application_ready
+    assert "input_noise_gate_record_id" in application_ready
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

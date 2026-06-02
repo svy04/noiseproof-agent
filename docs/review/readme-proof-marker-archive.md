@@ -1123,3 +1123,10 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/external-feedback-current-state-report-handoff-issue-verification.md`: added
 - Observed `comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`
 - Boundary: current-state screen only; no external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 211 - Application-ready Report Handoff Checklist Refresh v0
+
+- Application-ready report handoff checklist refresh v0: implemented
+- `docs/review/application-ready-report-handoff-checklist-refresh.md`: added
+- `docs/review/application-ready-review.md`: added linked Noise Gate and Report persistence checklist rows
+- Boundary: documentation-only checklist hygiene; no runtime behavior, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

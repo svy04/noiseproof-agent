@@ -3103,3 +3103,22 @@ non_qualifying
 ```
 
 This is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+## Application-ready Report Handoff Checklist Refresh
+
+Phase 211 refreshes `docs/review/application-ready-review.md` so the application-ready checklist names the current linked Noise Gate and Report proof rows.
+
+The phase marker is:
+
+```text
+application-ready report handoff checklist refresh v0
+```
+
+Rows expected in the checklist:
+
+```text
+retrieval-run-linked Noise Gate persistence exists
+retrieval-run-linked Report persistence exists
+```
+
+This is documentation-only checklist hygiene. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
