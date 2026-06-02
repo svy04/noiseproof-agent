@@ -3699,6 +3699,59 @@ not Evidence Ledger generation from semantic retrieval
 not hosted deployment evidence
 ```
 
+## Semantic Retrieval Quality Review
+
+Phase 230 selects the smallest semantic retrieval quality-evaluation boundary before any quality claim.
+
+The phase marker is:
+
+```text
+semantic retrieval quality review v0
+```
+
+Review artifact:
+
+```text
+docs/review/semantic-retrieval-quality-review.md
+```
+
+Sources checked:
+
+```text
+TREC / NIST retrieval evaluation
+BEIR
+Sentence Transformers InformationRetrievalEvaluator
+docs/research/meaningful-information-collection.md
+```
+
+Candidate metrics:
+
+```text
+Hit@k
+Recall@k
+MRR@k
+nDCG@k
+missing_embedding_rate
+semantic_vs_lexical_disagreement
+role_coverage_at_k
+```
+
+Next gate:
+
+```text
+semantic retrieval quality fixture v0
+```
+
+Claim boundary:
+
+```text
+not embedding generation
+not vector search quality evidence
+not benchmark result
+not model comparison
+not Evidence Ledger generation
+```
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

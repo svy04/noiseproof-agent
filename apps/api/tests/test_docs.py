@@ -789,6 +789,37 @@ def test_semantic_retrieval_persistence_application_refresh_surfaces_runtime_pro
     assert "docs/review/semantic-retrieval-persistence-runtime-smoke.md" in proof_path
 
 
+def test_semantic_retrieval_quality_review_selects_fixture_before_quality_claims():
+    review_path = REPO_ROOT / "docs/review/semantic-retrieval-quality-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Quality Review" in content
+    assert "semantic retrieval quality review v0" in content
+    assert "TREC" in content
+    assert "BEIR" in content
+    assert "Sentence Transformers InformationRetrievalEvaluator" in content
+    assert "nDCG@k" in content
+    assert "MRR@k" in content
+    assert "Recall@k" in content
+    assert "Hit@k" in content
+    assert "semantic retrieval quality fixture v0" in content
+    assert "Do not claim semantic retrieval quality from the runtime smoke" in content
+    assert "not embedding generation" in content
+    assert "not vector search quality evidence" in content
+    assert "Semantic retrieval quality review v0: implemented" in readme
+    assert "Phase 230 - Semantic Retrieval Quality Review v0" in goal
+    assert "semantic retrieval quality review v0" in runbook
+    assert "docs/review/semantic-retrieval-quality-review.md" in portfolio
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

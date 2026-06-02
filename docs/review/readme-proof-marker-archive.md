@@ -1288,3 +1288,12 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Application-facing docs now surface `docs/review/semantic-retrieval-persistence-runtime-smoke.md`
 - Allowed claim: caller-provided semantic retrieval persistence has local runtime proof
 - Boundary: no embedding generation, no vector search quality evidence, no Evidence Ledger generation from semantic retrieval, no hosted deployment evidence
+
+### Phase 230 - Semantic Retrieval Quality Review v0
+
+- Semantic retrieval quality review v0: implemented
+- `docs/review/semantic-retrieval-quality-review.md`: added
+- Source-first quality review checked TREC/NIST, BEIR, Sentence Transformers InformationRetrievalEvaluator, and the local meaningful information collection note
+- Selected next gate: semantic retrieval quality fixture v0
+- Candidate metrics: Hit@k, Recall@k, MRR@k, nDCG@k, missing_embedding_rate, semantic_vs_lexical_disagreement, role_coverage_at_k
+- Boundary: review-only; no embedding generation, no vector search quality evidence, no benchmark result, no Evidence Ledger generation, no hosted deployment evidence
