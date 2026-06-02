@@ -108,6 +108,8 @@ Uploaded file retrieval persistence review: `docs/review/uploaded-file-retrieval
 
 Uploaded file retrieval persistence endpoint: `docs/review/uploaded-file-retrieval-persistence-endpoint.md` records `POST /documents/{document_id}/retrieval-runs` route-level behavior. It reads existing `document_chunks`, persists one row in the existing `retrieval_runs` table, and stores `metadata_json.candidate_chunk_ids` while staying lexical only with no embeddings, semantic retrieval, Evidence Ledger generation, or financial advice behavior.
 
+Uploaded file retrieval persistence runtime smoke: `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for `POST /documents/{document_id}/retrieval-runs`. It observed `retrieval_result_count -> 2`, `metadata_source_table -> document_chunks`, and matching `candidate_chunk_ids` in `GET /retrieval-runs`; it is not hosted deployment evidence or external reviewer feedback.
+
 External reviewer chunk handoff request refresh: `docs/review/external-reviewer-chunk-handoff-request-refresh.md` points reviewer-facing request surfaces to the uploaded-file chunk handoff proof. It is request infrastructure only and does not close external reviewer feedback.
 
 External reviewer chunk handoff issue-body refresh: `docs/review/external-review-issue-body-chunk-handoff-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file chunk handoff proof. It is not external reviewer feedback.

@@ -27,6 +27,7 @@ External feedback current-state chunk handoff issue verification v0: implemented
 Uploaded file chunk persistence handoff application refresh v0: implemented
 Uploaded file retrieval persistence review v0: implemented
 Uploaded file retrieval persistence endpoint v0: implemented
+Uploaded file retrieval persistence runtime smoke v0: implemented
 
 README detailed implementation status archive moved during Phase 103.
 This hidden source archive preserves earlier README proof markers while the rendered README stays scanable.
@@ -1017,3 +1018,13 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `POST /documents/{document_id}/retrieval-runs`: added as document-scoped retrieval persistence endpoint
 - `metadata_json.candidate_chunk_ids`: stores selected chunk ids in the existing `retrieval_runs` row
 - Boundary: route-level behavior only; no schema, migration, retrieval-candidates table, embeddings, semantic retrieval, Evidence Ledger generation, financial advice behavior, hosted deployment evidence, external reviewer feedback, or product-complete claim added
+
+### Phase 197 - Uploaded File Retrieval Persistence Runtime Smoke v0
+
+- Uploaded file retrieval persistence runtime smoke v0: implemented
+- `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`: added
+- Local Docker DB observed healthy with `Applied migrations: 12` and `Pending migrations: 0`
+- Live HTTP observed `POST /documents/upload-chunks -> 201`
+- Live HTTP observed `POST /documents/{document_id}/retrieval-runs -> 201`
+- Live HTTP observed `GET /retrieval-runs -> 200` with matching `metadata_json.candidate_chunk_ids`
+- Boundary: local runtime evidence only; no hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, semantic retrieval, embeddings, financial advice behavior, or product-complete claim added

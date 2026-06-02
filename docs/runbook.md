@@ -2668,6 +2668,47 @@ This endpoint creates a retrieval run row and candidate chunk references only. I
 
 Next proof gate: uploaded file retrieval persistence runtime smoke v0.
 
+## Uploaded file retrieval persistence runtime smoke
+
+Phase marker: uploaded file retrieval persistence runtime smoke v0.
+
+This smoke uses Docker because NoiseProof's retrieval persistence claim depends on PostgreSQL/pgvector behavior, migration status, and live FastAPI HTTP calls against a database service.
+
+```powershell
+docker compose up -d db
+docker compose ps
+cd apps/api
+$env:DATABASE_URL="postgresql://noiseproof:noiseproof@localhost:55432/noiseproof"
+uv run python -m app.migration_runner --status
+uv run python -m app.migration_runner
+uv run python -m app.migration_runner --status
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8035
+```
+
+Observed boundary:
+
+```text
+Applied migrations: 12
+Pending migrations: 0
+GET /health -> 200
+POST /documents/upload-chunks -> 201
+POST /documents/{document_id}/retrieval-runs -> 201
+GET /retrieval-runs -> 200
+upload_chunk_count -> 4
+retrieval_result_count -> 2
+retrieval_missing_evidence_count -> 0
+metadata_source_table -> document_chunks
+metadata_candidate_chunk_ids -> 3bbef26c-44a2-467a-8255-55be7791bb0a,687cc699-2c34-4eae-a90a-79cf1ad86b54
+latest_listed_id_matches -> True
+first_candidate_source_table -> document_chunks
+no Evidence Ledger generation
+not financial advice
+```
+
+This is local runtime evidence only. It is not hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, production readiness, Evidence Ledger generation, semantic retrieval, embeddings, or financial advice.
+
+Next packaging gate: uploaded file retrieval persistence application refresh v0.
+
 ## Metadata Examples
 
 Create a document metadata record:

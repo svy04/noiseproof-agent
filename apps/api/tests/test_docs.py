@@ -5150,3 +5150,50 @@ def test_uploaded_file_retrieval_persistence_endpoint_surfaces_runtime_boundary(
     )
     assert "uploaded file retrieval persistence endpoint v0" in runbook
     assert "docs/review/uploaded-file-retrieval-persistence-endpoint.md" in portfolio
+
+
+def test_uploaded_file_retrieval_persistence_runtime_smoke_surfaces_live_http_evidence():
+    smoke_path = (
+        REPO_ROOT / "docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md"
+    )
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded File Retrieval Persistence Runtime Smoke" in content
+    assert "uploaded file retrieval persistence runtime smoke v0" in content
+    assert "docker compose up -d db" in content
+    assert "uv run python -m app.migration_runner" in content
+    assert "uv run uvicorn app.main:app --host 127.0.0.1 --port 8035" in content
+    assert "Applied migrations: 12" in content
+    assert "Pending migrations: 0" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/retrieval-runs -> 201" in content
+    assert "GET /retrieval-runs -> 200" in content
+    assert "upload_chunk_count -> 4" in content
+    assert "retrieval_result_count -> 2" in content
+    assert "metadata_source_table -> document_chunks" in content
+    assert "metadata_candidate_chunk_ids" in content
+    assert "latest_listed_id_matches -> True" in content
+    assert "no Evidence Ledger generation" in content
+    assert "not financial advice" in content
+    assert (
+        "Uploaded file retrieval persistence runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 197 - Uploaded File Retrieval Persistence Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded file retrieval persistence runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md"
+        in portfolio
+    )
