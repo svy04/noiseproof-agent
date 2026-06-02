@@ -1228,3 +1228,13 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Selected next gate: semantic retrieval preview endpoint v0
 - Selected boundary: caller-provided query vector over existing `chunk_embeddings` and `document_chunks`
 - Claim boundary: no embedding generation, no HNSW or IVFFlat index, no semantic retrieval persistence, no vector search quality claim, no hosted deployment evidence
+
+### Phase 224 - Semantic Retrieval Preview Endpoint v0
+
+- Semantic retrieval preview endpoint v0: implemented
+- `POST /documents/{document_id}/semantic-retrieval-preview`: added
+- `docs/review/semantic-retrieval-preview-endpoint.md`: added
+- Implemented boundary: caller-provided query vector over existing `document_chunks` and `chunk_embeddings`
+- Ranking boundary: `chunk_embeddings.embedding <=> query_embedding` exact cosine preview
+- Persistence boundary: `preview_only_not_persisted`; no `retrieval_runs` row is created
+- Claim boundary: no embedding generation, no HNSW or IVFFlat index behavior, no Evidence Ledger generation, no vector search quality claim, no hosted deployment evidence

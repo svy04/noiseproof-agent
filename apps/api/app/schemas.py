@@ -145,6 +145,38 @@ class ChunkEmbeddingOut(ChunkEmbeddingCreate):
     created_at: datetime
 
 
+class SemanticRetrievalPreviewRequest(BaseModel):
+    question: str = Field(..., min_length=1)
+    query_embedding: list[float] = Field(..., min_length=1)
+    embedding_model: str = Field(..., min_length=1)
+    embedding_dimension: int = Field(..., ge=1)
+    limit: int = Field(default=5, ge=1, le=20)
+
+
+class SemanticRetrievalCandidateOut(BaseModel):
+    chunk_id: UUID
+    embedding_id: UUID
+    document_id: UUID
+    chunk_index: int
+    chunk_strategy: str
+    text: str
+    distance: float
+    distance_metric: str
+    embedding_model: str
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class SemanticRetrievalPreviewOut(BaseModel):
+    question: str
+    retrieval_mode: str
+    persistence_boundary: str
+    ranking_boundary: str
+    candidates: list[SemanticRetrievalCandidateOut]
+    missing_embedding_chunk_ids: list[str]
+    warnings: list[str]
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
+
+
 class ChunkEmbeddingRequest(BaseModel):
     embedding_model: str = Field(..., min_length=1)
     embedding_dimension: int = Field(..., ge=1)

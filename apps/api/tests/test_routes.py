@@ -76,6 +76,53 @@ class InMemoryRepository:
             rows = [row for row in rows if row["embedding_status"] == embedding_status]
         return rows[:limit]
 
+    def preview_semantic_retrieval_candidates(
+        self,
+        *,
+        document_id,
+        query_embedding,
+        embedding_model,
+        embedding_dimension,
+        limit=5,
+    ):
+        rows = []
+        for chunk in self.document_chunks:
+            if str(chunk["document_id"]) != str(document_id):
+                continue
+            for embedding in self.chunk_embeddings:
+                if str(embedding["chunk_id"]) != str(chunk["id"]):
+                    continue
+                if embedding["embedding_model"] != embedding_model:
+                    continue
+                if embedding["embedding_dimension"] != embedding_dimension:
+                    continue
+                if embedding["distance_metric"] != "cosine":
+                    continue
+                if embedding["embedding_status"] != "created":
+                    continue
+                if embedding.get("embedding") is None:
+                    continue
+                rows.append(
+                    {
+                        "chunk_id": chunk["id"],
+                        "embedding_id": embedding["id"],
+                        "document_id": chunk["document_id"],
+                        "chunk_strategy": chunk["chunk_strategy"],
+                        "chunk_index": chunk["chunk_index"],
+                        "chunk_text": chunk["chunk_text"],
+                        "chunk_metadata_json": chunk.get("metadata_json") or {},
+                        "embedding_model": embedding["embedding_model"],
+                        "embedding_dimension": embedding["embedding_dimension"],
+                        "distance_metric": embedding["distance_metric"],
+                        "embedding_metadata_json": embedding.get("metadata_json") or {},
+                        "distance": _cosine_distance(
+                            query_embedding,
+                            embedding["embedding"],
+                        ),
+                    }
+                )
+        return sorted(rows, key=lambda row: (row["distance"], row["chunk_index"]))[:limit]
+
     def create_uploaded_file_intake_manifest(self, payload) -> dict:
         row = payload.model_dump()
         row["id"] = uuid4()
@@ -390,6 +437,16 @@ def make_client():
     return TestClient(app)
 
 
+def _cosine_distance(left, right):
+    left_norm = sum(value * value for value in left) ** 0.5
+    right_norm = sum(value * value for value in right) ** 0.5
+    denominator = left_norm * right_norm
+    if denominator == 0:
+        return 1.0
+    similarity = sum(left_value * right_value for left_value, right_value in zip(left, right))
+    return 1.0 - similarity / denominator
+
+
 def test_health_endpoint():
     client = make_client()
 
@@ -666,6 +723,138 @@ def test_chunk_embedding_endpoint_rejects_generated_embedding_claims():
 
     assert response.status_code == 400
     assert "caller-provided vector" in response.json()["detail"]
+
+
+def test_semantic_retrieval_preview_ranks_caller_provided_vectors_without_persistence():
+    client = make_client()
+    document = client.post(
+        "/documents",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://semantic.md",
+            "filename": "semantic.md",
+            "title": "Semantic retrieval preview fixture",
+        },
+    ).json()
+    demand_chunk = client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://semantic.md",
+            "filename": "semantic.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 0,
+            "chunk_text": "Enterprise demand growth reached 12% in 2026.",
+            "metadata_json": {"header_path": ["Demand"]},
+        },
+    ).json()
+    noise_chunk = client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://semantic.md",
+            "filename": "semantic.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 1,
+            "chunk_text": "Weather noise was unrelated to the market question.",
+            "metadata_json": {"header_path": ["Noise"]},
+        },
+    ).json()
+    missing_chunk = client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://semantic.md",
+            "filename": "semantic.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 2,
+            "chunk_text": "Supply chain data has no embedding yet.",
+            "metadata_json": {"header_path": ["Missing"]},
+        },
+    ).json()
+    client.post(
+        f"/chunks/{demand_chunk['id']}/embeddings",
+        json={
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+            "embedding_text_hash": "sha256:demand",
+            "distance_metric": "cosine",
+            "embedding_status": "created",
+            "embedding": [1.0, 0.0],
+            "metadata_json": {"embedding_source": "caller_provided_vector"},
+        },
+    )
+    client.post(
+        f"/chunks/{noise_chunk['id']}/embeddings",
+        json={
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+            "embedding_text_hash": "sha256:noise",
+            "distance_metric": "cosine",
+            "embedding_status": "created",
+            "embedding": [0.0, 1.0],
+            "metadata_json": {"embedding_source": "caller_provided_vector"},
+        },
+    )
+
+    response = client.post(
+        f"/documents/{document['id']}/semantic-retrieval-preview",
+        json={
+            "question": "Which chunk is closest to demand growth?",
+            "query_embedding": [1.0, 0.0],
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+            "limit": 2,
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["retrieval_mode"] == "semantic_preview"
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["ranking_boundary"] == "exact_cosine_caller_provided_query_vector"
+    assert [candidate["chunk_id"] for candidate in body["candidates"]] == [
+        demand_chunk["id"],
+        noise_chunk["id"],
+    ]
+    assert body["candidates"][0]["distance"] <= body["candidates"][1]["distance"]
+    assert body["candidates"][0]["metadata"]["embedding_table"] == "chunk_embeddings"
+    assert body["metadata_json"]["candidate_chunk_ids"] == [
+        demand_chunk["id"],
+        noise_chunk["id"],
+    ]
+    assert missing_chunk["id"] in body["missing_embedding_chunk_ids"]
+    assert any("does not generate embeddings" in warning for warning in body["warnings"])
+    assert any("does not persist retrieval_runs" in warning for warning in body["warnings"])
+    assert client.get("/retrieval-runs").json() == []
+
+
+def test_semantic_retrieval_preview_rejects_query_dimension_mismatch():
+    client = make_client()
+    document = client.post(
+        "/documents",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://semantic.md",
+            "filename": "semantic.md",
+            "title": "Semantic retrieval preview fixture",
+        },
+    ).json()
+
+    response = client.post(
+        f"/documents/{document['id']}/semantic-retrieval-preview",
+        json={
+            "question": "bad vector",
+            "query_embedding": [1.0],
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+        },
+    )
+
+    assert response.status_code == 400
+    assert "query_embedding length must match embedding_dimension" in response.json()[
+        "detail"
+    ]
 
 
 def test_upload_chunk_preview_does_not_auto_persist_document_chunks():

@@ -3507,3 +3507,54 @@ no LLM calls
 not persisted semantic retrieval
 not hosted deployment evidence
 ```
+
+## Semantic Retrieval Preview Endpoint
+
+Phase 224 adds a preview-only endpoint for semantic retrieval over existing chunk and embedding rows.
+
+The phase marker is:
+
+```text
+semantic retrieval preview endpoint v0
+```
+
+Review artifact:
+
+```text
+docs/review/semantic-retrieval-preview-endpoint.md
+```
+
+Endpoint:
+
+```text
+POST /documents/{document_id}/semantic-retrieval-preview
+```
+
+Local smoke shape after a document, chunks, and caller-provided chunk embeddings exist:
+
+```bash
+curl -X POST http://localhost:8000/documents/<document_id>/semantic-retrieval-preview \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Which chunk is closest to demand growth?\",\"query_embedding\":[1.0,0.0],\"embedding_model\":\"local-test-model\",\"embedding_dimension\":2,\"limit\":5}"
+```
+
+Expected response markers:
+
+```text
+retrieval_mode = semantic_preview
+persistence_boundary = preview_only_not_persisted
+ranking_boundary = exact_cosine_caller_provided_query_vector
+metadata_json.candidate_chunk_ids
+missing_embedding_chunk_ids
+```
+
+Claim boundary:
+
+```text
+caller-provided query vector only
+not retrieval_runs persistence
+not embedding generation
+not Evidence Ledger generation
+not vector search quality evidence
+not hosted deployment evidence
+```

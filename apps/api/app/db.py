@@ -67,6 +67,15 @@ class Repository(Protocol):
         embedding_status: str | None = None,
         limit: int = 20,
     ) -> Sequence[dict]: ...
+    def preview_semantic_retrieval_candidates(
+        self,
+        *,
+        document_id: UUID,
+        query_embedding: list[float],
+        embedding_model: str,
+        embedding_dimension: int,
+        limit: int = 5,
+    ) -> Sequence[dict]: ...
     def create_uploaded_file_intake_manifest(
         self,
         payload: UploadedFileIntakeManifestCreate,
@@ -296,6 +305,54 @@ class PostgresRepository:
                 tuple(params),
             ).fetchall()
             return [_normalize_chunk_embedding_row(row) for row in rows]
+
+    def preview_semantic_retrieval_candidates(
+        self,
+        *,
+        document_id: UUID,
+        query_embedding: list[float],
+        embedding_model: str,
+        embedding_dimension: int,
+        limit: int = 5,
+    ) -> Sequence[dict]:
+        safe_limit = max(1, min(limit, 20))
+        query_vector = _format_embedding_vector(query_embedding)
+        with self._connect() as conn:
+            rows = conn.execute(
+                """
+                SELECT
+                  dc.id AS chunk_id,
+                  ce.id AS embedding_id,
+                  dc.document_id,
+                  dc.chunk_strategy,
+                  dc.chunk_index,
+                  dc.chunk_text,
+                  dc.metadata_json AS chunk_metadata_json,
+                  ce.embedding_model,
+                  ce.embedding_dimension,
+                  ce.distance_metric,
+                  ce.metadata_json AS embedding_metadata_json,
+                  (ce.embedding <=> %s::vector) AS distance
+                FROM document_chunks dc
+                JOIN chunk_embeddings ce ON ce.chunk_id = dc.id
+                WHERE dc.document_id = %s
+                  AND ce.embedding_model = %s
+                  AND ce.embedding_dimension = %s
+                  AND ce.distance_metric = 'cosine'
+                  AND ce.embedding_status = 'created'
+                  AND ce.embedding IS NOT NULL
+                ORDER BY distance ASC, dc.chunk_index ASC, ce.embedding_created_at DESC
+                LIMIT %s
+                """,
+                (
+                    query_vector,
+                    document_id,
+                    embedding_model,
+                    embedding_dimension,
+                    safe_limit,
+                ),
+            ).fetchall()
+            return [dict(row) for row in rows]
 
     def create_uploaded_file_intake_manifest(
         self,

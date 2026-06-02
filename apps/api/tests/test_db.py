@@ -271,3 +271,49 @@ def test_list_chunk_embeddings_filters_by_chunk_model_and_status():
     assert "LIMIT %s" in sql
     assert params == (chunk_id, "local-test-model", "created", 2)
     assert listed[0]["embedding"] == [0.1, 0.2]
+
+
+def test_preview_semantic_retrieval_candidates_uses_pgvector_exact_cosine_ranking():
+    document_id = UUID("22222222-2222-2222-2222-222222222222")
+    chunk_id = UUID("33333333-3333-3333-3333-333333333333")
+    embedding_id = UUID("44444444-4444-4444-4444-444444444444")
+    rows = [
+        {
+            "chunk_id": chunk_id,
+            "embedding_id": embedding_id,
+            "document_id": document_id,
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 0,
+            "chunk_text": "Enterprise demand growth reached 12% in 2026.",
+            "chunk_metadata_json": {"header_path": ["Demand"]},
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+            "distance_metric": "cosine",
+            "embedding_metadata_json": {"embedding_source": "caller_provided_vector"},
+            "distance": 0.0,
+        }
+    ]
+    connection = FakeConnection(rows=rows)
+    repository = PostgresRepository(Settings())
+    repository._connect = lambda: connection
+
+    result = repository.preview_semantic_retrieval_candidates(
+        document_id=document_id,
+        query_embedding=[1.0, 0.0],
+        embedding_model="local-test-model",
+        embedding_dimension=2,
+        limit=3,
+    )
+
+    sql, params = connection.calls[0]
+    assert "document_chunks" in sql
+    assert "chunk_embeddings" in sql
+    assert "JOIN chunk_embeddings" in sql
+    assert "<=> %s::vector" in sql
+    assert "distance_metric = 'cosine'" in sql
+    assert "embedding_status = 'created'" in sql
+    assert "INSERT INTO retrieval_runs" not in sql
+    assert params == ("[1.0,0.0]", document_id, "local-test-model", 2, 3)
+    assert result[0]["chunk_id"] == chunk_id
+    assert result[0]["embedding_id"] == embedding_id
+    assert result[0]["distance"] == 0.0

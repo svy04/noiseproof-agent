@@ -593,6 +593,36 @@ def test_semantic_retrieval_implementation_review_selects_small_safe_next_gate()
     assert "docs/review/semantic-retrieval-implementation-review.md" in portfolio
 
 
+def test_semantic_retrieval_preview_endpoint_keeps_preview_only_boundary():
+    review_path = REPO_ROOT / "docs/review/semantic-retrieval-preview-endpoint.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Preview Endpoint" in content
+    assert "semantic retrieval preview endpoint v0" in content
+    assert "POST /documents/{document_id}/semantic-retrieval-preview" in content
+    assert "caller-provided query vector" in content
+    assert "document_chunks" in content
+    assert "chunk_embeddings" in content
+    assert "exact cosine ranking" in content
+    assert "preview_only_not_persisted" in content
+    assert "not retrieval_runs persistence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger generation" in content
+    assert "not vector search quality" in content
+    assert "Semantic retrieval preview endpoint v0: implemented" in readme
+    assert "Phase 224 - Semantic Retrieval Preview Endpoint v0" in goal
+    assert "semantic retrieval preview endpoint v0" in runbook
+    assert "docs/review/semantic-retrieval-preview-endpoint.md" in portfolio
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 
