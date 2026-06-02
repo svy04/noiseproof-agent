@@ -3850,6 +3850,50 @@ Smoke check:
 uv run pytest tests/test_semantic_quality_evaluator.py -q
 ```
 
+## Semantic Retrieval Quality Report
+
+Phase 233 records the toy fixture evaluator output as a bounded evaluation report.
+
+The phase marker is:
+
+```text
+semantic retrieval quality report v0
+```
+
+Report:
+
+```text
+docs/evaluation/semantic-retrieval-quality-report.md
+```
+
+Recorded aggregate output:
+
+```text
+Hit@k = 0.75
+Recall@k = 0.375
+MRR@k = 0.375
+nDCG@k = 0.198
+missing_embedding_rate = 0.1667
+semantic_vs_lexical_disagreement = 0.9167
+role_coverage_at_k = 0.625
+```
+
+Important failure kept visible:
+
+```text
+q-what-missing retrieves no relevant semantic candidate in this toy fixture
+```
+
+Claim boundary:
+
+```text
+not embedding generation
+not vector search quality evidence
+not benchmark result
+not model comparison
+not Evidence Ledger generation
+```
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

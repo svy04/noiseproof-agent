@@ -1317,3 +1317,12 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Metrics: Hit@k, Recall@k, MRR@k, nDCG@k, missing_embedding_rate, semantic_vs_lexical_disagreement, role_coverage_at_k
 - Claim boundary: `toy_fixture_metric_only_not_search_quality`
 - Boundary: toy fixture metric code only; no embedding generation, no vector search quality evidence, no benchmark result, no model comparison, no Evidence Ledger generation
+
+### Phase 233 - Semantic Retrieval Quality Report v0
+
+- Semantic retrieval quality report v0: implemented
+- `docs/evaluation/semantic-retrieval-quality-report.md`: added
+- Report records toy fixture metric output: Hit@k `0.75`, Recall@k `0.375`, MRR@k `0.375`, nDCG@k `0.198`
+- Report records `semantic_vs_lexical_disagreement = 0.9167`
+- Report keeps `q-what-missing` failure visible
+- Boundary: report-only toy fixture output; no embedding generation, no vector search quality evidence, no benchmark result, no model comparison, no Evidence Ledger generation

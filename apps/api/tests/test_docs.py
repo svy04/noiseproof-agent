@@ -863,6 +863,33 @@ def test_semantic_retrieval_quality_evaluator_records_metric_boundary():
     assert "not vector search quality evidence" in runbook
 
 
+def test_semantic_retrieval_quality_report_records_toy_metric_output():
+    report_path = REPO_ROOT / "docs/evaluation/semantic-retrieval-quality-report.md"
+    assert report_path.is_file()
+
+    content = report_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Quality Report" in content
+    assert "semantic retrieval quality report v0" in content
+    assert "semantic-retrieval-quality-fixture-v0" in content
+    assert "Hit@k | 0.75" in content
+    assert "Recall@k | 0.375" in content
+    assert "MRR@k | 0.375" in content
+    assert "semantic_vs_lexical_disagreement | 0.9167" in content
+    assert "q-what-missing" in content
+    assert "not vector search quality evidence" in content
+    assert "Semantic retrieval quality report v0: implemented" in readme
+    assert "Phase 233 - Semantic Retrieval Quality Report v0" in goal
+    assert "semantic retrieval quality report v0" in runbook
+    assert "docs/evaluation/semantic-retrieval-quality-report.md" in portfolio
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 
