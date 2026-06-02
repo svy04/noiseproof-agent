@@ -159,10 +159,6 @@ Major implementation milestones:
 - External feedback screening CLI v0: implemented
 - External feedback screening workflow v0: implemented
 - External feedback screening workflow verification v0: implemented
-- External feedback acceptance template v0: implemented
-- External feedback acceptance draft CLI v0: implemented
-- External feedback acceptance draft workflow v0: implemented
-- External feedback acceptance draft workflow verification v0: implemented
 - Owner-approved product continuation decision v0: implemented
 - File upload preview v0: implemented
 - Uploaded file chunk preview v0: implemented
@@ -195,6 +191,7 @@ Major implementation milestones:
 - Uploaded file chunk persistence repository v0: implemented
 - Uploaded file chunk persistence runtime smoke v0: implemented
 - Uploaded file chunk persistence application refresh v0: implemented
+- Uploaded file retrieval persistence application refresh v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`.
 
@@ -398,13 +395,13 @@ The project already has a reviewer request packet, intake criteria, reviewer bri
 
 The owner approved continuing implementation while that external-review gate stays pending. That approval is recorded in `docs/review/owner-approved-product-continuation-decision.md`; it is not external reviewer feedback, customer validation, Braincrew acceptance, hosted deployment evidence, or production readiness.
 
-File upload preview v0 through uploaded file chunk persistence handoff application refresh v0 are now implemented as bounded upload proof steps. The current next evidence gate remains `external reviewer feedback v0`; external reviewer feedback is still pending.
+File upload preview v0 through uploaded file retrieval persistence application refresh v0 are now implemented as bounded upload proof steps. The current next evidence gate remains `external reviewer feedback v0`; external reviewer feedback is still pending.
 
 The latest current-state screen after the uploaded-file chunk persistence issue-body refresh is recorded in `docs/review/external-feedback-current-state-chunk-issue-verification.md`. It observes `comment_count: 1`, `candidate_count: 0`, and `draft_count: 0`; the only public comment is owner-authored and does not close `external reviewer feedback v0`.
 
 The explicit upload-to-chunks handoff endpoint is now implemented and recorded in `docs/review/uploaded-file-chunk-persistence-handoff-endpoint.md`: `POST /documents/upload-chunks` creates document metadata plus derived chunk rows while keeping the existing upload chunk preview preview-only. Local runtime evidence and application-facing proof refresh for that endpoint are recorded in `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md` and `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md`.
 
-The document-scoped retrieval persistence endpoint is now implemented and recorded in `docs/review/uploaded-file-retrieval-persistence-endpoint.md`: `POST /documents/{document_id}/retrieval-runs` reads existing `document_chunks`, persists one row in the existing `retrieval_runs` table, and stores `metadata_json.candidate_chunk_ids` without adding embeddings, semantic retrieval, Evidence Ledger generation, or financial advice behavior. Local runtime evidence is recorded in `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`; the next packaging gate is `uploaded file retrieval persistence application refresh v0`.
+The document-scoped retrieval persistence endpoint is now implemented and recorded in `docs/review/uploaded-file-retrieval-persistence-endpoint.md`: `POST /documents/{document_id}/retrieval-runs` reads existing `document_chunks`, persists one row in the existing `retrieval_runs` table, and stores `metadata_json.candidate_chunk_ids` without adding embeddings, semantic retrieval, Evidence Ledger generation, or financial advice behavior. Local runtime evidence is recorded in `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`, and the application-facing refresh is recorded in `docs/review/uploaded-file-retrieval-persistence-application-refresh.md`.
 
 ## Braincrew Role Alignment
 

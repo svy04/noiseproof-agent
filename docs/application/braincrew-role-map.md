@@ -59,6 +59,7 @@ Runtime proof summary:
 - Upload intake: upload intake manifest runtime smoke records content hash plus parser/profile summary; upload intake manifest persistence runtime smoke records `POST /documents/upload-intake-manifests`, `GET /documents/upload-intake-manifests`, and `manifest_only_no_raw_file_storage`; not raw file storage, hosted deployment evidence, external reviewer feedback, or retrieval persistence.
 - Upload parsed documents: upload parsed document persistence runtime smoke records `POST /documents/upload-parsed-documents`, `GET /documents`, `parsed_metadata_only`, and `document_metadata_and_profile_only_no_raw_file_storage`; not raw file storage, parsed text persistence, robust PDF extraction, hosted deployment evidence, external reviewer feedback, or retrieval persistence.
 - Upload chunks: chunk persistence and handoff smokes cover `POST /documents/{document_id}/chunks`, `GET /documents/{document_id}/chunks`, `POST /documents/upload-chunks`, `chunk_text_only_no_raw_file_storage`, `explicit_upload_to_chunks_no_raw_file_storage`, and unchanged `preview_only_not_persisted`; not hosted deployment evidence, external reviewer feedback, raw uploaded byte storage, automatic preview persistence, or retrieval persistence.
+- Upload retrieval: runtime smoke covers `POST /documents/{document_id}/retrieval-runs`, `GET /retrieval-runs`, `metadata_json.candidate_chunk_ids`, and `metadata_source_table = document_chunks`; no hosted deployment evidence, external feedback, semantic retrieval, Evidence Ledger, or financial advice.
 
 Detailed proof links:
 
@@ -67,11 +68,10 @@ Detailed proof links:
 - `docs/review/failure-case-workflow-parent-linkage-proof-index.md`
 - `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
 - `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
-- `docs/review/uploaded-file-intake-manifest-persistence-application-refresh.md`
 - `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
-- `docs/review/uploaded-file-parsed-document-persistence-application-refresh.md`
 - `docs/review/uploaded-file-chunk-persistence-application-refresh.md`
 - `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md`
+- `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
 
 ## DeepDocurator Alignment
 

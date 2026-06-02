@@ -8,6 +8,10 @@ This file preserves source-level continuity for older README proof markers after
 
 README detailed implementation-status compression v0: implemented
 README next-gate stale-claim refresh v0: implemented
+External feedback acceptance template v0: implemented
+External feedback acceptance draft CLI v0: implemented
+External feedback acceptance draft workflow v0: implemented
+External feedback acceptance draft workflow verification v0: implemented
 External reviewer upload-manifest request refresh v0: implemented
 External reviewer upload-manifest issue-body refresh v0: implemented
 External reviewer upload-manifest persistence request refresh v0: implemented
@@ -28,6 +32,7 @@ Uploaded file chunk persistence handoff application refresh v0: implemented
 Uploaded file retrieval persistence review v0: implemented
 Uploaded file retrieval persistence endpoint v0: implemented
 Uploaded file retrieval persistence runtime smoke v0: implemented
+Uploaded file retrieval persistence application refresh v0: implemented
 
 README detailed implementation status archive moved during Phase 103.
 This hidden source archive preserves earlier README proof markers while the rendered README stays scanable.
@@ -1028,3 +1033,13 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Live HTTP observed `POST /documents/{document_id}/retrieval-runs -> 201`
 - Live HTTP observed `GET /retrieval-runs -> 200` with matching `metadata_json.candidate_chunk_ids`
 - Boundary: local runtime evidence only; no hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, semantic retrieval, embeddings, financial advice behavior, or product-complete claim added
+
+### Phase 198 - Uploaded File Retrieval Persistence Application Refresh v0
+
+- Uploaded file retrieval persistence application refresh v0: implemented
+- `docs/review/uploaded-file-retrieval-persistence-application-refresh.md`: added
+- `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`: surfaced as the primary runtime proof
+- `docs/application/portfolio-index.md`: updated with the application refresh link
+- `docs/application/braincrew-role-map.md`: updated with the retrieval persistence runtime proof link
+- `docs/review/application-ready-review.md`: updated with the explicit retrieval persistence boundary
+- Boundary: documentation-only application packaging; no runtime behavior, hosted deployment evidence, external reviewer feedback, Evidence Ledger generation, semantic retrieval, embeddings, financial advice behavior, or product-complete claim added

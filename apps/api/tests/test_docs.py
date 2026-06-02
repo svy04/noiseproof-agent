@@ -5197,3 +5197,54 @@ def test_uploaded_file_retrieval_persistence_runtime_smoke_surfaces_live_http_ev
         "docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_uploaded_file_retrieval_persistence_application_refresh_surfaces_runtime_proof():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-file-retrieval-persistence-application-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded File Retrieval Persistence Application Refresh" in content
+    assert "uploaded file retrieval persistence application refresh v0" in content
+    assert "docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md" in content
+    assert "POST /documents/{document_id}/retrieval-runs" in content
+    assert "metadata_json.candidate_chunk_ids" in content
+    assert "metadata_source_table = document_chunks" in content
+    assert "retrieval_result_count = 2" in content
+    assert "no Evidence Ledger generation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Uploaded file retrieval persistence application refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 198 - Uploaded File Retrieval Persistence Application Refresh v0"
+        in goal
+    )
+    assert "uploaded file retrieval persistence application refresh v0" in runbook
+    assert (
+        "docs/review/uploaded-file-retrieval-persistence-application-refresh.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md"
+        in role_map
+    )
+    assert "uploaded file retrieval persistence exists" in application_ready

@@ -2709,6 +2709,49 @@ This is local runtime evidence only. It is not hosted deployment evidence, exter
 
 Next packaging gate: uploaded file retrieval persistence application refresh v0.
 
+## Uploaded file retrieval persistence application refresh
+
+Phase marker: uploaded file retrieval persistence application refresh v0.
+
+This refresh is documentation-only application packaging for the uploaded-file retrieval persistence runtime smoke.
+
+Primary proof:
+
+```text
+docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
+```
+
+Application-facing artifact:
+
+```text
+docs/review/uploaded-file-retrieval-persistence-application-refresh.md
+```
+
+Surfaces refreshed:
+
+```text
+README.md
+docs/GOAL.md
+docs/application/portfolio-index.md
+docs/application/braincrew-role-map.md
+docs/review/application-ready-review.md
+docs/review/readme-proof-marker-archive.md
+```
+
+Boundary:
+
+```text
+no runtime behavior added
+no Evidence Ledger generation
+no embeddings
+no semantic retrieval
+not hosted deployment evidence
+not external reviewer feedback
+not financial advice
+```
+
+Next reviewer-facing gate: external reviewer retrieval persistence request refresh v0.
+
 ## Metadata Examples
 
 Create a document metadata record:
