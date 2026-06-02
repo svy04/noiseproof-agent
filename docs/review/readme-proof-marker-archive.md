@@ -1326,3 +1326,10 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Report records `semantic_vs_lexical_disagreement = 0.9167`
 - Report keeps `q-what-missing` failure visible
 - Boundary: report-only toy fixture output; no embedding generation, no vector search quality evidence, no benchmark result, no model comparison, no Evidence Ledger generation
+
+### Phase 234 - Semantic Retrieval Quality Report Application Refresh v0
+
+- Semantic retrieval quality report application refresh v0: implemented
+- `docs/review/semantic-retrieval-quality-report-application-refresh.md`: added
+- Application-facing docs now surface `docs/evaluation/semantic-retrieval-quality-report.md`
+- Boundary: documentation-only application packaging; toy fixture metric output only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

@@ -56,6 +56,8 @@ Read in this order:
     - caller-provided chunk embedding endpoint proof with explicit `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, and generated-claim rejection `400`.
 23. `docs/review/semantic-retrieval-persistence-runtime-smoke.md`
     - caller-provided semantic retrieval persistence proof with explicit `POST /documents/{document_id}/semantic-retrieval-runs`, `GET /retrieval-runs`, dimension mismatch `400`, and unchanged Evidence Ledger counts.
+24. `docs/evaluation/semantic-retrieval-quality-report.md`
+    - toy semantic retrieval quality report with visible misses and disagreement; not vector search quality evidence.
 
 ## Optional source-level provenance
 
@@ -189,6 +191,15 @@ docs/review/semantic-retrieval-persistence-application-refresh.md
 
 This proof shows local Docker DB plus live FastAPI HTTP evidence for `POST /documents/{document_id}/semantic-retrieval-runs -> 201`, `GET /retrieval-runs -> 200`, dimension mismatch `-> 400`, and unchanged Evidence Ledger counts. It is caller-provided semantic retrieval persistence only. It is not embedding generation, not vector search quality evidence, not Evidence Ledger generation from semantic retrieval, not hosted deployment evidence, and not external reviewer feedback.
 
+toy semantic retrieval quality report:
+
+```text
+docs/evaluation/semantic-retrieval-quality-report.md
+docs/review/semantic-retrieval-quality-report-application-refresh.md
+```
+
+This report shows toy fixture metric output for Hit@k, Recall@k, MRR@k, nDCG@k, missing embedding rate, semantic/lexical disagreement, and role coverage. It keeps `q-what-missing` visible. It is not vector search quality evidence, not a benchmark result, not a model comparison, not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.
+
 Public request issue:
 
 ```text
@@ -201,7 +212,7 @@ It is not external reviewer feedback.
 
 Allowed claim:
 
-NoiseProof Agent is an inspectable local portfolio service with phased proof artifacts for data profiling, parser boundaries, chunking, lexical retrieval, caller-provided semantic retrieval persistence, evidence preview, gate preview, report preview, persisted proof records, workflow parent linkage, failure-case persistence, manual workflow parent provenance, and current application-facing boundaries.
+NoiseProof Agent is an inspectable local portfolio service with phased proof artifacts for data profiling, parser boundaries, chunking, lexical retrieval, caller-provided semantic retrieval persistence, toy semantic retrieval quality report output, evidence preview, gate preview, report preview, persisted proof records, workflow parent linkage, failure-case persistence, manual workflow parent provenance, and current application-facing boundaries.
 
 Allowed claim:
 

@@ -890,6 +890,49 @@ def test_semantic_retrieval_quality_report_records_toy_metric_output():
     assert "docs/evaluation/semantic-retrieval-quality-report.md" in portfolio
 
 
+def test_semantic_retrieval_quality_report_application_refresh_surfaces_bounded_report():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-report-application-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Semantic Retrieval Quality Report Application Refresh" in content
+    assert "semantic retrieval quality report application refresh v0" in content
+    assert "docs/evaluation/semantic-retrieval-quality-report.md" in content
+    assert "toy fixture metric output" in content
+    assert "q-what-missing" in content
+    assert "not vector search quality evidence" in content
+    assert "not benchmark result" in content
+    assert "Semantic retrieval quality report application refresh v0: implemented" in readme
+    assert "Phase 234 - Semantic Retrieval Quality Report Application Refresh v0" in goal
+    assert "semantic retrieval quality report application refresh v0" in runbook
+    assert (
+        "docs/review/semantic-retrieval-quality-report-application-refresh.md"
+        in portfolio
+    )
+    assert "toy semantic retrieval quality report" in role_map
+    assert "docs/evaluation/semantic-retrieval-quality-report.md" in proof_path
+    assert "semantic retrieval quality report is toy fixture output" in app_review
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

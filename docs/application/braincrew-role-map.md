@@ -60,6 +60,7 @@ Runtime proof summary:
 - Retrieval handoffs: linked Evidence Ledger, Noise Gate, and Report endpoints have local Docker runtime smoke; no external feedback, LLM judgment, free-form final answer, or automatic failure-case creation.
 - Caller-provided chunk embedding endpoint: `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, generated-claim rejection `400`, and pgvector normalization are locally smoke-tested; no embedding generation, vector search quality claim, or hosted deployment evidence.
 - Caller-provided semantic retrieval persistence: `POST /documents/{document_id}/semantic-retrieval-runs`, `GET /retrieval-runs`, dimension mismatch rejection `400`, and unchanged Evidence Ledger counts are locally smoke-tested; no embedding generation, no vector search quality evidence, no Evidence Ledger generation from semantic retrieval, and no hosted deployment evidence.
+- toy semantic retrieval quality report: `docs/evaluation/semantic-retrieval-quality-report.md` records Hit@k, Recall@k, MRR@k, nDCG@k, missing embedding rate, disagreement, role coverage, and the visible `q-what-missing` failure over a toy fixture; no vector search quality evidence, benchmark result, model comparison, or production semantic retrieval quality is claimed.
 
 Detailed proof links:
 
@@ -73,6 +74,7 @@ Detailed proof links:
 - `docs/review/embedding-endpoint-runtime-smoke.md`
 - `docs/review/semantic-retrieval-persistence-runtime-smoke.md`
 - `docs/review/semantic-retrieval-persistence-application-refresh.md`
+- `docs/review/semantic-retrieval-quality-report-application-refresh.md`
 
 ## DeepDocurator Alignment
 

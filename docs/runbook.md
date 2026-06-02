@@ -3894,6 +3894,47 @@ not model comparison
 not Evidence Ledger generation
 ```
 
+## Semantic Retrieval Quality Report Application Refresh
+
+Phase 234 surfaces the toy report in application-facing docs without treating it as quality evidence.
+
+The phase marker is:
+
+```text
+semantic retrieval quality report application refresh v0
+```
+
+Refresh artifact:
+
+```text
+docs/review/semantic-retrieval-quality-report-application-refresh.md
+```
+
+Primary report:
+
+```text
+docs/evaluation/semantic-retrieval-quality-report.md
+```
+
+Application surfaces updated:
+
+```text
+docs/application/portfolio-index.md
+docs/application/braincrew-role-map.md
+docs/review/application-ready-review.md
+docs/review/external-reader-proof-path.md
+```
+
+Claim boundary:
+
+```text
+toy fixture metric output only
+not vector search quality evidence
+not benchmark result
+not model comparison
+not production semantic retrieval quality
+```
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.
