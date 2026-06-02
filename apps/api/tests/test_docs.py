@@ -623,6 +623,38 @@ def test_semantic_retrieval_preview_endpoint_keeps_preview_only_boundary():
     assert "docs/review/semantic-retrieval-preview-endpoint.md" in portfolio
 
 
+def test_semantic_retrieval_preview_runtime_smoke_records_live_http_boundary():
+    review_path = REPO_ROOT / "docs/review/semantic-retrieval-preview-runtime-smoke.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Preview Runtime Smoke" in content
+    assert "semantic retrieval preview runtime smoke v0" in content
+    assert "Docker version 29.4.3" in content
+    assert "Docker Compose version v5.1.3" in content
+    assert "Applied migrations: 14" in content
+    assert "Pending migrations: 0" in content
+    assert "POST /documents/{document_id}/semantic-retrieval-preview -> 200" in content
+    assert "dimension mismatch -> 400" in content
+    assert "retrieval_runs_unchanged -> true" in content
+    assert "candidate_chunk_ids" in content
+    assert "missing_embedding_chunk_ids" in content
+    assert "not retrieval_runs persistence" in content
+    assert "not embedding generation" in content
+    assert "not hosted deployment evidence" in content
+    assert "Semantic retrieval preview runtime smoke v0: implemented" in readme
+    assert "Phase 225 - Semantic Retrieval Preview Runtime Smoke v0" in goal
+    assert "semantic retrieval preview runtime smoke v0" in runbook
+    assert "docs/review/semantic-retrieval-preview-runtime-smoke.md" in portfolio
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

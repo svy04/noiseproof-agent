@@ -3558,3 +3558,66 @@ not Evidence Ledger generation
 not vector search quality evidence
 not hosted deployment evidence
 ```
+
+## Semantic Retrieval Preview Runtime Smoke
+
+Phase 225 verifies the semantic retrieval preview endpoint against local Docker PostgreSQL/pgvector and live FastAPI HTTP.
+
+The phase marker is:
+
+```text
+semantic retrieval preview runtime smoke v0
+```
+
+Review artifact:
+
+```text
+docs/review/semantic-retrieval-preview-runtime-smoke.md
+```
+
+Environment:
+
+```text
+Docker version 29.4.3
+Docker Compose version v5.1.3
+noiseproof-agent-db healthy on localhost:55432
+```
+
+Migration runner note:
+
+```text
+uv run python -m app.migration_runner
+```
+
+will fail if `DATABASE_URL` is not present in the process environment. For smoke reproduction, pass the URL explicitly:
+
+```bash
+uv run python -m app.migration_runner \
+  --database-url postgresql://noiseproof:noiseproof@localhost:55432/noiseproof
+```
+
+Observed final migration state:
+
+```text
+Applied migrations: 14
+Pending migrations: 0
+```
+
+Observed endpoint checks:
+
+```text
+GET /health -> 200
+POST /documents/{document_id}/semantic-retrieval-preview -> 200
+dimension mismatch -> 400
+retrieval_runs_unchanged -> true
+```
+
+Claim boundary:
+
+```text
+not retrieval_runs persistence
+not embedding generation
+not Evidence Ledger generation
+not vector search quality evidence
+not hosted deployment evidence
+```

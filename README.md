@@ -114,7 +114,7 @@ Still planned or explicitly unclaimed near the top:
 
 - web app and polished dashboard UI
 - raw uploaded file storage and robust PDF extraction
-- automatic upload-preview-to-chunk persistence wiring, embedding generation, semantic retrieval persistence/runtime smoke, and LLM calls
+- automatic upload-preview-to-chunk persistence wiring, embedding generation, semantic retrieval persistence, and LLM calls
 - hosted deployment evidence
 - automatic failure-case creation from workflow failures
 - complete workflow failure causality
@@ -205,7 +205,7 @@ Not implemented yet:
 - automatic upload-preview-to-chunk persistence wiring
 - autonomous workflow execution endpoints
 - automatic failure-case persistence from workflow failures
-- embedding generation, persisted semantic retrieval, semantic retrieval runtime smoke, and vector search quality evidence
+- embedding generation, persisted semantic retrieval, and vector search quality evidence
 - full distributed tracing or hosted observability
 
 

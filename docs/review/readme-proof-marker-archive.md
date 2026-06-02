@@ -1238,3 +1238,13 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Ranking boundary: `chunk_embeddings.embedding <=> query_embedding` exact cosine preview
 - Persistence boundary: `preview_only_not_persisted`; no `retrieval_runs` row is created
 - Claim boundary: no embedding generation, no HNSW or IVFFlat index behavior, no Evidence Ledger generation, no vector search quality claim, no hosted deployment evidence
+
+### Phase 225 - Semantic Retrieval Preview Runtime Smoke v0
+
+- Semantic retrieval preview runtime smoke v0: implemented
+- `docs/review/semantic-retrieval-preview-runtime-smoke.md`: added
+- Local Docker DB and live FastAPI route verified `POST /documents/{document_id}/semantic-retrieval-preview -> 200`
+- Dimension mismatch verified `-> 400`
+- `retrieval_runs_unchanged -> true`
+- Runtime boundary: caller-provided query vector over existing `document_chunks` and `chunk_embeddings`
+- Claim boundary: no retrieval run persistence, no embedding generation, no Evidence Ledger generation, no vector search quality claim, no hosted deployment evidence
