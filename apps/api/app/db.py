@@ -29,6 +29,27 @@ def _format_embedding_vector(embedding: list[float] | None) -> str | None:
     return "[" + ",".join(str(value) for value in embedding) + "]"
 
 
+def _parse_embedding_vector(embedding: object) -> list[float] | None:
+    if embedding is None:
+        return None
+    if isinstance(embedding, list):
+        return [float(value) for value in embedding]
+    if isinstance(embedding, str):
+        stripped = embedding.strip()
+        if stripped.startswith("[") and stripped.endswith("]"):
+            inner = stripped[1:-1].strip()
+            if not inner:
+                return []
+            return [float(value.strip()) for value in inner.split(",")]
+    return None
+
+
+def _normalize_chunk_embedding_row(row: object) -> dict:
+    normalized = dict(row)
+    normalized["embedding"] = _parse_embedding_vector(normalized.get("embedding"))
+    return normalized
+
+
 class Repository(Protocol):
     def create_document(self, payload: DocumentCreate) -> dict: ...
     def list_documents(self) -> Sequence[dict]: ...
@@ -240,7 +261,7 @@ class PostgresRepository:
                 ),
             ).fetchone()
             conn.commit()
-            return dict(row)
+            return _normalize_chunk_embedding_row(row)
 
     def list_chunk_embeddings(
         self,
@@ -274,7 +295,7 @@ class PostgresRepository:
                 """,
                 tuple(params),
             ).fetchall()
-            return [dict(row) for row in rows]
+            return [_normalize_chunk_embedding_row(row) for row in rows]
 
     def create_uploaded_file_intake_manifest(
         self,

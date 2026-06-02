@@ -3405,3 +3405,33 @@ uv run pytest tests/test_routes.py -q -k "chunk_embedding_endpoint"
 ```
 
 The endpoint accepts caller-provided vector payloads only and adds `caller_provided_embedding_only_no_generation` to metadata. It rejects generated embedding claims and dimension mismatches. It is not embedding generation, not semantic retrieval implementation, not HNSW or IVFFlat index behavior, and not Evidence Ledger generation.
+
+## Embedding Endpoint Runtime Smoke
+
+Phase 221 records local Docker DB plus live FastAPI HTTP evidence for caller-provided chunk embedding persistence.
+
+The phase marker is:
+
+```text
+embedding endpoint runtime smoke v0
+```
+
+Review artifact:
+
+```text
+docs/review/embedding-endpoint-runtime-smoke.md
+```
+
+Observed:
+
+```text
+Docker container: noiseproof-agent-embedding-endpoint-db-64179
+Applied migrations: 14
+Pending migrations: 0
+POST /chunks/{chunk_id}/embeddings -> 201
+GET /chunks/{chunk_id}/embeddings -> 200
+generated embedding claim -> 400
+caller_provided_embedding_only_no_generation
+```
+
+The runtime smoke found and fixed a pgvector response serialization issue: pgvector returned vector text, so repository output now normalizes `chunk_embeddings.embedding` into `list[float]` before FastAPI response validation.

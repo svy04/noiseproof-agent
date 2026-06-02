@@ -1205,3 +1205,11 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `apps/api/tests/test_routes.py`: added caller-provided vector persistence and generated-claim rejection tests
 - `docs/review/embedding-endpoint.md`: added
 - Boundary: caller-provided vector endpoint only; not embedding generation, not semantic retrieval implementation, not HNSW or IVFFlat index behavior, not Evidence Ledger generation, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 221 - Embedding Endpoint Runtime Smoke v0
+
+- Embedding endpoint runtime smoke v0: implemented
+- `docs/review/embedding-endpoint-runtime-smoke.md`: added
+- Local Docker container `noiseproof-agent-embedding-endpoint-db-64179` verified `POST /chunks/{chunk_id}/embeddings -> 201`, `GET /chunks/{chunk_id}/embeddings -> 200`, and generated embedding claim rejection `-> 400`
+- Runtime bug found and fixed: pgvector returned vector text, causing `ResponseValidationError`; repository now normalizes returned vector text into `list[float]`
+- Boundary: local runtime evidence only; not embedding generation, not semantic retrieval implementation, not HNSW or IVFFlat index behavior, not Evidence Ledger generation, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

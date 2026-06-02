@@ -484,6 +484,38 @@ def test_embedding_endpoint_v0_documents_caller_provided_vector_boundary():
     assert "docs/review/embedding-endpoint.md" in portfolio
 
 
+def test_embedding_endpoint_runtime_smoke_records_local_docker_evidence():
+    review_path = REPO_ROOT / "docs/review/embedding-endpoint-runtime-smoke.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Endpoint Runtime Smoke v0" in content
+    assert "embedding endpoint runtime smoke v0" in content
+    assert "noiseproof-agent-embedding-endpoint-db-64179" in content
+    assert "Applied migrations: 14" in content
+    assert "Pending migrations: 0" in content
+    assert "POST /chunks/{chunk_id}/embeddings -> 201" in content
+    assert "GET /chunks/{chunk_id}/embeddings -> 200" in content
+    assert "generated embedding claim -> 400" in content
+    assert "caller_provided_embedding_only_no_generation" in content
+    assert "pgvector returned vector text" in content
+    assert "ResponseValidationError" in content
+    assert "not embedding generation" in content
+    assert "not semantic retrieval implementation" in content
+    assert "not hosted deployment evidence" in content
+    assert "Embedding endpoint runtime smoke v0: implemented" in readme
+    assert "Phase 221 - Embedding Endpoint Runtime Smoke v0" in goal
+    assert "embedding endpoint runtime smoke v0" in runbook
+    assert "docs/review/embedding-endpoint-runtime-smoke.md" in portfolio
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

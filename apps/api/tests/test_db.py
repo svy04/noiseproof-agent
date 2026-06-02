@@ -201,7 +201,7 @@ def test_create_chunk_embedding_inserts_caller_provided_vector_without_generatio
         "embedding_text_hash": "sha256:abc",
         "distance_metric": "cosine",
         "embedding_status": "created",
-        "embedding": [0.1, 0.2],
+        "embedding": "[0.1,0.2]",
         "metadata_json": {"source": "unit-test"},
         "embedding_created_at": created_at,
         "created_at": created_at,
@@ -238,13 +238,18 @@ def test_create_chunk_embedding_inserts_caller_provided_vector_without_generatio
     assert params[6] == "[0.1,0.2]"
     assert getattr(params[7], "obj", params[7]) == {"source": "unit-test"}
     assert created["id"] == embedding_id
+    assert created["embedding"] == [0.1, 0.2]
     assert connection.committed is True
 
 
 def test_list_chunk_embeddings_filters_by_chunk_model_and_status():
     chunk_id = UUID("33333333-3333-3333-3333-333333333333")
     rows = [
-        {"embedding_model": "local-test-model", "embedding_status": "created"},
+        {
+            "embedding_model": "local-test-model",
+            "embedding_status": "created",
+            "embedding": "[0.1,0.2]",
+        },
     ]
     connection = FakeConnection(rows=rows)
     repository = PostgresRepository(Settings())
@@ -265,4 +270,4 @@ def test_list_chunk_embeddings_filters_by_chunk_model_and_status():
     assert "ORDER BY embedding_created_at DESC, created_at DESC, id DESC" in sql
     assert "LIMIT %s" in sql
     assert params == (chunk_id, "local-test-model", "created", 2)
-    assert listed == rows
+    assert listed[0]["embedding"] == [0.1, 0.2]
