@@ -6832,3 +6832,46 @@ def test_semantic_retrieval_quality_report_check_mode_is_documented():
     )
     assert "semantic retrieval quality report check mode v0" in runbook
     assert "docs/review/semantic-retrieval-quality-report-check-mode.md" in portfolio
+
+
+def test_semantic_retrieval_quality_report_ci_check_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-report-ci-check.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    ci = (REPO_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+
+    assert "Semantic Retrieval Quality Report CI Check" in content
+    assert "semantic retrieval quality report ci check v0" in content
+    assert "Check semantic retrieval quality report staleness" in content
+    assert "app.services.semantic_quality_report_command" in content
+    assert "--check" in content
+    assert "semantic_quality_report_current" in content
+    assert "not vector search quality evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "does not close external reviewer feedback v0" in content
+    assert "Check semantic retrieval quality report staleness" in ci
+    assert "app.services.semantic_quality_report_command" in ci
+    assert "--check" in ci
+    assert (
+        "Semantic retrieval quality report CI check v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 244 - Semantic Retrieval Quality Report CI Check v0"
+        in goal
+    )
+    assert "semantic retrieval quality report ci check v0" in runbook
+    assert (
+        "docs/review/semantic-retrieval-quality-report-ci-check.md"
+        in portfolio
+    )

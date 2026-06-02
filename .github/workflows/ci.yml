@@ -29,6 +29,16 @@ jobs:
         working-directory: apps/api
         run: uv run python -m compileall app ../../packages/ingestion ../../packages/review
 
+      - name: Check semantic retrieval quality report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.semantic_quality_report_command \
+            --fixture ../../examples/semantic-retrieval-quality \
+            --rankings ../../examples/semantic-retrieval-quality/rankings.json \
+            --output ../../docs/evaluation/semantic-retrieval-quality-report.md \
+            --k 2 \
+            --check
+
       - name: Run API smoke tests
         working-directory: apps/api
         run: uv run pytest -q

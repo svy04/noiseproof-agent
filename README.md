@@ -300,8 +300,10 @@ Semantic retrieval quality report regeneration:
 - command: `uv run python -m app.services.semantic_quality_report_command`
 - proof: `docs/review/semantic-retrieval-quality-report-regeneration-command.md`
 - failure boundary: `docs/review/semantic-retrieval-quality-report-regeneration-failure-boundary.md`
+- check mode: `docs/review/semantic-retrieval-quality-report-check-mode.md`
+- CI staleness check: `docs/review/semantic-retrieval-quality-report-ci-check.md`
 
-This provides byte-for-byte regeneration for the toy semantic retrieval quality report. It is not vector search quality evidence, not a benchmark result, and not a model comparison.
+This provides byte-for-byte regeneration and CI staleness detection for the toy semantic retrieval quality report. It is not vector search quality evidence, not a benchmark result, and not a model comparison.
 
 ## Failure Cases
 

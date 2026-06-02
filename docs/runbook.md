@@ -4100,6 +4100,33 @@ Stale marker: `semantic_quality_report_stale`, exit code 3, `byte-for-byte regen
 
 This is staleness detection only. It is not vector search quality evidence, not a benchmark result, not a model comparison, and not external reviewer feedback.
 
+## Semantic Retrieval Quality Report CI Check
+
+Phase marker: semantic retrieval quality report ci check v0.
+
+Use `docs/review/semantic-retrieval-quality-report-ci-check.md` when checking why CI runs the semantic retrieval quality report staleness command.
+
+The GitHub Actions step is named:
+
+```text
+Check semantic retrieval quality report staleness
+```
+
+It runs the existing check-only command:
+
+```bash
+uv run python -m app.services.semantic_quality_report_command \
+  --fixture ../../examples/semantic-retrieval-quality \
+  --rankings ../../examples/semantic-retrieval-quality/rankings.json \
+  --output ../../docs/evaluation/semantic-retrieval-quality-report.md \
+  --k 2 \
+  --check
+```
+
+Current marker: `semantic_quality_report_current`.
+
+This is CI staleness protection only. It is not vector search quality evidence, not a benchmark result, not a model comparison, and not external reviewer feedback.
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

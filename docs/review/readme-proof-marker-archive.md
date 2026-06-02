@@ -1402,3 +1402,12 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Stale report marker: `semantic_quality_report_stale`, exit code 3, `byte-for-byte regeneration mismatch`
 - `docs/review/semantic-retrieval-quality-report-check-mode.md`: added
 - Boundary: staleness detection only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0
+
+### Phase 244 - Semantic Retrieval Quality Report CI Check v0
+
+- Semantic retrieval quality report CI check v0: implemented
+- `.github/workflows/ci.yml`: added `Check semantic retrieval quality report staleness`
+- The CI step runs `app.services.semantic_quality_report_command --check`
+- Current report marker: `semantic_quality_report_current`
+- `docs/review/semantic-retrieval-quality-report-ci-check.md`: added
+- Boundary: CI staleness protection only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0
