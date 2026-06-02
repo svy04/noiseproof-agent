@@ -3305,3 +3305,36 @@ list_chunk_embeddings
 ```
 
 This review adds no repository code. It selects a metadata/persistence boundary only. Do not generate embeddings in repository code.
+
+## Embedding Repository v0
+
+Phase 218 adds metadata/persistence-only repository code for caller-provided vectors.
+
+The phase marker is:
+
+```text
+embedding repository v0
+```
+
+Review artifact:
+
+```text
+docs/review/embedding-repository.md
+```
+
+Implemented code:
+
+```text
+ChunkEmbeddingCreate
+create_chunk_embedding
+list_chunk_embeddings
+```
+
+Smoke check:
+
+```powershell
+cd C:\Users\admin\Desktop\noiseproof-agent\apps\api
+uv run pytest tests/test_db.py -q -k "chunk_embedding"
+```
+
+This repository boundary is metadata/persistence only. It accepts a caller-provided vector and stores it in `chunk_embeddings`; it does not create an endpoint, generate embeddings, perform semantic retrieval, or add HNSW/IVFFlat index behavior.

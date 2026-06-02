@@ -193,6 +193,7 @@ Major implementation milestones:
 - Uploaded file chunk persistence application refresh v0: implemented
 - Uploaded file retrieval persistence application refresh v0: implemented
 - Retrieval-run-linked Evidence/Gate/Report handoff endpoint/runtime smoke v0: implemented
+- Embedding repository v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`.
 
@@ -203,7 +204,7 @@ Not implemented yet:
 - automatic upload-preview-to-chunk persistence wiring
 - autonomous workflow execution endpoints
 - automatic failure-case persistence from workflow failures
-- embeddings
+- embedding generation and semantic retrieval
 - full distributed tracing or hosted observability
 
 

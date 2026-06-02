@@ -1179,3 +1179,12 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/embedding-repository-review.md`: added
 - Selected next repository boundary: `ChunkEmbeddingCreate`, `create_chunk_embedding`, and `list_chunk_embeddings`
 - Boundary: review-only; not repository code, not embedding generation, not semantic retrieval implementation, not runtime evidence, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 218 - Embedding Repository v0
+
+- Embedding repository v0: implemented
+- `apps/api/app/schemas.py`: added `ChunkEmbeddingCreate`
+- `apps/api/app/db.py`: added `create_chunk_embedding` and `list_chunk_embeddings`
+- `apps/api/tests/test_db.py`: added repository tests for caller-provided vector insert and filtered list behavior
+- `docs/review/embedding-repository.md`: added
+- Boundary: metadata/persistence-only repository code; not endpoint behavior, not embedding generation, not semantic retrieval implementation, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

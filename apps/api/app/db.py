@@ -8,6 +8,7 @@ from psycopg.types.json import Jsonb
 
 from app.schemas import (
     AgentRunCreate,
+    ChunkEmbeddingCreate,
     DocumentChunkCreate,
     DocumentCreate,
     EvidenceLedgerEntryOut,
@@ -22,6 +23,12 @@ from app.schemas import (
 from app.settings import Settings, get_settings
 
 
+def _format_embedding_vector(embedding: list[float] | None) -> str | None:
+    if embedding is None:
+        return None
+    return "[" + ",".join(str(value) for value in embedding) + "]"
+
+
 class Repository(Protocol):
     def create_document(self, payload: DocumentCreate) -> dict: ...
     def list_documents(self) -> Sequence[dict]: ...
@@ -29,6 +36,14 @@ class Repository(Protocol):
     def list_document_chunks(
         self,
         document_id: UUID,
+        limit: int = 20,
+    ) -> Sequence[dict]: ...
+    def create_chunk_embedding(self, payload: ChunkEmbeddingCreate) -> dict: ...
+    def list_chunk_embeddings(
+        self,
+        chunk_id: UUID | None = None,
+        embedding_model: str | None = None,
+        embedding_status: str | None = None,
         limit: int = 20,
     ) -> Sequence[dict]: ...
     def create_uploaded_file_intake_manifest(
@@ -198,6 +213,66 @@ class PostgresRepository:
                 LIMIT %s
                 """,
                 (document_id, safe_limit),
+            ).fetchall()
+            return [dict(row) for row in rows]
+
+    def create_chunk_embedding(self, payload: ChunkEmbeddingCreate) -> dict:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                INSERT INTO chunk_embeddings (
+                  chunk_id, embedding_model, embedding_dimension,
+                  embedding_text_hash, distance_metric, embedding_status,
+                  embedding, metadata_json
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING *
+                """,
+                (
+                    payload.chunk_id,
+                    payload.embedding_model,
+                    payload.embedding_dimension,
+                    payload.embedding_text_hash,
+                    payload.distance_metric,
+                    payload.embedding_status,
+                    _format_embedding_vector(payload.embedding),
+                    Jsonb(payload.metadata_json),
+                ),
+            ).fetchone()
+            conn.commit()
+            return dict(row)
+
+    def list_chunk_embeddings(
+        self,
+        chunk_id: UUID | None = None,
+        embedding_model: str | None = None,
+        embedding_status: str | None = None,
+        limit: int = 20,
+    ) -> Sequence[dict]:
+        safe_limit = max(1, min(limit, 100))
+        filters = []
+        params: list[object] = []
+        if chunk_id is not None:
+            filters.append("chunk_id = %s")
+            params.append(chunk_id)
+        if embedding_model is not None:
+            filters.append("embedding_model = %s")
+            params.append(embedding_model)
+        if embedding_status is not None:
+            filters.append("embedding_status = %s")
+            params.append(embedding_status)
+        where_clause = f"WHERE {' AND '.join(filters)}" if filters else ""
+        params.append(safe_limit)
+
+        with self._connect() as conn:
+            rows = conn.execute(
+                f"""
+                SELECT * FROM chunk_embeddings
+                {where_clause}
+                ORDER BY embedding_created_at DESC, created_at DESC, id DESC
+                LIMIT %s
+                """,
+                tuple(params),
             ).fetchall()
             return [dict(row) for row in rows]
 

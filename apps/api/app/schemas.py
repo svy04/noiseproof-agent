@@ -128,6 +128,23 @@ class DocumentChunkOut(DocumentChunkCreate):
     created_at: datetime
 
 
+class ChunkEmbeddingCreate(BaseModel):
+    chunk_id: UUID
+    embedding_model: str = Field(..., min_length=1)
+    embedding_dimension: int = Field(..., ge=1)
+    embedding_text_hash: str = Field(..., min_length=1)
+    distance_metric: str = "cosine"
+    embedding_status: str = "planned"
+    embedding: list[float] | None = None
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
+
+
+class ChunkEmbeddingOut(ChunkEmbeddingCreate):
+    id: UUID
+    embedding_created_at: datetime
+    created_at: datetime
+
+
 class DocumentChunkRequest(BaseModel):
     source_type: str = Field(..., min_length=1)
     source_uri: str | None = None

@@ -187,3 +187,82 @@ def test_list_document_chunks_reads_recent_chunks_for_document():
     assert "LIMIT %s" in sql
     assert params == (document_id, 2)
     assert listed == rows
+
+
+def test_create_chunk_embedding_inserts_caller_provided_vector_without_generation():
+    created_at = datetime(2026, 6, 2, tzinfo=UTC)
+    chunk_id = UUID("33333333-3333-3333-3333-333333333333")
+    embedding_id = UUID("44444444-4444-4444-4444-444444444444")
+    row = {
+        "id": embedding_id,
+        "chunk_id": chunk_id,
+        "embedding_model": "local-test-model",
+        "embedding_dimension": 2,
+        "embedding_text_hash": "sha256:abc",
+        "distance_metric": "cosine",
+        "embedding_status": "created",
+        "embedding": [0.1, 0.2],
+        "metadata_json": {"source": "unit-test"},
+        "embedding_created_at": created_at,
+        "created_at": created_at,
+    }
+    connection = FakeConnection(row=row)
+    repository = PostgresRepository(Settings())
+    repository._connect = lambda: connection
+
+    payload = schemas.ChunkEmbeddingCreate(
+        chunk_id=chunk_id,
+        embedding_model="local-test-model",
+        embedding_dimension=2,
+        embedding_text_hash="sha256:abc",
+        distance_metric="cosine",
+        embedding_status="created",
+        embedding=[0.1, 0.2],
+        metadata_json={"source": "unit-test"},
+    )
+
+    created = repository.create_chunk_embedding(payload)
+
+    sql, params = connection.calls[0]
+    assert "INSERT INTO chunk_embeddings" in sql
+    assert "SentenceTransformer" not in sql
+    assert "semantic" not in sql.lower()
+    assert params[:6] == (
+        chunk_id,
+        "local-test-model",
+        2,
+        "sha256:abc",
+        "cosine",
+        "created",
+    )
+    assert params[6] == "[0.1,0.2]"
+    assert getattr(params[7], "obj", params[7]) == {"source": "unit-test"}
+    assert created["id"] == embedding_id
+    assert connection.committed is True
+
+
+def test_list_chunk_embeddings_filters_by_chunk_model_and_status():
+    chunk_id = UUID("33333333-3333-3333-3333-333333333333")
+    rows = [
+        {"embedding_model": "local-test-model", "embedding_status": "created"},
+    ]
+    connection = FakeConnection(rows=rows)
+    repository = PostgresRepository(Settings())
+    repository._connect = lambda: connection
+
+    listed = repository.list_chunk_embeddings(
+        chunk_id=chunk_id,
+        embedding_model="local-test-model",
+        embedding_status="created",
+        limit=2,
+    )
+
+    sql, params = connection.calls[0]
+    assert "SELECT * FROM chunk_embeddings" in sql
+    assert "chunk_id = %s" in sql
+    assert "embedding_model = %s" in sql
+    assert "embedding_status = %s" in sql
+    assert "ORDER BY embedding_created_at DESC, created_at DESC, id DESC" in sql
+    assert "LIMIT %s" in sql
+    assert params == (chunk_id, "local-test-model", "created", 2)
+    assert listed == rows
