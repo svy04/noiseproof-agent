@@ -1213,3 +1213,10 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Local Docker container `noiseproof-agent-embedding-endpoint-db-64179` verified `POST /chunks/{chunk_id}/embeddings -> 201`, `GET /chunks/{chunk_id}/embeddings -> 200`, and generated embedding claim rejection `-> 400`
 - Runtime bug found and fixed: pgvector returned vector text, causing `ResponseValidationError`; repository now normalizes returned vector text into `list[float]`
 - Boundary: local runtime evidence only; not embedding generation, not semantic retrieval implementation, not HNSW or IVFFlat index behavior, not Evidence Ledger generation, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 222 - Embedding Endpoint Application Refresh v0
+
+- Embedding endpoint application refresh v0: implemented
+- `docs/review/embedding-endpoint-application-refresh.md`: added
+- Application-facing docs now surface `docs/review/embedding-endpoint-runtime-smoke.md` as caller-provided chunk embedding endpoint evidence
+- Claim boundary updated: caller-provided embedding persistence exists; embedding generation, semantic retrieval, vector search quality, hosted deployment evidence, and external reviewer feedback remain unclaimed

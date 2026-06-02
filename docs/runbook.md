@@ -3435,3 +3435,34 @@ caller_provided_embedding_only_no_generation
 ```
 
 The runtime smoke found and fixed a pgvector response serialization issue: pgvector returned vector text, so repository output now normalizes `chunk_embeddings.embedding` into `list[float]` before FastAPI response validation.
+
+## Embedding Endpoint Application Refresh
+
+Phase 222 surfaces the embedding endpoint runtime smoke in application-facing docs.
+
+The phase marker is:
+
+```text
+embedding endpoint application refresh v0
+```
+
+Review artifact:
+
+```text
+docs/review/embedding-endpoint-application-refresh.md
+```
+
+Primary proof:
+
+```text
+docs/review/embedding-endpoint-runtime-smoke.md
+```
+
+Claim boundary:
+
+```text
+caller-provided chunk embedding endpoint exists
+not embedding generation
+not semantic retrieval implementation
+not hosted deployment evidence
+```

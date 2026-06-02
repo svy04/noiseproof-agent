@@ -52,6 +52,8 @@ Read in this order:
     - retrieval-run-linked Noise Gate proof with explicit `POST /retrieval-runs/{retrieval_run_id}/noise-gate` after linked ledger rows.
 21. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
     - retrieval-run-linked Report proof with explicit `POST /retrieval-runs/{retrieval_run_id}/report`, `pre_report_status: 409`, and `input_noise_gate_record_id`.
+22. `docs/review/embedding-endpoint-runtime-smoke.md`
+    - caller-provided chunk embedding endpoint proof with explicit `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, and generated-claim rejection `400`.
 
 ## Optional source-level provenance
 
@@ -168,6 +170,14 @@ docs/review/retrieval-run-linked-report-runtime-smoke.md
 
 This proof shows the persisted retrieval run handoff through `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, `POST /retrieval-runs/{retrieval_run_id}/noise-gate`, and `POST /retrieval-runs/{retrieval_run_id}/report`. The report smoke records `pre_report_status: 409` before a linked Noise Gate exists and `input_noise_gate_record_id` after the gate exists. It is not hosted deployment evidence, not external reviewer feedback, not LLM judgment, not embeddings, not semantic retrieval, not free-form final report generation, and not financial advice.
 
+caller-provided chunk embedding endpoint proof:
+
+```text
+docs/review/embedding-endpoint-runtime-smoke.md
+```
+
+This proof shows local Docker DB plus live FastAPI HTTP evidence for `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, and generated embedding claim rejection `400`. It is caller-provided vector persistence only. It is not embedding generation, not semantic retrieval implementation, not HNSW or IVFFlat index behavior, not vector search quality, not hosted deployment evidence, and not external reviewer feedback.
+
 Public request issue:
 
 ```text
@@ -198,7 +208,7 @@ NoiseProof Agent automatically creates failure cases from workflow failures or p
 
 Forbidden claim:
 
-NoiseProof Agent has robust PDF extraction, embeddings, semantic retrieval, distributed tracing, market prediction quality, or free-form final answer generation.
+NoiseProof Agent has robust PDF extraction, embedding generation, semantic retrieval, distributed tracing, market prediction quality, or free-form final answer generation.
 
 ## Boundary
 

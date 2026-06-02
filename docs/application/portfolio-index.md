@@ -342,6 +342,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/embedding-endpoint-review.md` | review-only chunk-scoped API boundary for future caller-provided chunk embeddings; no endpoint code |
 | `docs/review/embedding-endpoint.md` | route-level caller-provided chunk embedding persistence; no embedding generation or semantic retrieval |
 | `docs/review/embedding-endpoint-runtime-smoke.md` | local Docker DB plus live FastAPI HTTP proof for caller-provided chunk embedding POST/GET and generated-claim rejection |
+| `docs/review/embedding-endpoint-application-refresh.md` | application-facing refresh for caller-provided chunk embedding runtime proof; no generation or semantic retrieval claim |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

@@ -36,7 +36,7 @@ It is a small service that shows how I define a messy customer-like data problem
 | Full-stack service design | API service and operations dashboard exist | Next.js app is not implemented |
 | Infrastructure judgment | Docker Compose DB, migration runner, CI, and fresh migrated Docker DB API smoke exist | hosted deployment is not claimed |
 | Product surface ownership | dashboard and docs explain workflow | not a polished product UI |
-| RAG/Agent platform interest | phased retrieval/evidence/gate/report workflow | no LLM or embeddings yet |
+| RAG/Agent platform interest | phased retrieval/evidence/gate/report workflow plus caller-provided chunk embedding endpoint | no LLM, embedding generation, or semantic retrieval yet |
 
 ## Runtime Proof Surfaces
 
@@ -57,27 +57,19 @@ Runtime proof summary:
 - Upload path: intake manifest, parsed-document metadata, chunk persistence/handoff, and document-scoped retrieval persistence are locally smoke-tested with no raw file storage, no robust PDF claim, no semantic retrieval, and no hosted deployment evidence.
 - Preserved upload proof markers: upload intake manifest runtime smoke; upload intake manifest persistence runtime smoke; upload parsed document persistence runtime smoke.
 - Preserved upload boundary markers: not raw file storage.
-- Retrieval-to-evidence handoff: local Docker runtime smoke covers `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, migration `014_evidence_ledger_retrieval_run_id.sql`, and persisted Evidence Ledger rows with `retrieval_run_id`; no external feedback, embeddings, LLM judgment, Noise Gate, or report generation.
-- Retrieval-to-gate handoff: local Docker runtime smoke covers `POST /retrieval-runs/{retrieval_run_id}/noise-gate`, pre-ledger `409`, and persisted Noise Gate records with `stage_input_manifest.input_evidence_ledger_entry_ids`; no external feedback, embeddings, LLM judgment, report generation, or automatic failure-case creation.
-- Retrieval-to-report handoff: local Docker runtime smoke covers `POST /retrieval-runs/{retrieval_run_id}/report`, pre-gate `409`, and persisted Report records with upstream evidence and gate ids in `stage_input_manifest`; no external feedback, embeddings, LLM judgment, free-form final answer claim, or automatic failure-case creation.
+- Retrieval handoffs: linked Evidence Ledger, Noise Gate, and Report endpoints have local Docker runtime smoke; no external feedback, LLM judgment, free-form final answer, or automatic failure-case creation.
+- Caller-provided chunk embedding endpoint: `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, generated-claim rejection `400`, and pgvector normalization are locally smoke-tested; no embedding generation, semantic retrieval, vector search quality claim, or hosted deployment evidence.
 
 Detailed proof links:
 
-- `docs/review/migration-runner-fresh-db-verification.md`
-- `docs/review/fresh-db-api-smoke-verification.md`
 - `docs/review/failure-case-workflow-parent-linkage-proof-index.md`
-- `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
-- `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
-- `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
 - `docs/review/uploaded-file-chunk-persistence-application-refresh.md`
 - `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md`
 - `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
-- `docs/review/retrieval-run-linked-evidence-ledger-endpoint.md`
 - `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
-- `docs/review/retrieval-run-linked-noise-gate-endpoint.md`
 - `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
-- `docs/review/retrieval-run-linked-report-endpoint.md`
 - `docs/review/retrieval-run-linked-report-runtime-smoke.md`
+- `docs/review/embedding-endpoint-runtime-smoke.md`
 
 ## DeepDocurator Alignment
 

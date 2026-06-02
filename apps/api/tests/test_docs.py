@@ -516,6 +516,50 @@ def test_embedding_endpoint_runtime_smoke_records_local_docker_evidence():
     assert "docs/review/embedding-endpoint-runtime-smoke.md" in portfolio
 
 
+def test_embedding_endpoint_application_refresh_surfaces_runtime_proof():
+    refresh_path = REPO_ROOT / "docs/review/embedding-endpoint-application-refresh.md"
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    external_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Embedding Endpoint Application Refresh" in content
+    assert "embedding endpoint application refresh v0" in content
+    assert "docs/review/embedding-endpoint-runtime-smoke.md" in content
+    assert "POST /chunks/{chunk_id}/embeddings" in content
+    assert "GET /chunks/{chunk_id}/embeddings" in content
+    assert "caller_provided_embedding_only_no_generation" in content
+    assert "caller-provided chunk embedding endpoint" in content
+    assert "not embedding generation" in content
+    assert "not semantic retrieval implementation" in content
+    assert "not vector search quality" in content
+    assert "not hosted deployment evidence" in content
+    assert "not Braincrew acceptance" in content
+    assert "Embedding endpoint application refresh v0: implemented" in readme
+    assert "Phase 222 - Embedding Endpoint Application Refresh v0" in goal
+    assert "embedding endpoint application refresh v0" in runbook
+    assert "docs/review/embedding-endpoint-application-refresh.md" in portfolio
+    assert "caller-provided chunk embedding endpoint" in role_map
+    assert "docs/review/embedding-endpoint-runtime-smoke.md" in role_map
+    assert "caller-provided chunk embedding endpoint exists" in application_ready
+    assert "embedding generation" in application_ready
+    assert "docs/review/embedding-endpoint-runtime-smoke.md" in external_path
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

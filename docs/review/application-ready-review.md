@@ -4,7 +4,7 @@ Status: Phase 82 review packet.
 
 This is an application-ready review, not a product-complete declaration.
 
-Not product-complete: robust PDF extraction, embeddings, semantic retrieval, distributed tracing, hosted deployment, and external user validation are still unproven.
+Not product-complete: robust PDF extraction, embedding generation, semantic retrieval, distributed tracing, hosted deployment, and external user validation are still unproven.
 
 README proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers after README scanability cleanup. It is source-level provenance, not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 
@@ -64,6 +64,7 @@ Forbidden claim: this is not hosted deployment evidence, automatic persistence r
 | retrieval-run-linked Evidence Ledger persistence exists | Pass | `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, `GET /evidence-ledgers`, `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md` | deterministic handoff from persisted lexical retrieval runs only; no embeddings; no semantic retrieval; no LLM judgment; no Noise Gate or report generation |
 | retrieval-run-linked Noise Gate persistence exists | Pass | `POST /retrieval-runs/{retrieval_run_id}/noise-gate`, `GET /noise-gates`, `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md` | deterministic handoff after linked Evidence Ledger rows only; pre-ledger `409`; no LLM judgment; no report generation; not financial advice |
 | retrieval-run-linked Report persistence exists | Pass | `POST /retrieval-runs/{retrieval_run_id}/report`, `GET /reports`, `docs/review/retrieval-run-linked-report-runtime-smoke.md` | deterministic handoff after linked Evidence Ledger and Noise Gate rows only; pre-gate `409`; records `input_noise_gate_record_id`; no free-form final report generation; not financial advice |
+| caller-provided chunk embedding endpoint exists | Pass | `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, `docs/review/embedding-endpoint-runtime-smoke.md` | caller-provided vectors only; no embedding generation; no semantic retrieval; no HNSW/IVFFlat behavior; not vector search quality |
 | migration runner can apply on fresh DB | Pass | `docs/review/migration-runner-fresh-db-verification.md` | local Docker only; not production migration orchestration |
 | fresh DB API smoke path works | Pass | `docs/review/fresh-db-api-smoke-verification.md` | local Docker/API smoke only; not hosted deployment evidence |
 | failure-case persistence smoke works | Pass | `docs/review/failure-case-persistence-smoke-verification.md` | stores manually submitted failure records; automatic failure detection is not claimed |
@@ -91,7 +92,7 @@ Use:
 ```text
 Short external claim:
 
-NoiseProof Agent is a small, inspectable portfolio service that demonstrates evidence-first workflow surfaces for messy market intelligence: source profiling, parser/chunk/retrieval previews, uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence with metadata/profile-only no-raw-storage boundary, uploaded file chunk persistence with manual document-scoped no-raw-storage boundary, uploaded file retrieval persistence with `metadata_json.candidate_chunk_ids` over persisted `document_chunks`, retrieval-run-linked Evidence Ledger persistence, retrieval-run-linked Noise Gate persistence with pre-ledger `409`, retrieval-run-linked Report persistence with pre-gate `409`, persisted evidence/gate/report records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
+NoiseProof Agent is a small, inspectable portfolio service that demonstrates evidence-first workflow surfaces for messy market intelligence: source profiling, parser/chunk/retrieval previews, uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence with metadata/profile-only no-raw-storage boundary, uploaded file chunk persistence with manual document-scoped no-raw-storage boundary, uploaded file retrieval persistence with `metadata_json.candidate_chunk_ids` over persisted `document_chunks`, caller-provided chunk embedding endpoint runtime proof, retrieval-run-linked Evidence Ledger persistence, retrieval-run-linked Noise Gate persistence with pre-ledger `409`, retrieval-run-linked Report persistence with pre-gate `409`, persisted evidence/gate/report records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
 
 Detailed phase history remains in `docs/GOAL.md`, `docs/review/external-reader-proof-path.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts.
 
@@ -114,7 +115,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - evidence-first data agent
 - not a trading bot
 - parser/chunk/retrieval preview boundaries
-- uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence, uploaded file chunk persistence, uploaded file retrieval persistence, retrieval-run-linked Evidence Ledger persistence, and runtime smoke
+- uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence, uploaded file chunk persistence, uploaded file retrieval persistence, caller-provided chunk embedding endpoint, retrieval-run-linked Evidence Ledger persistence, and runtime smoke
 - retrieval-run-linked Noise Gate persistence and pre-ledger `409` runtime smoke
 - retrieval-run-linked Report persistence and pre-gate `409` runtime smoke
 - Evidence Ledger Preview
@@ -166,7 +167,7 @@ Avoid claims about:
 - automatic failure-case persistence
 - external users
 - robust PDF extraction
-- semantic retrieval
+- embedding generation and semantic retrieval
 - distributed tracing
 - market prediction accuracy
 - direct evidence -> gate -> report foreign-key lineage
