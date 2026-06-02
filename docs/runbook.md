@@ -4059,6 +4059,24 @@ uv run python -m app.services.semantic_quality_report_command \
 
 This is byte-for-byte regeneration plumbing only. It is not embedding generation, not vector search quality evidence, not a benchmark result, not a model comparison, and not external reviewer feedback.
 
+## Semantic Retrieval Quality Report Regeneration Failure Boundary
+
+Phase marker: semantic retrieval quality report regeneration failure boundary v0.
+
+Use `docs/review/semantic-retrieval-quality-report-regeneration-failure-boundary.md` when checking how the report regeneration command handles a malformed rankings fixture.
+
+Expected failure markers:
+
+```text
+exit code 2
+semantic_quality_report_regeneration_failed
+semantic_rankings
+not vector search quality evidence
+no traceback
+```
+
+This is command failure handling only. It is not vector search quality evidence, not a benchmark result, not a model comparison, and not external reviewer feedback.
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

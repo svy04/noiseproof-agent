@@ -6736,3 +6736,47 @@ def test_semantic_retrieval_quality_report_regeneration_command_is_documented():
         "docs/review/semantic-retrieval-quality-report-regeneration-command.md"
         in portfolio
     )
+
+
+def test_semantic_retrieval_quality_report_regeneration_failure_boundary_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-report-regeneration-failure-boundary.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Quality Report Regeneration Failure Boundary" in content
+    assert (
+        "semantic retrieval quality report regeneration failure boundary v0"
+        in content
+    )
+    assert "semantic_quality_report_regeneration_failed" in content
+    assert "exit code 2" in content
+    assert "malformed rankings fixture" in content
+    assert "no traceback" in content
+    assert "not vector search quality evidence" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Semantic retrieval quality report regeneration failure boundary v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 241 - Semantic Retrieval Quality Report Regeneration Failure Boundary v0"
+        in goal
+    )
+    assert (
+        "semantic retrieval quality report regeneration failure boundary v0"
+        in runbook
+    )
+    assert (
+        "docs/review/semantic-retrieval-quality-report-regeneration-failure-boundary.md"
+        in portfolio
+    )

@@ -361,6 +361,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/semantic-retrieval-quality-report-proof-surface-regression-coverage.md` | regression coverage index for the semantic quality report proof chain; toy metrics only, not vector search quality evidence |
 | `docs/review/semantic-retrieval-quality-report-proof-surface-final-scan.md` | application-facing stale quality claim scan for the semantic quality report; no positive quality claim found |
 | `docs/review/semantic-retrieval-quality-report-regeneration-command.md` | command path for byte-for-byte regeneration of the toy semantic retrieval quality report from explicit fixture inputs |
+| `docs/review/semantic-retrieval-quality-report-regeneration-failure-boundary.md` | structured failure boundary for malformed ranking fixtures in the report regeneration command |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

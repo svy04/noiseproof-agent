@@ -1379,3 +1379,11 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/semantic-retrieval-quality-report-regeneration-command.md`: added
 - The toy semantic retrieval quality report now has byte-for-byte regeneration from explicit local fixture inputs
 - Boundary: reproducibility plumbing only; not embedding generation, not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0
+
+### Phase 241 - Semantic Retrieval Quality Report Regeneration Failure Boundary v0
+
+- Semantic retrieval quality report regeneration failure boundary v0: implemented
+- `app.services.semantic_quality_report_command`: malformed rankings input now exits with code 2 and `semantic_quality_report_regeneration_failed`
+- `docs/review/semantic-retrieval-quality-report-regeneration-failure-boundary.md`: added
+- The command now avoids raw tracebacks for malformed rankings fixture validation failures
+- Boundary: command failure handling only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0

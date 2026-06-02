@@ -82,3 +82,36 @@ def test_semantic_quality_report_command_regenerates_committed_report(tmp_path):
     assert "semantic retrieval quality report v0" in result.stdout
     assert "toy_fixture_metric_only_not_search_quality" in result.stdout
     assert "not vector search quality evidence" in result.stdout
+
+
+def test_semantic_quality_report_command_fails_with_boundary_for_bad_rankings(tmp_path):
+    bad_rankings = tmp_path / "bad-rankings.json"
+    bad_rankings.write_text('{"lexical_rankings": {}}', encoding="utf-8")
+    output_path = tmp_path / "semantic-retrieval-quality-report.md"
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "app.services.semantic_quality_report_command",
+            "--fixture",
+            str(REPO_ROOT / "examples/semantic-retrieval-quality"),
+            "--rankings",
+            str(bad_rankings),
+            "--output",
+            str(output_path),
+            "--k",
+            "2",
+        ],
+        cwd=REPO_ROOT / "apps/api",
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 2
+    assert "semantic_quality_report_regeneration_failed" in result.stderr
+    assert "semantic_rankings" in result.stderr
+    assert "not vector search quality evidence" in result.stderr
+    assert "Traceback" not in result.stderr
+    assert not output_path.exists()

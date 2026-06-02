@@ -25,15 +25,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--k", type=int, default=2, help="Evaluation cutoff.")
     args = parser.parse_args(argv)
 
-    fixture = load_semantic_quality_fixture(Path(args.fixture))
-    ranking_fixture = _read_rankings(Path(args.rankings))
-    evaluation = evaluate_semantic_quality(
-        fixture,
-        ranking_fixture["semantic_rankings"],
-        lexical_rankings=ranking_fixture.get("lexical_rankings"),
-        k=args.k,
-    )
-    report = build_semantic_quality_report(fixture, evaluation)
+    try:
+        fixture = load_semantic_quality_fixture(Path(args.fixture))
+        ranking_fixture = _read_rankings(Path(args.rankings))
+        evaluation = evaluate_semantic_quality(
+            fixture,
+            ranking_fixture["semantic_rankings"],
+            lexical_rankings=ranking_fixture.get("lexical_rankings"),
+            k=args.k,
+        )
+        report = build_semantic_quality_report(fixture, evaluation)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        print("semantic_quality_report_regeneration_failed", file=sys.stderr)
+        print(str(exc), file=sys.stderr)
+        print("not vector search quality evidence", file=sys.stderr)
+        return 2
 
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
