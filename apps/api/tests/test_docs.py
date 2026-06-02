@@ -239,6 +239,48 @@ def test_semantic_retrieval_readiness_review_uses_primary_sources_and_keeps_scop
     assert "docs/review/semantic-retrieval-readiness-review.md" in portfolio
 
 
+def test_embedding_schema_review_keeps_vector_storage_decision_review_only():
+    review_path = REPO_ROOT / "docs/review/embedding-schema-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Schema Review" in content
+    assert "embedding schema review v0" in content
+    assert "review-only" in content
+    assert "document_chunks" in content
+    assert "chunk_embeddings" in content
+    assert "embedding_model" in content
+    assert "embedding_dimension" in content
+    assert "embedding_created_at" in content
+    assert "embedding_text_hash" in content
+    assert "distance_metric" in content
+    assert "cosine distance" in content
+    assert "embedding_status" in content
+    assert "rebuild strategy" in content
+    assert "lexical baseline" in content
+    assert "pgvector" in content
+    assert "HNSW" in content
+    assert "IVFFlat" in content
+    assert "do not add a vector column in this gate" in content
+    assert "next product gate: embedding schema migration v0" in content
+    assert "not embeddings" in content
+    assert "not semantic retrieval implementation" in content
+    assert "not runtime evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert "Embedding schema review v0: implemented" in readme
+    assert "Phase 214 - Embedding Schema Review v0" in goal
+    assert "embedding schema review v0" in runbook
+    assert "docs/review/embedding-schema-review.md" in portfolio
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

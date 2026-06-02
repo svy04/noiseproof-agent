@@ -1145,3 +1145,12 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Primary sources checked: pgvector, Sentence Transformers, PostgreSQL `pg_trgm`
 - Selected next product gate: embedding schema review v0
 - Boundary: source-first review only; no embeddings, semantic retrieval, vector index, runtime behavior, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 214 - Embedding Schema Review v0
+
+- Embedding schema review v0: implemented
+- `docs/review/embedding-schema-review.md`: added
+- Selected future table boundary: `chunk_embeddings` linked to `document_chunks`
+- Required future metadata: `embedding_model`, `embedding_dimension`, `embedding_text_hash`, `embedding_created_at`, `distance_metric`, `embedding_status`, rebuild strategy, and lexical baseline notes
+- Selected next product gate: embedding schema migration v0
+- Boundary: review-only; no schema, migration, vector column, embeddings, semantic retrieval, vector index, runtime behavior, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

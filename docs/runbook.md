@@ -3177,3 +3177,33 @@ embedding schema review v0
 ```
 
 Do not implement embeddings in this gate. Do not add HNSW, IVFFlat, vector indexes, semantic retrieval, or model dependencies until the schema boundary is reviewed.
+
+## Embedding Schema Review
+
+Phase 214 is a review-only schema decision before any embedding migration.
+
+The phase marker is:
+
+```text
+embedding schema review v0
+```
+
+Review artifact:
+
+```text
+docs/review/embedding-schema-review.md
+```
+
+Selected future table boundary:
+
+```text
+chunk_embeddings
+```
+
+Selected next product gate:
+
+```text
+embedding schema migration v0
+```
+
+Do not add a vector column in this gate. Do not add embedding generation, semantic retrieval, HNSW, IVFFlat, model dependencies, or retrieval ranking behavior until the migration and runtime gates explicitly open.
