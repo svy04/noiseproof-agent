@@ -35,6 +35,7 @@ Uploaded file retrieval persistence runtime smoke v0: implemented
 Uploaded file retrieval persistence application refresh v0: implemented
 External reviewer retrieval persistence request refresh v0: implemented
 External reviewer retrieval persistence issue-body refresh v0: implemented
+External feedback current-state retrieval persistence issue verification v0: implemented
 
 README detailed implementation status archive moved during Phase 103.
 This hidden source archive preserves earlier README proof markers while the rendered README stays scanable.

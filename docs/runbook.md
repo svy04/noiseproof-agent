@@ -2830,6 +2830,49 @@ not financial advice
 
 Next evidence gate remains: external reviewer feedback v0.
 
+## External feedback current-state retrieval persistence issue verification
+
+Phase marker: external feedback current-state retrieval persistence issue verification v0.
+
+Use `docs/review/external-feedback-current-state-retrieval-persistence-issue-verification.md` when checking the live issue state after the uploaded-file retrieval persistence issue-body refresh.
+
+Observed live issue and screening state:
+
+```text
+issue_state: OPEN
+updatedAt: 2026-06-02T04:14:29Z
+first_codepoint: 35
+startsWith: ## Request
+comment_count: 1
+candidate_count: 0
+draft_count: 0
+self_authored_comment
+non_qualifying
+```
+
+Issue body markers:
+
+```text
+uploaded-file retrieval persistence proof
+docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
+POST /documents/{document_id}/retrieval-runs
+metadata_json.candidate_chunk_ids
+metadata_source_table = document_chunks
+no Evidence Ledger generation
+not hosted deployment evidence
+not external reviewer feedback
+```
+
+Boundary:
+
+```text
+not external reviewer feedback
+does not close external reviewer feedback v0
+not customer validation
+not Braincrew acceptance
+not hosted deployment evidence
+```
+
 ## Metadata Examples
 
 Create a document metadata record:

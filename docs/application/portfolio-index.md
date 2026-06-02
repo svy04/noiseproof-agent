@@ -116,6 +116,8 @@ External reviewer retrieval persistence request refresh: `docs/review/external-r
 
 External review issue body retrieval persistence refresh: `docs/review/external-review-issue-body-retrieval-persistence-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file retrieval persistence proof. It is not external reviewer feedback, not Evidence Ledger generation, and not hosted deployment evidence.
 
+External feedback current-state retrieval persistence issue verification: `docs/review/external-feedback-current-state-retrieval-persistence-issue-verification.md` records the current issue #1 screen after the retrieval persistence issue-body refresh. It observes `comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`; it does not close external reviewer feedback v0.
+
 External reviewer chunk handoff request refresh: `docs/review/external-reviewer-chunk-handoff-request-refresh.md` points reviewer-facing request surfaces to the uploaded-file chunk handoff proof. It is request infrastructure only and does not close external reviewer feedback.
 
 External reviewer chunk handoff issue-body refresh: `docs/review/external-review-issue-body-chunk-handoff-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file chunk handoff proof. It is not external reviewer feedback.
