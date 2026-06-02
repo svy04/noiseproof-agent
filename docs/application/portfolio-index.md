@@ -322,6 +322,10 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-file-intake-manifest-persistence-endpoint.md` | POST/GET manifest metadata persistence endpoint; no raw uploaded bytes |
 | `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md` | local Docker DB plus FastAPI POST/GET manifest persistence smoke; not hosted evidence |
 | `docs/review/uploaded-file-intake-manifest-persistence-application-refresh.md` | application-facing refresh for manifest persistence runtime smoke; not hosted evidence |
+| `docs/review/retrieval-run-linked-evidence-ledger-endpoint.md` | persisted retrieval run to Evidence Ledger handoff endpoint; no LLM or embeddings |
+| `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md` | local Docker DB plus FastAPI smoke for retrieval-run-linked Evidence Ledger rows |
+| `docs/review/retrieval-run-linked-noise-gate-endpoint.md` | persisted retrieval run plus linked Evidence Ledger rows to Noise Gate handoff endpoint; no report generation |
+| `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md` | local Docker DB plus FastAPI smoke for pre-ledger 409 and post-ledger Noise Gate persistence |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
@@ -343,7 +347,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 
 Short current claim:
 
-NoiseProof Agent is a small, inspectable portfolio service for evidence-first market-intelligence workflows. It shows local service boundaries for profiling, parser/chunk/retrieval previews, upload intake manifest runtime smoke with content hash and no-raw-storage decision, persisted evidence/gate/report records, workflow-parent lineage, failure-case persistence, and manual failure-case workflow-parent provenance before any free-form final answer is claimed.
+NoiseProof Agent is a small, inspectable portfolio service for evidence-first market-intelligence workflows. It shows local service boundaries for profiling, parser/chunk/retrieval previews, upload intake manifest runtime smoke with content hash and no-raw-storage decision, persisted evidence/gate/report records, retrieval-run-linked Evidence Ledger and Noise Gate handoffs, workflow-parent lineage, failure-case persistence, and manual failure-case workflow-parent provenance before any free-form final answer is claimed.
 
 Detailed proof history remains in `docs/review/external-reader-proof-path.md`, `docs/review/failure-case-workflow-parent-linkage-proof-index.md`, `docs/review/application-ready-review.md`, `docs/review/external-reviewer-live-proof-route-refresh.md`, `docs/review/readme-proof-marker-archive.md`, and `docs/GOAL.md`.
 

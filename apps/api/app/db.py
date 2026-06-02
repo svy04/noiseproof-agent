@@ -73,6 +73,7 @@ class Repository(Protocol):
         self,
         workflow_trace_id: UUID | None = None,
         status: str | None = None,
+        retrieval_run_id: UUID | None = None,
     ) -> Sequence[dict]: ...
     def create_noise_gate_record(
         self,
@@ -472,10 +473,12 @@ class PostgresRepository:
         self,
         workflow_trace_id: UUID | None = None,
         status: str | None = None,
+        retrieval_run_id: UUID | None = None,
     ) -> Sequence[dict]:
         filters, params = _record_filters(
             workflow_trace_id=workflow_trace_id,
             status=status,
+            retrieval_run_id=retrieval_run_id,
         )
         with self._connect() as conn:
             rows = conn.execute(

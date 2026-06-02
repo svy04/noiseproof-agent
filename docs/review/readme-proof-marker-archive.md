@@ -1063,3 +1063,22 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Live HTTP observed `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger -> 201`
 - Live HTTP observed `GET /evidence-ledgers -> 200` with matching `retrieval_run_id`
 - Boundary: local runtime evidence only; no hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, embeddings, semantic retrieval, LLM judgment, Noise Gate generation, report generation, financial advice behavior, or product-complete claim added
+
+### Phase 204 - Retrieval-run-linked Noise Gate Endpoint v0
+
+- Retrieval-run-linked Noise Gate endpoint v0: implemented
+- `docs/review/retrieval-run-linked-noise-gate-endpoint.md`: added
+- `POST /retrieval-runs/{retrieval_run_id}/noise-gate`: added as persisted retrieval/evidence-to-gate handoff endpoint
+- pre-ledger handoff returns `409` when no Evidence Ledger rows are linked to the retrieval run
+- `stage_input_manifest.input_evidence_ledger_entry_ids`: records the linked persisted Evidence Ledger row ids
+- Boundary: deterministic linked-ledger handoff only; no embeddings, semantic retrieval, LLM judgment, report generation, hosted deployment evidence, external reviewer feedback, financial advice behavior, automatic failure-case creation, or product-complete claim added
+
+### Phase 205 - Retrieval-run-linked Noise Gate Runtime Smoke v0
+
+- Retrieval-run-linked Noise Gate runtime smoke v0: implemented
+- `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`: added
+- Local Docker DB observed `Applied migrations: 13` and `Pending migrations: 0`
+- Live HTTP observed `POST /retrieval-runs/{retrieval_run_id}/noise-gate` before ledger -> `409`
+- Live HTTP observed `POST /retrieval-runs/{retrieval_run_id}/noise-gate` after linked ledger -> `201`
+- Live HTTP observed `GET /noise-gates -> 200` with matching `stage_input_manifest.retrieval_run_id`
+- Boundary: local runtime evidence only; no hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, embeddings, semantic retrieval, LLM judgment, report generation, financial advice behavior, automatic failure-case creation, or product-complete claim added

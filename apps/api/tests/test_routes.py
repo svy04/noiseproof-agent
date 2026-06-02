@@ -116,7 +116,12 @@ class InMemoryRepository:
             created.append(row)
         return created
 
-    def list_evidence_ledger_entries(self, workflow_trace_id=None, status=None):
+    def list_evidence_ledger_entries(
+        self,
+        workflow_trace_id=None,
+        status=None,
+        retrieval_run_id=None,
+    ):
         rows = self.evidence_ledger_entries
         if workflow_trace_id is not None:
             rows = [
@@ -124,6 +129,10 @@ class InMemoryRepository:
             ]
         if status is not None:
             rows = [row for row in rows if row["status"] == status]
+        if retrieval_run_id is not None:
+            rows = [
+                row for row in rows if str(row.get("retrieval_run_id")) == str(retrieval_run_id)
+            ]
         return rows
 
     def create_noise_gate_record(
@@ -3192,6 +3201,102 @@ def test_retrieval_run_can_generate_persisted_evidence_ledger_from_candidate_chu
     listed = client.get("/evidence-ledgers")
     assert listed.status_code == 200
     assert listed.json()[0]["retrieval_run_id"] == retrieval_run["id"]
+
+
+def test_retrieval_run_can_generate_persisted_noise_gate_from_linked_ledger_entries():
+    client = make_client()
+
+    document = client.post(
+        "/documents",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "title": "Sample market note",
+        },
+    ).json()
+    client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 0,
+            "chunk_text": "Enterprise demand growth reached 12% in 2026.",
+            "metadata_json": {"header_path": ["Demand"]},
+        },
+    )
+    retrieval_run = client.post(
+        f"/documents/{document['id']}/retrieval-runs",
+        json={
+            "question": "Which chunk supports enterprise demand growth?",
+            "strategy": "fixed-window",
+            "top_k": 1,
+        },
+    ).json()
+    ledger = client.post(f"/retrieval-runs/{retrieval_run['id']}/evidence-ledger").json()
+
+    response = client.post(f"/retrieval-runs/{retrieval_run['id']}/noise-gate")
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["question"] == retrieval_run["question"]
+    assert body["decision"] in {"pass", "needs_revision"}
+    assert body["evidence_entry_count"] == ledger["stored_entry_count"]
+    assert body["draft_claim_count"] == 0
+    assert body["stage_input_manifest"]["retrieval_run_id"] == retrieval_run["id"]
+    assert body["stage_input_manifest"]["input_evidence_ledger_entry_ids"] == [
+        ledger["entries"][0]["id"]
+    ]
+    assert any("retrieval_run-linked Evidence Ledger" in warning for warning in body["warnings"])
+    assert any("does not call an LLM" in warning for warning in body["warnings"])
+
+    listed = client.get("/noise-gates")
+    assert listed.status_code == 200
+    assert listed.json()[0]["stage_input_manifest"]["retrieval_run_id"] == retrieval_run["id"]
+
+
+def test_retrieval_run_noise_gate_requires_linked_ledger_entries_first():
+    client = make_client()
+
+    document = client.post(
+        "/documents",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "title": "Sample market note",
+        },
+    ).json()
+    client.post(
+        f"/documents/{document['id']}/chunks",
+        json={
+            "source_type": "markdown",
+            "source_uri": "upload://sample.md",
+            "filename": "sample.md",
+            "chunk_strategy": "fixed-window",
+            "chunk_index": 0,
+            "chunk_text": "Enterprise demand growth reached 12% in 2026.",
+            "metadata_json": {"header_path": ["Demand"]},
+        },
+    )
+    retrieval_run = client.post(
+        f"/documents/{document['id']}/retrieval-runs",
+        json={
+            "question": "Which chunk supports enterprise demand growth?",
+            "strategy": "fixed-window",
+            "top_k": 1,
+        },
+    ).json()
+
+    response = client.post(f"/retrieval-runs/{retrieval_run['id']}/noise-gate")
+
+    assert response.status_code == 409
+    assert "Run POST /retrieval-runs/{retrieval_run_id}/evidence-ledger first" in response.json()[
+        "detail"
+    ]
+    assert client.get("/noise-gates").json() == []
 
 
 def test_collection_plan_preview_for_general_market_question():

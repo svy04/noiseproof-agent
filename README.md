@@ -192,8 +192,8 @@ Major implementation milestones:
 - Uploaded file chunk persistence runtime smoke v0: implemented
 - Uploaded file chunk persistence application refresh v0: implemented
 - Uploaded file retrieval persistence application refresh v0: implemented
-- Retrieval-run-linked Evidence Ledger endpoint v0: implemented
-- Retrieval-run-linked Evidence Ledger runtime smoke v0: implemented
+- Retrieval-run-linked Evidence Ledger endpoint/runtime smoke v0: implemented
+- Retrieval-run-linked Noise Gate endpoint/runtime smoke v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`.
 
@@ -248,11 +248,11 @@ unsupported
 blocked
 ```
 
-The system should generate the ledger before generating a final report. Current persistence is v0 and does not yet link entries to a retrieval run id.
+The system should generate the ledger before generating a final report. Current persistence is v0, and retrieval-run-linked rows can now carry `retrieval_run_id` when created through `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`.
 
 ## Noise Gate
 
-The Noise Gate is the reviewer before a final response is allowed through. Phase 7 implements a deterministic preview boundary. Phase 13 persists gate decisions so blocked and revision-needed outputs remain inspectable.
+The Noise Gate is the reviewer before a final response is allowed through. Phase 7 implements a deterministic preview boundary. Phase 13 persists gate decisions so blocked and revision-needed outputs remain inspectable. Phase 204 adds a retrieval-run-linked handoff endpoint that requires persisted Evidence Ledger rows for the same retrieval run before creating a Noise Gate record.
 
 It checks:
 
@@ -348,6 +348,7 @@ curl -X POST http://localhost:8000/evidence-ledgers \
   -d "{\"question\":\"Should I buy this company?\",\"retrieval_results\":[]}"
 curl http://localhost:8000/evidence-ledgers
 curl -X POST http://localhost:8000/retrieval-runs/<uuid>/evidence-ledger
+curl -X POST http://localhost:8000/retrieval-runs/<uuid>/noise-gate
 curl -X POST http://localhost:8000/noise-gates/preview \
   -H "Content-Type: application/json" \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"evidence_entries\":[{\"claim\":\"Enterprise demand grew\",\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"source_date\":\"2026-05-28\",\"evidence_span\":\"Enterprise demand grew 12% in 2026.\",\"confidence\":\"medium\",\"limitation\":\"Supported by one retrieved source.\",\"contradicting_source_ids\":[],\"status\":\"supported\",\"matched_terms\":[\"enterprise\",\"demand\",\"growth\"],\"role\":\"direct_support\"}],\"draft_claims\":[\"Enterprise demand grew, with the current evidence limited to one retrieved source.\"]}"
@@ -406,6 +407,8 @@ The explicit upload-to-chunks handoff endpoint is now implemented and recorded i
 The document-scoped retrieval persistence endpoint is now implemented and recorded in `docs/review/uploaded-file-retrieval-persistence-endpoint.md`: `POST /documents/{document_id}/retrieval-runs` reads existing `document_chunks`, persists one row in the existing `retrieval_runs` table, and stores `metadata_json.candidate_chunk_ids` without adding embeddings, semantic retrieval, Evidence Ledger generation, or financial advice behavior. Local runtime evidence is recorded in `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`, and the application-facing refresh is recorded in `docs/review/uploaded-file-retrieval-persistence-application-refresh.md`.
 
 The retrieval-run-linked Evidence Ledger endpoint is implemented as `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`: it uses an existing persisted `retrieval_runs` row and its `metadata_json.candidate_chunk_ids` to reload `document_chunks`, generate deterministic Evidence Ledger entries, and persist those rows with `retrieval_run_id`. Local Docker runtime evidence is recorded in `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`. It does not call an LLM, create embeddings, perform semantic retrieval, generate a Noise Gate or report, or provide financial advice.
+
+The retrieval-run-linked Noise Gate endpoint is implemented as `POST /retrieval-runs/{retrieval_run_id}/noise-gate`: it requires existing Evidence Ledger rows linked to that retrieval run, persists a Noise Gate record, and records `stage_input_manifest.input_evidence_ledger_entry_ids`. Local Docker runtime evidence is recorded in `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`. It does not call an LLM, create embeddings, perform semantic retrieval, generate a report, create failure cases, or provide financial advice.
 
 ## Braincrew Role Alignment
 

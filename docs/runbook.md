@@ -2968,3 +2968,47 @@ Expected boundary markers:
 - warnings mention persisted `retrieval_run`, no LLM, no embeddings, no semantic retrieval, and no final truth judgment.
 
 This is not a Noise Gate, not a report, not hosted deployment evidence, not external reviewer feedback, and not financial advice.
+
+## Retrieval-run-linked Noise Gate Endpoint
+
+Phase 204 adds a bounded handoff from persisted retrieval runs and linked Evidence Ledger rows to persisted Noise Gate records. Phase 205 records the local Docker DB plus live FastAPI HTTP smoke for that handoff.
+
+Endpoint:
+
+```text
+POST /retrieval-runs/{retrieval_run_id}/noise-gate
+```
+
+Minimal local sequence:
+
+```powershell
+docker compose up -d db
+cd apps/api
+$env:DATABASE_URL='postgresql://noiseproof:noiseproof@127.0.0.1:55432/noiseproof'
+uv run python -m app.migration_runner --status
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8032
+```
+
+In another shell, create a document with chunks, create a document-scoped retrieval run, confirm the gate does not run before ledger rows exist, then create the linked ledger and gate:
+
+```powershell
+$base='http://127.0.0.1:8032'
+$document = Invoke-RestMethod -Method Post -Uri "$base/documents" -ContentType 'application/json' -Body '{"source_type":"markdown","source_uri":"upload://phase204-smoke.md","filename":"phase204-smoke.md","title":"Phase 204 smoke note"}'
+$chunk = Invoke-RestMethod -Method Post -Uri "$base/documents/$($document.id)/chunks" -ContentType 'application/json' -Body '{"source_type":"markdown","source_uri":"upload://phase204-smoke.md","filename":"phase204-smoke.md","chunk_strategy":"fixed-window","chunk_index":0,"chunk_text":"Enterprise demand growth reached 12% in 2026.","metadata_json":{"header_path":["Demand"]}}'
+$retrieval = Invoke-RestMethod -Method Post -Uri "$base/documents/$($document.id)/retrieval-runs" -ContentType 'application/json' -Body '{"question":"Which chunk supports enterprise demand growth?","strategy":"fixed-window","top_k":1}'
+try { Invoke-RestMethod -Method Post -Uri "$base/retrieval-runs/$($retrieval.id)/noise-gate" } catch { [int]$_.Exception.Response.StatusCode }
+$ledger = Invoke-RestMethod -Method Post -Uri "$base/retrieval-runs/$($retrieval.id)/evidence-ledger"
+$gate = Invoke-RestMethod -Method Post -Uri "$base/retrieval-runs/$($retrieval.id)/noise-gate"
+$gate.stage_input_manifest.retrieval_run_id
+$gate.stage_input_manifest.input_evidence_ledger_entry_ids
+```
+
+Expected boundary markers:
+
+- pre-ledger `POST /retrieval-runs/{retrieval_run_id}/noise-gate` returns `409`.
+- `evidence_entry_count` matches the linked ledger entry count.
+- `stage_input_manifest.retrieval_run_id` matches the persisted retrieval run id.
+- `stage_input_manifest.input_evidence_ledger_entry_ids` references the persisted Evidence Ledger row ids.
+- warnings mention retrieval-run-linked Evidence Ledger rows, no LLM, no embeddings, no semantic retrieval, no report generation, and no financial advice.
+
+This is not report generation, not automatic failure-case creation, not hosted deployment evidence, not external reviewer feedback, and not financial advice.

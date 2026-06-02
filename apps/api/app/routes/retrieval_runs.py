@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends
 from app.db import Repository, get_repository
 from app.schemas import (
     EvidenceLedgerPersistedOut,
+    NoiseGateStoredRecordOut,
     RetrievalRunOut,
     RetrievalRunRequest,
     RetrievalRunResponse,
@@ -12,6 +13,9 @@ from app.schemas import (
 from app.services.retrieval_run import run_retrieval
 from app.services.retrieval_run_evidence import (
     persist_evidence_ledger_from_retrieval_run,
+)
+from app.services.retrieval_run_noise_gate import (
+    persist_noise_gate_from_retrieval_run,
 )
 
 router = APIRouter(prefix="/retrieval-runs", tags=["retrieval-runs"])
@@ -40,3 +44,15 @@ def create_evidence_ledger_from_retrieval_run(
     repository: Repository = Depends(get_repository),
 ) -> EvidenceLedgerPersistedOut:
     return persist_evidence_ledger_from_retrieval_run(retrieval_run_id, repository)
+
+
+@router.post(
+    "/{retrieval_run_id}/noise-gate",
+    response_model=NoiseGateStoredRecordOut,
+    status_code=201,
+)
+def create_noise_gate_from_retrieval_run(
+    retrieval_run_id: UUID,
+    repository: Repository = Depends(get_repository),
+) -> NoiseGateStoredRecordOut:
+    return persist_noise_gate_from_retrieval_run(retrieval_run_id, repository)
