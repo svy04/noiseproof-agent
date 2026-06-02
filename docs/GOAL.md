@@ -7662,6 +7662,39 @@ Current next product gate:
 external reviewer feedback v0 remains pending, or select the next source-first product gate
 ```
 
+### Phase 248 - Uploaded Raw File Storage Runtime Smoke v0
+
+Goal:
+
+```text
+record local Docker DB plus live FastAPI HTTP evidence for the uploaded raw file storage boundary without claiming hosted deployment, scanning, or download behavior
+```
+
+Implemented:
+
+```text
+uploaded raw file storage runtime smoke v0
+docs/review/uploaded-raw-file-storage-runtime-smoke.md
+docker compose config observation
+docker compose up -d db observation
+migration runner status observation with 15 applied / 0 pending
+live FastAPI GET /health observation
+live FastAPI POST /documents/upload-raw-files observation
+live FastAPI GET /documents/upload-raw-files observation
+oversized upload -> 413 observation
+README implementation marker
+docs/application/portfolio-index.md proof link
+docs/runbook.md runtime smoke pointer
+```
+
+Phase 248 is local runtime evidence only. It records that raw bytes can be stored in PostgreSQL BYTEA through the quarantined upload endpoint while metadata responses omit `raw_bytes`, the storage key does not contain the original filename, and an oversized upload is rejected with HTTP 413. It adds no endpoint, schema, migration, malware scanning, download endpoint, robust PDF extraction, parser quality evidence, semantic retrieval evidence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, or product-complete claim.
+
+Current next product gate:
+
+```text
+external reviewer feedback v0 remains pending, uploaded raw file storage application refresh v0, or select the next source-first product gate
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

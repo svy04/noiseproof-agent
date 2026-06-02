@@ -2517,6 +2517,59 @@ not external reviewer feedback
 not product-complete
 ```
 
+## Uploaded Raw File Storage Runtime Smoke
+
+Phase 248 records uploaded raw file storage runtime smoke v0.
+
+Use this proof artifact:
+
+```text
+docs/review/uploaded-raw-file-storage-runtime-smoke.md
+```
+
+Observed local runtime path:
+
+```text
+docker compose config
+docker compose up -d db
+uv run python -m app.migration_runner --status
+uv run python -m app.migration_runner
+uv run uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8048
+GET /health
+POST /documents/upload-raw-files
+GET /documents/upload-raw-files
+oversized upload -> 413
+```
+
+Observed result:
+
+```text
+db status -> healthy
+Applied migrations: 15
+Pending migrations: 0
+post_status -> stored_quarantined
+boundary -> raw_upload_quarantine_db_bytea_no_download_endpoint
+backend -> postgres_bytea
+response_has_raw_bytes -> false
+storage_key_contains_filename -> false
+oversized upload -> 413
+```
+
+Boundary:
+
+```text
+local runtime evidence only
+not hosted deployment evidence
+not external reviewer feedback
+not malware scanning
+not a download endpoint
+not robust PDF extraction
+not parser quality evidence
+not semantic retrieval evidence
+not Evidence Ledger generation
+not product-complete
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

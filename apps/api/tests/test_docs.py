@@ -7005,3 +7005,42 @@ def test_uploaded_raw_file_storage_is_documented_without_overclaim():
     assert "raw upload quarantine metadata" in role_map
     assert "CREATE TABLE IF NOT EXISTS uploaded_raw_files" in init_schema
     assert "CREATE TABLE IF NOT EXISTS uploaded_raw_files" in migration
+
+
+def test_uploaded_raw_file_storage_runtime_smoke_records_local_http_evidence():
+    smoke_path = REPO_ROOT / "docs/review/uploaded-raw-file-storage-runtime-smoke.md"
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Storage Runtime Smoke" in content
+    assert "uploaded raw file storage runtime smoke v0" in content
+    assert "docker compose config" in content
+    assert "POST /documents/upload-raw-files" in content
+    assert "GET /documents/upload-raw-files" in content
+    assert "stored_quarantined" in content
+    assert "raw_upload_quarantine_db_bytea_no_download_endpoint" in content
+    assert "response_has_raw_bytes -> false" in content
+    assert "storage_key_contains_filename -> false" in content
+    assert "oversized upload -> 413" in content
+    assert "not malware scanning" in content
+    assert "not a download endpoint" in content
+    assert "not robust PDF extraction" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Uploaded raw file storage runtime smoke v0: implemented"
+        in readme
+    )
+    assert "Phase 248 - Uploaded Raw File Storage Runtime Smoke v0" in goal
+    assert "uploaded raw file storage runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-storage-runtime-smoke.md"
+        in portfolio
+    )
