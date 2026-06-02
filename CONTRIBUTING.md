@@ -26,7 +26,9 @@ Please start here:
    - uploaded-file chunk persistence proof; not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
 9. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
    - uploaded-file chunk handoff proof via `POST /documents/upload-chunks`; not raw uploaded byte storage, not hosted deployment evidence, and not external reviewer feedback.
-10. `docs/review/external-feedback-intake-criteria.md`
+10. `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
+   - uploaded-file retrieval persistence proof via `POST /documents/{document_id}/retrieval-runs`; not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.
+11. `docs/review/external-feedback-intake-criteria.md`
 
 Public feedback issue:
 

@@ -4747,6 +4747,74 @@ def test_external_reviewer_chunk_handoff_request_refresh_routes_reviewers_to_pro
         assert "POST /documents/upload-chunks" in reviewer_surface
 
 
+def test_external_reviewer_retrieval_persistence_request_refresh_routes_reviewers_to_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-retrieval-persistence-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+
+    assert "External Reviewer Retrieval Persistence Request Refresh" in content
+    assert "external reviewer retrieval persistence request refresh v0" in content
+    assert "request infrastructure only" in content
+    assert "uploaded-file retrieval persistence proof" in content
+    assert (
+        "docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md"
+        in content
+    )
+    assert "POST /documents/{document_id}/retrieval-runs" in content
+    assert "metadata_json.candidate_chunk_ids" in content
+    assert "metadata_source_table = document_chunks" in content
+    assert "no Evidence Ledger generation" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "does not edit the live public issue body" in content
+    assert (
+        "External reviewer retrieval persistence request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 199 - External Reviewer Retrieval Persistence Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer retrieval persistence request refresh v0" in runbook
+    assert (
+        "docs/review/external-reviewer-retrieval-persistence-request-refresh.md"
+        in portfolio
+    )
+    for reviewer_surface in [proof_path, request, brief, link_map, issue_template, contributing]:
+        assert "uploaded-file retrieval persistence proof" in reviewer_surface
+        assert (
+            "docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md"
+            in reviewer_surface
+        )
+        assert "POST /documents/{document_id}/retrieval-runs" in reviewer_surface
+
+
 def test_external_reviewer_chunk_handoff_issue_body_refresh_records_live_issue_update():
     review_path = (
         REPO_ROOT

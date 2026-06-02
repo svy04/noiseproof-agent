@@ -44,6 +44,8 @@ Read in this order:
     - uploaded-file parsed document persistence proof with document metadata/profile persistence and no raw file storage.
 17. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
     - uploaded-file chunk handoff proof with explicit `POST /documents/upload-chunks` and no raw uploaded byte storage.
+18. `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
+    - uploaded-file retrieval persistence proof with explicit `POST /documents/{document_id}/retrieval-runs`, persisted `retrieval_runs`, and no Evidence Ledger generation.
 
 ## Optional source-level provenance
 
@@ -141,6 +143,14 @@ docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md
 ```
 
 This proof is explicit `POST /documents/upload-chunks`, not raw uploaded byte storage, not hosted deployment evidence, and not external reviewer feedback.
+
+uploaded-file retrieval persistence proof:
+
+```text
+docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
+```
+
+This proof is explicit `POST /documents/{document_id}/retrieval-runs` over persisted `document_chunks`, not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.
 
 Public request issue:
 

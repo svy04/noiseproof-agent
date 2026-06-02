@@ -2752,6 +2752,50 @@ not financial advice
 
 Next reviewer-facing gate: external reviewer retrieval persistence request refresh v0.
 
+## External reviewer retrieval persistence request refresh
+
+Phase marker: external reviewer retrieval persistence request refresh v0.
+
+Use `docs/review/external-reviewer-retrieval-persistence-request-refresh.md` when checking why reviewer-facing request surfaces now point to the uploaded-file retrieval persistence proof.
+
+Reviewer-facing surfaces refreshed:
+
+```text
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+docs/review/external-review-request.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+docs/application/portfolio-index.md
+```
+
+Proof label:
+
+```text
+uploaded-file retrieval persistence proof
+```
+
+Proof artifact:
+
+```text
+docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
+```
+
+Boundary:
+
+```text
+request infrastructure only
+does not edit the live public issue body
+not external reviewer feedback
+not hosted deployment evidence
+no Evidence Ledger generation
+not semantic retrieval
+not financial advice
+```
+
+Next live issue-body gate: external reviewer retrieval persistence issue-body refresh v0.
+
 ## Metadata Examples
 
 Create a document metadata record:
