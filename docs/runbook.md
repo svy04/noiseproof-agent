@@ -2796,6 +2796,40 @@ not financial advice
 
 Next live issue-body gate: external reviewer retrieval persistence issue-body refresh v0.
 
+## External reviewer retrieval persistence issue-body refresh
+
+Phase marker: external reviewer retrieval persistence issue-body refresh v0.
+
+Use `docs/review/external-review-issue-body-retrieval-persistence-refresh.md` when checking the owner-authored issue #1 body refresh.
+
+Observed live issue markers:
+
+```text
+updatedAt: 2026-06-02T04:14:29Z
+first_codepoint: 35
+startsWith: ## Request
+comment_count: 1
+owner_comment_count: 1
+uploaded-file retrieval persistence proof body marker
+docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md body marker
+POST /documents/{document_id}/retrieval-runs body marker
+metadata_json.candidate_chunk_ids body marker
+metadata_source_table = document_chunks body marker
+```
+
+Boundary:
+
+```text
+owner-authored issue edit
+not external reviewer feedback
+not hosted deployment evidence
+no Evidence Ledger generation
+not semantic retrieval
+not financial advice
+```
+
+Next evidence gate remains: external reviewer feedback v0.
+
 ## Metadata Examples
 
 Create a document metadata record:

@@ -114,6 +114,8 @@ Uploaded file retrieval persistence application refresh: `docs/review/uploaded-f
 
 External reviewer retrieval persistence request refresh: `docs/review/external-reviewer-retrieval-persistence-request-refresh.md` points reviewer-facing request surfaces to the uploaded-file retrieval persistence proof. It is request infrastructure only and does not close external reviewer feedback.
 
+External review issue body retrieval persistence refresh: `docs/review/external-review-issue-body-retrieval-persistence-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file retrieval persistence proof. It is not external reviewer feedback, not Evidence Ledger generation, and not hosted deployment evidence.
+
 External reviewer chunk handoff request refresh: `docs/review/external-reviewer-chunk-handoff-request-refresh.md` points reviewer-facing request surfaces to the uploaded-file chunk handoff proof. It is request infrastructure only and does not close external reviewer feedback.
 
 External reviewer chunk handoff issue-body refresh: `docs/review/external-review-issue-body-chunk-handoff-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file chunk handoff proof. It is not external reviewer feedback.

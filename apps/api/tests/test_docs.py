@@ -4859,6 +4859,51 @@ def test_external_reviewer_chunk_handoff_issue_body_refresh_records_live_issue_u
     )
 
 
+def test_external_reviewer_retrieval_persistence_issue_body_refresh_records_live_issue_update():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-retrieval-persistence-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Retrieval Persistence Refresh" in content
+    assert "external reviewer retrieval persistence issue-body refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "uploaded-file retrieval persistence proof" in content
+    assert (
+        "docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md"
+        in content
+    )
+    assert "POST /documents/{document_id}/retrieval-runs" in content
+    assert "metadata_json.candidate_chunk_ids" in content
+    assert "metadata_source_table = document_chunks" in content
+    assert "no Evidence Ledger generation" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "owner-authored issue edit" in content
+    assert (
+        "External reviewer retrieval persistence issue-body refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 200 - External Reviewer Retrieval Persistence Issue-body Refresh v0"
+        in goal
+    )
+    assert "external reviewer retrieval persistence issue-body refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-retrieval-persistence-refresh.md"
+        in portfolio
+    )
+
+
 def test_external_feedback_current_state_chunk_issue_verification_keeps_gate_pending():
     review_path = (
         REPO_ROOT
