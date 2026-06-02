@@ -36,7 +36,9 @@ Please start here:
    - retrieval-run-linked Report proof via `POST /retrieval-runs/{retrieval_run_id}/report`; records `pre_report_status: 409` and `input_noise_gate_record_id`, not hosted deployment evidence, and not external reviewer feedback.
 14. `docs/evaluation/semantic-retrieval-quality-report.md`
    - toy semantic retrieval quality report; keeps `q-what-missing` visible, not vector search quality evidence, not a benchmark result, and not external reviewer feedback.
-15. `docs/review/external-feedback-intake-criteria.md`
+15. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
+   - uploaded raw file storage proof via `POST /documents/upload-raw-files` and `GET /documents/upload-raw-files`; not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
+16. `docs/review/external-feedback-intake-criteria.md`
 
 Public feedback issue:
 

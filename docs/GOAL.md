@@ -7723,6 +7723,38 @@ Current next product gate:
 external reviewer feedback v0 remains pending, external reviewer raw file storage request refresh v0, or select the next source-first product gate
 ```
 
+### Phase 250 - External Reviewer Raw File Storage Request Refresh v0
+
+Goal:
+
+```text
+route external reviewers to the uploaded raw file storage proof without expanding runtime behavior or claiming feedback
+```
+
+Implemented:
+
+```text
+external reviewer raw file storage request refresh v0
+docs/review/external-reviewer-raw-file-storage-request-refresh.md
+CONTRIBUTING.md raw file storage proof link
+.github/ISSUE_TEMPLATE/external-review-feedback.md raw file storage proof link
+docs/review/external-review-request.md raw file storage proof link
+docs/review/external-reader-proof-path.md raw file storage proof link
+docs/review/external-reviewer-brief.md raw file storage proof link
+docs/review/external-reviewer-link-map.md raw file storage proof link
+docs/application/portfolio-index.md request refresh link
+README implementation marker
+docs/runbook.md request refresh note
+```
+
+Phase 250 is request infrastructure only. It points reviewer-facing paths to `docs/review/uploaded-raw-file-storage-runtime-smoke.md` and `docs/review/uploaded-raw-file-storage-application-refresh.md` as uploaded raw file storage proof for `POST /documents/upload-raw-files`, `GET /documents/upload-raw-files`, and `raw_upload_quarantine_db_bytea_no_download_endpoint`. It adds no live issue-body edit, runtime behavior, endpoint, schema, migration, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, malware scanning, download endpoint, robust PDF extraction, parser quality evidence, semantic retrieval evidence, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, or product-complete claim.
+
+Current next product gate:
+
+```text
+external reviewer feedback v0 remains pending, external review issue body raw file storage refresh v0, or select the next source-first product gate
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

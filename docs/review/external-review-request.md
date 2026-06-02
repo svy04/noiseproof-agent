@@ -133,6 +133,15 @@ docs/review/semantic-retrieval-quality-report-application-refresh.md
 
 Boundary: this report is toy fixture metric output with `q-what-missing` kept visible. It is not vector search quality evidence, not a benchmark result, not a model comparison, not hosted deployment evidence, and not external reviewer feedback.
 
+uploaded raw file storage proof:
+
+```text
+docs/review/uploaded-raw-file-storage-runtime-smoke.md
+docs/review/uploaded-raw-file-storage-application-refresh.md
+```
+
+Boundary: this proof is explicit `POST /documents/upload-raw-files` and `GET /documents/upload-raw-files` over quarantined PostgreSQL BYTEA storage. It is not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
+
 ## Review Path
 
 Please read in this order:

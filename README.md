@@ -215,6 +215,8 @@ Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker 
 
 Uploaded raw file storage application refresh v0: implemented. Boundary: the local runtime proof is now surfaced in application-facing docs; not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
+External reviewer raw file storage request refresh v0: implemented. Boundary: reviewer request surfaces now point to the uploaded raw file storage proof; not external reviewer feedback, not hosted deployment evidence, not malware scanning, and not a download endpoint.
+
 
 ## Planned Agent Workflow
 

@@ -58,6 +58,8 @@ Read in this order:
     - caller-provided semantic retrieval persistence proof with explicit `POST /documents/{document_id}/semantic-retrieval-runs`, `GET /retrieval-runs`, dimension mismatch `400`, and unchanged Evidence Ledger counts.
 24. `docs/evaluation/semantic-retrieval-quality-report.md`
     - toy semantic retrieval quality report with visible misses and disagreement; not vector search quality evidence.
+25. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
+    - uploaded raw file storage proof with explicit `POST /documents/upload-raw-files`, `GET /documents/upload-raw-files`, quarantined PostgreSQL BYTEA storage, no malware scanning, and no download endpoint.
 
 ## Optional source-level provenance
 
@@ -163,6 +165,15 @@ docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
 ```
 
 This proof is explicit `POST /documents/{document_id}/retrieval-runs` over persisted `document_chunks`, not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.
+
+uploaded raw file storage proof:
+
+```text
+docs/review/uploaded-raw-file-storage-runtime-smoke.md
+docs/review/uploaded-raw-file-storage-application-refresh.md
+```
+
+This proof is explicit `POST /documents/upload-raw-files` and `GET /documents/upload-raw-files` over quarantined PostgreSQL BYTEA storage, not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
 
 retrieval-run-linked Report proof:
 

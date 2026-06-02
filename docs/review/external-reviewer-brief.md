@@ -28,7 +28,8 @@ Read only these:
 12. `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
 13. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
 14. `docs/evaluation/semantic-retrieval-quality-report.md`
-15. `docs/review/external-feedback-intake-criteria.md`
+15. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
+16. `docs/review/external-feedback-intake-criteria.md`
 
 uploaded-file intake manifest proof:
 
@@ -77,6 +78,14 @@ docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
 ```
 
 This proof is explicit `POST /documents/{document_id}/retrieval-runs` over persisted `document_chunks`, not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.
+
+uploaded raw file storage proof:
+
+```text
+docs/review/uploaded-raw-file-storage-runtime-smoke.md
+```
+
+This proof is explicit `POST /documents/upload-raw-files` and `GET /documents/upload-raw-files` over quarantined PostgreSQL BYTEA storage, not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
 
 retrieval-run-linked Report proof:
 

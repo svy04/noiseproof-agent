@@ -2609,6 +2609,41 @@ not robust PDF extraction
 not product-complete
 ```
 
+## External Reviewer Raw File Storage Request Refresh
+
+Phase marker: external reviewer raw file storage request refresh v0.
+
+Use this refresh artifact:
+
+```text
+docs/review/external-reviewer-raw-file-storage-request-refresh.md
+```
+
+Reviewer-facing proof target:
+
+```text
+docs/review/uploaded-raw-file-storage-runtime-smoke.md
+docs/review/uploaded-raw-file-storage-application-refresh.md
+```
+
+This request refresh points external reviewer surfaces to the uploaded raw file storage proof for:
+
+```text
+POST /documents/upload-raw-files
+GET /documents/upload-raw-files
+raw_upload_quarantine_db_bytea_no_download_endpoint
+```
+
+Boundary:
+
+```text
+not external reviewer feedback
+not hosted deployment evidence
+not malware scanning
+not a download endpoint
+not live issue-body verification
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
