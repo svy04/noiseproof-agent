@@ -1393,3 +1393,12 @@ This hidden source archive preserves earlier README proof markers while the rend
 - README semantic quality report regeneration pointer v0: implemented
 - README Evaluation section now links the regeneration command proof and failure boundary
 - Boundary: README front-door pointer only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0
+
+### Phase 243 - Semantic Retrieval Quality Report Check Mode v0
+
+- Semantic retrieval quality report check mode v0: implemented
+- `app.services.semantic_quality_report_command --check`: added
+- Current report marker: `semantic_quality_report_current`
+- Stale report marker: `semantic_quality_report_stale`, exit code 3, `byte-for-byte regeneration mismatch`
+- `docs/review/semantic-retrieval-quality-report-check-mode.md`: added
+- Boundary: staleness detection only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0

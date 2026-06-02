@@ -115,3 +115,63 @@ def test_semantic_quality_report_command_fails_with_boundary_for_bad_rankings(tm
     assert "not vector search quality evidence" in result.stderr
     assert "Traceback" not in result.stderr
     assert not output_path.exists()
+
+
+def test_semantic_quality_report_command_check_mode_accepts_current_committed_report():
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "app.services.semantic_quality_report_command",
+            "--fixture",
+            str(REPO_ROOT / "examples/semantic-retrieval-quality"),
+            "--rankings",
+            str(REPO_ROOT / "examples/semantic-retrieval-quality/rankings.json"),
+            "--output",
+            str(REPO_ROOT / "docs/evaluation/semantic-retrieval-quality-report.md"),
+            "--k",
+            "2",
+            "--check",
+        ],
+        cwd=REPO_ROOT / "apps/api",
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert "semantic_quality_report_current" in result.stdout
+    assert "byte-for-byte regeneration" in result.stdout
+    assert "not vector search quality evidence" in result.stdout
+
+
+def test_semantic_quality_report_command_check_mode_rejects_stale_report(tmp_path):
+    stale_report = tmp_path / "semantic-retrieval-quality-report.md"
+    stale_report.write_text("# stale\n", encoding="utf-8")
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "app.services.semantic_quality_report_command",
+            "--fixture",
+            str(REPO_ROOT / "examples/semantic-retrieval-quality"),
+            "--rankings",
+            str(REPO_ROOT / "examples/semantic-retrieval-quality/rankings.json"),
+            "--output",
+            str(stale_report),
+            "--k",
+            "2",
+            "--check",
+        ],
+        cwd=REPO_ROOT / "apps/api",
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 3
+    assert "semantic_quality_report_stale" in result.stderr
+    assert "byte-for-byte regeneration mismatch" in result.stderr
+    assert "not vector search quality evidence" in result.stderr
+    assert stale_report.read_text(encoding="utf-8") == "# stale\n"

@@ -4077,6 +4077,29 @@ no traceback
 
 This is command failure handling only. It is not vector search quality evidence, not a benchmark result, not a model comparison, and not external reviewer feedback.
 
+## Semantic Retrieval Quality Report Check Mode
+
+Phase marker: semantic retrieval quality report check mode v0.
+
+Use `docs/review/semantic-retrieval-quality-report-check-mode.md` when checking whether the committed toy semantic retrieval quality report still matches byte-for-byte regeneration.
+
+Run from `apps/api`:
+
+```bash
+uv run python -m app.services.semantic_quality_report_command \
+  --fixture ../../examples/semantic-retrieval-quality \
+  --rankings ../../examples/semantic-retrieval-quality/rankings.json \
+  --output ../../docs/evaluation/semantic-retrieval-quality-report.md \
+  --k 2 \
+  --check
+```
+
+Current marker: `semantic_quality_report_current`.
+
+Stale marker: `semantic_quality_report_stale`, exit code 3, `byte-for-byte regeneration mismatch`.
+
+This is staleness detection only. It is not vector search quality evidence, not a benchmark result, not a model comparison, and not external reviewer feedback.
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

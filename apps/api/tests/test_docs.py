@@ -6796,3 +6796,39 @@ def test_readme_surfaces_semantic_quality_report_regeneration_without_quality_cl
     assert "not vector search quality evidence" in readme
     assert "not a benchmark result" in readme
     assert "not a model comparison" in readme
+
+
+def test_semantic_retrieval_quality_report_check_mode_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-report-check-mode.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Quality Report Check Mode" in content
+    assert "semantic retrieval quality report check mode v0" in content
+    assert "--check" in content
+    assert "semantic_quality_report_current" in content
+    assert "semantic_quality_report_stale" in content
+    assert "exit code 3" in content
+    assert "byte-for-byte regeneration mismatch" in content
+    assert "not vector search quality evidence" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Semantic retrieval quality report check mode v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 243 - Semantic Retrieval Quality Report Check Mode v0"
+        in goal
+    )
+    assert "semantic retrieval quality report check mode v0" in runbook
+    assert "docs/review/semantic-retrieval-quality-report-check-mode.md" in portfolio

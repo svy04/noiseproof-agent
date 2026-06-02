@@ -23,6 +23,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--rankings", required=True, help="Toy rankings JSON path.")
     parser.add_argument("--output", required=True, help="Markdown report output path.")
     parser.add_argument("--k", type=int, default=2, help="Evaluation cutoff.")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Compare generated report with output path without writing.",
+    )
     args = parser.parse_args(argv)
 
     try:
@@ -42,6 +47,25 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     output = Path(args.output)
+    if args.check:
+        try:
+            current = output.read_text(encoding="utf-8")
+        except OSError as exc:
+            print("semantic_quality_report_regeneration_failed", file=sys.stderr)
+            print(str(exc), file=sys.stderr)
+            print("not vector search quality evidence", file=sys.stderr)
+            return 2
+        if current != report:
+            print("semantic_quality_report_stale", file=sys.stderr)
+            print("byte-for-byte regeneration mismatch", file=sys.stderr)
+            print("not vector search quality evidence", file=sys.stderr)
+            return 3
+        print("semantic_quality_report_current")
+        print("byte-for-byte regeneration")
+        print("not vector search quality evidence")
+        print(str(output))
+        return 0
+
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(report, encoding="utf-8")
 
