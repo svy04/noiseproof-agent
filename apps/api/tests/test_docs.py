@@ -6917,3 +6917,50 @@ def test_semantic_retrieval_quality_report_ci_remote_verification_is_documented(
         "docs/review/semantic-retrieval-quality-report-ci-remote-verification.md"
         in portfolio
     )
+
+
+def test_semantic_retrieval_quality_report_ci_remote_issue_body_refresh_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-report-ci-remote-issue-body-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Quality Report CI Remote Issue-body Refresh" in content
+    assert (
+        "semantic retrieval quality report ci remote issue-body refresh v0"
+        in content
+    )
+    assert "issue: https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "has_ci_remote_verification_link: true" in content
+    assert "comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "self_authored_comment" in content
+    assert "semantic-retrieval-quality-report-ci-remote-verification.md" in content
+    assert "not vector search quality evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "does not close external reviewer feedback v0" in content
+    assert (
+        "Semantic retrieval quality report CI remote issue-body refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 246 - Semantic Retrieval Quality Report CI Remote Issue-body Refresh v0"
+        in goal
+    )
+    assert (
+        "semantic retrieval quality report ci remote issue-body refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/semantic-retrieval-quality-report-ci-remote-issue-body-refresh.md"
+        in portfolio
+    )

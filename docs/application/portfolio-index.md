@@ -365,6 +365,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/semantic-retrieval-quality-report-check-mode.md` | check-only staleness detection for committed toy semantic retrieval quality report regeneration |
 | `docs/review/semantic-retrieval-quality-report-ci-check.md` | CI staleness protection for committed toy semantic retrieval quality report regeneration |
 | `docs/review/semantic-retrieval-quality-report-ci-remote-verification.md` | remote GitHub Actions evidence that the toy report staleness CI step ran successfully |
+| `docs/review/semantic-retrieval-quality-report-ci-remote-issue-body-refresh.md` | owner-authored issue #1 refresh pointing reviewers to the semantic quality CI remote verification proof |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

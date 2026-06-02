@@ -4147,6 +4147,23 @@ conclusion: success
 
 This is remote CI execution evidence for staleness protection only. It is not vector search quality evidence, not a benchmark result, not a model comparison, not hosted deployment evidence, and not external reviewer feedback.
 
+## Semantic Retrieval Quality Report CI Remote Issue-body Refresh
+
+Phase marker: semantic retrieval quality report ci remote issue-body refresh v0.
+
+Use `docs/review/semantic-retrieval-quality-report-ci-remote-issue-body-refresh.md` when checking why issue #1 now points reviewers to the semantic quality CI remote verification proof.
+
+Observed live issue markers after the owner-authored edit:
+
+```text
+has_ci_remote_verification_link: true
+comment_count: 1
+candidate_count: 0
+self_authored_comment
+```
+
+This is an owner-authored request-surface refresh only. It is not vector search quality evidence, not a benchmark result, not a model comparison, not hosted deployment evidence, and not external reviewer feedback.
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

@@ -1420,3 +1420,12 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Step 7 `Check semantic retrieval quality report staleness`: success
 - `docs/review/semantic-retrieval-quality-report-ci-remote-verification.md`: added
 - Boundary: remote CI execution evidence for staleness protection only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0
+
+### Phase 246 - Semantic Retrieval Quality Report CI Remote Issue-body Refresh v0
+
+- Semantic retrieval quality report CI remote issue-body refresh v0: implemented
+- Issue #1 now points reviewers to `docs/review/semantic-retrieval-quality-report-ci-remote-verification.md`
+- Observed `has_ci_remote_verification_link: true`
+- Observed `comment_count: 1`, `candidate_count: 0`, and `self_authored_comment`
+- `docs/review/semantic-retrieval-quality-report-ci-remote-issue-body-refresh.md`: added
+- Boundary: owner-authored request-surface refresh only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0
