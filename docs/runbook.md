@@ -3804,6 +3804,52 @@ not model comparison
 not Evidence Ledger generation
 ```
 
+## Semantic Retrieval Quality Evaluator
+
+Phase 232 adds a tiny evaluator over the local semantic retrieval quality fixture.
+
+The phase marker is:
+
+```text
+semantic retrieval quality evaluator v0
+```
+
+Evaluator:
+
+```text
+packages/ingestion/retrieval/quality_metrics.py
+evaluate_semantic_quality
+```
+
+Metrics:
+
+```text
+Hit@k
+Recall@k
+MRR@k
+nDCG@k
+missing_embedding_rate
+semantic_vs_lexical_disagreement
+role_coverage_at_k
+```
+
+Claim boundary:
+
+```text
+toy_fixture_metric_only_not_search_quality
+not embedding generation
+not vector search quality evidence
+not benchmark result
+not model comparison
+not Evidence Ledger generation
+```
+
+Smoke check:
+
+```bash
+uv run pytest tests/test_semantic_quality_evaluator.py -q
+```
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

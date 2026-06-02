@@ -1308,3 +1308,12 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `packages/ingestion/retrieval/quality_fixture.py`: added
 - Fixture includes 4 queries, 6 corpus chunks, 8 qrels, caller-provided toy vectors, one missing embedding case, and information-role labels
 - Boundary: fixture-only; no embedding generation, no vector search quality evidence, no benchmark result, no model comparison, no Evidence Ledger generation
+
+### Phase 232 - Semantic Retrieval Quality Evaluator v0
+
+- Semantic retrieval quality evaluator v0: implemented
+- `packages/ingestion/retrieval/quality_metrics.py`: added
+- `evaluate_semantic_quality`: added
+- Metrics: Hit@k, Recall@k, MRR@k, nDCG@k, missing_embedding_rate, semantic_vs_lexical_disagreement, role_coverage_at_k
+- Claim boundary: `toy_fixture_metric_only_not_search_quality`
+- Boundary: toy fixture metric code only; no embedding generation, no vector search quality evidence, no benchmark result, no model comparison, no Evidence Ledger generation

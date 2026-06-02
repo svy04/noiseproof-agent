@@ -845,6 +845,24 @@ def test_semantic_retrieval_quality_fixture_records_fixture_boundary():
     assert "examples/semantic-retrieval-quality/README.md" in portfolio
 
 
+def test_semantic_retrieval_quality_evaluator_records_metric_boundary():
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic retrieval quality evaluator v0: implemented" in readme
+    assert "Phase 232 - Semantic Retrieval Quality Evaluator v0" in goal
+    assert "semantic retrieval quality evaluator v0" in runbook
+    assert "packages/ingestion/retrieval/quality_metrics.py" in portfolio
+    assert "toy_fixture_metric_only_not_search_quality" in runbook
+    assert "Hit@k" in runbook
+    assert "nDCG@k" in runbook
+    assert "not vector search quality evidence" in runbook
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 
