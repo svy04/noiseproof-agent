@@ -7695,6 +7695,34 @@ Current next product gate:
 external reviewer feedback v0 remains pending, uploaded raw file storage application refresh v0, or select the next source-first product gate
 ```
 
+### Phase 249 - Uploaded Raw File Storage Application Refresh v0
+
+Goal:
+
+```text
+surface the uploaded raw file storage runtime smoke in application-facing docs without expanding runtime behavior or overclaiming scanning/download support
+```
+
+Implemented:
+
+```text
+uploaded raw file storage application refresh v0
+docs/review/uploaded-raw-file-storage-application-refresh.md
+README implementation marker
+docs/application/portfolio-index.md application refresh link
+docs/application/braincrew-role-map.md application refresh link
+docs/review/application-ready-review.md uploaded raw file quarantine storage row
+docs/runbook.md application refresh note
+```
+
+Phase 249 is application-facing documentation only. It points reviewers to `docs/review/uploaded-raw-file-storage-runtime-smoke.md` and records the allowed claim that local Docker DB plus FastAPI HTTP evidence exists for quarantined PostgreSQL BYTEA raw upload storage with metadata-only responses and oversized upload rejection. It adds no runtime behavior, endpoint, schema, migration, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, malware scanning, download endpoint, robust PDF extraction, parser quality evidence, semantic retrieval evidence, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, or product-complete claim.
+
+Current next product gate:
+
+```text
+external reviewer feedback v0 remains pending, external reviewer raw file storage request refresh v0, or select the next source-first product gate
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

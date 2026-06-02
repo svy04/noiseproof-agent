@@ -7044,3 +7044,53 @@ def test_uploaded_raw_file_storage_runtime_smoke_records_local_http_evidence():
         "docs/review/uploaded-raw-file-storage-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_storage_application_refresh_surfaces_runtime_proof():
+    refresh_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-storage-application-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded Raw File Storage Application Refresh" in content
+    assert "uploaded raw file storage application refresh v0" in content
+    assert "docs/review/uploaded-raw-file-storage-runtime-smoke.md" in content
+    assert "POST /documents/upload-raw-files" in content
+    assert "GET /documents/upload-raw-files" in content
+    assert "raw_upload_quarantine_db_bytea_no_download_endpoint" in content
+    assert "response_has_raw_bytes -> false" in content
+    assert "oversized upload -> 413" in content
+    assert "not malware scanning" in content
+    assert "not a download endpoint" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Uploaded raw file storage application refresh v0: implemented"
+        in readme
+    )
+    assert "Phase 249 - Uploaded Raw File Storage Application Refresh v0" in goal
+    assert "uploaded raw file storage application refresh v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-storage-application-refresh.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/uploaded-raw-file-storage-application-refresh.md"
+        in role_map
+    )
+    assert "uploaded raw file quarantine storage exists" in application_ready

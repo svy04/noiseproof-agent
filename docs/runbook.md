@@ -2570,6 +2570,45 @@ not Evidence Ledger generation
 not product-complete
 ```
 
+## Uploaded Raw File Storage Application Refresh
+
+Phase marker: uploaded raw file storage application refresh v0.
+
+Use this refresh artifact:
+
+```text
+docs/review/uploaded-raw-file-storage-application-refresh.md
+```
+
+Primary runtime proof:
+
+```text
+docs/review/uploaded-raw-file-storage-runtime-smoke.md
+```
+
+Application-facing surfaces updated:
+
+```text
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+docs/application/braincrew-role-map.md
+docs/review/application-ready-review.md
+```
+
+Boundary:
+
+```text
+documentation/application refresh only
+not hosted deployment evidence
+not external reviewer feedback
+not malware scanning
+not a download endpoint
+not robust PDF extraction
+not product-complete
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

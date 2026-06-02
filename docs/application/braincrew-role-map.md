@@ -68,6 +68,7 @@ Detailed proof links:
 - `docs/review/uploaded-file-chunk-persistence-application-refresh.md`
 - `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md`
 - `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
+- `docs/review/uploaded-raw-file-storage-application-refresh.md`
 - `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
 - `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
 - `docs/review/retrieval-run-linked-report-runtime-smoke.md`
@@ -75,7 +76,6 @@ Detailed proof links:
 - `docs/review/semantic-retrieval-persistence-runtime-smoke.md`
 - `docs/review/semantic-retrieval-persistence-application-refresh.md`
 - `docs/review/semantic-retrieval-quality-report-application-refresh.md`
-- `docs/review/uploaded-raw-file-storage.md`
 
 ## DeepDocurator Alignment
 

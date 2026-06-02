@@ -213,6 +213,8 @@ Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTE
 
 Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence only; not hosted deployment evidence, not external reviewer feedback, and not malware scanning.
 
+Uploaded raw file storage application refresh v0: implemented. Boundary: the local runtime proof is now surfaced in application-facing docs; not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 
 ## Planned Agent Workflow
 
