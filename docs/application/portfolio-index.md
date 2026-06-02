@@ -348,6 +348,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/semantic-retrieval-preview-runtime-smoke.md` | local Docker DB plus live FastAPI smoke for semantic retrieval preview; no persistence or quality claim |
 | `docs/review/semantic-retrieval-persistence-review.md` | review-only decision to persist semantic candidates through a new `POST /documents/{document_id}/semantic-retrieval-runs` endpoint and the existing `retrieval_runs` table; no endpoint code or Evidence Ledger generation |
 | `docs/review/semantic-retrieval-persistence-endpoint.md` | endpoint code for persisting caller-provided-vector semantic candidates into `retrieval_runs`; no runtime smoke, embedding generation, or Evidence Ledger generation |
+| `docs/review/semantic-retrieval-persistence-runtime-smoke.md` | local Docker DB plus live FastAPI HTTP proof for persisted semantic retrieval runs; no embedding generation, Evidence Ledger generation, or vector search quality claim |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

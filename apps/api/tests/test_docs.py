@@ -714,7 +714,40 @@ def test_semantic_retrieval_persistence_endpoint_records_endpoint_without_runtim
     assert "semantic retrieval persistence endpoint v0" in runbook
     assert "docs/review/semantic-retrieval-persistence-endpoint.md" in portfolio
     assert "Semantic retrieval persistence endpoint v0: implemented" in visible_readme
-    assert "embedding generation, semantic retrieval runtime smoke, and vector search quality evidence" in visible_readme
+    assert "embedding generation and vector search quality evidence" in visible_readme
+
+
+def test_semantic_retrieval_persistence_runtime_smoke_records_live_http_boundary():
+    review_path = REPO_ROOT / "docs/review/semantic-retrieval-persistence-runtime-smoke.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    visible_readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Semantic Retrieval Persistence Runtime Smoke" in content
+    assert "semantic retrieval persistence runtime smoke v0" in content
+    assert "local Docker DB plus live FastAPI HTTP" in content
+    assert "POST /documents/{document_id}/semantic-retrieval-runs -> 201" in content
+    assert "GET /retrieval-runs -> 200" in content
+    assert "retrieval_run_count_after = retrieval_run_count_before + 1" in content
+    assert "dimension mismatch -> 400" in content
+    assert "evidence_ledger_count_unchanged -> true" in content
+    assert "metadata_json.retrieval_mode = semantic_persisted" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger generation" in content
+    assert "not vector search quality evidence" in content
+    assert "Semantic retrieval persistence runtime smoke v0: implemented" in readme
+    assert "Phase 228 - Semantic Retrieval Persistence Runtime Smoke v0" in goal
+    assert "semantic retrieval persistence runtime smoke v0" in runbook
+    assert "docs/review/semantic-retrieval-persistence-runtime-smoke.md" in portfolio
+    assert "Semantic retrieval persistence runtime smoke v0: implemented" in visible_readme
+    assert "embedding generation and vector search quality evidence" in visible_readme
 
 
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():

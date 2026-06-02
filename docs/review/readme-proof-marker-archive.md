@@ -1268,3 +1268,15 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Persists one `retrieval_runs` row with `strategy = semantic-cosine`
 - Required metadata: `metadata_json.retrieval_mode = semantic_persisted`, `metadata_json.candidate_chunk_ids`, `metadata_json.candidate_embedding_ids`, `metadata_json.missing_embedding_chunk_ids`
 - Boundary: no embedding generation, no Evidence Ledger generation, no semantic retrieval runtime smoke yet, no vector search quality claim, no hosted deployment evidence
+
+### Phase 228 - Semantic Retrieval Persistence Runtime Smoke v0
+
+- Semantic retrieval persistence runtime smoke v0: implemented
+- `docs/review/semantic-retrieval-persistence-runtime-smoke.md`: added
+- Local Docker DB plus live FastAPI HTTP verified `POST /documents/{document_id}/semantic-retrieval-runs -> 201`
+- `GET /retrieval-runs -> 200`
+- `retrieval_run_count_after = retrieval_run_count_before + 1`
+- `dimension mismatch -> 400`
+- `evidence_ledger_count_unchanged -> true`
+- Required metadata observed: `metadata_json.retrieval_mode = semantic_persisted`
+- Boundary: local runtime evidence only; not embedding generation, not Evidence Ledger generation, not vector search quality evidence, not hosted deployment evidence

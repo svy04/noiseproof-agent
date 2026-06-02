@@ -114,7 +114,7 @@ Still planned or explicitly unclaimed near the top:
 
 - web app and polished dashboard UI
 - raw uploaded file storage and robust PDF extraction
-- automatic upload-preview-to-chunk persistence wiring, embedding generation, semantic retrieval runtime smoke, vector search quality evidence, and LLM calls
+- automatic upload-preview-to-chunk persistence wiring, embedding generation, vector search quality evidence, and LLM calls
 - hosted deployment evidence
 - automatic failure-case creation from workflow failures
 - complete workflow failure causality
@@ -193,8 +193,8 @@ Major implementation milestones:
 - Uploaded file retrieval persistence application refresh v0: implemented
 - Embedding endpoint runtime smoke v0: implemented
 - Embedding endpoint application refresh v0: implemented
-- Semantic retrieval preview endpoint v0: implemented
 - Semantic retrieval persistence endpoint v0: implemented
+- Semantic retrieval persistence runtime smoke v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`.
 
@@ -205,7 +205,7 @@ Not implemented yet:
 - automatic upload-preview-to-chunk persistence wiring
 - autonomous workflow execution endpoints
 - automatic failure-case persistence from workflow failures
-- embedding generation, semantic retrieval runtime smoke, and vector search quality evidence
+- embedding generation and vector search quality evidence
 - full distributed tracing or hosted observability
 
 

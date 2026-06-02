@@ -3615,6 +3615,53 @@ not vector search quality evidence
 not hosted deployment evidence
 ```
 
+## Semantic Retrieval Persistence Runtime Smoke
+
+Phase 228 verifies the semantic retrieval persistence endpoint against local Docker PostgreSQL/pgvector and live FastAPI HTTP.
+
+The phase marker is:
+
+```text
+semantic retrieval persistence runtime smoke v0
+```
+
+Review artifact:
+
+```text
+docs/review/semantic-retrieval-persistence-runtime-smoke.md
+```
+
+Environment:
+
+```text
+local Docker DB plus live FastAPI HTTP
+noiseproof-agent-db on localhost:55432
+FastAPI on 127.0.0.1:8038
+Applied migrations: 14
+Pending migrations: 0
+```
+
+Observed endpoint checks:
+
+```text
+GET /health -> 200
+POST /documents/{document_id}/semantic-retrieval-runs -> 201
+GET /retrieval-runs -> 200
+retrieval_run_count_after = retrieval_run_count_before + 1
+dimension mismatch -> 400
+evidence_ledger_count_unchanged -> true
+metadata_json.retrieval_mode = semantic_persisted
+```
+
+Claim boundary:
+
+```text
+not embedding generation
+not Evidence Ledger generation
+not vector search quality evidence
+not hosted deployment evidence
+```
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.
