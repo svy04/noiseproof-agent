@@ -4027,6 +4027,20 @@ The visible miss marker remains:
 q-what-missing
 ```
 
+## Semantic Retrieval Quality Report Proof Surface Final Scan
+
+Phase marker: semantic retrieval quality report proof surface final scan v0.
+
+Use `docs/review/semantic-retrieval-quality-report-proof-surface-final-scan.md` when checking that application-facing semantic retrieval quality report surfaces do not turn toy fixture metrics into a positive quality claim.
+
+Observed scan result:
+
+```text
+stale_positive_quality_claim_count: 0
+```
+
+This is documentation scan evidence only. It is not vector search quality evidence, not a benchmark result, not a model comparison, not hosted deployment evidence, and not external reviewer feedback.
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

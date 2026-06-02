@@ -6627,3 +6627,65 @@ def test_semantic_retrieval_quality_report_proof_surface_regression_coverage_lin
         "docs/review/semantic-retrieval-quality-report-proof-surface-regression-coverage.md"
         in portfolio
     )
+
+
+def test_semantic_retrieval_quality_report_proof_surface_final_scan_blocks_stale_quality_claims():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-report-proof-surface-final-scan.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Quality Report Proof Surface Final Scan" in content
+    assert "semantic retrieval quality report proof surface final scan v0" in content
+    assert "stale_positive_quality_claim_count: 0" in content
+    for surface in [
+        "README.md",
+        "docs/GOAL.md",
+        "docs/runbook.md",
+        "docs/application/portfolio-index.md",
+        "docs/application/braincrew-role-map.md",
+        "docs/review/application-ready-review.md",
+        "docs/review/external-reader-proof-path.md",
+        "docs/review/external-review-request.md",
+        "docs/review/external-reviewer-brief.md",
+        "docs/review/external-reviewer-link-map.md",
+        "docs/review/readme-proof-marker-archive.md",
+        "docs/review/semantic-retrieval-quality-report-proof-surface-regression-coverage.md",
+    ]:
+        assert surface in content
+    for forbidden_claim in [
+        "NoiseProof has proven semantic retrieval quality",
+        "semantic retrieval is production quality",
+        "vector search quality is proven",
+        "benchmark result",
+        "model comparison",
+    ]:
+        assert forbidden_claim in content
+    assert "blocked_stale_claim_examples_only" in content
+    assert "q-what-missing" in content
+    assert "toy_fixture_metric_only_not_search_quality" in content
+    assert "not vector search quality evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "does not close external reviewer feedback v0" in content
+    assert (
+        "Semantic retrieval quality report proof surface final scan v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 239 - Semantic Retrieval Quality Report Proof Surface Final Scan v0"
+        in goal
+    )
+    assert "semantic retrieval quality report proof surface final scan v0" in runbook
+    assert (
+        "docs/review/semantic-retrieval-quality-report-proof-surface-final-scan.md"
+        in portfolio
+    )
