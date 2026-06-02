@@ -340,6 +340,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/embedding-repository-review.md` | review-only repository boundary for future `ChunkEmbeddingCreate`, `create_chunk_embedding`, and `list_chunk_embeddings` |
 | `docs/review/embedding-repository.md` | metadata/persistence-only repository code for caller-provided chunk embeddings; no endpoint or embedding generation |
 | `docs/review/embedding-endpoint-review.md` | review-only chunk-scoped API boundary for future caller-provided chunk embeddings; no endpoint code |
+| `docs/review/embedding-endpoint.md` | route-level caller-provided chunk embedding persistence; no embedding generation or semantic retrieval |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

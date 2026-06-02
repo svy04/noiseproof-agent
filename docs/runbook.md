@@ -3373,3 +3373,35 @@ embedding_source = caller_provided_vector
 ```
 
 This review adds no endpoint code. Do not generate embeddings, run semantic retrieval, create HNSW/IVFFlat index behavior, generate Evidence Ledger rows, or call external model APIs in this gate.
+
+## Embedding Endpoint v0
+
+Phase 220 adds route-level caller-provided chunk embedding persistence.
+
+The phase marker is:
+
+```text
+embedding endpoint v0
+```
+
+Review artifact:
+
+```text
+docs/review/embedding-endpoint.md
+```
+
+Routes:
+
+```text
+POST /chunks/{chunk_id}/embeddings
+GET /chunks/{chunk_id}/embeddings
+```
+
+Local test:
+
+```powershell
+cd C:\Users\admin\Desktop\noiseproof-agent\apps\api
+uv run pytest tests/test_routes.py -q -k "chunk_embedding_endpoint"
+```
+
+The endpoint accepts caller-provided vector payloads only and adds `caller_provided_embedding_only_no_generation` to metadata. It rejects generated embedding claims and dimension mismatches. It is not embedding generation, not semantic retrieval implementation, not HNSW or IVFFlat index behavior, and not Evidence Ledger generation.

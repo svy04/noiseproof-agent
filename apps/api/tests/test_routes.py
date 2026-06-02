@@ -25,6 +25,7 @@ class InMemoryRepository:
         self.retrieval_runs = []
         self.workflow_runs = []
         self.uploaded_file_intake_manifests = []
+        self.chunk_embeddings = []
 
     def create_document(self, payload: DocumentCreate) -> dict:
         row = payload.model_dump()
@@ -49,6 +50,30 @@ class InMemoryRepository:
             for row in self.document_chunks
             if str(row["document_id"]) == str(document_id)
         ]
+        return rows[:limit]
+
+    def create_chunk_embedding(self, payload) -> dict:
+        row = payload.model_dump()
+        row["id"] = uuid4()
+        row["embedding_created_at"] = datetime.now(timezone.utc)
+        row["created_at"] = datetime.now(timezone.utc)
+        self.chunk_embeddings.append(row)
+        return row
+
+    def list_chunk_embeddings(
+        self,
+        chunk_id=None,
+        embedding_model=None,
+        embedding_status=None,
+        limit=20,
+    ):
+        rows = self.chunk_embeddings
+        if chunk_id is not None:
+            rows = [row for row in rows if str(row["chunk_id"]) == str(chunk_id)]
+        if embedding_model is not None:
+            rows = [row for row in rows if row["embedding_model"] == embedding_model]
+        if embedding_status is not None:
+            rows = [row for row in rows if row["embedding_status"] == embedding_status]
         return rows[:limit]
 
     def create_uploaded_file_intake_manifest(self, payload) -> dict:
@@ -577,6 +602,70 @@ def test_document_chunk_persistence_endpoint_roundtrip_explicit_document_scope()
     assert listed.status_code == 200
     assert len(listed.json()) == 1
     assert listed.json()[0]["id"] == created_json["id"]
+
+
+def test_chunk_embedding_endpoint_persists_caller_provided_vector_only():
+    client = make_client()
+    chunk_id = str(uuid4())
+
+    response = client.post(
+        f"/chunks/{chunk_id}/embeddings",
+        json={
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 3,
+            "embedding_text_hash": "sha256:chunk-text",
+            "distance_metric": "cosine",
+            "embedding_status": "created",
+            "embedding": [0.1, 0.2, 0.3],
+            "metadata_json": {"embedding_source": "caller_provided_vector"},
+        },
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["chunk_id"] == chunk_id
+    assert body["embedding_model"] == "local-test-model"
+    assert body["embedding_dimension"] == 3
+    assert body["embedding"] == [0.1, 0.2, 0.3]
+    assert body["metadata_json"]["embedding_source"] == "caller_provided_vector"
+    assert body["metadata_json"]["persistence_boundary"] == (
+        "caller_provided_embedding_only_no_generation"
+    )
+
+    list_response = client.get(
+        f"/chunks/{chunk_id}/embeddings",
+        params={
+            "embedding_model": "local-test-model",
+            "embedding_status": "created",
+        },
+    )
+
+    assert list_response.status_code == 200
+    rows = list_response.json()
+    assert len(rows) == 1
+    assert rows[0]["chunk_id"] == chunk_id
+    assert rows[0]["metadata_json"]["embedding_source"] == "caller_provided_vector"
+
+
+def test_chunk_embedding_endpoint_rejects_generated_embedding_claims():
+    client = make_client()
+    chunk_id = str(uuid4())
+
+    response = client.post(
+        f"/chunks/{chunk_id}/embeddings",
+        json={
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 3,
+            "embedding_text_hash": "sha256:chunk-text",
+            "distance_metric": "cosine",
+            "embedding_status": "created",
+            "embedding": [0.1, 0.2, 0.3],
+            "metadata_json": {"embedding_source": "generated_by_model"},
+        },
+    )
+
+    assert response.status_code == 400
+    assert "caller-provided vector" in response.json()["detail"]
 
 
 def test_upload_chunk_preview_does_not_auto_persist_document_chunks():

@@ -145,6 +145,16 @@ class ChunkEmbeddingOut(ChunkEmbeddingCreate):
     created_at: datetime
 
 
+class ChunkEmbeddingRequest(BaseModel):
+    embedding_model: str = Field(..., min_length=1)
+    embedding_dimension: int = Field(..., ge=1)
+    embedding_text_hash: str = Field(..., min_length=1)
+    distance_metric: str = "cosine"
+    embedding_status: str = "planned"
+    embedding: list[float] | None = None
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
+
+
 class DocumentChunkRequest(BaseModel):
     source_type: str = Field(..., min_length=1)
     source_uri: str | None = None

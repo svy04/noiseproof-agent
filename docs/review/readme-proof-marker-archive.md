@@ -1196,3 +1196,12 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Selected next API boundary: `POST /chunks/{chunk_id}/embeddings` and `GET /chunks/{chunk_id}/embeddings`
 - Selected persistence handoff: `ChunkEmbeddingCreate`, `ChunkEmbeddingOut`, `create_chunk_embedding`, and `list_chunk_embeddings`
 - Boundary: review-only; not endpoint code, not embedding generation, not semantic retrieval implementation, not HNSW or IVFFlat index behavior, not Evidence Ledger generation, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 220 - Embedding Endpoint v0
+
+- Embedding endpoint v0: implemented
+- `apps/api/app/routes/chunks.py`: added `POST /chunks/{chunk_id}/embeddings` and `GET /chunks/{chunk_id}/embeddings`
+- `apps/api/app/schemas.py`: added `ChunkEmbeddingRequest`
+- `apps/api/tests/test_routes.py`: added caller-provided vector persistence and generated-claim rejection tests
+- `docs/review/embedding-endpoint.md`: added
+- Boundary: caller-provided vector endpoint only; not embedding generation, not semantic retrieval implementation, not HNSW or IVFFlat index behavior, not Evidence Ledger generation, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

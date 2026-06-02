@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 from app.routes import (
     agent_runs,
+    chunks,
     collection_plans,
     documents,
     evidence_ledgers,
@@ -25,6 +26,7 @@ def create_app() -> FastAPI:
     app.include_router(health.router)
     app.include_router(collection_plans.router)
     app.include_router(documents.router)
+    app.include_router(chunks.router)
     app.include_router(agent_runs.router)
     app.include_router(retrieval_runs.router)
     app.include_router(evidence_ledgers.router)
