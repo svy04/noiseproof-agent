@@ -1,4 +1,5 @@
 from pathlib import Path
+import subprocess
 import sys
 
 
@@ -46,3 +47,38 @@ def test_semantic_quality_report_keeps_toy_fixture_boundary_visible():
     assert "q-what-missing" in report
     assert "not vector search quality evidence" in report
     assert "not embedding generation" in report
+
+
+def test_semantic_quality_report_command_regenerates_committed_report(tmp_path):
+    output_path = tmp_path / "semantic-retrieval-quality-report.md"
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "app.services.semantic_quality_report_command",
+            "--fixture",
+            str(REPO_ROOT / "examples/semantic-retrieval-quality"),
+            "--rankings",
+            str(REPO_ROOT / "examples/semantic-retrieval-quality/rankings.json"),
+            "--output",
+            str(output_path),
+            "--k",
+            "2",
+        ],
+        cwd=REPO_ROOT / "apps/api",
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    report = output_path.read_text(encoding="utf-8")
+    committed_report = (
+        REPO_ROOT / "docs/evaluation/semantic-retrieval-quality-report.md"
+    ).read_text(encoding="utf-8")
+
+    assert report == committed_report
+    assert "semantic retrieval quality report v0" in result.stdout
+    assert "toy_fixture_metric_only_not_search_quality" in result.stdout
+    assert "not vector search quality evidence" in result.stdout

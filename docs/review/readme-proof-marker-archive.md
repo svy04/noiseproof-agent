@@ -1370,3 +1370,12 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Scanned application-facing semantic retrieval quality report surfaces for stale positive quality wording
 - Observed `stale_positive_quality_claim_count: 0`
 - Boundary: documentation scan only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0
+
+### Phase 240 - Semantic Retrieval Quality Report Regeneration Command v0
+
+- Semantic retrieval quality report regeneration command v0: implemented
+- `app.services.semantic_quality_report_command`: added
+- `examples/semantic-retrieval-quality/rankings.json`: added
+- `docs/review/semantic-retrieval-quality-report-regeneration-command.md`: added
+- The toy semantic retrieval quality report now has byte-for-byte regeneration from explicit local fixture inputs
+- Boundary: reproducibility plumbing only; not embedding generation, not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0

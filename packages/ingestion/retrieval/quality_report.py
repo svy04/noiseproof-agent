@@ -71,6 +71,14 @@ def build_semantic_quality_report(
     lines.extend(
         [
             "",
+            "## Interpretation",
+            "",
+            "This report intentionally uses a weak semantic ranking fixture so misses and disagreements remain visible.",
+            "",
+            "`q-what-missing` retrieves no relevant semantic candidate in this fixture. That is useful because it proves the evaluator can surface a missing-data failure instead of turning every semantic retrieval run into a success story.",
+            "",
+            f"`semantic_vs_lexical_disagreement = {_format_metric(aggregate.get('semantic_vs_lexical_disagreement'))}` means the toy semantic ranking and toy lexical ranking diverge strongly in this fixture. This is a warning signal, not a quality claim.",
+            "",
             "## Boundary",
             "",
             "This is not embedding generation.",

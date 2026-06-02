@@ -4041,6 +4041,24 @@ stale_positive_quality_claim_count: 0
 
 This is documentation scan evidence only. It is not vector search quality evidence, not a benchmark result, not a model comparison, not hosted deployment evidence, and not external reviewer feedback.
 
+## Semantic Retrieval Quality Report Regeneration Command
+
+Phase marker: semantic retrieval quality report regeneration command v0.
+
+Use `docs/review/semantic-retrieval-quality-report-regeneration-command.md` when checking how to regenerate `docs/evaluation/semantic-retrieval-quality-report.md` from explicit local fixture inputs.
+
+Run from `apps/api`:
+
+```bash
+uv run python -m app.services.semantic_quality_report_command \
+  --fixture ../../examples/semantic-retrieval-quality \
+  --rankings ../../examples/semantic-retrieval-quality/rankings.json \
+  --output ../../docs/evaluation/semantic-retrieval-quality-report.md \
+  --k 2
+```
+
+This is byte-for-byte regeneration plumbing only. It is not embedding generation, not vector search quality evidence, not a benchmark result, not a model comparison, and not external reviewer feedback.
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

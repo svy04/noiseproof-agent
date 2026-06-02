@@ -1,0 +1,20 @@
+{
+  "semantic_rankings": {
+    "q-demand-growth": ["chunk-scope-boundary", "chunk-demand-growth"],
+    "q-risk-contradiction": ["chunk-demand-growth", "chunk-source-quality"],
+    "q-source-quality": ["chunk-demand-growth", "chunk-missing-source"],
+    "q-what-missing": []
+  },
+  "lexical_rankings": {
+    "q-demand-growth": ["chunk-demand-growth", "chunk-revenue-growth"],
+    "q-risk-contradiction": ["chunk-contradictory-channel"],
+    "q-source-quality": ["chunk-source-quality"],
+    "q-what-missing": ["chunk-missing-source"]
+  },
+  "claim_boundary": "ranking_fixture_only_not_search_quality",
+  "notes": [
+    "Caller-provided toy rankings only.",
+    "No embedding generation.",
+    "No vector search quality evidence."
+  ]
+}

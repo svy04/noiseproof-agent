@@ -6689,3 +6689,50 @@ def test_semantic_retrieval_quality_report_proof_surface_final_scan_blocks_stale
         "docs/review/semantic-retrieval-quality-report-proof-surface-final-scan.md"
         in portfolio
     )
+
+
+def test_semantic_retrieval_quality_report_regeneration_command_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-report-regeneration-command.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Quality Report Regeneration Command" in content
+    assert "semantic retrieval quality report regeneration command v0" in content
+    for artifact in [
+        "app.services.semantic_quality_report_command",
+        "examples/semantic-retrieval-quality/rankings.json",
+        "docs/evaluation/semantic-retrieval-quality-report.md",
+        "packages/ingestion/retrieval/quality_report.py",
+    ]:
+        assert artifact in content
+    assert "byte-for-byte regeneration" in content
+    assert "toy_fixture_metric_only_not_search_quality" in content
+    assert "ranking_fixture_only_not_search_quality" in content
+    assert "not embedding generation" in content
+    assert "not vector search quality evidence" in content
+    assert "not benchmark result" in content
+    assert "not model comparison" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Semantic retrieval quality report regeneration command v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 240 - Semantic Retrieval Quality Report Regeneration Command v0"
+        in goal
+    )
+    assert "semantic retrieval quality report regeneration command v0" in runbook
+    assert (
+        "docs/review/semantic-retrieval-quality-report-regeneration-command.md"
+        in portfolio
+    )
