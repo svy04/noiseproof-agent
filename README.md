@@ -295,6 +295,14 @@ See:
 
 The project does not claim model quality, semantic retrieval quality, or answer quality success.
 
+Semantic retrieval quality report regeneration:
+
+- command: `uv run python -m app.services.semantic_quality_report_command`
+- proof: `docs/review/semantic-retrieval-quality-report-regeneration-command.md`
+- failure boundary: `docs/review/semantic-retrieval-quality-report-regeneration-failure-boundary.md`
+
+This provides byte-for-byte regeneration for the toy semantic retrieval quality report. It is not vector search quality evidence, not a benchmark result, and not a model comparison.
+
 ## Failure Cases
 
 Failure cases are first-class artifacts. The planned system will record:

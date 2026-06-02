@@ -6780,3 +6780,19 @@ def test_semantic_retrieval_quality_report_regeneration_failure_boundary_is_docu
         "docs/review/semantic-retrieval-quality-report-regeneration-failure-boundary.md"
         in portfolio
     )
+
+
+def test_readme_surfaces_semantic_quality_report_regeneration_without_quality_claim():
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "Semantic retrieval quality report regeneration:" in readme
+    assert "docs/review/semantic-retrieval-quality-report-regeneration-command.md" in readme
+    assert (
+        "docs/review/semantic-retrieval-quality-report-regeneration-failure-boundary.md"
+        in readme
+    )
+    assert "app.services.semantic_quality_report_command" in readme
+    assert "byte-for-byte regeneration" in readme
+    assert "not vector search quality evidence" in readme
+    assert "not a benchmark result" in readme
+    assert "not a model comparison" in readme

@@ -1387,3 +1387,9 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/semantic-retrieval-quality-report-regeneration-failure-boundary.md`: added
 - The command now avoids raw tracebacks for malformed rankings fixture validation failures
 - Boundary: command failure handling only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0
+
+### Phase 242 - README Semantic Quality Report Regeneration Pointer v0
+
+- README semantic quality report regeneration pointer v0: implemented
+- README Evaluation section now links the regeneration command proof and failure boundary
+- Boundary: README front-door pointer only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0
