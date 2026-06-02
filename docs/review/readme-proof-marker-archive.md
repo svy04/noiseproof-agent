@@ -21,6 +21,9 @@ External reviewer chunk persistence issue-body refresh v0: implemented
 External feedback current-state chunk issue verification v0: implemented
 Uploaded file chunk persistence handoff review v0: implemented
 Uploaded file chunk persistence handoff endpoint v0: implemented
+External reviewer chunk handoff request refresh v0: implemented
+External reviewer chunk handoff issue-body refresh v0: implemented
+External feedback current-state chunk handoff issue verification v0: implemented
 
 README detailed implementation status archive moved during Phase 103.
 This hidden source archive preserves earlier README proof markers while the rendered README stays scanable.
@@ -969,3 +972,21 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Uploaded file chunk persistence handoff runtime smoke v0: implemented
 - `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`: added
 - Boundary: local runtime smoke evidence only; no hosted deployment evidence, external reviewer feedback, retrieval persistence, embeddings, raw uploaded byte storage, or product-complete claim added
+
+### Phase 191 - External Reviewer Chunk Handoff Request Refresh v0
+
+- External reviewer chunk handoff request refresh v0: implemented
+- `docs/review/external-reviewer-chunk-handoff-request-refresh.md`: added
+- Boundary: request infrastructure only; no runtime behavior, hosted deployment evidence, external reviewer feedback, or product-complete claim added
+
+### Phase 192 - External Reviewer Chunk Handoff Issue-body Refresh v0
+
+- External reviewer chunk handoff issue-body refresh v0: implemented
+- `docs/review/external-review-issue-body-chunk-handoff-refresh.md`: added
+- Boundary: owner-authored issue edit only; no external reviewer feedback, hosted deployment evidence, or product-complete claim added
+
+### Phase 193 - External Feedback Current-state Chunk Handoff Issue Verification v0
+
+- External feedback current-state chunk handoff issue verification v0: implemented
+- `docs/review/external-feedback-current-state-chunk-handoff-issue-verification.md`: added
+- Boundary: current-state screen only; no external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete claim added

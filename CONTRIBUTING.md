@@ -24,7 +24,9 @@ Please start here:
    - uploaded-file parsed document persistence proof; not raw file storage, not parsed text persistence, not hosted deployment evidence, and not external reviewer feedback.
 8. `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`
    - uploaded-file chunk persistence proof; not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
-9. `docs/review/external-feedback-intake-criteria.md`
+9. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
+   - uploaded-file chunk handoff proof via `POST /documents/upload-chunks`; not raw uploaded byte storage, not hosted deployment evidence, and not external reviewer feedback.
+10. `docs/review/external-feedback-intake-criteria.md`
 
 Public feedback issue:
 

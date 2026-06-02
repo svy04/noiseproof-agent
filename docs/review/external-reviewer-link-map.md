@@ -40,7 +40,10 @@ https://github.com/svy04/noiseproof-agent/issues/1
 10. uploaded-file chunk persistence proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-chunk-persistence-runtime-smoke.md
    Boundary: not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
-11. Feedback intake criteria:
+11. uploaded-file chunk handoff proof:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md
+   Boundary: explicit `POST /documents/upload-chunks`, not raw uploaded byte storage, not hosted deployment evidence, and not external reviewer feedback.
+12. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route

@@ -2533,6 +2533,68 @@ no retrieval persistence
 
 This is local runtime evidence only, not hosted deployment evidence or external reviewer feedback.
 
+## External reviewer chunk handoff request refresh
+
+Phase marker: external reviewer chunk handoff request refresh v0.
+
+Use `docs/review/external-reviewer-chunk-handoff-request-refresh.md` when checking why reviewer-facing request surfaces now point to the uploaded-file chunk handoff proof.
+
+Reviewer-facing surfaces should include:
+
+```text
+uploaded-file chunk handoff proof
+docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md
+POST /documents/upload-chunks
+explicit_upload_to_chunks_no_raw_file_storage
+chunk_text_only_no_raw_file_storage
+not external reviewer feedback
+not hosted deployment evidence
+```
+
+This is request infrastructure only.
+
+## External reviewer chunk handoff issue-body refresh
+
+Phase marker: external reviewer chunk handoff issue-body refresh v0.
+
+Use `docs/review/external-review-issue-body-chunk-handoff-refresh.md` when checking the owner-authored issue #1 body refresh.
+
+The live issue body should include:
+
+```text
+uploaded-file chunk handoff proof
+docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md
+POST /documents/upload-chunks
+explicit_upload_to_chunks_no_raw_file_storage
+chunk_text_only_no_raw_file_storage
+```
+
+This is an owner-authored issue edit only, not external reviewer feedback.
+
+## External feedback current-state chunk handoff issue verification
+
+Phase marker: external feedback current-state chunk handoff issue verification v0.
+
+Use `docs/review/external-feedback-current-state-chunk-handoff-issue-verification.md` when checking the live issue state after the uploaded-file chunk handoff issue-body refresh.
+
+The live issue screen observed:
+
+```text
+updatedAt: 2026-06-02T00:37:18Z
+first_codepoint: 35
+comment_count: 1
+candidate_count: 0
+draft_count: 0
+self_authored_comment
+uploaded-file chunk handoff proof
+docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md
+POST /documents/upload-chunks
+explicit_upload_to_chunks_no_raw_file_storage
+chunk_text_only_no_raw_file_storage
+```
+
+This is a current-state screen only. It does not close external reviewer feedback v0.
+
 ## Metadata Examples
 
 Create a document metadata record:

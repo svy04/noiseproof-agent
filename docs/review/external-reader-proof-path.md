@@ -42,6 +42,8 @@ Read in this order:
     - uploaded-file intake manifest persistence proof with manifest metadata persistence and no raw file storage.
 16. `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
     - uploaded-file parsed document persistence proof with document metadata/profile persistence and no raw file storage.
+17. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
+    - uploaded-file chunk handoff proof with explicit `POST /documents/upload-chunks` and no raw uploaded byte storage.
 
 ## Optional source-level provenance
 
@@ -131,6 +133,14 @@ docs/review/uploaded-file-chunk-persistence-application-refresh.md
 ```
 
 This proof is not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
+
+uploaded-file chunk handoff proof:
+
+```text
+docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md
+```
+
+This proof is explicit `POST /documents/upload-chunks`, not raw uploaded byte storage, not hosted deployment evidence, and not external reviewer feedback.
 
 Public request issue:
 

@@ -98,6 +98,14 @@ docs/review/uploaded-file-chunk-persistence-application-refresh.md
 
 Boundary: this proof is not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
 
+uploaded-file chunk handoff proof:
+
+```text
+docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md
+```
+
+Boundary: this proof is explicit `POST /documents/upload-chunks`, not raw uploaded byte storage, not hosted deployment evidence, and not external reviewer feedback.
+
 ## Review Path
 
 Please read in this order:
@@ -110,7 +118,8 @@ Please read in this order:
 6. `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
 7. `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
 8. `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`
-9. `docs/application/braincrew-role-map.md`
+9. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
+10. `docs/application/braincrew-role-map.md`
 
 Optional source-level provenance:
 

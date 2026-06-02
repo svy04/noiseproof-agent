@@ -43,10 +43,10 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Accepted state as of Phase 190:
+Accepted state as of Phase 193:
 
 ```text
-Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, Workflow Version Naming Smoke Example v0, Workflow Version Naming Consistency Review v0, Schema Default Workflow Version Update v0, Schema Default Workflow Version Smoke Example v0, Runtime DB Schema Default Verification v0, Migration Runner Review v0, Lightweight SQL Migration Runner v0, Runtime Migration Runner Verification v0, Migration Runner Fresh DB Verification v0, Migration Runner Runbook Cleanup v0, Fresh DB API Smoke Verification v0, Application Evidence Index Refresh v0, Failure-case Persistence Smoke Verification v0, Failure-case Application Evidence Refresh v0, Agent-run Failure Linkage Smoke Verification v0, Agent-run Failure Linkage Application Refresh v0, Workflow Failure Provenance Review v0, Workflow Failure Linkage Smoke Verification v0, Workflow Failure Linkage Application Refresh v0, Failure-case Workflow Linkage Review v0, Failure-case Workflow Linkage Application Refresh v0, Failure-case Creation Path Review v0, Failure-case Draft Preview v0, Failure-case Draft Preview Application Refresh v0, Failure-case Draft Preview Smoke Verification v0, Failure-case Draft Preview Smoke Application Refresh v0, Failure-case Draft Persistence Handoff Review v0, Failure-case Draft Manual Handoff Smoke Verification v0, Failure-case Draft Manual Handoff Application Refresh v0, Failure-case Draft Fresh-db Handoff Review v0, Failure-case Draft Fresh-db Handoff Smoke Verification v0, Failure-case Draft Fresh-db Handoff Application Refresh v0, Failure-case Workflow Failure-to-draft Review v0, Workflow Failure-to-draft Smoke Verification v0, Failure-case Workflow Failure-to-draft Application Refresh v0, Failure-case Workflow Creation Path Decision v0, Failure-case Workflow Parent Linkage Schema Review v0, Failure-case Workflow Parent Linkage Schema v0, Failure-case Workflow Parent Linkage Smoke Verification v0, Failure-case Workflow Parent Linkage Fresh-db Verification v0, Failure-case Workflow Parent Linkage Application Refresh v0, Failure-case Workflow Parent Linkage Dashboard Review v0, Failure-case Workflow Parent Linkage Dashboard Surfacing v0, Failure-case Workflow Parent Linkage Dashboard Application Refresh v0, Failure-case Workflow Parent Linkage Fresh-db Dashboard Smoke Review v0, Failure-case Workflow Parent Linkage Fresh-db Dashboard Smoke Verification v0, Failure-case Workflow Parent Linkage Fresh-db Dashboard Smoke Application Refresh v0, Failure-case Workflow Parent Linkage Proof Consolidation Review v0, Failure-case Workflow Parent Linkage Proof Index v0, Failure-case Workflow Parent Linkage Proof Index Application Refresh v0, Failure-case Workflow Parent Linkage Proof Chain Stale-claim Review v0, Failure-case Workflow Parent Linkage Stale-claim Cleanup v0, External-reader Proof Path Review v0, External-reader Proof Path Index v0, Portfolio External Proof Path Refresh v0, External-reader Proof Path Application Refresh Review v0, External-reader Proof Path Application Refresh v0, README External Proof Path Refresh Review v0, README External Proof Path Refresh v0, README Phase-history Compression Review v0, README Phase-history Compression v0, README Implementation-status Compression Review v0, README Implementation-status Compression v0, README Detailed Implementation-status Compression v0, README Detailed Implementation-status Compression v0, README Proof-marker Archive Review v0, README Proof-marker Archive Extraction v0, README Proof-marker Archive Application Refresh Review v0, README Proof-marker Archive Application Refresh v0, README Proof-marker Archive External Path Review v0, README Proof-marker Archive External Path Refresh v0, Application Current-claim Compression Review v0, Application Current-claim Compression v0, Braincrew Role-map Runtime Proof Compression Review v0, Braincrew Role-map Runtime Proof Compression v0, Application Proof Surface Final Scan Review v0, Application-ready Summary Compression v0, External-reader Final Proof-path Dry-read Review v0, External-reader Proof Path Next-gate Refresh v0, Application Package Final Consistency Review v0, Portfolio Site Handoff Review v0, Portfolio Site Proof Artifact Route Verification v0, Demo Transcript Capture v0, Local Browser Screenshot Walkthrough v0, External Review Request Packet v0, External Feedback Intake Criteria v0, External Reviewer Brief v0, External Reviewer Live Proof Route Refresh v0, External Reviewer Link Map v0, External Review Root Guide v0, External Review Issue Body Encoding Verification v0, External Review Issue Body Root-guide Verification v0, External Review Issue Body Link-map Verification v0, External Review Issue Template Link-map Refresh v0, External Review Issue Label Verification v0, External Review Owner Request Comment Verification v0, External Reviewer Outreach Packet v0, External Feedback Qualification Preview v0, External Feedback Screening CLI v0, External Feedback Screening Workflow v0, External Feedback Screening Workflow Verification v0, README Next-gate Stale-claim Refresh v0, External Feedback Acceptance Template v0, External Feedback Acceptance Draft CLI v0, External Feedback Acceptance Draft Workflow v0, External Feedback Acceptance Draft Workflow Verification v0, Owner-approved Product Continuation Decision v0, File Upload Preview v0, Uploaded File Chunk Preview v0, Uploaded File Retrieval Preview v0, Uploaded File Evidence Ledger Preview v0, Uploaded File Noise Gate Preview v0, Uploaded File Report Preview v0, Uploaded File Failure-case Draft Preview v0, Uploaded File Failure-case Manual Handoff Smoke v0, Uploaded File Proof Path Index Refresh v0, Uploaded File Runtime Smoke Packet v0, Persisted Uploaded File Intake Review v0, Uploaded File Intake Manifest Preview v0, Uploaded File Intake Manifest Runtime Smoke v0, Uploaded File Intake Manifest Application Refresh v0, External Reviewer Upload-manifest Request Refresh v0, External Reviewer Upload-manifest Issue-body Refresh v0, Persisted Uploaded File Intake Schema Review v0, Uploaded File Intake Manifest Persistence Schema v0, Uploaded File Intake Manifest Persistence Repository Review v0, Uploaded File Intake Manifest Persistence Repository v0, Uploaded File Intake Manifest Persistence Endpoint Review v0, Uploaded File Intake Manifest Persistence Endpoint v0, Uploaded File Intake Manifest Persistence Runtime Smoke v0, Uploaded File Intake Manifest Persistence Application Refresh v0, External Reviewer Upload-manifest Persistence Request Refresh v0, External Reviewer Upload-manifest Persistence Issue-body Refresh v0, Uploaded File Parsed Document Persistence v0, Uploaded File Parsed Document Persistence Runtime Smoke v0, Uploaded File Parsed Document Persistence Application Refresh v0, External Reviewer Parsed-document Persistence Request Refresh v0, External Reviewer Parsed-document Persistence Issue-body Refresh v0, Uploaded File Chunk Persistence Review v0, Uploaded File Chunk Persistence Schema v0, Uploaded File Chunk Persistence Repository Review v0, Uploaded File Chunk Persistence Repository v0, Uploaded File Chunk Persistence Endpoint Review v0, Uploaded File Chunk Persistence Endpoint v0, Uploaded File Chunk Persistence Runtime Smoke v0, Uploaded File Chunk Persistence Application Refresh v0, External Reviewer Chunk Persistence Request Refresh v0, External Reviewer Chunk Persistence Issue-body Refresh v0, External Feedback Current-state Chunk Issue Verification v0, Uploaded File Chunk Persistence Handoff Review v0, Uploaded File Chunk Persistence Handoff Endpoint v0, and Uploaded File Chunk Persistence Handoff Runtime Smoke v0
+Ingestion Fixtures, Document Profiler v0, Parser Adapter Stubs, Chunk Strategy Experiment v0, Retrieval v0, Collection Plan Preview v0, Evidence Ledger Preview v0, Noise Gate Preview v0, Claim-bounded Report Preview v0, Operations Dashboard v0, Evaluation/Application Package v0, Auto Trace Recording v0, Persisted Evidence Ledger Records v0, Persisted Noise Gate Records v0, Persisted Report Preview Records v0, Record Linkage v0, Trace-id Lookup v0, Persisted Record Filtering v0, Dashboard Trace/Filter Links v0, Agent-run Linkage Review v0, Agent-run Lifecycle v0, Persisted Child Record Agent-run Linkage v0, Dashboard Parent/Child Provenance Links v0, Evidence Ledger Dashboard Table v0, Evidence-to-gate/report Local Cross-links Review v0, Single Workflow Parent Review v0, WorkflowRun Schema v0, WorkflowRun Metadata Persistence v0, WorkflowRun Dashboard Table v0, WorkflowRun Child-link Review v0, Deterministic Workflow Execution Preview v0, WorkflowRun Child-record Links v0, WorkflowRun Child Inspection Surface v0, Direct Evidence-to-gate/report Cross-link Review v0, Workflow Stage Input Manifest v0, Direct Cross-stage Link Schema Review v0, Workflow Lineage Read Model v0, Workflow Lineage Dashboard Links v0, Workflow Lineage Missing-reference Review v0, Workflow Lineage Missing-reference Test v0, Workflow Lineage Boundary Hardening Review v0, Workflow Lineage Manifest-shape Hardening v0, Workflow Lineage Warning Taxonomy Review v0, Structured Warning Taxonomy v0, Workflow Lineage Warning Code Documentation Review v0, Workflow Lineage Warning Code Runbook Example v0, Workflow Lineage Warning Code Dashboard Review v0, Workflow Lineage Warning Code Dashboard Surfacing v0, Workflow Lineage Warning Code Dashboard Smoke Example v0, Workflow Version Naming Review v0, Workflow Version Naming Update v0, Workflow Version Naming Smoke Example v0, Workflow Version Naming Consistency Review v0, Schema Default Workflow Version Update v0, Schema Default Workflow Version Smoke Example v0, Runtime DB Schema Default Verification v0, Migration Runner Review v0, Lightweight SQL Migration Runner v0, Runtime Migration Runner Verification v0, Migration Runner Fresh DB Verification v0, Migration Runner Runbook Cleanup v0, Fresh DB API Smoke Verification v0, Application Evidence Index Refresh v0, Failure-case Persistence Smoke Verification v0, Failure-case Application Evidence Refresh v0, Agent-run Failure Linkage Smoke Verification v0, Agent-run Failure Linkage Application Refresh v0, Workflow Failure Provenance Review v0, Workflow Failure Linkage Smoke Verification v0, Workflow Failure Linkage Application Refresh v0, Failure-case Workflow Linkage Review v0, Failure-case Workflow Linkage Application Refresh v0, Failure-case Creation Path Review v0, Failure-case Draft Preview v0, Failure-case Draft Preview Application Refresh v0, Failure-case Draft Preview Smoke Verification v0, Failure-case Draft Preview Smoke Application Refresh v0, Failure-case Draft Persistence Handoff Review v0, Failure-case Draft Manual Handoff Smoke Verification v0, Failure-case Draft Manual Handoff Application Refresh v0, Failure-case Draft Fresh-db Handoff Review v0, Failure-case Draft Fresh-db Handoff Smoke Verification v0, Failure-case Draft Fresh-db Handoff Application Refresh v0, Failure-case Workflow Failure-to-draft Review v0, Workflow Failure-to-draft Smoke Verification v0, Failure-case Workflow Failure-to-draft Application Refresh v0, Failure-case Workflow Creation Path Decision v0, Failure-case Workflow Parent Linkage Schema Review v0, Failure-case Workflow Parent Linkage Schema v0, Failure-case Workflow Parent Linkage Smoke Verification v0, Failure-case Workflow Parent Linkage Fresh-db Verification v0, Failure-case Workflow Parent Linkage Application Refresh v0, Failure-case Workflow Parent Linkage Dashboard Review v0, Failure-case Workflow Parent Linkage Dashboard Surfacing v0, Failure-case Workflow Parent Linkage Dashboard Application Refresh v0, Failure-case Workflow Parent Linkage Fresh-db Dashboard Smoke Review v0, Failure-case Workflow Parent Linkage Fresh-db Dashboard Smoke Verification v0, Failure-case Workflow Parent Linkage Fresh-db Dashboard Smoke Application Refresh v0, Failure-case Workflow Parent Linkage Proof Consolidation Review v0, Failure-case Workflow Parent Linkage Proof Index v0, Failure-case Workflow Parent Linkage Proof Index Application Refresh v0, Failure-case Workflow Parent Linkage Proof Chain Stale-claim Review v0, Failure-case Workflow Parent Linkage Stale-claim Cleanup v0, External-reader Proof Path Review v0, External-reader Proof Path Index v0, Portfolio External Proof Path Refresh v0, External-reader Proof Path Application Refresh Review v0, External-reader Proof Path Application Refresh v0, README External Proof Path Refresh Review v0, README External Proof Path Refresh v0, README Phase-history Compression Review v0, README Phase-history Compression v0, README Implementation-status Compression Review v0, README Implementation-status Compression v0, README Detailed Implementation-status Compression v0, README Detailed Implementation-status Compression v0, README Proof-marker Archive Review v0, README Proof-marker Archive Extraction v0, README Proof-marker Archive Application Refresh Review v0, README Proof-marker Archive Application Refresh v0, README Proof-marker Archive External Path Review v0, README Proof-marker Archive External Path Refresh v0, Application Current-claim Compression Review v0, Application Current-claim Compression v0, Braincrew Role-map Runtime Proof Compression Review v0, Braincrew Role-map Runtime Proof Compression v0, Application Proof Surface Final Scan Review v0, Application-ready Summary Compression v0, External-reader Final Proof-path Dry-read Review v0, External-reader Proof Path Next-gate Refresh v0, Application Package Final Consistency Review v0, Portfolio Site Handoff Review v0, Portfolio Site Proof Artifact Route Verification v0, Demo Transcript Capture v0, Local Browser Screenshot Walkthrough v0, External Review Request Packet v0, External Feedback Intake Criteria v0, External Reviewer Brief v0, External Reviewer Live Proof Route Refresh v0, External Reviewer Link Map v0, External Review Root Guide v0, External Review Issue Body Encoding Verification v0, External Review Issue Body Root-guide Verification v0, External Review Issue Body Link-map Verification v0, External Review Issue Template Link-map Refresh v0, External Review Issue Label Verification v0, External Review Owner Request Comment Verification v0, External Reviewer Outreach Packet v0, External Feedback Qualification Preview v0, External Feedback Screening CLI v0, External Feedback Screening Workflow v0, External Feedback Screening Workflow Verification v0, README Next-gate Stale-claim Refresh v0, External Feedback Acceptance Template v0, External Feedback Acceptance Draft CLI v0, External Feedback Acceptance Draft Workflow v0, External Feedback Acceptance Draft Workflow Verification v0, Owner-approved Product Continuation Decision v0, File Upload Preview v0, Uploaded File Chunk Preview v0, Uploaded File Retrieval Preview v0, Uploaded File Evidence Ledger Preview v0, Uploaded File Noise Gate Preview v0, Uploaded File Report Preview v0, Uploaded File Failure-case Draft Preview v0, Uploaded File Failure-case Manual Handoff Smoke v0, Uploaded File Proof Path Index Refresh v0, Uploaded File Runtime Smoke Packet v0, Persisted Uploaded File Intake Review v0, Uploaded File Intake Manifest Preview v0, Uploaded File Intake Manifest Runtime Smoke v0, Uploaded File Intake Manifest Application Refresh v0, External Reviewer Upload-manifest Request Refresh v0, External Reviewer Upload-manifest Issue-body Refresh v0, Persisted Uploaded File Intake Schema Review v0, Uploaded File Intake Manifest Persistence Schema v0, Uploaded File Intake Manifest Persistence Repository Review v0, Uploaded File Intake Manifest Persistence Repository v0, Uploaded File Intake Manifest Persistence Endpoint Review v0, Uploaded File Intake Manifest Persistence Endpoint v0, Uploaded File Intake Manifest Persistence Runtime Smoke v0, Uploaded File Intake Manifest Persistence Application Refresh v0, External Reviewer Upload-manifest Persistence Request Refresh v0, External Reviewer Upload-manifest Persistence Issue-body Refresh v0, Uploaded File Parsed Document Persistence v0, Uploaded File Parsed Document Persistence Runtime Smoke v0, Uploaded File Parsed Document Persistence Application Refresh v0, External Reviewer Parsed-document Persistence Request Refresh v0, External Reviewer Parsed-document Persistence Issue-body Refresh v0, Uploaded File Chunk Persistence Review v0, Uploaded File Chunk Persistence Schema v0, Uploaded File Chunk Persistence Repository Review v0, Uploaded File Chunk Persistence Repository v0, Uploaded File Chunk Persistence Endpoint Review v0, Uploaded File Chunk Persistence Endpoint v0, Uploaded File Chunk Persistence Runtime Smoke v0, Uploaded File Chunk Persistence Application Refresh v0, External Reviewer Chunk Persistence Request Refresh v0, External Reviewer Chunk Persistence Issue-body Refresh v0, External Feedback Current-state Chunk Issue Verification v0, Uploaded File Chunk Persistence Handoff Review v0, Uploaded File Chunk Persistence Handoff Endpoint v0, Uploaded File Chunk Persistence Handoff Runtime Smoke v0, External Reviewer Chunk Handoff Request Refresh v0, External Reviewer Chunk Handoff Issue-body Refresh v0, and External Feedback Current-state Chunk Handoff Issue Verification v0
 ```
 
 Phase 127 adds External Reviewer Outreach Packet v0 as request infrastructure only. It does not close external reviewer feedback v0.
@@ -176,6 +176,12 @@ Phase 188 adds Uploaded File Chunk Persistence Handoff Review v0 as a review-onl
 Phase 189 adds Uploaded File Chunk Persistence Handoff Endpoint v0 as route-level behavior for `POST /documents/upload-chunks`. It creates a document row plus `document_chunks` rows through an explicit handoff endpoint while keeping upload chunk preview preview-only and adding no raw file storage, full parsed text persistence, embeddings, or retrieval persistence.
 
 Phase 190 adds Uploaded File Chunk Persistence Handoff Runtime Smoke v0 as local Docker PostgreSQL plus live FastAPI HTTP evidence for `POST /documents/upload-chunks`. It observed `Applied migrations: 12 / Pending migrations: 0`, `POST /documents/upload-chunks -> 201`, and four chunks for the created document. It is not hosted deployment evidence and does not close external reviewer feedback.
+
+Phase 191 adds External Reviewer Chunk Handoff Request Refresh v0 as request infrastructure only. It points reviewer-facing surfaces to the uploaded-file chunk handoff runtime smoke without claiming external reviewer feedback.
+
+Phase 192 adds External Reviewer Chunk Handoff Issue-body Refresh v0 as a live owner-authored issue #1 body update that points reviewers to the uploaded-file chunk handoff proof. It does not close external reviewer feedback.
+
+Phase 193 adds External Feedback Current-state Chunk Handoff Issue Verification v0 as a live current-state screen after the issue-body refresh. It observes `comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`, so it keeps external reviewer feedback v0 pending.
 
 Implemented:
 
@@ -5805,6 +5811,105 @@ docs/application/portfolio-index.md link
 ```
 
 Phase 190 is local runtime smoke evidence only. It adds no endpoint, schema, migration, raw uploaded byte storage, full parsed text persistence, embeddings, retrieval persistence, Evidence Ledger persistence, Noise Gate persistence, report persistence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, LLM output, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next evidence gate:
+
+```text
+external reviewer feedback v0
+```
+
+### Phase 191 - External Reviewer Chunk Handoff Request Refresh v0
+
+Goal:
+
+```text
+route external reviewers to the uploaded-file chunk handoff proof without expanding product claims
+```
+
+Implemented:
+
+```text
+docs/review/external-reviewer-chunk-handoff-request-refresh.md
+CONTRIBUTING.md link
+.github/ISSUE_TEMPLATE/external-review-feedback.md link
+docs/review/external-review-request.md link
+docs/review/external-reader-proof-path.md link
+docs/review/external-reviewer-brief.md link
+docs/review/external-reviewer-link-map.md link
+README implementation marker
+docs/GOAL.md accepted state and phase note
+docs/runbook.md request refresh note
+docs/application/portfolio-index.md link
+docs/review/readme-proof-marker-archive.md marker
+```
+
+Phase 191 is request infrastructure only. It adds no runtime behavior, schema, migration, endpoint, raw uploaded byte storage, full parsed text persistence, embeddings, retrieval persistence, Evidence Ledger persistence, Noise Gate persistence, report persistence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, LLM output, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next request gate:
+
+```text
+external reviewer chunk handoff issue-body refresh v0
+```
+
+### Phase 192 - External Reviewer Chunk Handoff Issue-body Refresh v0
+
+Goal:
+
+```text
+update the live public issue body so reviewers can reach the uploaded-file chunk handoff proof
+```
+
+Implemented:
+
+```text
+docs/review/external-review-issue-body-chunk-handoff-refresh.md
+live issue #1 body update
+uploaded-file chunk handoff proof link
+POST /documents/upload-chunks issue-body marker
+explicit_upload_to_chunks_no_raw_file_storage issue-body marker
+chunk_text_only_no_raw_file_storage issue-body marker
+README implementation marker
+docs/GOAL.md accepted state and phase note
+docs/runbook.md issue-body refresh note
+docs/application/portfolio-index.md link
+docs/review/readme-proof-marker-archive.md marker
+```
+
+Phase 192 is an owner-authored issue-body refresh only. It adds no runtime behavior, schema, migration, endpoint, raw uploaded byte storage, full parsed text persistence, embeddings, retrieval persistence, Evidence Ledger persistence, Noise Gate persistence, report persistence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, LLM output, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next evidence gate:
+
+```text
+external feedback current-state chunk handoff issue verification v0
+```
+
+### Phase 193 - External Feedback Current-state Chunk Handoff Issue Verification v0
+
+Goal:
+
+```text
+record the live issue state after the chunk handoff issue-body refresh without claiming outside feedback
+```
+
+Implemented:
+
+```text
+docs/review/external-feedback-current-state-chunk-handoff-issue-verification.md
+live issue #1 current-state screen
+uploaded-file chunk handoff proof body marker
+POST /documents/upload-chunks body marker
+comment_count: 1
+candidate_count: 0
+draft_count: 0
+self_authored_comment
+README implementation marker
+docs/GOAL.md accepted state and phase note
+docs/runbook.md current-state note
+docs/application/portfolio-index.md link
+docs/review/readme-proof-marker-archive.md marker
+```
+
+Phase 193 is a current-state screen only. It adds no runtime behavior, schema, migration, endpoint, raw uploaded byte storage, full parsed text persistence, embeddings, retrieval persistence, Evidence Ledger persistence, Noise Gate persistence, report persistence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, LLM output, semantic retrieval, automatic failure-case creation, or product-complete claim.
 
 Current next evidence gate:
 

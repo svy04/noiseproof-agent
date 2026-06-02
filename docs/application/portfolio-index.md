@@ -102,6 +102,12 @@ Uploaded file chunk persistence handoff endpoint: `docs/review/uploaded-file-chu
 
 Uploaded file chunk persistence handoff runtime smoke: `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for `POST /documents/upload-chunks`. It observed a document row and four chunk rows for the created document while keeping `explicit_upload_to_chunks_no_raw_file_storage` and `chunk_text_only_no_raw_file_storage` boundaries.
 
+External reviewer chunk handoff request refresh: `docs/review/external-reviewer-chunk-handoff-request-refresh.md` points reviewer-facing request surfaces to the uploaded-file chunk handoff proof. It is request infrastructure only and does not close external reviewer feedback.
+
+External reviewer chunk handoff issue-body refresh: `docs/review/external-review-issue-body-chunk-handoff-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file chunk handoff proof. It is not external reviewer feedback.
+
+External feedback current-state chunk handoff issue verification: `docs/review/external-feedback-current-state-chunk-handoff-issue-verification.md` records the current issue #1 screen after the chunk handoff issue-body refresh. It observes `comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`; it does not close external reviewer feedback v0.
+
 External feedback qualification preview: `docs/review/external-feedback-qualification-preview.md` documents the local screening helper in `packages/review/external_feedback.py`. It can identify possible candidates for manual review, but it is not external reviewer feedback itself.
 
 External feedback screening CLI: `docs/review/external-feedback-screening-cli.md` documents `python -m packages.review.external_feedback_cli` for real `gh issue view --json comments` payloads. It is not external reviewer feedback itself.

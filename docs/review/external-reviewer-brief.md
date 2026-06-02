@@ -22,7 +22,8 @@ Read only these:
 6. `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
 7. `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
 8. `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`
-9. `docs/review/external-feedback-intake-criteria.md`
+9. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
+10. `docs/review/external-feedback-intake-criteria.md`
 
 uploaded-file intake manifest proof:
 
@@ -55,6 +56,14 @@ docs/review/uploaded-file-chunk-persistence-runtime-smoke.md
 ```
 
 This proof is not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
+
+uploaded-file chunk handoff proof:
+
+```text
+docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md
+```
+
+This proof is explicit `POST /documents/upload-chunks` handoff evidence, not raw uploaded byte storage, not hosted deployment evidence, and not external reviewer feedback.
 
 Optional public proof route:
 
