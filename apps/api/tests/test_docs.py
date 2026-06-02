@@ -417,6 +417,41 @@ def test_embedding_repository_v0_documents_metadata_only_repository_code():
     assert "docs/review/embedding-repository.md" in portfolio
 
 
+def test_embedding_endpoint_review_selects_chunk_scoped_routes_without_code():
+    review_path = REPO_ROOT / "docs/review/embedding-endpoint-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Endpoint Review" in content
+    assert "embedding endpoint review v0" in content
+    assert "review-only" in content
+    assert "POST /chunks/{chunk_id}/embeddings" in content
+    assert "GET /chunks/{chunk_id}/embeddings" in content
+    assert "ChunkEmbeddingCreate" in content
+    assert "ChunkEmbeddingOut" in content
+    assert "create_chunk_embedding" in content
+    assert "list_chunk_embeddings" in content
+    assert "caller-provided vector" in content
+    assert "embedding_source = caller_provided_vector" in content
+    assert "next product gate: embedding endpoint v0" in content
+    assert "not endpoint code" in content
+    assert "not embedding generation" in content
+    assert "not semantic retrieval implementation" in content
+    assert "not HNSW or IVFFlat index behavior" in content
+    assert "not Evidence Ledger generation" in content
+    assert "Embedding endpoint review v0: implemented" in readme
+    assert "Phase 219 - Embedding Endpoint Review v0" in goal
+    assert "embedding endpoint review v0" in runbook
+    assert "docs/review/embedding-endpoint-review.md" in portfolio
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

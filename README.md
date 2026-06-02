@@ -194,6 +194,7 @@ Major implementation milestones:
 - Uploaded file retrieval persistence application refresh v0: implemented
 - Retrieval-run-linked Evidence/Gate/Report handoff endpoint/runtime smoke v0: implemented
 - Embedding repository v0: implemented
+- Embedding endpoint review v0: implemented
 
 For exhaustive phase history, use `docs/GOAL.md`.
 

@@ -1188,3 +1188,11 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `apps/api/tests/test_db.py`: added repository tests for caller-provided vector insert and filtered list behavior
 - `docs/review/embedding-repository.md`: added
 - Boundary: metadata/persistence-only repository code; not endpoint behavior, not embedding generation, not semantic retrieval implementation, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 219 - Embedding Endpoint Review v0
+
+- Embedding endpoint review v0: implemented
+- `docs/review/embedding-endpoint-review.md`: added
+- Selected next API boundary: `POST /chunks/{chunk_id}/embeddings` and `GET /chunks/{chunk_id}/embeddings`
+- Selected persistence handoff: `ChunkEmbeddingCreate`, `ChunkEmbeddingOut`, `create_chunk_embedding`, and `list_chunk_embeddings`
+- Boundary: review-only; not endpoint code, not embedding generation, not semantic retrieval implementation, not HNSW or IVFFlat index behavior, not Evidence Ledger generation, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

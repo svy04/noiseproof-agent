@@ -3338,3 +3338,38 @@ uv run pytest tests/test_db.py -q -k "chunk_embedding"
 ```
 
 This repository boundary is metadata/persistence only. It accepts a caller-provided vector and stores it in `chunk_embeddings`; it does not create an endpoint, generate embeddings, perform semantic retrieval, or add HNSW/IVFFlat index behavior.
+
+## Embedding Endpoint Review
+
+Phase 219 is a review-only endpoint boundary gate.
+
+The phase marker is:
+
+```text
+embedding endpoint review v0
+```
+
+Review artifact:
+
+```text
+docs/review/embedding-endpoint-review.md
+```
+
+Selected future routes:
+
+```text
+POST /chunks/{chunk_id}/embeddings
+GET /chunks/{chunk_id}/embeddings
+```
+
+Selected repository handoff:
+
+```text
+ChunkEmbeddingCreate
+ChunkEmbeddingOut
+create_chunk_embedding
+list_chunk_embeddings
+embedding_source = caller_provided_vector
+```
+
+This review adds no endpoint code. Do not generate embeddings, run semantic retrieval, create HNSW/IVFFlat index behavior, generate Evidence Ledger rows, or call external model APIs in this gate.
