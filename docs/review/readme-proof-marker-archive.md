@@ -1248,3 +1248,13 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `retrieval_runs_unchanged -> true`
 - Runtime boundary: caller-provided query vector over existing `document_chunks` and `chunk_embeddings`
 - Claim boundary: no retrieval run persistence, no embedding generation, no Evidence Ledger generation, no vector search quality claim, no hosted deployment evidence
+
+### Phase 226 - Semantic Retrieval Persistence Review v0
+
+- Semantic retrieval persistence review v0: implemented
+- `docs/review/semantic-retrieval-persistence-review.md`: added
+- Selected next endpoint: `POST /documents/{document_id}/semantic-retrieval-runs`
+- Selected persistence target: existing `retrieval_runs` table
+- Required metadata: `metadata_json.candidate_chunk_ids`, `metadata_json.candidate_embedding_ids`, `metadata_json.missing_embedding_chunk_ids`
+- Boundary: preview endpoint remains preview-only; do not overload `POST /documents/{document_id}/retrieval-runs`
+- Claim boundary: review-only; no endpoint code, no embedding generation, no Evidence Ledger generation, no hosted deployment evidence

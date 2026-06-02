@@ -655,6 +655,37 @@ def test_semantic_retrieval_preview_runtime_smoke_records_live_http_boundary():
     assert "docs/review/semantic-retrieval-preview-runtime-smoke.md" in portfolio
 
 
+def test_semantic_retrieval_persistence_review_selects_explicit_persisted_run_boundary():
+    review_path = REPO_ROOT / "docs/review/semantic-retrieval-persistence-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Semantic Retrieval Persistence Review" in content
+    assert "semantic retrieval persistence review v0" in content
+    assert "review-only" in content
+    assert "POST /documents/{document_id}/semantic-retrieval-runs" in content
+    assert "existing retrieval_runs table" in content
+    assert "metadata_json.candidate_chunk_ids" in content
+    assert "metadata_json.candidate_embedding_ids" in content
+    assert "semantic_preview_runtime_smoke" in content
+    assert "preview endpoint remains preview-only" in content
+    assert "do not overload POST /documents/{document_id}/retrieval-runs" in content
+    assert "not endpoint code" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger generation" in content
+    assert "Semantic retrieval persistence review v0: implemented" in readme
+    assert "Phase 226 - Semantic Retrieval Persistence Review v0" in goal
+    assert "semantic retrieval persistence review v0" in runbook
+    assert "docs/review/semantic-retrieval-persistence-review.md" in portfolio
+
+
 def test_agent_run_linkage_review_keeps_fk_boundary_explicit():
     content = (REPO_ROOT / "docs/review/agent-run-linkage-review.md").read_text(encoding="utf-8")
 

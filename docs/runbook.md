@@ -3559,6 +3559,59 @@ not vector search quality evidence
 not hosted deployment evidence
 ```
 
+## Semantic Retrieval Persistence Review
+
+Phase 226 selects the persistence boundary for semantic retrieval candidates.
+
+The phase marker is:
+
+```text
+semantic retrieval persistence review v0
+```
+
+Review artifact:
+
+```text
+docs/review/semantic-retrieval-persistence-review.md
+```
+
+Selected next endpoint:
+
+```text
+POST /documents/{document_id}/semantic-retrieval-runs
+```
+
+Implementation rule:
+
+```text
+do not overload POST /documents/{document_id}/retrieval-runs
+```
+
+Selected persistence target:
+
+```text
+existing retrieval_runs table
+metadata_json.candidate_chunk_ids
+metadata_json.candidate_embedding_ids
+metadata_json.missing_embedding_chunk_ids
+```
+
+The semantic preview endpoint remains:
+
+```text
+preview_only_not_persisted
+```
+
+Claim boundary:
+
+```text
+review-only
+not endpoint code
+not embedding generation
+not Evidence Ledger generation
+not hosted deployment evidence
+```
+
 ## Semantic Retrieval Preview Runtime Smoke
 
 Phase 225 verifies the semantic retrieval preview endpoint against local Docker PostgreSQL/pgvector and live FastAPI HTTP.
