@@ -3991,6 +3991,28 @@ comment_count = 1
 
 This is an owner-authored issue edit only. It is not external reviewer feedback, not hosted deployment evidence, and not Braincrew acceptance.
 
+## External Feedback Current-state Semantic Quality Report Issue Verification
+
+Phase marker: external feedback current-state semantic quality report issue verification v0.
+
+Use `docs/review/external-feedback-current-state-semantic-quality-report-issue-verification.md` when checking the live issue state after the semantic quality report issue-body refresh.
+
+Observed:
+
+```text
+state = OPEN
+labels = external-review, feedback
+comment_count = 1
+self_authored_comments = 1
+candidate_count = 0
+draft_count = 0
+has_report = true
+has_boundary = true
+has_q = true
+```
+
+This is a current-state screen only. It is not external reviewer feedback and does not close external reviewer feedback v0.
+
 ## Semantic Retrieval Persistence Review
 
 Phase 226 selects the persistence boundary for semantic retrieval candidates.

@@ -1348,3 +1348,10 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Live issue #1 body now points to `docs/evaluation/semantic-retrieval-quality-report.md`
 - Observed markers: `has_report = true`, `has_boundary = true`, `has_q = true`, `comment_count = 1`
 - Boundary: owner-authored issue edit only; not vector search quality evidence, not benchmark result, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added
+
+### Phase 237 - External Feedback Current-state Semantic Quality Report Issue Verification v0
+
+- External feedback current-state semantic quality report issue verification v0: implemented
+- `docs/review/external-feedback-current-state-semantic-quality-report-issue-verification.md`: added
+- Observed current live issue state after semantic quality report issue-body refresh: `comment_count = 1`, `self_authored_comments = 1`, `candidate_count = 0`, `draft_count = 0`
+- Boundary: current-state screen only; not vector search quality evidence, not benchmark result, not hosted deployment evidence, not external reviewer feedback, customer validation, Braincrew acceptance, or product-complete claim added

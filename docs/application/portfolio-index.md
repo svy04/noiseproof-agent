@@ -357,6 +357,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/semantic-retrieval-quality-report-application-refresh.md` | application-facing refresh for the toy metric report; not vector search quality evidence or a benchmark result |
 | `docs/review/semantic-retrieval-quality-report-reviewer-request-refresh.md` | reviewer-facing request-path refresh for the toy metric report; not external reviewer feedback |
 | `docs/review/semantic-retrieval-quality-report-issue-body-refresh.md` | owner-authored issue #1 body update for the toy metric report; not external reviewer feedback |
+| `docs/review/external-feedback-current-state-semantic-quality-report-issue-verification.md` | current live issue #1 screen after semantic quality report issue-body refresh; feedback gate remains pending |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
