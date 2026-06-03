@@ -4305,6 +4305,33 @@ Next product gate:
 ClamAV service scanner adapter review v0
 ```
 
+## ClamAV Service Scanner Adapter Review
+
+Phase marker: ClamAV service scanner adapter review v0.
+
+Use this review artifact:
+
+```text
+docs/review/clamav-service-scanner-adapter-review.md
+```
+
+Decision:
+
+```text
+select ClamdScannerAdapter
+use INSTREAM over the internal Docker network
+do not pass API temporary paths to clamd
+do not require clamdscan as an API subprocess dependency
+map unavailable, timeout, protocol error, and scanner error to failed / scan_error
+NOISEPROOF_SCANNER=unavailable remains the default
+```
+
+Next product gate:
+
+```text
+ClamAV service scanner adapter v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

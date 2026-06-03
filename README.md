@@ -289,6 +289,8 @@ ClamAV compose service runtime smoke v0: implemented. Boundary: local Docker Com
 
 ClamAV compose EICAR runtime smoke v0: implemented. Boundary: local Docker Compose `clamav` service detected container-internal EICAR as `Eicar-Test-Signature`, deleted the temporary file, and kept the payload out of the repo; not API endpoint integration and not production malware scanning evidence.
 
+ClamAV service scanner adapter review v0: implemented. Boundary: review-only decision to add a future `ClamdScannerAdapter` that uses clamd `INSTREAM` over the internal Docker network instead of API temp paths or `clamdscan` subprocesses; no adapter code and no API endpoint integration.
+
 
 ## Planned Agent Workflow
 

@@ -8516,3 +8516,37 @@ def test_clamav_compose_eicar_runtime_smoke_records_detection_without_api_claim(
     assert "Phase 286 - ClamAV Compose EICAR Runtime Smoke v0" in goal
     assert "ClamAV compose EICAR runtime smoke v0" in runbook
     assert "docs/review/clamav-compose-eicar-runtime-smoke.md" in portfolio
+
+
+def test_clamav_service_scanner_adapter_review_selects_instream_boundary():
+    review_path = REPO_ROOT / "docs/review/clamav-service-scanner-adapter-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV Service Scanner Adapter Review" in content
+    assert "ClamAV service scanner adapter review v0" in content
+    assert "https://docs.clamav.net/manual/Usage/ClamdProtocol.html" in content
+    assert "https://docs.clamav.net/manual/Usage/Scanning.html" in content
+    assert "https://docs.python.org/3/library/socket.html" in content
+    assert "select `ClamdScannerAdapter`" in content
+    assert "INSTREAM" in content
+    assert "internal Docker network" in content
+    assert "do not pass API temporary paths" in content
+    assert "do not expose unauthenticated clamd TCP outside the internal network" in content
+    assert "do not make `clamdscan` a required API subprocess dependency" in content
+    assert "failed / scan_error" in content
+    assert "NOISEPROOF_SCANNER=unavailable" in content
+    assert "ClamAV service scanner adapter v0" in content
+    assert "not adapter code" in content
+    assert "not API endpoint integration" in content
+    assert "ClamAV service scanner adapter review v0: implemented" in readme
+    assert "Phase 287 - ClamAV Service Scanner Adapter Review v0" in goal
+    assert "ClamAV service scanner adapter review v0" in runbook
+    assert "docs/review/clamav-service-scanner-adapter-review.md" in portfolio
