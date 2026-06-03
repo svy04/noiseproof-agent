@@ -5111,6 +5111,50 @@ not external reviewer feedback
 not product-complete
 ```
 
+## CI Node24 Actions Runtime Remote Verification
+
+Phase marker: ci node24 actions runtime remote verification v0.
+
+Use this artifact:
+
+```text
+docs/review/ci-node24-actions-runtime-remote-verification.md
+```
+
+Verified remote runs:
+
+```text
+remote run: 26870586255
+workflow: CI
+head: c3c6908
+job: api-smoke
+conclusion: success
+
+remote run: 26870586219
+workflow: External Feedback Screen
+head: c3c6908
+job: screen
+conclusion: success
+```
+
+Observed annotation:
+
+```text
+Node.js 20 is deprecated
+being forced to run on Node.js 24
+annotation still present
+```
+
+Boundary:
+
+```text
+workflow runtime compatibility only
+not product runtime evidence
+not hosted deployment evidence
+not external reviewer feedback
+not product-complete
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

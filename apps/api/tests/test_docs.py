@@ -9256,3 +9256,34 @@ def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     assert "Phase 309 - CI Node24 Actions Runtime Opt-in v0" in goal
     assert "ci node24 actions runtime opt-in v0" in runbook
     assert "docs/review/ci-node24-actions-runtime-opt-in.md" in portfolio
+
+
+def test_ci_node24_actions_runtime_remote_verification_is_documented():
+    review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-remote-verification.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "CI Node24 Actions Runtime Remote Verification" in content
+    assert "ci node24 actions runtime remote verification v0" in content
+    assert "remote run: 26870586255" in content
+    assert "remote run: 26870586219" in content
+    assert "head: c3c6908" in content
+    assert "job: api-smoke" in content
+    assert "job: screen" in content
+    assert "conclusion: success" in content
+    assert "Node.js 20 is deprecated" in content
+    assert "being forced to run on Node.js 24" in content
+    assert "annotation still present" in content
+    assert "workflow runtime compatibility only" in content
+    assert "not product runtime evidence" in content
+    assert "ci node24 actions runtime remote verification v0: implemented" in readme
+    assert "Phase 310 - CI Node24 Actions Runtime Remote Verification v0" in goal
+    assert "ci node24 actions runtime remote verification v0" in runbook
+    assert "docs/review/ci-node24-actions-runtime-remote-verification.md" in portfolio
