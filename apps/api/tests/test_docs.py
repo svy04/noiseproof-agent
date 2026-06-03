@@ -8204,3 +8204,40 @@ def test_external_feedback_current_state_scan_execution_endpoint_issue_verificat
         "docs/review/external-feedback-current-state-scan-execution-endpoint-issue-verification.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_clamav_runtime_verification_review_selects_eicar_smoke_boundary():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-clamav-runtime-verification-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File ClamAV Runtime Verification Review" in content
+    assert "uploaded raw file ClamAV runtime verification review v0" in content
+    assert "https://docs.clamav.net/manual/Installing/Docker.html" in content
+    assert "https://docs.clamav.net/manual/Usage/Scanning.html" in content
+    assert "https://docs.clamav.net/manual/Usage/SignatureManagement.html" in content
+    assert "https://www.eicar.org/download-anti-malware-testfile/" in content
+    assert "dockerized ClamAV EICAR runtime smoke v0" in content
+    assert "EICAR is a standard anti-malware test file that is not real malware" in content
+    assert "Do not install ClamAV on the host in this gate" in content
+    assert "Do not switch the API endpoint default from `scanner-unavailable`" in content
+    assert "Do not commit the EICAR test file into the repository" in content
+    assert "test_file_committed_to_repo = false" in content
+    assert "malware_scanning_evidence = false" in content
+    assert "api_endpoint_verified_with_real_clamav = false" in content
+    assert "not runtime evidence" in content
+    assert "not malware scanning evidence" in content
+    assert "not API endpoint verification with real ClamAV" in content
+    assert "Uploaded raw file ClamAV runtime verification review v0: implemented" in readme
+    assert "Phase 278 - Uploaded Raw File ClamAV Runtime Verification Review v0" in goal
+    assert "uploaded raw file ClamAV runtime verification review v0" in runbook
+    assert "docs/review/uploaded-raw-file-clamav-runtime-verification-review.md" in portfolio

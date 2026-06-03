@@ -3988,6 +3988,50 @@ Next evidence gate:
 external reviewer feedback v0 remains pending, or select the next source-first product gate
 ```
 
+## Uploaded Raw File ClamAV Runtime Verification Review
+
+Phase marker: uploaded raw file ClamAV runtime verification review v0.
+
+Use this review artifact:
+
+```text
+docs/review/uploaded-raw-file-clamav-runtime-verification-review.md
+```
+
+Selected next product gate:
+
+```text
+dockerized ClamAV EICAR runtime smoke v0
+```
+
+Selected boundary:
+
+```text
+use official ClamAV Docker docs
+use EICAR test file, not real malware
+do not commit EICAR into the repository
+record image tag and image id or digest
+record signature database state
+do not switch API default from scanner-unavailable
+do not add Docker-backed adapter yet
+```
+
+Not claimed:
+
+```text
+not runtime evidence
+not malware scanning evidence
+not API endpoint verification with real ClamAV
+not hosted deployment evidence
+not external reviewer feedback
+```
+
+Next product gate:
+
+```text
+dockerized ClamAV EICAR runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

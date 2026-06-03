@@ -271,6 +271,8 @@ External review issue body scan execution endpoint refresh v0: implemented. Boun
 
 External feedback current-state scan execution endpoint issue verification v0: implemented. Boundary: current issue #1 screen still has candidate_count 0 and only a self-authored comment; not external reviewer feedback, not hosted deployment evidence, not real ClamAV execution, and not malware scanning.
 
+Uploaded raw file ClamAV runtime verification review v0: implemented. Boundary: review-only selection of a future Dockerized ClamAV + EICAR smoke before changing API defaults or claiming real scanner evidence; not runtime evidence, not malware scanning evidence, and not endpoint verification with real ClamAV.
+
 
 ## Planned Agent Workflow
 

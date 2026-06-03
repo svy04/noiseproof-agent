@@ -397,6 +397,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-reviewer-scan-execution-endpoint-request-refresh.md` | reviewer-facing request-path refresh for the scan execution endpoint runtime proof; not external reviewer feedback, hosted deployment evidence, real ClamAV execution, or malware scanning |
 | `docs/review/external-review-issue-body-scan-execution-endpoint-refresh.md` | owner-authored issue #1 body update pointing reviewers to the scan execution endpoint runtime proof; not external reviewer feedback, hosted deployment evidence, real ClamAV execution, or malware scanning |
 | `docs/review/external-feedback-current-state-scan-execution-endpoint-issue-verification.md` | current-state issue #1 screen after the scan execution endpoint issue-body refresh; candidate_count 0 and only self-authored comment, so external feedback remains pending |
+| `docs/review/uploaded-raw-file-clamav-runtime-verification-review.md` | source-first review selecting a future Dockerized ClamAV + EICAR runtime smoke; review-only, not runtime evidence, malware scanning evidence, or API endpoint verification with real ClamAV |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
