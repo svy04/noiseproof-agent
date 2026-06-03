@@ -7559,3 +7559,48 @@ def test_uploaded_raw_file_scan_result_endpoint_documents_metadata_only_code():
     assert "Phase 259 - Uploaded Raw File Scan Result Endpoint v0" in goal
     assert "uploaded raw file scan result endpoint v0" in runbook
     assert "docs/review/uploaded-raw-file-scan-result-endpoint.md" in portfolio
+
+
+def test_uploaded_raw_file_scan_result_endpoint_runtime_smoke_records_live_http_evidence():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Scan Result Endpoint Runtime Smoke" in content
+    assert "uploaded raw file scan result endpoint runtime smoke v0" in content
+    assert "docker compose config" in content
+    assert "Applied migrations: 16" in content
+    assert "Pending migrations: 0" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-raw-files -> 201" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan-results -> 201" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/scan-results -> 200" in content
+    assert "path/body mismatch -> 400" in content
+    assert "scan_verdict -> scan_error" in content
+    assert "response_has_raw_bytes -> false" in content
+    assert "download_url_present -> false" in content
+    assert "not malware scanning" in content
+    assert "not scanner execution" in content
+    assert "not ClamAV integration" in content
+    assert "not a download endpoint" in content
+    assert "not hosted deployment evidence" in content
+    assert "Uploaded raw file scan result endpoint runtime smoke v0: implemented" in readme
+    assert (
+        "Phase 260 - Uploaded Raw File Scan Result Endpoint Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded raw file scan result endpoint runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md"
+        in portfolio
+    )

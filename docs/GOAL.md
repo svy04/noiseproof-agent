@@ -8078,6 +8078,43 @@ Current next product gate:
 uploaded raw file scan result endpoint runtime smoke v0
 ```
 
+### Phase 260 - Uploaded Raw File Scan Result Endpoint Runtime Smoke v0
+
+Goal:
+
+```text
+verify the metadata-only raw file scan result endpoints against local Docker PostgreSQL and live FastAPI HTTP
+```
+
+Implemented:
+
+```text
+uploaded raw file scan result endpoint runtime smoke v0
+docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md
+Docker version 29.4.3
+Docker Compose version v5.1.3
+Applied migrations: 16
+Pending migrations: 0
+GET /health -> 200
+POST /documents/upload-raw-files -> 201
+POST /documents/upload-raw-files/{raw_file_id}/scan-results -> 201
+GET /documents/upload-raw-files/{raw_file_id}/scan-results -> 200
+path/body mismatch -> 400
+response_has_raw_bytes -> false
+download_url_present -> false
+README implementation marker
+docs/application/portfolio-index.md runtime smoke link
+docs/runbook.md runtime smoke note
+```
+
+Phase 260 is local runtime smoke evidence only. It adds no scanner adapter, scanner process, ClamAV dependency, file signature validation, download endpoint, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+external reviewer scan-result endpoint request refresh v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

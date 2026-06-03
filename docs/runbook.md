@@ -3134,6 +3134,66 @@ not a download endpoint
 not runtime evidence
 ```
 
+## Uploaded Raw File Scan Result Endpoint Runtime Smoke
+
+Phase marker: uploaded raw file scan result endpoint runtime smoke v0.
+
+Use this artifact:
+
+```text
+docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md
+```
+
+Runtime environment:
+
+```text
+Docker version 29.4.3
+Docker Compose version v5.1.3
+FastAPI on http://127.0.0.1:8033
+```
+
+Observed migration state:
+
+```text
+Applied migrations: 16
+Pending migrations: 0
+```
+
+Observed HTTP checks:
+
+```text
+GET /health -> 200
+POST /documents/upload-raw-files -> 201
+POST /documents/upload-raw-files/{raw_file_id}/scan-results -> 201
+GET /documents/upload-raw-files/{raw_file_id}/scan-results -> 200
+path/body mismatch -> 400
+```
+
+Observed response boundary:
+
+```text
+scan_verdict -> scan_error
+response_has_raw_bytes -> false
+download_url_present -> false
+```
+
+Selected next gate:
+
+```text
+external reviewer scan-result endpoint request refresh v0
+```
+
+Boundary:
+
+```text
+local runtime smoke only
+not malware scanning
+not scanner execution
+not ClamAV integration
+not a download endpoint
+not hosted deployment evidence
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
