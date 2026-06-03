@@ -22,6 +22,9 @@ OWNER_RUNTIME_SMOKE_PACKET_PHASE_MARKER = (
 OWNER_RUNTIME_SMOKE_VALIDATOR_PHASE_MARKER = (
     "ClamAV API endpoint malicious-detection owner runtime smoke validator v0"
 )
+OWNER_RUNTIME_SMOKE_REPORT_CONTRACT_PHASE_MARKER = (
+    "ClamAV API endpoint malicious-detection owner runtime smoke report contract v0"
+)
 OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY = {
     "scanner_name": "clamav-clamd",
     "scan_status": "completed",
@@ -235,6 +238,57 @@ def build_owner_runtime_smoke_packet() -> dict[str, object]:
     }
 
 
+def build_owner_runtime_smoke_report_contract() -> dict[str, object]:
+    return {
+        "phase_marker": OWNER_RUNTIME_SMOKE_REPORT_CONTRACT_PHASE_MARKER,
+        "contract_status": "ready_for_owner_runtime_report",
+        "api_calls_attempted": False,
+        "payload_committed_to_repo": False,
+        "raw_payload_logged": False,
+        "validator_command": (
+            "uv run python -m app.services.clamav_api_malicious_detection_harness "
+            "--validate-owner-runtime-smoke-report path/to/owner-runtime-smoke-report.json"
+        ),
+        "accepted_report": {
+            "harness_status": "verified_infected",
+            "malicious_detection_verified": True,
+            "api_calls_attempted": True,
+            "payload_committed_to_repo": False,
+            "raw_payload_logged": False,
+            "input_source": "stdin",
+            "required_owner_input_missing": False,
+        },
+        "accepted_scan_result_summary": dict(OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY),
+        "forbidden_payload_fields": sorted(OWNER_RUNTIME_SMOKE_FORBIDDEN_PAYLOAD_KEYS),
+        "accepted_validator_output": {
+            "validation_status": "accepted",
+            "accepted_owner_runtime_smoke": True,
+            "missing_or_failed_checks": [],
+        },
+        "rejected_validator_output": {
+            "validation_status": "rejected",
+            "accepted_owner_runtime_smoke": False,
+            "missing_or_failed_checks": "non-empty",
+        },
+        "non_claims": {
+            "endpoint_malicious_detection_runtime_proof": False,
+            "production_malware_scanning_evidence": False,
+            "hosted_deployment_verified": False,
+            "external_reviewer_feedback": False,
+            "product_complete": False,
+        },
+        "boundary": [
+            "contract only",
+            "does not include a test signature payload",
+            "does not call the API",
+            "does not upload raw bytes",
+            "does not call the scan endpoint",
+            "not endpoint malicious-detection runtime proof",
+            "owner-provided runtime smoke remains pending",
+        ],
+    }
+
+
 def validate_owner_runtime_smoke_report(report: Mapping[str, object]) -> dict[str, object]:
     missing_or_failed_checks: list[str] = []
     forbidden_payload_fields = _find_forbidden_payload_fields(report)
@@ -364,6 +418,14 @@ def main(
         ),
     )
     parser.add_argument(
+        "--print-owner-runtime-smoke-report-contract",
+        action="store_true",
+        help=(
+            "Print the no-payload JSON metadata contract expected by the "
+            "owner runtime smoke report validator."
+        ),
+    )
+    parser.add_argument(
         "--validate-owner-runtime-smoke-report",
         help=(
             "Validate a future owner-provided runtime smoke JSON report without "
@@ -378,6 +440,8 @@ def main(
         report = validate_owner_runtime_smoke_report(
             _read_json_report(Path(args.validate_owner_runtime_smoke_report))
         )
+    elif args.print_owner_runtime_smoke_report_contract:
+        report = build_owner_runtime_smoke_report_contract()
     elif args.print_owner_runtime_smoke_packet:
         report = build_owner_runtime_smoke_packet()
     else:
@@ -406,7 +470,7 @@ def main(
     else:
         print(payload)
 
-    if args.print_owner_runtime_smoke_packet:
+    if args.print_owner_runtime_smoke_packet or args.print_owner_runtime_smoke_report_contract:
         return 0
     if args.validate_owner_runtime_smoke_report:
         return 0 if report["accepted_owner_runtime_smoke"] is True else 5

@@ -9257,6 +9257,36 @@ def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_validator_l
     assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-validator-leak-field-hardening.md" in portfolio
 
 
+def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_report_contract_is_documented():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-report-contract.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Report Contract" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke report contract v0" in content
+    assert "--print-owner-runtime-smoke-report-contract" in content
+    assert "contract_status: ready_for_owner_runtime_report" in content
+    assert "accepted_report" in content
+    assert "accepted_scan_result_summary" in content
+    assert "forbidden_payload_fields" in content
+    assert "accepted_validator_output" in content
+    assert "rejected_validator_output" in content
+    assert "does not call the scan endpoint" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "ClamAV API endpoint malicious-detection owner-provided runtime smoke v0" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke report contract v0: implemented" in readme
+    assert "Phase 312 - ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Report Contract v0" in goal
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke report contract v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-report-contract.md" in portfolio
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

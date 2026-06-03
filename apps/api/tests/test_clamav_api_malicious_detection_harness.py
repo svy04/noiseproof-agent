@@ -244,6 +244,51 @@ def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_p
     )
 
 
+def test_malicious_detection_harness_prints_owner_runtime_smoke_report_contract_without_payload(
+    capsys,
+):
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--print-owner-runtime-smoke-report-contract"],
+        env={},
+        client=client,
+    )
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert (
+        payload["phase_marker"]
+        == "ClamAV API endpoint malicious-detection owner runtime smoke report contract v0"
+    )
+    assert payload["contract_status"] == "ready_for_owner_runtime_report"
+    assert payload["accepted_report"]["harness_status"] == "verified_infected"
+    assert payload["accepted_report"]["input_source"] == "stdin"
+    assert payload["accepted_scan_result_summary"] == {
+        "scanner_name": "clamav-clamd",
+        "scan_status": "completed",
+        "scan_verdict": "infected",
+        "matched_signature": "Eicar-Test-Signature",
+        "metadata_boundary": "metadata_only_no_raw_bytes_no_download_url",
+    }
+    assert "test_signature_text" in payload["forbidden_payload_fields"]
+    assert "encoded_payload" in payload["forbidden_payload_fields"]
+    assert "payload_base64" in payload["forbidden_payload_fields"]
+    assert payload["accepted_validator_output"] == {
+        "validation_status": "accepted",
+        "accepted_owner_runtime_smoke": True,
+        "missing_or_failed_checks": [],
+    }
+    assert payload["api_calls_attempted"] is False
+    assert payload["payload_committed_to_repo"] is False
+    assert payload["raw_payload_logged"] is False
+    assert client.upload_calls == []
+    assert client.scan_calls == []
+    assert "owner-provided-runtime-only-test-signature" not in json.dumps(
+        payload, sort_keys=True
+    )
+
+
 def test_owner_runtime_smoke_validator_accepts_verified_infected_metadata_report(
     capsys, tmp_path
 ):
