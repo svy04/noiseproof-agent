@@ -303,6 +303,8 @@ ClamAV API compose service config verification v0: implemented. Boundary: `docke
 
 ClamAV API compose service runtime smoke v0: implemented. Boundary: `docker compose --profile api up -d api` starts the profiled API service and `GET /health` returns `{"status":"ok"}` while `NOISEPROOF_SCANNER=unavailable`; not scan endpoint proof, not endpoint runtime proof with real ClamAV, and not production malware scanning evidence.
 
+ClamAV API endpoint scanner opt-in review v0: implemented. Boundary: review-only decision to add a future explicit `NOISEPROOF_SCANNER=clamd -> ClamdScannerAdapter` path for `POST /documents/upload-raw-files/{raw_file_id}/scan`; default remains `NOISEPROOF_SCANNER=unavailable`, not endpoint runtime proof with real ClamAV, and not malware scanning evidence.
+
 
 ## Planned Agent Workflow
 

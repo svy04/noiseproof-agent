@@ -8757,3 +8757,34 @@ def test_clamav_api_compose_service_runtime_smoke_records_health_without_scan_cl
     assert "Phase 293 - ClamAV API Compose Service Runtime Smoke v0" in goal
     assert "ClamAV API compose service runtime smoke v0" in runbook
     assert "docs/review/clamav-api-compose-service-runtime-smoke.md" in portfolio
+
+
+def test_clamav_api_endpoint_scanner_opt_in_review_records_narrow_next_step():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-scanner-opt-in-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Scanner Opt-in Review" in content
+    assert "ClamAV API endpoint scanner opt-in review v0" in content
+    assert "review-only" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan" in content
+    assert "current code: NOISEPROOF_SCANNER=clamav -> ClamAvScannerAdapter" in content
+    assert "next code gate: NOISEPROOF_SCANNER=clamd -> ClamdScannerAdapter" in content
+    assert "default remains NOISEPROOF_SCANNER=unavailable" in content
+    assert "CLAMD_HOST=clamav" in content
+    assert "CLAMD_PORT=3310" in content
+    assert "scanner_not_configured" in content
+    assert "not endpoint runtime proof with real ClamAV" in content
+    assert "not malware scanning evidence" in content
+    assert "ClamAV API endpoint scanner opt-in implementation v0" in content
+    assert "ClamAV API endpoint scanner opt-in review v0: implemented" in readme
+    assert "Phase 294 - ClamAV API Endpoint Scanner Opt-in Review v0" in goal
+    assert "ClamAV API endpoint scanner opt-in review v0" in runbook
+    assert "docs/review/clamav-api-endpoint-scanner-opt-in-review.md" in portfolio
