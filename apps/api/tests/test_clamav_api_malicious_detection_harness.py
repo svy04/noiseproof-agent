@@ -326,6 +326,59 @@ def test_malicious_detection_harness_empty_signature_file_reports_file_input(cap
     assert client.upload_calls == []
 
 
+def test_malicious_detection_harness_missing_signature_file_returns_structured_report(
+    capsys, tmp_path
+):
+    signature_path = tmp_path / "missing-owner-runtime-only-signature.txt"
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--signature-file", str(signature_path), "--require-owner-input"],
+        env={ALLOW_ENV: "1"},
+        client=client,
+    )
+
+    assert exit_code == 8
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["harness_status"] == "signature_file_read_failed"
+    assert payload["input_source"] == "file"
+    assert payload["api_calls_attempted"] is False
+    assert payload["malicious_detection_verified"] is False
+    assert payload["payload_committed_to_repo"] is False
+    assert payload["raw_payload_logged"] is False
+    assert payload["signature_file_read_boundary"] == {
+        "signature_file_readable": False,
+        "raw_exception_logged": False,
+    }
+    assert "signature file could not be read" in payload["blocked_reason"]
+    assert str(signature_path) not in json.dumps(payload, sort_keys=True)
+    assert client.upload_calls == []
+
+
+def test_malicious_detection_harness_directory_signature_file_returns_structured_report(
+    capsys, tmp_path
+):
+    signature_path = tmp_path / "owner-runtime-signature-dir"
+    signature_path.mkdir()
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--signature-file", str(signature_path), "--require-owner-input"],
+        env={ALLOW_ENV: "1"},
+        client=client,
+    )
+
+    assert exit_code == 8
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["harness_status"] == "signature_file_read_failed"
+    assert payload["input_source"] == "file"
+    assert payload["api_calls_attempted"] is False
+    assert payload["malicious_detection_verified"] is False
+    assert payload["signature_file_read_boundary"]["signature_file_readable"] is False
+    assert str(signature_path) not in json.dumps(payload, sort_keys=True)
+    assert client.upload_calls == []
+
+
 def test_malicious_detection_harness_rejects_owner_runtime_output_path_inside_repository(
     capsys,
 ):

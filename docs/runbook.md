@@ -5519,6 +5519,41 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Signature-file Read Guard
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke signature-file read guard v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-signature-file-read-guard.md
+```
+
+Expected read-failure markers:
+
+```text
+signature_file_read_failed
+signature_file_readable: false
+raw_exception_logged: false
+api_calls_attempted: false
+exit_code: 8
+does not include a test signature payload
+not endpoint malicious-detection runtime proof
+```
+
+Verification:
+
+```bash
+cd apps/api
+uv run pytest tests/test_clamav_api_malicious_detection_harness.py -q -k "missing_signature_file or directory_signature_file"
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## CI Node24 Actions Runtime Opt-in
 
 Phase marker: ci node24 actions runtime opt-in v0.

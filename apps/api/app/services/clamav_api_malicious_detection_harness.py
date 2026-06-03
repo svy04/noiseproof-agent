@@ -714,9 +714,19 @@ def main(
     else:
         input_source = _input_source_from_args(args)
         if signature_file_path is not None:
-            test_signature_text = _normalize_owner_runtime_input(
-                signature_file_path.read_text(encoding="utf-8")
-            )
+            try:
+                test_signature_text = _normalize_owner_runtime_input(
+                    signature_file_path.read_text(encoding="utf-8")
+                )
+            except (OSError, UnicodeError):
+                report = _signature_file_read_failed_report()
+                payload = json.dumps(report, indent=2, sort_keys=True)
+                if output_path is not None:
+                    output_path.parent.mkdir(parents=True, exist_ok=True)
+                    output_path.write_text(payload + "\n", encoding="utf-8")
+                else:
+                    print(payload)
+                return _exit_code_for_status(str(report["harness_status"]), report)
         elif args.signature_stdin:
             stdin_source = stdin if stdin is not None else sys.stdin
             test_signature_text = _normalize_owner_runtime_input(stdin_source.read())
@@ -824,6 +834,24 @@ def _signature_file_path_rejected_report() -> dict[str, object]:
     }
 
 
+def _signature_file_read_failed_report() -> dict[str, object]:
+    return {
+        **_base_report(),
+        "harness_status": "signature_file_read_failed",
+        "api_calls_attempted": False,
+        "payload_length_bytes": 0,
+        "input_source": "file",
+        "required_owner_input_missing": False,
+        "malicious_detection_verified": False,
+        "blocked_reason": "signature file could not be read",
+        "signature_file_read_boundary": {
+            "signature_file_readable": False,
+            "raw_exception_logged": False,
+        },
+        "scan_result_summary": None,
+    }
+
+
 def _blocked_report(
     base_report: dict[str, object],
     *,
@@ -886,6 +914,8 @@ def _exit_code_for_status(status: str, report: Mapping[str, object] | None = Non
         return 6
     if status == "signature_file_path_rejected":
         return 7
+    if status == "signature_file_read_failed":
+        return 8
     if status in {"not_configured", "verified_infected"}:
         return 0
     if status in {"unexpected_clean", "scan_error"}:

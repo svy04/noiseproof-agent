@@ -442,6 +442,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-post-run-validation-success-criteria.md` | no-payload packet now states validator success criteria for future owner runtime smoke metadata reports |
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-empty-marker-guard.md` | quote-only stdin markers now fail as missing owner input instead of reaching the scan endpoint |
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-signature-file-input.md` | safer outside-repo signature-file input path for future owner runtime smoke attempts |
+| `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-signature-file-read-guard.md` | missing or unreadable signature-file paths now return structured no-payload read-failure reports |
 | `docs/review/ci-node24-actions-runtime-opt-in.md` | workflow runtime compatibility opt-in after remote Node.js 20 action deprecation warning; not product runtime evidence |
 | `docs/review/ci-node24-actions-runtime-remote-verification.md` | remote CI and External Feedback Screen success after Node.js 24 opt-in; annotation still present as forced-runtime notice |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
