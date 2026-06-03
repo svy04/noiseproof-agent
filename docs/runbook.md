@@ -4796,6 +4796,41 @@ Next product gate:
 ClamAV API endpoint malicious-detection harness default smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Harness Default Smoke
+
+Phase marker: ClamAV API endpoint malicious-detection harness default smoke v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-harness-default-smoke.md
+```
+
+Observed default command:
+
+```bash
+cd apps/api
+uv run python -m app.services.clamav_api_malicious_detection_harness
+```
+
+Observed default result:
+
+```text
+exit_code: 0
+harness_status: not_configured
+api_calls_attempted: false
+malicious_detection_verified: false
+payload_committed_to_repo: false
+raw_payload_logged: false
+not malware detection proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
