@@ -7681,3 +7681,54 @@ def test_external_reviewer_scan_result_endpoint_request_refresh_routes_reviewers
         assert "scan_verdict -> scan_error" in reviewer_surface
         assert "not malware scanning" in reviewer_surface
         assert "not a download endpoint" in reviewer_surface
+
+
+def test_external_review_issue_body_scan_result_endpoint_refresh_records_live_issue_update():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-scan-result-endpoint-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Scan-result Endpoint Refresh" in content
+    assert "external review issue body scan-result endpoint refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "uploaded raw file scan result endpoint proof" in content
+    assert "docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md" in content
+    assert (
+        "docs/review/external-reviewer-scan-result-endpoint-request-refresh.md"
+        in content
+    )
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan-results" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/scan-results" in content
+    assert "path/body mismatch -> 400" in content
+    assert "scan_verdict -> scan_error" in content
+    assert "response_has_raw_bytes -> false" in content
+    assert "first_codepoint: 35" in content
+    assert "startsWith: ## Request" in content
+    assert "owner-authored issue edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not malware scanning" in content
+    assert "not a download endpoint" in content
+    assert (
+        "External review issue body scan-result endpoint refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 262 - External Review Issue Body Scan-result Endpoint Refresh v0"
+        in goal
+    )
+    assert "external review issue body scan-result endpoint refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-scan-result-endpoint-refresh.md"
+        in portfolio
+    )

@@ -239,6 +239,8 @@ Uploaded raw file scan result endpoint runtime smoke v0: implemented. Boundary: 
 
 External reviewer scan-result endpoint request refresh v0: implemented. Boundary: reviewer request surfaces now point to the uploaded raw file scan result endpoint proof; not external reviewer feedback, not hosted deployment evidence, not malware scanning, and not a download endpoint.
 
+External review issue body scan-result endpoint refresh v0: implemented. Boundary: issue #1 now points to the uploaded raw file scan result endpoint proof; owner-authored issue edit only, not external reviewer feedback, not hosted deployment evidence, not malware scanning, and not a download endpoint.
+
 
 ## Planned Agent Workflow
 

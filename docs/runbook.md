@@ -3242,6 +3242,41 @@ not malware scanning
 not a download endpoint
 ```
 
+## External Review Issue Body Scan-result Endpoint Refresh
+
+Phase marker: external review issue body scan-result endpoint refresh v0.
+
+Use this refresh artifact:
+
+```text
+docs/review/external-review-issue-body-scan-result-endpoint-refresh.md
+```
+
+Public issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+Observed live issue markers:
+
+```text
+first_codepoint: 35
+startsWith: ## Request
+comment_count: 1
+owner_comment_count: 1
+uploaded raw file scan result endpoint proof
+docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md
+docs/review/external-reviewer-scan-result-endpoint-request-refresh.md
+POST /documents/upload-raw-files/{raw_file_id}/scan-results
+GET /documents/upload-raw-files/{raw_file_id}/scan-results
+path/body mismatch -> 400
+scan_verdict -> scan_error
+response_has_raw_bytes -> false
+```
+
+This is an owner-authored issue edit. It is not external reviewer feedback, not hosted deployment evidence, not malware scanning, and not a download endpoint.
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

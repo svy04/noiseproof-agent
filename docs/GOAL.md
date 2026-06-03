@@ -8147,6 +8147,40 @@ Current next product gate:
 external review issue body scan-result endpoint refresh v0
 ```
 
+### Phase 262 - External Review Issue Body Scan-result Endpoint Refresh v0
+
+Goal:
+
+```text
+make the live public external review issue route reviewers to the uploaded raw file scan result endpoint proof
+```
+
+Implemented:
+
+```text
+external review issue body scan-result endpoint refresh v0
+docs/review/external-review-issue-body-scan-result-endpoint-refresh.md
+GitHub issue #1 owner-authored body edit
+first_codepoint: 35
+startsWith: ## Request
+uploaded raw file scan result endpoint proof
+docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md
+docs/review/external-reviewer-scan-result-endpoint-request-refresh.md
+POST /documents/upload-raw-files/{raw_file_id}/scan-results
+GET /documents/upload-raw-files/{raw_file_id}/scan-results
+path/body mismatch -> 400
+scan_verdict -> scan_error
+response_has_raw_bytes -> false
+```
+
+Phase 262 is request infrastructure only. It adds no runtime behavior, endpoint code, schema, migration, scanner adapter, scanner process, ClamAV dependency, file signature validation, download endpoint, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+external feedback current-state scan-result endpoint issue verification v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:
