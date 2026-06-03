@@ -3688,6 +3688,46 @@ Next evidence gate:
 external reviewer feedback v0 remains pending, or select the next source-first product gate
 ```
 
+## Uploaded Raw File Scan Execution Review
+
+Phase marker: uploaded raw file scan execution review v0.
+
+Use this review artifact:
+
+```text
+docs/review/uploaded-raw-file-scan-execution-review.md
+```
+
+Selected future endpoint:
+
+```text
+POST /documents/upload-raw-files/{raw_file_id}/scan
+```
+
+Do not overload:
+
+```text
+POST /documents/upload-raw-files/{raw_file_id}/scan-results
+```
+
+Selected boundary:
+
+```text
+scan-results = caller-provided metadata
+scan = configured scanner adapter execution
+no raw bytes in response
+no download endpoint
+scan_error is never clean
+no --remove
+no shell=True
+```
+
+Next product gate:
+
+```text
+uploaded raw file scan execution endpoint v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

@@ -7940,3 +7940,42 @@ def test_uploaded_raw_file_clamav_adapter_is_documented_without_install_claim():
     assert "docs/review/uploaded-raw-file-clamav-adapter.md" in portfolio
     assert "ClamAvScannerAdapter" in package_init
     assert "class ClamAvScannerAdapter" in clamav_py
+
+
+def test_uploaded_raw_file_scan_execution_review_selects_endpoint_without_runtime_claim():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-scan-execution-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Scan Execution Review" in content
+    assert "uploaded raw file scan execution review v0" in content
+    assert "ClamAV Scanning documentation" in content
+    assert "OWASP File Upload Cheat Sheet" in content
+    assert "Python subprocess documentation" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan-results" in content
+    assert "scan-results stores caller-provided metadata" in content
+    assert "scan executes configured scanner logic" in content
+    assert "delete temp scan file in finally" in content
+    assert "no raw bytes in response" in content
+    assert "no download endpoint" in content
+    assert "no shell=True" in content
+    assert "no --remove" in content
+    assert "no --move in v0" in content
+    assert "no daemon TCP socket in v0" in content
+    assert "scan_error is never treated as clean" in content
+    assert "NOISEPROOF_SCANNER=unavailable" in content
+    assert "not endpoint code" in content
+    assert "not real ClamAV execution" in content
+    assert "not malware scanning evidence" in content
+    assert "Uploaded raw file scan execution review v0: implemented" in readme
+    assert "Phase 272 - Uploaded Raw File Scan Execution Review v0" in goal
+    assert "uploaded raw file scan execution review v0" in runbook
+    assert "docs/review/uploaded-raw-file-scan-execution-review.md" in portfolio
