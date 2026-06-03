@@ -34,6 +34,8 @@ command_templates.powershell
 runtime_report_handling
 emit_validator_handoff_report: true
 post_run_validation_command: uv run python -m app.services.clamav_api_malicious_detection_harness --validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
+post_run_validation_commands.posix
+post_run_validation_commands.powershell
 ```
 
 Success criteria:

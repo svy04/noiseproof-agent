@@ -347,6 +347,16 @@ def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_p
         "uv run python -m app.services.clamav_api_malicious_detection_harness "
         "--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>"
     )
+    assert payload["post_run_validation_commands"] == {
+        "posix": (
+            "uv run python -m app.services.clamav_api_malicious_detection_harness "
+            "--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>"
+        ),
+        "powershell": (
+            "uv run python -m app.services.clamav_api_malicious_detection_harness "
+            "--validate-owner-runtime-smoke-report '<runtime-report-path-outside-repo>'"
+        ),
+    }
     assert payload["runtime_report_handling"] == {
         "write_report_outside_repo": True,
         "validate_metadata_only": True,
