@@ -7911,6 +7911,39 @@ Current next product gate:
 uploaded raw file scan result schema v0
 ```
 
+### Phase 255 - Uploaded Raw File Scan Result Schema v0
+
+Goal:
+
+```text
+add a schema-only scan-attempt table for quarantined uploaded raw files before scanner execution or download behavior
+```
+
+Implemented:
+
+```text
+uploaded raw file scan result schema v0
+db/migrations/017_raw_file_scan_results.sql
+db/init/001_schema.sql raw_file_scan_results table
+raw_file_id UUID NOT NULL REFERENCES uploaded_raw_files(id) ON DELETE CASCADE
+scanner_name / scanner_version / signature_db_version metadata
+scan_started_at / scan_finished_at timestamps
+scan_status vocabulary: pending, running, completed, failed, skipped
+scan_verdict vocabulary: pending, clean, suspicious, infected, scan_error, skipped
+indexes: raw_file_id, scan_status, scan_verdict
+README implementation marker
+docs/application/portfolio-index.md schema link
+docs/runbook.md schema note
+```
+
+Phase 255 is schema-only. It adds no repository code, endpoint, scanner adapter, scanner process, ClamAV dependency, file signature validation, download endpoint, runtime evidence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+uploaded raw file scan result repository review v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

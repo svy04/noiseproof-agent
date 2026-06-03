@@ -2831,6 +2831,79 @@ not ClamAV integration
 not schema migration yet
 ```
 
+## Uploaded Raw File Scan Result Schema
+
+Phase marker: uploaded raw file scan result schema v0.
+
+Use this schema artifact:
+
+```text
+docs/review/uploaded-raw-file-scan-result-schema.md
+```
+
+Schema files:
+
+```text
+db/init/001_schema.sql
+db/migrations/017_raw_file_scan_results.sql
+```
+
+Added table:
+
+```text
+raw_file_scan_results
+```
+
+Parent link:
+
+```text
+raw_file_id -> uploaded_raw_files(id)
+```
+
+Status vocabulary:
+
+```text
+pending
+running
+completed
+failed
+skipped
+```
+
+Verdict vocabulary:
+
+```text
+pending
+clean
+suspicious
+infected
+scan_error
+skipped
+```
+
+Important boundary:
+
+```text
+scan_error is not clean
+```
+
+Selected next gate:
+
+```text
+uploaded raw file scan result repository review v0
+```
+
+Boundary:
+
+```text
+schema-only
+not malware scanning
+not scanner execution
+not ClamAV integration
+not a download endpoint
+not runtime evidence
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

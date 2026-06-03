@@ -374,6 +374,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-feedback-current-state-raw-file-storage-issue-verification.md` | current-state screen after raw file storage issue-body refresh; candidate_count 0 and only self-authored comment, so external feedback remains pending |
 | `docs/review/uploaded-raw-file-storage-safety-review.md` | source-first safety review for raw upload quarantine; selects scan result schema review before download or malware scanning |
 | `docs/review/uploaded-raw-file-scan-result-schema-review.md` | review-only decision for future `raw_file_scan_results` linked to `uploaded_raw_files(id)`; no migration, scanner, or download endpoint |
+| `docs/review/uploaded-raw-file-scan-result-schema.md` | schema-only `raw_file_scan_results` table linked to `uploaded_raw_files(id)` for future scan attempts; no scanner, ClamAV, download endpoint, or runtime evidence |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

@@ -7337,3 +7337,66 @@ def test_uploaded_raw_file_scan_result_schema_review_selects_scan_evidence_table
     assert "Phase 254 - Uploaded Raw File Scan Result Schema Review v0" in goal
     assert "uploaded raw file scan result schema review v0" in runbook
     assert "docs/review/uploaded-raw-file-scan-result-schema-review.md" in portfolio
+
+
+def test_uploaded_raw_file_scan_result_schema_adds_table_without_scanner():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-scan-result-schema.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
+    migration = (REPO_ROOT / "db/migrations/017_raw_file_scan_results.sql").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Scan Result Schema" in content
+    assert "uploaded raw file scan result schema v0" in content
+    assert "schema-only" in content
+    assert "db/migrations/017_raw_file_scan_results.sql" in content
+    assert "CREATE TABLE IF NOT EXISTS raw_file_scan_results" in init_schema
+    assert "CREATE TABLE IF NOT EXISTS raw_file_scan_results" in migration
+    assert "raw_file_id UUID NOT NULL REFERENCES uploaded_raw_files(id) ON DELETE CASCADE" in migration
+    assert "scanner_name TEXT NOT NULL" in migration
+    assert "scanner_version TEXT" in migration
+    assert "signature_db_version TEXT" in migration
+    assert "scan_started_at TIMESTAMPTZ" in migration
+    assert "scan_finished_at TIMESTAMPTZ" in migration
+    assert "scan_status TEXT NOT NULL DEFAULT 'pending'" in migration
+    assert "scan_status IN" in migration
+    assert "scan_verdict TEXT NOT NULL DEFAULT 'pending'" in migration
+    assert "scan_verdict IN" in migration
+    assert "matched_signature TEXT" in migration
+    assert "error_message TEXT" in migration
+    assert "metadata_json JSONB NOT NULL DEFAULT '{}'::jsonb" in migration
+    for value in [
+        "pending",
+        "running",
+        "completed",
+        "failed",
+        "skipped",
+        "clean",
+        "suspicious",
+        "infected",
+        "scan_error",
+    ]:
+        assert value in init_schema
+        assert value in migration
+    assert "idx_raw_file_scan_results_raw_file_id" in migration
+    assert "idx_raw_file_scan_results_scan_status" in migration
+    assert "idx_raw_file_scan_results_scan_verdict" in migration
+    assert "scan_error is not clean" in content
+    assert "not malware scanning" in content
+    assert "not scanner execution" in content
+    assert "not ClamAV integration" in content
+    assert "not a download endpoint" in content
+    assert "not runtime evidence" in content
+    assert "Uploaded raw file scan result schema v0: implemented" in readme
+    assert "Phase 255 - Uploaded Raw File Scan Result Schema v0" in goal
+    assert "uploaded raw file scan result schema v0" in runbook
+    assert "docs/review/uploaded-raw-file-scan-result-schema.md" in portfolio

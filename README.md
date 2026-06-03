@@ -225,6 +225,8 @@ Uploaded raw file storage safety review v0: implemented. Boundary: source-first 
 
 Uploaded raw file scan result schema review v0: implemented. Boundary: review-only decision to use future `raw_file_scan_results` linked to `uploaded_raw_files(id)` before any scanner or download endpoint; not malware scanning, not runtime evidence, and not product-complete.
 
+Uploaded raw file scan result schema v0: implemented. Boundary: schema-only `raw_file_scan_results` table linked to `uploaded_raw_files(id)` for future scan attempts; not malware scanning, not scanner execution, not ClamAV integration, not a download endpoint, and not runtime evidence.
+
 
 ## Planned Agent Workflow
 
