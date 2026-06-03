@@ -4332,6 +4332,41 @@ Next product gate:
 ClamAV service scanner adapter v0
 ```
 
+## ClamAV Service Scanner Adapter
+
+Phase marker: ClamAV service scanner adapter v0.
+
+Use this implementation artifact:
+
+```text
+docs/review/clamav-service-scanner-adapter.md
+```
+
+Implemented:
+
+```text
+ClamdScannerAdapter
+zINSTREAM command
+length-prefixed INSTREAM chunks
+timeout -> failed / scan_error
+clamd_unavailable -> failed / scan_error
+clamd_unexpected_response -> failed / scan_error
+no raw temporary scan path in result metadata
+```
+
+Verification:
+
+```text
+uv run pytest tests/test_raw_file_scanning.py -q -k clamd_adapter
+4 passed, 7 deselected
+```
+
+Next product gate:
+
+```text
+ClamAV API service network boundary review v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

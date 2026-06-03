@@ -291,6 +291,8 @@ ClamAV compose EICAR runtime smoke v0: implemented. Boundary: local Docker Compo
 
 ClamAV service scanner adapter review v0: implemented. Boundary: review-only decision to add a future `ClamdScannerAdapter` that uses clamd `INSTREAM` over the internal Docker network instead of API temp paths or `clamdscan` subprocesses; no adapter code and no API endpoint integration.
 
+ClamAV service scanner adapter v0: implemented. Boundary: `ClamdScannerAdapter` streams bytes with clamd `INSTREAM` and maps clean, infected, timeout, unavailable, and unexpected responses through unit tests; no API endpoint integration, no default scanner switch, and no real endpoint proof.
+
 
 ## Planned Agent Workflow
 

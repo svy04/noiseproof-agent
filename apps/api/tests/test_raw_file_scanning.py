@@ -11,6 +11,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from packages.ingestion.scanning import (
     ClamAvScannerAdapter,
+    ClamdScannerAdapter,
     ScanAdapterRequest,
     ScannerUnavailableAdapter,
     build_scan_error_result,
@@ -168,6 +169,101 @@ def test_clamav_adapter_timeout_and_unknown_return_code_are_scan_errors():
     assert unknown_result.metadata["failure_reason"] == "unknown_return_code"
 
 
+def test_clamd_adapter_streams_file_bytes_and_maps_clean_response(tmp_path):
+    scan_path = tmp_path / "sample.bin"
+    scan_path.write_bytes(b"clean bytes")
+    connection = FakeClamdConnection(response=b"stream: OK\x00")
+    adapter = ClamdScannerAdapter(
+        host="clamav",
+        port=3310,
+        connection_factory=_fake_factory(connection),
+        chunk_size=4,
+    )
+
+    result = adapter.scan(_scan_request(temporary_scan_path=scan_path))
+
+    assert result.scan_status == "completed"
+    assert result.scan_verdict == "clean"
+    assert result.matched_signature is None
+    assert connection.address == ("clamav", 3310)
+    assert connection.timeout == 3
+    assert connection.sent[0] == b"zINSTREAM\x00"
+    assert connection.sent[-1] == b"\x00\x00\x00\x00"
+    assert _instream_payload(connection.sent[1:-1]) == b"clean bytes"
+    assert result.metadata["clamd_command"] == "INSTREAM"
+    assert result.metadata["clamd_transport"] == "tcp"
+    assert result.metadata["chunk_count"] == 3
+    assert result.metadata["bytes_streamed"] == len(b"clean bytes")
+    assert "temporary_scan_path" not in result.metadata
+
+
+def test_clamd_adapter_maps_found_response_to_infected_signature(tmp_path):
+    scan_path = tmp_path / "eicar.bin"
+    scan_path.write_bytes(b"not the real payload")
+    connection = FakeClamdConnection(
+        response=b"stream: Eicar-Test-Signature FOUND\x00"
+    )
+    adapter = ClamdScannerAdapter(
+        connection_factory=_fake_factory(connection),
+    )
+
+    result = adapter.scan(_scan_request(temporary_scan_path=scan_path))
+
+    assert result.scan_status == "completed"
+    assert result.scan_verdict == "infected"
+    assert result.matched_signature == "Eicar-Test-Signature"
+
+
+def test_clamd_adapter_maps_missing_temp_path_and_unavailable_service_to_scan_error(tmp_path):
+    missing_path_result = ClamdScannerAdapter().scan(
+        _scan_request(temporary_scan_path=None)
+    )
+
+    assert missing_path_result.scan_status == "failed"
+    assert missing_path_result.scan_verdict == "scan_error"
+    assert missing_path_result.metadata["failure_reason"] == "missing_temporary_scan_path"
+
+    def unavailable_connection(address, timeout):
+        raise OSError("connection refused")
+
+    scan_path = tmp_path / "sample.bin"
+    scan_path.write_bytes(b"bytes")
+    unavailable_result = ClamdScannerAdapter(
+        connection_factory=unavailable_connection,
+    ).scan(_scan_request(temporary_scan_path=scan_path))
+
+    assert unavailable_result.scan_status == "failed"
+    assert unavailable_result.scan_verdict == "scan_error"
+    assert unavailable_result.metadata["failure_reason"] == "clamd_unavailable"
+    assert unavailable_result.to_raw_file_scan_result_payload()["scan_verdict"] != "clean"
+
+
+def test_clamd_adapter_maps_timeout_and_unexpected_response_to_scan_error(tmp_path):
+    scan_path = tmp_path / "sample.bin"
+    scan_path.write_bytes(b"bytes")
+
+    timeout_result = ClamdScannerAdapter(
+        connection_factory=lambda address, timeout: FakeClamdConnection(
+            response=b"",
+            recv_error=TimeoutError("timed out"),
+        ),
+    ).scan(_scan_request(temporary_scan_path=scan_path))
+
+    assert timeout_result.scan_status == "failed"
+    assert timeout_result.scan_verdict == "scan_error"
+    assert timeout_result.metadata["failure_reason"] == "timeout"
+
+    unexpected_result = ClamdScannerAdapter(
+        connection_factory=lambda address, timeout: FakeClamdConnection(
+            response=b"stream: WHAT\x00",
+        ),
+    ).scan(_scan_request(temporary_scan_path=scan_path))
+
+    assert unexpected_result.scan_status == "failed"
+    assert unexpected_result.scan_verdict == "scan_error"
+    assert unexpected_result.metadata["failure_reason"] == "clamd_unexpected_response"
+
+
 def _scan_request(temporary_scan_path="C:/tmp/noiseproof/generated-key.bin"):
     return ScanAdapterRequest(
         raw_file_id=uuid4(),
@@ -179,3 +275,47 @@ def _scan_request(temporary_scan_path="C:/tmp/noiseproof/generated-key.bin"):
         temporary_scan_path=temporary_scan_path,
         scanner_timeout_seconds=3,
     )
+
+
+def _fake_factory(connection: "FakeClamdConnection"):
+    def factory(address, timeout):
+        connection.address = address
+        connection.timeout = timeout
+        return connection
+
+    return factory
+
+
+class FakeClamdConnection:
+    def __init__(self, *, response: bytes, recv_error: Exception | None = None):
+        self.response = response
+        self.recv_error = recv_error
+        self.sent = []
+        self.address = None
+        self.timeout = None
+        self._response_sent = False
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, traceback):
+        return False
+
+    def sendall(self, payload: bytes):
+        self.sent.append(payload)
+
+    def recv(self, buffer_size: int):
+        if self.recv_error is not None:
+            raise self.recv_error
+        if self._response_sent:
+            return b""
+        self._response_sent = True
+        return self.response
+
+
+def _instream_payload(chunks):
+    payload = b""
+    for chunk in chunks:
+        size = int.from_bytes(chunk[:4], "big")
+        payload += chunk[4 : 4 + size]
+    return payload

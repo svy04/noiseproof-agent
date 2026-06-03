@@ -8550,3 +8550,40 @@ def test_clamav_service_scanner_adapter_review_selects_instream_boundary():
     assert "Phase 287 - ClamAV Service Scanner Adapter Review v0" in goal
     assert "ClamAV service scanner adapter review v0" in runbook
     assert "docs/review/clamav-service-scanner-adapter-review.md" in portfolio
+
+
+def test_clamav_service_scanner_adapter_is_documented_without_endpoint_integration():
+    review_path = REPO_ROOT / "docs/review/clamav-service-scanner-adapter.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    package_init = (
+        REPO_ROOT / "packages/ingestion/scanning/__init__.py"
+    ).read_text(encoding="utf-8")
+    clamd_py = (REPO_ROOT / "packages/ingestion/scanning/clamd.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV Service Scanner Adapter" in content
+    assert "ClamAV service scanner adapter v0" in content
+    assert "ClamdScannerAdapter" in content
+    assert "INSTREAM" in content
+    assert "zINSTREAM" in clamd_py
+    assert "socket.create_connection" in clamd_py
+    assert "temporary_scan_path" not in clamd_py.split("metadata: dict[str, object] = {", 1)[1]
+    assert "timeout -> failed / scan_error" in content
+    assert "clamd_unavailable -> failed / scan_error" in content
+    assert "clamd_unexpected_response -> failed / scan_error" in content
+    assert "not API endpoint integration" in content
+    assert "not default scanner switch" in content
+    assert "ClamdScannerAdapter" in package_init
+    assert "ClamAV service scanner adapter v0: implemented" in readme
+    assert "Phase 288 - ClamAV Service Scanner Adapter v0" in goal
+    assert "ClamAV service scanner adapter v0" in runbook
+    assert "docs/review/clamav-service-scanner-adapter.md" in portfolio
