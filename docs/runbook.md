@@ -3509,6 +3509,56 @@ Next product gate:
 uploaded raw file ClamAV adapter runtime smoke v0
 ```
 
+## Uploaded Raw File ClamAV Adapter Runtime Smoke
+
+Phase marker: uploaded raw file ClamAV adapter runtime smoke v0.
+
+Use this artifact:
+
+```text
+docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md
+```
+
+Run the deterministic smoke command from `apps/api`:
+
+```bash
+uv run python -m app.services.clamav_adapter_smoke_command
+```
+
+Expected boundary fields:
+
+```text
+smoke_status -> passed
+real_clamav_runtime_verified -> false
+binary_probe_only -> true
+```
+
+Covered scenarios:
+
+```text
+missing_binary
+clean_output
+infected_output
+timeout
+unknown_return_code
+```
+
+Boundary:
+
+```text
+not malware scanning evidence
+not ClamAV installation evidence
+not signature database evidence
+not endpoint behavior
+not download behavior
+```
+
+Next product gate:
+
+```text
+external reviewer ClamAV adapter runtime smoke request refresh v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

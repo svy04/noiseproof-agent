@@ -387,6 +387,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-raw-file-scanner-adapter.md` | generic scanner adapter types and failure mapping for unavailable scanners/timeouts; no ClamAV integration, scanner process execution, file signature validation, or download behavior |
 | `docs/review/uploaded-raw-file-clamav-adapter-review.md` | review-only selection of conservative `ClamAvScannerAdapter` subprocess boundaries before ClamAV execution, daemon sockets, or download behavior |
 | `docs/review/uploaded-raw-file-clamav-adapter.md` | conservative `ClamAvScannerAdapter` code with deterministic failure/clean/infected mapping; no ClamAV installation, runtime verification, endpoint, or download behavior |
+| `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md` | deterministic command smoke for `ClamAvScannerAdapter` mappings through fake runners; no real ClamAV execution, signature database verification, endpoint behavior, or malware scanning evidence |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

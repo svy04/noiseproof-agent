@@ -251,6 +251,8 @@ Uploaded raw file ClamAV adapter review v0: implemented. Boundary: review-only s
 
 Uploaded raw file ClamAV adapter v0: implemented. Boundary: `ClamAvScannerAdapter` maps missing binary, missing temporary path, timeout, unknown return code, clean output, and FOUND output without installing or runtime-verifying ClamAV.
 
+Uploaded raw file ClamAV adapter runtime smoke v0: implemented. Boundary: deterministic command smoke exercises missing/clean/infected/timeout/error mappings through fake runners; not real ClamAV execution, not signature database evidence, not endpoint behavior, and not malware scanning evidence.
+
 
 ## Planned Agent Workflow
 
