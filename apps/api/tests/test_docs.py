@@ -8694,3 +8694,36 @@ def test_clamav_api_compose_service_is_profiled_and_not_scanner_default():
     assert "Phase 291 - ClamAV API Compose Service Implementation v0" in goal
     assert "ClamAV API compose service implementation v0" in runbook
     assert "docs/review/clamav-api-compose-service-implementation.md" in portfolio
+
+
+def test_clamav_api_compose_service_config_verification_records_config_only_proof():
+    review_path = REPO_ROOT / "docs/review/clamav-api-compose-service-config-verification.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Compose Service Config Verification" in content
+    assert "ClamAV API compose service config verification v0" in content
+    assert "docker compose --profile api --profile scanner config -> exit 0" in content
+    assert "service: api" in content
+    assert "profiles: api" in content
+    assert "DATABASE_URL: postgresql://noiseproof:noiseproof@db:5432/noiseproof" in content
+    assert "CLAMD_HOST: clamav" in content
+    assert "CLAMD_PORT: \"3310\"" in content
+    assert "NOISEPROOF_SCANNER: unavailable" in content
+    assert "clamav host port published: false" in content
+    assert "api_runtime_started: false" in content
+    assert "api_endpoint_verified_with_real_clamav: false" in content
+    assert "not API runtime smoke" in content
+    assert "not endpoint runtime proof" in content
+    assert "ClamAV API compose service runtime smoke v0" in content
+    assert "ClamAV API compose service config verification v0: implemented" in readme
+    assert "Phase 292 - ClamAV API Compose Service Config Verification v0" in goal
+    assert "ClamAV API compose service config verification v0" in runbook
+    assert "docs/review/clamav-api-compose-service-config-verification.md" in portfolio

@@ -4449,6 +4449,41 @@ Next product gate:
 ClamAV API compose service config verification v0
 ```
 
+## ClamAV API Compose Service Config Verification
+
+Phase marker: ClamAV API compose service config verification v0.
+
+Use this verification artifact:
+
+```text
+docs/review/clamav-api-compose-service-config-verification.md
+```
+
+Observed command:
+
+```text
+docker compose --profile api --profile scanner config -> exit 0
+```
+
+Observed rendered shape:
+
+```text
+service: api
+profiles: api
+DATABASE_URL: postgresql://noiseproof:noiseproof@db:5432/noiseproof
+CLAMD_HOST: clamav
+CLAMD_PORT: "3310"
+NOISEPROOF_SCANNER: unavailable
+api_runtime_started: false
+api_endpoint_verified_with_real_clamav: false
+```
+
+Next product gate:
+
+```text
+ClamAV API compose service runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

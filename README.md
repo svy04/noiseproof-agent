@@ -299,6 +299,8 @@ ClamAV API compose service review v0: implemented. Boundary: review-only decisio
 
 ClamAV API compose service implementation v0: implemented. Boundary: added `apps/api/Dockerfile` and a profiled `api` Compose service with `DATABASE_URL` pointing at `db`, `CLAMD_HOST=clamav`, and `NOISEPROOF_SCANNER=unavailable`; not default scanner switch and not endpoint runtime proof.
 
+ClamAV API compose service config verification v0: implemented. Boundary: `docker compose --profile api --profile scanner config` renders the profiled `api` service with `DATABASE_URL` to `db`, `CLAMD_HOST=clamav`, `NOISEPROOF_SCANNER=unavailable`, and no ClamAV host port publishing; not API runtime smoke or endpoint proof.
+
 
 ## Planned Agent Workflow
 
