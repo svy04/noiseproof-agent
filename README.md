@@ -237,6 +237,8 @@ Uploaded raw file scan result endpoint v0: implemented. Boundary: metadata-only 
 
 Uploaded raw file scan result endpoint runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP proof for metadata-only scan result POST/GET and path/body mismatch 400; not scanner execution, not ClamAV integration, not a download endpoint, and not hosted deployment evidence.
 
+External reviewer scan-result endpoint request refresh v0: implemented. Boundary: reviewer request surfaces now point to the uploaded raw file scan result endpoint proof; not external reviewer feedback, not hosted deployment evidence, not malware scanning, and not a download endpoint.
+
 
 ## Planned Agent Workflow
 

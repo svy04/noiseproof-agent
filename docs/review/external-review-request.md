@@ -142,6 +142,14 @@ docs/review/uploaded-raw-file-storage-application-refresh.md
 
 Boundary: this proof is explicit `POST /documents/upload-raw-files` and `GET /documents/upload-raw-files` over quarantined PostgreSQL BYTEA storage. It is not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
 
+uploaded raw file scan result endpoint proof:
+
+```text
+docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md
+```
+
+Boundary: this proof is explicit `POST /documents/upload-raw-files/{raw_file_id}/scan-results` and `GET /documents/upload-raw-files/{raw_file_id}/scan-results`, preserves `scan_verdict -> scan_error`, records `response_has_raw_bytes -> false`, and remains not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
+
 ## Review Path
 
 Please read in this order:

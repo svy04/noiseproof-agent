@@ -60,6 +60,8 @@ Read in this order:
     - toy semantic retrieval quality report with visible misses and disagreement; not vector search quality evidence.
 25. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
     - uploaded raw file storage proof with explicit `POST /documents/upload-raw-files`, `GET /documents/upload-raw-files`, quarantined PostgreSQL BYTEA storage, no malware scanning, and no download endpoint.
+26. `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md`
+    - uploaded raw file scan result endpoint proof with explicit `POST /documents/upload-raw-files/{raw_file_id}/scan-results`, `GET /documents/upload-raw-files/{raw_file_id}/scan-results`, `scan_verdict -> scan_error`, `response_has_raw_bytes -> false`, no malware scanning, and no download endpoint.
 
 ## Optional source-level provenance
 

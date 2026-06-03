@@ -29,7 +29,8 @@ Read only these:
 13. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
 14. `docs/evaluation/semantic-retrieval-quality-report.md`
 15. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
-16. `docs/review/external-feedback-intake-criteria.md`
+16. `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md`
+17. `docs/review/external-feedback-intake-criteria.md`
 
 uploaded-file intake manifest proof:
 
@@ -86,6 +87,14 @@ docs/review/uploaded-raw-file-storage-runtime-smoke.md
 ```
 
 This proof is explicit `POST /documents/upload-raw-files` and `GET /documents/upload-raw-files` over quarantined PostgreSQL BYTEA storage, not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
+
+uploaded raw file scan result endpoint proof:
+
+```text
+docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md
+```
+
+This proof is explicit `POST /documents/upload-raw-files/{raw_file_id}/scan-results` and `GET /documents/upload-raw-files/{raw_file_id}/scan-results`, preserves `scan_verdict -> scan_error`, records `response_has_raw_bytes -> false`, and is not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
 
 retrieval-run-linked Report proof:
 

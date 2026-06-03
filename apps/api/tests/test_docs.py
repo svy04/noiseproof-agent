@@ -7604,3 +7604,80 @@ def test_uploaded_raw_file_scan_result_endpoint_runtime_smoke_records_live_http_
         "docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_external_reviewer_scan_result_endpoint_request_refresh_routes_reviewers_to_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-scan-result-endpoint-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+
+    assert "External Reviewer Scan-result Endpoint Request Refresh" in content
+    assert "external reviewer scan-result endpoint request refresh v0" in content
+    assert "request infrastructure only" in content
+    assert "uploaded raw file scan result endpoint proof" in content
+    assert "docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan-results" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/scan-results" in content
+    assert "path/body mismatch -> 400" in content
+    assert "scan_verdict -> scan_error" in content
+    assert "response_has_raw_bytes -> false" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not malware scanning" in content
+    assert "not a download endpoint" in content
+    assert (
+        "External reviewer scan-result endpoint request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 261 - External Reviewer Scan-result Endpoint Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer scan-result endpoint request refresh v0" in runbook
+    assert (
+        "docs/review/external-reviewer-scan-result-endpoint-request-refresh.md"
+        in portfolio
+    )
+    for reviewer_surface in [
+        proof_path,
+        request,
+        brief,
+        link_map,
+        issue_template,
+        contributing,
+    ]:
+        assert "uploaded raw file scan result endpoint proof" in reviewer_surface
+        assert (
+            "docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md"
+            in reviewer_surface
+        )
+        assert "POST /documents/upload-raw-files/{raw_file_id}/scan-results" in reviewer_surface
+        assert "scan_verdict -> scan_error" in reviewer_surface
+        assert "not malware scanning" in reviewer_surface
+        assert "not a download endpoint" in reviewer_surface

@@ -380,6 +380,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-raw-file-scan-result-endpoint-review.md` | review-only selection of parent-scoped metadata-only scan result routes; no endpoint code, scanner execution, ClamAV integration, download endpoint, or runtime evidence |
 | `docs/review/uploaded-raw-file-scan-result-endpoint.md` | metadata-only parent-scoped scan result POST/GET endpoints; no scanner execution, ClamAV integration, download endpoint, or runtime evidence |
 | `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md` | local Docker DB plus live FastAPI HTTP proof for metadata-only scan result POST/GET and path/body mismatch 400; not scanner execution, ClamAV integration, download endpoint, or hosted evidence |
+| `docs/review/external-reviewer-scan-result-endpoint-request-refresh.md` | reviewer-facing request-path refresh for the uploaded raw file scan result endpoint proof; not external reviewer feedback, hosted deployment evidence, malware scanning, or a download endpoint |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

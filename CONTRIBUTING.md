@@ -38,7 +38,9 @@ Please start here:
    - toy semantic retrieval quality report; keeps `q-what-missing` visible, not vector search quality evidence, not a benchmark result, and not external reviewer feedback.
 15. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
    - uploaded raw file storage proof via `POST /documents/upload-raw-files` and `GET /documents/upload-raw-files`; not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
-16. `docs/review/external-feedback-intake-criteria.md`
+16. `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md`
+   - uploaded raw file scan result endpoint proof via `POST /documents/upload-raw-files/{raw_file_id}/scan-results` and `GET /documents/upload-raw-files/{raw_file_id}/scan-results`; `scan_verdict -> scan_error`, not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
+17. `docs/review/external-feedback-intake-criteria.md`
 
 Public feedback issue:
 

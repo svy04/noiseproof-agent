@@ -8115,6 +8115,38 @@ Current next product gate:
 external reviewer scan-result endpoint request refresh v0
 ```
 
+### Phase 261 - External Reviewer Scan-result Endpoint Request Refresh v0
+
+Goal:
+
+```text
+route external reviewers to the uploaded raw file scan result endpoint proof from standard request surfaces
+```
+
+Implemented:
+
+```text
+external reviewer scan-result endpoint request refresh v0
+docs/review/external-reviewer-scan-result-endpoint-request-refresh.md
+CONTRIBUTING.md scan result endpoint proof link
+.github/ISSUE_TEMPLATE/external-review-feedback.md scan result endpoint proof link
+docs/review/external-review-request.md proof block
+docs/review/external-reader-proof-path.md proof path item
+docs/review/external-reviewer-brief.md proof block
+docs/review/external-reviewer-link-map.md proof link
+docs/application/portfolio-index.md request refresh link
+README implementation marker
+docs/runbook.md request refresh note
+```
+
+Phase 261 is request infrastructure only. It adds no runtime behavior, endpoint code, schema, migration, scanner adapter, scanner process, ClamAV dependency, file signature validation, download endpoint, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+external review issue body scan-result endpoint refresh v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

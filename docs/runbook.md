@@ -3194,6 +3194,54 @@ not a download endpoint
 not hosted deployment evidence
 ```
 
+## External Reviewer Scan-result Endpoint Request Refresh
+
+Phase marker: external reviewer scan-result endpoint request refresh v0.
+
+Use this artifact:
+
+```text
+docs/review/external-reviewer-scan-result-endpoint-request-refresh.md
+```
+
+Reviewer-facing proof:
+
+```text
+uploaded raw file scan result endpoint proof
+docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md
+POST /documents/upload-raw-files/{raw_file_id}/scan-results
+GET /documents/upload-raw-files/{raw_file_id}/scan-results
+scan_verdict -> scan_error
+response_has_raw_bytes -> false
+```
+
+Updated request surfaces:
+
+```text
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+docs/review/external-review-request.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+```
+
+Selected next gate:
+
+```text
+external review issue body scan-result endpoint refresh v0
+```
+
+Boundary:
+
+```text
+request infrastructure only
+not external reviewer feedback
+not hosted deployment evidence
+not malware scanning
+not a download endpoint
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
