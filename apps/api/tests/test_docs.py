@@ -8351,3 +8351,38 @@ def test_clamav_service_boundary_review_selects_compose_review_before_code():
     assert "Phase 281 - ClamAV Service Boundary Review v0" in goal
     assert "ClamAV service boundary review v0" in runbook
     assert "docs/review/clamav-service-boundary-review.md" in portfolio
+
+
+def test_clamav_compose_service_review_selects_internal_service_before_code():
+    review_path = REPO_ROOT / "docs/review/clamav-compose-service-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV Compose Service Review" in content
+    assert "ClamAV compose service review v0" in content
+    assert "https://docs.clamav.net/manual/Installing/Docker.html" in content
+    assert "https://docs.clamav.net/manual/Usage/ClamdProtocol.html" in content
+    assert "https://docs.clamav.net/manual/Usage/Scanning.html" in content
+    assert "https://docs.clamav.net/manual/Usage/SignatureManagement.html" in content
+    assert "https://docs.docker.com/reference/compose-file/services/" in content
+    assert "select a future internal-only `clamav` compose service" in content
+    assert "do not publish clamd ports to the host" in content
+    assert "depends_on must not be treated as scanner readiness evidence" in content
+    assert "signature database readiness must be visible" in content
+    assert "prefer streamed bytes over API temp-path scanning" in content
+    assert "not Docker Compose code" in content
+    assert "not clamd runtime verification" in content
+    assert "not API endpoint integration" in content
+    assert "not malware scanning evidence" in content
+    assert "ClamAV compose service implementation v0" in content
+    assert "ClamAV compose service review v0: implemented" in readme
+    assert "Phase 282 - ClamAV Compose Service Review v0" in goal
+    assert "ClamAV compose service review v0" in runbook
+    assert "docs/review/clamav-compose-service-review.md" in portfolio

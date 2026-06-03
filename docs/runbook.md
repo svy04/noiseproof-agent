@@ -4149,6 +4149,33 @@ Next product gate:
 ClamAV compose service review v0
 ```
 
+## ClamAV Compose Service Review
+
+Phase marker: ClamAV compose service review v0.
+
+Use this review artifact:
+
+```text
+docs/review/clamav-compose-service-review.md
+```
+
+Decision:
+
+```text
+select a future internal-only clamav compose service
+do not publish clamd ports to the host
+depends_on must not be treated as scanner readiness evidence
+signature database readiness must be visible
+prefer streamed bytes over API temp-path scanning
+do not switch NOISEPROOF_SCANNER=clamav by default
+```
+
+Next product gate:
+
+```text
+ClamAV compose service implementation v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

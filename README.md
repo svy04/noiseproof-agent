@@ -279,6 +279,8 @@ ClamAV API integration boundary review v0: implemented. Boundary: review-only de
 
 ClamAV service boundary review v0: implemented. Boundary: review-only decision to design a dedicated ClamAV service/daemon boundary before compose or API code; no clamd exposure, no endpoint integration, no malware scanning evidence.
 
+ClamAV compose service review v0: implemented. Boundary: review-only decision to design a future internal-only `clamav` Docker Compose service before editing compose or API code; no compose code, no clamd runtime verification, no endpoint integration, and no malware scanning evidence.
+
 
 ## Planned Agent Workflow
 
