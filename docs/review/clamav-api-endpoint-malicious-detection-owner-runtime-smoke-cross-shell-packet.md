@@ -35,6 +35,7 @@ Runtime report handling is explicit:
 runtime_report_handling
 write_report_outside_repo: true
 validate_metadata_only: true
+emit_validator_handoff_report: true
 do_not_commit_report_if_it_contains_payload_fields: true
 ```
 

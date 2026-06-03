@@ -219,7 +219,9 @@ def build_owner_runtime_smoke_packet() -> dict[str, object]:
             "cat <owner-provided-runtime-only-signature-file-outside-repo> | "
             "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 "
             "uv run python -m app.services.clamav_api_malicious_detection_harness "
-            "--signature-stdin --require-owner-input"
+            "--signature-stdin --require-owner-input "
+            "--owner-runtime-smoke-report "
+            "--output <runtime-report-path-outside-repo>"
         ),
         "command_templates": {
             "posix": (
