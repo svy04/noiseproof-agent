@@ -4123,6 +4123,32 @@ Next product gate:
 ClamAV service boundary review v0
 ```
 
+## ClamAV Service Boundary Review
+
+Phase marker: ClamAV service boundary review v0.
+
+Use this review artifact:
+
+```text
+docs/review/clamav-service-boundary-review.md
+```
+
+Decision:
+
+```text
+review ClamAV compose service boundary before code
+do not expose clamd TCP to host/public networks
+do not use Docker CLI per API request
+do not switch NOISEPROOF_SCANNER=clamav by default
+do not claim endpoint runtime proof with real ClamAV yet
+```
+
+Next product gate:
+
+```text
+ClamAV compose service review v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

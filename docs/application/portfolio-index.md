@@ -400,6 +400,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-raw-file-clamav-runtime-verification-review.md` | source-first review selecting a future Dockerized ClamAV + EICAR runtime smoke; review-only, not runtime evidence, malware scanning evidence, or API endpoint verification with real ClamAV |
 | `docs/review/uploaded-raw-file-dockerized-clamav-eicar-runtime-smoke.md` | local Dockerized ClamAV EICAR proof; EICAR detected as Eicar-Test-Signature with image digest and signature DB version recorded, not production malware scanning evidence or API endpoint verification |
 | `docs/review/clamav-api-integration-boundary-review.md` | review-only decision not to wire Docker CLI execution into the API endpoint; selects ClamAV service boundary review before real endpoint integration |
+| `docs/review/clamav-service-boundary-review.md` | review-only decision to design a dedicated ClamAV service boundary before compose/API code; no clamd exposure, endpoint integration, or malware scanning evidence |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

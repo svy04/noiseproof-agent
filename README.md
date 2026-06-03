@@ -277,6 +277,8 @@ Dockerized ClamAV EICAR runtime smoke v0: implemented. Boundary: local Dockerize
 
 ClamAV API integration boundary review v0: implemented. Boundary: review-only decision not to wire Docker CLI execution into the API endpoint and not to change the default scanner yet; selects a future ClamAV service boundary review before endpoint integration.
 
+ClamAV service boundary review v0: implemented. Boundary: review-only decision to design a dedicated ClamAV service/daemon boundary before compose or API code; no clamd exposure, no endpoint integration, no malware scanning evidence.
+
 
 ## Planned Agent Workflow
 

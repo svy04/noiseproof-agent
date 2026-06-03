@@ -8317,3 +8317,37 @@ def test_clamav_api_integration_boundary_review_rejects_docker_cli_per_request()
     assert "Phase 280 - ClamAV API Integration Boundary Review v0" in goal
     assert "ClamAV API integration boundary review v0" in runbook
     assert "docs/review/clamav-api-integration-boundary-review.md" in portfolio
+
+
+def test_clamav_service_boundary_review_selects_compose_review_before_code():
+    review_path = REPO_ROOT / "docs/review/clamav-service-boundary-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV Service Boundary Review" in content
+    assert "ClamAV service boundary review v0" in content
+    assert "https://docs.clamav.net/manual/Installing/Docker.html" in content
+    assert "https://docs.clamav.net/manual/Usage/ClamdProtocol.html" in content
+    assert "https://docs.clamav.net/manual/Usage/Scanning.html" in content
+    assert "ClamAV compose service review v0" in content
+    assert "TCP sockets are not encrypted or authenticated" in content
+    assert "Path-based scans are resolved on the daemon host" in content
+    assert "An API-generated temporary path cannot be blindly passed" in content
+    assert "internal-only Docker network" in content
+    assert "Do not expose clamd TCP to host or public networks" in content
+    assert "Do not use Docker CLI execution per API request" in content
+    assert "Do not switch `NOISEPROOF_SCANNER=clamav` as the default" in content
+    assert "not Docker Compose service code" in content
+    assert "not API endpoint integration" in content
+    assert "not malware scanning evidence" in content
+    assert "ClamAV service boundary review v0: implemented" in readme
+    assert "Phase 281 - ClamAV Service Boundary Review v0" in goal
+    assert "ClamAV service boundary review v0" in runbook
+    assert "docs/review/clamav-service-boundary-review.md" in portfolio
