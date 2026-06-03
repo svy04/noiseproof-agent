@@ -7443,3 +7443,41 @@ def test_uploaded_raw_file_scan_result_repository_review_selects_minimal_reposit
     assert "Phase 256 - Uploaded Raw File Scan Result Repository Review v0" in goal
     assert "uploaded raw file scan result repository review v0" in runbook
     assert "docs/review/uploaded-raw-file-scan-result-repository-review.md" in portfolio
+
+
+def test_uploaded_raw_file_scan_result_repository_documents_code_boundary():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-scan-result-repository.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    db_py = (REPO_ROOT / "apps/api/app/db.py").read_text(encoding="utf-8")
+    schemas_py = (REPO_ROOT / "apps/api/app/schemas.py").read_text(encoding="utf-8")
+
+    assert "Uploaded Raw File Scan Result Repository" in content
+    assert "uploaded raw file scan result repository v0" in content
+    assert "RawFileScanResultCreate" in content
+    assert "create_raw_file_scan_result" in content
+    assert "list_raw_file_scan_results" in content
+    assert "caller-provided scan result rows" in content
+    assert "scan_error is not clean" in content
+    assert "does not run scanners" in content
+    assert "does not add endpoint code" in content
+    assert "not malware scanning" in content
+    assert "not scanner execution" in content
+    assert "not ClamAV integration" in content
+    assert "not a download endpoint" in content
+    assert "not runtime evidence" in content
+    assert "class RawFileScanResultCreate" in schemas_py
+    assert "def create_raw_file_scan_result" in db_py
+    assert "def list_raw_file_scan_results" in db_py
+    assert "raw_file_scan_results" in db_py
+    assert "Uploaded raw file scan result repository v0: implemented" in readme
+    assert "Phase 257 - Uploaded Raw File Scan Result Repository v0" in goal
+    assert "uploaded raw file scan result repository v0" in runbook
+    assert "docs/review/uploaded-raw-file-scan-result-repository.md" in portfolio

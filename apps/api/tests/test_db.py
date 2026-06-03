@@ -317,3 +317,96 @@ def test_preview_semantic_retrieval_candidates_uses_pgvector_exact_cosine_rankin
     assert result[0]["chunk_id"] == chunk_id
     assert result[0]["embedding_id"] == embedding_id
     assert result[0]["distance"] == 0.0
+
+
+def test_create_raw_file_scan_result_inserts_caller_provided_row_without_scanner():
+    created_at = datetime(2026, 6, 3, tzinfo=UTC)
+    raw_file_id = UUID("55555555-5555-5555-5555-555555555555")
+    scan_result_id = UUID("66666666-6666-6666-6666-666666666666")
+    row = {
+        "id": scan_result_id,
+        "raw_file_id": raw_file_id,
+        "scanner_name": "manual-review-placeholder",
+        "scanner_version": "0.0",
+        "signature_db_version": None,
+        "scan_started_at": None,
+        "scan_finished_at": None,
+        "scan_status": "failed",
+        "scan_verdict": "scan_error",
+        "matched_signature": None,
+        "error_message": "scanner unavailable",
+        "metadata_json": {"source": "unit-test"},
+        "created_at": created_at,
+    }
+    connection = FakeConnection(row=row)
+    repository = PostgresRepository(Settings())
+    repository._connect = lambda: connection
+
+    payload = schemas.RawFileScanResultCreate(
+        raw_file_id=raw_file_id,
+        scanner_name="manual-review-placeholder",
+        scanner_version="0.0",
+        scan_status="failed",
+        scan_verdict="scan_error",
+        error_message="scanner unavailable",
+        metadata_json={"source": "unit-test"},
+    )
+
+    created = repository.create_raw_file_scan_result(payload)
+
+    sql, params = connection.calls[0]
+    assert "INSERT INTO raw_file_scan_results" in sql
+    assert "uploaded_raw_files" not in sql
+    assert "raw_bytes" not in sql
+    assert "clamscan" not in sql.lower()
+    assert "clamav" not in sql.lower()
+    assert params[:9] == (
+        raw_file_id,
+        "manual-review-placeholder",
+        "0.0",
+        None,
+        None,
+        None,
+        "failed",
+        "scan_error",
+        None,
+    )
+    assert params[9] == "scanner unavailable"
+    assert getattr(params[10], "obj", params[10]) == {"source": "unit-test"}
+    assert created["id"] == scan_result_id
+    assert created["scan_verdict"] == "scan_error"
+    assert created["scan_verdict"] != "clean"
+    assert connection.committed is True
+
+
+def test_list_raw_file_scan_results_filters_without_exposing_raw_bytes():
+    raw_file_id = UUID("55555555-5555-5555-5555-555555555555")
+    rows = [
+        {
+            "raw_file_id": raw_file_id,
+            "scanner_name": "manual-review-placeholder",
+            "scan_status": "failed",
+            "scan_verdict": "scan_error",
+        },
+    ]
+    connection = FakeConnection(rows=rows)
+    repository = PostgresRepository(Settings())
+    repository._connect = lambda: connection
+
+    listed = repository.list_raw_file_scan_results(
+        raw_file_id=raw_file_id,
+        scan_status="failed",
+        scan_verdict="scan_error",
+        limit=2,
+    )
+
+    sql, params = connection.calls[0]
+    assert "SELECT * FROM raw_file_scan_results" in sql
+    assert "raw_file_id = %s" in sql
+    assert "scan_status = %s" in sql
+    assert "scan_verdict = %s" in sql
+    assert "raw_bytes" not in sql
+    assert "ORDER BY scan_started_at DESC NULLS LAST, created_at DESC, id DESC" in sql
+    assert "LIMIT %s" in sql
+    assert params == (raw_file_id, "failed", "scan_error", 2)
+    assert listed == rows

@@ -15,6 +15,7 @@ from app.schemas import (
     FailureCaseCreate,
     NoiseGatePreviewOut,
     OpsSummaryOut,
+    RawFileScanResultCreate,
     ReportPreviewOut,
     RetrievalRunCreate,
     UploadedFileIntakeManifestCreate,
@@ -84,6 +85,14 @@ class Repository(Protocol):
     def list_uploaded_file_intake_manifests(self, limit: int = 20) -> Sequence[dict]: ...
     def create_uploaded_raw_file(self, payload: UploadedRawFileCreate) -> dict: ...
     def list_uploaded_raw_files(self, limit: int = 20) -> Sequence[dict]: ...
+    def create_raw_file_scan_result(self, payload: RawFileScanResultCreate) -> dict: ...
+    def list_raw_file_scan_results(
+        self,
+        raw_file_id: UUID | None = None,
+        scan_status: str | None = None,
+        scan_verdict: str | None = None,
+        limit: int = 20,
+    ) -> Sequence[dict]: ...
     def create_agent_run(self, payload: AgentRunCreate) -> dict: ...
     def update_agent_run(
         self,
@@ -449,6 +458,70 @@ class PostgresRepository:
                 LIMIT %s
                 """,
                 (safe_limit,),
+            ).fetchall()
+            return [dict(row) for row in rows]
+
+    def create_raw_file_scan_result(self, payload: RawFileScanResultCreate) -> dict:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                INSERT INTO raw_file_scan_results (
+                  raw_file_id, scanner_name, scanner_version,
+                  signature_db_version, scan_started_at, scan_finished_at,
+                  scan_status, scan_verdict, matched_signature,
+                  error_message, metadata_json
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING *
+                """,
+                (
+                    payload.raw_file_id,
+                    payload.scanner_name,
+                    payload.scanner_version,
+                    payload.signature_db_version,
+                    payload.scan_started_at,
+                    payload.scan_finished_at,
+                    payload.scan_status,
+                    payload.scan_verdict,
+                    payload.matched_signature,
+                    payload.error_message,
+                    Jsonb(payload.metadata_json),
+                ),
+            ).fetchone()
+            conn.commit()
+            return dict(row)
+
+    def list_raw_file_scan_results(
+        self,
+        raw_file_id: UUID | None = None,
+        scan_status: str | None = None,
+        scan_verdict: str | None = None,
+        limit: int = 20,
+    ) -> Sequence[dict]:
+        safe_limit = max(1, min(limit, 100))
+        filters = []
+        params: list[object] = []
+        if raw_file_id is not None:
+            filters.append("raw_file_id = %s")
+            params.append(raw_file_id)
+        if scan_status is not None:
+            filters.append("scan_status = %s")
+            params.append(scan_status)
+        if scan_verdict is not None:
+            filters.append("scan_verdict = %s")
+            params.append(scan_verdict)
+        where_clause = f"WHERE {' AND '.join(filters)}" if filters else ""
+        params.append(safe_limit)
+
+        with self._connect() as conn:
+            rows = conn.execute(
+                f"""
+                SELECT * FROM raw_file_scan_results
+                {where_clause}
+                ORDER BY scan_started_at DESC NULLS LAST, created_at DESC, id DESC
+                LIMIT %s
+                """,
+                tuple(params),
             ).fetchall()
             return [dict(row) for row in rows]
 

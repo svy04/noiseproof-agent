@@ -229,6 +229,8 @@ Uploaded raw file scan result schema v0: implemented. Boundary: schema-only `raw
 
 Uploaded raw file scan result repository review v0: implemented. Boundary: review-only selection of `RawFileScanResultCreate`, `create_raw_file_scan_result`, and `list_raw_file_scan_results`; no repository code, endpoint, scanner execution, ClamAV integration, download endpoint, or runtime evidence.
 
+Uploaded raw file scan result repository v0: implemented. Boundary: repository-only caller-provided scan result persistence through `RawFileScanResultCreate`, `create_raw_file_scan_result`, and `list_raw_file_scan_results`; no endpoint, scanner execution, ClamAV integration, download endpoint, or runtime evidence.
+
 
 ## Planned Agent Workflow
 

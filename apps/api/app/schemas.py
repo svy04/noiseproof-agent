@@ -132,6 +132,25 @@ class UploadedRawFileOut(UploadedRawFileMetadata):
     created_at: datetime
 
 
+class RawFileScanResultCreate(BaseModel):
+    raw_file_id: UUID
+    scanner_name: str = Field(..., min_length=1)
+    scanner_version: str | None = None
+    signature_db_version: str | None = None
+    scan_started_at: datetime | None = None
+    scan_finished_at: datetime | None = None
+    scan_status: str = "pending"
+    scan_verdict: str = "pending"
+    matched_signature: str | None = None
+    error_message: str | None = None
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
+
+
+class RawFileScanResultOut(RawFileScanResultCreate):
+    id: UUID
+    created_at: datetime
+
+
 class DocumentChunkCreate(BaseModel):
     document_id: UUID
     source_type: str = Field(..., min_length=1)

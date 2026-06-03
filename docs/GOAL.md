@@ -7977,6 +7977,40 @@ Current next product gate:
 uploaded raw file scan result repository v0
 ```
 
+### Phase 257 - Uploaded Raw File Scan Result Repository v0
+
+Goal:
+
+```text
+add repository-only persistence for caller-provided raw file scan result rows before endpoint or scanner execution
+```
+
+Implemented:
+
+```text
+uploaded raw file scan result repository v0
+RawFileScanResultCreate
+RawFileScanResultOut
+create_raw_file_scan_result
+list_raw_file_scan_results
+filters: raw_file_id, scan_status, scan_verdict, limit
+raw_file_scan_results persistence only
+decision: scan_error is not clean
+decision: repository code does not run scanners
+decision: repository code does not expose raw uploaded bytes
+README implementation marker
+docs/application/portfolio-index.md repository link
+docs/runbook.md repository note
+```
+
+Phase 257 is repository code only. It adds no endpoint, scanner adapter, scanner process, ClamAV dependency, file signature validation, download endpoint, runtime evidence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+uploaded raw file scan result endpoint review v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:
