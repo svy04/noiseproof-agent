@@ -249,6 +249,83 @@ def test_malicious_detection_harness_required_owner_input_still_allows_fake_veri
     assert signature_text not in json.dumps(payload, sort_keys=True)
 
 
+def test_malicious_detection_harness_signature_file_reads_outside_repo_without_payload_leak(
+    capsys, tmp_path
+):
+    signature_text = "owner-provided-runtime-placeholder-input"
+    signature_path = tmp_path / "owner-runtime-only-signature.txt"
+    signature_path.write_text(signature_text, encoding="utf-8")
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--signature-file", str(signature_path), "--require-owner-input"],
+        env={ALLOW_ENV: "1"},
+        client=client,
+    )
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["harness_status"] == "verified_infected"
+    assert payload["input_source"] == "file"
+    assert payload["malicious_detection_verified"] is True
+    assert payload["payload_committed_to_repo"] is False
+    assert payload["raw_payload_logged"] is False
+    assert client.upload_calls[0]["content_bytes"] == signature_text.encode("utf-8")
+    assert signature_text not in json.dumps(payload, sort_keys=True)
+
+
+def test_malicious_detection_harness_rejects_signature_file_inside_repository(
+    capsys,
+):
+    signature_text = "owner-provided-runtime-placeholder-input"
+    signature_path = REPO_ROOT / ".tmp-owner-runtime-only-signature.txt"
+    client = RecordingClient()
+    signature_path.write_text(signature_text, encoding="utf-8")
+
+    try:
+        exit_code = main(
+            ["--signature-file", str(signature_path), "--require-owner-input"],
+            env={ALLOW_ENV: "1"},
+            client=client,
+        )
+    finally:
+        signature_path.unlink(missing_ok=True)
+
+    assert exit_code == 7
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["harness_status"] == "signature_file_path_rejected"
+    assert payload["api_calls_attempted"] is False
+    assert payload["malicious_detection_verified"] is False
+    assert payload["signature_file_path_boundary"] == {
+        "signature_file_path_allowed": False,
+        "required_location": "outside_repository",
+    }
+    assert "signature file path must be outside repository" in payload["blocked_reason"]
+    assert client.upload_calls == []
+    assert signature_text not in json.dumps(payload, sort_keys=True)
+
+
+def test_malicious_detection_harness_empty_signature_file_reports_file_input(capsys, tmp_path):
+    signature_path = tmp_path / "owner-runtime-only-signature.txt"
+    signature_path.write_text("", encoding="utf-8")
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--signature-file", str(signature_path), "--require-owner-input"],
+        env={ALLOW_ENV: "1"},
+        client=client,
+    )
+
+    assert exit_code == 4
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["harness_status"] == "not_configured"
+    assert payload["input_source"] == "file"
+    assert payload["required_owner_input_missing"] is True
+    assert payload["api_calls_attempted"] is False
+    assert "signature file" in payload["blocked_reason"]
+    assert client.upload_calls == []
+
+
 def test_malicious_detection_harness_rejects_owner_runtime_output_path_inside_repository(
     capsys,
 ):
@@ -340,6 +417,44 @@ def test_malicious_detection_harness_writes_validator_handoff_report_outside_rep
     assert validation["accepted_owner_runtime_smoke"] is True
 
 
+def test_malicious_detection_harness_signature_file_handoff_report_validates(
+    capsys, tmp_path
+):
+    signature_text = "owner-provided-runtime-placeholder-input"
+    signature_path = tmp_path / "owner-runtime-only-signature.txt"
+    report_path = tmp_path / "owner-runtime-smoke-validator-report.json"
+    signature_path.write_text(signature_text, encoding="utf-8")
+    client = RecordingClient()
+
+    exit_code = main(
+        [
+            "--signature-file",
+            str(signature_path),
+            "--require-owner-input",
+            "--owner-runtime-smoke-report",
+            "--output",
+            str(report_path),
+        ],
+        env={ALLOW_ENV: "1"},
+        client=client,
+    )
+
+    assert exit_code == 0
+    assert capsys.readouterr().out == ""
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    assert report["input_source"] == "file"
+    assert signature_text not in json.dumps(report, sort_keys=True)
+
+    validate_exit_code = main(
+        ["--validate-owner-runtime-smoke-report", str(report_path)]
+    )
+
+    assert validate_exit_code == 0
+    validation = json.loads(capsys.readouterr().out)
+    assert validation["validation_status"] == "accepted"
+    assert validation["accepted_owner_runtime_smoke"] is True
+
+
 def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_payload(capsys):
     client = RecordingClient()
 
@@ -356,7 +471,10 @@ def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_p
     assert payload["api_calls_attempted"] is False
     assert payload["payload_committed_to_repo"] is False
     assert payload["raw_payload_logged"] is False
-    assert payload["required_input"] == "owner-provided runtime-only test signature via stdin"
+    assert (
+        payload["required_input"]
+        == "owner-provided runtime-only test signature via stdin or signature file"
+    )
     assert payload["command_template"] == (
         "cat <owner-provided-runtime-only-signature-file-outside-repo> | "
         "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 "
@@ -382,6 +500,13 @@ def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_p
             "--signature-stdin --require-owner-input "
             "--owner-runtime-smoke-report "
             "--output '<runtime-report-path-outside-repo>'"
+        ),
+        "signature_file": (
+            "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 "
+            "uv run python -m app.services.clamav_api_malicious_detection_harness "
+            "--signature-file <owner-provided-runtime-only-signature-file-outside-repo> "
+            "--require-owner-input --owner-runtime-smoke-report "
+            "--output <runtime-report-path-outside-repo>"
         ),
     }
     assert payload["post_run_validation_command"] == (
@@ -442,6 +567,7 @@ def test_malicious_detection_harness_prints_owner_runtime_smoke_report_contract_
     assert payload["contract_status"] == "ready_for_owner_runtime_report"
     assert payload["accepted_report"]["harness_status"] == "verified_infected"
     assert payload["accepted_report"]["input_source"] == "stdin"
+    assert payload["accepted_input_sources"] == ["file", "stdin"]
     assert payload["accepted_scan_result_summary"] == {
         "scanner_name": "clamav-clamd",
         "scan_status": "completed",
@@ -495,7 +621,7 @@ def test_malicious_detection_harness_prints_owner_runtime_smoke_report_schema_wi
     assert schema["properties"]["api_calls_attempted"] == {"const": True}
     assert schema["properties"]["payload_committed_to_repo"] == {"const": False}
     assert schema["properties"]["raw_payload_logged"] == {"const": False}
-    assert schema["properties"]["input_source"] == {"const": "stdin"}
+    assert schema["properties"]["input_source"] == {"enum": ["file", "stdin"]}
     assert schema["properties"]["required_owner_input_missing"] == {"const": False}
     summary_schema = schema["properties"]["scan_result_summary"]
     assert summary_schema["additionalProperties"] is False

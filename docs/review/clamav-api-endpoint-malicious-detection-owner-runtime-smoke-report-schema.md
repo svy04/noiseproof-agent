@@ -36,7 +36,7 @@ malicious_detection_verified: true
 api_calls_attempted: true
 payload_committed_to_repo: false
 raw_payload_logged: false
-input_source: stdin
+input_source: file or stdin
 required_owner_input_missing: false
 ```
 

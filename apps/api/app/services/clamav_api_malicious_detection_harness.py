@@ -35,6 +35,7 @@ OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY = {
     "matched_signature": "Eicar-Test-Signature",
     "metadata_boundary": "metadata_only_no_raw_bytes_no_download_url",
 }
+OWNER_RUNTIME_SMOKE_ACCEPTED_INPUT_SOURCES = ["file", "stdin"]
 OWNER_RUNTIME_SMOKE_FORBIDDEN_PAYLOAD_KEYS = {
     "content_bytes",
     "download_url",
@@ -138,6 +139,11 @@ def build_malicious_detection_harness_report(
                 "set NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 and provide "
                 "owner-provided test signature text on stdin"
             )
+        elif input_source == "file":
+            blocked_reason = (
+                "set NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 and provide "
+                "owner-provided test signature text in the signature file"
+            )
         else:
             blocked_reason = (
                 "set NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 and provide "
@@ -216,7 +222,9 @@ def build_owner_runtime_smoke_packet() -> dict[str, object]:
         "api_calls_attempted": False,
         "payload_committed_to_repo": False,
         "raw_payload_logged": False,
-        "required_input": "owner-provided runtime-only test signature via stdin",
+        "required_input": (
+            "owner-provided runtime-only test signature via stdin or signature file"
+        ),
         "command_template": (
             "cat <owner-provided-runtime-only-signature-file-outside-repo> | "
             "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 "
@@ -242,6 +250,13 @@ def build_owner_runtime_smoke_packet() -> dict[str, object]:
                 "--signature-stdin --require-owner-input "
                 "--owner-runtime-smoke-report "
                 "--output '<runtime-report-path-outside-repo>'"
+            ),
+            "signature_file": (
+                "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 "
+                "uv run python -m app.services.clamav_api_malicious_detection_harness "
+                "--signature-file <owner-provided-runtime-only-signature-file-outside-repo> "
+                "--require-owner-input --owner-runtime-smoke-report "
+                "--output <runtime-report-path-outside-repo>"
             ),
         },
         "post_run_validation_command": (
@@ -348,6 +363,7 @@ def build_owner_runtime_smoke_report_contract() -> dict[str, object]:
             "input_source": "stdin",
             "required_owner_input_missing": False,
         },
+        "accepted_input_sources": list(OWNER_RUNTIME_SMOKE_ACCEPTED_INPUT_SOURCES),
         "accepted_scan_result_summary": dict(OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY),
         "forbidden_payload_fields": sorted(OWNER_RUNTIME_SMOKE_FORBIDDEN_PAYLOAD_KEYS),
         "accepted_validator_output": {
@@ -411,7 +427,9 @@ def build_owner_runtime_smoke_report_schema() -> dict[str, object]:
                 "api_calls_attempted": {"const": True},
                 "payload_committed_to_repo": {"const": False},
                 "raw_payload_logged": {"const": False},
-                "input_source": {"const": "stdin"},
+                "input_source": {
+                    "enum": list(OWNER_RUNTIME_SMOKE_ACCEPTED_INPUT_SOURCES)
+                },
                 "required_owner_input_missing": {"const": False},
                 "scan_result_summary": {
                     "type": "object",
@@ -465,13 +483,14 @@ def validate_owner_runtime_smoke_report(
         "api_calls_attempted": True,
         "payload_committed_to_repo": False,
         "raw_payload_logged": False,
-        "input_source": "stdin",
         "required_owner_input_missing": False,
     }
     for field, expected_value in expected_top_level.items():
         if report.get(field) != expected_value:
             formatted = str(expected_value).lower()
             missing_or_failed_checks.append(f"{field} must be {formatted}")
+    if report.get("input_source") not in set(OWNER_RUNTIME_SMOKE_ACCEPTED_INPUT_SOURCES):
+        missing_or_failed_checks.append("input_source must be stdin or file")
 
     summary = report.get("scan_result_summary")
     if not isinstance(summary, Mapping):
@@ -598,6 +617,13 @@ def main(
         ),
     )
     parser.add_argument(
+        "--signature-file",
+        help=(
+            "Read the owner-provided test signature from a runtime-only file "
+            "outside the repository. The raw input is not printed in the report."
+        ),
+    )
+    parser.add_argument(
         "--require-owner-input",
         action="store_true",
         help=(
@@ -649,6 +675,7 @@ def main(
 
     source_env = env if env is not None else os.environ
     output_path = Path(args.output) if args.output else None
+    signature_file_path = Path(args.signature_file) if args.signature_file else None
     output_path_rejected = False
     is_runtime_smoke_command = not (
         args.validate_owner_runtime_smoke_report
@@ -658,13 +685,19 @@ def main(
     )
 
     if (
+        signature_file_path is not None
+        and is_runtime_smoke_command
+        and _path_is_inside_repository(signature_file_path)
+    ):
+        report = _signature_file_path_rejected_report()
+    elif (
         output_path is not None
         and is_runtime_smoke_command
         and _path_is_inside_repository(output_path)
     ):
         output_path_rejected = True
         report = _output_path_rejected_report(
-            input_source="stdin" if args.signature_stdin else "environment",
+            input_source=_input_source_from_args(args),
         )
     elif args.validate_owner_runtime_smoke_report:
         report_path = Path(args.validate_owner_runtime_smoke_report)
@@ -679,8 +712,12 @@ def main(
     elif args.print_owner_runtime_smoke_packet:
         report = build_owner_runtime_smoke_packet()
     else:
-        input_source = "stdin" if args.signature_stdin else "environment"
-        if args.signature_stdin:
+        input_source = _input_source_from_args(args)
+        if signature_file_path is not None:
+            test_signature_text = _normalize_owner_runtime_input(
+                signature_file_path.read_text(encoding="utf-8")
+            )
+        elif args.signature_stdin:
             stdin_source = stdin if stdin is not None else sys.stdin
             test_signature_text = _normalize_owner_runtime_input(stdin_source.read())
         else:
@@ -716,6 +753,14 @@ def main(
     if args.validate_owner_runtime_smoke_report:
         return 0 if report["accepted_owner_runtime_smoke"] is True else 5
     return _exit_code_for_status(str(report["harness_status"]), report)
+
+
+def _input_source_from_args(args: argparse.Namespace) -> str:
+    if args.signature_file:
+        return "file"
+    if args.signature_stdin:
+        return "stdin"
+    return "environment"
 
 
 def _base_report() -> dict[str, object]:
@@ -755,6 +800,24 @@ def _output_path_rejected_report(*, input_source: str) -> dict[str, object]:
         "blocked_reason": "output path must be outside repository",
         "output_path_boundary": {
             "output_path_allowed": False,
+            "required_location": "outside_repository",
+        },
+        "scan_result_summary": None,
+    }
+
+
+def _signature_file_path_rejected_report() -> dict[str, object]:
+    return {
+        **_base_report(),
+        "harness_status": "signature_file_path_rejected",
+        "api_calls_attempted": False,
+        "payload_length_bytes": 0,
+        "input_source": "file",
+        "required_owner_input_missing": False,
+        "malicious_detection_verified": False,
+        "blocked_reason": "signature file path must be outside repository",
+        "signature_file_path_boundary": {
+            "signature_file_path_allowed": False,
             "required_location": "outside_repository",
         },
         "scan_result_summary": None,
@@ -821,6 +884,8 @@ def _exit_code_for_status(status: str, report: Mapping[str, object] | None = Non
         return 4
     if status == "output_path_rejected":
         return 6
+    if status == "signature_file_path_rejected":
+        return 7
     if status in {"not_configured", "verified_infected"}:
         return 0
     if status in {"unexpected_clean", "scan_error"}:

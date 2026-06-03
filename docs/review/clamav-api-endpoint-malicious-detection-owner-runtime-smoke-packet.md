@@ -19,7 +19,7 @@ uv run python -m app.services.clamav_api_malicious_detection_harness --print-own
 
 ```text
 packet_status: ready_for_owner_input
-required_input: owner-provided runtime-only test signature via stdin
+required_input: owner-provided runtime-only test signature via stdin or signature file
 api_calls_attempted: false
 payload_committed_to_repo: false
 raw_payload_logged: false
@@ -31,6 +31,7 @@ Command template:
 command_template: cat <owner-provided-runtime-only-signature-file-outside-repo> | NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 uv run python -m app.services.clamav_api_malicious_detection_harness --signature-stdin --require-owner-input --owner-runtime-smoke-report --output <runtime-report-path-outside-repo>
 command_templates.posix
 command_templates.powershell
+command_templates.signature_file: NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 uv run python -m app.services.clamav_api_malicious_detection_harness --signature-file <owner-provided-runtime-only-signature-file-outside-repo> --require-owner-input --owner-runtime-smoke-report --output <runtime-report-path-outside-repo>
 runtime_report_handling
 emit_validator_handoff_report: true
 post_run_validation_command: uv run python -m app.services.clamav_api_malicious_detection_harness --validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>

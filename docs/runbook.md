@@ -5479,6 +5479,46 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Signature-file Input
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke signature-file input v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-signature-file-input.md
+```
+
+Preferred runtime-only input command:
+
+```text
+NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 uv run python -m app.services.clamav_api_malicious_detection_harness --signature-file <owner-provided-runtime-only-signature-file-outside-repo> --require-owner-input --owner-runtime-smoke-report --output <runtime-report-path-outside-repo>
+```
+
+Expected guard markers:
+
+```text
+signature_file_path_allowed: false
+required_location: outside_repository
+accepted_input_sources: file, stdin
+input_source: file or stdin
+does not include a test signature payload
+not endpoint malicious-detection runtime proof
+```
+
+Verification:
+
+```bash
+cd apps/api
+uv run pytest tests/test_clamav_api_malicious_detection_harness.py -q -k "signature_file"
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## CI Node24 Actions Runtime Opt-in
 
 Phase marker: ci node24 actions runtime opt-in v0.

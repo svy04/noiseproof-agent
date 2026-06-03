@@ -23,6 +23,7 @@ uv run python -m app.services.clamav_api_malicious_detection_harness \
 ```text
 contract_status: ready_for_owner_runtime_report
 accepted_report
+accepted_input_sources
 accepted_scan_result_summary
 forbidden_payload_fields
 accepted_validator_output
@@ -36,6 +37,7 @@ harness_status: verified_infected
 malicious_detection_verified: true
 api_calls_attempted: true
 input_source: stdin
+accepted_input_sources: file, stdin
 required_owner_input_missing: false
 payload_committed_to_repo: false
 raw_payload_logged: false

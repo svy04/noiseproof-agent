@@ -9621,6 +9621,41 @@ def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_empty_marke
     assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-empty-marker-guard.md" in portfolio
 
 
+def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_signature_file_input_is_documented():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-signature-file-input.md"
+    packet_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-packet.md"
+    contract_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-report-contract.md"
+    schema_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-report-schema.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    packet = packet_path.read_text(encoding="utf-8")
+    contract = contract_path.read_text(encoding="utf-8")
+    schema = schema_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Signature-file Input" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke signature-file input v0" in content
+    assert "--signature-file <owner-provided-runtime-only-signature-file-outside-repo>" in content
+    assert "signature_file_path_allowed: false" in content
+    assert "accepted_input_sources: file, stdin" in content
+    assert "input_source: file or stdin" in content
+    assert "does not include a test signature payload" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "--signature-file <owner-provided-runtime-only-signature-file-outside-repo>" in packet
+    assert "accepted_input_sources: file, stdin" in contract
+    assert "input_source: file or stdin" in schema
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke signature-file input v0: implemented" in readme
+    assert "Phase 324 - ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Signature-file Input v0" in goal
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke signature-file input v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-signature-file-input.md" in portfolio
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()
