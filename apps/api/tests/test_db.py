@@ -379,6 +379,42 @@ def test_create_raw_file_scan_result_inserts_caller_provided_row_without_scanner
     assert connection.committed is True
 
 
+def test_get_uploaded_raw_file_for_scan_reads_raw_bytes_for_internal_scanner_only():
+    created_at = datetime(2026, 6, 3, tzinfo=UTC)
+    raw_file_id = UUID("55555555-5555-5555-5555-555555555555")
+    row = {
+        "id": raw_file_id,
+        "content_sha256": "abc123",
+        "storage_key": "generated-storage-key",
+        "filename": "../../sample.csv",
+        "source_type": "csv",
+        "content_type": "text/csv",
+        "size_bytes": 25,
+        "storage_backend": "postgres_bytea",
+        "quarantine_status": "stored_quarantined",
+        "persistence_boundary": "raw_upload_quarantine_db_bytea_no_download_endpoint",
+        "raw_bytes": b"ticker,revenue\nALPHA,120\n",
+        "warnings_json": [],
+        "created_at": created_at,
+    }
+    connection = FakeConnection(row=row)
+    repository = PostgresRepository(Settings())
+    repository._connect = lambda: connection
+
+    fetched = repository.get_uploaded_raw_file_for_scan(raw_file_id)
+
+    sql, params = connection.calls[0]
+    assert "FROM uploaded_raw_files" in sql
+    assert "WHERE id = %s" in sql
+    assert "raw_bytes" in sql
+    assert "download_url" not in sql
+    assert params == (raw_file_id,)
+    assert fetched["id"] == raw_file_id
+    assert fetched["raw_bytes"] == b"ticker,revenue\nALPHA,120\n"
+    assert fetched["storage_key"] == "generated-storage-key"
+    assert connection.committed is False
+
+
 def test_list_raw_file_scan_results_filters_without_exposing_raw_bytes():
     raw_file_id = UUID("55555555-5555-5555-5555-555555555555")
     rows = [

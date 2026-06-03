@@ -392,6 +392,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-review-issue-body-clamav-adapter-runtime-smoke-refresh.md` | owner-authored issue #1 body update pointing reviewers to the ClamAV adapter runtime smoke proof; not external reviewer feedback, hosted deployment evidence, real ClamAV execution, signature database evidence, or malware scanning |
 | `docs/review/external-feedback-current-state-clamav-adapter-runtime-smoke-issue-verification.md` | current-state issue #1 screen after the ClamAV adapter runtime smoke issue-body refresh; candidate_count 0 and only self-authored comment, so external feedback remains pending |
 | `docs/review/uploaded-raw-file-scan-execution-review.md` | source-first review for a future explicit raw upload scan execution endpoint; separates scanner execution from caller-provided scan metadata and adds no endpoint code or malware scanning evidence |
+| `docs/review/uploaded-raw-file-scan-execution-endpoint.md` | explicit raw upload scan execution endpoint; default scanner-unavailable maps to scan_error, metadata only, no real ClamAV execution, malware scanning evidence, hosted proof, or download endpoint |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

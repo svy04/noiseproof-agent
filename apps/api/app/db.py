@@ -84,6 +84,7 @@ class Repository(Protocol):
     ) -> dict: ...
     def list_uploaded_file_intake_manifests(self, limit: int = 20) -> Sequence[dict]: ...
     def create_uploaded_raw_file(self, payload: UploadedRawFileCreate) -> dict: ...
+    def get_uploaded_raw_file_for_scan(self, raw_file_id: UUID) -> dict | None: ...
     def list_uploaded_raw_files(self, limit: int = 20) -> Sequence[dict]: ...
     def create_raw_file_scan_result(self, payload: RawFileScanResultCreate) -> dict: ...
     def list_raw_file_scan_results(
@@ -460,6 +461,21 @@ class PostgresRepository:
                 (safe_limit,),
             ).fetchall()
             return [dict(row) for row in rows]
+
+    def get_uploaded_raw_file_for_scan(self, raw_file_id: UUID) -> dict | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                SELECT
+                  id, content_sha256, storage_key, filename, source_type,
+                  content_type, size_bytes, storage_backend, quarantine_status,
+                  persistence_boundary, raw_bytes, warnings_json, created_at
+                FROM uploaded_raw_files
+                WHERE id = %s
+                """,
+                (raw_file_id,),
+            ).fetchone()
+            return dict(row) if row else None
 
     def create_raw_file_scan_result(self, payload: RawFileScanResultCreate) -> dict:
         with self._connect() as conn:

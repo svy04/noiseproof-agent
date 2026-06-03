@@ -7979,3 +7979,46 @@ def test_uploaded_raw_file_scan_execution_review_selects_endpoint_without_runtim
     assert "Phase 272 - Uploaded Raw File Scan Execution Review v0" in goal
     assert "uploaded raw file scan execution review v0" in runbook
     assert "docs/review/uploaded-raw-file-scan-execution-review.md" in portfolio
+
+
+def test_uploaded_raw_file_scan_execution_endpoint_is_documented_without_malware_claim():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-scan-execution-endpoint.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    env_example = (REPO_ROOT / ".env.example").read_text(encoding="utf-8")
+    route_py = (REPO_ROOT / "apps/api/app/routes/documents.py").read_text(
+        encoding="utf-8"
+    )
+    service_py = (
+        REPO_ROOT / "apps/api/app/services/raw_file_scan_execution.py"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded Raw File Scan Execution Endpoint" in content
+    assert "uploaded raw file scan execution endpoint v0" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan" in content
+    assert "scanner-unavailable" in content
+    assert "scan_error" in content
+    assert "NOISEPROOF_SCANNER=unavailable" in content
+    assert "temporary scan file is removed" in content.lower()
+    assert "metadata sanitizes temporary_scan_path, raw_bytes, and file_bytes" in content
+    assert "not real ClamAV execution evidence" in content
+    assert "not malware scanning evidence" in content
+    assert "uploaded raw file scan execution endpoint runtime smoke v0" in content
+    assert "Uploaded raw file scan execution endpoint v0: implemented" in readme
+    assert "Phase 273 - Uploaded Raw File Scan Execution Endpoint v0" in goal
+    assert "uploaded raw file scan execution endpoint v0" in runbook
+    assert "docs/review/uploaded-raw-file-scan-execution-endpoint.md" in portfolio
+    assert "NOISEPROOF_SCANNER=unavailable" in env_example
+    assert "RAW_FILE_SCANNER_TIMEOUT_SECONDS=30" in env_example
+    assert '"/upload-raw-files/{raw_file_id}/scan"' in route_py
+    assert "TemporaryDirectory" in service_py
+    assert "get_uploaded_raw_file_for_scan" in service_py
+    assert "create_raw_file_scan_result" in service_py
+    assert "SENSITIVE_SCAN_METADATA_KEYS" in service_py

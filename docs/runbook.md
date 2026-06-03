@@ -3728,6 +3728,66 @@ Next product gate:
 uploaded raw file scan execution endpoint v0
 ```
 
+## Uploaded Raw File Scan Execution Endpoint
+
+Phase marker: uploaded raw file scan execution endpoint v0.
+
+Use this proof artifact:
+
+```text
+docs/review/uploaded-raw-file-scan-execution-endpoint.md
+```
+
+Endpoint:
+
+```text
+POST /documents/upload-raw-files/{raw_file_id}/scan
+```
+
+Default configuration:
+
+```text
+NOISEPROOF_SCANNER=unavailable
+RAW_FILE_SCANNER_TIMEOUT_SECONDS=30
+```
+
+Default response boundary:
+
+```text
+scanner_name = scanner-unavailable
+scan_status = failed
+scan_verdict = scan_error
+failure_reason = scanner_not_configured
+```
+
+Run targeted tests from `apps/api`:
+
+```bash
+uv run pytest -q tests/test_routes.py -k "scan_execution"
+```
+
+Expected local result:
+
+```text
+3 passed, 108 deselected, 1 warning
+```
+
+Boundary:
+
+```text
+no raw bytes in response
+no download endpoint
+no temp path in persisted metadata
+not real ClamAV execution
+not malware scanning evidence
+```
+
+Next product gate:
+
+```text
+uploaded raw file scan execution endpoint runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

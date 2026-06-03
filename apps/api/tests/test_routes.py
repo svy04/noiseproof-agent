@@ -1,5 +1,6 @@
 from datetime import date, datetime, timezone
 from hashlib import sha256
+from pathlib import Path
 from uuid import uuid4
 
 import pytest
@@ -8,7 +9,9 @@ from fastapi.testclient import TestClient
 from app.db import get_repository
 from app.main import create_app
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
+from app.services.raw_file_scan_execution import get_scanner_adapter
 from app.services.run_trace import run_with_trace
+from packages.ingestion.scanning import ScanAdapterResult
 
 WORKFLOW_VERSION = "phase40-lineage-warning-code-dashboard"
 
@@ -142,6 +145,12 @@ class InMemoryRepository:
         row["created_at"] = datetime.now(timezone.utc)
         self.uploaded_raw_files.append(row)
         return row
+
+    def get_uploaded_raw_file_for_scan(self, raw_file_id):
+        for row in self.uploaded_raw_files:
+            if str(row["id"]) == str(raw_file_id):
+                return row
+        return None
 
     def list_uploaded_raw_files(self, limit=20):
         return self.uploaded_raw_files[:limit]
@@ -464,6 +473,40 @@ class EvidencePersistenceFailureRepository(InMemoryRepository):
         retrieval_run_id=None,
     ):
         raise RuntimeError("simulated evidence persistence failure")
+
+
+class RecordingCleanScanner:
+    scanner_name = "fake-clean-scanner"
+
+    def __init__(self):
+        self.temp_path_seen = None
+        self.file_existed_during_scan = False
+        self.bytes_seen = None
+
+    def scan(self, request):
+        temp_path = Path(request.temporary_scan_path)
+        self.temp_path_seen = temp_path
+        self.file_existed_during_scan = temp_path.is_file()
+        self.bytes_seen = temp_path.read_bytes()
+        now = datetime.now(timezone.utc)
+        return ScanAdapterResult(
+            raw_file_id=request.raw_file_id,
+            scanner_name=self.scanner_name,
+            scanner_version="test-double",
+            signature_db_version=None,
+            scan_started_at=now,
+            scan_finished_at=now,
+            scan_status="completed",
+            scan_verdict="clean",
+            matched_signature=None,
+            error_message=None,
+            metadata={
+                "temporary_scan_path_present": request.temporary_scan_path is not None,
+                "temporary_scan_path": str(temp_path),
+                "raw_bytes": "should-not-leak",
+                "scanner_execution_boundary": "stored_raw_bytes_to_temp_file_to_adapter",
+            },
+        )
 
 
 def make_client():
@@ -1260,6 +1303,85 @@ def test_document_upload_raw_file_scan_result_rejects_path_body_mismatch():
     assert client.get(
         f"/documents/upload-raw-files/{raw_file_id}/scan-results"
     ).json() == []
+
+
+def test_document_upload_raw_file_scan_execution_defaults_to_scan_error_without_clean_claim():
+    client = make_client()
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", b"ticker,revenue\nALPHA,120\n", "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+
+    response = client.post(f"/documents/upload-raw-files/{raw_file_id}/scan")
+
+    assert upload.status_code == 201
+    assert response.status_code == 201
+    body = response.json()
+    assert body["raw_file_id"] == raw_file_id
+    assert body["scanner_name"] == "scanner-unavailable"
+    assert body["scan_status"] == "failed"
+    assert body["scan_verdict"] == "scan_error"
+    assert body["scan_verdict"] != "clean"
+    assert body["metadata_json"]["failure_reason"] == "scanner_not_configured"
+    assert body["metadata_json"]["temporary_scan_path_present"] is True
+    assert body["metadata_json"]["raw_file_id"] == raw_file_id
+    assert "temporary_scan_path" not in body["metadata_json"]
+    assert "raw_bytes" not in body["metadata_json"]
+    assert "raw_bytes" not in body
+    assert "download_url" not in body
+
+    listed = client.get(f"/documents/upload-raw-files/{raw_file_id}/scan-results")
+    assert listed.status_code == 200
+    listed_body = listed.json()
+    assert len(listed_body) == 1
+    assert listed_body[0]["id"] == body["id"]
+
+
+def test_document_upload_raw_file_scan_execution_uses_temp_file_without_path_leak():
+    client = make_client()
+    scanner = RecordingCleanScanner()
+    client.app.dependency_overrides[get_scanner_adapter] = lambda: scanner
+    content = b"ticker,revenue\nALPHA,120\n"
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("../../sample.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+
+    response = client.post(f"/documents/upload-raw-files/{raw_file_id}/scan")
+
+    assert upload.status_code == 201
+    assert response.status_code == 201
+    assert scanner.file_existed_during_scan is True
+    assert scanner.bytes_seen == content
+    assert scanner.temp_path_seen is not None
+    assert not scanner.temp_path_seen.exists()
+    assert "../../sample.csv" not in scanner.temp_path_seen.name
+    body = response.json()
+    assert body["scanner_name"] == "fake-clean-scanner"
+    assert body["scan_status"] == "completed"
+    assert body["scan_verdict"] == "clean"
+    assert body["metadata_json"]["temporary_scan_path_present"] is True
+    assert body["metadata_json"]["scanner_execution_boundary"] == (
+        "stored_raw_bytes_to_temp_file_to_adapter"
+    )
+    assert "temporary_scan_path" not in body["metadata_json"]
+    assert "raw_bytes" not in body["metadata_json"]
+    assert "download_url" not in body
+
+
+def test_document_upload_raw_file_scan_execution_returns_404_for_missing_raw_file():
+    client = make_client()
+    raw_file_id = uuid4()
+
+    response = client.post(f"/documents/upload-raw-files/{raw_file_id}/scan")
+
+    assert response.status_code == 404
+    assert "uploaded raw file not found" in response.json()["detail"]
+    assert client.get(f"/documents/upload-raw-files/{raw_file_id}/scan-results").json() == []
 
 
 def test_list_document_upload_intake_manifests_returns_recent_manifest_metadata():

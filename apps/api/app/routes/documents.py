@@ -42,6 +42,10 @@ from app.services.chunk_preview import preview_chunks
 from app.services.document_chunk_retrieval import run_document_chunk_retrieval
 from app.services.document_profiler import profile_document
 from app.services.parse_preview import preview_parse
+from app.services.raw_file_scan_execution import (
+    get_scanner_adapter,
+    scan_uploaded_raw_file,
+)
 from app.services.run_trace import run_with_trace
 from app.services.semantic_retrieval_preview import preview_semantic_retrieval
 from app.services.semantic_retrieval_run import run_semantic_retrieval
@@ -53,6 +57,7 @@ from app.services.upload_noise_gate_preview import preview_uploaded_noise_gate
 from app.services.upload_preview import preview_upload
 from app.services.upload_report_preview import preview_uploaded_report
 from app.services.upload_retrieval_preview import preview_uploaded_retrieval
+from packages.ingestion.scanning import ScannerAdapter
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 
@@ -398,6 +403,31 @@ def list_upload_raw_file_scan_results(
             limit=limit,
         )
     )
+
+
+@router.post(
+    "/upload-raw-files/{raw_file_id}/scan",
+    response_model=RawFileScanResultOut,
+    status_code=201,
+)
+def execute_upload_raw_file_scan(
+    raw_file_id: UUID,
+    repository: Repository = Depends(get_repository),
+    settings: Settings = Depends(get_settings),
+    scanner: ScannerAdapter = Depends(get_scanner_adapter),
+) -> dict:
+    result = scan_uploaded_raw_file(
+        raw_file_id,
+        repository=repository,
+        scanner=scanner,
+        settings=settings,
+    )
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail="uploaded raw file not found",
+        )
+    return result
 
 
 @router.post(

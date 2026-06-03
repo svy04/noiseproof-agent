@@ -261,6 +261,8 @@ External feedback current-state ClamAV adapter runtime smoke issue verification 
 
 Uploaded raw file scan execution review v0: implemented. Boundary: source-first review selects a future explicit `POST /documents/upload-raw-files/{raw_file_id}/scan` endpoint and keeps scan execution separate from caller-provided scan result metadata; review-only, not endpoint code, not real ClamAV execution, and not malware scanning evidence.
 
+Uploaded raw file scan execution endpoint v0: implemented. Boundary: explicit `POST /documents/upload-raw-files/{raw_file_id}/scan` writes stored raw bytes to a service-generated temporary scan file, executes the configured scanner adapter, persists metadata-only scan results, and defaults to `scanner-unavailable` / `scan_error`; not real ClamAV execution, not malware scanning evidence, not hosted evidence, and not a download endpoint.
+
 
 ## Planned Agent Workflow
 
