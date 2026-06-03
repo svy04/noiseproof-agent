@@ -8011,6 +8011,39 @@ Current next product gate:
 uploaded raw file scan result endpoint review v0
 ```
 
+### Phase 258 - Uploaded Raw File Scan Result Endpoint Review v0
+
+Goal:
+
+```text
+select metadata-only parent-scoped scan result routes before adding endpoint code or scanner execution
+```
+
+Implemented:
+
+```text
+uploaded raw file scan result endpoint review v0
+docs/review/uploaded-raw-file-scan-result-endpoint-review.md
+selected POST /documents/upload-raw-files/{raw_file_id}/scan-results
+selected GET /documents/upload-raw-files/{raw_file_id}/scan-results
+decision: raw_file_id path parameter is authoritative parent id
+decision: response remains metadata-only
+decision: scan_error is not clean
+decision: do not run scanners in endpoint code
+decision: do not add a download endpoint in this gate
+README implementation marker
+docs/application/portfolio-index.md endpoint review link
+docs/runbook.md endpoint review note
+```
+
+Phase 258 is review-only. It adds no endpoint code, repository code, scanner adapter, scanner process, ClamAV dependency, file signature validation, download endpoint, runtime evidence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+uploaded raw file scan result endpoint v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

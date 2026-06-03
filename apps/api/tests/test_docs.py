@@ -7481,3 +7481,41 @@ def test_uploaded_raw_file_scan_result_repository_documents_code_boundary():
     assert "Phase 257 - Uploaded Raw File Scan Result Repository v0" in goal
     assert "uploaded raw file scan result repository v0" in runbook
     assert "docs/review/uploaded-raw-file-scan-result-repository.md" in portfolio
+
+
+def test_uploaded_raw_file_scan_result_endpoint_review_selects_metadata_only_routes():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-scan-result-endpoint-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Scan Result Endpoint Review" in content
+    assert "uploaded raw file scan result endpoint review v0" in content
+    assert "review-only" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan-results" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/scan-results" in content
+    assert "RawFileScanResultCreate" in content
+    assert "create_raw_file_scan_result" in content
+    assert "list_raw_file_scan_results" in content
+    assert "metadata-only" in content
+    assert "scan_error is not clean" in content
+    assert "do not run scanners in endpoint code" in content
+    assert "do not add a download endpoint in this gate" in content
+    assert "next product gate: uploaded raw file scan result endpoint v0" in content
+    assert "not endpoint code" in content
+    assert "not malware scanning" in content
+    assert "not scanner execution" in content
+    assert "not ClamAV integration" in content
+    assert "not runtime evidence" in content
+    assert "Uploaded raw file scan result endpoint review v0: implemented" in readme
+    assert "Phase 258 - Uploaded Raw File Scan Result Endpoint Review v0" in goal
+    assert "uploaded raw file scan result endpoint review v0" in runbook
+    assert "docs/review/uploaded-raw-file-scan-result-endpoint-review.md" in portfolio
