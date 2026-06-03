@@ -5554,6 +5554,49 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Current-readiness Recheck
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke current-readiness recheck v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-current-readiness-recheck.md
+```
+
+Observed readiness markers:
+
+```text
+docker_server_version: 29.4.3
+docker_compose_version: v5.1.3
+api_scanner: clamd
+api_health_status: ok
+clamd_ping: PONG
+owner_runtime_signature_input_present: false
+api_scan_request_attempted: false
+malicious_detection_verified: false
+does not include a test signature payload
+not endpoint malicious-detection runtime proof
+```
+
+Verification commands used:
+
+```bash
+docker --version
+docker compose version
+docker info --format '{{json .ServerVersion}}'
+docker compose --profile api --profile scanner ps
+docker compose --profile api --profile scanner exec -T api printenv NOISEPROOF_SCANNER CLAMD_HOST CLAMD_PORT
+Invoke-RestMethod -Uri 'http://localhost:8000/health' -Method Get
+docker compose --profile api --profile scanner exec -T clamav clamdscan --ping=1
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## CI Node24 Actions Runtime Opt-in
 
 Phase marker: ci node24 actions runtime opt-in v0.

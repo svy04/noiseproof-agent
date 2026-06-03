@@ -9683,6 +9683,36 @@ def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_signature_f
     assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-signature-file-read-guard.md" in portfolio
 
 
+def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_current_readiness_recheck_is_documented():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-current-readiness-recheck.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Current-readiness Recheck" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke current-readiness recheck v0" in content
+    assert "docker_server_version: 29.4.3" in content
+    assert "docker_compose_version: v5.1.3" in content
+    assert "api_scanner: clamd" in content
+    assert "api_health_status: ok" in content
+    assert "clamd_ping: PONG" in content
+    assert "owner_runtime_signature_input_present: false" in content
+    assert "api_scan_request_attempted: false" in content
+    assert "malicious_detection_verified: false" in content
+    assert "does not include a test signature payload" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke current-readiness recheck v0: implemented" in readme
+    assert "Phase 326 - ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Current-readiness Recheck v0" in goal
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke current-readiness recheck v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-current-readiness-recheck.md" in portfolio
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

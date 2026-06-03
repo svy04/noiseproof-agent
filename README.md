@@ -363,6 +363,8 @@ ClamAV API endpoint malicious-detection owner runtime smoke signature-file input
 
 ClamAV API endpoint malicious-detection owner runtime smoke signature-file read guard v0: implemented. Boundary: missing, directory, unreadable, or undecodable outside-repo signature-file paths now return `signature_file_read_failed` with `exit_code=8`, `api_calls_attempted=false`, and `raw_exception_logged=false`; this is not endpoint malicious-detection runtime proof.
 
+ClamAV API endpoint malicious-detection owner runtime smoke current-readiness recheck v0: implemented. Boundary: local Docker/Compose, API health, `NOISEPROOF_SCANNER=clamd`, and clamd `PONG` were rechecked for the future owner-provided runtime smoke; owner runtime signature input is still absent, no scan request was made, and this is not endpoint malicious-detection runtime proof.
+
 ci node24 actions runtime opt-in v0: implemented. Boundary: `.github/workflows/ci.yml` and `.github/workflows/external-feedback-screen.yml` set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"` after the remote run warned that Node.js 20 actions are deprecated; this is workflow runtime compatibility only, not product runtime evidence.
 
 ci node24 actions runtime remote verification v0: implemented. Boundary: remote runs `26870586255` (`CI`) and `26870586219` (`External Feedback Screen`) succeeded on head `c3c6908`; the annotation is still present as a forced Node.js 24 runtime warning, so this is compatibility evidence only, not product runtime evidence.
