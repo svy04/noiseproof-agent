@@ -16,6 +16,9 @@ PHASE_MARKER = "ClamAV API endpoint malicious-detection test harness v0"
 ALLOW_ENV = "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE"
 SIGNATURE_ENV = "NOISEPROOF_CLAMAV_TEST_SIGNATURE_TEXT"
 API_BASE_URL_ENV = "NOISEPROOF_API_BASE_URL"
+OWNER_RUNTIME_SMOKE_PACKET_PHASE_MARKER = (
+    "ClamAV API endpoint malicious-detection owner runtime smoke packet v0"
+)
 
 
 class EndpointClient(Protocol):
@@ -166,6 +169,50 @@ def build_malicious_detection_harness_report(
     }
 
 
+def build_owner_runtime_smoke_packet() -> dict[str, object]:
+    return {
+        "phase_marker": OWNER_RUNTIME_SMOKE_PACKET_PHASE_MARKER,
+        "packet_status": "ready_for_owner_input",
+        "api_calls_attempted": False,
+        "payload_committed_to_repo": False,
+        "raw_payload_logged": False,
+        "required_input": "owner-provided runtime-only test signature via stdin",
+        "command_template": (
+            "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 "
+            "<owner-provided-stdin> | "
+            "uv run python -m app.services.clamav_api_malicious_detection_harness "
+            "--signature-stdin --require-owner-input"
+        ),
+        "success_criteria": {
+            "scanner_name": "clamav-clamd",
+            "scan_status": "completed",
+            "scan_verdict": "infected",
+            "matched_signature": "Eicar-Test-Signature",
+        },
+        "failure_states": [
+            "not_configured",
+            "blocked_by_environment",
+            "unexpected_clean",
+            "scan_error",
+        ],
+        "non_claims": {
+            "malware_detection_proof": False,
+            "production_malware_scanning_evidence": False,
+            "hosted_deployment_verified": False,
+            "external_reviewer_feedback": False,
+            "product_complete": False,
+        },
+        "boundary": [
+            "does not include a test signature payload",
+            "does not call the API",
+            "does not upload raw bytes",
+            "does not call the scan endpoint",
+            "not malware detection proof",
+            "owner-provided runtime smoke remains pending",
+        ],
+    }
+
+
 def main(
     argv: list[str] | None = None,
     *,
@@ -206,26 +253,37 @@ def main(
             "missing."
         ),
     )
+    parser.add_argument(
+        "--print-owner-runtime-smoke-packet",
+        action="store_true",
+        help=(
+            "Print a no-payload packet describing the owner-provided runtime "
+            "smoke contract."
+        ),
+    )
     parser.add_argument("--output", help="Optional JSON report output path.")
     args = parser.parse_args(argv)
 
     source_env = env if env is not None else os.environ
-    input_source = "stdin" if args.signature_stdin else "environment"
-    if args.signature_stdin:
-        stdin_source = stdin if stdin is not None else sys.stdin
-        test_signature_text = stdin_source.read().rstrip("\r\n")
+    if args.print_owner_runtime_smoke_packet:
+        report = build_owner_runtime_smoke_packet()
     else:
-        test_signature_text = source_env.get(SIGNATURE_ENV)
-    report = build_malicious_detection_harness_report(
-        allow_test_signature_smoke=source_env.get(ALLOW_ENV),
-        test_signature_text=test_signature_text,
-        input_source=input_source,
-        require_owner_input=args.require_owner_input,
-        client=client,
-        api_base_url=args.api_base_url
-        or source_env.get(API_BASE_URL_ENV, "http://localhost:8000"),
-        timeout_seconds=args.timeout_seconds,
-    )
+        input_source = "stdin" if args.signature_stdin else "environment"
+        if args.signature_stdin:
+            stdin_source = stdin if stdin is not None else sys.stdin
+            test_signature_text = stdin_source.read().rstrip("\r\n")
+        else:
+            test_signature_text = source_env.get(SIGNATURE_ENV)
+        report = build_malicious_detection_harness_report(
+            allow_test_signature_smoke=source_env.get(ALLOW_ENV),
+            test_signature_text=test_signature_text,
+            input_source=input_source,
+            require_owner_input=args.require_owner_input,
+            client=client,
+            api_base_url=args.api_base_url
+            or source_env.get(API_BASE_URL_ENV, "http://localhost:8000"),
+            timeout_seconds=args.timeout_seconds,
+        )
     payload = json.dumps(report, indent=2, sort_keys=True)
 
     if args.output:
@@ -235,6 +293,8 @@ def main(
     else:
         print(payload)
 
+    if args.print_owner_runtime_smoke_packet:
+        return 0
     return _exit_code_for_status(str(report["harness_status"]), report)
 
 

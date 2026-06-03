@@ -4999,6 +4999,46 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Packet
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke packet v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-packet.md
+```
+
+Observed command:
+
+```bash
+cd apps/api
+uv run python -m app.services.clamav_api_malicious_detection_harness --print-owner-runtime-smoke-packet
+```
+
+Observed packet:
+
+```text
+packet_status: ready_for_owner_input
+required_input: owner-provided runtime-only test signature via stdin
+command_template
+scanner_name: clamav-clamd
+scan_status: completed
+scan_verdict: infected
+matched_signature: Eicar-Test-Signature
+api_calls_attempted: false
+payload_committed_to_repo: false
+raw_payload_logged: false
+does not call the scan endpoint
+not malware detection proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

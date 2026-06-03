@@ -329,6 +329,8 @@ ClamAV API endpoint malicious-detection owner-runtime preflight v0: implemented.
 
 ClamAV API endpoint malicious-detection owner-input guard v0: implemented. Boundary: `--require-owner-input` returns `exit_code=4`, `required_owner_input_missing=true`, `api_calls_attempted=false`, and `malicious_detection_verified=false` when stdin owner input is absent; owner-provided runtime smoke remains pending and this is not malware detection proof.
 
+ClamAV API endpoint malicious-detection owner runtime smoke packet v0: implemented. Boundary: `--print-owner-runtime-smoke-packet` emits a no-payload packet with `packet_status=ready_for_owner_input`, the stdin command template, success criteria `scanner_name=clamav-clamd`, `scan_status=completed`, `scan_verdict=infected`, `matched_signature=Eicar-Test-Signature`, and no API/scan call; owner-provided runtime smoke remains pending.
+
 
 ## Planned Agent Workflow
 

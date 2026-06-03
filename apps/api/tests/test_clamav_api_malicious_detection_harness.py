@@ -206,3 +206,39 @@ def test_malicious_detection_harness_required_owner_input_still_allows_fake_veri
     assert payload["required_owner_input_missing"] is False
     assert payload["malicious_detection_verified"] is True
     assert signature_text not in json.dumps(payload, sort_keys=True)
+
+
+def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_payload(capsys):
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--print-owner-runtime-smoke-packet"],
+        env={},
+        client=client,
+    )
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["phase_marker"] == "ClamAV API endpoint malicious-detection owner runtime smoke packet v0"
+    assert payload["packet_status"] == "ready_for_owner_input"
+    assert payload["api_calls_attempted"] is False
+    assert payload["payload_committed_to_repo"] is False
+    assert payload["raw_payload_logged"] is False
+    assert payload["required_input"] == "owner-provided runtime-only test signature via stdin"
+    assert payload["command_template"] == (
+        "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 "
+        "<owner-provided-stdin> | "
+        "uv run python -m app.services.clamav_api_malicious_detection_harness "
+        "--signature-stdin --require-owner-input"
+    )
+    assert payload["success_criteria"] == {
+        "scanner_name": "clamav-clamd",
+        "scan_status": "completed",
+        "scan_verdict": "infected",
+        "matched_signature": "Eicar-Test-Signature",
+    }
+    assert payload["non_claims"]["malware_detection_proof"] is False
+    assert client.upload_calls == []
+    assert "owner-provided-runtime-only-test-signature" not in json.dumps(
+        payload, sort_keys=True
+    )
