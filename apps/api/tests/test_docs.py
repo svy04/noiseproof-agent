@@ -8386,3 +8386,40 @@ def test_clamav_compose_service_review_selects_internal_service_before_code():
     assert "Phase 282 - ClamAV Compose Service Review v0" in goal
     assert "ClamAV compose service review v0" in runbook
     assert "docs/review/clamav-compose-service-review.md" in portfolio
+
+
+def test_clamav_compose_service_is_optional_internal_only_and_not_default():
+    compose = (REPO_ROOT / "docker-compose.yml").read_text(encoding="utf-8")
+    env_example = (REPO_ROOT / ".env.example").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    review_path = REPO_ROOT / "docs/review/clamav-compose-service-implementation.md"
+
+    assert review_path.is_file()
+    review = review_path.read_text(encoding="utf-8")
+    assert "clamav:" in compose
+    clamav_section = compose.split("  clamav:\n", 1)[1].split("\nvolumes:", 1)[0]
+    assert "image: clamav/clamav:stable" in clamav_section
+    assert "profiles:" in clamav_section
+    assert "- scanner" in clamav_section
+    assert "expose:" in clamav_section
+    assert '"3310"' in clamav_section
+    assert "healthcheck:" in clamav_section
+    assert "clamdscan --ping=1" in clamav_section
+    assert "ports:" not in clamav_section
+    assert "noiseproof_clamav_db:" in compose
+    assert "NOISEPROOF_SCANNER=unavailable" in env_example
+    assert "ClamAV compose service implementation v0" in review
+    assert "optional scanner profile" in review
+    assert "not host port publishing" in review
+    assert "not clamd runtime verification" in review
+    assert "not API endpoint integration" in review
+    assert "not malware scanning evidence" in review
+    assert "ClamAV compose service implementation v0: implemented" in readme
+    assert "Phase 283 - ClamAV Compose Service Implementation v0" in goal
+    assert "ClamAV compose service implementation v0" in runbook
+    assert "docs/review/clamav-compose-service-implementation.md" in portfolio

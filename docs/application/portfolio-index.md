@@ -402,6 +402,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/clamav-api-integration-boundary-review.md` | review-only decision not to wire Docker CLI execution into the API endpoint; selects ClamAV service boundary review before real endpoint integration |
 | `docs/review/clamav-service-boundary-review.md` | review-only decision to design a dedicated ClamAV service boundary before compose/API code; no clamd exposure, endpoint integration, or malware scanning evidence |
 | `docs/review/clamav-compose-service-review.md` | review-only decision to design a future internal-only `clamav` Docker Compose service before compose/API code; no compose code, clamd runtime verification, endpoint integration, or malware scanning evidence |
+| `docs/review/clamav-compose-service-implementation.md` | optional internal-only `clamav` Docker Compose service behind the `scanner` profile; no host port publishing, clamd runtime verification, endpoint integration, or malware scanning evidence |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

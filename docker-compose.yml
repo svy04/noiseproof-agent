@@ -18,5 +18,23 @@ services:
       timeout: 5s
       retries: 5
 
+  clamav:
+    image: clamav/clamav:stable
+    container_name: noiseproof-agent-clamav
+    restart: unless-stopped
+    profiles:
+      - scanner
+    expose:
+      - "3310"
+    volumes:
+      - noiseproof_clamav_db:/var/lib/clamav
+    healthcheck:
+      test: ["CMD-SHELL", "clamdscan --ping=1 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
 volumes:
   noiseproof_pgdata:
+  noiseproof_clamav_db:

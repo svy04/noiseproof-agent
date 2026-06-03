@@ -4176,6 +4176,39 @@ Next product gate:
 ClamAV compose service implementation v0
 ```
 
+## ClamAV Compose Service Implementation
+
+Phase marker: ClamAV compose service implementation v0.
+
+Use this implementation note:
+
+```text
+docs/review/clamav-compose-service-implementation.md
+```
+
+Implemented:
+
+```text
+optional clamav service behind scanner profile
+clamav/clamav:stable image
+expose 3310 without host port publishing
+noiseproof_clamav_db signature database volume
+clamdscan --ping=1 healthcheck
+NOISEPROOF_SCANNER remains unavailable by default
+```
+
+Config-only verification target:
+
+```text
+docker compose --profile scanner config
+```
+
+Next product gate:
+
+```text
+ClamAV compose service config verification v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
