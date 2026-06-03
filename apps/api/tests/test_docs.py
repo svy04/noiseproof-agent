@@ -8455,3 +8455,33 @@ def test_clamav_compose_service_config_verification_records_config_only_evidence
     assert "Phase 284 - ClamAV Compose Service Config Verification v0" in goal
     assert "ClamAV compose service config verification v0" in runbook
     assert "docs/review/clamav-compose-service-config-verification.md" in portfolio
+
+
+def test_clamav_compose_service_runtime_smoke_records_health_without_api_claim():
+    review_path = REPO_ROOT / "docs/review/clamav-compose-service-runtime-smoke.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV Compose Service Runtime Smoke" in content
+    assert "ClamAV compose service runtime smoke v0" in content
+    assert "docker compose --profile scanner up -d clamav -> exit 0" in content
+    assert "container_health: healthy" in content
+    assert "clamd_ping_verified: true" in content
+    assert "signature_database_observed: true" in content
+    assert "real_clamav_runtime_verified: true" in content
+    assert "api_endpoint_verified_with_real_clamav: false" in content
+    assert "malware_scanning_evidence: false" in content
+    assert "not API endpoint integration" in content
+    assert "not malware scanning evidence" in content
+    assert "ClamAV compose EICAR runtime smoke v0" in content
+    assert "ClamAV compose service runtime smoke v0: implemented" in readme
+    assert "Phase 285 - ClamAV Compose Service Runtime Smoke v0" in goal
+    assert "ClamAV compose service runtime smoke v0" in runbook
+    assert "docs/review/clamav-compose-service-runtime-smoke.md" in portfolio

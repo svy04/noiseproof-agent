@@ -4242,6 +4242,42 @@ Next product gate:
 ClamAV compose service runtime smoke v0
 ```
 
+## ClamAV Compose Service Runtime Smoke
+
+Phase marker: ClamAV compose service runtime smoke v0.
+
+Use this runtime artifact:
+
+```text
+docs/review/clamav-compose-service-runtime-smoke.md
+```
+
+Observed commands:
+
+```text
+docker compose --profile scanner up -d clamav -> exit 0
+docker inspect -f '{{.State.Health.Status}}' noiseproof-agent-clamav -> healthy
+docker compose --profile scanner exec -T clamav clamdscan --ping=1 -> PONG
+docker compose --profile scanner exec -T clamav clamdscan --version -> ClamAV 1.5.2/28017/Sun May 31 06:27:13 2026
+```
+
+Observed boundaries:
+
+```text
+container_health: healthy
+clamd_ping_verified: true
+signature_database_observed: true
+real_clamav_runtime_verified: true
+api_endpoint_verified_with_real_clamav: false
+malware_scanning_evidence: false
+```
+
+Next product gate:
+
+```text
+ClamAV compose EICAR runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

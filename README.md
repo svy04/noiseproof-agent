@@ -285,6 +285,8 @@ ClamAV compose service implementation v0: implemented. Boundary: optional intern
 
 ClamAV compose service config verification v0: implemented. Boundary: `docker compose --profile scanner config` rendered the optional `clamav` service with `profiles: scanner`, `expose: 3310`, no clamd host port publishing, and `clamdscan --ping=1`; not clamd runtime verification, not API endpoint integration, and not malware scanning evidence.
 
+ClamAV compose service runtime smoke v0: implemented. Boundary: local Docker Compose `clamav` service reached healthy state, returned `PONG` to `clamdscan --ping=1`, and exposed no host port bindings; real ClamAV runtime verified for daemon availability only, not API endpoint integration and not malware scanning evidence.
+
 
 ## Planned Agent Workflow
 

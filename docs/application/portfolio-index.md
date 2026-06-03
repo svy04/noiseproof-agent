@@ -404,6 +404,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/clamav-compose-service-review.md` | review-only decision to design a future internal-only `clamav` Docker Compose service before compose/API code; no compose code, clamd runtime verification, endpoint integration, or malware scanning evidence |
 | `docs/review/clamav-compose-service-implementation.md` | optional internal-only `clamav` Docker Compose service behind the `scanner` profile; no host port publishing, clamd runtime verification, endpoint integration, or malware scanning evidence |
 | `docs/review/clamav-compose-service-config-verification.md` | config-only proof that `docker compose --profile scanner config` renders optional `clamav` with scanner profile, expose 3310, no clamd host port publishing, and no runtime/malware claim |
+| `docs/review/clamav-compose-service-runtime-smoke.md` | local Docker Compose ClamAV service runtime proof: healthy container, `PONG` from clamd, signature DB observed, no host port bindings; no API endpoint integration or malware scanning evidence |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
