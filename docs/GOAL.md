@@ -7755,6 +7755,50 @@ Current next product gate:
 external reviewer feedback v0 remains pending, external review issue body raw file storage refresh v0, or select the next source-first product gate
 ```
 
+### Phase 251 - External Review Issue Body Raw File Storage Refresh v0
+
+Goal:
+
+```text
+update the live public issue body so external reviewers can reach the uploaded raw file storage proof directly from issue #1
+```
+
+Implemented:
+
+```text
+external review issue body raw file storage refresh v0
+owner-authored issue edit on https://github.com/svy04/noiseproof-agent/issues/1
+docs/review/external-review-issue-body-raw-file-storage-refresh.md
+issue body link to docs/review/uploaded-raw-file-storage-runtime-smoke.md
+issue body link to docs/review/external-reviewer-raw-file-storage-request-refresh.md
+issue body boundary for not malware scanning and not a download endpoint
+README implementation marker
+docs/application/portfolio-index.md issue-body refresh link
+docs/runbook.md issue-body refresh note
+```
+
+Observed live issue markers:
+
+```text
+updatedAt: 2026-06-02T23:57:53Z
+first_codepoint: 35
+startsWith: ## Request
+comment_count: 1
+owner_comment_count: 1
+has_raw_proof: true
+has_runtime_link: true
+has_request_refresh_link: true
+has_old_global_raw_negation: false
+```
+
+Phase 251 is an owner-authored issue edit only. It is not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, malware scanning, a download endpoint, robust PDF extraction, parser quality evidence, semantic retrieval evidence, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, or product-complete claim.
+
+Current next product gate:
+
+```text
+external reviewer feedback v0 remains pending, external feedback current-state raw file storage issue verification v0, or select the next source-first product gate
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

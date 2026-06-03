@@ -2644,6 +2644,49 @@ not a download endpoint
 not live issue-body verification
 ```
 
+## External Review Issue Body Raw File Storage Refresh
+
+Phase marker: external review issue body raw file storage refresh v0.
+
+Use this refresh artifact:
+
+```text
+docs/review/external-review-issue-body-raw-file-storage-refresh.md
+```
+
+Public issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+Observed live issue markers after owner-authored edit:
+
+```text
+updatedAt: 2026-06-02T23:57:53Z
+first_codepoint: 35
+startsWith: ## Request
+has_raw_proof: true
+has_runtime_link: true
+has_request_refresh_link: true
+has_no_malware_scanning: true
+has_no_download_endpoint: true
+has_old_global_raw_negation: false
+comment_count: 1
+owner_comment_count: 1
+```
+
+Boundary:
+
+```text
+owner-authored issue edit only
+not external reviewer feedback
+not hosted deployment evidence
+not malware scanning
+not a download endpoint
+does not close external reviewer feedback v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

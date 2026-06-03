@@ -370,6 +370,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-raw-file-storage-runtime-smoke.md` | local Docker PostgreSQL plus live FastAPI HTTP evidence for raw upload quarantine storage; not hosted deployment evidence, external reviewer feedback, malware scanning, or a download endpoint |
 | `docs/review/uploaded-raw-file-storage-application-refresh.md` | application-facing refresh for raw upload quarantine runtime proof; not hosted deployment evidence, external reviewer feedback, malware scanning, or a download endpoint |
 | `docs/review/external-reviewer-raw-file-storage-request-refresh.md` | reviewer-facing request-path refresh for the uploaded raw file storage proof; not external reviewer feedback, hosted deployment evidence, malware scanning, or a download endpoint |
+| `docs/review/external-review-issue-body-raw-file-storage-refresh.md` | owner-authored issue #1 body update pointing reviewers to the uploaded raw file storage proof; not external reviewer feedback, hosted deployment evidence, malware scanning, or a download endpoint |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

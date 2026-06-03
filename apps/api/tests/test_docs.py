@@ -7164,3 +7164,46 @@ def test_external_reviewer_raw_file_storage_request_refresh_routes_reviewers_to_
         )
         assert "not malware scanning" in reviewer_surface
         assert "not a download endpoint" in reviewer_surface
+
+
+def test_external_review_issue_body_raw_file_storage_refresh_records_live_issue_update():
+    review_path = (
+        REPO_ROOT / "docs/review/external-review-issue-body-raw-file-storage-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Raw File Storage Refresh" in content
+    assert "external review issue body raw file storage refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "uploaded raw file storage proof" in content
+    assert "docs/review/uploaded-raw-file-storage-runtime-smoke.md" in content
+    assert "docs/review/external-reviewer-raw-file-storage-request-refresh.md" in content
+    assert "POST /documents/upload-raw-files" in content
+    assert "GET /documents/upload-raw-files" in content
+    assert "raw_upload_quarantine_db_bytea_no_download_endpoint" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not malware scanning" in content
+    assert "not a download endpoint" in content
+    assert "owner-authored issue edit" in content
+    assert (
+        "External review issue body raw file storage refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 251 - External Review Issue Body Raw File Storage Refresh v0"
+        in goal
+    )
+    assert "external review issue body raw file storage refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-raw-file-storage-refresh.md"
+        in portfolio
+    )
