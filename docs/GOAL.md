@@ -8335,6 +8335,44 @@ Current next product gate:
 uploaded raw file ClamAV adapter v0
 ```
 
+### Phase 267 - Uploaded Raw File ClamAV Adapter v0
+
+Goal:
+
+```text
+add a conservative ClamAV adapter implementation with deterministic failure mapping and no install/runtime claim
+```
+
+Implemented:
+
+```text
+uploaded raw file ClamAV adapter v0
+packages/ingestion/scanning/clamav.py
+ClamAvScannerAdapter
+dependency-injected which
+dependency-injected runner
+missing clamscan -> failed / scan_error
+missing temporary_scan_path -> failed / scan_error
+timeout -> failed / scan_error
+unknown return code -> failed / scan_error
+clean output -> completed / clean
+FOUND output -> completed / infected
+no --remove
+apps/api/tests/test_raw_file_scanning.py
+docs/review/uploaded-raw-file-clamav-adapter.md
+README implementation marker
+docs/application/portfolio-index.md ClamAV adapter link
+docs/runbook.md ClamAV adapter note
+```
+
+Phase 267 is adapter code and tests only. It adds no endpoint code, schema, migration, ClamAV installation, runtime ClamAV verification, file signature validation, download endpoint, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+uploaded raw file ClamAV adapter runtime smoke v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

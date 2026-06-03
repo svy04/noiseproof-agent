@@ -3,6 +3,7 @@ from packages.ingestion.collection import create_collection_plan
 from packages.ingestion.profiler import profile_text
 from packages.ingestion.retrieval import retrieve_candidates
 from packages.ingestion.scanning import (
+    ClamAvScannerAdapter,
     ScanAdapterRequest,
     ScanAdapterResult,
     ScannerAdapter,
@@ -45,6 +46,7 @@ __all__ = [
     "RetrievalSource",
     "ScanAdapterRequest",
     "ScanAdapterResult",
+    "ClamAvScannerAdapter",
     "ScannerAdapter",
     "ScannerUnavailableAdapter",
     "build_scan_error_result",

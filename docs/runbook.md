@@ -3458,6 +3458,57 @@ Next product gate:
 uploaded raw file ClamAV adapter v0
 ```
 
+## Uploaded Raw File ClamAV Adapter
+
+Phase marker: uploaded raw file ClamAV adapter v0.
+
+Use this artifact:
+
+```text
+docs/review/uploaded-raw-file-clamav-adapter.md
+```
+
+Added code:
+
+```text
+packages/ingestion/scanning/clamav.py
+ClamAvScannerAdapter
+```
+
+Covered mappings:
+
+```text
+missing clamscan -> failed / scan_error
+missing temporary_scan_path -> failed / scan_error
+timeout -> failed / scan_error
+unknown return code -> failed / scan_error
+clean output -> completed / clean
+FOUND output -> completed / infected
+no --remove
+```
+
+Focused test:
+
+```bash
+uv run pytest -q tests/test_raw_file_scanning.py -k "clamav_adapter"
+```
+
+Boundary:
+
+```text
+not ClamAV installation
+not runtime ClamAV verification
+not malware scanning evidence
+not scanner endpoint behavior
+not a download endpoint
+```
+
+Next product gate:
+
+```text
+uploaded raw file ClamAV adapter runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

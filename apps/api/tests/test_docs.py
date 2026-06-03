@@ -7902,3 +7902,41 @@ def test_uploaded_raw_file_clamav_adapter_review_selects_conservative_subprocess
     assert "Phase 266 - Uploaded Raw File ClamAV Adapter Review v0" in goal
     assert "uploaded raw file ClamAV adapter review v0" in runbook
     assert "docs/review/uploaded-raw-file-clamav-adapter-review.md" in portfolio
+
+
+def test_uploaded_raw_file_clamav_adapter_is_documented_without_install_claim():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-clamav-adapter.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    package_init = (REPO_ROOT / "packages/ingestion/scanning/__init__.py").read_text(
+        encoding="utf-8"
+    )
+    clamav_py = (REPO_ROOT / "packages/ingestion/scanning/clamav.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File ClamAV Adapter" in content
+    assert "uploaded raw file ClamAV adapter v0" in content
+    assert "ClamAvScannerAdapter" in content
+    assert "missing clamscan -> failed / scan_error" in content
+    assert "missing temporary_scan_path -> failed / scan_error" in content
+    assert "timeout -> failed / scan_error" in content
+    assert "unknown return code -> failed / scan_error" in content
+    assert "clean output -> completed / clean" in content
+    assert "FOUND output -> completed / infected" in content
+    assert "no --remove" in content
+    assert "not ClamAV installation" in content
+    assert "not runtime ClamAV verification" in content
+    assert "Uploaded raw file ClamAV adapter v0: implemented" in readme
+    assert "Phase 267 - Uploaded Raw File ClamAV Adapter v0" in goal
+    assert "uploaded raw file ClamAV adapter v0" in runbook
+    assert "docs/review/uploaded-raw-file-clamav-adapter.md" in portfolio
+    assert "ClamAvScannerAdapter" in package_init
+    assert "class ClamAvScannerAdapter" in clamav_py

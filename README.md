@@ -249,6 +249,8 @@ Uploaded raw file scanner adapter v0: implemented. Boundary: generic scanner ada
 
 Uploaded raw file ClamAV adapter review v0: implemented. Boundary: review-only selection of `ClamAvScannerAdapter` with `clamscan first`, `clamdscan later`, and conservative subprocess failure mapping; not malware scanning or scanner execution.
 
+Uploaded raw file ClamAV adapter v0: implemented. Boundary: `ClamAvScannerAdapter` maps missing binary, missing temporary path, timeout, unknown return code, clean output, and FOUND output without installing or runtime-verifying ClamAV.
+
 
 ## Planned Agent Workflow
 
