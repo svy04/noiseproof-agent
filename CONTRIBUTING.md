@@ -40,7 +40,9 @@ Please start here:
    - uploaded raw file storage proof via `POST /documents/upload-raw-files` and `GET /documents/upload-raw-files`; not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
 16. `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md`
    - uploaded raw file scan result endpoint proof via `POST /documents/upload-raw-files/{raw_file_id}/scan-results` and `GET /documents/upload-raw-files/{raw_file_id}/scan-results`; `scan_verdict -> scan_error`, not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
-17. `docs/review/external-feedback-intake-criteria.md`
+17. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
+   - ClamAV adapter runtime smoke proof through fake runners; not real ClamAV execution, not signature database evidence, not hosted deployment evidence, not malware scanning, and not external reviewer feedback.
+18. `docs/review/external-feedback-intake-criteria.md`
 
 Public feedback issue:
 

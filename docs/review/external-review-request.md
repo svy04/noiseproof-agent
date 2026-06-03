@@ -150,6 +150,14 @@ docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md
 
 Boundary: this proof is explicit `POST /documents/upload-raw-files/{raw_file_id}/scan-results` and `GET /documents/upload-raw-files/{raw_file_id}/scan-results`, preserves `scan_verdict -> scan_error`, records `response_has_raw_bytes -> false`, and remains not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
 
+ClamAV adapter runtime smoke proof:
+
+```text
+docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md
+```
+
+Boundary: this proof is a deterministic fake-runner smoke for `ClamAvScannerAdapter` missing/clean/infected/timeout/error mappings. It reports `real_clamav_runtime_verified -> false`, and remains not hosted deployment evidence, not external reviewer feedback, not real ClamAV execution, not signature database evidence, not malware scanning, and not a download endpoint.
+
 ## Review Path
 
 Please read in this order:
@@ -168,7 +176,8 @@ Please read in this order:
 12. `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
 13. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
 14. `docs/evaluation/semantic-retrieval-quality-report.md`
-15. `docs/application/braincrew-role-map.md`
+15. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
+16. `docs/application/braincrew-role-map.md`
 
 Optional source-level provenance:
 

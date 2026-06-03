@@ -62,6 +62,8 @@ Read in this order:
     - uploaded raw file storage proof with explicit `POST /documents/upload-raw-files`, `GET /documents/upload-raw-files`, quarantined PostgreSQL BYTEA storage, no malware scanning, and no download endpoint.
 26. `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md`
     - uploaded raw file scan result endpoint proof with explicit `POST /documents/upload-raw-files/{raw_file_id}/scan-results`, `GET /documents/upload-raw-files/{raw_file_id}/scan-results`, `scan_verdict -> scan_error`, `response_has_raw_bytes -> false`, no malware scanning, and no download endpoint.
+27. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
+    - ClamAV adapter runtime smoke proof with deterministic fake-runner scenarios; no real ClamAV execution, no signature database evidence, no malware scanning, and no download endpoint.
 
 ## Optional source-level provenance
 
@@ -176,6 +178,14 @@ docs/review/uploaded-raw-file-storage-application-refresh.md
 ```
 
 This proof is explicit `POST /documents/upload-raw-files` and `GET /documents/upload-raw-files` over quarantined PostgreSQL BYTEA storage, not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
+
+ClamAV adapter runtime smoke proof:
+
+```text
+docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md
+```
+
+This proof exercises `ClamAvScannerAdapter` through deterministic fake-runner scenarios and reports `real_clamav_runtime_verified -> false`. It is not real ClamAV execution, not signature database evidence, not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
 
 retrieval-run-linked Report proof:
 

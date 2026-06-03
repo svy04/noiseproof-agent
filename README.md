@@ -253,6 +253,8 @@ Uploaded raw file ClamAV adapter v0: implemented. Boundary: `ClamAvScannerAdapte
 
 Uploaded raw file ClamAV adapter runtime smoke v0: implemented. Boundary: deterministic command smoke exercises missing/clean/infected/timeout/error mappings through fake runners; not real ClamAV execution, not signature database evidence, not endpoint behavior, and not malware scanning evidence.
 
+External reviewer ClamAV adapter runtime smoke request refresh v0: implemented. Boundary: reviewer request surfaces now point to the deterministic ClamAV adapter smoke proof; not external reviewer feedback, not hosted deployment evidence, not real ClamAV execution, not signature database evidence, and not malware scanning.
+
 
 ## Planned Agent Workflow
 

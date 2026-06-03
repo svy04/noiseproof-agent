@@ -3559,6 +3559,41 @@ Next product gate:
 external reviewer ClamAV adapter runtime smoke request refresh v0
 ```
 
+## External Reviewer ClamAV Adapter Runtime Smoke Request Refresh
+
+Phase marker: external reviewer ClamAV adapter runtime smoke request refresh v0.
+
+Use this artifact:
+
+```text
+docs/review/external-reviewer-clamav-adapter-runtime-smoke-request-refresh.md
+```
+
+Reviewer-facing proof:
+
+```text
+docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md
+real_clamav_runtime_verified -> false
+binary_probe_only -> true
+```
+
+Boundary:
+
+```text
+request infrastructure only
+not external reviewer feedback
+not live issue body edit
+not real ClamAV execution
+not signature database evidence
+not malware scanning
+```
+
+Next request gate:
+
+```text
+external review issue body ClamAV adapter runtime smoke refresh v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

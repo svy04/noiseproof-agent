@@ -30,7 +30,8 @@ Read only these:
 14. `docs/evaluation/semantic-retrieval-quality-report.md`
 15. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
 16. `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md`
-17. `docs/review/external-feedback-intake-criteria.md`
+17. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
+18. `docs/review/external-feedback-intake-criteria.md`
 
 uploaded-file intake manifest proof:
 
@@ -95,6 +96,14 @@ docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md
 ```
 
 This proof is explicit `POST /documents/upload-raw-files/{raw_file_id}/scan-results` and `GET /documents/upload-raw-files/{raw_file_id}/scan-results`, preserves `scan_verdict -> scan_error`, records `response_has_raw_bytes -> false`, and is not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
+
+ClamAV adapter runtime smoke proof:
+
+```text
+docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md
+```
+
+This proof is a deterministic fake-runner smoke for `ClamAvScannerAdapter` mapping behavior, not real ClamAV execution, not signature database evidence, not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
 
 retrieval-run-linked Report proof:
 
