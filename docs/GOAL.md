@@ -7845,6 +7845,39 @@ Current next product gate:
 external reviewer feedback v0 remains pending, or select the next source-first product gate
 ```
 
+### Phase 253 - Uploaded Raw File Storage Safety Review v0
+
+Goal:
+
+```text
+use primary upload-security sources to decide the next safe product gate after quarantine-only raw file storage
+```
+
+Implemented:
+
+```text
+uploaded raw file storage safety review v0
+docs/review/uploaded-raw-file-storage-safety-review.md
+source-first review of OWASP File Upload Cheat Sheet
+source-first review of OWASP Unrestricted File Upload
+source-first review of ClamAV Scanning
+source-first review of FastAPI Request Files
+decision: quarantine-only raw storage remains
+decision: do not add a download endpoint yet
+selected next gate: uploaded raw file scan result schema review v0
+README implementation marker
+docs/application/portfolio-index.md safety review link
+docs/runbook.md safety review note
+```
+
+Phase 253 is review-only. It adds no runtime behavior, endpoint, schema, migration, malware scanning, download endpoint, ClamAV integration, file signature validator, retention/deletion implementation, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, robust PDF extraction, parser quality evidence, semantic retrieval evidence, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, or product-complete claim.
+
+Current next product gate:
+
+```text
+uploaded raw file scan result schema review v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

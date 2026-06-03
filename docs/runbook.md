@@ -2730,6 +2730,53 @@ not a download endpoint
 does not close external reviewer feedback v0
 ```
 
+## Uploaded Raw File Storage Safety Review
+
+Phase marker: uploaded raw file storage safety review v0.
+
+Use this source-first review artifact:
+
+```text
+docs/review/uploaded-raw-file-storage-safety-review.md
+```
+
+Current decision:
+
+```text
+quarantine-only raw storage remains
+do not add a download endpoint yet
+uploaded raw file scan result schema review v0
+```
+
+Source basis:
+
+```text
+OWASP File Upload Cheat Sheet
+OWASP Unrestricted File Upload
+ClamAV Scanning
+FastAPI Request Files
+```
+
+Missing before download:
+
+```text
+allowed extension and type policy
+file signature validation
+malware scan verdict
+retention and deletion policy
+download authorization policy
+```
+
+Boundary:
+
+```text
+review-only
+not malware scanning
+not a download endpoint
+not hosted deployment evidence
+not ClamAV integration
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

@@ -7257,3 +7257,37 @@ def test_external_feedback_current_state_raw_file_storage_issue_verification_kee
         "docs/review/external-feedback-current-state-raw-file-storage-issue-verification.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_storage_safety_review_selects_scan_schema_before_download():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-storage-safety-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Storage Safety Review" in content
+    assert "uploaded raw file storage safety review v0" in content
+    assert "OWASP File Upload Cheat Sheet" in content
+    assert "OWASP Unrestricted File Upload" in content
+    assert "ClamAV Scanning" in content
+    assert "FastAPI Request Files" in content
+    assert "quarantine-only raw storage remains" in content
+    assert "do not add a download endpoint yet" in content
+    assert "uploaded raw file scan result schema review v0" in content
+    assert "allowed extension and type policy" in content
+    assert "file signature validation" in content
+    assert "malware scan verdict" in content
+    assert "retention and deletion policy" in content
+    assert "not malware scanning" in content
+    assert "not a download endpoint" in content
+    assert "not hosted deployment evidence" in content
+    assert "Uploaded raw file storage safety review v0: implemented" in readme
+    assert "Phase 253 - Uploaded Raw File Storage Safety Review v0" in goal
+    assert "uploaded raw file storage safety review v0" in runbook
+    assert "docs/review/uploaded-raw-file-storage-safety-review.md" in portfolio
