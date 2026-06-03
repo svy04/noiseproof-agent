@@ -3897,6 +3897,50 @@ Next evidence gate:
 external review issue body scan execution endpoint refresh v0
 ```
 
+## External Review Issue Body Scan Execution Endpoint Refresh
+
+Phase marker: external review issue body scan execution endpoint refresh v0.
+
+Use this issue-body refresh artifact:
+
+```text
+docs/review/external-review-issue-body-scan-execution-endpoint-refresh.md
+```
+
+Live issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+Observed after edit:
+
+```text
+updatedAt: 2026-06-03T03:42:56Z
+has_scan_execution_proof: true
+has_scan_execution_request_refresh: true
+starts_with_request: true
+first_codepoint: 35
+comment_count: 1
+```
+
+Boundary:
+
+```text
+owner-authored issue edit only
+not external reviewer feedback
+not hosted deployment evidence
+not real ClamAV execution
+not malware scanning evidence
+not a download endpoint
+```
+
+Next evidence gate:
+
+```text
+external feedback current-state scan execution endpoint issue verification v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

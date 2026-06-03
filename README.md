@@ -267,6 +267,8 @@ Uploaded raw file scan execution endpoint runtime smoke v0: implemented. Boundar
 
 External reviewer scan execution endpoint request refresh v0: implemented. Boundary: reviewer request surfaces now point to the scan execution endpoint runtime smoke proof; not external reviewer feedback, not hosted deployment evidence, not real ClamAV execution, and not malware scanning.
 
+External review issue body scan execution endpoint refresh v0: implemented. Boundary: issue #1 now points to the scan execution endpoint runtime proof; owner-authored issue edit only, not external reviewer feedback, not hosted deployment evidence, not real ClamAV execution, and not malware scanning.
+
 
 ## Planned Agent Workflow
 

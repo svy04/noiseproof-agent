@@ -8112,3 +8112,44 @@ def test_external_reviewer_scan_execution_endpoint_request_refresh_updates_revie
         "docs/review/external-reviewer-scan-execution-endpoint-request-refresh.md"
         in portfolio
     )
+
+
+def test_external_review_issue_body_scan_execution_endpoint_refresh_records_owner_edit():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-scan-execution-endpoint-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Scan Execution Endpoint Refresh" in content
+    assert "external review issue body scan execution endpoint refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert '"has_scan_execution_proof": true' in content
+    assert '"has_scan_execution_request_refresh": true' in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert "docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md" in content
+    assert (
+        "docs/review/external-reviewer-scan-execution-endpoint-request-refresh.md"
+        in content
+    )
+    assert "owner-authored issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not real ClamAV execution" in content
+    assert "not malware scanning" in content
+    assert "external feedback current-state scan execution endpoint issue verification v0" in content
+    assert "External review issue body scan execution endpoint refresh v0: implemented" in readme
+    assert "Phase 276 - External Review Issue Body Scan Execution Endpoint Refresh v0" in goal
+    assert "external review issue body scan execution endpoint refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-scan-execution-endpoint-refresh.md"
+        in portfolio
+    )
