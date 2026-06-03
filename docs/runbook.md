@@ -2904,6 +2904,71 @@ not a download endpoint
 not runtime evidence
 ```
 
+## Uploaded Raw File Scan Result Repository Review
+
+Phase marker: uploaded raw file scan result repository review v0.
+
+Use this review artifact:
+
+```text
+docs/review/uploaded-raw-file-scan-result-repository-review.md
+```
+
+Selected repository surface:
+
+```text
+RawFileScanResultCreate
+create_raw_file_scan_result
+list_raw_file_scan_results
+```
+
+Persistence target:
+
+```text
+raw_file_scan_results
+```
+
+Parent table:
+
+```text
+uploaded_raw_files
+```
+
+Selected filters:
+
+```text
+raw_file_id
+scan_status
+scan_verdict
+limit
+```
+
+Important boundary:
+
+```text
+scan_error is not clean
+do not run scanners in repository code
+do not add an endpoint in this gate
+```
+
+Selected next gate:
+
+```text
+uploaded raw file scan result repository v0
+```
+
+Boundary:
+
+```text
+review-only
+not repository code
+not malware scanning
+not scanner execution
+not ClamAV integration
+not a download endpoint
+not runtime evidence
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

@@ -7944,6 +7944,39 @@ Current next product gate:
 uploaded raw file scan result repository review v0
 ```
 
+### Phase 256 - Uploaded Raw File Scan Result Repository Review v0
+
+Goal:
+
+```text
+select the smallest repository boundary for caller-provided raw file scan result rows before endpoint or scanner execution
+```
+
+Implemented:
+
+```text
+uploaded raw file scan result repository review v0
+docs/review/uploaded-raw-file-scan-result-repository-review.md
+selected create model: RawFileScanResultCreate
+selected create function: create_raw_file_scan_result
+selected list function: list_raw_file_scan_results
+selected filters: raw_file_id, scan_status, scan_verdict, limit
+decision: scan_error is not clean
+decision: do not run scanners in repository code
+decision: do not add an endpoint in this gate
+README implementation marker
+docs/application/portfolio-index.md repository review link
+docs/runbook.md repository review note
+```
+
+Phase 256 is review-only. It adds no repository code, endpoint, scanner adapter, scanner process, ClamAV dependency, file signature validation, download endpoint, runtime evidence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+uploaded raw file scan result repository v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

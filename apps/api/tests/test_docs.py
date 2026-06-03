@@ -7400,3 +7400,46 @@ def test_uploaded_raw_file_scan_result_schema_adds_table_without_scanner():
     assert "Phase 255 - Uploaded Raw File Scan Result Schema v0" in goal
     assert "uploaded raw file scan result schema v0" in runbook
     assert "docs/review/uploaded-raw-file-scan-result-schema.md" in portfolio
+
+
+def test_uploaded_raw_file_scan_result_repository_review_selects_minimal_repository():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-scan-result-repository-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Scan Result Repository Review" in content
+    assert "uploaded raw file scan result repository review v0" in content
+    assert "review-only" in content
+    assert "raw_file_scan_results" in content
+    assert "uploaded_raw_files" in content
+    assert "RawFileScanResultCreate" in content
+    assert "create_raw_file_scan_result" in content
+    assert "list_raw_file_scan_results" in content
+    assert "raw_file_id" in content
+    assert "scan_status" in content
+    assert "scan_verdict" in content
+    assert "scanner_name" in content
+    assert "metadata_json" in content
+    assert "scan_error is not clean" in content
+    assert "do not run scanners in repository code" in content
+    assert "do not add an endpoint in this gate" in content
+    assert "next product gate: uploaded raw file scan result repository v0" in content
+    assert "not repository code" in content
+    assert "not malware scanning" in content
+    assert "not scanner execution" in content
+    assert "not ClamAV integration" in content
+    assert "not a download endpoint" in content
+    assert "not runtime evidence" in content
+    assert "Uploaded raw file scan result repository review v0: implemented" in readme
+    assert "Phase 256 - Uploaded Raw File Scan Result Repository Review v0" in goal
+    assert "uploaded raw file scan result repository review v0" in runbook
+    assert "docs/review/uploaded-raw-file-scan-result-repository-review.md" in portfolio
