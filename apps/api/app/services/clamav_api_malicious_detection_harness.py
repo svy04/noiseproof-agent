@@ -83,6 +83,7 @@ def build_malicious_detection_harness_report(
     allow_test_signature_smoke: str | None,
     test_signature_text: str | None,
     input_source: str = "environment",
+    require_owner_input: bool = False,
     client: EndpointClient | None = None,
     api_base_url: str = "http://localhost:8000",
     timeout_seconds: float = 30.0,
@@ -105,6 +106,7 @@ def build_malicious_detection_harness_report(
             "api_calls_attempted": False,
             "payload_length_bytes": 0,
             "input_source": input_source,
+            "required_owner_input_missing": require_owner_input,
             "blocked_reason": blocked_reason,
             "scan_result_summary": None,
         }
@@ -158,6 +160,7 @@ def build_malicious_detection_harness_report(
         "api_calls_attempted": True,
         "payload_length_bytes": len(content_bytes),
         "input_source": input_source,
+        "required_owner_input_missing": False,
         "blocked_reason": None,
         "scan_result_summary": summary,
     }
@@ -195,6 +198,14 @@ def main(
             "not printed in the report."
         ),
     )
+    parser.add_argument(
+        "--require-owner-input",
+        action="store_true",
+        help=(
+            "Return a non-zero exit code if the owner-provided test signature is "
+            "missing."
+        ),
+    )
     parser.add_argument("--output", help="Optional JSON report output path.")
     args = parser.parse_args(argv)
 
@@ -209,6 +220,7 @@ def main(
         allow_test_signature_smoke=source_env.get(ALLOW_ENV),
         test_signature_text=test_signature_text,
         input_source=input_source,
+        require_owner_input=args.require_owner_input,
         client=client,
         api_base_url=args.api_base_url
         or source_env.get(API_BASE_URL_ENV, "http://localhost:8000"),
@@ -223,7 +235,7 @@ def main(
     else:
         print(payload)
 
-    return _exit_code_for_status(str(report["harness_status"]))
+    return _exit_code_for_status(str(report["harness_status"]), report)
 
 
 def _base_report() -> dict[str, object]:
@@ -265,6 +277,7 @@ def _blocked_report(
         "api_calls_attempted": True,
         "payload_length_bytes": payload_length_bytes,
         "input_source": input_source,
+        "required_owner_input_missing": False,
         "blocked_reason": reason,
         "scan_result_summary": _scan_result_summary(scan_body or {})
         if scan_body
@@ -305,7 +318,9 @@ def _classify_scan_result(summary: dict[str, object | None]) -> str:
     return "blocked_by_environment"
 
 
-def _exit_code_for_status(status: str) -> int:
+def _exit_code_for_status(status: str, report: Mapping[str, object] | None = None) -> int:
+    if report and report.get("required_owner_input_missing") is True:
+        return 4
     if status in {"not_configured", "verified_infected"}:
         return 0
     if status in {"unexpected_clean", "scan_error"}:

@@ -425,6 +425,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/clamav-api-endpoint-malicious-detection-stdin-input-harness.md` | stdin input option for the opt-in malicious/test-signature harness; fake-client coverage only, no payload supplied, no detection proof |
 | `docs/review/clamav-api-endpoint-malicious-detection-stdin-default-smoke.md` | safe no-op stdin command smoke: not_configured, no API calls, no payload committed, owner-provided runtime smoke still pending |
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-preflight.md` | runtime preflight for future owner-provided malicious/test-signature smoke: API up, clamd reachable, no payload supplied, no scan request made |
+| `docs/review/clamav-api-endpoint-malicious-detection-owner-input-guard.md` | fail-fast guard for missing owner input: require-owner-input returns exit 4 without API calls, preventing no-op smoke overclaim |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

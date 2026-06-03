@@ -9130,3 +9130,34 @@ def test_clamav_api_endpoint_malicious_detection_owner_runtime_preflight_records
     assert "Phase 305 - ClamAV API Endpoint Malicious-detection Owner-runtime Preflight v0" in goal
     assert "ClamAV API endpoint malicious-detection owner-runtime preflight v0" in runbook
     assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-preflight.md" in portfolio
+
+
+def test_clamav_api_endpoint_malicious_detection_owner_input_guard_is_documented():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-input-guard.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Owner-input Guard" in content
+    assert "ClamAV API endpoint malicious-detection owner-input guard v0" in content
+    assert "--require-owner-input" in content
+    assert "exit_code: 4" in content
+    assert "required_owner_input_missing: true" in content
+    assert "harness_status: not_configured" in content
+    assert "api_calls_attempted: false" in content
+    assert "malicious_detection_verified: false" in content
+    assert "payload_committed_to_repo: false" in content
+    assert "raw_payload_logged: false" in content
+    assert "owner-provided runtime smoke remains pending" in content
+    assert "not malware detection proof" in content
+    assert "ClamAV API endpoint malicious-detection owner-provided runtime smoke v0" in content
+    assert "ClamAV API endpoint malicious-detection owner-input guard v0: implemented" in readme
+    assert "Phase 306 - ClamAV API Endpoint Malicious-detection Owner-input Guard v0" in goal
+    assert "ClamAV API endpoint malicious-detection owner-input guard v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-input-guard.md" in portfolio

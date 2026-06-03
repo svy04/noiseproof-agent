@@ -4962,6 +4962,43 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-input Guard
+
+Phase marker: ClamAV API endpoint malicious-detection owner-input guard v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-input-guard.md
+```
+
+Observed command:
+
+```bash
+cd apps/api
+uv run python -m app.services.clamav_api_malicious_detection_harness --signature-stdin --require-owner-input
+```
+
+Observed result:
+
+```text
+exit_code: 4
+required_owner_input_missing: true
+harness_status: not_configured
+api_calls_attempted: false
+malicious_detection_verified: false
+payload_committed_to_repo: false
+raw_payload_logged: false
+owner-provided runtime smoke remains pending
+not malware detection proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
