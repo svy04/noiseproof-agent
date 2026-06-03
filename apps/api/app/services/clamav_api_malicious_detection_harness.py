@@ -19,6 +19,16 @@ API_BASE_URL_ENV = "NOISEPROOF_API_BASE_URL"
 OWNER_RUNTIME_SMOKE_PACKET_PHASE_MARKER = (
     "ClamAV API endpoint malicious-detection owner runtime smoke packet v0"
 )
+OWNER_RUNTIME_SMOKE_VALIDATOR_PHASE_MARKER = (
+    "ClamAV API endpoint malicious-detection owner runtime smoke validator v0"
+)
+OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY = {
+    "scanner_name": "clamav-clamd",
+    "scan_status": "completed",
+    "scan_verdict": "infected",
+    "matched_signature": "Eicar-Test-Signature",
+    "metadata_boundary": "metadata_only_no_raw_bytes_no_download_url",
+}
 
 
 class EndpointClient(Protocol):
@@ -213,6 +223,61 @@ def build_owner_runtime_smoke_packet() -> dict[str, object]:
     }
 
 
+def validate_owner_runtime_smoke_report(report: Mapping[str, object]) -> dict[str, object]:
+    missing_or_failed_checks: list[str] = []
+
+    expected_top_level = {
+        "harness_status": "verified_infected",
+        "malicious_detection_verified": True,
+        "api_calls_attempted": True,
+        "payload_committed_to_repo": False,
+        "raw_payload_logged": False,
+        "input_source": "stdin",
+        "required_owner_input_missing": False,
+    }
+    for field, expected_value in expected_top_level.items():
+        if report.get(field) != expected_value:
+            formatted = str(expected_value).lower()
+            missing_or_failed_checks.append(f"{field} must be {formatted}")
+
+    summary = report.get("scan_result_summary")
+    if not isinstance(summary, Mapping):
+        missing_or_failed_checks.append("scan_result_summary must be present")
+        summary = {}
+    for field, expected_value in OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY.items():
+        if summary.get(field) != expected_value:
+            missing_or_failed_checks.append(f"scan_result_summary.{field} must be {expected_value}")
+
+    accepted = not missing_or_failed_checks
+    return {
+        "phase_marker": OWNER_RUNTIME_SMOKE_VALIDATOR_PHASE_MARKER,
+        "validation_status": "accepted" if accepted else "rejected",
+        "accepted_owner_runtime_smoke": accepted,
+        "missing_or_failed_checks": missing_or_failed_checks,
+        "reported_payload_committed_to_repo": report.get("payload_committed_to_repo"),
+        "reported_raw_payload_logged": report.get("raw_payload_logged"),
+        "payload_committed_to_repo": False,
+        "raw_payload_logged": False,
+        "scan_result_summary": {
+            key: summary.get(key) for key in OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY
+        },
+        "non_claims": {
+            "production_malware_scanning_evidence": False,
+            "hosted_deployment_verified": False,
+            "external_reviewer_feedback": False,
+            "product_complete": False,
+        },
+        "boundary": [
+            "validates owner-provided runtime smoke metadata only",
+            "does not include a test signature payload",
+            "does not call the API",
+            "does not upload raw bytes",
+            "does not call the scan endpoint",
+            "not production malware scanning evidence",
+        ],
+    }
+
+
 def main(
     argv: list[str] | None = None,
     *,
@@ -261,11 +326,22 @@ def main(
             "smoke contract."
         ),
     )
+    parser.add_argument(
+        "--validate-owner-runtime-smoke-report",
+        help=(
+            "Validate a future owner-provided runtime smoke JSON report without "
+            "including or reading a test signature payload."
+        ),
+    )
     parser.add_argument("--output", help="Optional JSON report output path.")
     args = parser.parse_args(argv)
 
     source_env = env if env is not None else os.environ
-    if args.print_owner_runtime_smoke_packet:
+    if args.validate_owner_runtime_smoke_report:
+        report = validate_owner_runtime_smoke_report(
+            _read_json_report(Path(args.validate_owner_runtime_smoke_report))
+        )
+    elif args.print_owner_runtime_smoke_packet:
         report = build_owner_runtime_smoke_packet()
     else:
         input_source = "stdin" if args.signature_stdin else "environment"
@@ -295,6 +371,8 @@ def main(
 
     if args.print_owner_runtime_smoke_packet:
         return 0
+    if args.validate_owner_runtime_smoke_report:
+        return 0 if report["accepted_owner_runtime_smoke"] is True else 5
     return _exit_code_for_status(str(report["harness_status"]), report)
 
 
@@ -433,6 +511,13 @@ def _read_json_response(raw_body: bytes) -> dict:
     except json.JSONDecodeError:
         return {"response_body_parse_error": True}
     return payload if isinstance(payload, dict) else {"response_json": payload}
+
+
+def _read_json_report(path: Path) -> dict[str, object]:
+    payload = json.loads(path.read_text(encoding="utf-8-sig"))
+    if not isinstance(payload, dict):
+        raise ValueError("owner runtime smoke report must be a JSON object")
+    return payload
 
 
 if __name__ == "__main__":

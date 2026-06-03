@@ -242,3 +242,115 @@ def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_p
     assert "owner-provided-runtime-only-test-signature" not in json.dumps(
         payload, sort_keys=True
     )
+
+
+def test_owner_runtime_smoke_validator_accepts_verified_infected_metadata_report(
+    capsys, tmp_path
+):
+    report_path = tmp_path / "owner-runtime-smoke-report.json"
+    report_path.write_text(
+        json.dumps(
+            {
+                "harness_status": "verified_infected",
+                "malicious_detection_verified": True,
+                "api_calls_attempted": True,
+                "payload_committed_to_repo": False,
+                "raw_payload_logged": False,
+                "input_source": "stdin",
+                "required_owner_input_missing": False,
+                "scan_result_summary": {
+                    "scanner_name": "clamav-clamd",
+                    "scan_status": "completed",
+                    "scan_verdict": "infected",
+                    "matched_signature": "Eicar-Test-Signature",
+                    "metadata_boundary": "metadata_only_no_raw_bytes_no_download_url",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    exit_code = main(["--validate-owner-runtime-smoke-report", str(report_path)])
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert (
+        payload["phase_marker"]
+        == "ClamAV API endpoint malicious-detection owner runtime smoke validator v0"
+    )
+    assert payload["validation_status"] == "accepted"
+    assert payload["accepted_owner_runtime_smoke"] is True
+    assert payload["missing_or_failed_checks"] == []
+    assert payload["payload_committed_to_repo"] is False
+    assert payload["raw_payload_logged"] is False
+    assert payload["non_claims"]["production_malware_scanning_evidence"] is False
+
+
+def test_owner_runtime_smoke_validator_accepts_windows_bom_json_report(
+    capsys, tmp_path
+):
+    report_path = tmp_path / "owner-runtime-smoke-report.json"
+    report_path.write_text(
+        json.dumps(
+            {
+                "harness_status": "verified_infected",
+                "malicious_detection_verified": True,
+                "api_calls_attempted": True,
+                "payload_committed_to_repo": False,
+                "raw_payload_logged": False,
+                "input_source": "stdin",
+                "required_owner_input_missing": False,
+                "scan_result_summary": {
+                    "scanner_name": "clamav-clamd",
+                    "scan_status": "completed",
+                    "scan_verdict": "infected",
+                    "matched_signature": "Eicar-Test-Signature",
+                    "metadata_boundary": "metadata_only_no_raw_bytes_no_download_url",
+                },
+            }
+        ),
+        encoding="utf-8-sig",
+    )
+
+    exit_code = main(["--validate-owner-runtime-smoke-report", str(report_path)])
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["validation_status"] == "accepted"
+    assert payload["accepted_owner_runtime_smoke"] is True
+
+
+def test_owner_runtime_smoke_validator_rejects_not_configured_or_payload_leaky_report(
+    capsys, tmp_path
+):
+    report_path = tmp_path / "owner-runtime-smoke-report.json"
+    report_path.write_text(
+        json.dumps(
+            {
+                "harness_status": "not_configured",
+                "malicious_detection_verified": False,
+                "api_calls_attempted": False,
+                "payload_committed_to_repo": True,
+                "raw_payload_logged": True,
+                "input_source": "environment",
+                "required_owner_input_missing": True,
+                "scan_result_summary": None,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    exit_code = main(["--validate-owner-runtime-smoke-report", str(report_path)])
+
+    assert exit_code == 5
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["validation_status"] == "rejected"
+    assert payload["accepted_owner_runtime_smoke"] is False
+    assert "harness_status must be verified_infected" in payload[
+        "missing_or_failed_checks"
+    ]
+    assert "payload_committed_to_repo must be false" in payload[
+        "missing_or_failed_checks"
+    ]
+    assert "raw_payload_logged must be false" in payload["missing_or_failed_checks"]
+    assert payload["non_claims"]["production_malware_scanning_evidence"] is False

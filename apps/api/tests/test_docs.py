@@ -9195,3 +9195,35 @@ def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_packet_is_d
     assert "Phase 307 - ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Packet v0" in goal
     assert "ClamAV API endpoint malicious-detection owner runtime smoke packet v0" in runbook
     assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-packet.md" in portfolio
+
+
+def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_validator_is_documented():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-validator.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Validator" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke validator v0" in content
+    assert "--validate-owner-runtime-smoke-report" in content
+    assert "validation_status: accepted" in content
+    assert "accepted_owner_runtime_smoke: true" in content
+    assert "scanner_name: clamav-clamd" in content
+    assert "scan_status: completed" in content
+    assert "scan_verdict: infected" in content
+    assert "matched_signature: Eicar-Test-Signature" in content
+    assert "payload_committed_to_repo: false" in content
+    assert "raw_payload_logged: false" in content
+    assert "metadata validation only" in content
+    assert "not production malware scanning evidence" in content
+    assert "ClamAV API endpoint malicious-detection owner-provided runtime smoke v0" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke validator v0: implemented" in readme
+    assert "Phase 308 - ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Validator v0" in goal
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke validator v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-validator.md" in portfolio
