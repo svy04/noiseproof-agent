@@ -9009,3 +9009,92 @@ def test_clamav_api_endpoint_malicious_detection_harness_default_smoke_records_s
     assert "Phase 301 - ClamAV API Endpoint Malicious-detection Harness Default Smoke v0" in goal
     assert "ClamAV API endpoint malicious-detection harness default smoke v0" in runbook
     assert "docs/review/clamav-api-endpoint-malicious-detection-harness-default-smoke.md" in portfolio
+
+
+def test_clamav_api_endpoint_malicious_detection_stdin_input_review_documents_safe_pivot():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-stdin-input-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Stdin Input Review" in content
+    assert "ClamAV API endpoint malicious-detection stdin input review v0" in content
+    assert "review-only" in content
+    assert "owner-provided runtime smoke remains pending" in content
+    assert "stdin-only owner input path" in content
+    assert "do not use this review to supply a test signature" in content
+    assert "NOISEPROOF_CLAMAV_TEST_SIGNATURE_TEXT remains supported" in content
+    assert "payload_committed_to_repo: false" in content
+    assert "raw_payload_logged: false" in content
+    assert "not malware detection proof" in content
+    assert "ClamAV API endpoint malicious-detection stdin input harness v0" in content
+    assert "ClamAV API endpoint malicious-detection stdin input review v0: implemented" in readme
+    assert "Phase 302 - ClamAV API Endpoint Malicious-detection Stdin Input Review v0" in goal
+    assert "ClamAV API endpoint malicious-detection stdin input review v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-stdin-input-review.md" in portfolio
+
+
+def test_clamav_api_endpoint_malicious_detection_stdin_input_harness_is_documented():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-stdin-input-harness.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Stdin Input Harness" in content
+    assert "ClamAV API endpoint malicious-detection stdin input harness v0" in content
+    assert "--signature-stdin" in content
+    assert "input_source: stdin" in content
+    assert "empty stdin remains not_configured" in content
+    assert "fake-client tests only" in content
+    assert "payload_committed_to_repo: false" in content
+    assert "raw_payload_logged: false" in content
+    assert "not malware detection proof" in content
+    assert "ClamAV API endpoint malicious-detection stdin default smoke v0" in content
+    assert "ClamAV API endpoint malicious-detection stdin input harness v0: implemented" in readme
+    assert "Phase 303 - ClamAV API Endpoint Malicious-detection Stdin Input Harness v0" in goal
+    assert "ClamAV API endpoint malicious-detection stdin input harness v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-stdin-input-harness.md" in portfolio
+
+
+def test_clamav_api_endpoint_malicious_detection_stdin_default_smoke_records_safe_noop():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-stdin-default-smoke.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Stdin Default Smoke" in content
+    assert "ClamAV API endpoint malicious-detection stdin default smoke v0" in content
+    assert "uv run python -m app.services.clamav_api_malicious_detection_harness --signature-stdin" in content
+    assert "exit_code: 0" in content
+    assert "harness_status: not_configured" in content
+    assert "input_source: stdin" in content
+    assert "api_calls_attempted: false" in content
+    assert "malicious_detection_verified: false" in content
+    assert "payload_committed_to_repo: false" in content
+    assert "raw_payload_logged: false" in content
+    assert "owner-provided runtime smoke remains pending" in content
+    assert "not malware detection proof" in content
+    assert "not EICAR-through-API proof" in content
+    assert "ClamAV API endpoint malicious-detection owner-provided runtime smoke v0" in content
+    assert "ClamAV API endpoint malicious-detection stdin default smoke v0: implemented" in readme
+    assert "Phase 304 - ClamAV API Endpoint Malicious-detection Stdin Default Smoke v0" in goal
+    assert "ClamAV API endpoint malicious-detection stdin default smoke v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-stdin-default-smoke.md" in portfolio

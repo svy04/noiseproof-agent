@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 import sys
+from io import StringIO
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -9,6 +10,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.append(str(REPO_ROOT))
 
 from app.services.clamav_api_malicious_detection_harness import (
+    ALLOW_ENV,
     PHASE_MARKER,
     build_malicious_detection_harness_report,
     main,
@@ -124,3 +126,44 @@ def test_malicious_detection_harness_command_prints_not_configured_json(capsys):
     assert payload["harness_status"] == "not_configured"
     assert payload["malicious_detection_verified"] is False
     assert payload["payload_committed_to_repo"] is False
+
+
+def test_malicious_detection_harness_command_accepts_stdin_owner_input_without_payload_leak(capsys):
+    signature_text = "owner-provided-runtime-only-test-signature"
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--signature-stdin"],
+        env={ALLOW_ENV: "1"},
+        stdin=StringIO(signature_text),
+        client=client,
+    )
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["harness_status"] == "verified_infected"
+    assert payload["malicious_detection_verified"] is True
+    assert payload["payload_committed_to_repo"] is False
+    assert payload["raw_payload_logged"] is False
+    assert payload["input_source"] == "stdin"
+    assert signature_text not in json.dumps(payload, sort_keys=True)
+    assert client.upload_calls[0]["content_bytes"] == signature_text.encode("utf-8")
+
+
+def test_malicious_detection_harness_command_empty_stdin_is_not_configured(capsys):
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--signature-stdin"],
+        env={ALLOW_ENV: "1"},
+        stdin=StringIO(""),
+        client=client,
+    )
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["harness_status"] == "not_configured"
+    assert payload["api_calls_attempted"] is False
+    assert payload["input_source"] == "stdin"
+    assert "stdin" in payload["blocked_reason"]
+    assert client.upload_calls == []

@@ -7,7 +7,7 @@ import sys
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Mapping, Protocol
+from typing import Mapping, Protocol, TextIO
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
@@ -82,18 +82,30 @@ def build_malicious_detection_harness_report(
     *,
     allow_test_signature_smoke: str | None,
     test_signature_text: str | None,
+    input_source: str = "environment",
     client: EndpointClient | None = None,
     api_base_url: str = "http://localhost:8000",
     timeout_seconds: float = 30.0,
 ) -> dict[str, object]:
     base_report = _base_report()
     if allow_test_signature_smoke != "1" or not test_signature_text:
+        if input_source == "stdin":
+            blocked_reason = (
+                "set NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 and provide "
+                "owner-provided test signature text on stdin"
+            )
+        else:
+            blocked_reason = (
+                "set NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 and provide "
+                "NOISEPROOF_CLAMAV_TEST_SIGNATURE_TEXT"
+            )
         return {
             **base_report,
             "harness_status": "not_configured",
             "api_calls_attempted": False,
             "payload_length_bytes": 0,
-            "blocked_reason": "set NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 and provide NOISEPROOF_CLAMAV_TEST_SIGNATURE_TEXT",
+            "input_source": input_source,
+            "blocked_reason": blocked_reason,
             "scan_result_summary": None,
         }
 
@@ -115,6 +127,7 @@ def build_malicious_detection_harness_report(
             return _blocked_report(
                 base_report,
                 payload_length_bytes=len(content_bytes),
+                input_source=input_source,
                 reason=f"upload_failed status={upload_status}",
             )
 
@@ -123,6 +136,7 @@ def build_malicious_detection_harness_report(
             return _blocked_report(
                 base_report,
                 payload_length_bytes=len(content_bytes),
+                input_source=input_source,
                 reason=f"scan_failed status={scan_status}",
                 scan_body=scan_body,
             )
@@ -130,6 +144,7 @@ def build_malicious_detection_harness_report(
         return _blocked_report(
             base_report,
             payload_length_bytes=len(content_bytes),
+            input_source=input_source,
             reason=str(exc),
         )
 
@@ -142,6 +157,7 @@ def build_malicious_detection_harness_report(
         "malicious_detection_verified": harness_status == "verified_infected",
         "api_calls_attempted": True,
         "payload_length_bytes": len(content_bytes),
+        "input_source": input_source,
         "blocked_reason": None,
         "scan_result_summary": summary,
     }
@@ -151,6 +167,8 @@ def main(
     argv: list[str] | None = None,
     *,
     env: Mapping[str, str] | None = None,
+    stdin: TextIO | None = None,
+    client: EndpointClient | None = None,
 ) -> int:
     parser = argparse.ArgumentParser(
         description=(
@@ -169,13 +187,29 @@ def main(
         default=30.0,
         help="HTTP timeout for each endpoint request.",
     )
+    parser.add_argument(
+        "--signature-stdin",
+        action="store_true",
+        help=(
+            "Read the owner-provided test signature from stdin. The raw input is "
+            "not printed in the report."
+        ),
+    )
     parser.add_argument("--output", help="Optional JSON report output path.")
     args = parser.parse_args(argv)
 
     source_env = env if env is not None else os.environ
+    input_source = "stdin" if args.signature_stdin else "environment"
+    if args.signature_stdin:
+        stdin_source = stdin if stdin is not None else sys.stdin
+        test_signature_text = stdin_source.read().rstrip("\r\n")
+    else:
+        test_signature_text = source_env.get(SIGNATURE_ENV)
     report = build_malicious_detection_harness_report(
         allow_test_signature_smoke=source_env.get(ALLOW_ENV),
-        test_signature_text=source_env.get(SIGNATURE_ENV),
+        test_signature_text=test_signature_text,
+        input_source=input_source,
+        client=client,
         api_base_url=args.api_base_url
         or source_env.get(API_BASE_URL_ENV, "http://localhost:8000"),
         timeout_seconds=args.timeout_seconds,
@@ -221,6 +255,7 @@ def _blocked_report(
     base_report: dict[str, object],
     *,
     payload_length_bytes: int,
+    input_source: str,
     reason: str,
     scan_body: dict | None = None,
 ) -> dict[str, object]:
@@ -229,6 +264,7 @@ def _blocked_report(
         "harness_status": "blocked_by_environment",
         "api_calls_attempted": True,
         "payload_length_bytes": payload_length_bytes,
+        "input_source": input_source,
         "blocked_reason": reason,
         "scan_result_summary": _scan_result_summary(scan_body or {})
         if scan_body

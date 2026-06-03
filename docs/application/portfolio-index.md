@@ -421,6 +421,9 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/clamav-api-endpoint-malicious-detection-test-harness-review.md` | review-only plan for a future opt-in malicious/test-signature harness using owner-provided runtime-only input; payload remains uncommitted and detection proof remains pending |
 | `docs/review/clamav-api-endpoint-malicious-detection-test-harness.md` | disabled-by-default opt-in command harness for future malicious/test-signature endpoint proof; fake-client coverage only, not malware detection proof |
 | `docs/review/clamav-api-endpoint-malicious-detection-harness-default-smoke.md` | default no-op command smoke for the malicious/test-signature harness: not_configured, no API calls, no payload committed, no detection claim |
+| `docs/review/clamav-api-endpoint-malicious-detection-stdin-input-review.md` | review-only decision to add a stdin-only owner input path before retrying malicious/test-signature endpoint proof; no payload supplied or committed |
+| `docs/review/clamav-api-endpoint-malicious-detection-stdin-input-harness.md` | stdin input option for the opt-in malicious/test-signature harness; fake-client coverage only, no payload supplied, no detection proof |
+| `docs/review/clamav-api-endpoint-malicious-detection-stdin-default-smoke.md` | safe no-op stdin command smoke: not_configured, no API calls, no payload committed, owner-provided runtime smoke still pending |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

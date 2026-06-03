@@ -4831,6 +4831,105 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Stdin Input Review
+
+Phase marker: ClamAV API endpoint malicious-detection stdin input review v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-stdin-input-review.md
+```
+
+Decision:
+
+```text
+review-only
+stdin-only owner input path
+owner-provided runtime smoke remains pending
+NOISEPROOF_CLAMAV_TEST_SIGNATURE_TEXT remains supported
+do not use this review to supply a test signature
+payload_committed_to_repo: false
+raw_payload_logged: false
+not malware detection proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection stdin input harness v0
+```
+
+## ClamAV API Endpoint Malicious-detection Stdin Input Harness
+
+Phase marker: ClamAV API endpoint malicious-detection stdin input harness v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-stdin-input-harness.md
+```
+
+Implemented command option:
+
+```text
+--signature-stdin
+```
+
+Expected behavior:
+
+```text
+input_source: stdin
+empty stdin remains not_configured
+payload_committed_to_repo: false
+raw_payload_logged: false
+fake-client tests only
+not malware detection proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection stdin default smoke v0
+```
+
+## ClamAV API Endpoint Malicious-detection Stdin Default Smoke
+
+Phase marker: ClamAV API endpoint malicious-detection stdin default smoke v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-stdin-default-smoke.md
+```
+
+Observed command:
+
+```bash
+cd apps/api
+uv run python -m app.services.clamav_api_malicious_detection_harness --signature-stdin
+```
+
+Observed result:
+
+```text
+exit_code: 0
+harness_status: not_configured
+input_source: stdin
+api_calls_attempted: false
+malicious_detection_verified: false
+payload_committed_to_repo: false
+raw_payload_logged: false
+owner-provided runtime smoke remains pending
+not malware detection proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

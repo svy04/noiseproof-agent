@@ -319,6 +319,12 @@ ClamAV API endpoint malicious-detection test harness v0: implemented. Boundary: 
 
 ClamAV API endpoint malicious-detection harness default smoke v0: implemented. Boundary: default command execution returned `harness_status=not_configured`, `api_calls_attempted=false`, `malicious_detection_verified=false`, `payload_committed_to_repo=false`, and `raw_payload_logged=false`; this is safe no-op evidence, not malware detection proof.
 
+ClamAV API endpoint malicious-detection stdin input review v0: implemented. Boundary: review-only decision to add a stdin-only owner input path before retrying the owner-provided runtime smoke; `NOISEPROOF_CLAMAV_TEST_SIGNATURE_TEXT` remains supported, but no test signature is supplied here, `payload_committed_to_repo=false`, `raw_payload_logged=false`, and this is not malware detection proof.
+
+ClamAV API endpoint malicious-detection stdin input harness v0: implemented. Boundary: `--signature-stdin` lets the opt-in harness accept owner-provided runtime input through stdin, reports `input_source=stdin`, keeps `payload_committed_to_repo=false` and `raw_payload_logged=false`, and has fake-client coverage only; this is not malware detection proof.
+
+ClamAV API endpoint malicious-detection stdin default smoke v0: implemented. Boundary: `uv run python -m app.services.clamav_api_malicious_detection_harness --signature-stdin` with empty stdin returned `harness_status=not_configured`, `input_source=stdin`, `api_calls_attempted=false`, `malicious_detection_verified=false`, `payload_committed_to_repo=false`, and `raw_payload_logged=false`; owner-provided runtime smoke remains pending.
+
 
 ## Planned Agent Workflow
 
