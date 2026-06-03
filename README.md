@@ -243,6 +243,8 @@ External review issue body scan-result endpoint refresh v0: implemented. Boundar
 
 External feedback current-state scan-result endpoint issue verification v0: implemented. Boundary: current issue #1 screen still has candidate_count 0 and only a self-authored comment; not external reviewer feedback, not hosted deployment evidence, not malware scanning, and not a download endpoint.
 
+Uploaded raw file scanner adapter review v0: implemented. Boundary: review-only selection of `ScannerAdapter`, `ScanAdapterRequest`, and `ScanAdapterResult` before ClamAV or scanner execution; missing scanners and timeouts must map to `scan_error`, not clean.
+
 
 ## Planned Agent Workflow
 

@@ -3310,6 +3310,54 @@ response_has_raw_bytes -> false
 
 This is a current-state screen only. It does not close external reviewer feedback v0.
 
+## Uploaded Raw File Scanner Adapter Review
+
+Phase marker: uploaded raw file scanner adapter review v0.
+
+Use this review artifact:
+
+```text
+docs/review/uploaded-raw-file-scanner-adapter-review.md
+```
+
+Selected future boundary:
+
+```text
+ScannerAdapter
+ScanAdapterRequest
+ScanAdapterResult
+raw_file_id
+content_sha256
+temporary_scan_path
+scan_status
+scan_verdict
+```
+
+Required failure mapping:
+
+```text
+missing_scanner_binary -> scan_error
+timeout -> scan_error
+do not write clean when the scanner is unavailable
+```
+
+Boundary:
+
+```text
+review-only
+do not add ClamAV in this gate
+do not add a download endpoint
+not malware scanning
+not scanner execution
+not file signature validation
+```
+
+Next product gate:
+
+```text
+uploaded raw file scanner adapter v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

@@ -8223,6 +8223,42 @@ Current next product gate:
 external reviewer feedback v0 remains pending, or select the next source-first product gate
 ```
 
+### Phase 264 - Uploaded Raw File Scanner Adapter Review v0
+
+Goal:
+
+```text
+select the generic scanner adapter boundary before ClamAV execution, file signature validation, or download behavior
+```
+
+Implemented:
+
+```text
+uploaded raw file scanner adapter review v0
+docs/review/uploaded-raw-file-scanner-adapter-review.md
+source-first review of OWASP File Upload Cheat Sheet
+source-first review of ClamAV Scanning
+source-first review of Python subprocess
+selected future interface: ScannerAdapter
+selected future request type: ScanAdapterRequest
+selected future result type: ScanAdapterResult
+failure mapping: missing_scanner_binary -> scan_error
+failure mapping: timeout -> scan_error
+rule: do not write clean when the scanner is unavailable
+selected next gate: uploaded raw file scanner adapter v0
+README implementation marker
+docs/application/portfolio-index.md scanner adapter review link
+docs/runbook.md scanner adapter review note
+```
+
+Phase 264 is review-only. It adds no runtime behavior, endpoint code, schema, migration, scanner adapter code, scanner process, ClamAV dependency, file signature validation, download endpoint, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+uploaded raw file scanner adapter v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

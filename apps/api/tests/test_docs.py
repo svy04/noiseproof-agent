@@ -7791,3 +7791,41 @@ def test_external_feedback_current_state_scan_result_endpoint_issue_verification
         "docs/review/external-feedback-current-state-scan-result-endpoint-issue-verification.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_scanner_adapter_review_selects_adapter_boundary_before_clamav():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-scanner-adapter-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Scanner Adapter Review" in content
+    assert "uploaded raw file scanner adapter review v0" in content
+    assert "OWASP File Upload Cheat Sheet" in content
+    assert "ClamAV Scanning" in content
+    assert "Python subprocess" in content
+    assert "ScannerAdapter" in content
+    assert "ScanAdapterRequest" in content
+    assert "ScanAdapterResult" in content
+    assert "raw_file_id" in content
+    assert "content_sha256" in content
+    assert "temporary_scan_path" in content
+    assert "scan_status" in content
+    assert "scan_verdict" in content
+    assert "missing_scanner_binary -> scan_error" in content
+    assert "timeout -> scan_error" in content
+    assert "do not write clean when the scanner is unavailable" in content
+    assert "do not add ClamAV in this gate" in content
+    assert "do not add a download endpoint" in content
+    assert "not malware scanning" in content
+    assert "next product gate: uploaded raw file scanner adapter v0" in content
+    assert "Uploaded raw file scanner adapter review v0: implemented" in readme
+    assert "Phase 264 - Uploaded Raw File Scanner Adapter Review v0" in goal
+    assert "uploaded raw file scanner adapter review v0" in runbook
+    assert "docs/review/uploaded-raw-file-scanner-adapter-review.md" in portfolio
