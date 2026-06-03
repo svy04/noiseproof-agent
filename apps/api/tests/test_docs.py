@@ -8241,3 +8241,47 @@ def test_uploaded_raw_file_clamav_runtime_verification_review_selects_eicar_smok
     assert "Phase 278 - Uploaded Raw File ClamAV Runtime Verification Review v0" in goal
     assert "uploaded raw file ClamAV runtime verification review v0" in runbook
     assert "docs/review/uploaded-raw-file-clamav-runtime-verification-review.md" in portfolio
+
+
+def test_dockerized_clamav_eicar_runtime_smoke_records_real_runtime_without_api_claim():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-dockerized-clamav-eicar-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Dockerized ClamAV EICAR Runtime Smoke" in content
+    assert "dockerized ClamAV EICAR runtime smoke v0" in content
+    assert '"clamav_image": "clamav/clamav:stable"' in content
+    assert "sha256:d4000290254603e7ee45d4904425c7d98c015af727f402756198fe41a31e7777" in content
+    assert "ClamAV 1.5.2/28017/Sun May 31 06:27:13 2026" in content
+    assert '"signature_database_observed": true' in content
+    assert '"test_file_type": "eicar"' in content
+    assert '"test_file_committed_to_repo": false' in content
+    assert '"clamscan_return_code": 1' in content
+    assert '"eicar_detected": true' in content
+    assert '"temporary_scan_file_deleted": true' in content
+    assert '"host_eicar_file_written": false' in content
+    assert '"real_clamav_runtime_verified": true' in content
+    assert '"malware_scanning_evidence": false' in content
+    assert '"api_endpoint_verified_with_real_clamav": false' in content
+    assert "Eicar-Test-Signature FOUND" in content
+    assert "This is real ClamAV runtime verification" in content
+    assert "not production malware scanning evidence" in content
+    assert "not API endpoint verification with real ClamAV" in content
+    assert "ClamAV API integration boundary review v0" in content
+    assert "Dockerized ClamAV EICAR runtime smoke v0: implemented" in readme
+    assert "Phase 279 - Dockerized ClamAV EICAR Runtime Smoke v0" in goal
+    assert "dockerized ClamAV EICAR runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-dockerized-clamav-eicar-runtime-smoke.md"
+        in portfolio
+    )

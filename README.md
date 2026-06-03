@@ -273,6 +273,8 @@ External feedback current-state scan execution endpoint issue verification v0: i
 
 Uploaded raw file ClamAV runtime verification review v0: implemented. Boundary: review-only selection of a future Dockerized ClamAV + EICAR smoke before changing API defaults or claiming real scanner evidence; not runtime evidence, not malware scanning evidence, and not endpoint verification with real ClamAV.
 
+Dockerized ClamAV EICAR runtime smoke v0: implemented. Boundary: local Dockerized `clamav/clamav:stable` detected container-internal EICAR with `Eicar-Test-Signature`, recording image digest and signature DB version; real ClamAV runtime verified for EICAR only, not production malware scanning evidence, not API endpoint verification with real ClamAV, and not hosted evidence.
+
 
 ## Planned Agent Workflow
 

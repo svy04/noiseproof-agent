@@ -4032,6 +4032,53 @@ Next product gate:
 dockerized ClamAV EICAR runtime smoke v0
 ```
 
+## Uploaded Raw File Dockerized ClamAV EICAR Runtime Smoke
+
+Phase marker: dockerized ClamAV EICAR runtime smoke v0.
+
+Use this proof artifact:
+
+```text
+docs/review/uploaded-raw-file-dockerized-clamav-eicar-runtime-smoke.md
+```
+
+Observed result:
+
+```text
+docker_available: true
+clamav_image: clamav/clamav:stable
+clamav_image_id: sha256:d4000290254603e7ee45d4904425c7d98c015af727f402756198fe41a31e7777
+clamav_repo_digest: clamav/clamav@sha256:d4000290254603e7ee45d4904425c7d98c015af727f402756198fe41a31e7777
+clamscan_version: ClamAV 1.5.2/28017/Sun May 31 06:27:13 2026
+signature_database_observed: true
+test_file_type: eicar
+test_file_committed_to_repo: false
+clamscan_return_code: 1
+eicar_detected: true
+temporary_scan_file_deleted: true
+host_eicar_file_written: false
+real_clamav_runtime_verified: true
+malware_scanning_evidence: false
+api_endpoint_verified_with_real_clamav: false
+clamscan_output: /tmp/eicar.com: Eicar-Test-Signature FOUND
+```
+
+Boundary:
+
+```text
+real Dockerized ClamAV runtime verified for EICAR only
+not production malware scanning evidence
+not API endpoint verification with real ClamAV
+not hosted deployment evidence
+not external reviewer feedback
+```
+
+Next product gate:
+
+```text
+ClamAV API integration boundary review v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
