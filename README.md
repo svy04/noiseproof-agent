@@ -219,6 +219,8 @@ External reviewer raw file storage request refresh v0: implemented. Boundary: re
 
 External review issue body raw file storage refresh v0: implemented. Boundary: issue #1 now points to the uploaded raw file storage proof; owner-authored issue edit only, not external reviewer feedback, not hosted deployment evidence, not malware scanning, and not a download endpoint.
 
+External feedback current-state raw file storage issue verification v0: implemented. Boundary: current issue #1 screen still has candidate_count 0 and only a self-authored comment; not external reviewer feedback, not hosted deployment evidence, not malware scanning, and not a download endpoint.
+
 
 ## Planned Agent Workflow
 

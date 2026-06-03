@@ -2687,6 +2687,49 @@ not a download endpoint
 does not close external reviewer feedback v0
 ```
 
+## External Feedback Current-state Raw File Storage Issue Verification
+
+Phase marker: external feedback current-state raw file storage issue verification v0.
+
+Use this current-state verification artifact:
+
+```text
+docs/review/external-feedback-current-state-raw-file-storage-issue-verification.md
+```
+
+Observed issue and screener markers:
+
+```text
+updatedAt: 2026-06-02T23:57:53Z
+first_codepoint: 35
+startsWith: ## Request
+comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+self_authored_comment
+non_qualifying
+```
+
+Screening commands:
+
+```powershell
+$env:PYTHONPATH='.'
+python -m packages.review.external_feedback_cli --input <issue.json> --repository-owner svy04
+python -m packages.review.external_feedback_acceptance_cli --input <screen.json>
+```
+
+Boundary:
+
+```text
+current-state screen only
+not external reviewer feedback
+not hosted deployment evidence
+not malware scanning
+not a download endpoint
+does not close external reviewer feedback v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

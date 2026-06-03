@@ -7799,6 +7799,52 @@ Current next product gate:
 external reviewer feedback v0 remains pending, external feedback current-state raw file storage issue verification v0, or select the next source-first product gate
 ```
 
+### Phase 252 - External Feedback Current-state Raw File Storage Issue Verification v0
+
+Goal:
+
+```text
+verify the current issue #1 screen after the raw file storage issue-body refresh while keeping external reviewer feedback pending
+```
+
+Implemented:
+
+```text
+external feedback current-state raw file storage issue verification v0
+docs/review/external-feedback-current-state-raw-file-storage-issue-verification.md
+live issue body marker check for uploaded raw file storage proof
+external feedback screener result with candidate_count 0
+acceptance draft result with draft_count 0
+README implementation marker
+docs/application/portfolio-index.md current-state verification link
+docs/runbook.md current-state verification note
+```
+
+Observed live issue and screener markers:
+
+```text
+updatedAt: 2026-06-02T23:57:53Z
+first_codepoint: 35
+startsWith: ## Request
+comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+self_authored_comment
+non_qualifying
+has_raw_proof: true
+has_runtime_link: true
+has_request_refresh_link: true
+```
+
+Phase 252 is a current-state screen only. It is not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, malware scanning, a download endpoint, robust PDF extraction, parser quality evidence, semantic retrieval evidence, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, or product-complete claim.
+
+Current next product gate:
+
+```text
+external reviewer feedback v0 remains pending, or select the next source-first product gate
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:
