@@ -8587,3 +8587,35 @@ def test_clamav_service_scanner_adapter_is_documented_without_endpoint_integrati
     assert "Phase 288 - ClamAV Service Scanner Adapter v0" in goal
     assert "ClamAV service scanner adapter v0" in runbook
     assert "docs/review/clamav-service-scanner-adapter.md" in portfolio
+
+
+def test_clamav_api_service_network_boundary_review_blocks_unsafe_host_publish():
+    review_path = REPO_ROOT / "docs/review/clamav-api-service-network-boundary-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Service Network Boundary Review" in content
+    assert "ClamAV API service network boundary review v0" in content
+    assert "https://docs.docker.com/compose/how-tos/networking/" in content
+    assert "https://docs.clamav.net/manual/Usage/ClamdProtocol.html" in content
+    assert "host-local API process cannot rely on the Compose service name `clamav`" in content
+    assert "do not publish clamd TCP to the host" in content
+    assert "do not set CLAMD_HOST=localhost" in content
+    assert "API must run inside the Compose network before service-host integration" in content
+    assert "internal Docker network" in content
+    assert "NOISEPROOF_SCANNER=unavailable" in content
+    assert "ClamAV API compose service review v0" in content
+    assert "not endpoint code" in content
+    assert "not API endpoint integration" in content
+    assert "not endpoint runtime proof with real ClamAV" in content
+    assert "ClamAV API service network boundary review v0: implemented" in readme
+    assert "Phase 289 - ClamAV API Service Network Boundary Review v0" in goal
+    assert "ClamAV API service network boundary review v0" in runbook
+    assert "docs/review/clamav-api-service-network-boundary-review.md" in portfolio

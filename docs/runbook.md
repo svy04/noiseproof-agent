@@ -4367,6 +4367,32 @@ Next product gate:
 ClamAV API service network boundary review v0
 ```
 
+## ClamAV API Service Network Boundary Review
+
+Phase marker: ClamAV API service network boundary review v0.
+
+Use this review artifact:
+
+```text
+docs/review/clamav-api-service-network-boundary-review.md
+```
+
+Decision:
+
+```text
+host-local API process cannot rely on the Compose service name clamav
+do not publish clamd TCP to the host
+do not set CLAMD_HOST=localhost
+API must run inside the Compose network before service-host integration
+NOISEPROOF_SCANNER=unavailable remains the default
+```
+
+Next product gate:
+
+```text
+ClamAV API compose service review v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

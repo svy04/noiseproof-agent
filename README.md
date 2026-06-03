@@ -293,6 +293,8 @@ ClamAV service scanner adapter review v0: implemented. Boundary: review-only dec
 
 ClamAV service scanner adapter v0: implemented. Boundary: `ClamdScannerAdapter` streams bytes with clamd `INSTREAM` and maps clean, infected, timeout, unavailable, and unexpected responses through unit tests; no API endpoint integration, no default scanner switch, and no real endpoint proof.
 
+ClamAV API service network boundary review v0: implemented. Boundary: review-only decision that host-local FastAPI must not reach ClamAV by publishing unauthenticated clamd TCP; API service integration requires the API runtime to join the same internal Docker network as `clamav`.
+
 
 ## Planned Agent Workflow
 

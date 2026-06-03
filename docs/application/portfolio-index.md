@@ -408,6 +408,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/clamav-compose-eicar-runtime-smoke.md` | local Docker Compose ClamAV EICAR proof: container-internal EICAR detected as `Eicar-Test-Signature`, temporary file deleted, payload absent from repo; no API endpoint integration or production malware scanning evidence |
 | `docs/review/clamav-service-scanner-adapter-review.md` | review-only decision to add a future `ClamdScannerAdapter` using clamd `INSTREAM` over the internal Docker network; no adapter code or API endpoint integration |
 | `docs/review/clamav-service-scanner-adapter.md` | `ClamdScannerAdapter` code and fake-socket unit coverage for clamd `INSTREAM`; no API endpoint integration, default scanner switch, or real endpoint proof |
+| `docs/review/clamav-api-service-network-boundary-review.md` | review-only decision that API-to-clamd integration must run inside the Compose network rather than publishing unauthenticated clamd TCP to the host |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
