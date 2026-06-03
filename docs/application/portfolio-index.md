@@ -389,6 +389,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-raw-file-clamav-adapter.md` | conservative `ClamAvScannerAdapter` code with deterministic failure/clean/infected mapping; no ClamAV installation, runtime verification, endpoint, or download behavior |
 | `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md` | deterministic command smoke for `ClamAvScannerAdapter` mappings through fake runners; no real ClamAV execution, signature database verification, endpoint behavior, or malware scanning evidence |
 | `docs/review/external-reviewer-clamav-adapter-runtime-smoke-request-refresh.md` | reviewer-facing request-path refresh for the ClamAV adapter runtime smoke proof; not external reviewer feedback, hosted deployment evidence, real ClamAV execution, signature database evidence, or malware scanning |
+| `docs/review/external-review-issue-body-clamav-adapter-runtime-smoke-refresh.md` | owner-authored issue #1 body update pointing reviewers to the ClamAV adapter runtime smoke proof; not external reviewer feedback, hosted deployment evidence, real ClamAV execution, signature database evidence, or malware scanning |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
