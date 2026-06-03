@@ -8862,3 +8862,31 @@ def test_clamav_api_endpoint_scanner_opt_in_runtime_smoke_records_clean_scan_onl
     assert "Phase 296 - ClamAV API Endpoint Scanner Opt-in Runtime Smoke v0" in goal
     assert "ClamAV API endpoint scanner opt-in runtime smoke v0" in runbook
     assert "docs/review/clamav-api-endpoint-scanner-opt-in-runtime-smoke.md" in portfolio
+
+
+def test_clamav_api_endpoint_malicious_detection_runtime_review_sets_safe_boundary():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-runtime-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Runtime Review" in content
+    assert "ClamAV API endpoint malicious-detection runtime review v0" in content
+    assert "review-only" in content
+    assert "clean-file endpoint proof exists" in content
+    assert "malicious_detection_verified: false" in content
+    assert "EICAR-through-API proof is still pending" in content
+    assert "do not store the EICAR payload in the repository" in content
+    assert "do not bypass OS security controls" in content
+    assert "not malware detection proof" in content
+    assert "ClamAV API endpoint malicious-detection runtime smoke v0" in content
+    assert "ClamAV API endpoint malicious-detection runtime review v0: implemented" in readme
+    assert "Phase 297 - ClamAV API Endpoint Malicious-detection Runtime Review v0" in goal
+    assert "ClamAV API endpoint malicious-detection runtime review v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-runtime-review.md" in portfolio

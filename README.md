@@ -309,6 +309,8 @@ ClamAV API endpoint scanner opt-in implementation v0: implemented. Boundary: `ge
 
 ClamAV API endpoint scanner opt-in runtime smoke v0: implemented. Boundary: local Docker Compose API ran with `NOISEPROOF_SCANNER=clamd` and `POST /documents/upload-raw-files/{raw_file_id}/scan` returned `scanner_name=clamav-clamd`, `scan_status=completed`, `scan_verdict=clean`, and `clamd_response=stream: OK`; clean-file endpoint proof only, not malware detection proof and not EICAR-through-API proof.
 
+ClamAV API endpoint malicious-detection runtime review v0: implemented. Boundary: review-only safety gate for a future EICAR-through-API smoke; clean-file endpoint proof exists and `malicious_detection_verified: false` remains current. Do not store the EICAR payload in the repository, do not bypass OS security controls, and do not claim production malware scanning evidence.
+
 
 ## Planned Agent Workflow
 

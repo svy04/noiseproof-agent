@@ -4655,6 +4655,39 @@ Next product gate:
 ClamAV API endpoint malicious-detection runtime review v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Runtime Review
+
+Phase marker: ClamAV API endpoint malicious-detection runtime review v0.
+
+Use this review artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-runtime-review.md
+```
+
+Current proof boundary:
+
+```text
+clean-file endpoint proof exists
+malicious_detection_verified: false
+EICAR-through-API proof is still pending
+```
+
+Safety rules:
+
+```text
+do not store the EICAR payload in the repository
+do not bypass OS security controls
+record only detection result and matched signature
+not malware detection proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
