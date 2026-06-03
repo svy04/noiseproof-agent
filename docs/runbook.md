@@ -4721,6 +4721,36 @@ Next product gate:
 ClamAV API endpoint malicious-detection test harness review v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Test Harness Review
+
+Phase marker: ClamAV API endpoint malicious-detection test harness review v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-test-harness-review.md
+```
+
+Selected harness boundary:
+
+```text
+review-only
+owner-provided runtime-only test signature
+NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1
+NOISEPROOF_CLAMAV_TEST_SIGNATURE_TEXT
+payload_committed_to_repo: false
+do not store the test signature payload or an encoded form in the repository
+do not bypass OS security controls
+blocked_by_environment
+not malware detection proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection test harness v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
