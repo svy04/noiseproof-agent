@@ -245,6 +245,8 @@ External feedback current-state scan-result endpoint issue verification v0: impl
 
 Uploaded raw file scanner adapter review v0: implemented. Boundary: review-only selection of `ScannerAdapter`, `ScanAdapterRequest`, and `ScanAdapterResult` before ClamAV or scanner execution; missing scanners and timeouts must map to `scan_error`, not clean.
 
+Uploaded raw file scanner adapter v0: implemented. Boundary: generic scanner adapter types plus unavailable/timeout failure mapping only; not ClamAV integration, not malware scanning, not scanner process execution, and not a download endpoint.
+
 
 ## Planned Agent Workflow
 

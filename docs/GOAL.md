@@ -8259,6 +8259,43 @@ Current next product gate:
 uploaded raw file scanner adapter v0
 ```
 
+### Phase 265 - Uploaded Raw File Scanner Adapter v0
+
+Goal:
+
+```text
+add generic scanner adapter types and failure mapping before ClamAV execution or download behavior
+```
+
+Implemented:
+
+```text
+uploaded raw file scanner adapter v0
+packages/ingestion/scanning/__init__.py
+packages/ingestion/scanning/adapter.py
+ScanAdapterRequest
+ScanAdapterResult
+ScannerAdapter
+ScannerUnavailableAdapter
+build_scan_error_result
+missing_scanner_binary -> failed / scan_error
+timeout -> failed / scan_error
+temporary_scan_path is not persisted
+apps/api/tests/test_raw_file_scanning.py
+docs/review/uploaded-raw-file-scanner-adapter.md
+README implementation marker
+docs/application/portfolio-index.md scanner adapter link
+docs/runbook.md scanner adapter note
+```
+
+Phase 265 is generic adapter code only. It adds no endpoint code, schema, migration, scanner process, ClamAV dependency, file signature validation, download endpoint, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+uploaded raw file ClamAV adapter review v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

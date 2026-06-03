@@ -7829,3 +7829,41 @@ def test_uploaded_raw_file_scanner_adapter_review_selects_adapter_boundary_befor
     assert "Phase 264 - Uploaded Raw File Scanner Adapter Review v0" in goal
     assert "uploaded raw file scanner adapter review v0" in runbook
     assert "docs/review/uploaded-raw-file-scanner-adapter-review.md" in portfolio
+
+
+def test_uploaded_raw_file_scanner_adapter_is_documented_without_clamav_claim():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-scanner-adapter.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    package_init = (REPO_ROOT / "packages/ingestion/scanning/__init__.py").read_text(
+        encoding="utf-8"
+    )
+    adapter_py = (REPO_ROOT / "packages/ingestion/scanning/adapter.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Scanner Adapter" in content
+    assert "uploaded raw file scanner adapter v0" in content
+    assert "ScanAdapterRequest" in content
+    assert "ScanAdapterResult" in content
+    assert "ScannerUnavailableAdapter" in content
+    assert "missing_scanner_binary -> failed / scan_error" in content
+    assert "timeout -> failed / scan_error" in content
+    assert "temporary_scan_path is not persisted" in content
+    assert "not ClamAV integration" in content
+    assert "not malware scanning" in content
+    assert "not scanner process execution" in content
+    assert "Uploaded raw file scanner adapter v0: implemented" in readme
+    assert "Phase 265 - Uploaded Raw File Scanner Adapter v0" in goal
+    assert "uploaded raw file scanner adapter v0" in runbook
+    assert "docs/review/uploaded-raw-file-scanner-adapter.md" in portfolio
+    assert "ScanAdapterRequest" in package_init
+    assert "class ScanAdapterResult" in adapter_py
+    assert "class ScannerUnavailableAdapter" in adapter_py

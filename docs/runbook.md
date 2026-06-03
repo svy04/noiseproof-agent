@@ -3358,6 +3358,63 @@ Next product gate:
 uploaded raw file scanner adapter v0
 ```
 
+## Uploaded Raw File Scanner Adapter
+
+Phase marker: uploaded raw file scanner adapter v0.
+
+Use this artifact:
+
+```text
+docs/review/uploaded-raw-file-scanner-adapter.md
+```
+
+Added package:
+
+```text
+packages/ingestion/scanning/__init__.py
+packages/ingestion/scanning/adapter.py
+```
+
+Core types:
+
+```text
+ScanAdapterRequest
+ScanAdapterResult
+ScannerAdapter
+ScannerUnavailableAdapter
+build_scan_error_result
+```
+
+Covered failure mapping:
+
+```text
+missing_scanner_binary -> failed / scan_error
+timeout -> failed / scan_error
+temporary_scan_path is not persisted
+```
+
+Focused test:
+
+```bash
+uv run pytest -q tests/test_raw_file_scanning.py
+```
+
+Boundary:
+
+```text
+not ClamAV integration
+not malware scanning
+not scanner process execution
+not file signature validation
+not a download endpoint
+```
+
+Next product gate:
+
+```text
+uploaded raw file ClamAV adapter review v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
