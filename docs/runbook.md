@@ -5078,6 +5078,39 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## CI Node24 Actions Runtime Opt-in
+
+Phase marker: ci node24 actions runtime opt-in v0.
+
+Use this artifact:
+
+```text
+docs/review/ci-node24-actions-runtime-opt-in.md
+```
+
+Configured workflows:
+
+```text
+.github/workflows/ci.yml
+.github/workflows/external-feedback-screen.yml
+```
+
+Expected workflow env:
+
+```text
+FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+```
+
+Boundary:
+
+```text
+workflow runtime compatibility only
+not product runtime evidence
+not hosted deployment evidence
+not external reviewer feedback
+not product-complete
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

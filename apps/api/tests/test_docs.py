@@ -9227,3 +9227,32 @@ def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_validator_i
     assert "Phase 308 - ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Validator v0" in goal
     assert "ClamAV API endpoint malicious-detection owner runtime smoke validator v0" in runbook
     assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-validator.md" in portfolio
+
+
+def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
+    review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    ci_workflow = (REPO_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+    feedback_workflow = (
+        REPO_ROOT / ".github/workflows/external-feedback-screen.yml"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "CI Node24 Actions Runtime Opt-in" in content
+    assert "ci node24 actions runtime opt-in v0" in content
+    assert "FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: \"true\"" in ci_workflow
+    assert "FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: \"true\"" in feedback_workflow
+    assert "Node.js 20 actions are deprecated" in content
+    assert "workflow runtime compatibility only" in content
+    assert "not product runtime evidence" in content
+    assert "ci node24 actions runtime opt-in v0: implemented" in readme
+    assert "Phase 309 - CI Node24 Actions Runtime Opt-in v0" in goal
+    assert "ci node24 actions runtime opt-in v0" in runbook
+    assert "docs/review/ci-node24-actions-runtime-opt-in.md" in portfolio
