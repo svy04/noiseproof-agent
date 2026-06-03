@@ -8619,3 +8619,36 @@ def test_clamav_api_service_network_boundary_review_blocks_unsafe_host_publish()
     assert "Phase 289 - ClamAV API Service Network Boundary Review v0" in goal
     assert "ClamAV API service network boundary review v0" in runbook
     assert "docs/review/clamav-api-service-network-boundary-review.md" in portfolio
+
+
+def test_clamav_api_compose_service_review_selects_profiled_api_before_code():
+    review_path = REPO_ROOT / "docs/review/clamav-api-compose-service-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Compose Service Review" in content
+    assert "ClamAV API compose service review v0" in content
+    assert "https://docs.docker.com/compose/how-tos/networking/" in content
+    assert "https://docs.docker.com/reference/compose-file/services/" in content
+    assert "select a future profiled `api` Compose service" in content
+    assert "API service joins the same Compose network as `clamav`" in content
+    assert "CLAMD_HOST=clamav" in content
+    assert "CLAMD_PORT=3310" in content
+    assert "NOISEPROOF_SCANNER=unavailable remains the default" in content
+    assert "scanner opt-in must be explicit" in content
+    assert "do not publish clamd TCP to the host" in content
+    assert "do not claim endpoint runtime proof" in content
+    assert "ClamAV API compose service implementation v0" in content
+    assert "not Compose service code" in content
+    assert "not API endpoint integration" in content
+    assert "ClamAV API compose service review v0: implemented" in readme
+    assert "Phase 290 - ClamAV API Compose Service Review v0" in goal
+    assert "ClamAV API compose service review v0" in runbook
+    assert "docs/review/clamav-api-compose-service-review.md" in portfolio

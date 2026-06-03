@@ -4393,6 +4393,34 @@ Next product gate:
 ClamAV API compose service review v0
 ```
 
+## ClamAV API Compose Service Review
+
+Phase marker: ClamAV API compose service review v0.
+
+Use this review artifact:
+
+```text
+docs/review/clamav-api-compose-service-review.md
+```
+
+Decision:
+
+```text
+select a future profiled api Compose service
+API service joins the same Compose network as clamav
+CLAMD_HOST=clamav
+CLAMD_PORT=3310
+NOISEPROOF_SCANNER=unavailable remains the default
+scanner opt-in must be explicit
+do not publish clamd TCP to the host
+```
+
+Next product gate:
+
+```text
+ClamAV API compose service implementation v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

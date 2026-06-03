@@ -295,6 +295,8 @@ ClamAV service scanner adapter v0: implemented. Boundary: `ClamdScannerAdapter` 
 
 ClamAV API service network boundary review v0: implemented. Boundary: review-only decision that host-local FastAPI must not reach ClamAV by publishing unauthenticated clamd TCP; API service integration requires the API runtime to join the same internal Docker network as `clamav`.
 
+ClamAV API compose service review v0: implemented. Boundary: review-only decision to add a future profiled `api` Compose service that joins the same network as `clamav` and uses `CLAMD_HOST=clamav`, while keeping scanner opt-in explicit and clamd host ports unpublished.
+
 
 ## Planned Agent Workflow
 
