@@ -7867,3 +7867,38 @@ def test_uploaded_raw_file_scanner_adapter_is_documented_without_clamav_claim():
     assert "ScanAdapterRequest" in package_init
     assert "class ScanAdapterResult" in adapter_py
     assert "class ScannerUnavailableAdapter" in adapter_py
+
+
+def test_uploaded_raw_file_clamav_adapter_review_selects_conservative_subprocess_boundary():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-clamav-adapter-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File ClamAV Adapter Review" in content
+    assert "uploaded raw file ClamAV adapter review v0" in content
+    assert "ClamAV Scanning" in content
+    assert "Python subprocess" in content
+    assert "ClamAvScannerAdapter" in content
+    assert "clamscan first" in content
+    assert "clamdscan later" in content
+    assert "shutil.which" in content
+    assert "missing clamscan -> failed / scan_error" in content
+    assert "timeout -> failed / scan_error" in content
+    assert "unknown return code -> failed / scan_error" in content
+    assert "do not use --remove" in content
+    assert "do not open daemon TCP sockets" in content
+    assert "temporary_scan_path required" in content
+    assert "not malware scanning" in content
+    assert "not scanner execution" in content
+    assert "next product gate: uploaded raw file ClamAV adapter v0" in content
+    assert "Uploaded raw file ClamAV adapter review v0: implemented" in readme
+    assert "Phase 266 - Uploaded Raw File ClamAV Adapter Review v0" in goal
+    assert "uploaded raw file ClamAV adapter review v0" in runbook
+    assert "docs/review/uploaded-raw-file-clamav-adapter-review.md" in portfolio

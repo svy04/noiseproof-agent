@@ -3415,6 +3415,49 @@ Next product gate:
 uploaded raw file ClamAV adapter review v0
 ```
 
+## Uploaded Raw File ClamAV Adapter Review
+
+Phase marker: uploaded raw file ClamAV adapter review v0.
+
+Use this review artifact:
+
+```text
+docs/review/uploaded-raw-file-clamav-adapter-review.md
+```
+
+Selected future adapter:
+
+```text
+ClamAvScannerAdapter
+clamscan first
+clamdscan later
+shutil.which
+temporary_scan_path required
+```
+
+Required conservative mappings:
+
+```text
+missing clamscan -> failed / scan_error
+timeout -> failed / scan_error
+unknown return code -> failed / scan_error
+```
+
+Safety rules:
+
+```text
+do not use --remove
+do not open daemon TCP sockets
+not malware scanning
+not scanner execution
+```
+
+Next product gate:
+
+```text
+uploaded raw file ClamAV adapter v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

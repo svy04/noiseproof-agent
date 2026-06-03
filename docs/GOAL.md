@@ -8296,6 +8296,45 @@ Current next product gate:
 uploaded raw file ClamAV adapter review v0
 ```
 
+### Phase 266 - Uploaded Raw File ClamAV Adapter Review v0
+
+Goal:
+
+```text
+select the conservative ClamAV adapter boundary before scanner execution, daemon sockets, or download behavior
+```
+
+Implemented:
+
+```text
+uploaded raw file ClamAV adapter review v0
+docs/review/uploaded-raw-file-clamav-adapter-review.md
+source-first review of ClamAV Scanning
+source-first review of Python subprocess
+source-first review of OWASP File Upload Cheat Sheet
+selected future adapter: ClamAvScannerAdapter
+decision: clamscan first
+decision: clamdscan later
+decision: use shutil.which for binary discovery
+failure mapping: missing clamscan -> failed / scan_error
+failure mapping: timeout -> failed / scan_error
+failure mapping: unknown return code -> failed / scan_error
+rule: do not use --remove
+rule: do not open daemon TCP sockets
+selected next gate: uploaded raw file ClamAV adapter v0
+README implementation marker
+docs/application/portfolio-index.md ClamAV adapter review link
+docs/runbook.md ClamAV adapter review note
+```
+
+Phase 266 is review-only. It adds no runtime behavior, endpoint code, schema, migration, ClamAV adapter code, scanner process, ClamAV dependency, file signature validation, download endpoint, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+uploaded raw file ClamAV adapter v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

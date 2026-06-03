@@ -385,6 +385,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/external-feedback-current-state-scan-result-endpoint-issue-verification.md` | current-state issue #1 screen after the scan-result endpoint issue-body refresh; candidate_count 0 and only self-authored comment, so external feedback remains pending |
 | `docs/review/uploaded-raw-file-scanner-adapter-review.md` | review-only selection of the generic scanner adapter boundary before ClamAV, scanner execution, file signature validation, or download behavior |
 | `docs/review/uploaded-raw-file-scanner-adapter.md` | generic scanner adapter types and failure mapping for unavailable scanners/timeouts; no ClamAV integration, scanner process execution, file signature validation, or download behavior |
+| `docs/review/uploaded-raw-file-clamav-adapter-review.md` | review-only selection of conservative `ClamAvScannerAdapter` subprocess boundaries before ClamAV execution, daemon sockets, or download behavior |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
