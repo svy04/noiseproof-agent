@@ -8423,3 +8423,35 @@ def test_clamav_compose_service_is_optional_internal_only_and_not_default():
     assert "Phase 283 - ClamAV Compose Service Implementation v0" in goal
     assert "ClamAV compose service implementation v0" in runbook
     assert "docs/review/clamav-compose-service-implementation.md" in portfolio
+
+
+def test_clamav_compose_service_config_verification_records_config_only_evidence():
+    review_path = (
+        REPO_ROOT / "docs/review/clamav-compose-service-config-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV Compose Service Config Verification" in content
+    assert "ClamAV compose service config verification v0" in content
+    assert "docker compose --profile scanner config -> exit 0" in content
+    assert "profiles: scanner" in content
+    assert "expose: 3310" in content
+    assert "clamdscan --ping=1" in content
+    assert "clamav ports published to host: false" in content
+    assert "real_clamav_runtime_verified: false" in content
+    assert "api_endpoint_verified_with_real_clamav: false" in content
+    assert "not clamd runtime verification" in content
+    assert "not malware scanning evidence" in content
+    assert "ClamAV compose service runtime smoke v0" in content
+    assert "ClamAV compose service config verification v0: implemented" in readme
+    assert "Phase 284 - ClamAV Compose Service Config Verification v0" in goal
+    assert "ClamAV compose service config verification v0" in runbook
+    assert "docs/review/clamav-compose-service-config-verification.md" in portfolio

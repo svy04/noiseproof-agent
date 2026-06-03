@@ -4209,6 +4209,39 @@ Next product gate:
 ClamAV compose service config verification v0
 ```
 
+## ClamAV Compose Service Config Verification
+
+Phase marker: ClamAV compose service config verification v0.
+
+Use this verification artifact:
+
+```text
+docs/review/clamav-compose-service-config-verification.md
+```
+
+Observed command:
+
+```text
+docker compose --profile scanner config -> exit 0
+```
+
+Observed rendered shape:
+
+```text
+profiles: scanner
+expose: 3310
+healthcheck: clamdscan --ping=1
+clamav ports published to host: false
+real_clamav_runtime_verified: false
+api_endpoint_verified_with_real_clamav: false
+```
+
+Next product gate:
+
+```text
+ClamAV compose service runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
