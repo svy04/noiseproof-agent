@@ -3941,6 +3941,53 @@ Next evidence gate:
 external feedback current-state scan execution endpoint issue verification v0
 ```
 
+## External Feedback Current-state Scan Execution Endpoint Issue Verification
+
+Phase marker: external feedback current-state scan execution endpoint issue verification v0.
+
+Use this current-state screen artifact:
+
+```text
+docs/review/external-feedback-current-state-scan-execution-endpoint-issue-verification.md
+```
+
+Observed current state:
+
+```text
+issue_state: OPEN
+updatedAt: 2026-06-03T03:42:56Z
+has_scan_execution_proof: true
+has_scan_execution_request_refresh: true
+starts_with_request: true
+first_codepoint: 35
+comment_count: 1
+candidate_count: 0
+screened_comment_count: 1
+first_classification: non_qualifying
+first_reason: self_authored_comment
+acceptance_status: pending
+draft_count: 0
+does_not_close_gate: true
+next_gate: external reviewer feedback v0
+```
+
+Boundary:
+
+```text
+current-state screen only
+not external reviewer feedback
+not hosted deployment evidence
+not real ClamAV execution
+not malware scanning evidence
+not a download endpoint
+```
+
+Next evidence gate:
+
+```text
+external reviewer feedback v0 remains pending, or select the next source-first product gate
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
