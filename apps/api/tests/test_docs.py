@@ -8063,3 +8063,52 @@ def test_uploaded_raw_file_scan_execution_endpoint_runtime_smoke_records_local_h
         "docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_external_reviewer_scan_execution_endpoint_request_refresh_updates_review_surfaces():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-scan-execution-endpoint-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    surfaces = [
+        REPO_ROOT / "CONTRIBUTING.md",
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md",
+        REPO_ROOT / "docs/review/external-review-request.md",
+        REPO_ROOT / "docs/review/external-reader-proof-path.md",
+        REPO_ROOT / "docs/review/external-reviewer-brief.md",
+        REPO_ROOT / "docs/review/external-reviewer-link-map.md",
+    ]
+    proof_path = "docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md"
+
+    assert "External Reviewer Scan Execution Endpoint Request Refresh" in content
+    assert "external reviewer scan execution endpoint request refresh v0" in content
+    assert proof_path in content
+    assert "real_clamav_runtime_verified -> false" in content
+    assert "malware_scanning_evidence -> false" in content
+    assert "not external reviewer feedback" in content
+    assert "not real ClamAV execution" in content
+    assert "not malware scanning" in content
+    assert "not a live issue body edit" in content
+    assert "external review issue body scan execution endpoint refresh v0" in content
+    for surface in surfaces:
+        surface_text = surface.read_text(encoding="utf-8")
+        assert proof_path in surface_text
+        assert "not real ClamAV execution" in surface_text
+        assert "not malware scanning" in surface_text
+        assert "not external reviewer feedback" in surface_text
+    assert "External reviewer scan execution endpoint request refresh v0: implemented" in readme
+    assert "Phase 275 - External Reviewer Scan Execution Endpoint Request Refresh v0" in goal
+    assert "external reviewer scan execution endpoint request refresh v0" in runbook
+    assert (
+        "docs/review/external-reviewer-scan-execution-endpoint-request-refresh.md"
+        in portfolio
+    )

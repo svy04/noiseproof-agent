@@ -48,6 +48,8 @@ Fast links:
   - Boundary: `POST /documents/upload-raw-files/{raw_file_id}/scan-results`, `GET /documents/upload-raw-files/{raw_file_id}/scan-results`, `scan_verdict -> scan_error`, and `response_has_raw_bytes -> false`; not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
 - ClamAV adapter runtime smoke proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md
   - Boundary: deterministic fake-runner smoke for adapter mappings; not real ClamAV execution, not signature database evidence, not hosted deployment evidence, not malware scanning, and not external reviewer feedback.
+- uploaded raw file scan execution endpoint runtime proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
+  - Boundary: local Docker DB plus live FastAPI HTTP for upload, explicit scan execution, and scan-result listing; default scanner-unavailable returns failed / scan_error, not real ClamAV execution, not malware scanning, and not external reviewer feedback.
 - Feedback intake criteria: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 - Public feedback issue: https://github.com/svy04/noiseproof-agent/issues/1
 

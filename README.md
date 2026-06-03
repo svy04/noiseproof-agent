@@ -265,6 +265,8 @@ Uploaded raw file scan execution endpoint v0: implemented. Boundary: explicit `P
 
 Uploaded raw file scan execution endpoint runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP proof for upload, explicit scan execution, and scan-result listing with default `scanner-unavailable` / `scan_error`; not real ClamAV execution, not malware scanning evidence, not hosted evidence, and not external reviewer feedback.
 
+External reviewer scan execution endpoint request refresh v0: implemented. Boundary: reviewer request surfaces now point to the scan execution endpoint runtime smoke proof; not external reviewer feedback, not hosted deployment evidence, not real ClamAV execution, and not malware scanning.
+
 
 ## Planned Agent Workflow
 

@@ -67,7 +67,10 @@ https://github.com/svy04/noiseproof-agent/issues/1
 19. ClamAV adapter runtime smoke proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md
    Boundary: deterministic fake-runner smoke for `ClamAvScannerAdapter` mappings; not real ClamAV execution, not signature database evidence, not hosted deployment evidence, not malware scanning, and not external reviewer feedback.
-20. Feedback intake criteria:
+20. uploaded raw file scan execution endpoint runtime proof:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
+   Boundary: local Docker DB plus live FastAPI HTTP for upload, explicit scan execution, and scan-result listing; default scanner-unavailable returns failed / scan_error, not real ClamAV execution, not malware scanning, and not external reviewer feedback.
+21. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route

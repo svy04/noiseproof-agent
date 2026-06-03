@@ -3849,6 +3849,54 @@ Next evidence gate:
 external reviewer scan execution endpoint request refresh v0
 ```
 
+## External Reviewer Scan Execution Endpoint Request Refresh
+
+Phase marker: external reviewer scan execution endpoint request refresh v0.
+
+Use this request refresh artifact:
+
+```text
+docs/review/external-reviewer-scan-execution-endpoint-request-refresh.md
+```
+
+Reviewer-facing surfaces now point to:
+
+```text
+docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
+```
+
+Updated request surfaces:
+
+```text
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+docs/review/external-review-request.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+docs/application/portfolio-index.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+```
+
+Boundary:
+
+```text
+request infrastructure only
+not external reviewer feedback
+not hosted deployment evidence
+not real ClamAV execution
+not malware scanning evidence
+not a live issue body edit
+```
+
+Next evidence gate:
+
+```text
+external review issue body scan execution endpoint refresh v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

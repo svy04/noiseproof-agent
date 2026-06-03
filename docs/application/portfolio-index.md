@@ -394,6 +394,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-raw-file-scan-execution-review.md` | source-first review for a future explicit raw upload scan execution endpoint; separates scanner execution from caller-provided scan metadata and adds no endpoint code or malware scanning evidence |
 | `docs/review/uploaded-raw-file-scan-execution-endpoint.md` | explicit raw upload scan execution endpoint; default scanner-unavailable maps to scan_error, metadata only, no real ClamAV execution, malware scanning evidence, hosted proof, or download endpoint |
 | `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md` | local Docker PostgreSQL plus live FastAPI HTTP proof for the explicit raw upload scan endpoint with default scanner-unavailable / scan_error; not real ClamAV execution, malware scanning evidence, hosted proof, or external feedback |
+| `docs/review/external-reviewer-scan-execution-endpoint-request-refresh.md` | reviewer-facing request-path refresh for the scan execution endpoint runtime proof; not external reviewer feedback, hosted deployment evidence, real ClamAV execution, or malware scanning |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

@@ -158,6 +158,14 @@ docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md
 
 Boundary: this proof is a deterministic fake-runner smoke for `ClamAvScannerAdapter` missing/clean/infected/timeout/error mappings. It reports `real_clamav_runtime_verified -> false`, and remains not hosted deployment evidence, not external reviewer feedback, not real ClamAV execution, not signature database evidence, not malware scanning, and not a download endpoint.
 
+uploaded raw file scan execution endpoint runtime proof:
+
+```text
+docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
+```
+
+Boundary: this proof is local Docker PostgreSQL plus live FastAPI HTTP evidence for `POST /documents/upload-raw-files/{raw_file_id}/scan`; the default scanner-unavailable result is `failed / scan_error`, and it remains not hosted deployment evidence, not external reviewer feedback, not real ClamAV execution, not signature database evidence, not malware scanning, and not a download endpoint.
+
 ## Review Path
 
 Please read in this order:
@@ -177,7 +185,8 @@ Please read in this order:
 13. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
 14. `docs/evaluation/semantic-retrieval-quality-report.md`
 15. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
-16. `docs/application/braincrew-role-map.md`
+16. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
+17. `docs/application/braincrew-role-map.md`
 
 Optional source-level provenance:
 
