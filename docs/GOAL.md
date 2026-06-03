@@ -7878,6 +7878,39 @@ Current next product gate:
 uploaded raw file scan result schema review v0
 ```
 
+### Phase 254 - Uploaded Raw File Scan Result Schema Review v0
+
+Goal:
+
+```text
+select the durable scan-evidence schema boundary before adding malware scanning or download behavior
+```
+
+Implemented:
+
+```text
+uploaded raw file scan result schema review v0
+docs/review/uploaded-raw-file-scan-result-schema-review.md
+selected future table: raw_file_scan_results
+selected future foreign key: raw_file_id -> uploaded_raw_files(id)
+selected scan_status vocabulary
+selected scan_verdict vocabulary
+decision: do not add a download endpoint in this gate
+decision: do not run ClamAV in this gate
+selected next gate: uploaded raw file scan result schema v0
+README implementation marker
+docs/application/portfolio-index.md schema review link
+docs/runbook.md schema review note
+```
+
+Phase 254 is review-only. It adds no schema, migration, endpoint, repository code, scanner adapter, scanner process, ClamAV dependency, file signature validation, download endpoint, retention/deletion behavior, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+uploaded raw file scan result schema v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

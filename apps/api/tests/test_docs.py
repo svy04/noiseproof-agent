@@ -7291,3 +7291,49 @@ def test_uploaded_raw_file_storage_safety_review_selects_scan_schema_before_down
     assert "Phase 253 - Uploaded Raw File Storage Safety Review v0" in goal
     assert "uploaded raw file storage safety review v0" in runbook
     assert "docs/review/uploaded-raw-file-storage-safety-review.md" in portfolio
+
+
+def test_uploaded_raw_file_scan_result_schema_review_selects_scan_evidence_table():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-scan-result-schema-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Scan Result Schema Review" in content
+    assert "uploaded raw file scan result schema review v0" in content
+    assert "review-only" in content
+    assert "raw_file_scan_results" in content
+    assert "raw_file_id" in content
+    assert "uploaded_raw_files(id)" in content
+    assert "scanner_name" in content
+    assert "scanner_version" in content
+    assert "signature_db_version" in content
+    assert "scan_started_at" in content
+    assert "scan_finished_at" in content
+    assert "scan_status" in content
+    assert "scan_verdict" in content
+    assert "matched_signature" in content
+    assert "error_message" in content
+    assert "metadata_json" in content
+    assert "pending" in content
+    assert "clean" in content
+    assert "suspicious" in content
+    assert "infected" in content
+    assert "scan_error" in content
+    assert "skipped" in content
+    assert "do not add a download endpoint in this gate" in content
+    assert "do not run ClamAV in this gate" in content
+    assert "next product gate: uploaded raw file scan result schema v0" in content
+    assert "not malware scanning" in content
+    assert "not a download endpoint" in content
+    assert "not runtime evidence" in content
+    assert "Uploaded raw file scan result schema review v0: implemented" in readme
+    assert "Phase 254 - Uploaded Raw File Scan Result Schema Review v0" in goal
+    assert "uploaded raw file scan result schema review v0" in runbook
+    assert "docs/review/uploaded-raw-file-scan-result-schema-review.md" in portfolio

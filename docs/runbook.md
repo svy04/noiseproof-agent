@@ -2777,6 +2777,60 @@ not hosted deployment evidence
 not ClamAV integration
 ```
 
+## Uploaded Raw File Scan Result Schema Review
+
+Phase marker: uploaded raw file scan result schema review v0.
+
+Use this review artifact:
+
+```text
+docs/review/uploaded-raw-file-scan-result-schema-review.md
+```
+
+Selected future table:
+
+```text
+raw_file_scan_results
+```
+
+Selected future link:
+
+```text
+raw_file_id -> uploaded_raw_files(id)
+```
+
+Required future columns:
+
+```text
+scanner_name
+scanner_version
+signature_db_version
+scan_started_at
+scan_finished_at
+scan_status
+scan_verdict
+matched_signature
+error_message
+metadata_json
+```
+
+Selected next gate:
+
+```text
+uploaded raw file scan result schema v0
+```
+
+Boundary:
+
+```text
+review-only
+not malware scanning
+not runtime evidence
+not a download endpoint
+not ClamAV integration
+not schema migration yet
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
