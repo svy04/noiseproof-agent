@@ -241,6 +241,8 @@ External reviewer scan-result endpoint request refresh v0: implemented. Boundary
 
 External review issue body scan-result endpoint refresh v0: implemented. Boundary: issue #1 now points to the uploaded raw file scan result endpoint proof; owner-authored issue edit only, not external reviewer feedback, not hosted deployment evidence, not malware scanning, and not a download endpoint.
 
+External feedback current-state scan-result endpoint issue verification v0: implemented. Boundary: current issue #1 screen still has candidate_count 0 and only a self-authored comment; not external reviewer feedback, not hosted deployment evidence, not malware scanning, and not a download endpoint.
+
 
 ## Planned Agent Workflow
 

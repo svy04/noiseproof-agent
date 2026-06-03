@@ -7732,3 +7732,62 @@ def test_external_review_issue_body_scan_result_endpoint_refresh_records_live_is
         "docs/review/external-review-issue-body-scan-result-endpoint-refresh.md"
         in portfolio
     )
+
+
+def test_external_feedback_current_state_scan_result_endpoint_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-scan-result-endpoint-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Feedback Current-state Scan-result Endpoint Issue Verification" in content
+    assert (
+        "external feedback current-state scan-result endpoint issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "uploaded raw file scan result endpoint proof" in content
+    assert "docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md" in content
+    assert (
+        "docs/review/external-review-issue-body-scan-result-endpoint-refresh.md"
+        in content
+    )
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan-results" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/scan-results" in content
+    assert "path/body mismatch -> 400" in content
+    assert "scan_verdict -> scan_error" in content
+    assert "response_has_raw_bytes -> false" in content
+    assert "first_codepoint: 35" in content
+    assert "startsWith: ## Request" in content
+    assert "comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "self_authored_comment" in content
+    assert "non_qualifying" in content
+    assert "not external reviewer feedback" in content
+    assert "does not close external reviewer feedback v0" in content
+    assert (
+        "External feedback current-state scan-result endpoint issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 263 - External Feedback Current-state Scan-result Endpoint Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state scan-result endpoint issue verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-scan-result-endpoint-issue-verification.md"
+        in portfolio
+    )

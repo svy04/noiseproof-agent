@@ -8181,6 +8181,48 @@ Current next product gate:
 external feedback current-state scan-result endpoint issue verification v0
 ```
 
+### Phase 263 - External Feedback Current-state Scan-result Endpoint Issue Verification v0
+
+Goal:
+
+```text
+verify the current issue #1 screen after the scan-result endpoint issue-body refresh while keeping external reviewer feedback pending
+```
+
+Implemented:
+
+```text
+external feedback current-state scan-result endpoint issue verification v0
+docs/review/external-feedback-current-state-scan-result-endpoint-issue-verification.md
+live issue body marker check for uploaded raw file scan result endpoint proof
+external feedback screener result with candidate_count 0
+acceptance draft result with draft_count 0
+README implementation marker
+docs/runbook.md current-state note
+docs/application/portfolio-index.md current-state link
+```
+
+Observed live issue and screen markers:
+
+```text
+updatedAt: 2026-06-03T02:07:48Z
+first_codepoint: 35
+startsWith: ## Request
+comment_count: 1
+candidate_count: 0
+draft_count: 0
+self_authored_comment
+non_qualifying
+```
+
+Phase 263 is a current-state screen only. It adds no runtime behavior, endpoint code, schema, migration, scanner adapter, scanner process, ClamAV dependency, file signature validation, download endpoint, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+external reviewer feedback v0 remains pending, or select the next source-first product gate
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

@@ -3277,6 +3277,39 @@ response_has_raw_bytes -> false
 
 This is an owner-authored issue edit. It is not external reviewer feedback, not hosted deployment evidence, not malware scanning, and not a download endpoint.
 
+## External Feedback Current-state Scan-result Endpoint Issue Verification
+
+Phase marker: external feedback current-state scan-result endpoint issue verification v0.
+
+Use this current-state verification artifact:
+
+```text
+docs/review/external-feedback-current-state-scan-result-endpoint-issue-verification.md
+```
+
+Observed live issue and screening state:
+
+```text
+updatedAt: 2026-06-03T02:07:48Z
+first_codepoint: 35
+startsWith: ## Request
+comment_count: 1
+candidate_count: 0
+draft_count: 0
+self_authored_comment
+non_qualifying
+uploaded raw file scan result endpoint proof
+docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md
+docs/review/external-review-issue-body-scan-result-endpoint-refresh.md
+POST /documents/upload-raw-files/{raw_file_id}/scan-results
+GET /documents/upload-raw-files/{raw_file_id}/scan-results
+path/body mismatch -> 400
+scan_verdict -> scan_error
+response_has_raw_bytes -> false
+```
+
+This is a current-state screen only. It does not close external reviewer feedback v0.
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
