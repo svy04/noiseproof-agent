@@ -189,6 +189,47 @@ def test_malicious_detection_harness_required_owner_input_exits_nonzero_without_
     assert client.upload_calls == []
 
 
+def test_malicious_detection_harness_required_owner_input_rejects_quote_only_stdin(capsys):
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--signature-stdin", "--require-owner-input"],
+        env={ALLOW_ENV: "1"},
+        stdin=StringIO('""\r\n'),
+        client=client,
+    )
+
+    assert exit_code == 4
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["harness_status"] == "not_configured"
+    assert payload["required_owner_input_missing"] is True
+    assert payload["api_calls_attempted"] is False
+    assert payload["input_source"] == "stdin"
+    assert "owner-provided" in payload["blocked_reason"]
+    assert client.upload_calls == []
+    assert '""' not in json.dumps(payload, sort_keys=True)
+
+
+def test_malicious_detection_harness_required_owner_input_rejects_bom_only_stdin(capsys):
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--signature-stdin", "--require-owner-input"],
+        env={ALLOW_ENV: "1"},
+        stdin=StringIO("\ufeff\r\n"),
+        client=client,
+    )
+
+    assert exit_code == 4
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["harness_status"] == "not_configured"
+    assert payload["required_owner_input_missing"] is True
+    assert payload["api_calls_attempted"] is False
+    assert payload["input_source"] == "stdin"
+    assert "owner-provided" in payload["blocked_reason"]
+    assert client.upload_calls == []
+
+
 def test_malicious_detection_harness_required_owner_input_still_allows_fake_verified_path(capsys):
     signature_text = "owner-provided-runtime-only-test-signature"
     client = RecordingClient()

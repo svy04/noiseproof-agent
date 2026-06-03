@@ -9592,6 +9592,35 @@ def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_post_run_va
     assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-post-run-validation-success-criteria.md" in portfolio
 
 
+def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_empty_marker_guard_is_documented():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-empty-marker-guard.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Empty-marker Guard" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke empty-marker guard v0" in content
+    assert "quote-only stdin" in content
+    assert "BOM-only stdin" in content
+    assert '""' in content
+    assert "exit_code: 4" in content
+    assert "required_owner_input_missing: true" in content
+    assert "api_calls_attempted: false" in content
+    assert "does not include a test signature payload" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "ClamAV API endpoint malicious-detection owner-provided runtime smoke v0" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke empty-marker guard v0: implemented" in readme
+    assert "Phase 323 - ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Empty-marker Guard v0" in goal
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke empty-marker guard v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-empty-marker-guard.md" in portfolio
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

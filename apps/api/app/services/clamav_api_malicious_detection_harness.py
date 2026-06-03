@@ -47,6 +47,7 @@ OWNER_RUNTIME_SMOKE_FORBIDDEN_PAYLOAD_KEYS = {
     "test_signature",
     "test_signature_text",
 }
+OWNER_RUNTIME_SMOKE_EMPTY_INPUT_MARKERS = {"", '""', "''"}
 OWNER_RUNTIME_SMOKE_EXPECTED_TOP_LEVEL_FIELDS = {
     "api_calls_attempted",
     "harness_status",
@@ -130,7 +131,8 @@ def build_malicious_detection_harness_report(
     timeout_seconds: float = 30.0,
 ) -> dict[str, object]:
     base_report = _base_report()
-    if allow_test_signature_smoke != "1" or not test_signature_text:
+    normalized_signature_text = _normalize_owner_runtime_input(test_signature_text)
+    if allow_test_signature_smoke != "1" or not normalized_signature_text:
         if input_source == "stdin":
             blocked_reason = (
                 "set NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 and provide "
@@ -152,7 +154,7 @@ def build_malicious_detection_harness_report(
             "scan_result_summary": None,
         }
 
-    content_bytes = test_signature_text.encode("utf-8")
+    content_bytes = normalized_signature_text.encode("utf-8")
     endpoint_client = client or UrllibEndpointClient(
         api_base_url=api_base_url,
         timeout_seconds=timeout_seconds,
@@ -295,6 +297,15 @@ def build_owner_runtime_smoke_packet() -> dict[str, object]:
             "owner-provided runtime smoke remains pending",
         ],
     }
+
+
+def _normalize_owner_runtime_input(test_signature_text: str | None) -> str:
+    if test_signature_text is None:
+        return ""
+    candidate = test_signature_text.lstrip("\ufeff").rstrip("\r\n")
+    if candidate.strip() in OWNER_RUNTIME_SMOKE_EMPTY_INPUT_MARKERS:
+        return ""
+    return candidate
 
 
 def build_owner_runtime_smoke_validator_handoff_report(
@@ -671,9 +682,11 @@ def main(
         input_source = "stdin" if args.signature_stdin else "environment"
         if args.signature_stdin:
             stdin_source = stdin if stdin is not None else sys.stdin
-            test_signature_text = stdin_source.read().rstrip("\r\n")
+            test_signature_text = _normalize_owner_runtime_input(stdin_source.read())
         else:
-            test_signature_text = source_env.get(SIGNATURE_ENV)
+            test_signature_text = _normalize_owner_runtime_input(
+                source_env.get(SIGNATURE_ENV)
+            )
         report = build_malicious_detection_harness_report(
             allow_test_signature_smoke=source_env.get(ALLOW_ENV),
             test_signature_text=test_signature_text,

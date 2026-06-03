@@ -5442,6 +5442,43 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Empty-marker Guard
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke empty-marker guard v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-empty-marker-guard.md
+```
+
+Observed guard behavior:
+
+```text
+quote-only stdin
+BOM-only stdin
+""
+exit_code: 4
+harness_status: not_configured
+required_owner_input_missing: true
+api_calls_attempted: false
+does not include a test signature payload
+not endpoint malicious-detection runtime proof
+```
+
+Verification:
+
+```bash
+cd apps/api
+uv run pytest tests/test_clamav_api_malicious_detection_harness.py -q -k "quote_only_stdin"
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## CI Node24 Actions Runtime Opt-in
 
 Phase marker: ci node24 actions runtime opt-in v0.
