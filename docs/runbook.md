@@ -4484,6 +4484,49 @@ Next product gate:
 ClamAV API compose service runtime smoke v0
 ```
 
+## ClamAV API Compose Service Runtime Smoke
+
+Phase marker: ClamAV API compose service runtime smoke v0.
+
+Use this verification artifact:
+
+```text
+docs/review/clamav-api-compose-service-runtime-smoke.md
+```
+
+Observed commands:
+
+```text
+docker compose --profile api up -d api -> exit 0
+curl.exe -s -i http://localhost:8000/health -> 200
+```
+
+Observed runtime shape:
+
+```text
+api_container_running: true
+GET /health -> 200
+"status":"ok"
+NOISEPROOF_SCANNER: unavailable
+api_scan_endpoint_verified_with_real_clamav: false
+malware_scanning_evidence: false
+```
+
+Boundary:
+
+```text
+not scan endpoint proof
+not endpoint runtime proof with real ClamAV
+scanner default remains unavailable
+not production malware scanning evidence
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint scanner opt-in review v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

@@ -8727,3 +8727,33 @@ def test_clamav_api_compose_service_config_verification_records_config_only_proo
     assert "Phase 292 - ClamAV API Compose Service Config Verification v0" in goal
     assert "ClamAV API compose service config verification v0" in runbook
     assert "docs/review/clamav-api-compose-service-config-verification.md" in portfolio
+
+
+def test_clamav_api_compose_service_runtime_smoke_records_health_without_scan_claim():
+    review_path = REPO_ROOT / "docs/review/clamav-api-compose-service-runtime-smoke.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Compose Service Runtime Smoke" in content
+    assert "ClamAV API compose service runtime smoke v0" in content
+    assert "docker compose --profile api up -d api -> exit 0" in content
+    assert "api_container_running: true" in content
+    assert "GET /health -> 200" in content
+    assert '"status":"ok"' in content
+    assert "NOISEPROOF_SCANNER: unavailable" in content
+    assert "api_scan_endpoint_verified_with_real_clamav: false" in content
+    assert "malware_scanning_evidence: false" in content
+    assert "not scan endpoint proof" in content
+    assert "not endpoint runtime proof with real ClamAV" in content
+    assert "ClamAV API endpoint scanner opt-in review v0" in content
+    assert "ClamAV API compose service runtime smoke v0: implemented" in readme
+    assert "Phase 293 - ClamAV API Compose Service Runtime Smoke v0" in goal
+    assert "ClamAV API compose service runtime smoke v0" in runbook
+    assert "docs/review/clamav-api-compose-service-runtime-smoke.md" in portfolio
