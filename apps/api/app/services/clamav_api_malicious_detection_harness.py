@@ -388,7 +388,9 @@ def build_owner_runtime_smoke_report_schema() -> dict[str, object]:
     }
 
 
-def validate_owner_runtime_smoke_report(report: Mapping[str, object]) -> dict[str, object]:
+def validate_owner_runtime_smoke_report(
+    report: Mapping[str, object], *, report_path: Path | None = None
+) -> dict[str, object]:
     missing_or_failed_checks: list[str] = []
     forbidden_payload_fields = _find_forbidden_payload_fields(report)
     for field_path in forbidden_payload_fields:
@@ -396,6 +398,11 @@ def validate_owner_runtime_smoke_report(report: Mapping[str, object]) -> dict[st
     unexpected_fields = _find_unexpected_owner_runtime_report_fields(report)
     for field_path in unexpected_fields:
         missing_or_failed_checks.append(f"unexpected field present: {field_path}")
+    report_path_allowed = (
+        report_path is None or not _path_is_inside_repository(report_path)
+    )
+    if not report_path_allowed:
+        missing_or_failed_checks.append("report path must be outside repository")
 
     expected_top_level = {
         "harness_status": "verified_infected",
@@ -429,6 +436,10 @@ def validate_owner_runtime_smoke_report(report: Mapping[str, object]) -> dict[st
         "unexpected_fields": unexpected_fields,
         "reported_payload_committed_to_repo": report.get("payload_committed_to_repo"),
         "reported_raw_payload_logged": report.get("raw_payload_logged"),
+        "report_path_boundary": {
+            "report_path_allowed": report_path_allowed,
+            "required_location": "outside_repository",
+        },
         "payload_committed_to_repo": False,
         "raw_payload_logged": False,
         "scan_result_summary": {
@@ -446,6 +457,7 @@ def validate_owner_runtime_smoke_report(report: Mapping[str, object]) -> dict[st
             "does not call the API",
             "does not upload raw bytes",
             "does not call the scan endpoint",
+            "report path must remain outside the repository",
             "not production malware scanning evidence",
         ],
     }
@@ -487,6 +499,15 @@ def _find_unexpected_owner_runtime_report_fields(
             if key_text not in OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY:
                 unexpected.append(f"scan_result_summary.{key_text}")
     return sorted(str(field) for field in unexpected)
+
+
+def _path_is_inside_repository(path: Path) -> bool:
+    repo_root = Path(__file__).resolve().parents[4]
+    try:
+        path.resolve().relative_to(repo_root)
+    except ValueError:
+        return False
+    return True
 
 
 def main(
@@ -565,8 +586,10 @@ def main(
 
     source_env = env if env is not None else os.environ
     if args.validate_owner_runtime_smoke_report:
+        report_path = Path(args.validate_owner_runtime_smoke_report)
         report = validate_owner_runtime_smoke_report(
-            _read_json_report(Path(args.validate_owner_runtime_smoke_report))
+            _read_json_report(report_path),
+            report_path=report_path,
         )
     elif args.print_owner_runtime_smoke_report_contract:
         report = build_owner_runtime_smoke_report_contract()

@@ -441,6 +441,50 @@ def test_owner_runtime_smoke_validator_accepts_windows_bom_json_report(
     assert payload["accepted_owner_runtime_smoke"] is True
 
 
+def test_owner_runtime_smoke_validator_rejects_report_path_inside_repository(
+    capsys,
+):
+    report_path = REPO_ROOT / ".tmp-owner-runtime-smoke-report.json"
+    report_path.write_text(
+        json.dumps(
+            {
+                "harness_status": "verified_infected",
+                "malicious_detection_verified": True,
+                "api_calls_attempted": True,
+                "payload_committed_to_repo": False,
+                "raw_payload_logged": False,
+                "input_source": "stdin",
+                "required_owner_input_missing": False,
+                "scan_result_summary": {
+                    "scanner_name": "clamav-clamd",
+                    "scan_status": "completed",
+                    "scan_verdict": "infected",
+                    "matched_signature": "Eicar-Test-Signature",
+                    "metadata_boundary": "metadata_only_no_raw_bytes_no_download_url",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    try:
+        exit_code = main(["--validate-owner-runtime-smoke-report", str(report_path)])
+    finally:
+        report_path.unlink(missing_ok=True)
+
+    assert exit_code == 5
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["validation_status"] == "rejected"
+    assert payload["accepted_owner_runtime_smoke"] is False
+    assert payload["report_path_boundary"] == {
+        "report_path_allowed": False,
+        "required_location": "outside_repository",
+    }
+    assert "report path must be outside repository" in payload[
+        "missing_or_failed_checks"
+    ]
+    assert payload["non_claims"]["production_malware_scanning_evidence"] is False
+
+
 def test_owner_runtime_smoke_validator_rejects_payload_leak_fields_even_when_metadata_matches(
     capsys, tmp_path
 ):

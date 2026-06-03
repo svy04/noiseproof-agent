@@ -5243,6 +5243,34 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Report Path Guard
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke report path guard v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-report-path-guard.md
+```
+
+Expected validator rejection markers:
+
+```text
+--validate-owner-runtime-smoke-report
+report_path_boundary
+report_path_allowed: false
+required_location: outside_repository
+report path must be outside repository
+does not include a test signature payload
+not endpoint malicious-detection runtime proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## CI Node24 Actions Runtime Opt-in
 
 Phase marker: ci node24 actions runtime opt-in v0.
