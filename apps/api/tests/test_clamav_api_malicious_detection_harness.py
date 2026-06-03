@@ -77,7 +77,7 @@ def test_malicious_detection_harness_not_configured_does_not_call_api_or_claim_d
 
 
 def test_malicious_detection_harness_classifies_verified_infected_without_payload_leak():
-    signature_text = "owner-provided-runtime-only-test-signature"
+    signature_text = "owner-provided-runtime-placeholder-input"
     client = RecordingClient()
 
     report = build_malicious_detection_harness_report(
@@ -245,6 +245,60 @@ def test_malicious_detection_harness_rejects_owner_runtime_output_path_inside_re
     assert signature_text not in json.dumps(payload, sort_keys=True)
 
 
+def test_malicious_detection_harness_writes_validator_handoff_report_outside_repository(
+    capsys, tmp_path
+):
+    signature_text = "owner-provided-runtime-placeholder-input"
+    report_path = tmp_path / "owner-runtime-smoke-validator-report.json"
+    client = RecordingClient()
+
+    exit_code = main(
+        [
+            "--signature-stdin",
+            "--require-owner-input",
+            "--owner-runtime-smoke-report",
+            "--output",
+            str(report_path),
+        ],
+        env={ALLOW_ENV: "1"},
+        stdin=StringIO(signature_text),
+        client=client,
+    )
+
+    assert exit_code == 0
+    assert capsys.readouterr().out == ""
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    assert report == {
+        "api_calls_attempted": True,
+        "harness_status": "verified_infected",
+        "input_source": "stdin",
+        "malicious_detection_verified": True,
+        "payload_committed_to_repo": False,
+        "raw_payload_logged": False,
+        "required_owner_input_missing": False,
+        "scan_result_summary": {
+            "matched_signature": "Eicar-Test-Signature",
+            "metadata_boundary": "metadata_only_no_raw_bytes_no_download_url",
+            "scan_status": "completed",
+            "scan_verdict": "infected",
+            "scanner_name": "clamav-clamd",
+        },
+    }
+    assert "phase_marker" not in report
+    assert "claims" not in report
+    assert "payload_length_bytes" not in report
+    assert signature_text not in json.dumps(report, sort_keys=True)
+
+    validate_exit_code = main(
+        ["--validate-owner-runtime-smoke-report", str(report_path)]
+    )
+
+    assert validate_exit_code == 0
+    validation = json.loads(capsys.readouterr().out)
+    assert validation["validation_status"] == "accepted"
+    assert validation["accepted_owner_runtime_smoke"] is True
+
+
 def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_payload(capsys):
     client = RecordingClient()
 
@@ -274,6 +328,7 @@ def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_p
             "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 "
             "uv run python -m app.services.clamav_api_malicious_detection_harness "
             "--signature-stdin --require-owner-input "
+            "--owner-runtime-smoke-report "
             "--output <runtime-report-path-outside-repo>"
         ),
         "powershell": (
@@ -282,12 +337,14 @@ def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_p
             "'<owner-provided-runtime-only-signature-file-outside-repo>' | "
             "uv run python -m app.services.clamav_api_malicious_detection_harness "
             "--signature-stdin --require-owner-input "
+            "--owner-runtime-smoke-report "
             "--output '<runtime-report-path-outside-repo>'"
         ),
     }
     assert payload["runtime_report_handling"] == {
         "write_report_outside_repo": True,
         "validate_metadata_only": True,
+        "emit_validator_handoff_report": True,
         "do_not_commit_report_if_it_contains_payload_fields": True,
     }
     assert payload["success_criteria"] == {

@@ -347,6 +347,8 @@ ClamAV API endpoint malicious-detection owner runtime smoke report path guard v0
 
 ClamAV API endpoint malicious-detection owner runtime smoke output path guard v0: implemented. Boundary: actual `--signature-stdin --require-owner-input --output` smoke attempts now reject output paths inside the repository with `harness_status=output_path_rejected` before API calls; this is not endpoint malicious-detection runtime proof.
 
+ClamAV API endpoint malicious-detection owner runtime smoke validator handoff report v0: implemented. Boundary: actual `--signature-stdin --require-owner-input --owner-runtime-smoke-report --output` smoke attempts can write a strict validator-accepted metadata shape outside the repository; the handoff report excludes `phase_marker` and `payload_length_bytes`, does not include a test signature payload, and is not endpoint malicious-detection runtime proof.
+
 ci node24 actions runtime opt-in v0: implemented. Boundary: `.github/workflows/ci.yml` and `.github/workflows/external-feedback-screen.yml` set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"` after the remote run warned that Node.js 20 actions are deprecated; this is workflow runtime compatibility only, not product runtime evidence.
 
 ci node24 actions runtime remote verification v0: implemented. Boundary: remote runs `26870586255` (`CI`) and `26870586219` (`External Feedback Screen`) succeeded on head `c3c6908`; the annotation is still present as a forced Node.js 24 runtime warning, so this is compatibility evidence only, not product runtime evidence.

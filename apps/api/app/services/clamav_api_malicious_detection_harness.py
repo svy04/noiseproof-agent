@@ -227,6 +227,7 @@ def build_owner_runtime_smoke_packet() -> dict[str, object]:
                 "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 "
                 "uv run python -m app.services.clamav_api_malicious_detection_harness "
                 "--signature-stdin --require-owner-input "
+                "--owner-runtime-smoke-report "
                 "--output <runtime-report-path-outside-repo>"
             ),
             "powershell": (
@@ -235,12 +236,14 @@ def build_owner_runtime_smoke_packet() -> dict[str, object]:
                 "'<owner-provided-runtime-only-signature-file-outside-repo>' | "
                 "uv run python -m app.services.clamav_api_malicious_detection_harness "
                 "--signature-stdin --require-owner-input "
+                "--owner-runtime-smoke-report "
                 "--output '<runtime-report-path-outside-repo>'"
             ),
         },
         "runtime_report_handling": {
             "write_report_outside_repo": True,
             "validate_metadata_only": True,
+            "emit_validator_handoff_report": True,
             "do_not_commit_report_if_it_contains_payload_fields": True,
         },
         "success_criteria": {
@@ -270,6 +273,26 @@ def build_owner_runtime_smoke_packet() -> dict[str, object]:
             "not malware detection proof",
             "owner-provided runtime smoke remains pending",
         ],
+    }
+
+
+def build_owner_runtime_smoke_validator_handoff_report(
+    report: Mapping[str, object],
+) -> dict[str, object]:
+    summary = report.get("scan_result_summary")
+    if not isinstance(summary, Mapping):
+        summary = {}
+    return {
+        "api_calls_attempted": report.get("api_calls_attempted"),
+        "harness_status": report.get("harness_status"),
+        "input_source": report.get("input_source"),
+        "malicious_detection_verified": report.get("malicious_detection_verified"),
+        "payload_committed_to_repo": report.get("payload_committed_to_repo"),
+        "raw_payload_logged": report.get("raw_payload_logged"),
+        "required_owner_input_missing": report.get("required_owner_input_missing"),
+        "scan_result_summary": {
+            key: summary.get(key) for key in OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY
+        },
     }
 
 
@@ -581,6 +604,14 @@ def main(
             "including or reading a test signature payload."
         ),
     )
+    parser.add_argument(
+        "--owner-runtime-smoke-report",
+        action="store_true",
+        help=(
+            "When writing an actual runtime smoke output, emit only the strict "
+            "metadata report shape accepted by the owner runtime smoke validator."
+        ),
+    )
     parser.add_argument("--output", help="Optional JSON report output path.")
     args = parser.parse_args(argv)
 
@@ -632,6 +663,8 @@ def main(
             or source_env.get(API_BASE_URL_ENV, "http://localhost:8000"),
             timeout_seconds=args.timeout_seconds,
         )
+        if args.owner_runtime_smoke_report:
+            report = build_owner_runtime_smoke_validator_handoff_report(report)
     payload = json.dumps(report, indent=2, sort_keys=True)
 
     if output_path is not None and not output_path_rejected:
