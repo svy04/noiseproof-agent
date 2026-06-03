@@ -289,6 +289,60 @@ def test_malicious_detection_harness_prints_owner_runtime_smoke_report_contract_
     )
 
 
+def test_malicious_detection_harness_prints_owner_runtime_smoke_report_schema_without_payload(
+    capsys,
+):
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--print-owner-runtime-smoke-report-schema"],
+        env={},
+        client=client,
+    )
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert (
+        payload["phase_marker"]
+        == "ClamAV API endpoint malicious-detection owner runtime smoke report schema v0"
+    )
+    assert payload["schema_status"] == "ready_for_owner_runtime_report"
+    schema = payload["json_schema"]
+    assert schema["$schema"] == "https://json-schema.org/draft/2020-12/schema"
+    assert schema["title"] == "NoiseProof ClamAV owner runtime smoke report"
+    assert schema["type"] == "object"
+    assert schema["additionalProperties"] is False
+    assert schema["properties"]["harness_status"] == {"const": "verified_infected"}
+    assert schema["properties"]["malicious_detection_verified"] == {"const": True}
+    assert schema["properties"]["api_calls_attempted"] == {"const": True}
+    assert schema["properties"]["payload_committed_to_repo"] == {"const": False}
+    assert schema["properties"]["raw_payload_logged"] == {"const": False}
+    assert schema["properties"]["input_source"] == {"const": "stdin"}
+    assert schema["properties"]["required_owner_input_missing"] == {"const": False}
+    summary_schema = schema["properties"]["scan_result_summary"]
+    assert summary_schema["additionalProperties"] is False
+    assert summary_schema["properties"]["scanner_name"] == {"const": "clamav-clamd"}
+    assert summary_schema["properties"]["scan_status"] == {"const": "completed"}
+    assert summary_schema["properties"]["scan_verdict"] == {"const": "infected"}
+    assert summary_schema["properties"]["matched_signature"] == {
+        "const": "Eicar-Test-Signature"
+    }
+    assert summary_schema["properties"]["metadata_boundary"] == {
+        "const": "metadata_only_no_raw_bytes_no_download_url"
+    }
+    assert "test_signature_text" in payload["forbidden_payload_fields"]
+    assert "encoded_payload" in payload["forbidden_payload_fields"]
+    assert payload["api_calls_attempted"] is False
+    assert payload["payload_committed_to_repo"] is False
+    assert payload["raw_payload_logged"] is False
+    assert payload["non_claims"]["validator_replacement"] is False
+    assert client.upload_calls == []
+    assert client.scan_calls == []
+    assert "owner-provided-runtime-only-test-signature" not in json.dumps(
+        payload, sort_keys=True
+    )
+
+
 def test_owner_runtime_smoke_validator_accepts_verified_infected_metadata_report(
     capsys, tmp_path
 ):

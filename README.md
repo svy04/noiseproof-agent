@@ -337,6 +337,8 @@ ClamAV API endpoint malicious-detection owner runtime smoke validator leak-field
 
 ClamAV API endpoint malicious-detection owner runtime smoke report contract v0: implemented. Boundary: `--print-owner-runtime-smoke-report-contract` emits the no-payload accepted/rejected metadata contract for future owner-provided runtime smoke reports; it does not call the API, upload raw bytes, or call the scan endpoint.
 
+ClamAV API endpoint malicious-detection owner runtime smoke report schema v0: implemented. Boundary: `--print-owner-runtime-smoke-report-schema` emits a JSON Schema-shaped accepted report surface using Draft 2020-12 metadata; the Python validator remains authoritative and this is not endpoint malicious-detection runtime proof.
+
 ci node24 actions runtime opt-in v0: implemented. Boundary: `.github/workflows/ci.yml` and `.github/workflows/external-feedback-screen.yml` set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"` after the remote run warned that Node.js 20 actions are deprecated; this is workflow runtime compatibility only, not product runtime evidence.
 
 ci node24 actions runtime remote verification v0: implemented. Boundary: remote runs `26870586255` (`CI`) and `26870586219` (`External Feedback Screen`) succeeded on head `c3c6908`; the annotation is still present as a forced Node.js 24 runtime warning, so this is compatibility evidence only, not product runtime evidence.

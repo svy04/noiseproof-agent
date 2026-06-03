@@ -5145,6 +5145,41 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Report Schema
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke report schema v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-report-schema.md
+```
+
+Command:
+
+```bash
+cd apps/api
+uv run python -m app.services.clamav_api_malicious_detection_harness \
+  --print-owner-runtime-smoke-report-schema
+```
+
+Expected markers:
+
+```text
+https://json-schema.org/draft/2020-12/schema
+additionalProperties: false
+forbidden_payload_fields
+validator remains authoritative
+validator_replacement: false
+not endpoint malicious-detection runtime proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## CI Node24 Actions Runtime Opt-in
 
 Phase marker: ci node24 actions runtime opt-in v0.

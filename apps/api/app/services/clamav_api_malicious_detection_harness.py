@@ -25,6 +25,9 @@ OWNER_RUNTIME_SMOKE_VALIDATOR_PHASE_MARKER = (
 OWNER_RUNTIME_SMOKE_REPORT_CONTRACT_PHASE_MARKER = (
     "ClamAV API endpoint malicious-detection owner runtime smoke report contract v0"
 )
+OWNER_RUNTIME_SMOKE_REPORT_SCHEMA_PHASE_MARKER = (
+    "ClamAV API endpoint malicious-detection owner runtime smoke report schema v0"
+)
 OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY = {
     "scanner_name": "clamav-clamd",
     "scan_status": "completed",
@@ -289,6 +292,70 @@ def build_owner_runtime_smoke_report_contract() -> dict[str, object]:
     }
 
 
+def build_owner_runtime_smoke_report_schema() -> dict[str, object]:
+    summary_properties = {
+        field: {"const": value}
+        for field, value in OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY.items()
+    }
+    return {
+        "phase_marker": OWNER_RUNTIME_SMOKE_REPORT_SCHEMA_PHASE_MARKER,
+        "schema_status": "ready_for_owner_runtime_report",
+        "api_calls_attempted": False,
+        "payload_committed_to_repo": False,
+        "raw_payload_logged": False,
+        "json_schema": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "title": "NoiseProof ClamAV owner runtime smoke report",
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "harness_status",
+                "malicious_detection_verified",
+                "api_calls_attempted",
+                "payload_committed_to_repo",
+                "raw_payload_logged",
+                "input_source",
+                "required_owner_input_missing",
+                "scan_result_summary",
+            ],
+            "properties": {
+                "harness_status": {"const": "verified_infected"},
+                "malicious_detection_verified": {"const": True},
+                "api_calls_attempted": {"const": True},
+                "payload_committed_to_repo": {"const": False},
+                "raw_payload_logged": {"const": False},
+                "input_source": {"const": "stdin"},
+                "required_owner_input_missing": {"const": False},
+                "scan_result_summary": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": list(OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY),
+                    "properties": summary_properties,
+                },
+            },
+        },
+        "forbidden_payload_fields": sorted(OWNER_RUNTIME_SMOKE_FORBIDDEN_PAYLOAD_KEYS),
+        "non_claims": {
+            "validator_replacement": False,
+            "endpoint_malicious_detection_runtime_proof": False,
+            "production_malware_scanning_evidence": False,
+            "hosted_deployment_verified": False,
+            "external_reviewer_feedback": False,
+            "product_complete": False,
+        },
+        "boundary": [
+            "schema artifact only",
+            "validator remains authoritative",
+            "does not include a test signature payload",
+            "does not call the API",
+            "does not upload raw bytes",
+            "does not call the scan endpoint",
+            "not endpoint malicious-detection runtime proof",
+            "owner-provided runtime smoke remains pending",
+        ],
+    }
+
+
 def validate_owner_runtime_smoke_report(report: Mapping[str, object]) -> dict[str, object]:
     missing_or_failed_checks: list[str] = []
     forbidden_payload_fields = _find_forbidden_payload_fields(report)
@@ -426,6 +493,14 @@ def main(
         ),
     )
     parser.add_argument(
+        "--print-owner-runtime-smoke-report-schema",
+        action="store_true",
+        help=(
+            "Print the no-payload JSON Schema-shaped accepted report shape "
+            "for the owner runtime smoke report validator."
+        ),
+    )
+    parser.add_argument(
         "--validate-owner-runtime-smoke-report",
         help=(
             "Validate a future owner-provided runtime smoke JSON report without "
@@ -442,6 +517,8 @@ def main(
         )
     elif args.print_owner_runtime_smoke_report_contract:
         report = build_owner_runtime_smoke_report_contract()
+    elif args.print_owner_runtime_smoke_report_schema:
+        report = build_owner_runtime_smoke_report_schema()
     elif args.print_owner_runtime_smoke_packet:
         report = build_owner_runtime_smoke_packet()
     else:
@@ -470,7 +547,11 @@ def main(
     else:
         print(payload)
 
-    if args.print_owner_runtime_smoke_packet or args.print_owner_runtime_smoke_report_contract:
+    if (
+        args.print_owner_runtime_smoke_packet
+        or args.print_owner_runtime_smoke_report_contract
+        or args.print_owner_runtime_smoke_report_schema
+    ):
         return 0
     if args.validate_owner_runtime_smoke_report:
         return 0 if report["accepted_owner_runtime_smoke"] is True else 5
