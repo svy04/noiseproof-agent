@@ -256,6 +256,11 @@ def build_owner_runtime_smoke_packet() -> dict[str, object]:
                 "--validate-owner-runtime-smoke-report '<runtime-report-path-outside-repo>'"
             ),
         },
+        "post_run_validation_success_criteria": {
+            "validation_status": "accepted",
+            "accepted_owner_runtime_smoke": True,
+            "missing_or_failed_checks": [],
+        },
         "runtime_report_handling": {
             "write_report_outside_repo": True,
             "validate_metadata_only": True,

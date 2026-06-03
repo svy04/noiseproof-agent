@@ -357,6 +357,11 @@ def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_p
             "--validate-owner-runtime-smoke-report '<runtime-report-path-outside-repo>'"
         ),
     }
+    assert payload["post_run_validation_success_criteria"] == {
+        "validation_status": "accepted",
+        "accepted_owner_runtime_smoke": True,
+        "missing_or_failed_checks": [],
+    }
     assert payload["runtime_report_handling"] == {
         "write_report_outside_repo": True,
         "validate_metadata_only": True,
