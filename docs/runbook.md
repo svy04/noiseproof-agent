@@ -4751,6 +4751,51 @@ Next product gate:
 ClamAV API endpoint malicious-detection test harness v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Test Harness
+
+Phase marker: ClamAV API endpoint malicious-detection test harness v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-test-harness.md
+```
+
+Implementation module:
+
+```text
+app.services.clamav_api_malicious_detection_harness
+```
+
+Default safe command:
+
+```bash
+cd apps/api
+uv run python -m app.services.clamav_api_malicious_detection_harness
+```
+
+Expected default status:
+
+```text
+not_configured
+payload_committed_to_repo: false
+raw_payload_logged: false
+not malware detection proof
+```
+
+Opt-in variables for a future runtime-only smoke:
+
+```text
+NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1
+NOISEPROOF_CLAMAV_TEST_SIGNATURE_TEXT
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection harness default smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

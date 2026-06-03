@@ -315,6 +315,8 @@ ClamAV API endpoint malicious-detection runtime blocked v0: implemented. Boundar
 
 ClamAV API endpoint malicious-detection test harness review v0: implemented. Boundary: review-only plan for a future opt-in harness using an owner-provided runtime-only test signature via `NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1` and `NOISEPROOF_CLAMAV_TEST_SIGNATURE_TEXT`; `payload_committed_to_repo: false`, no encoded payload is stored, and this is not malware detection proof.
 
+ClamAV API endpoint malicious-detection test harness v0: implemented. Boundary: `app.services.clamav_api_malicious_detection_harness` adds a disabled-by-default opt-in command that returns `not_configured` without API calls unless `NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1` and `NOISEPROOF_CLAMAV_TEST_SIGNATURE_TEXT` are provided; fake-client tests cover `verified_infected` and `blocked_by_environment`, but this is not malware detection proof.
+
 
 ## Planned Agent Workflow
 

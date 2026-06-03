@@ -8948,3 +8948,34 @@ def test_clamav_api_endpoint_malicious_detection_test_harness_review_sets_safe_p
     assert "Phase 299 - ClamAV API Endpoint Malicious-detection Test Harness Review v0" in goal
     assert "ClamAV API endpoint malicious-detection test harness review v0" in runbook
     assert "docs/review/clamav-api-endpoint-malicious-detection-test-harness-review.md" in portfolio
+
+
+def test_clamav_api_endpoint_malicious_detection_test_harness_implementation_is_documented():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-test-harness.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Test Harness" in content
+    assert "ClamAV API endpoint malicious-detection test harness v0" in content
+    assert "app.services.clamav_api_malicious_detection_harness" in content
+    assert "disabled by default" in content
+    assert "not_configured" in content
+    assert "verified_infected" in content
+    assert "blocked_by_environment" in content
+    assert "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1" in content
+    assert "NOISEPROOF_CLAMAV_TEST_SIGNATURE_TEXT" in content
+    assert "payload_committed_to_repo: false" in content
+    assert "raw_payload_logged: false" in content
+    assert "not malware detection proof" in content
+    assert "ClamAV API endpoint malicious-detection harness default smoke v0" in content
+    assert "ClamAV API endpoint malicious-detection test harness v0: implemented" in readme
+    assert "Phase 300 - ClamAV API Endpoint Malicious-detection Test Harness v0" in goal
+    assert "ClamAV API endpoint malicious-detection test harness v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-test-harness.md" in portfolio

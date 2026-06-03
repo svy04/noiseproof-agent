@@ -419,6 +419,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/clamav-api-endpoint-malicious-detection-runtime-review.md` | review-only safety gate for future EICAR-through-API proof; clean-file endpoint proof exists, malicious detection remains pending |
 | `docs/review/clamav-api-endpoint-malicious-detection-runtime-blocked.md` | blocked malicious-detection runtime attempt; EICAR-through-API proof remains pending and no payload was committed |
 | `docs/review/clamav-api-endpoint-malicious-detection-test-harness-review.md` | review-only plan for a future opt-in malicious/test-signature harness using owner-provided runtime-only input; payload remains uncommitted and detection proof remains pending |
+| `docs/review/clamav-api-endpoint-malicious-detection-test-harness.md` | disabled-by-default opt-in command harness for future malicious/test-signature endpoint proof; fake-client coverage only, not malware detection proof |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
