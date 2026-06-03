@@ -585,7 +585,25 @@ def main(
     args = parser.parse_args(argv)
 
     source_env = env if env is not None else os.environ
-    if args.validate_owner_runtime_smoke_report:
+    output_path = Path(args.output) if args.output else None
+    output_path_rejected = False
+    is_runtime_smoke_command = not (
+        args.validate_owner_runtime_smoke_report
+        or args.print_owner_runtime_smoke_report_contract
+        or args.print_owner_runtime_smoke_report_schema
+        or args.print_owner_runtime_smoke_packet
+    )
+
+    if (
+        output_path is not None
+        and is_runtime_smoke_command
+        and _path_is_inside_repository(output_path)
+    ):
+        output_path_rejected = True
+        report = _output_path_rejected_report(
+            input_source="stdin" if args.signature_stdin else "environment",
+        )
+    elif args.validate_owner_runtime_smoke_report:
         report_path = Path(args.validate_owner_runtime_smoke_report)
         report = validate_owner_runtime_smoke_report(
             _read_json_report(report_path),
@@ -616,8 +634,7 @@ def main(
         )
     payload = json.dumps(report, indent=2, sort_keys=True)
 
-    if args.output:
-        output_path = Path(args.output)
+    if output_path is not None and not output_path_rejected:
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(payload + "\n", encoding="utf-8")
     else:
@@ -656,6 +673,24 @@ def _base_report() -> dict[str, object]:
             "not external reviewer feedback",
             "not product-complete",
         ],
+    }
+
+
+def _output_path_rejected_report(*, input_source: str) -> dict[str, object]:
+    return {
+        **_base_report(),
+        "harness_status": "output_path_rejected",
+        "api_calls_attempted": False,
+        "payload_length_bytes": 0,
+        "input_source": input_source,
+        "required_owner_input_missing": False,
+        "malicious_detection_verified": False,
+        "blocked_reason": "output path must be outside repository",
+        "output_path_boundary": {
+            "output_path_allowed": False,
+            "required_location": "outside_repository",
+        },
+        "scan_result_summary": None,
     }
 
 
@@ -717,6 +752,8 @@ def _classify_scan_result(summary: dict[str, object | None]) -> str:
 def _exit_code_for_status(status: str, report: Mapping[str, object] | None = None) -> int:
     if report and report.get("required_owner_input_missing") is True:
         return 4
+    if status == "output_path_rejected":
+        return 6
     if status in {"not_configured", "verified_infected"}:
         return 0
     if status in {"unexpected_clean", "scan_error"}:

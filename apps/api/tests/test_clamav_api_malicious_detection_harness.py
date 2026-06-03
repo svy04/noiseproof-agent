@@ -208,6 +208,43 @@ def test_malicious_detection_harness_required_owner_input_still_allows_fake_veri
     assert signature_text not in json.dumps(payload, sort_keys=True)
 
 
+def test_malicious_detection_harness_rejects_owner_runtime_output_path_inside_repository(
+    capsys,
+):
+    signature_text = "owner-provided-runtime-only-test-signature"
+    output_path = REPO_ROOT / ".tmp-owner-runtime-smoke-output.json"
+    client = RecordingClient()
+
+    try:
+        exit_code = main(
+            [
+                "--signature-stdin",
+                "--require-owner-input",
+                "--output",
+                str(output_path),
+            ],
+            env={ALLOW_ENV: "1"},
+            stdin=StringIO(signature_text),
+            client=client,
+        )
+    finally:
+        output_path.unlink(missing_ok=True)
+
+    assert exit_code == 6
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["harness_status"] == "output_path_rejected"
+    assert payload["api_calls_attempted"] is False
+    assert payload["malicious_detection_verified"] is False
+    assert payload["output_path_boundary"] == {
+        "output_path_allowed": False,
+        "required_location": "outside_repository",
+    }
+    assert "output path must be outside repository" in payload["blocked_reason"]
+    assert output_path.exists() is False
+    assert client.upload_calls == []
+    assert signature_text not in json.dumps(payload, sort_keys=True)
+
+
 def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_payload(capsys):
     client = RecordingClient()
 

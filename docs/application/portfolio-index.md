@@ -434,6 +434,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-validator-strict-shape-alignment.md` | validator now rejects unknown report fields to match the schema's `additionalProperties: false` boundary |
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-cross-shell-packet.md` | no-payload POSIX and PowerShell command templates for future owner-provided runtime smoke; not endpoint runtime proof |
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-report-path-guard.md` | validator rejects owner-runtime smoke report paths inside the repo so future reports stay outside repository storage |
+| `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-output-path-guard.md` | actual owner-runtime smoke harness rejects repo-internal output paths before API calls |
 | `docs/review/ci-node24-actions-runtime-opt-in.md` | workflow runtime compatibility opt-in after remote Node.js 20 action deprecation warning; not product runtime evidence |
 | `docs/review/ci-node24-actions-runtime-remote-verification.md` | remote CI and External Feedback Screen success after Node.js 24 opt-in; annotation still present as forced-runtime notice |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
