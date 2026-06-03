@@ -8285,3 +8285,35 @@ def test_dockerized_clamav_eicar_runtime_smoke_records_real_runtime_without_api_
         "docs/review/uploaded-raw-file-dockerized-clamav-eicar-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_clamav_api_integration_boundary_review_rejects_docker_cli_per_request():
+    review_path = REPO_ROOT / "docs/review/clamav-api-integration-boundary-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Integration Boundary Review" in content
+    assert "ClamAV API integration boundary review v0" in content
+    assert "https://docs.clamav.net/manual/Installing/Docker.html" in content
+    assert "https://docs.clamav.net/manual/Usage/Scanning.html" in content
+    assert "https://docs.python.org/3/library/subprocess.html" in content
+    assert "Host clamscan" in content
+    assert "docker run per scan request" in content
+    assert "ClamAV daemon/service boundary" in content
+    assert "Do not change the API scanner default yet" in content
+    assert "Do not add Docker CLI execution to the API endpoint" in content
+    assert "ClamAV service boundary review v0" in content
+    assert "not API endpoint integration" in content
+    assert "not endpoint runtime proof with real ClamAV" in content
+    assert "not malware scanning evidence" in content
+    assert "ClamAV API integration boundary review v0: implemented" in readme
+    assert "Phase 280 - ClamAV API Integration Boundary Review v0" in goal
+    assert "ClamAV API integration boundary review v0" in runbook
+    assert "docs/review/clamav-api-integration-boundary-review.md" in portfolio

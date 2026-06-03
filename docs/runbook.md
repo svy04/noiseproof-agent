@@ -4079,6 +4079,50 @@ Next product gate:
 ClamAV API integration boundary review v0
 ```
 
+## ClamAV API Integration Boundary Review
+
+Phase marker: ClamAV API integration boundary review v0.
+
+Use this review artifact:
+
+```text
+docs/review/clamav-api-integration-boundary-review.md
+```
+
+Decision:
+
+```text
+do not change API scanner default yet
+do not add Docker CLI execution to POST /documents/upload-raw-files/{raw_file_id}/scan
+do not claim endpoint runtime proof with real ClamAV yet
+select ClamAV service boundary review v0
+```
+
+Alternatives considered:
+
+```text
+host clamscan
+docker run per scan request
+ClamAV daemon/service boundary
+```
+
+Boundary:
+
+```text
+review-only
+not API endpoint integration
+not endpoint runtime proof with real ClamAV
+not malware scanning evidence
+not hosted deployment evidence
+not external reviewer feedback
+```
+
+Next product gate:
+
+```text
+ClamAV service boundary review v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
