@@ -320,6 +320,54 @@ def test_owner_runtime_smoke_validator_accepts_windows_bom_json_report(
     assert payload["accepted_owner_runtime_smoke"] is True
 
 
+def test_owner_runtime_smoke_validator_rejects_payload_leak_fields_even_when_metadata_matches(
+    capsys, tmp_path
+):
+    report_path = tmp_path / "owner-runtime-smoke-report.json"
+    report_path.write_text(
+        json.dumps(
+            {
+                "harness_status": "verified_infected",
+                "malicious_detection_verified": True,
+                "api_calls_attempted": True,
+                "payload_committed_to_repo": False,
+                "raw_payload_logged": False,
+                "input_source": "stdin",
+                "required_owner_input_missing": False,
+                "test_signature_text": "redacted-placeholder",
+                "scan_result_summary": {
+                    "scanner_name": "clamav-clamd",
+                    "scan_status": "completed",
+                    "scan_verdict": "infected",
+                    "matched_signature": "Eicar-Test-Signature",
+                    "metadata_boundary": "metadata_only_no_raw_bytes_no_download_url",
+                    "encoded_payload": "redacted-placeholder",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    exit_code = main(["--validate-owner-runtime-smoke-report", str(report_path)])
+
+    assert exit_code == 5
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["validation_status"] == "rejected"
+    assert payload["accepted_owner_runtime_smoke"] is False
+    assert payload["forbidden_payload_fields"] == [
+        "scan_result_summary.encoded_payload",
+        "test_signature_text",
+    ]
+    assert "forbidden payload field present: test_signature_text" in payload[
+        "missing_or_failed_checks"
+    ]
+    assert (
+        "forbidden payload field present: scan_result_summary.encoded_payload"
+        in payload["missing_or_failed_checks"]
+    )
+    assert "redacted-placeholder" not in json.dumps(payload, sort_keys=True)
+
+
 def test_owner_runtime_smoke_validator_rejects_not_configured_or_payload_leaky_report(
     capsys, tmp_path
 ):

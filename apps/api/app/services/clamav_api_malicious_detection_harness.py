@@ -29,6 +29,18 @@ OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY = {
     "matched_signature": "Eicar-Test-Signature",
     "metadata_boundary": "metadata_only_no_raw_bytes_no_download_url",
 }
+OWNER_RUNTIME_SMOKE_FORBIDDEN_PAYLOAD_KEYS = {
+    "content_bytes",
+    "download_url",
+    "encoded_payload",
+    "payload",
+    "payload_base64",
+    "raw_bytes",
+    "raw_payload",
+    "signature_text",
+    "test_signature",
+    "test_signature_text",
+}
 
 
 class EndpointClient(Protocol):
@@ -225,6 +237,9 @@ def build_owner_runtime_smoke_packet() -> dict[str, object]:
 
 def validate_owner_runtime_smoke_report(report: Mapping[str, object]) -> dict[str, object]:
     missing_or_failed_checks: list[str] = []
+    forbidden_payload_fields = _find_forbidden_payload_fields(report)
+    for field_path in forbidden_payload_fields:
+        missing_or_failed_checks.append(f"forbidden payload field present: {field_path}")
 
     expected_top_level = {
         "harness_status": "verified_infected",
@@ -254,6 +269,7 @@ def validate_owner_runtime_smoke_report(report: Mapping[str, object]) -> dict[st
         "validation_status": "accepted" if accepted else "rejected",
         "accepted_owner_runtime_smoke": accepted,
         "missing_or_failed_checks": missing_or_failed_checks,
+        "forbidden_payload_fields": forbidden_payload_fields,
         "reported_payload_committed_to_repo": report.get("payload_committed_to_repo"),
         "reported_raw_payload_logged": report.get("raw_payload_logged"),
         "payload_committed_to_repo": False,
@@ -276,6 +292,27 @@ def validate_owner_runtime_smoke_report(report: Mapping[str, object]) -> dict[st
             "not production malware scanning evidence",
         ],
     }
+
+
+def _find_forbidden_payload_fields(
+    value: object, *, prefix: str = ""
+) -> list[str]:
+    if isinstance(value, Mapping):
+        found: list[str] = []
+        for key, child_value in value.items():
+            key_text = str(key)
+            field_path = f"{prefix}.{key_text}" if prefix else key_text
+            if key_text.lower() in OWNER_RUNTIME_SMOKE_FORBIDDEN_PAYLOAD_KEYS:
+                found.append(field_path)
+            found.extend(_find_forbidden_payload_fields(child_value, prefix=field_path))
+        return sorted(found)
+    if isinstance(value, list):
+        found = []
+        for index, child_value in enumerate(value):
+            field_path = f"{prefix}[{index}]" if prefix else f"[{index}]"
+            found.extend(_find_forbidden_payload_fields(child_value, prefix=field_path))
+        return sorted(found)
+    return []
 
 
 def main(

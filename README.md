@@ -333,6 +333,8 @@ ClamAV API endpoint malicious-detection owner runtime smoke packet v0: implement
 
 ClamAV API endpoint malicious-detection owner runtime smoke validator v0: implemented. Boundary: `--validate-owner-runtime-smoke-report` validates future owner-provided runtime smoke metadata for `verified_infected`, stdin input, no committed/logged payload, and exact `clamav-clamd` infected summary; it does not include a payload, call the API, upload raw bytes, call the scan endpoint, or prove production malware scanning.
 
+ClamAV API endpoint malicious-detection owner runtime smoke validator leak-field hardening v0: implemented. Boundary: the validator now rejects otherwise successful owner runtime smoke JSON reports that include payload-bearing fields such as `test_signature_text` or `encoded_payload`; it reports forbidden field paths only and does not echo values.
+
 ci node24 actions runtime opt-in v0: implemented. Boundary: `.github/workflows/ci.yml` and `.github/workflows/external-feedback-screen.yml` set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"` after the remote run warned that Node.js 20 actions are deprecated; this is workflow runtime compatibility only, not product runtime evidence.
 
 ci node24 actions runtime remote verification v0: implemented. Boundary: remote runs `26870586255` (`CI`) and `26870586219` (`External Feedback Screen`) succeeded on head `c3c6908`; the annotation is still present as a forced Node.js 24 runtime warning, so this is compatibility evidence only, not product runtime evidence.
