@@ -8402,7 +8402,7 @@ def test_clamav_compose_service_is_optional_internal_only_and_not_default():
     assert review_path.is_file()
     review = review_path.read_text(encoding="utf-8")
     assert "clamav:" in compose
-    clamav_section = compose.split("  clamav:\n", 1)[1].split("\nvolumes:", 1)[0]
+    clamav_section = compose.split("  clamav:\n", 1)[1].split("\n  api:\n", 1)[0]
     assert "image: clamav/clamav:stable" in clamav_section
     assert "profiles:" in clamav_section
     assert "- scanner" in clamav_section
@@ -8652,3 +8652,45 @@ def test_clamav_api_compose_service_review_selects_profiled_api_before_code():
     assert "Phase 290 - ClamAV API Compose Service Review v0" in goal
     assert "ClamAV API compose service review v0" in runbook
     assert "docs/review/clamav-api-compose-service-review.md" in portfolio
+
+
+def test_clamav_api_compose_service_is_profiled_and_not_scanner_default():
+    compose = (REPO_ROOT / "docker-compose.yml").read_text(encoding="utf-8")
+    dockerfile = (REPO_ROOT / "apps/api/Dockerfile").read_text(encoding="utf-8")
+    env_example = (REPO_ROOT / ".env.example").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    review_path = REPO_ROOT / "docs/review/clamav-api-compose-service-implementation.md"
+
+    assert review_path.is_file()
+    review = review_path.read_text(encoding="utf-8")
+    assert "  api:\n" in compose
+    api_section = compose.split("  api:\n", 1)[1].split("\nvolumes:", 1)[0]
+    assert "dockerfile: apps/api/Dockerfile" in api_section
+    assert "profiles:" in api_section
+    assert "- api" in api_section
+    assert "DATABASE_URL: postgresql://noiseproof:noiseproof@db:5432/noiseproof" in api_section
+    assert "NOISEPROOF_SCANNER: ${NOISEPROOF_SCANNER:-unavailable}" in api_section
+    assert "CLAMD_HOST: ${CLAMD_HOST:-clamav}" in api_section
+    assert "CLAMD_PORT: ${CLAMD_PORT:-3310}" in api_section
+    assert "${API_PORT:-8000}:8000" in api_section
+    assert '"3310"' not in api_section
+    assert "python:3.13-slim" in dockerfile
+    assert "PYTHONPATH=/app" in dockerfile
+    assert "uv run uvicorn app.main:create_app --factory" in dockerfile
+    assert "CLAMD_HOST=clamav" in env_example
+    assert "CLAMD_PORT=3310" in env_example
+    assert "NOISEPROOF_SCANNER=unavailable" in env_example
+    assert "ClamAV API compose service implementation v0" in review
+    assert "profiled api Compose service" in review
+    assert "not default scanner switch" in review
+    assert "not endpoint runtime proof" in review
+    assert "ClamAV API compose service config verification v0" in review
+    assert "ClamAV API compose service implementation v0: implemented" in readme
+    assert "Phase 291 - ClamAV API Compose Service Implementation v0" in goal
+    assert "ClamAV API compose service implementation v0" in runbook
+    assert "docs/review/clamav-api-compose-service-implementation.md" in portfolio

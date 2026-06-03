@@ -35,6 +35,27 @@ services:
       retries: 10
       start_period: 60s
 
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: noiseproof-agent-api
+    restart: unless-stopped
+    profiles:
+      - api
+    environment:
+      DATABASE_URL: postgresql://noiseproof:noiseproof@db:5432/noiseproof
+      MAX_RAW_UPLOAD_BYTES: ${MAX_RAW_UPLOAD_BYTES:-1000000}
+      NOISEPROOF_SCANNER: ${NOISEPROOF_SCANNER:-unavailable}
+      RAW_FILE_SCANNER_TIMEOUT_SECONDS: ${RAW_FILE_SCANNER_TIMEOUT_SECONDS:-30}
+      CLAMD_HOST: ${CLAMD_HOST:-clamav}
+      CLAMD_PORT: ${CLAMD_PORT:-3310}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
 volumes:
   noiseproof_pgdata:
   noiseproof_clamav_db:

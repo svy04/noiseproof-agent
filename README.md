@@ -297,6 +297,8 @@ ClamAV API service network boundary review v0: implemented. Boundary: review-onl
 
 ClamAV API compose service review v0: implemented. Boundary: review-only decision to add a future profiled `api` Compose service that joins the same network as `clamav` and uses `CLAMD_HOST=clamav`, while keeping scanner opt-in explicit and clamd host ports unpublished.
 
+ClamAV API compose service implementation v0: implemented. Boundary: added `apps/api/Dockerfile` and a profiled `api` Compose service with `DATABASE_URL` pointing at `db`, `CLAMD_HOST=clamav`, and `NOISEPROOF_SCANNER=unavailable`; not default scanner switch and not endpoint runtime proof.
+
 
 ## Planned Agent Workflow
 

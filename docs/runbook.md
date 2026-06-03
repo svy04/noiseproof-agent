@@ -4421,6 +4421,34 @@ Next product gate:
 ClamAV API compose service implementation v0
 ```
 
+## ClamAV API Compose Service Implementation
+
+Phase marker: ClamAV API compose service implementation v0.
+
+Use this implementation artifact:
+
+```text
+docs/review/clamav-api-compose-service-implementation.md
+```
+
+Implemented:
+
+```text
+apps/api/Dockerfile
+docker-compose.yml api service
+api profile
+DATABASE_URL points at db service hostname
+CLAMD_HOST=clamav
+CLAMD_PORT=3310
+NOISEPROOF_SCANNER=unavailable remains the default
+```
+
+Next product gate:
+
+```text
+ClamAV API compose service config verification v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
