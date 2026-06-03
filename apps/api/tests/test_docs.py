@@ -8788,3 +8788,41 @@ def test_clamav_api_endpoint_scanner_opt_in_review_records_narrow_next_step():
     assert "Phase 294 - ClamAV API Endpoint Scanner Opt-in Review v0" in goal
     assert "ClamAV API endpoint scanner opt-in review v0" in runbook
     assert "docs/review/clamav-api-endpoint-scanner-opt-in-review.md" in portfolio
+
+
+def test_clamav_api_endpoint_scanner_opt_in_implementation_is_bounded():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-scanner-opt-in-implementation.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    settings_py = (REPO_ROOT / "apps/api/app/settings.py").read_text(
+        encoding="utf-8"
+    )
+    scan_execution_py = (
+        REPO_ROOT / "apps/api/app/services/raw_file_scan_execution.py"
+    ).read_text(encoding="utf-8")
+
+    assert "ClamAV API Endpoint Scanner Opt-in Implementation" in content
+    assert "ClamAV API endpoint scanner opt-in implementation v0" in content
+    assert "NOISEPROOF_SCANNER=clamd -> ClamdScannerAdapter" in content
+    assert "default remains NOISEPROOF_SCANNER=unavailable" in content
+    assert "NOISEPROOF_SCANNER=clamav -> ClamAvScannerAdapter" in content
+    assert "CLAMD_HOST=clamav" in content
+    assert "CLAMD_PORT=3310" in content
+    assert "not endpoint runtime proof with real ClamAV" in content
+    assert "not malware scanning evidence" in content
+    assert "ClamAV API endpoint scanner opt-in runtime smoke v0" in content
+    assert "clamd_host: str = \"clamav\"" in settings_py
+    assert "clamd_port: int = 3310" in settings_py
+    assert 'if scanner_name == "clamd":' in scan_execution_py
+    assert "ClamdScannerAdapter(host=settings.clamd_host, port=settings.clamd_port)" in scan_execution_py
+    assert "ClamAV API endpoint scanner opt-in implementation v0: implemented" in readme
+    assert "Phase 295 - ClamAV API Endpoint Scanner Opt-in Implementation v0" in goal
+    assert "ClamAV API endpoint scanner opt-in implementation v0" in runbook
+    assert "docs/review/clamav-api-endpoint-scanner-opt-in-implementation.md" in portfolio

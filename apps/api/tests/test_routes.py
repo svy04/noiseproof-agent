@@ -9,9 +9,14 @@ from fastapi.testclient import TestClient
 from app.db import get_repository
 from app.main import create_app
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
+from app.settings import Settings
 from app.services.raw_file_scan_execution import get_scanner_adapter
 from app.services.run_trace import run_with_trace
-from packages.ingestion.scanning import ScanAdapterResult
+from packages.ingestion.scanning import (
+    ClamAvScannerAdapter,
+    ClamdScannerAdapter,
+    ScanAdapterResult,
+)
 
 WORKFLOW_VERSION = "phase40-lineage-warning-code-dashboard"
 
@@ -1337,6 +1342,24 @@ def test_document_upload_raw_file_scan_execution_defaults_to_scan_error_without_
     listed_body = listed.json()
     assert len(listed_body) == 1
     assert listed_body[0]["id"] == body["id"]
+
+
+def test_get_scanner_adapter_selects_clamd_only_for_explicit_opt_in():
+    unavailable = get_scanner_adapter(Settings(noiseproof_scanner="unavailable"))
+    legacy_clamav = get_scanner_adapter(Settings(noiseproof_scanner="clamav"))
+    clamd = get_scanner_adapter(
+        Settings(
+            noiseproof_scanner="CLAMD",
+            clamd_host="clamav",
+            clamd_port=3310,
+        )
+    )
+
+    assert unavailable.scanner_name == "scanner-unavailable"
+    assert isinstance(legacy_clamav, ClamAvScannerAdapter)
+    assert isinstance(clamd, ClamdScannerAdapter)
+    assert clamd.host == "clamav"
+    assert clamd.port == 3310
 
 
 def test_document_upload_raw_file_scan_execution_uses_temp_file_without_path_leak():

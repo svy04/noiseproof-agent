@@ -4564,6 +4564,48 @@ Next product gate:
 ClamAV API endpoint scanner opt-in implementation v0
 ```
 
+## ClamAV API Endpoint Scanner Opt-in Implementation
+
+Phase marker: ClamAV API endpoint scanner opt-in implementation v0.
+
+Use this implementation artifact:
+
+```text
+docs/review/clamav-api-endpoint-scanner-opt-in-implementation.md
+```
+
+Implemented boundary:
+
+```text
+POST /documents/upload-raw-files/{raw_file_id}/scan
+NOISEPROOF_SCANNER=clamd -> ClamdScannerAdapter
+NOISEPROOF_SCANNER=clamav -> ClamAvScannerAdapter
+default remains NOISEPROOF_SCANNER=unavailable
+CLAMD_HOST=clamav
+CLAMD_PORT=3310
+```
+
+Verification:
+
+```powershell
+cd apps/api
+uv run pytest tests/test_routes.py -q -k get_scanner_adapter_selects_clamd_only_for_explicit_opt_in
+```
+
+Boundary:
+
+```text
+not endpoint runtime proof with real ClamAV
+not malware scanning evidence
+not scanner default switch
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint scanner opt-in runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

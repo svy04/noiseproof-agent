@@ -11,6 +11,7 @@ from app.schemas import RawFileScanResultCreate
 from app.settings import Settings, get_settings
 from packages.ingestion.scanning import (
     ClamAvScannerAdapter,
+    ClamdScannerAdapter,
     ScanAdapterRequest,
     ScannerAdapter,
     ScannerUnavailableAdapter,
@@ -26,11 +27,14 @@ def get_scanner_adapter(
     scanner_name = settings.noiseproof_scanner.strip().lower()
     if scanner_name == "clamav":
         return ClamAvScannerAdapter()
+    if scanner_name == "clamd":
+        return ClamdScannerAdapter(host=settings.clamd_host, port=settings.clamd_port)
     return ScannerUnavailableAdapter(
         failure_reason="scanner_not_configured",
         error_message=(
-            "scanner_not_configured: set NOISEPROOF_SCANNER=clamav only after "
-            "the runtime and signature database are verified"
+            "scanner_not_configured: set NOISEPROOF_SCANNER=clamav or "
+            "NOISEPROOF_SCANNER=clamd only after the runtime and signature "
+            "database are verified"
         ),
     )
 
