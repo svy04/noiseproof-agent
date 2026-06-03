@@ -8485,3 +8485,34 @@ def test_clamav_compose_service_runtime_smoke_records_health_without_api_claim()
     assert "Phase 285 - ClamAV Compose Service Runtime Smoke v0" in goal
     assert "ClamAV compose service runtime smoke v0" in runbook
     assert "docs/review/clamav-compose-service-runtime-smoke.md" in portfolio
+
+
+def test_clamav_compose_eicar_runtime_smoke_records_detection_without_api_claim():
+    review_path = REPO_ROOT / "docs/review/clamav-compose-eicar-runtime-smoke.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV Compose EICAR Runtime Smoke" in content
+    assert "ClamAV compose EICAR runtime smoke v0" in content
+    assert "Eicar-Test-Signature FOUND" in content
+    assert "clamdscan_return_code: 1" in content
+    assert "eicar_detected: true" in content
+    assert "temporary_scan_file_deleted: true" in content
+    assert "host_eicar_file_written: false" in content
+    assert "real_clamav_runtime_verified: true" in content
+    assert "api_endpoint_verified_with_real_clamav: false" in content
+    assert "production_malware_scanning_evidence: false" in content
+    assert "not API endpoint integration" in content
+    assert "not production malware scanning evidence" in content
+    assert "ClamAV service scanner adapter review v0" in content
+    assert "ClamAV compose EICAR runtime smoke v0: implemented" in readme
+    assert "Phase 286 - ClamAV Compose EICAR Runtime Smoke v0" in goal
+    assert "ClamAV compose EICAR runtime smoke v0" in runbook
+    assert "docs/review/clamav-compose-eicar-runtime-smoke.md" in portfolio

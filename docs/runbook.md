@@ -4278,6 +4278,33 @@ Next product gate:
 ClamAV compose EICAR runtime smoke v0
 ```
 
+## ClamAV Compose EICAR Runtime Smoke
+
+Phase marker: ClamAV compose EICAR runtime smoke v0.
+
+Use this runtime artifact:
+
+```text
+docs/review/clamav-compose-eicar-runtime-smoke.md
+```
+
+Observed output:
+
+```text
+Eicar-Test-Signature FOUND
+clamdscan_return_code: 1
+eicar_detected: true
+temporary_scan_file_deleted: true
+host_eicar_file_written: false
+production_malware_scanning_evidence: false
+```
+
+Next product gate:
+
+```text
+ClamAV service scanner adapter review v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
