@@ -12,6 +12,12 @@ Opt the GitHub Actions workflows into the Node.js 24 JavaScript action runtime a
 Node.js 20 actions are deprecated
 ```
 
+Primary source:
+
+```text
+https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+```
+
 This is workflow runtime compatibility only. It is not application behavior, product runtime evidence, hosted deployment evidence, external reviewer feedback, or customer validation.
 
 ## Changed Workflows
