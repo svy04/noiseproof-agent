@@ -5180,6 +5180,36 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Validator Strict-shape Alignment
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke validator strict-shape alignment v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-validator-strict-shape-alignment.md
+```
+
+Expected rejection markers:
+
+```text
+additionalProperties: false
+validation_status: rejected
+accepted_owner_runtime_smoke: false
+unexpected_fields
+template_status
+scan_result_summary.extra_note
+unexpected field present
+schema and validator alignment only
+not endpoint malicious-detection runtime proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## CI Node24 Actions Runtime Opt-in
 
 Phase marker: ci node24 actions runtime opt-in v0.

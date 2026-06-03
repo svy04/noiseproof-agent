@@ -9315,6 +9315,34 @@ def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_report_sche
     assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-report-schema.md" in portfolio
 
 
+def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_validator_strict_shape_alignment_is_documented():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-validator-strict-shape-alignment.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Validator Strict-shape Alignment" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke validator strict-shape alignment v0" in content
+    assert "additionalProperties: false" in content
+    assert "unexpected_fields" in content
+    assert "template_status" in content
+    assert "scan_result_summary.extra_note" in content
+    assert "unexpected field present" in content
+    assert "schema and validator alignment only" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "ClamAV API endpoint malicious-detection owner-provided runtime smoke v0" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke validator strict-shape alignment v0: implemented" in readme
+    assert "Phase 314 - ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Validator Strict-shape Alignment v0" in goal
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke validator strict-shape alignment v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-validator-strict-shape-alignment.md" in portfolio
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

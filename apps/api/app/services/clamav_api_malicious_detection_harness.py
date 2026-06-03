@@ -47,6 +47,16 @@ OWNER_RUNTIME_SMOKE_FORBIDDEN_PAYLOAD_KEYS = {
     "test_signature",
     "test_signature_text",
 }
+OWNER_RUNTIME_SMOKE_EXPECTED_TOP_LEVEL_FIELDS = {
+    "api_calls_attempted",
+    "harness_status",
+    "input_source",
+    "malicious_detection_verified",
+    "payload_committed_to_repo",
+    "raw_payload_logged",
+    "required_owner_input_missing",
+    "scan_result_summary",
+}
 
 
 class EndpointClient(Protocol):
@@ -361,6 +371,9 @@ def validate_owner_runtime_smoke_report(report: Mapping[str, object]) -> dict[st
     forbidden_payload_fields = _find_forbidden_payload_fields(report)
     for field_path in forbidden_payload_fields:
         missing_or_failed_checks.append(f"forbidden payload field present: {field_path}")
+    unexpected_fields = _find_unexpected_owner_runtime_report_fields(report)
+    for field_path in unexpected_fields:
+        missing_or_failed_checks.append(f"unexpected field present: {field_path}")
 
     expected_top_level = {
         "harness_status": "verified_infected",
@@ -391,6 +404,7 @@ def validate_owner_runtime_smoke_report(report: Mapping[str, object]) -> dict[st
         "accepted_owner_runtime_smoke": accepted,
         "missing_or_failed_checks": missing_or_failed_checks,
         "forbidden_payload_fields": forbidden_payload_fields,
+        "unexpected_fields": unexpected_fields,
         "reported_payload_committed_to_repo": report.get("payload_committed_to_repo"),
         "reported_raw_payload_logged": report.get("raw_payload_logged"),
         "payload_committed_to_repo": False,
@@ -434,6 +448,23 @@ def _find_forbidden_payload_fields(
             found.extend(_find_forbidden_payload_fields(child_value, prefix=field_path))
         return sorted(found)
     return []
+
+
+def _find_unexpected_owner_runtime_report_fields(
+    report: Mapping[str, object]
+) -> list[str]:
+    unexpected = [
+        key
+        for key in report
+        if str(key) not in OWNER_RUNTIME_SMOKE_EXPECTED_TOP_LEVEL_FIELDS
+    ]
+    summary = report.get("scan_result_summary")
+    if isinstance(summary, Mapping):
+        for key in summary:
+            key_text = str(key)
+            if key_text not in OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY:
+                unexpected.append(f"scan_result_summary.{key_text}")
+    return sorted(str(field) for field in unexpected)
 
 
 def main(

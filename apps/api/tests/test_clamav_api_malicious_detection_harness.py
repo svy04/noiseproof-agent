@@ -467,6 +467,53 @@ def test_owner_runtime_smoke_validator_rejects_payload_leak_fields_even_when_met
     assert "redacted-placeholder" not in json.dumps(payload, sort_keys=True)
 
 
+def test_owner_runtime_smoke_validator_rejects_unknown_fields_even_when_metadata_matches(
+    capsys, tmp_path
+):
+    report_path = tmp_path / "owner-runtime-smoke-report.json"
+    report_path.write_text(
+        json.dumps(
+            {
+                "harness_status": "verified_infected",
+                "malicious_detection_verified": True,
+                "api_calls_attempted": True,
+                "payload_committed_to_repo": False,
+                "raw_payload_logged": False,
+                "input_source": "stdin",
+                "required_owner_input_missing": False,
+                "template_status": "not_runtime_evidence",
+                "scan_result_summary": {
+                    "scanner_name": "clamav-clamd",
+                    "scan_status": "completed",
+                    "scan_verdict": "infected",
+                    "matched_signature": "Eicar-Test-Signature",
+                    "metadata_boundary": "metadata_only_no_raw_bytes_no_download_url",
+                    "extra_note": "unexpected",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    exit_code = main(["--validate-owner-runtime-smoke-report", str(report_path)])
+
+    assert exit_code == 5
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["validation_status"] == "rejected"
+    assert payload["accepted_owner_runtime_smoke"] is False
+    assert payload["unexpected_fields"] == [
+        "scan_result_summary.extra_note",
+        "template_status",
+    ]
+    assert "unexpected field present: template_status" in payload[
+        "missing_or_failed_checks"
+    ]
+    assert "unexpected field present: scan_result_summary.extra_note" in payload[
+        "missing_or_failed_checks"
+    ]
+    assert payload["non_claims"]["production_malware_scanning_evidence"] is False
+
+
 def test_owner_runtime_smoke_validator_rejects_not_configured_or_payload_leaky_report(
     capsys, tmp_path
 ):
