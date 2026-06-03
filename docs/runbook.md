@@ -5022,6 +5022,8 @@ Observed packet:
 packet_status: ready_for_owner_input
 required_input: owner-provided runtime-only test signature via stdin
 command_template
+command_templates
+runtime_report_handling
 scanner_name: clamav-clamd
 scan_status: completed
 scan_verdict: infected
@@ -5201,6 +5203,37 @@ template_status
 scan_result_summary.extra_note
 unexpected field present
 schema and validator alignment only
+not endpoint malicious-detection runtime proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Cross-shell Packet
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke cross-shell packet v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-cross-shell-packet.md
+```
+
+Expected packet markers:
+
+```text
+command_templates
+posix
+powershell
+owner-provided-runtime-only-signature-file-outside-repo
+runtime-report-path-outside-repo
+runtime_report_handling
+write_report_outside_repo: true
+validate_metadata_only: true
+does not include a test signature payload
 not endpoint malicious-detection runtime proof
 ```
 

@@ -28,7 +28,10 @@ raw_payload_logged: false
 Command template:
 
 ```text
-command_template: NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 <owner-provided-stdin> | uv run python -m app.services.clamav_api_malicious_detection_harness --signature-stdin --require-owner-input
+command_template: cat <owner-provided-runtime-only-signature-file-outside-repo> | NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 uv run python -m app.services.clamav_api_malicious_detection_harness --signature-stdin --require-owner-input
+command_templates.posix
+command_templates.powershell
+runtime_report_handling
 ```
 
 Success criteria:

@@ -226,11 +226,33 @@ def test_malicious_detection_harness_prints_owner_runtime_smoke_packet_without_p
     assert payload["raw_payload_logged"] is False
     assert payload["required_input"] == "owner-provided runtime-only test signature via stdin"
     assert payload["command_template"] == (
+        "cat <owner-provided-runtime-only-signature-file-outside-repo> | "
         "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 "
-        "<owner-provided-stdin> | "
         "uv run python -m app.services.clamav_api_malicious_detection_harness "
         "--signature-stdin --require-owner-input"
     )
+    assert payload["command_templates"] == {
+        "posix": (
+            "cat <owner-provided-runtime-only-signature-file-outside-repo> | "
+            "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE=1 "
+            "uv run python -m app.services.clamav_api_malicious_detection_harness "
+            "--signature-stdin --require-owner-input "
+            "--output <runtime-report-path-outside-repo>"
+        ),
+        "powershell": (
+            "$env:NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE='1'; "
+            "Get-Content -Raw -LiteralPath "
+            "'<owner-provided-runtime-only-signature-file-outside-repo>' | "
+            "uv run python -m app.services.clamav_api_malicious_detection_harness "
+            "--signature-stdin --require-owner-input "
+            "--output '<runtime-report-path-outside-repo>'"
+        ),
+    }
+    assert payload["runtime_report_handling"] == {
+        "write_report_outside_repo": True,
+        "validate_metadata_only": True,
+        "do_not_commit_report_if_it_contains_payload_fields": True,
+    }
     assert payload["success_criteria"] == {
         "scanner_name": "clamav-clamd",
         "scan_status": "completed",
