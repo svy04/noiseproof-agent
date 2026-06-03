@@ -3788,6 +3788,67 @@ Next product gate:
 uploaded raw file scan execution endpoint runtime smoke v0
 ```
 
+## Uploaded Raw File Scan Execution Endpoint Runtime Smoke
+
+Phase marker: uploaded raw file scan execution endpoint runtime smoke v0.
+
+Use this proof artifact:
+
+```text
+docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
+```
+
+Runtime path:
+
+```text
+docker compose up -d db
+uv run python -m app.migration_runner --database-url postgresql://noiseproof:noiseproof@localhost:55432/noiseproof --status
+uv run uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8010
+```
+
+Smoke flow:
+
+```text
+GET /health
+POST /documents/upload-raw-files
+POST /documents/upload-raw-files/{raw_file_id}/scan
+GET /documents/upload-raw-files/{raw_file_id}/scan-results
+```
+
+Observed result:
+
+```text
+health_status: ok
+scan_status: failed
+scan_verdict: scan_error
+scanner_name: scanner-unavailable
+failure_reason: scanner_not_configured
+temporary_scan_path_present: true
+raw_bytes_key_leaked: false
+temporary_scan_path_key_leaked: false
+download_url_key_leaked: false
+listed_scan_result_count: 1
+real_clamav_runtime_verified: false
+malware_scanning_evidence: false
+```
+
+Boundary:
+
+```text
+local Docker DB and live FastAPI HTTP proof only
+not real ClamAV execution
+not ClamAV signature database evidence
+not malware scanning evidence
+not hosted deployment evidence
+not external reviewer feedback
+```
+
+Next evidence gate:
+
+```text
+external reviewer scan execution endpoint request refresh v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
