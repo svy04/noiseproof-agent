@@ -325,6 +325,8 @@ ClamAV API endpoint malicious-detection stdin input harness v0: implemented. Bou
 
 ClamAV API endpoint malicious-detection stdin default smoke v0: implemented. Boundary: `uv run python -m app.services.clamav_api_malicious_detection_harness --signature-stdin` with empty stdin returned `harness_status=not_configured`, `input_source=stdin`, `api_calls_attempted=false`, `malicious_detection_verified=false`, `payload_committed_to_repo=false`, and `raw_payload_logged=false`; owner-provided runtime smoke remains pending.
 
+ClamAV API endpoint malicious-detection owner-runtime preflight v0: implemented. Boundary: local Compose preflight shows API up, `GET /health -> 200`, API scanner env `NOISEPROOF_SCANNER=clamd`, `CLAMD_HOST=clamav`, `CLAMD_PORT=3310`, and clamd `PING -> PONG`; owner-provided test signature is absent, no scan endpoint request was made, and this is not malware detection proof.
+
 
 ## Planned Agent Workflow
 

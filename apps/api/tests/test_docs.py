@@ -9098,3 +9098,35 @@ def test_clamav_api_endpoint_malicious_detection_stdin_default_smoke_records_saf
     assert "Phase 304 - ClamAV API Endpoint Malicious-detection Stdin Default Smoke v0" in goal
     assert "ClamAV API endpoint malicious-detection stdin default smoke v0" in runbook
     assert "docs/review/clamav-api-endpoint-malicious-detection-stdin-default-smoke.md" in portfolio
+
+
+def test_clamav_api_endpoint_malicious_detection_owner_runtime_preflight_records_readiness_without_payload():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-preflight.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Owner-runtime Preflight" in content
+    assert "ClamAV API endpoint malicious-detection owner-runtime preflight v0" in content
+    assert "docker compose --profile api --profile scanner ps" in content
+    assert "GET /health -> 200" in content
+    assert "NOISEPROOF_SCANNER=clamd" in content
+    assert "CLAMD_HOST=clamav" in content
+    assert "CLAMD_PORT=3310" in content
+    assert "clamd PING -> PONG" in content
+    assert "ClamAV service healthy" in content
+    assert "owner-provided test signature absent" in content
+    assert "no scan endpoint request was made" in content
+    assert "owner-provided runtime smoke remains pending" in content
+    assert "not malware detection proof" in content
+    assert "ClamAV API endpoint malicious-detection owner-provided runtime smoke v0" in content
+    assert "ClamAV API endpoint malicious-detection owner-runtime preflight v0: implemented" in readme
+    assert "Phase 305 - ClamAV API Endpoint Malicious-detection Owner-runtime Preflight v0" in goal
+    assert "ClamAV API endpoint malicious-detection owner-runtime preflight v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-preflight.md" in portfolio

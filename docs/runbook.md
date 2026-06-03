@@ -4930,6 +4930,38 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Preflight
+
+Phase marker: ClamAV API endpoint malicious-detection owner-runtime preflight v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-preflight.md
+```
+
+Observed runtime state:
+
+```text
+docker compose --profile api --profile scanner ps
+GET /health -> 200
+NOISEPROOF_SCANNER=clamd
+CLAMD_HOST=clamav
+CLAMD_PORT=3310
+ClamAV service healthy
+clamd PING -> PONG
+owner-provided test signature absent
+no scan endpoint request was made
+owner-provided runtime smoke remains pending
+not malware detection proof
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
