@@ -415,6 +415,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/clamav-api-compose-service-runtime-smoke.md` | local Docker Compose API runtime proof: profiled `api` starts and `GET /health` returns 200 while scanner remains unavailable; not scan endpoint proof |
 | `docs/review/clamav-api-endpoint-scanner-opt-in-review.md` | review-only decision to add a future explicit `NOISEPROOF_SCANNER=clamd` path for the raw-file scan endpoint while leaving the default scanner unavailable |
 | `docs/review/clamav-api-endpoint-scanner-opt-in-implementation.md` | explicit scanner selection code proof: `NOISEPROOF_SCANNER=clamd` maps to `ClamdScannerAdapter` while default remains unavailable; not endpoint runtime proof |
+| `docs/review/clamav-api-endpoint-scanner-opt-in-runtime-smoke.md` | local Docker Compose clean-file endpoint proof: raw upload scan uses `clamav-clamd` and returns `scan_verdict=clean`; not malware detection proof |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

@@ -8826,3 +8826,39 @@ def test_clamav_api_endpoint_scanner_opt_in_implementation_is_bounded():
     assert "Phase 295 - ClamAV API Endpoint Scanner Opt-in Implementation v0" in goal
     assert "ClamAV API endpoint scanner opt-in implementation v0" in runbook
     assert "docs/review/clamav-api-endpoint-scanner-opt-in-implementation.md" in portfolio
+
+
+def test_clamav_api_endpoint_scanner_opt_in_runtime_smoke_records_clean_scan_only():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-scanner-opt-in-runtime-smoke.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Scanner Opt-in Runtime Smoke" in content
+    assert "ClamAV API endpoint scanner opt-in runtime smoke v0" in content
+    assert "compose_up_api_clamd_exit=0" in content
+    assert "NOISEPROOF_SCANNER=clamd" in content
+    assert "CLAMD_HOST=clamav" in content
+    assert "CLAMD_PORT=3310" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-raw-files -> 201" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan -> 201" in content
+    assert "scanner_name: clamav-clamd" in content
+    assert "scan_status: completed" in content
+    assert "scan_verdict: clean" in content
+    assert "clamd_response: stream: OK" in content
+    assert "clamd_command: INSTREAM" in content
+    assert "api_endpoint_verified_with_real_clamav: true" in content
+    assert "malicious_detection_verified: false" in content
+    assert "not malware detection proof" in content
+    assert "not EICAR-through-API proof" in content
+    assert "ClamAV API endpoint scanner opt-in runtime smoke v0: implemented" in readme
+    assert "Phase 296 - ClamAV API Endpoint Scanner Opt-in Runtime Smoke v0" in goal
+    assert "ClamAV API endpoint scanner opt-in runtime smoke v0" in runbook
+    assert "docs/review/clamav-api-endpoint-scanner-opt-in-runtime-smoke.md" in portfolio

@@ -4606,6 +4606,55 @@ Next product gate:
 ClamAV API endpoint scanner opt-in runtime smoke v0
 ```
 
+## ClamAV API Endpoint Scanner Opt-in Runtime Smoke
+
+Phase marker: ClamAV API endpoint scanner opt-in runtime smoke v0.
+
+Use this runtime artifact:
+
+```text
+docs/review/clamav-api-endpoint-scanner-opt-in-runtime-smoke.md
+```
+
+Runtime setup:
+
+```powershell
+$env:NOISEPROOF_SCANNER='clamd'
+$env:CLAMD_HOST='clamav'
+$env:CLAMD_PORT='3310'
+docker compose --profile api --profile scanner up -d --build api clamav
+```
+
+Observed endpoint smoke:
+
+```text
+compose_up_api_clamd_exit=0
+GET /health -> 200
+POST /documents/upload-raw-files -> 201
+POST /documents/upload-raw-files/{raw_file_id}/scan -> 201
+scanner_name: clamav-clamd
+scan_status: completed
+scan_verdict: clean
+clamd_response: stream: OK
+api_endpoint_verified_with_real_clamav: true
+malicious_detection_verified: false
+```
+
+Boundary:
+
+```text
+clean-file endpoint runtime proof only
+not malware detection proof
+not EICAR-through-API proof
+not production malware scanning evidence
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection runtime review v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

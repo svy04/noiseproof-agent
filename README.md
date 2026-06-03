@@ -307,6 +307,8 @@ ClamAV API endpoint scanner opt-in review v0: implemented. Boundary: review-only
 
 ClamAV API endpoint scanner opt-in implementation v0: implemented. Boundary: `get_scanner_adapter()` now supports explicit `NOISEPROOF_SCANNER=clamd -> ClamdScannerAdapter(host=CLAMD_HOST, port=CLAMD_PORT)` while preserving `NOISEPROOF_SCANNER=clamav -> ClamAvScannerAdapter` and keeping the default unavailable; not endpoint runtime proof with real ClamAV and not malware scanning evidence.
 
+ClamAV API endpoint scanner opt-in runtime smoke v0: implemented. Boundary: local Docker Compose API ran with `NOISEPROOF_SCANNER=clamd` and `POST /documents/upload-raw-files/{raw_file_id}/scan` returned `scanner_name=clamav-clamd`, `scan_status=completed`, `scan_verdict=clean`, and `clamd_response=stream: OK`; clean-file endpoint proof only, not malware detection proof and not EICAR-through-API proof.
+
 
 ## Planned Agent Workflow
 
