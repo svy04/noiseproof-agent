@@ -3643,6 +3643,51 @@ Next issue-state gate:
 external feedback current-state ClamAV adapter runtime smoke issue verification v0
 ```
 
+## External Feedback Current-state ClamAV Adapter Runtime Smoke Issue Verification
+
+Phase marker: external feedback current-state ClamAV adapter runtime smoke issue verification v0.
+
+Use this current-state verification artifact:
+
+```text
+docs/review/external-feedback-current-state-clamav-adapter-runtime-smoke-issue-verification.md
+```
+
+Observed current-state screen:
+
+```text
+state: OPEN
+updatedAt: 2026-06-03T03:02:59Z
+first_codepoint: 35
+startsWith: ## Request
+comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+self_authored_comment
+non_qualifying
+ClamAV adapter runtime smoke proof
+docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md
+```
+
+Boundary:
+
+```text
+current-state screen only
+not external reviewer feedback
+not hosted deployment evidence
+not real ClamAV execution
+not signature database evidence
+not malware scanning
+not a download endpoint
+```
+
+Next evidence gate:
+
+```text
+external reviewer feedback v0 remains pending, or select the next source-first product gate
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

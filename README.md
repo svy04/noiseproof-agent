@@ -257,6 +257,8 @@ External reviewer ClamAV adapter runtime smoke request refresh v0: implemented. 
 
 External review issue body ClamAV adapter runtime smoke refresh v0: implemented. Boundary: issue #1 now points to the deterministic ClamAV adapter smoke proof; owner-authored issue edit only, not external reviewer feedback, not hosted deployment evidence, not real ClamAV execution, not signature database evidence, and not malware scanning.
 
+External feedback current-state ClamAV adapter runtime smoke issue verification v0: implemented. Boundary: current issue #1 screen still has candidate_count 0 and only a self-authored comment; not external reviewer feedback, not hosted deployment evidence, not real ClamAV execution, not signature database evidence, and not malware scanning.
+
 
 ## Planned Agent Workflow
 
