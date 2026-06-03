@@ -3081,6 +3081,59 @@ not a download endpoint
 not runtime evidence
 ```
 
+## Uploaded Raw File Scan Result Endpoint
+
+Phase marker: uploaded raw file scan result endpoint v0.
+
+Use this artifact:
+
+```text
+docs/review/uploaded-raw-file-scan-result-endpoint.md
+```
+
+Routes:
+
+```text
+POST /documents/upload-raw-files/{raw_file_id}/scan-results
+GET /documents/upload-raw-files/{raw_file_id}/scan-results
+```
+
+Expected behavior:
+
+```text
+POST stores caller-provided scan result metadata
+GET lists scan result metadata for one raw_file_id
+path/body raw_file_id mismatch returns 400
+responses exclude raw_bytes
+responses exclude download_url
+```
+
+Important boundary:
+
+```text
+scan_error is not clean
+endpoint does not run scanners
+endpoint does not expose raw uploaded bytes
+```
+
+Selected next gate:
+
+```text
+uploaded raw file scan result endpoint runtime smoke v0
+```
+
+Boundary:
+
+```text
+endpoint code only
+metadata-only scan result persistence
+not malware scanning
+not scanner execution
+not ClamAV integration
+not a download endpoint
+not runtime evidence
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

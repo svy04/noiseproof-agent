@@ -378,6 +378,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/uploaded-raw-file-scan-result-repository-review.md` | review-only repository boundary for caller-provided raw file scan result rows; no repository code, endpoint, scanner execution, or download endpoint |
 | `docs/review/uploaded-raw-file-scan-result-repository.md` | repository-only caller-provided raw file scan result persistence; no endpoint, scanner execution, ClamAV integration, download endpoint, or runtime evidence |
 | `docs/review/uploaded-raw-file-scan-result-endpoint-review.md` | review-only selection of parent-scoped metadata-only scan result routes; no endpoint code, scanner execution, ClamAV integration, download endpoint, or runtime evidence |
+| `docs/review/uploaded-raw-file-scan-result-endpoint.md` | metadata-only parent-scoped scan result POST/GET endpoints; no scanner execution, ClamAV integration, download endpoint, or runtime evidence |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 

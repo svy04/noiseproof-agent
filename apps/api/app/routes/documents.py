@@ -17,6 +17,8 @@ from app.schemas import (
     DocumentRetrievalRunRequest,
     ParsePreviewOut,
     ParsePreviewRequest,
+    RawFileScanResultCreate,
+    RawFileScanResultOut,
     RetrievalRunResponse,
     SemanticRetrievalPreviewOut,
     SemanticRetrievalPreviewRequest,
@@ -357,6 +359,45 @@ def list_upload_document_raw_files(
     repository: Repository = Depends(get_repository),
 ) -> list[dict]:
     return list(repository.list_uploaded_raw_files(limit=limit))
+
+
+@router.post(
+    "/upload-raw-files/{raw_file_id}/scan-results",
+    response_model=RawFileScanResultOut,
+    status_code=201,
+)
+def create_upload_raw_file_scan_result(
+    raw_file_id: UUID,
+    payload: RawFileScanResultCreate,
+    repository: Repository = Depends(get_repository),
+) -> dict:
+    if payload.raw_file_id != raw_file_id:
+        raise HTTPException(
+            status_code=400,
+            detail="raw_file_id path/body mismatch",
+        )
+    return repository.create_raw_file_scan_result(payload)
+
+
+@router.get(
+    "/upload-raw-files/{raw_file_id}/scan-results",
+    response_model=list[RawFileScanResultOut],
+)
+def list_upload_raw_file_scan_results(
+    raw_file_id: UUID,
+    scan_status: str | None = None,
+    scan_verdict: str | None = None,
+    limit: int = 20,
+    repository: Repository = Depends(get_repository),
+) -> list[dict]:
+    return list(
+        repository.list_raw_file_scan_results(
+            raw_file_id=raw_file_id,
+            scan_status=scan_status,
+            scan_verdict=scan_verdict,
+            limit=limit,
+        )
+    )
 
 
 @router.post(

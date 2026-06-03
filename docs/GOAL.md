@@ -8044,6 +8044,40 @@ Current next product gate:
 uploaded raw file scan result endpoint v0
 ```
 
+### Phase 259 - Uploaded Raw File Scan Result Endpoint v0
+
+Goal:
+
+```text
+add metadata-only parent-scoped scan result endpoints before scanner execution or download behavior
+```
+
+Implemented:
+
+```text
+uploaded raw file scan result endpoint v0
+POST /documents/upload-raw-files/{raw_file_id}/scan-results
+GET /documents/upload-raw-files/{raw_file_id}/scan-results
+RawFileScanResultOut response model
+path/body raw_file_id mismatch returns 400
+POST calls create_raw_file_scan_result
+GET calls list_raw_file_scan_results
+scan_status and scan_verdict filters
+response excludes raw_bytes and download_url
+decision: scan_error is not clean
+README implementation marker
+docs/application/portfolio-index.md endpoint link
+docs/runbook.md endpoint note
+```
+
+Phase 259 is metadata-only endpoint code. It adds no scanner adapter, scanner process, ClamAV dependency, file signature validation, download endpoint, runtime evidence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, Evidence Ledger generation, Critic / Noise Gate behavior, final report generation, LLM output, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claim.
+
+Current next product gate:
+
+```text
+uploaded raw file scan result endpoint runtime smoke v0
+```
+
 ### Phase 154 - Uploaded File Proof Path Index Refresh v0
 
 Goal:

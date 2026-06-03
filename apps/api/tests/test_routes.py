@@ -26,6 +26,7 @@ class InMemoryRepository:
         self.workflow_runs = []
         self.uploaded_file_intake_manifests = []
         self.uploaded_raw_files = []
+        self.raw_file_scan_results = []
         self.chunk_embeddings = []
 
     def create_document(self, payload: DocumentCreate) -> dict:
@@ -144,6 +145,29 @@ class InMemoryRepository:
 
     def list_uploaded_raw_files(self, limit=20):
         return self.uploaded_raw_files[:limit]
+
+    def create_raw_file_scan_result(self, payload) -> dict:
+        row = payload.model_dump()
+        row["id"] = uuid4()
+        row["created_at"] = datetime.now(timezone.utc)
+        self.raw_file_scan_results.append(row)
+        return row
+
+    def list_raw_file_scan_results(
+        self,
+        raw_file_id=None,
+        scan_status=None,
+        scan_verdict=None,
+        limit=20,
+    ):
+        rows = self.raw_file_scan_results
+        if raw_file_id is not None:
+            rows = [row for row in rows if str(row["raw_file_id"]) == str(raw_file_id)]
+        if scan_status is not None:
+            rows = [row for row in rows if row["scan_status"] == scan_status]
+        if scan_verdict is not None:
+            rows = [row for row in rows if row["scan_verdict"] == scan_verdict]
+        return rows[:limit]
 
     def create_agent_run(self, payload: AgentRunCreate) -> dict:
         row = payload.model_dump()
@@ -1162,6 +1186,80 @@ def test_document_upload_raw_file_rejects_oversized_file_without_persistence():
     assert response.status_code == 413
     assert "exceeds max_raw_upload_bytes" in response.json()["detail"]
     assert client.get("/documents/upload-raw-files").json() == []
+
+
+def test_document_upload_raw_file_scan_result_endpoint_persists_metadata_only():
+    client = make_client()
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", b"ticker,revenue\nALPHA,120\n", "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+
+    response = client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/scan-results",
+        json={
+            "raw_file_id": raw_file_id,
+            "scanner_name": "manual-review-placeholder",
+            "scanner_version": "0.0",
+            "scan_status": "failed",
+            "scan_verdict": "scan_error",
+            "error_message": "scanner unavailable",
+            "metadata_json": {"source": "route-test"},
+        },
+    )
+
+    assert upload.status_code == 201
+    assert response.status_code == 201
+    body = response.json()
+    assert body["raw_file_id"] == raw_file_id
+    assert body["scanner_name"] == "manual-review-placeholder"
+    assert body["scan_status"] == "failed"
+    assert body["scan_verdict"] == "scan_error"
+    assert body["scan_verdict"] != "clean"
+    assert body["metadata_json"] == {"source": "route-test"}
+    assert "raw_bytes" not in body
+    assert "download_url" not in body
+
+    listed = client.get(
+        f"/documents/upload-raw-files/{raw_file_id}/scan-results",
+        params={"scan_status": "failed", "scan_verdict": "scan_error"},
+    )
+    assert listed.status_code == 200
+    listed_body = listed.json()
+    assert len(listed_body) == 1
+    assert listed_body[0]["id"] == body["id"]
+    assert "raw_bytes" not in listed_body[0]
+    assert "download_url" not in listed_body[0]
+
+
+def test_document_upload_raw_file_scan_result_rejects_path_body_mismatch():
+    client = make_client()
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", b"ticker,revenue\nALPHA,120\n", "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+    other_raw_file_id = str(uuid4())
+
+    response = client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/scan-results",
+        json={
+            "raw_file_id": other_raw_file_id,
+            "scanner_name": "manual-review-placeholder",
+            "scan_status": "failed",
+            "scan_verdict": "scan_error",
+            "error_message": "scanner unavailable",
+        },
+    )
+
+    assert response.status_code == 400
+    assert "raw_file_id path/body mismatch" in response.json()["detail"]
+    assert client.get(
+        f"/documents/upload-raw-files/{raw_file_id}/scan-results"
+    ).json() == []
 
 
 def test_list_document_upload_intake_manifests_returns_recent_manifest_metadata():

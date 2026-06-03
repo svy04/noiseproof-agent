@@ -7519,3 +7519,43 @@ def test_uploaded_raw_file_scan_result_endpoint_review_selects_metadata_only_rou
     assert "Phase 258 - Uploaded Raw File Scan Result Endpoint Review v0" in goal
     assert "uploaded raw file scan result endpoint review v0" in runbook
     assert "docs/review/uploaded-raw-file-scan-result-endpoint-review.md" in portfolio
+
+
+def test_uploaded_raw_file_scan_result_endpoint_documents_metadata_only_code():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-scan-result-endpoint.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    route_py = (REPO_ROOT / "apps/api/app/routes/documents.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Scan Result Endpoint" in content
+    assert "uploaded raw file scan result endpoint v0" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan-results" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/scan-results" in content
+    assert "RawFileScanResultOut" in content
+    assert "create_raw_file_scan_result" in content
+    assert "list_raw_file_scan_results" in content
+    assert "raw_file_id path/body mismatch" in content
+    assert "metadata-only" in content
+    assert "scan_error is not clean" in content
+    assert "does not run scanners" in content
+    assert "not malware scanning" in content
+    assert "not scanner execution" in content
+    assert "not ClamAV integration" in content
+    assert "not a download endpoint" in content
+    assert "not runtime evidence" in content
+    assert "RawFileScanResultOut" in route_py
+    assert "create_upload_raw_file_scan_result" in route_py
+    assert "list_upload_raw_file_scan_results" in route_py
+    assert "Uploaded raw file scan result endpoint v0: implemented" in readme
+    assert "Phase 259 - Uploaded Raw File Scan Result Endpoint v0" in goal
+    assert "uploaded raw file scan result endpoint v0" in runbook
+    assert "docs/review/uploaded-raw-file-scan-result-endpoint.md" in portfolio
