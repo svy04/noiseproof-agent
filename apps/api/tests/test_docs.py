@@ -8890,3 +8890,30 @@ def test_clamav_api_endpoint_malicious_detection_runtime_review_sets_safe_bounda
     assert "Phase 297 - ClamAV API Endpoint Malicious-detection Runtime Review v0" in goal
     assert "ClamAV API endpoint malicious-detection runtime review v0" in runbook
     assert "docs/review/clamav-api-endpoint-malicious-detection-runtime-review.md" in portfolio
+
+
+def test_clamav_api_endpoint_malicious_detection_runtime_blocked_records_no_claim():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-runtime-blocked.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Runtime Blocked" in content
+    assert "ClamAV API endpoint malicious-detection runtime blocked v0" in content
+    assert "runtime smoke not completed" in content
+    assert "host command was rejected before endpoint request" in content
+    assert "EICAR-through-API proof remains pending" in content
+    assert "payload_committed_to_repo: false" in content
+    assert "do not bypass OS security controls" in content
+    assert "not malware detection proof" in content
+    assert "ClamAV API endpoint malicious-detection test harness review v0" in content
+    assert "ClamAV API endpoint malicious-detection runtime blocked v0: implemented" in readme
+    assert "Phase 298 - ClamAV API Endpoint Malicious-detection Runtime Blocked v0" in goal
+    assert "ClamAV API endpoint malicious-detection runtime blocked v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-runtime-blocked.md" in portfolio

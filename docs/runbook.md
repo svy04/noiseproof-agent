@@ -4688,6 +4688,39 @@ Next product gate:
 ClamAV API endpoint malicious-detection runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Runtime Blocked
+
+Phase marker: ClamAV API endpoint malicious-detection runtime blocked v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-runtime-blocked.md
+```
+
+Observed boundary:
+
+```text
+runtime smoke not completed
+host command was rejected before endpoint request
+EICAR-through-API proof remains pending
+payload_committed_to_repo: false
+```
+
+Boundary:
+
+```text
+do not bypass OS security controls
+not malware detection proof
+not production malware scanning evidence
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection test harness review v0
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

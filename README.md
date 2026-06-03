@@ -311,6 +311,8 @@ ClamAV API endpoint scanner opt-in runtime smoke v0: implemented. Boundary: loca
 
 ClamAV API endpoint malicious-detection runtime review v0: implemented. Boundary: review-only safety gate for a future EICAR-through-API smoke; clean-file endpoint proof exists and `malicious_detection_verified: false` remains current. Do not store the EICAR payload in the repository, do not bypass OS security controls, and do not claim production malware scanning evidence.
 
+ClamAV API endpoint malicious-detection runtime blocked v0: implemented. Boundary: EICAR-through-API runtime smoke was not completed because the host command was rejected before endpoint request; `payload_committed_to_repo: false`, `malicious_detection_verified: false`, and this is not malware detection proof.
+
 
 ## Planned Agent Workflow
 

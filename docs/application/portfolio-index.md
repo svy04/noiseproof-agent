@@ -417,6 +417,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/clamav-api-endpoint-scanner-opt-in-implementation.md` | explicit scanner selection code proof: `NOISEPROOF_SCANNER=clamd` maps to `ClamdScannerAdapter` while default remains unavailable; not endpoint runtime proof |
 | `docs/review/clamav-api-endpoint-scanner-opt-in-runtime-smoke.md` | local Docker Compose clean-file endpoint proof: raw upload scan uses `clamav-clamd` and returns `scan_verdict=clean`; not malware detection proof |
 | `docs/review/clamav-api-endpoint-malicious-detection-runtime-review.md` | review-only safety gate for future EICAR-through-API proof; clean-file endpoint proof exists, malicious detection remains pending |
+| `docs/review/clamav-api-endpoint-malicious-detection-runtime-blocked.md` | blocked malicious-detection runtime attempt; EICAR-through-API proof remains pending and no payload was committed |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
