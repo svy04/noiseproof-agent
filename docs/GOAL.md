@@ -16868,6 +16868,43 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 463 - Trace Context Header Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record live uvicorn/curl evidence that trace context headers are visible on GET /health
+```
+
+Implemented:
+
+```text
+trace context header runtime smoke v0
+docs/review/trace-context-header-runtime-smoke.md
+uvicorn on 127.0.0.1:8011
+GET /health without traceparent -> 200
+GET /health with valid traceparent -> 200
+GET /health with invalid traceparent -> 200
+generated_traceparent observed
+incoming_traceparent observed
+invalid_traceparent_generated_fallback observed
+local_header_propagation_no_distributed_tracing observed
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+application-ready boundary refresh
+```
+
+Phase 463 is local live HTTP evidence only. It adds no runtime behavior beyond Phase 462, no hosted observability, OpenTelemetry, trace export, span storage, cross-service trace proof, distributed tracing claim, external reviewer feedback, customer validation, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

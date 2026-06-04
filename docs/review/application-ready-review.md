@@ -37,6 +37,7 @@ Forbidden claim: this is not hosted deployment evidence, automatic persistence r
 | buy/sell recommendation questions are refused or reframed | Pass | collection, ledger, gate, and report boundaries | not legal or financial advice tooling |
 | every agent run leaves a trace | Pass for current preview endpoints | preview endpoints auto-create `agent_runs.trace_json`; retrieval has dedicated `retrieval_runs` | metadata trace only, not distributed tracing or a complete multi-stage workflow trace |
 | trace context header propagation exists | Pass | response `traceparent`, `x-noiseproof-trace-source`, `x-noiseproof-trace-boundary`, `docs/review/trace-context-header-propagation.md` | local header propagation only; not distributed tracing, no OpenTelemetry, no hosted observability, no span export |
+| trace context header runtime smoke exists | Pass | `docs/review/trace-context-header-runtime-smoke.md` | local uvicorn/curl evidence only; not hosted observability, not distributed tracing, not cross-service trace proof |
 | failure cases are recorded | Pass | failure case endpoint and dashboard | not comprehensive |
 | operations dashboard shows runs and failures | Pass | `GET /ops/dashboard` | plain HTML, not polished UI |
 | README is understandable without explanation | Pass | `README.md` | should still be reviewed by an external reader |

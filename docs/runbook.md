@@ -8546,3 +8546,40 @@ no trace export
 no span storage
 no cross-service trace proof
 ```
+
+## Trace Context Header Runtime Smoke
+
+Phase marker: trace context header runtime smoke v0.
+
+Review artifact:
+
+```text
+docs/review/trace-context-header-runtime-smoke.md
+```
+
+Observed live HTTP checks:
+
+```text
+uvicorn on 127.0.0.1:8011
+GET /health without traceparent -> 200
+GET /health with valid traceparent -> 200
+GET /health with invalid traceparent -> 200
+```
+
+Observed source markers:
+
+```text
+generated_traceparent
+incoming_traceparent
+invalid_traceparent_generated_fallback
+local_header_propagation_no_distributed_tracing
+```
+
+Claim boundary:
+
+```text
+local uvicorn/curl evidence only
+not hosted observability
+not distributed tracing
+not cross-service trace proof
+```

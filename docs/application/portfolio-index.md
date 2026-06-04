@@ -20,6 +20,8 @@ Deterministic text embedding preview: `docs/review/deterministic-text-embedding-
 
 Trace context header propagation: `docs/review/trace-context-header-propagation.md` records local `traceparent` response headers for API inspection. It is not distributed tracing, not OpenTelemetry, not hosted observability, and not external reviewer feedback.
 
+Trace context header runtime smoke: `docs/review/trace-context-header-runtime-smoke.md` records local `uvicorn` plus `curl` evidence for generated, accepted, and invalid-fallback `traceparent` headers on `GET /health`. It is not hosted observability, not distributed tracing, not cross-service trace proof, and not external reviewer feedback.
+
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
 External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.

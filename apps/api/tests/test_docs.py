@@ -17041,3 +17041,37 @@ def test_trace_context_header_propagation_documents_local_boundary():
     assert "docs/review/trace-context-header-propagation.md" in portfolio
     assert "trace context header propagation exists" in app_review
     assert "not distributed tracing" in app_review
+
+
+def test_trace_context_header_runtime_smoke_documents_live_http_boundary():
+    review_path = REPO_ROOT / "docs/review/trace-context-header-runtime-smoke.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Trace Context Header Runtime Smoke" in content
+    assert "trace context header runtime smoke v0" in content
+    assert "uvicorn on 127.0.0.1:8011" in content
+    assert "GET /health without traceparent -> 200" in content
+    assert "GET /health with valid traceparent -> 200" in content
+    assert "GET /health with invalid traceparent -> 200" in content
+    assert "generated_traceparent" in content
+    assert "incoming_traceparent" in content
+    assert "invalid_traceparent_generated_fallback" in content
+    assert "local_header_propagation_no_distributed_tracing" in content
+    assert "not hosted observability" in content
+    assert "not distributed tracing" in content
+    assert "Trace context header runtime smoke v0: implemented" in readme
+    assert "Phase 463 - Trace Context Header Runtime Smoke v0" in goal
+    assert "trace context header runtime smoke v0" in runbook
+    assert "docs/review/trace-context-header-runtime-smoke.md" in portfolio
+    assert "trace context header runtime smoke exists" in app_review
