@@ -1031,6 +1031,44 @@ Next recommended gate:
 uploaded raw file download approval helper v0
 ```
 
+Phase 410 extension to the accepted state:
+
+```text
+Uploaded Raw File Download Approval Helper v0
+```
+
+### Phase 410 - Uploaded Raw File Download Approval Helper v0
+
+Goal:
+
+```text
+add repository-only active approval lookup before changing guarded raw download route behavior
+```
+
+Implemented:
+
+```text
+uploaded raw file download approval helper v0
+docs/review/uploaded-raw-file-download-approval-helper.md
+Repository.find_active_raw_file_download_approval
+PostgresRepository.find_active_raw_file_download_approval
+approval_status = approved
+expires_at > now
+revoked_at IS NULL
+latest_scan_result_id matches
+README implementation marker
+docs/runbook.md helper note
+docs/application/portfolio-index.md helper entry
+```
+
+Phase 410 is repository-only helper code. It adds no route behavior, endpoint behavior, hosted deployment evidence, external reviewer feedback, approval enforcement, production authorization, user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+uploaded raw file download approval gate behavior v0
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

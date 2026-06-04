@@ -558,3 +558,63 @@ def test_list_raw_file_download_approvals_filters_without_allowing_downloads():
     assert "LIMIT %s" in sql
     assert params == (raw_file_id, "approved", 2)
     assert listed == rows
+
+
+def test_find_active_raw_file_download_approval_requires_active_matching_row():
+    now = datetime(2026, 6, 4, tzinfo=UTC)
+    expires_at = datetime(2026, 6, 5, tzinfo=UTC)
+    raw_file_id = UUID("55555555-5555-5555-5555-555555555555")
+    latest_scan_result_id = UUID("66666666-6666-6666-6666-666666666666")
+    approval_id = UUID("77777777-7777-7777-7777-777777777777")
+    row = {
+        "id": approval_id,
+        "raw_file_id": raw_file_id,
+        "latest_scan_result_id": latest_scan_result_id,
+        "approval_status": "approved",
+        "approved_by_label": "local-operator",
+        "expires_at": expires_at,
+        "revoked_at": None,
+    }
+    connection = FakeConnection(row=row)
+    repository = PostgresRepository(Settings())
+    repository._connect = lambda: connection
+
+    active = repository.find_active_raw_file_download_approval(
+        raw_file_id=raw_file_id,
+        latest_scan_result_id=latest_scan_result_id,
+        now=now,
+    )
+
+    sql, params = connection.calls[0]
+    assert "SELECT * FROM raw_file_download_approvals" in sql
+    assert "raw_file_id = %s" in sql
+    assert "latest_scan_result_id = %s" in sql
+    assert "approval_status = 'approved'" in sql
+    assert "expires_at > %s" in sql
+    assert "revoked_at IS NULL" in sql
+    assert "raw_bytes" not in sql
+    assert "download_url" not in sql
+    assert "raw_file_download_events" not in sql
+    assert "ORDER BY created_at DESC, id DESC" in sql
+    assert "LIMIT 1" in sql
+    assert params == (raw_file_id, latest_scan_result_id, now)
+    assert active == row
+    assert connection.committed is False
+
+
+def test_find_active_raw_file_download_approval_returns_none_without_row():
+    now = datetime(2026, 6, 4, tzinfo=UTC)
+    raw_file_id = UUID("55555555-5555-5555-5555-555555555555")
+    latest_scan_result_id = UUID("66666666-6666-6666-6666-666666666666")
+    connection = FakeConnection(row=None)
+    repository = PostgresRepository(Settings())
+    repository._connect = lambda: connection
+
+    active = repository.find_active_raw_file_download_approval(
+        raw_file_id=raw_file_id,
+        latest_scan_result_id=latest_scan_result_id,
+        now=now,
+    )
+
+    assert active is None
+    assert connection.committed is False

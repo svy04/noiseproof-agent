@@ -524,6 +524,8 @@ Uploaded raw file download approval endpoint runtime smoke v0: implemented. Boun
 
 Uploaded raw file download approval gate behavior review v0: implemented. Boundary: source-first review selects `find_active_raw_file_download_approval` as the next helper gate before changing raw download route behavior; not route behavior, approval enforcement, production authorization, user identity, signed URL support, RBAC, hosted evidence, or product-complete claim.
 
+Uploaded raw file download approval helper v0: implemented. Boundary: repository-only `find_active_raw_file_download_approval` returns one approved, unexpired, non-revoked row for a raw file and latest scan result; not route behavior, approval enforcement, production authorization, user identity, signed URL support, RBAC, hosted evidence, or product-complete claim.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

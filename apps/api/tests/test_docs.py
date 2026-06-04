@@ -13938,3 +13938,50 @@ def test_uploaded_raw_file_download_approval_gate_behavior_review_selects_helper
         "docs/review/uploaded-raw-file-download-approval-gate-behavior-review.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_approval_helper_documents_repository_only_code():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-download-approval-helper.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    db_py = (REPO_ROOT / "apps/api/app/db.py").read_text(encoding="utf-8")
+    route_py = (REPO_ROOT / "apps/api/app/routes/documents.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Approval Helper" in content
+    assert "uploaded raw file download approval helper v0" in content
+    assert "find_active_raw_file_download_approval" in content
+    assert "approval_status = approved" in content
+    assert "expires_at > now" in content
+    assert "revoked_at IS NULL" in content
+    assert "latest_scan_result_id" in content
+    assert "repository-only helper" in content
+    assert "not route behavior" in content
+    assert "not approval enforcement" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert "not RBAC" in content
+    assert "def find_active_raw_file_download_approval" in db_py
+    download_route_segment = route_py.split("def download_upload_raw_file(", 1)[1]
+    assert "find_active_raw_file_download_approval" not in download_route_segment
+    assert (
+        "Uploaded raw file download approval helper v0: implemented"
+        in readme
+    )
+    assert "Phase 410 - Uploaded Raw File Download Approval Helper v0" in goal
+    assert "uploaded raw file download approval helper v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-helper.md"
+        in portfolio
+    )

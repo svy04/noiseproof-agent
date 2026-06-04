@@ -1,4 +1,5 @@
 from collections.abc import Sequence
+from datetime import datetime
 from typing import Protocol
 from uuid import UUID
 
@@ -115,6 +116,13 @@ class Repository(Protocol):
         approval_status: str | None = None,
         limit: int = 20,
     ) -> Sequence[dict]: ...
+    def find_active_raw_file_download_approval(
+        self,
+        *,
+        raw_file_id: UUID,
+        latest_scan_result_id: UUID,
+        now: datetime,
+    ) -> dict | None: ...
     def create_agent_run(self, payload: AgentRunCreate) -> dict: ...
     def update_agent_run(
         self,
@@ -680,6 +688,29 @@ class PostgresRepository:
                 tuple(params),
             ).fetchall()
             return [dict(row) for row in rows]
+
+    def find_active_raw_file_download_approval(
+        self,
+        *,
+        raw_file_id: UUID,
+        latest_scan_result_id: UUID,
+        now: datetime,
+    ) -> dict | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                SELECT * FROM raw_file_download_approvals
+                WHERE raw_file_id = %s
+                  AND latest_scan_result_id = %s
+                  AND approval_status = 'approved'
+                  AND expires_at > %s
+                  AND revoked_at IS NULL
+                ORDER BY created_at DESC, id DESC
+                LIMIT 1
+                """,
+                (raw_file_id, latest_scan_result_id, now),
+            ).fetchone()
+            return dict(row) if row else None
 
     def create_agent_run(self, payload: AgentRunCreate) -> dict:
         with self._connect() as conn:
