@@ -468,6 +468,8 @@ Uploaded raw file signature validation runtime smoke v0: implemented. Boundary: 
 
 External reviewer signature-validation request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the raw file signature validation runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust file-type detection, not malware scanning evidence, and not production authorization.
 
+External review issue body signature-validation refresh v0: implemented. Boundary: issue #1 now points to the raw file signature validation runtime smoke and its reviewer request refresh; owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, not robust file-type detection, not malware scanning evidence, and not production authorization.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

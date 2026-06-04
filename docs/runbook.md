@@ -196,6 +196,8 @@ Phase 380 adds uploaded raw file signature validation runtime smoke v0: `docs/re
 
 Phase 381 adds external reviewer signature-validation request refresh v0: `docs/review/external-reviewer-signature-validation-request-refresh.md` updates reviewer-facing repository surfaces so `docs/review/uploaded-raw-file-signature-validation-runtime-smoke.md` is visible from the proof path, review request, reviewer brief, link map, and portfolio index. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust file-type detection, not malware scanning evidence, and not production authorization.
 
+Phase 382 adds external review issue body signature-validation refresh v0: `docs/review/external-review-issue-body-signature-validation-refresh.md` records the owner-authored issue #1 body update that points reviewers to `docs/review/uploaded-raw-file-signature-validation-runtime-smoke.md` and `docs/review/external-reviewer-signature-validation-request-refresh.md`. This is not external reviewer feedback, not hosted deployment evidence, not robust file-type detection, not malware scanning evidence, not production authorization, not endpoint malicious-detection runtime proof, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
