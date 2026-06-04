@@ -230,6 +230,8 @@ Phase 397 adds uploaded raw file download audit runtime smoke v0: `docs/review/u
 
 Phase 398 adds external reviewer download-audit request refresh v0: `docs/review/external-reviewer-download-audit-request-refresh.md` updates reviewer-facing repository surfaces so `docs/review/uploaded-raw-file-download-audit-runtime-smoke.md` is visible from the proof path, review request, reviewer brief, link map, Braincrew role map, and portfolio index. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not production authorization, not user identity, not malware detection proof, and not product-complete.
 
+Phase 399 adds external review issue body download-audit refresh v0: `docs/review/external-review-issue-body-download-audit-refresh.md` records the owner-authored issue #1 body update that points reviewers to `docs/review/uploaded-raw-file-download-audit-runtime-smoke.md` and `docs/review/external-reviewer-download-audit-request-refresh.md`. Observed state: `starts_with_request: true`, `first_codepoint: 35`, `has_download_audit_proof: true`, `has_download_audit_request_refresh: true`, `comment_count: 1`, and labels `external-review,feedback`. This is not external reviewer feedback, not hosted deployment evidence, not production authorization, not user identity, not malware detection proof, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
