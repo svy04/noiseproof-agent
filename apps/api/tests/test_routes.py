@@ -21,7 +21,7 @@ from app.schemas import (
     OpsSummaryOut,
     RawFileDownloadApprovalOut,
 )
-from app.settings import Settings
+from app.settings import Settings, get_settings
 from app.services.raw_file_scan_execution import get_scanner_adapter
 from app.services.run_trace import run_with_trace
 from packages.ingestion.scanning import (
@@ -1162,6 +1162,60 @@ def test_text_embedding_preview_rejects_blank_text_and_non_local_models():
     assert "text must contain at least one token" in blank.json()["detail"]
     assert non_local.status_code == 400
     assert "local-hash-embedding-preview-v0" in non_local.json()["detail"]
+
+
+def test_embedding_model_preview_returns_disabled_boundary_without_api_key():
+    client = make_client()
+    client.app.dependency_overrides[get_settings] = lambda: Settings(openai_api_key="")
+
+    response = client.post(
+        "/chunks/embedding-model-preview",
+        json={"text": "Enterprise demand growth reached 12% in Q1."},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["provider"] == "openai"
+    assert body["embedding_model"] == "text-embedding-3-small"
+    assert body["embedding_dimension"] == 1536
+    assert body["encoding_format"] == "float"
+    assert body["configured"] is False
+    assert body["embedding_status"] == "disabled_missing_api_key"
+    assert body["embedding"] is None
+    assert body["metadata_json"]["network_boundary"] == "no_network_call"
+    assert body["metadata_json"]["cost_boundary"] == "no_cost_incurred"
+    assert body["metadata_json"]["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["metadata_json"]["source_review"] == (
+        "docs/review/embedding-provider-source-review.md"
+    )
+    assert any("OPENAI_API_KEY is not configured" in warning for warning in body["warnings"])
+    assert any("does not call OpenAI" in warning for warning in body["warnings"])
+
+
+def test_embedding_model_preview_with_configured_key_still_does_not_call_provider():
+    client = make_client()
+    client.app.dependency_overrides[get_settings] = lambda: Settings(
+        openai_api_key="sk-test-secret",
+        embedding_model="text-embedding-3-large",
+        embedding_dimension=3072,
+    )
+
+    response = client.post(
+        "/chunks/embedding-model-preview",
+        json={"text": "Enterprise demand growth reached 12% in Q1."},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["configured"] is True
+    assert body["embedding_model"] == "text-embedding-3-large"
+    assert body["embedding_dimension"] == 3072
+    assert body["embedding_status"] == "configured_no_call"
+    assert body["embedding"] is None
+    assert body["metadata_json"]["network_boundary"] == "no_network_call"
+    assert body["metadata_json"]["secret_exposed"] is False
+    assert "sk-test-secret" not in response.text
+    assert any("configured but not called" in warning for warning in body["warnings"])
 
 
 def test_semantic_retrieval_preview_ranks_caller_provided_vectors_without_persistence():

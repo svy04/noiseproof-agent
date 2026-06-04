@@ -17112,3 +17112,37 @@ def test_embedding_provider_source_review_documents_official_openai_boundary():
     assert "embedding provider source review v0" in runbook
     assert "docs/review/embedding-provider-source-review.md" in portfolio
     assert "embedding provider source review exists" in app_review
+
+
+def test_embedding_model_provider_disabled_path_documents_safe_boundary():
+    review_path = REPO_ROOT / "docs/review/embedding-model-provider-disabled-path.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Model Provider Disabled Path" in content
+    assert "embedding model provider disabled-path v0" in content
+    assert "POST /chunks/embedding-model-preview" in content
+    assert "disabled_missing_api_key" in content
+    assert "configured_no_call" in content
+    assert "no_network_call" in content
+    assert "no_cost_incurred" in content
+    assert "preview_only_not_persisted" in content
+    assert "OPENAI_API_KEY" in content
+    assert "no embedding vector is generated" in content
+    assert "no provider call" in content
+    assert "actual embedding model generation remains unproven" in content
+    assert "Embedding model provider disabled-path v0: implemented" in readme
+    assert "Phase 465 - Embedding Model Provider Disabled-path v0" in goal
+    assert "embedding model provider disabled-path v0" in runbook
+    assert "docs/review/embedding-model-provider-disabled-path.md" in portfolio
+    assert "embedding model provider disabled path exists" in app_review

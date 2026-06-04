@@ -16944,6 +16944,45 @@ Next recommended evidence gate:
 embedding model provider disabled-path v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 465 - Embedding Model Provider Disabled-path v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+add a safe runtime readiness endpoint for the future embedding provider without making provider calls or generating vectors
+```
+
+Implemented:
+
+```text
+embedding model provider disabled-path v0
+POST /chunks/embedding-model-preview
+Settings.openai_api_key
+Settings.embedding_model
+Settings.embedding_dimension
+disabled_missing_api_key state
+configured_no_call state
+metadata_json.network_boundary = no_network_call
+metadata_json.cost_boundary = no_cost_incurred
+metadata_json.persistence_boundary = preview_only_not_persisted
+metadata_json.secret_exposed = false
+docs/review/embedding-model-provider-disabled-path.md
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+application-ready boundary refresh
+```
+
+Phase 465 adds a provider readiness/disabled endpoint only. It adds no OpenAI API call, embedding vector generation, embedding persistence, retrieval expansion, semantic retrieval quality evidence, cost-incurring runtime path, hosted deployment evidence, external reviewer feedback, customer validation, autonomous/LLM-backed agents, polished web app, or product-complete claim. Actual embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+embedding model provider live-call review v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

@@ -24,6 +24,8 @@ Trace context header runtime smoke: `docs/review/trace-context-header-runtime-sm
 
 Embedding provider source review: `docs/review/embedding-provider-source-review.md` records the official OpenAI embeddings contract selected for future actual model generation. It is source review only, not implemented runtime behavior, not an API call, not a cost-incurring path, and not semantic retrieval quality evidence.
 
+Embedding model provider disabled path: `docs/review/embedding-model-provider-disabled-path.md` records `POST /chunks/embedding-model-preview` returning `disabled_missing_api_key` or `configured_no_call` without a provider call. It is not actual embedding generation, not persistence, not retrieval expansion, and not semantic retrieval quality evidence.
+
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
 External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.

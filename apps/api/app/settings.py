@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     raw_file_scanner_timeout_seconds: int = 30
     clamd_host: str = "clamav"
     clamd_port: int = 3310
+    openai_api_key: str = ""
+    embedding_model: str = "text-embedding-3-small"
+    embedding_dimension: int = 1536
 
     model_config = SettingsConfigDict(
         env_file=("../../.env", ".env"),

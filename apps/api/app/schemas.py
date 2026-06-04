@@ -312,6 +312,26 @@ class TextEmbeddingPreviewOut(BaseModel):
     warnings: list[str]
 
 
+class EmbeddingModelPreviewRequest(BaseModel):
+    text: str = Field(..., min_length=1)
+    provider: str = "openai"
+    embedding_model: str | None = None
+    embedding_dimension: int | None = Field(default=None, ge=1, le=4096)
+    encoding_format: str = "float"
+
+
+class EmbeddingModelPreviewOut(BaseModel):
+    provider: str
+    embedding_model: str
+    embedding_dimension: int
+    encoding_format: str
+    configured: bool
+    embedding_status: str
+    embedding: list[float] | None = None
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
+    warnings: list[str]
+
+
 class ChunkEmbeddingRequest(BaseModel):
     embedding_model: str = Field(..., min_length=1)
     embedding_dimension: int = Field(..., ge=1)

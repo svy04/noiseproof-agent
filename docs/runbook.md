@@ -8632,3 +8632,45 @@ no API call
 no cost-incurring runtime path
 actual embedding model generation remains unproven
 ```
+
+## Embedding Model Provider Disabled Path
+
+Phase marker: embedding model provider disabled-path v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-provider-disabled-path.md
+```
+
+Endpoint:
+
+```text
+POST /chunks/embedding-model-preview
+```
+
+Expected states:
+
+```text
+disabled_missing_api_key
+configured_no_call
+```
+
+Focused verification:
+
+```bash
+cd apps/api
+uv run pytest -q tests/test_routes.py -k "embedding_model_preview"
+uv run pytest -q tests/test_docs.py -k "embedding_model_provider_disabled_path"
+```
+
+Claim boundary:
+
+```text
+no provider call
+no embedding vector is generated
+no_network_call
+no_cost_incurred
+preview_only_not_persisted
+actual embedding model generation remains unproven
+```

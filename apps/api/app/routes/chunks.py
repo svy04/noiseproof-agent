@@ -7,10 +7,14 @@ from app.schemas import (
     ChunkEmbeddingCreate,
     ChunkEmbeddingOut,
     ChunkEmbeddingRequest,
+    EmbeddingModelPreviewOut,
+    EmbeddingModelPreviewRequest,
     TextEmbeddingPreviewOut,
     TextEmbeddingPreviewRequest,
 )
+from app.services.embedding_model_preview import preview_embedding_model_provider
 from app.services.text_embedding_preview import preview_text_embedding
+from app.settings import Settings, get_settings
 
 router = APIRouter(prefix="/chunks", tags=["chunk-embeddings"])
 
@@ -39,6 +43,14 @@ def create_text_embedding_preview(
     payload: TextEmbeddingPreviewRequest,
 ) -> TextEmbeddingPreviewOut:
     return preview_text_embedding(payload)
+
+
+@router.post("/embedding-model-preview", response_model=EmbeddingModelPreviewOut)
+def create_embedding_model_preview(
+    payload: EmbeddingModelPreviewRequest,
+    settings: Settings = Depends(get_settings),
+) -> EmbeddingModelPreviewOut:
+    return preview_embedding_model_provider(payload, settings)
 
 
 @router.post("/{chunk_id}/embeddings", response_model=ChunkEmbeddingOut, status_code=201)

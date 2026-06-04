@@ -225,6 +225,8 @@ Trace context header runtime smoke v0: implemented. Boundary: local uvicorn/curl
 
 Embedding provider source review v0: implemented. Boundary: official OpenAI embeddings contract reviewed only; no API call, no dependency, no cost-incurring runtime path, and actual embedding model generation remains unproven.
 
+Embedding model provider disabled-path v0: implemented. Boundary: `POST /chunks/embedding-model-preview` reports provider configuration only; no provider call, no embedding vector, no persistence, and no cost.
+
 README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
