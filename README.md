@@ -233,6 +233,8 @@ Embedding model mocked-provider call v0: implemented. Boundary: provider respons
 
 Embedding model live-provider implementation review v0: implemented. Boundary: owner-runtime live provider implementation requirements are documented, including `OPENAI_API_KEY`, `allow_provider_call`, timeout, secret redaction, provider response dimension check, usage metadata, no live provider call in CI, and manual owner runtime smoke; no live provider call is implemented.
 
+Embedding model live-provider code review v0: implemented. Boundary: the future live provider insertion point is documented as a tiny OpenAI Python SDK adapter behind the existing `get_embedding_provider_client` dependency; dependency addition is deferred and no runtime behavior is added.
+
 README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.

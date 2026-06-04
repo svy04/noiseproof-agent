@@ -8837,3 +8837,67 @@ no API cost
 no automatic persistence
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Code Review
+
+Phase marker: embedding model live-provider code review v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-code-review.md
+```
+
+Current insertion point:
+
+```text
+apps/api/app/services/embedding_model_preview.py
+get_embedding_provider_client returns None
+preview_embedding_model_provider
+```
+
+Selected future code boundary:
+
+```text
+OpenAI Python SDK
+client.embeddings.create
+provider adapter interface
+apps/api/app/services/openai_embedding_provider.py
+```
+
+Required future adapter settings:
+
+```text
+OPENAI_API_KEY
+timeout_seconds
+embedding_model
+embedding_dimension
+encoding_format: float
+```
+
+Required future implementation boundaries:
+
+```text
+structured provider error boundary
+provider response dimension check
+usage metadata
+secret_exposed: false
+no live provider call in CI
+preview_only_not_persisted
+```
+
+Dependency boundary:
+
+```text
+dependency addition deferred
+no OpenAI dependency added in this phase
+```
+
+Claim boundary:
+
+```text
+no runtime behavior
+no live provider call
+no API cost
+actual live embedding model generation remains unproven
+```
