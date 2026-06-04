@@ -84,6 +84,8 @@ External reviewer PDF downstream handoff request refresh: `docs/review/external-
 
 External reviewer PDF downstream handoff issue-body refresh: `docs/review/external-review-issue-body-pdf-downstream-handoff-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded PDF downstream handoff proof. It is not external reviewer feedback itself, not hosted deployment evidence, not robust PDF extraction, OCR, table extraction, or raw file storage.
 
+External feedback current-state PDF downstream handoff issue verification: `docs/review/external-feedback-current-state-pdf-downstream-handoff-issue-verification.md` records the current issue #1 screen after the PDF downstream handoff issue-body refresh. It keeps external reviewer feedback pending because the only comment is self-authored and candidate_count remains 0.
+
 External reviewer parsed-document persistence request refresh: `docs/review/external-reviewer-parsed-document-persistence-request-refresh.md` points the reviewer request path to the uploaded-file parsed document persistence proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.
 
 External review issue body parsed document persistence refresh: `docs/review/external-review-issue-body-parsed-document-persistence-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file parsed document persistence proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.

@@ -114,3 +114,9 @@ It is not production readiness, robust PDF extraction, OCR, table extraction, la
 ```text
 external feedback current-state PDF downstream handoff issue verification v0
 ```
+
+That current-state screen is recorded at:
+
+```text
+docs/review/external-feedback-current-state-pdf-downstream-handoff-issue-verification.md
+```
