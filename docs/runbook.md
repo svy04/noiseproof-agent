@@ -194,6 +194,8 @@ Phase 379 adds uploaded raw file signature validation local v0: `docs/review/upl
 
 Phase 380 adds uploaded raw file signature validation runtime smoke v0: `docs/review/uploaded-raw-file-signature-validation-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for the local v0 signature check: spoofed CSV upload returns `201`, declared PDF mismatch returns `415`, the blocked response has no raw bytes, and the mismatch hash is not present in recent raw uploads. This is not robust file-type detection, malware scanning evidence, production authorization, hosted deployment evidence, or product-complete.
 
+Phase 381 adds external reviewer signature-validation request refresh v0: `docs/review/external-reviewer-signature-validation-request-refresh.md` updates reviewer-facing repository surfaces so `docs/review/uploaded-raw-file-signature-validation-runtime-smoke.md` is visible from the proof path, review request, reviewer brief, link map, and portfolio index. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust file-type detection, not malware scanning evidence, and not production authorization.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

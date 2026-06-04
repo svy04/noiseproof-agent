@@ -160,6 +160,14 @@ docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md
 
 This proof is local Docker DB plus live FastAPI HTTP evidence for local v0 guarded raw file download rate limiting; same-file no-scan attempts return `[409, 409, 409, 409, 409]` then `429`, and a separate clean file still downloads with `200`. It is not hosted deployment evidence, not external reviewer feedback, not distributed rate limiting, not endpoint malicious-detection runtime proof, and not production authorization.
 
+raw file signature validation runtime smoke:
+
+```text
+docs/review/uploaded-raw-file-signature-validation-runtime-smoke.md
+```
+
+This proof is local Docker DB plus live FastAPI HTTP evidence for local v0 raw file signature validation; spoofed CSV upload returns `201`, declared PDF mismatch returns `415`, the blocked response has no raw bytes, and the mismatch hash is not recently persisted. It is not hosted deployment evidence, not external reviewer feedback, not robust file-type detection, not malware scanning evidence, not endpoint malicious-detection runtime proof, and not production authorization.
+
 retrieval-run-linked Report proof:
 
 ```text

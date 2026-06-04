@@ -466,6 +466,8 @@ Uploaded raw file signature validation local v0: implemented. Boundary: `POST /d
 
 Uploaded raw file signature validation runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified spoofed CSV upload `201`, declared PDF mismatch `415`, no raw bytes in the blocked response, and no recent persistence of the mismatch hash; not robust file-type detection, malware scanning evidence, production authorization, hosted deployment evidence, or product-complete.
 
+External reviewer signature-validation request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the raw file signature validation runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust file-type detection, not malware scanning evidence, and not production authorization.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

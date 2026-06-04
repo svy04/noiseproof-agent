@@ -76,6 +76,8 @@ Read in this order:
     - guarded raw file download endpoint runtime smoke with local Docker DB and live FastAPI HTTP; no-scan download returns `409`, latest clean scan returns `200` bytes, later failed scan returns `409`; not hosted deployment evidence, not external reviewer feedback, and not production malware scanning evidence.
 32. `docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md`
     - guarded raw file download rate-limit runtime smoke with local Docker DB and live FastAPI HTTP; same-file no-scan attempts return `[409, 409, 409, 409, 409]` then `429`, while a separate clean file still downloads with `200`; not hosted deployment evidence, not external reviewer feedback, not distributed rate limiting, and not production authorization.
+33. `docs/review/uploaded-raw-file-signature-validation-runtime-smoke.md`
+    - raw file signature validation runtime smoke with local Docker DB and live FastAPI HTTP; spoofed CSV upload returns `201`, declared PDF mismatch returns `415`, blocked response has no raw bytes, and mismatch hash is not recently persisted; not hosted deployment evidence, not external reviewer feedback, not robust file-type detection, not malware scanning evidence, and not production authorization.
 
 ## Optional source-level provenance
 
