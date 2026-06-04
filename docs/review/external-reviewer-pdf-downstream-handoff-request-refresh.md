@@ -85,7 +85,13 @@ not robust PDF extraction
 
 ## Next Gate
 
-The next bounded request gate should update or verify the live public issue body so issue #1 points reviewers to the uploaded PDF downstream handoff proof:
+The follow-up issue-body gate is recorded at:
+
+```text
+docs/review/external-review-issue-body-pdf-downstream-handoff-refresh.md
+```
+
+That gate updates or verifies the live public issue body so issue #1 points reviewers to the uploaded PDF downstream handoff proof:
 
 ```text
 external reviewer PDF downstream handoff issue-body refresh v0
