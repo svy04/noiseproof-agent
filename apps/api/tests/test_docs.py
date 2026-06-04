@@ -58,6 +58,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-workflow-parent-linkage-proof-index.md",
         "docs/review/failure-case-workflow-review-queue.md",
         "docs/review/failure-case-workflow-review-queue-runtime-smoke-verification.md",
+        "docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md",
     ]
 
     for file_path in required_files:
@@ -2158,6 +2159,51 @@ def test_failure_case_workflow_review_queue_runtime_smoke_documents_fresh_db_htt
     assert "failure-case workflow review queue runtime smoke verification v0" in runbook
     assert (
         "docs/review/failure-case-workflow-review-queue-runtime-smoke-verification.md"
+        in portfolio
+    )
+
+
+def test_failure_case_workflow_review_queue_dashboard_surfacing_review_defers_rendering_change():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Failure-case Workflow Review Queue Dashboard Surfacing Review" in content
+    assert "failure-case workflow review queue dashboard surfacing review v0" in content
+    assert "review-only gate" in content
+    assert "GET /ops/dashboard" in content
+    assert "GET /failure-cases/workflow-review-queue" in content
+    assert "Failure-case Workflow Review Queue" in content
+    assert "pending_review_count" in content
+    assert "linked_failure_case_count" in content
+    assert "needs_failure_case_review" in content
+    assert "failure_case_linked" in content
+    assert "draft preview link" in content
+    assert "Do not add dashboard rendering in this review gate" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert (
+        "next product gate: failure-case workflow review queue dashboard surfacing v0"
+        in content
+    )
+    assert (
+        "Phase 359 - Failure-case Workflow Review Queue Dashboard Surfacing Review v0"
+        in goal
+    )
+    assert (
+        "Failure-case workflow review queue dashboard surfacing review v0: implemented"
+        in readme
+    )
+    assert "failure-case workflow review queue dashboard surfacing review v0" in runbook
+    assert (
+        "docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md"
         in portfolio
     )
 

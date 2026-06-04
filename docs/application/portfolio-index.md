@@ -268,6 +268,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | Failure-case workflow parent linkage stale-claim cleanup | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | implemented v0 |
 | Failure-case workflow review queue | `GET /failure-cases/workflow-review-queue`, `docs/review/failure-case-workflow-review-queue.md` | implemented v0 |
 | Failure-case workflow review queue runtime smoke verification | `docs/review/failure-case-workflow-review-queue-runtime-smoke-verification.md` | verified local |
+| Failure-case workflow review queue dashboard surfacing review | `docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md` | reviewed |
 | External-reader proof path | `docs/review/external-reader-proof-path.md` | implemented v0 |
 | Portfolio site proof artifact route verification | `docs/review/portfolio-site-proof-artifact-route-verification.md` | verified live portfolio route |
 | Demo transcript capture | `docs/review/demo-transcript-capture.md` | self-authored route walkthrough |
@@ -311,6 +312,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/failure-case-workflow-parent-linkage-proof-index.md` | reviewer reader path for schema boundary -> manual persistence -> fresh DB persistence -> dashboard surfacing -> fresh DB dashboard proof |
 | `docs/review/failure-case-workflow-review-queue.md` | read-model queue for failed workflow parents that need human failure-case review; not automatic failure-case creation |
 | `docs/review/failure-case-workflow-review-queue-runtime-smoke-verification.md` | local fresh migrated Docker DB proof for the workflow review queue read model; pending 1, linked 1, completed excluded |
+| `docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md` | review-only selection for future plain dashboard queue section; no dashboard rendering yet |
 | `docs/review/portfolio-site-proof-artifact-route-verification.md` | live portfolio route proof that the public NoiseProof proof surface references the current repo proof path and boundaries |
 | `docs/review/demo-transcript-capture.md` | self-authored route transcript for collection planning, deterministic workflow preview, lineage, and dashboard inspection |
 | `docs/review/local-browser-screenshot-walkthrough.md` | local browser screenshot walkthrough for the operations dashboard and workflow-run lineage link |

@@ -154,6 +154,8 @@ Phase 357 adds failure-case workflow review queue v0: `GET /failure-cases/workfl
 
 Phase 358 adds failure-case workflow review queue runtime smoke verification v0: local fresh migrated Docker DB plus live FastAPI HTTP observed `POST /workflow-runs`, `POST /failure-cases`, and `GET /failure-cases/workflow-review-queue` with `pending_review_count: 1`, `linked_failure_case_count: 1`, `needs_failure_case_review`, `failure_case_linked`, and `read_model_only_no_automatic_failure_case_creation`. This is local runtime evidence only; it does not create failure_cases, is not hosted deployment evidence, is not external reviewer feedback, and is not complete workflow failure causality.
 
+Phase 359 adds failure-case workflow review queue dashboard surfacing review v0: `docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md` selects a compact `Failure-case Workflow Review Queue` section for future `GET /ops/dashboard` rendering, with `pending_review_count`, `linked_failure_case_count`, `needs_failure_case_review`, `failure_case_linked`, and a draft preview link. This review gate does not change dashboard HTML and is not automatic failure-case creation.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
