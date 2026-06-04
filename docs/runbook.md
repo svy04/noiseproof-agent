@@ -212,6 +212,8 @@ Phase 388 adds external review issue body extension-allowlist refresh v0: `docs/
 
 Phase 389 adds external feedback current-state extension-allowlist issue verification v0: `docs/review/external-feedback-current-state-extension-allowlist-issue-verification.md` records the live issue #1 state after the extension-allowlist issue-body refresh. Observed state: `starts_with_request: true`, `first_codepoint: 35`, `has_extension_allowlist_proof: true`, `has_extension_allowlist_request_refresh: true`, `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`. This is live request-surface evidence only and does not close external reviewer feedback v0.
 
+Phase 390 adds uploaded raw file download filename safety local v0: `docs/review/uploaded-raw-file-download-filename-safety-local.md` records local API behavior for guarded raw file download attachment filenames. `GET /documents/upload-raw-files/{raw_file_id}/download` now returns `X-NoiseProof-Download-Filename-Boundary: local_v0_content_disposition_filename_safety_not_production`; the filename helper URL-decodes metadata filenames, ignores path components, restricts characters to a conservative ASCII subset, caps names at 120 characters, preserves short extensions where possible, and falls back to `raw-file-<uuid>.bin` when normalization empties the candidate. This is local v0 endpoint behavior only, not production authorization, hosted proof, robust file serving, or product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

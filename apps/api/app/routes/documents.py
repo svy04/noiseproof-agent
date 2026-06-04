@@ -75,6 +75,10 @@ DOWNLOAD_RATE_LIMIT_DETAIL = "raw file download rate limit exceeded"
 DOWNLOAD_RATE_LIMIT_BOUNDARY = "local_v0_in_memory_fixed_window_not_production"
 DOWNLOAD_RATE_LIMIT_ATTEMPTS = 5
 DOWNLOAD_RATE_LIMIT_WINDOW_SECONDS = 60.0
+DOWNLOAD_FILENAME_BOUNDARY = (
+    "local_v0_content_disposition_filename_safety_not_production"
+)
+DOWNLOAD_FILENAME_MAX_LENGTH = 120
 SIGNATURE_VALIDATION_BOUNDARY = "local_v0_magic_prefix_allowlist_not_production"
 EXTENSION_ALLOWLIST_BOUNDARY = "local_v0_extension_allowlist_not_production"
 ALLOWED_RAW_FILE_EXTENSIONS = {
@@ -114,9 +118,31 @@ def _safe_download_filename(filename: str | None, raw_file_id: UUID) -> str:
     fallback = f"raw-file-{raw_file_id}.bin"
     if not filename:
         return fallback
-    candidate = filename.replace("\\", "/").split("/")[-1].strip()
-    candidate = re.sub(r"[^A-Za-z0-9._-]+", "_", candidate).strip("._")
-    return candidate or fallback
+    decoded = unquote(filename)
+    candidate = decoded.replace("\\", "/").split("/")[-1].strip()
+    candidate = re.sub(r"[^A-Za-z0-9._-]+", "_", candidate).strip("._-")
+    if not candidate:
+        return fallback
+    return _limit_download_filename(candidate, fallback)
+
+
+def _limit_download_filename(candidate: str, fallback: str) -> str:
+    if len(candidate) <= DOWNLOAD_FILENAME_MAX_LENGTH:
+        return candidate
+
+    stem = candidate
+    extension = ""
+    if "." in candidate:
+        possible_stem, possible_extension = candidate.rsplit(".", 1)
+        if possible_stem and re.fullmatch(r"[A-Za-z0-9]{1,16}", possible_extension):
+            stem = possible_stem
+            extension = f".{possible_extension}"
+
+    max_stem_length = DOWNLOAD_FILENAME_MAX_LENGTH - len(extension)
+    trimmed_stem = stem[:max_stem_length].rstrip("._-")
+    if not trimmed_stem:
+        return fallback
+    return f"{trimmed_stem}{extension}"
 
 
 def _content_type_for_download(content_type: str | None) -> str:
@@ -774,6 +800,7 @@ def download_upload_raw_file(
         "X-NoiseProof-Download-Boundary": "scan_first_latest_clean_result_required",
         "X-NoiseProof-Authorization-Boundary": "local_v0_no_auth_not_production",
         "X-NoiseProof-Download-Rate-Limit-Boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
+        "X-NoiseProof-Download-Filename-Boundary": DOWNLOAD_FILENAME_BOUNDARY,
     }
     return Response(
         content=bytes(raw_file["raw_bytes"]),

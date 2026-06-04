@@ -8,6 +8,11 @@ from fastapi.testclient import TestClient
 
 from app.db import get_repository
 from app.main import create_app
+from app.routes.documents import (
+    DOWNLOAD_FILENAME_BOUNDARY,
+    DOWNLOAD_FILENAME_MAX_LENGTH,
+    _safe_download_filename,
+)
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
 from app.settings import Settings
 from app.services.raw_file_scan_execution import get_scanner_adapter
@@ -569,6 +574,35 @@ def _minimal_pdf_bytes(text: str) -> bytes:
         ).encode("ascii")
     )
     return bytes(output)
+
+
+def test_safe_download_filename_blocks_path_control_chars_and_overlong_names():
+    raw_file_id = uuid4()
+    unsafe_name = (
+        "..\\nested/%0d%0aInjected: yes/very-long-"
+        + ("a" * 180)
+        + ".csv"
+    )
+
+    safe_name = _safe_download_filename(unsafe_name, raw_file_id)
+
+    assert len(safe_name) <= DOWNLOAD_FILENAME_MAX_LENGTH
+    assert safe_name.endswith(".csv")
+    assert "\r" not in safe_name
+    assert "\n" not in safe_name
+    assert "/" not in safe_name
+    assert "\\" not in safe_name
+    assert ".." not in safe_name
+    assert ":" not in safe_name
+    assert "Injected" not in safe_name
+
+
+def test_safe_download_filename_uses_generated_fallback_for_empty_candidate():
+    raw_file_id = uuid4()
+
+    safe_name = _safe_download_filename("...///___", raw_file_id)
+
+    assert safe_name == f"raw-file-{raw_file_id}.bin"
 
 
 def test_health_endpoint():
@@ -1720,6 +1754,9 @@ def test_document_upload_raw_file_download_returns_bytes_after_latest_clean_scan
     )
     assert response.headers["x-noiseproof-download-rate-limit-boundary"] == (
         "local_v0_in_memory_fixed_window_not_production"
+    )
+    assert response.headers["x-noiseproof-download-filename-boundary"] == (
+        DOWNLOAD_FILENAME_BOUNDARY
     )
     assert response.headers["content-disposition"].startswith("attachment;")
     assert "sample.csv" in response.headers["content-disposition"]

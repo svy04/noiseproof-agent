@@ -484,6 +484,8 @@ External review issue body extension-allowlist refresh v0: implemented. Boundary
 
 External feedback current-state extension-allowlist issue verification v0: implemented. Boundary: current issue #1 screen after the extension-allowlist issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
+Uploaded raw file download filename safety local v0: implemented. Boundary: guarded raw file downloads now expose `local_v0_content_disposition_filename_safety_not_production`, derive a conservative ASCII attachment filename, cap it at 120 characters, and fall back to `raw-file-<uuid>.bin` when normalization empties the candidate; not production authorization, hosted proof, robust file serving, or product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:
