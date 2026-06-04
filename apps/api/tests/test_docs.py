@@ -14693,3 +14693,73 @@ def test_uploaded_raw_file_download_approval_audit_metadata_runtime_smoke_record
         "docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md"
         in metadata_review
     )
+
+
+def test_external_reviewer_approval_audit_metadata_request_refresh_links_runtime_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-approval-audit-metadata-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (
+        REPO_ROOT / "docs/review/external-review-request.md"
+    ).read_text(encoding="utf-8")
+    reviewer_brief = (
+        REPO_ROOT / "docs/review/external-reviewer-brief.md"
+    ).read_text(encoding="utf-8")
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = (
+        "docs/review/"
+        "uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md"
+    )
+
+    assert "External Reviewer Approval-audit Metadata Request Refresh" in content
+    assert "external reviewer approval-audit-metadata request refresh v0" in content
+    assert proof_doc in content
+    assert "event_download_approval_id_matches: true" in content
+    assert "event_approval_status: approved" in content
+    assert "event_approval_expires_at_present: true" in content
+    assert "event_approval_scan_result_matches_latest: true" in content
+    assert "event_identity_boundary: operator_label_not_authenticated_identity" in content
+    assert "not live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production authorization" in content
+    assert "not authenticated user identity" in content
+    assert "not signed URL support" in content
+    assert (
+        "External reviewer approval-audit-metadata request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 423 - External Reviewer Approval-audit Metadata Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer approval-audit-metadata request refresh v0" in runbook
+    assert "raw file download approval audit metadata runtime smoke" in proof_path
+    assert proof_doc in review_request
+    assert proof_doc in reviewer_brief
+    assert proof_doc in link_map
+    assert proof_doc in role_map
+    assert proof_doc in portfolio
+    assert (
+        "docs/review/external-reviewer-approval-audit-metadata-request-refresh.md"
+        in portfolio
+    )

@@ -278,6 +278,8 @@ Phase 421 adds uploaded raw file download approval audit metadata v0: `docs/revi
 
 Phase 422 adds uploaded raw file download approval audit metadata runtime smoke v0: `docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md` records local Docker FastAPI plus PostgreSQL evidence after rebuilding the API container. Observed: health `ok`, clean scan metadata, active approval `approved`, download `200`, allowed event `200`, approval id match, approval status `approved`, approval expiry present, approval latest scan result id match, approval scan-result match `true`, and identity boundary `operator_label_not_authenticated_identity`. This is local runtime evidence only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
 
+Phase 423 adds external reviewer approval-audit-metadata request refresh v0: `docs/review/external-reviewer-approval-audit-metadata-request-refresh.md` makes the approval audit metadata runtime smoke discoverable from reviewer-facing repository paths, including the external-reader proof path, review request packet, reviewer brief, link map, Braincrew role map, and portfolio index. This is request-surface refresh only, not a live issue body edit, not external reviewer feedback, not hosted evidence, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

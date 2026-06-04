@@ -1565,6 +1565,43 @@ Next recommended gate:
 external reviewer approval-audit-metadata request refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 423 extension to the accepted state:
+
+```text
+External Reviewer Approval-audit Metadata Request Refresh v0
+```
+
+### Phase 423 - External Reviewer Approval-audit Metadata Request Refresh v0
+
+Goal:
+
+```text
+make the approval audit metadata runtime smoke discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer approval-audit-metadata request refresh v0
+docs/review/external-reviewer-approval-audit-metadata-request-refresh.md
+docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md linked from external-reader proof path
+docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md linked from review request packet
+docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md linked from reviewer brief
+docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md linked from reviewer link map
+README implementation marker
+docs/runbook.md request refresh note
+docs/application/portfolio-index.md request refresh artifact link
+docs/application/braincrew-role-map.md proof link
+```
+
+Phase 423 is request-surface refresh only. It adds no live issue body edit, runtime behavior, schema, migration, API endpoint, hosted deployment evidence, external reviewer feedback, production authorization, authenticated user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+external review issue body approval-audit-metadata refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

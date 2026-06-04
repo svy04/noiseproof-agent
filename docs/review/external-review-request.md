@@ -263,6 +263,14 @@ docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md
 
 Boundary: this proof is local Docker FastAPI plus PostgreSQL evidence for local v0 approval input validation; valid approval metadata creates/lists, unknown approval status returns `422`, and already expired active approval returns `422`. It is not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
 
+raw file download approval audit metadata runtime smoke:
+
+```text
+docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md
+```
+
+Boundary: this proof is local Docker FastAPI plus PostgreSQL evidence for local v0 approval audit metadata; active approval download returns `200`, allowed event metadata keeps approval id/status/expiry/latest-scan match, and identity remains `operator_label_not_authenticated_identity`. It is not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
+
 architecture current-state refresh:
 
 ```text
