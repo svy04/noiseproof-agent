@@ -90,5 +90,5 @@ It is not product-complete.
 ## Next Gate
 
 ```text
-external review issue body readiness-runtime refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from docs/GOAL.md
+external feedback current-state readiness-runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from docs/GOAL.md
 ```

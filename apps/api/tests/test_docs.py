@@ -15702,3 +15702,70 @@ def test_external_reviewer_readiness_runtime_request_refresh_links_runtime_proof
         "docs/review/external-reviewer-readiness-runtime-request-refresh.md"
         in portfolio
     )
+
+
+def test_external_review_issue_body_readiness_runtime_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-readiness-runtime-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = (
+        "docs/review/"
+        "uploaded-raw-file-download-readiness-runtime-smoke.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-readiness-runtime-request-refresh.md"
+    )
+
+    assert "External Review Issue Body Readiness-runtime Refresh" in content
+    assert "external review issue body readiness-runtime refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_readiness_runtime_proof": true' in content
+    assert '"has_readiness_runtime_request_refresh": true' in content
+    assert '"has_missing_clean_scan": true' in content
+    assert '"has_missing_download_approval": true' in content
+    assert '"has_readiness_allowed": true' in content
+    assert '"has_no_raw_bytes_boundary": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert "no_scan_blocked_reason: missing_clean_scan" in content
+    assert "clean_no_approval_blocked_reason: missing_download_approval" in content
+    assert "allowed_decision: allowed" in content
+    assert "raw_bytes_returned: false" in content
+    assert "rate_limit_consumed: false" in content
+    assert "events_after_readiness_count: 0" in content
+    assert "operator_label_not_authenticated_identity" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production authorization" in content
+    assert "not authenticated user identity" in content
+    assert "not signed URL support" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body readiness-runtime refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 441 - External Review Issue Body Readiness-runtime Refresh v0"
+        in goal
+    )
+    assert "external review issue body readiness-runtime refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-readiness-runtime-refresh.md"
+        in portfolio
+    )
