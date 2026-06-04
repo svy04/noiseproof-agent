@@ -12230,6 +12230,73 @@ def test_external_review_issue_body_readability_refresh_keeps_issue_scannable_an
     )
 
 
+def test_external_feedback_current_state_issue_body_readability_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-issue-body-readability-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    readability_refresh = (
+        REPO_ROOT / "docs/review/external-review-issue-body-readability-refresh.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Feedback Current-state Issue Body Readability Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state issue body readability verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert '"updatedAt": "2026-06-04T18:34:51Z"' in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_fast_path": true' in content
+    assert '"has_latest_proof": true' in content
+    assert '"has_feedback_format": true' in content
+    assert '"has_boundaries": true' in content
+    assert '"has_literal_crlf_text": false' in content
+    assert '"body_length_under_12000": true' in content
+    assert '"comment_count": 1' in content
+    assert '"screened_comment_count": 1' in content
+    assert '"candidate_count": 0' in content
+    assert '"draft_count": 0' in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment" in content
+    assert "does_not_close_gate: true" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert (
+        "External feedback current-state issue body readability verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 435 - External Feedback Current-state Issue Body Readability Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state issue body readability verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-issue-body-readability-verification.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/external-feedback-current-state-issue-body-readability-verification.md"
+        in readability_refresh
+    )
+
+
 def test_uploaded_raw_file_download_endpoint_review_keeps_downloads_scan_first_and_review_only():
     review_path = REPO_ROOT / "docs/review/uploaded-raw-file-download-endpoint-review.md"
     assert review_path.is_file()

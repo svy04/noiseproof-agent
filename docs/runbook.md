@@ -6005,6 +6005,46 @@ not hosted deployment evidence
 not production malware scanning evidence
 ```
 
+## External Feedback Current-state Issue Body Readability Verification
+
+Phase marker: external feedback current-state issue body readability verification v0.
+
+Use this artifact:
+
+```text
+docs/review/external-feedback-current-state-issue-body-readability-verification.md
+```
+
+Observed live issue markers:
+
+```text
+updatedAt: 2026-06-04T18:34:51Z
+starts_with_request: true
+first_codepoint: 35
+has_fast_path: true
+has_latest_proof: true
+has_feedback_format: true
+has_boundaries: true
+has_literal_crlf_text: false
+body_length: 3808
+body_length_under_12000: true
+comment_count: 1
+screened_comment_count: 1
+candidate_count: 0
+draft_count: 0
+classification: non_qualifying
+reason: self_authored_comment
+does_not_close_gate: true
+```
+
+Boundary:
+
+```text
+not external reviewer feedback
+not hosted deployment evidence
+external reviewer feedback remains pending
+```
+
 ## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery
 
 Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke input discovery v0.

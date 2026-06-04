@@ -60,3 +60,11 @@ not product-complete
 ```
 
 This artifact records a readability and routing refresh only. It adds no runtime behavior, schema, migration, API endpoint, external reviewer feedback, hosted deployment evidence, production malware scanning evidence, customer validation, Braincrew acceptance, or product-complete claim.
+
+## Follow-up Current-state Verification
+
+The current issue state after this readability refresh is recorded here:
+
+```text
+docs/review/external-feedback-current-state-issue-body-readability-verification.md
+```
