@@ -72,6 +72,8 @@ Read in this order:
     - ClamAV adapter runtime smoke proof with deterministic fake-runner scenarios; no real ClamAV execution, no signature database evidence, no malware scanning, and no download endpoint.
 30. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
     - uploaded raw file scan execution endpoint runtime proof with local Docker DB and live FastAPI HTTP; default scanner-unavailable returns failed / scan_error, no real ClamAV execution, no malware scanning, and no download endpoint.
+31. `docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md`
+    - guarded raw file download endpoint runtime smoke with local Docker DB and live FastAPI HTTP; no-scan download returns `409`, latest clean scan returns `200` bytes, later failed scan returns `409`; not hosted deployment evidence, not external reviewer feedback, and not production malware scanning evidence.
 
 ## Optional source-level provenance
 

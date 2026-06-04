@@ -199,6 +199,14 @@ docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
 
 Boundary: this proof is local Docker PostgreSQL plus live FastAPI HTTP evidence for `POST /documents/upload-raw-files/{raw_file_id}/scan`; the default scanner-unavailable result is `failed / scan_error`, and it remains not hosted deployment evidence, not external reviewer feedback, not real ClamAV execution, not signature database evidence, not malware scanning, and not a download endpoint.
 
+guarded raw file download endpoint runtime smoke:
+
+```text
+docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md
+```
+
+Boundary: this proof is local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /documents/upload-raw-files/{raw_file_id}/download`; no-scan download returns `409`, latest clean scan returns `200` bytes, and later failed scan returns `409`. It is not hosted deployment evidence, not external reviewer feedback, not production malware scanning evidence, not endpoint malicious-detection runtime proof, and not production authorization.
+
 architecture current-state refresh:
 
 ```text

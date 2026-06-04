@@ -54,7 +54,7 @@ Runtime proof summary:
 - Failure/provenance: manual failure-case persistence, workflow parent linkage, and dashboard proof keep human handoff visible; not automatic failure-case creation, not automatic failure detection, and not complete workflow failure causality.
 - Preserved proof markers: failure-case persistence smoke; linked failure-case proof; failed workflow parent proof; historical failure-case workflow linkage review; human-confirmed draft payload; route-level smoke; draft.fix_status from draft to open; fresh migrated Docker DB handoff proof; workflow failure-to-draft smoke; workflow parent linkage fresh DB proof; dashboard manual workflow parent link; fresh DB dashboard Workflow Parent proof; workflow parent proof index; reader path; manual workflow parent linkage now exists.
 - Preserved boundary markers: preview_only_not_persisted; not fresh Docker DB evidence; not automatic failure-case persistence; automatic failure-case creation remains unclaimed.
-- Upload path: intake manifest, raw upload quarantine metadata, parsed-document metadata, uploaded digital PDF downstream handoff, chunk persistence/handoff, and document-scoped retrieval persistence are locally smoke-tested with no download endpoint, no malware scanning, no robust PDF claim, and no hosted deployment evidence.
+- Upload path: raw upload quarantine metadata plus guarded raw file download endpoint runtime smoke are locally smoke-tested; production authorization, enforced rate limits, production malware evidence, robust PDF, and hosted evidence remain unproven.
 - Preserved upload proof markers: upload intake manifest runtime smoke; upload intake manifest persistence runtime smoke; upload parsed document persistence runtime smoke.
 - Preserved upload boundary markers: not raw file storage.
 - Retrieval handoffs: linked Evidence Ledger, Noise Gate, and Report endpoints have local Docker runtime smoke; no external feedback, LLM judgment, free-form final answer, or automatic failure-case creation.
@@ -70,6 +70,7 @@ Detailed proof links:
 - `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md`
 - `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
 - `docs/review/uploaded-raw-file-storage-application-refresh.md`
+- `docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md`
 - `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
 - `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
 - `docs/review/retrieval-run-linked-report-runtime-smoke.md`

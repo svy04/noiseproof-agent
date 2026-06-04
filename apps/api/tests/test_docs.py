@@ -11873,3 +11873,55 @@ def test_guarded_raw_file_download_endpoint_runtime_smoke_is_documented():
     assert "Guarded raw file download endpoint runtime smoke v0: implemented" in readme
     assert "Phase 368 - Guarded Raw File Download Endpoint Runtime Smoke v0" in goal
     assert "guarded raw file download endpoint runtime smoke v0" in runbook
+
+
+def test_external_reviewer_guarded_download_request_refresh_links_runtime_proof():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-guarded-download-request-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    app_ready = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    proof_doc = "docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md"
+
+    assert "External Reviewer Guarded Download Request Refresh" in content
+    assert "external reviewer guarded download request refresh v0" in content
+    assert proof_doc in content
+    for reviewer_surface in [proof_path, request, brief, link_map, portfolio, role_map, app_ready]:
+        assert proof_doc in reviewer_surface
+        assert "guarded raw file download endpoint runtime smoke" in reviewer_surface
+    assert "not live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production malware scanning evidence" in content
+    assert (
+        "External reviewer guarded download request refresh v0: implemented"
+        in readme
+    )
+    assert "Phase 369 - External Reviewer Guarded Download Request Refresh v0" in goal
+    assert "external reviewer guarded download request refresh v0" in runbook

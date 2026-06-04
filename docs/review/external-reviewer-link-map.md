@@ -79,7 +79,10 @@ https://github.com/svy04/noiseproof-agent/issues/1
 23. uploaded raw file scan execution endpoint runtime proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
    Boundary: local Docker DB plus live FastAPI HTTP for upload, explicit scan execution, and scan-result listing; default scanner-unavailable returns failed / scan_error, not real ClamAV execution, not malware scanning, and not external reviewer feedback.
-24. architecture current-state refresh:
+24. guarded raw file download endpoint runtime smoke:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md
+   Boundary: local Docker DB plus live FastAPI HTTP for guarded raw download; no-scan download returns `409`, latest clean scan returns `200` bytes, and later failed scan returns `409`; not hosted deployment evidence, not external reviewer feedback, and not production malware scanning evidence.
+25. architecture current-state refresh:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/architecture-current-state-refresh.md
    Boundary: separates implemented upload/chunk/retrieval/evidence handoff surfaces from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality.
 24. Feedback intake criteria:

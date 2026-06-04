@@ -170,6 +170,8 @@ Phase 367 adds guarded raw file download endpoint v0: `GET /documents/upload-raw
 
 Phase 368 adds guarded raw file download endpoint runtime smoke v0: `docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for upload -> no-scan download `409` -> clean scan metadata -> download `200` with `scan_first_latest_clean_result_required` and `local_v0_no_auth_not_production` headers -> later failed scan metadata -> download `409`. This is local runtime smoke only, not hosted deployment evidence, external reviewer feedback, production malware scanning evidence, production authorization, enforced rate limiting, or product-complete.
 
+Phase 369 adds external reviewer guarded download request refresh v0: `docs/review/external-reviewer-guarded-download-request-refresh.md` updates reviewer-facing repository surfaces so `docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md` is visible from the proof path, review request, reviewer brief, link map, portfolio index, Braincrew role map, and application-ready review. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not production malware scanning evidence, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

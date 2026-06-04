@@ -442,6 +442,8 @@ Guarded raw file download endpoint v0: implemented. Boundary: explicit `GET /doc
 
 Guarded raw file download endpoint runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP proved upload -> no-scan download `409` -> clean scan metadata -> download `200` with raw bytes and nosniff/download headers -> later failed scan metadata -> download `409`; not hosted deployment evidence, not external reviewer feedback, not production malware scanning evidence, and not product-complete.
 
+External reviewer guarded download request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the guarded raw file download runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not production malware scanning evidence, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:
