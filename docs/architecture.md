@@ -59,7 +59,8 @@ Current status:
 - Workflow Lineage Warning Code Dashboard Smoke Example v0 exists: the runbook shows the expected dashboard legend text.
 - Workflow Version Naming Review v0 exists: runtime `workflow_version` naming was reviewed before changing `phase36-structured-warning-taxonomy`.
 - Workflow Version Naming Update v0 exists: runtime `workflow_version` is now `phase40-lineage-warning-code-dashboard`.
-- Web app, file upload parsing, robust PDF extraction, persisted chunks, persisted collection plans, embeddings, distributed tracing, hosted observability, and autonomous/LLM-backed agents are planned but not implemented.
+- Current implemented current-state surfaces include uploaded file intake manifest persistence, uploaded file parsed document metadata persistence, uploaded file chunk persistence, uploaded file retrieval persistence, uploaded raw file quarantine storage, metadata-only raw-file scan records, explicit scan execution with scanner-unavailable defaults, ClamAV opt-in clean-file endpoint proof, caller-provided chunk embeddings, caller-provided semantic retrieval persistence, retrieval-run-linked Evidence Ledger, retrieval-run-linked Noise Gate, retrieval-run-linked Report, workflow lineage read models, dashboard lineage links, and failure-case records.
+- still unproven: robust PDF extraction, embedding generation, production semantic retrieval quality, hosted deployment evidence, hosted observability, external reviewer feedback, endpoint malicious-detection runtime proof, autonomous/LLM-backed agents, and a polished web app.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -169,7 +170,7 @@ Current persistence boundary:
 - `POST /documents/upload-chunks` can explicitly hand off uploaded content into a document row plus `document_chunks` rows.
 - `POST /documents/upload-chunk-preview` remains preview-only and does not create documents or chunks.
 
-Chunk persistence stores derived chunk text only. It stores no raw uploaded bytes, no full parsed text, no embeddings, and no retrieval persistence.
+Chunk persistence stores derived chunk text only. It stores no raw uploaded bytes and no full parsed text. Retrieval persistence is a separate explicit handoff surface, and embeddings are a separate caller-provided chunk embedding surface.
 
 Research scope note:
 
@@ -180,9 +181,16 @@ Research scope note:
 
 ### Indexing
 
-Stores chunks and embeddings in PostgreSQL with pgvector for MVP.
+Current implementation stores chunks in PostgreSQL and supports caller-provided chunk embeddings in `chunk_embeddings` with pgvector-compatible storage.
 
 Qdrant remains an alternative if pgvector slows delivery, but Day 1 chooses pgvector to keep the local stack small.
+
+Current boundary:
+
+- chunk text can be persisted through explicit document-scoped or upload handoff endpoints
+- caller-provided chunk embeddings can be persisted and listed
+- embedding generation is still unproven and not implemented
+- vector quality claims remain blocked by the semantic retrieval quality report boundary
 
 ### Retrieval
 
@@ -204,7 +212,9 @@ Implemented Phase 5 boundary:
 - retrieval run metadata persisted to `retrieval_runs`
 - no-results runs recorded with `status: no_results`
 
-Retrieval candidates are not final evidence by themselves. Phase 6 can promote, weaken, contradict, or block them through an Evidence Ledger Preview.
+Later implemented retrieval surfaces add explicit upload-file retrieval persistence and caller-provided semantic retrieval persistence. The semantic path ranks stored chunk embeddings against a caller-provided query vector; it does not generate embeddings and does not prove production semantic retrieval quality.
+
+Retrieval candidates are not final evidence by themselves. Evidence Ledger stages can promote, weaken, contradict, or block them before any report-shaped output.
 
 ### Collection Plan Preview
 
@@ -243,7 +253,8 @@ Implemented Phase 12 boundary:
 - `POST /evidence-ledgers` persists generated preview entries
 - `GET /evidence-ledgers` lists stored entries
 - operations summary and dashboard counts use persisted unsupported, blocked, and contradicted entries
-- persisted entries are not yet linked to retrieval run ids
+- `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger` creates retrieval-run-linked Evidence Ledger entries from an existing retrieval run
+- direct evidence -> gate -> report foreign-key lineage remains deferred; workflow lineage uses workflow parents and stage input manifests instead
 
 ### Analysis Draft
 
@@ -277,7 +288,9 @@ Implemented Phase 13 boundary:
 - `POST /noise-gates` persists a gate decision record
 - `GET /noise-gates` lists stored gate records
 - operations summary and dashboard count blocked and needs-revision gate decisions
-- persisted Noise Gate records are not yet linked to agent run ids or report records
+- persisted Noise Gate records can link to parent `agent_runs` and workflow parents where created through traced/workflow paths
+- `POST /retrieval-runs/{retrieval_run_id}/noise-gate` creates a retrieval-run-linked Noise Gate after linked Evidence Ledger entries exist
+- retrieval-run-linked Noise Gate records expose consumed upstream ids in metadata rather than claiming broad free-form judgment
 
 ### Claim-bounded Report
 
@@ -306,7 +319,9 @@ Implemented Phase 14 boundary:
 - `POST /reports` persists deterministic report preview records
 - `GET /reports` lists stored report preview records
 - operations summary and dashboard count generated, blocked, and needs-revision report records
-- persisted Report records are not yet linked to agent run ids
+- persisted Report records can link to parent `agent_runs` and workflow parents where created through traced/workflow paths
+- `POST /retrieval-runs/{retrieval_run_id}/report` creates a retrieval-run-linked Report after the linked Noise Gate exists
+- retrieval-run-linked Report records preserve the input Noise Gate id in `stage_input_manifest`; they are not free-form final answers
 
 ### Run Log / Failure Case
 
@@ -314,7 +329,7 @@ Records each agent run and failure case for later evaluation.
 
 Failures are not hidden. They are portfolio evidence.
 
-Phase 11 added a small auto-trace boundary for preview endpoints. The current preview routes create `agent_runs` records with `trace_json` fields such as endpoint, current workflow phase, source type, result counts, gate decisions, and report status where available. This is metadata tracing for inspectability, not distributed tracing or hosted observability.
+The current tracing boundary creates `agent_runs` records for traced operations and records workflow parent/child provenance for deterministic preview workflows. `trace_json`, `workflow_trace_id`, `workflow_run_id`, and stage input manifests are metadata tracing for inspectability, not distributed tracing or hosted observability.
 
 ## Planned Data Model
 
@@ -496,9 +511,29 @@ GET  /documents
 POST /documents/profile
 POST /documents/parse-preview
 POST /documents/chunk-preview
+POST /documents/upload-intake-manifest-preview
+POST /documents/upload-intake-manifests
+GET  /documents/upload-intake-manifests
+POST /documents/upload-parsed-documents
+POST /documents/{document_id}/chunks
+GET  /documents/{document_id}/chunks
+POST /documents/upload-chunks
+POST /documents/upload-retrieval-preview
+POST /chunks/{chunk_id}/embeddings
+GET  /chunks/{chunk_id}/embeddings
+POST /documents/{document_id}/semantic-retrieval-preview
+POST /documents/{document_id}/semantic-retrieval-runs
+POST /documents/upload-raw-files
+GET  /documents/upload-raw-files
+POST /documents/upload-raw-files/{raw_file_id}/scan-results
+GET  /documents/upload-raw-files/{raw_file_id}/scan-results
+POST /documents/upload-raw-files/{raw_file_id}/scan
 POST /collection-plans/preview
 POST /retrieval-runs
 GET  /retrieval-runs
+POST /retrieval-runs/{retrieval_run_id}/evidence-ledger
+POST /retrieval-runs/{retrieval_run_id}/noise-gate
+POST /retrieval-runs/{retrieval_run_id}/report
 POST /evidence-ledgers/preview
 POST /evidence-ledgers
 GET  /evidence-ledgers
@@ -527,10 +562,11 @@ Planned later endpoints:
 ```text
 GET  /documents/{id}
 GET  /retrieval-runs/{id}
-GET  /retrieval-runs/{id}/evidence-ledger
 ```
 
-Current endpoints do not parse uploaded files, perform robust PDF extraction, persist chunks, persist collection plans, link Evidence Ledger entries to retrieval run ids, create direct evidence -> gate -> report cross-stage links, compute embeddings, invoke an LLM, search external sources, create autonomous workflow execution, create free-form final answers, or provide distributed tracing. The current workflow parent proves common workflow membership, not direct stage-level causality between persisted Evidence Ledger rows, Noise Gate records, and Report records.
+Current endpoints include uploaded file preview/parsing handoffs, parsed document metadata persistence, chunk persistence, retrieval persistence, raw upload quarantine storage, caller-provided embeddings, caller-provided semantic retrieval persistence, and retrieval-run-linked Evidence Ledger / Noise Gate / Report handoffs.
+
+Current endpoints still do not perform robust PDF extraction, generate embeddings, persist collection plans, create direct evidence -> gate -> report foreign-key lineage, invoke an LLM, search external sources, create autonomous free-form agents, create free-form final answers, prove endpoint malicious-detection runtime behavior, prove hosted deployment, or provide distributed tracing. The current workflow parent proves common workflow membership, not direct stage-level causality between persisted Evidence Ledger rows, Noise Gate records, and Report records.
 
 ## Agent Workflow
 
@@ -542,7 +578,7 @@ Planned explicit workflow:
 4. Critic Agent blocks unsupported claims and surfaces contradictions.
 5. Report Agent produces a claim-bounded report.
 
-Each stage must log input and output. Current Phase 11 behavior auto-records preview endpoint metadata in `agent_runs`; it is not yet a complete multi-stage workflow trace.
+Each stage must log input and output. Current runtime evidence includes traced operations, workflow parent rows, child record links, stage input manifests, and a derived lineage read model. This is still deterministic preview/workflow metadata, not autonomous multi-agent orchestration, hosted observability, or distributed tracing.
 
 ## Evaluation Surface
 

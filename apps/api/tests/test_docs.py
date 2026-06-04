@@ -10025,6 +10025,53 @@ def test_external_feedback_current_state_owner_runtime_input_source_contract_iss
     )
 
 
+def test_architecture_current_state_refresh_removes_stale_planned_boundaries():
+    review_path = REPO_ROOT / "docs/review/architecture-current-state-refresh.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    stale_planned_boundary = (
+        "Web app, file upload parsing, robust PDF extraction, persisted chunks, "
+        "persisted collection plans, embeddings, distributed tracing, hosted "
+        "observability, and autonomous/LLM-backed agents are planned but not "
+        "implemented."
+    )
+
+    assert "Architecture Current-state Refresh" in content
+    assert "architecture current-state refresh v0" in content
+    assert "implemented current-state surfaces" in architecture
+    assert "uploaded file intake manifest persistence" in architecture
+    assert "uploaded file parsed document metadata persistence" in architecture
+    assert "uploaded file chunk persistence" in architecture
+    assert "uploaded file retrieval persistence" in architecture
+    assert "uploaded raw file quarantine storage" in architecture
+    assert "caller-provided chunk embeddings" in architecture
+    assert "caller-provided semantic retrieval persistence" in architecture
+    assert "retrieval-run-linked Evidence Ledger" in architecture
+    assert "retrieval-run-linked Noise Gate" in architecture
+    assert "retrieval-run-linked Report" in architecture
+    assert "still unproven" in architecture
+    assert "robust PDF extraction" in architecture
+    assert "embedding generation" in architecture
+    assert "production semantic retrieval quality" in architecture
+    assert "hosted deployment evidence" in architecture
+    assert "external reviewer feedback" in architecture
+    assert "endpoint malicious-detection runtime proof" in architecture
+    assert stale_planned_boundary not in architecture
+    assert "architecture current-state refresh v0: implemented" in readme
+    assert "Phase 336 - Architecture Current-state Refresh v0" in goal
+    assert "architecture current-state refresh v0" in runbook
+    assert "docs/review/architecture-current-state-refresh.md" in portfolio
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()
