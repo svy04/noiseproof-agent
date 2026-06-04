@@ -17334,3 +17334,41 @@ def test_embedding_model_live_provider_dependency_review_records_pinned_candidat
     assert "embedding model live-provider dependency review v0" in runbook
     assert "docs/review/embedding-model-live-provider-dependency-review.md" in portfolio
     assert "embedding model live-provider dependency review exists" in app_review
+
+
+def test_embedding_model_live_provider_dependency_addition_records_openai_without_live_call():
+    review_path = (
+        REPO_ROOT / "docs/review/embedding-model-live-provider-dependency-addition.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    pyproject = (REPO_ROOT / "apps/api/pyproject.toml").read_text(encoding="utf-8")
+    lockfile = (REPO_ROOT / "apps/api/uv.lock").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Model Live-provider Dependency Addition" in content
+    assert "embedding model live-provider dependency addition v0" in content
+    assert '"openai==2.41.0"' in pyproject
+    assert 'name = "openai"' in lockfile
+    assert 'version = "2.41.0"' in lockfile
+    assert "uv add \"openai==2.41.0\"" in content
+    assert "apps/api/pyproject.toml" in content
+    assert "apps/api/uv.lock" in content
+    assert "dependency metadata only" in content
+    assert "no live provider call in CI" in content
+    assert "no runtime behavior change" in content
+    assert "actual live embedding model generation remains unproven" in content
+    assert "Embedding model live-provider dependency addition v0: implemented" in readme
+    assert "Phase 471 - Embedding Model Live-provider Dependency Addition v0" in goal
+    assert "embedding model live-provider dependency addition v0" in runbook
+    assert "docs/review/embedding-model-live-provider-dependency-addition.md" in portfolio
+    assert "embedding model live-provider dependency addition exists" in app_review

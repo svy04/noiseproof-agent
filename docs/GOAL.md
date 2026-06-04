@@ -17178,6 +17178,46 @@ Next recommended evidence gate:
 embedding model live-provider dependency addition v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 471 - Embedding Model Live-provider Dependency Addition v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+add the pinned OpenAI Python SDK dependency metadata while preserving no-live-call runtime behavior
+```
+
+Implemented:
+
+```text
+embedding model live-provider dependency addition v0
+docs/review/embedding-model-live-provider-dependency-addition.md
+uv add "openai==2.41.0"
+apps/api/pyproject.toml direct dependency update
+apps/api/uv.lock update
+openai==2.41.0 locked
+distro==1.9.0 locked
+jiter==0.15.0 locked
+sniffio==1.3.1 locked
+tqdm==4.67.3 locked
+dependency metadata only boundary recorded
+no runtime behavior change boundary recorded
+no live provider call in CI boundary retained
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+application-ready boundary refresh
+```
+
+Phase 471 adds dependency metadata only. It adds no app code, provider adapter, route behavior change, live provider call, API network call, API cost, embedding vector, automatic persistence, retrieval expansion, Evidence Ledger generation, semantic retrieval quality evidence, hosted deployment evidence, external reviewer feedback, customer validation, autonomous/LLM-backed agents, polished web app, or product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+embedding model live-provider adapter disabled-code v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

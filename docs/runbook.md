@@ -8964,3 +8964,54 @@ no live provider call
 no API cost
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Dependency Addition
+
+Phase marker: embedding model live-provider dependency addition v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-dependency-addition.md
+```
+
+Command:
+
+```bash
+cd apps/api
+uv add "openai==2.41.0"
+```
+
+Changed files:
+
+```text
+apps/api/pyproject.toml
+apps/api/uv.lock
+```
+
+Added dependency:
+
+```text
+openai==2.41.0
+```
+
+Observed lockfile additions:
+
+```text
+openai==2.41.0
+distro==1.9.0
+jiter==0.15.0
+sniffio==1.3.1
+tqdm==4.67.3
+```
+
+Claim boundary:
+
+```text
+dependency metadata only
+no app code changed
+no route behavior changed
+no runtime behavior change
+no live provider call in CI
+actual live embedding model generation remains unproven
+```
