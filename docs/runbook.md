@@ -150,6 +150,8 @@ Phase 80 reviews dashboard surfacing for manual failure-case workflow parent lin
 
 Phase 81 implements that bounded surface: `GET /ops/dashboard` now shows a Workflow Parent column in the Failure Cases table, and present `workflow_run_id` values link to `/workflow-runs/{id}`. This is a manual workflow parent link only, not automatic failure-case creation.
 
+Phase 357 adds failure-case workflow review queue v0: `GET /failure-cases/workflow-review-queue` returns failed, blocked, and needs-revision workflow parents with either `needs_failure_case_review` or `failure_case_linked`. This is a read model only; it does not create failure_cases, keeps the human confirmation boundary at `POST /failure-cases/draft-preview` plus manual persistence, and is not complete workflow failure causality.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

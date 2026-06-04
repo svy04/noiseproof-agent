@@ -56,6 +56,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-workflow-parent-linkage-fresh-db-dashboard-smoke-verification.md",
         "docs/review/failure-case-workflow-parent-linkage-proof-consolidation-review.md",
         "docs/review/failure-case-workflow-parent-linkage-proof-index.md",
+        "docs/review/failure-case-workflow-review-queue.md",
     ]
 
     for file_path in required_files:
@@ -2083,6 +2084,37 @@ def test_failure_case_workflow_creation_path_decision_defers_automation():
     assert "workflow_run_id on failure_cases requires a schema gate" in content
     assert "failure-case workflow creation path decision v0" in goal
     assert "Failure-case workflow creation path decision v0: implemented" in readme
+
+
+def test_failure_case_workflow_review_queue_documents_read_model_boundary():
+    content = (
+        REPO_ROOT / "docs/review/failure-case-workflow-review-queue.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    api_readme = (REPO_ROOT / "apps/api/README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case Workflow Review Queue" in content
+    assert "failure-case workflow review queue v0" in content
+    assert "GET /failure-cases/workflow-review-queue" in content
+    assert "failed_workflow_review_queue_read_model_only" in content
+    assert "read_model_only_no_automatic_failure_case_creation" in content
+    assert "needs_failure_case_review" in content
+    assert "failure_case_linked" in content
+    assert "POST /failure-cases/draft-preview" in content
+    assert "does not create failure_cases" in content
+    assert "human confirmation boundary" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert "Phase 357 - Failure-case Workflow Review Queue v0" in goal
+    assert "Failure-case workflow review queue v0: implemented" in readme
+    assert "failure-case workflow review queue v0" in runbook
+    assert "docs/review/failure-case-workflow-review-queue.md" in portfolio
+    assert "GET /failure-cases/workflow-review-queue" in api_readme
 
 
 def test_failure_case_workflow_parent_linkage_schema_review_selects_nullable_fk():

@@ -717,6 +717,26 @@ class FailureCaseDraftPreviewOut(BaseModel):
     warnings: list[str]
 
 
+class FailureCaseWorkflowReviewQueueItemOut(BaseModel):
+    workflow_run: WorkflowRunOut
+    review_status: str
+    linked_failure_case_ids: list[UUID]
+    linked_failure_case_count: int
+    draft_preview_path: str
+    stage: str
+    error_type: str
+    warnings: list[str]
+
+
+class FailureCaseWorkflowReviewQueueOut(BaseModel):
+    queue_boundary: str
+    persistence_boundary: str
+    pending_review_count: int
+    linked_failure_case_count: int
+    items: list[FailureCaseWorkflowReviewQueueItemOut]
+    warnings: list[str]
+
+
 class UploadFailureCaseDraftPreviewOut(BaseModel):
     filename: str | None = None
     content_type: str | None = None

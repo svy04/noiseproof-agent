@@ -748,6 +748,78 @@ def test_failure_case_draft_can_be_manually_handed_to_failure_case_persistence()
     assert len(listed.json()) == 1
 
 
+def test_failure_case_workflow_review_queue_surfaces_unlinked_failed_workflows_without_persistence():
+    client = make_client()
+    pending_workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which failed workflow still needs review?",
+            "status": "failed",
+            "error_message": "simulated evidence persistence failure",
+            "trace_json": {
+                "stage": "workflow_execute_preview",
+                "error_type": "RuntimeError",
+            },
+        },
+    ).json()
+    linked_workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which failed workflow already has a failure case?",
+            "status": "failed",
+            "error_message": "simulated report persistence failure",
+            "trace_json": {
+                "stage": "report_preview",
+                "error_type": "RuntimeError",
+            },
+        },
+    ).json()
+    completed_workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which completed workflow should not be queued?",
+            "status": "completed",
+        },
+    ).json()
+    linked_failure = client.post(
+        "/failure-cases",
+        json={
+            "workflow_run_id": linked_workflow["id"],
+            "failure_type": "workflow_stage_error",
+            "description": "Report persistence failed after evidence gating.",
+            "fix_status": "open",
+        },
+    ).json()
+
+    response = client.get("/failure-cases/workflow-review-queue")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["queue_boundary"] == "failed_workflow_review_queue_read_model_only"
+    assert (
+        payload["persistence_boundary"]
+        == "read_model_only_no_automatic_failure_case_creation"
+    )
+    assert payload["pending_review_count"] == 1
+    assert payload["linked_failure_case_count"] == 1
+    assert any("does not create failure_cases" in warning for warning in payload["warnings"])
+    assert any("human confirmation" in warning for warning in payload["warnings"])
+    assert len(payload["items"]) == 2
+    by_workflow_id = {item["workflow_run"]["id"]: item for item in payload["items"]}
+    assert completed_workflow["id"] not in by_workflow_id
+    pending_item = by_workflow_id[pending_workflow["id"]]
+    linked_item = by_workflow_id[linked_workflow["id"]]
+    assert pending_item["review_status"] == "needs_failure_case_review"
+    assert pending_item["linked_failure_case_ids"] == []
+    assert pending_item["linked_failure_case_count"] == 0
+    assert pending_item["draft_preview_path"] == "/failure-cases/draft-preview"
+    assert "workflow_execute_preview" in pending_item["stage"]
+    assert linked_item["review_status"] == "failure_case_linked"
+    assert linked_item["linked_failure_case_ids"] == [linked_failure["id"]]
+    assert linked_item["linked_failure_case_count"] == 1
+    assert len(client.get("/failure-cases").json()) == 1
+
+
 def test_document_chunk_persistence_endpoint_roundtrip_explicit_document_scope():
     client = make_client()
     document = client.post(

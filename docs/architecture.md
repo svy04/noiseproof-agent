@@ -331,6 +331,8 @@ Failures are not hidden. They are portfolio evidence.
 
 The current tracing boundary creates `agent_runs` records for traced operations and records workflow parent/child provenance for deterministic preview workflows. `trace_json`, `workflow_trace_id`, `workflow_run_id`, and stage input manifests are metadata tracing for inspectability, not distributed tracing or hosted observability.
 
+The failure-case workflow review queue is a read model over failed, blocked, and needs-revision `workflow_runs` plus existing `failure_cases.workflow_run_id` links. `GET /failure-cases/workflow-review-queue` surfaces parents that still need human review, but it does not create failure_cases, does not automate root-cause classification, and does not prove complete workflow failure causality.
+
 ## Planned Data Model
 
 ### Document
@@ -553,6 +555,7 @@ GET  /workflow-runs/{id}
 GET  /workflow-runs/{id}/lineage
 POST /failure-cases
 GET  /failure-cases
+GET  /failure-cases/workflow-review-queue
 GET  /ops/summary
 GET  /ops/dashboard
 ```
