@@ -1316,6 +1316,47 @@ Next recommended gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 417 extension to the accepted state:
+
+```text
+Uploaded Raw File Download Approval Input Guard Runtime Smoke v0
+```
+
+### Phase 417 - Uploaded Raw File Download Approval Input Guard Runtime Smoke v0
+
+Goal:
+
+```text
+verify the approval input guard through local Docker FastAPI plus PostgreSQL runtime
+```
+
+Implemented:
+
+```text
+uploaded raw file download approval input guard runtime smoke v0
+docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md
+docker compose --profile api up -d --build api
+health_status: ok
+scan_status: completed
+scan_verdict: clean
+valid_approval_status: approved
+approval_list_count: 1
+unknown_status_http: 422
+expired_approved_http: 422
+README implementation marker
+docs/runbook.md runtime smoke note
+docs/application/portfolio-index.md runtime smoke artifact link
+docs/application/braincrew-role-map.md upload path marker
+```
+
+Phase 417 is local runtime evidence only. It adds no DB schema change, hosted deployment evidence, external reviewer feedback, production authorization, authenticated user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim. It does not close external reviewer feedback v0.
+
+Next recommended gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

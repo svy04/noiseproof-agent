@@ -14327,3 +14327,53 @@ def test_uploaded_raw_file_download_approval_input_guard_documents_validation_bo
         in portfolio
     )
     assert "approval input guard" in role_map
+
+
+def test_uploaded_raw_file_download_approval_input_guard_runtime_smoke_records_live_http_evidence():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Approval Input Guard Runtime Smoke" in content
+    assert "uploaded raw file download approval input guard runtime smoke v0" in content
+    assert "local Docker FastAPI plus PostgreSQL" in content
+    assert "health_status: ok" in content
+    assert "scan_status: completed" in content
+    assert "scan_verdict: clean" in content
+    assert "valid_approval_status: approved" in content
+    assert "approval_list_count: 1" in content
+    assert "unknown_status_http: 422" in content
+    assert "literal_error" in content
+    assert "operator-said-ok" in content
+    assert "expired_approved_http: 422" in content
+    assert "expires_at must be in the future" in content
+    assert "not production authorization" in content
+    assert "not authenticated user identity" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Uploaded raw file download approval input guard runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 417 - Uploaded Raw File Download Approval Input Guard Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "uploaded raw file download approval input guard runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md"
+        in portfolio
+    )

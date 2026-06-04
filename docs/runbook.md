@@ -266,6 +266,8 @@ Phase 415 adds external feedback current-state approval-gate issue verification 
 
 Phase 416 adds uploaded raw file download approval input guard v0: `docs/review/uploaded-raw-file-download-approval-input-guard.md` records local v0 API/model validation for manual approval metadata. `RawFileDownloadApprovalCreate` now rejects unknown `approval_status` values and rejects already expired `approved` approvals before they can become active approval rows; `RawFileDownloadApprovalOut` remains separate so historical expired approved rows can still be listed as audit records. Focused verification: `uv run pytest tests/test_routes.py -q -k "download_approval"` -> `5 passed, 134 deselected, 1 warning`. This is local input validation only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
 
+Phase 417 adds uploaded raw file download approval input guard runtime smoke v0: `docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md` records local Docker FastAPI plus PostgreSQL evidence after rebuilding the API container. Observed: health `ok`, scan metadata `completed/clean`, valid approval status `approved`, approval list count `1`, unknown approval status `422`, and already expired active approval `422`. This is local runtime evidence only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

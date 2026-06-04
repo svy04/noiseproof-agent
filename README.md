@@ -538,6 +538,8 @@ External feedback current-state approval-gate issue verification v0: implemented
 
 Uploaded raw file download approval input guard v0: implemented. Boundary: `RawFileDownloadApprovalCreate` now rejects unknown approval statuses and rejects already expired `approved` approvals before they can become active approval metadata, while `RawFileDownloadApprovalOut` remains separate for historical audit rows; this is local v0 API/model input validation, not production authorization, not user identity, not signed URL support, not hosted evidence, and not product-complete.
 
+Uploaded raw file download approval input guard runtime smoke v0: implemented. Boundary: local Docker FastAPI plus PostgreSQL verified valid approval metadata create/list, unknown approval status `422`, and already expired active approval `422`; this is local runtime evidence only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:
