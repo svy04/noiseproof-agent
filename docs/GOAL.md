@@ -1357,6 +1357,43 @@ Next recommended gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 418 extension to the accepted state:
+
+```text
+External Reviewer Approval-input Guard Request Refresh v0
+```
+
+### Phase 418 - External Reviewer Approval-input Guard Request Refresh v0
+
+Goal:
+
+```text
+make the approval input guard runtime smoke discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer approval-input guard request refresh v0
+docs/review/external-reviewer-approval-input-guard-request-refresh.md
+docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md linked from external-reader proof path
+docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md linked from review request packet
+docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md linked from reviewer brief
+docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md linked from reviewer link map
+README implementation marker
+docs/runbook.md request refresh note
+docs/application/portfolio-index.md request refresh artifact link
+docs/application/braincrew-role-map.md proof link
+```
+
+Phase 418 is request-surface refresh only. It adds no live issue body edit, runtime behavior, schema, migration, API endpoint, hosted deployment evidence, external reviewer feedback, production authorization, authenticated user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim. It does not close external reviewer feedback v0.
+
+Next recommended gate:
+
+```text
+external review issue body approval-input guard refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

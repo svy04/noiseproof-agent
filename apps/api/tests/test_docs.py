@@ -14158,6 +14158,75 @@ def test_external_reviewer_approval_gate_request_refresh_links_runtime_proof():
     )
 
 
+def test_external_reviewer_approval_input_guard_request_refresh_links_runtime_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-approval-input-guard-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (
+        REPO_ROOT / "docs/review/external-review-request.md"
+    ).read_text(encoding="utf-8")
+    reviewer_brief = (
+        REPO_ROOT / "docs/review/external-reviewer-brief.md"
+    ).read_text(encoding="utf-8")
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = (
+        "docs/review/"
+        "uploaded-raw-file-download-approval-input-guard-runtime-smoke.md"
+    )
+
+    assert "External Reviewer Approval-input Guard Request Refresh" in content
+    assert "external reviewer approval-input guard request refresh v0" in content
+    assert proof_doc in content
+    assert "unknown_status_http: 422" in content
+    assert "expired_approved_http: 422" in content
+    assert "valid_approval_status: approved" in content
+    assert "approval_list_count: 1" in content
+    assert "not live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production authorization" in content
+    assert "not authenticated user identity" in content
+    assert "not signed URL support" in content
+    assert (
+        "External reviewer approval-input guard request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 418 - External Reviewer Approval-input Guard Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer approval-input guard request refresh v0" in runbook
+    assert "raw file download approval input guard runtime smoke" in proof_path
+    assert proof_doc in review_request
+    assert proof_doc in reviewer_brief
+    assert proof_doc in link_map
+    assert proof_doc in role_map
+    assert proof_doc in portfolio
+    assert (
+        "docs/review/external-reviewer-approval-input-guard-request-refresh.md"
+        in portfolio
+    )
+
+
 def test_external_review_issue_body_approval_gate_refresh_records_live_issue_edit():
     refresh_path = (
         REPO_ROOT / "docs/review/external-review-issue-body-approval-gate-refresh.md"

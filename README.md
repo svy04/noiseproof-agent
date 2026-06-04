@@ -540,6 +540,8 @@ Uploaded raw file download approval input guard v0: implemented. Boundary: `RawF
 
 Uploaded raw file download approval input guard runtime smoke v0: implemented. Boundary: local Docker FastAPI plus PostgreSQL verified valid approval metadata create/list, unknown approval status `422`, and already expired active approval `422`; this is local runtime evidence only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
 
+External reviewer approval-input guard request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the raw file download approval input guard runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

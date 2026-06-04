@@ -268,6 +268,8 @@ Phase 416 adds uploaded raw file download approval input guard v0: `docs/review/
 
 Phase 417 adds uploaded raw file download approval input guard runtime smoke v0: `docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md` records local Docker FastAPI plus PostgreSQL evidence after rebuilding the API container. Observed: health `ok`, scan metadata `completed/clean`, valid approval status `approved`, approval list count `1`, unknown approval status `422`, and already expired active approval `422`. This is local runtime evidence only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
 
+Phase 418 adds external reviewer approval-input guard request refresh v0: `docs/review/external-reviewer-approval-input-guard-request-refresh.md` makes the approval input guard runtime smoke discoverable from reviewer-facing repository paths, including the external-reader proof path, review request packet, reviewer brief, link map, Braincrew role map, and portfolio index. This is request-surface refresh only, not a live issue body edit, not external reviewer feedback, not hosted evidence, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

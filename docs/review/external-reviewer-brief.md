@@ -200,6 +200,14 @@ docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md
 
 This proof is local Docker FastAPI plus PostgreSQL evidence for local v0 approval-gated raw file downloads; latest-clean/no-approval returns `409` with `missing_download_approval`, non-active approval returns `409` with `revoked_or_expired_download_approval`, and active approval returns `200` with `download_approval_id` in audit metadata. It is not hosted deployment evidence, not external reviewer feedback, not production authorization, not user identity, not signed URL support, and not product-complete.
 
+raw file download approval input guard runtime smoke:
+
+```text
+docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md
+```
+
+This proof is local Docker FastAPI plus PostgreSQL evidence for local v0 approval input validation; valid approval metadata creates/lists, unknown approval status returns `422`, and already expired active approval returns `422`. It is not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
+
 retrieval-run-linked Report proof:
 
 ```text

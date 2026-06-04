@@ -68,6 +68,7 @@ Detailed proof links:
 - `docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md`
 - `docs/review/uploaded-raw-file-download-audit-runtime-smoke.md`
 - `docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md`
+- `docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md`
 - `docs/review/retrieval-run-linked-report-runtime-smoke.md`
 - `docs/review/embedding-endpoint-runtime-smoke.md`
 - `docs/review/semantic-retrieval-persistence-runtime-smoke.md`

@@ -100,10 +100,13 @@ https://github.com/svy04/noiseproof-agent/issues/1
 30. raw file download approval gate behavior runtime smoke:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md
    Boundary: local Docker FastAPI plus PostgreSQL for local v0 approval-gated raw file downloads; latest-clean/no-approval returns `409` with `missing_download_approval`, non-active approval returns `409` with `revoked_or_expired_download_approval`, and active approval returns `200` with `download_approval_id` in audit metadata; not hosted deployment evidence, not external reviewer feedback, not production authorization, not user identity, and not signed URL support.
-31. architecture current-state refresh:
+31. raw file download approval input guard runtime smoke:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md
+   Boundary: local Docker FastAPI plus PostgreSQL for local v0 approval input validation; valid approval metadata creates/lists, unknown approval status returns `422`, and already expired active approval returns `422`; not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, and not signed URL support.
+32. architecture current-state refresh:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/architecture-current-state-refresh.md
    Boundary: separates implemented upload/chunk/retrieval/evidence handoff surfaces from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality.
-32. Feedback intake criteria:
+33. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route
