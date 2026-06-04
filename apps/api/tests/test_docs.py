@@ -11930,6 +11930,61 @@ def test_testclient_dependency_warning_remote_verification_is_documented():
     )
 
 
+def test_clamav_endpoint_malicious_detection_owner_runtime_smoke_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Owner-runtime Smoke" in content
+    assert (
+        "clamav api endpoint malicious-detection owner runtime smoke v0" in content
+    )
+    assert "NOISEPROOF_SCANNER=clamd" in content
+    assert "clamd PING -> PONG" in content
+    assert "harness_status: verified_infected" in content
+    assert "malicious_detection_verified: true" in content
+    assert "api_calls_attempted: true" in content
+    assert "input_source: stdin" in content
+    assert "payload_committed_to_repo: false" in content
+    assert "raw_payload_logged: false" in content
+    assert "scanner_name: clamav-clamd" in content
+    assert "scan_status: completed" in content
+    assert "scan_verdict: infected" in content
+    assert "matched_signature: Eicar-Test-Signature" in content
+    assert "validation_status: accepted" in content
+    assert "accepted_owner_runtime_smoke: true" in content
+    assert "report_inside_repo: false" in content
+    assert "remaining_raw: 0" in content
+    assert "remaining_scans: 0" in content
+    assert "does not include the test signature payload" in content
+    assert "not production malware scanning evidence" in content
+    assert (
+        "clamav api endpoint malicious-detection owner runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 430 - ClamAV API Endpoint Malicious-detection Owner-runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "clamav api endpoint malicious-detection owner runtime smoke v0" in runbook
+    )
+    assert (
+        "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md"
+        in portfolio
+    )
+
+
 def test_uploaded_raw_file_download_endpoint_review_keeps_downloads_scan_first_and_review_only():
     review_path = REPO_ROOT / "docs/review/uploaded-raw-file-download-endpoint-review.md"
     assert review_path.is_file()

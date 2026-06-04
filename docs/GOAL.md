@@ -15549,6 +15549,49 @@ Next recommended evidence gate:
 external reviewer feedback v0
 ```
 
+### Phase 430 - ClamAV API Endpoint Malicious-detection Owner-runtime Smoke v0
+
+Goal:
+
+```text
+record the first local endpoint malicious-detection owner-runtime smoke without committing or logging the test signature payload
+```
+
+Implemented:
+
+```text
+ClamAV API endpoint malicious-detection owner runtime smoke v0
+NOISEPROOF_SCANNER=clamd
+clamd PING -> PONG
+harness_status: verified_infected
+malicious_detection_verified: true
+api_calls_attempted: true
+input_source: stdin
+payload_committed_to_repo: false
+raw_payload_logged: false
+scanner_name: clamav-clamd
+scan_status: completed
+scan_verdict: infected
+matched_signature: Eicar-Test-Signature
+validation_status: accepted
+accepted_owner_runtime_smoke: true
+report_inside_repo: false
+remaining_raw: 0
+remaining_scans: 0
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md
+README implementation marker
+docs/application/portfolio-index.md review link
+docs/runbook.md smoke note
+```
+
+Phase 430 is local Docker FastAPI plus ClamAV endpoint runtime evidence only. It used owner-provided stdin input at runtime, validated a payload-free report outside the repository, and cleaned the local raw-file and scan rows after proof capture. It adds no committed test signature payload, no encoded payload, no production malware scanning evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no Braincrew acceptance, no Evidence Ledger generation, no Critic / Noise Gate behavior, no final report generation, no LLM output, no embeddings, no semantic retrieval, no automatic failure-case creation, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

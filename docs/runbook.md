@@ -5829,6 +5829,48 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke
+
+Phase marker: clamav api endpoint malicious-detection owner runtime smoke v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md
+```
+
+Observed local Docker/API/clamd markers:
+
+```text
+NOISEPROOF_SCANNER=clamd
+clamd PING -> PONG
+harness_status: verified_infected
+malicious_detection_verified: true
+api_calls_attempted: true
+input_source: stdin
+scanner_name: clamav-clamd
+scan_status: completed
+scan_verdict: infected
+matched_signature: Eicar-Test-Signature
+validation_status: accepted
+accepted_owner_runtime_smoke: true
+report_inside_repo: false
+payload_committed_to_repo: false
+raw_payload_logged: false
+remaining_raw: 0
+remaining_scans: 0
+```
+
+Boundary:
+
+```text
+does not include the test signature payload
+not production malware scanning evidence
+not hosted deployment evidence
+not external reviewer feedback
+not product-complete
+```
+
 ## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery
 
 Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke input discovery v0.
