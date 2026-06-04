@@ -4831,6 +4831,35 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## External Review Issue Body Owner-runtime Input Discovery Refresh
+
+Phase marker: external review issue body owner-runtime input discovery refresh v0.
+
+Use this artifact when checking why issue #1 now points reviewers to the owner-runtime input discovery CI remote verification proof:
+
+```text
+docs/review/external-review-issue-body-owner-runtime-input-discovery-refresh.md
+```
+
+Live issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+The owner-authored issue body edit adds:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery-ci-remote-verification.md
+run_id: 26927767832
+owner_runtime_input_missing
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
+This is request-surface hygiene only. It is not external reviewer feedback, not hosted deployment evidence, not endpoint malicious-detection runtime proof, and does not include a test signature payload.
+
+## CI Node24 Actions Runtime Opt-in
+
 ## ClamAV API Endpoint Malicious-detection Stdin Input Review
 
 Phase marker: ClamAV API endpoint malicious-detection stdin input review v0.
