@@ -12737,3 +12737,64 @@ def test_uploaded_raw_file_extension_allowlist_runtime_smoke_documents_live_http
         "docs/review/uploaded-raw-file-extension-allowlist-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_external_reviewer_extension_allowlist_request_refresh_links_runtime_proof():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-extension-allowlist-request-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    review_request = (
+        REPO_ROOT / "docs/review/external-review-request.md"
+    ).read_text(encoding="utf-8")
+    reviewer_brief = (
+        REPO_ROOT / "docs/review/external-reviewer-brief.md"
+    ).read_text(encoding="utf-8")
+    link_map = (
+        REPO_ROOT / "docs/review/external-reviewer-link-map.md"
+    ).read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = "docs/review/uploaded-raw-file-extension-allowlist-runtime-smoke.md"
+
+    assert "External Reviewer Extension-allowlist Request Refresh" in content
+    assert "external reviewer extension-allowlist request refresh v0" in content
+    assert proof_doc in content
+    assert "allowed CSV upload" in content
+    assert "double-extension block" in content
+    assert "not live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust file-type detection" in content
+    assert "not malware scanning evidence" in content
+    assert "not production authorization" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert (
+        "External reviewer extension-allowlist request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 387 - External Reviewer Extension-allowlist Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer extension-allowlist request refresh v0" in runbook
+    assert "raw file extension allowlist runtime smoke" in proof_path
+    assert proof_doc in review_request
+    assert proof_doc in reviewer_brief
+    assert proof_doc in link_map
+    assert proof_doc in portfolio
+    assert (
+        "docs/review/external-reviewer-extension-allowlist-request-refresh.md"
+        in portfolio
+    )

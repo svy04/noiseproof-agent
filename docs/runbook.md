@@ -206,6 +206,8 @@ Phase 385 adds uploaded raw file extension allowlist local v0: `docs/review/uplo
 
 Phase 386 adds uploaded raw file extension allowlist runtime smoke v0: `docs/review/uploaded-raw-file-extension-allowlist-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for extension allowlisting: allowed CSV upload returns `201` with extension boundary warnings, `sample.exe.csv` returns `415` as `suspicious double extension`, raw bytes are absent from responses, and the blocked content hash is not present in recent raw uploads. This is not robust file-type detection, malware scanning evidence, production authorization, hosted deployment evidence, or product-complete.
 
+Phase 387 adds external reviewer extension-allowlist request refresh v0: `docs/review/external-reviewer-extension-allowlist-request-refresh.md` updates reviewer-facing repository surfaces so `docs/review/uploaded-raw-file-extension-allowlist-runtime-smoke.md` is visible from the proof path, review request, reviewer brief, link map, and portfolio index. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust file-type detection, not malware scanning evidence, and not production authorization.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

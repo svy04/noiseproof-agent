@@ -478,6 +478,8 @@ Uploaded raw file extension allowlist local v0: implemented. Boundary: `POST /do
 
 Uploaded raw file extension allowlist runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified allowed CSV upload `201` with extension boundary warnings, `sample.exe.csv` double-extension block `415`, no raw bytes in responses, and no recent persistence of the blocked content hash; not robust file-type detection, malware scanning evidence, production authorization, hosted deployment evidence, or product-complete.
 
+External reviewer extension-allowlist request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the raw file extension allowlist runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust file-type detection, not malware scanning evidence, and not production authorization.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:
