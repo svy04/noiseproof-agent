@@ -906,6 +906,44 @@ Next recommended gate:
 uploaded raw file download approval endpoint v0
 ```
 
+Phase 407 extension to the accepted state:
+
+```text
+Uploaded Raw File Download Approval Endpoint v0
+```
+
+### Phase 407 - Uploaded Raw File Download Approval Endpoint v0
+
+Goal:
+
+```text
+add metadata-only approval create/list endpoints without changing guarded download behavior
+```
+
+Implemented:
+
+```text
+uploaded raw file download approval endpoint v0
+docs/review/uploaded-raw-file-download-approval-endpoint.md
+POST /documents/upload-raw-files/{raw_file_id}/download-approvals
+GET /documents/upload-raw-files/{raw_file_id}/download-approvals
+create_upload_raw_file_download_approval
+list_upload_raw_file_download_approvals
+path/body mismatch rejection
+route test that a failed latest scan remains non-downloadable despite approval metadata
+README implementation marker
+docs/runbook.md endpoint note
+docs/application/portfolio-index.md endpoint entry
+```
+
+Phase 407 is metadata-only endpoint code. It adds no hosted deployment evidence, external reviewer feedback, approval enforcement, production authorization, user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+uploaded raw file download approval endpoint runtime smoke v0
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

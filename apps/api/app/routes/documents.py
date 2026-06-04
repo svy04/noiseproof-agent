@@ -22,6 +22,8 @@ from app.schemas import (
     DocumentRetrievalRunRequest,
     ParsePreviewOut,
     ParsePreviewRequest,
+    RawFileDownloadApprovalCreate,
+    RawFileDownloadApprovalOut,
     RawFileDownloadEventCreate,
     RawFileDownloadEventOut,
     RawFileScanResultCreate,
@@ -796,6 +798,43 @@ def list_upload_raw_file_download_events(
     return list(
         repository.list_raw_file_download_events(
             raw_file_id=raw_file_id,
+            limit=limit,
+        )
+    )
+
+
+@router.post(
+    "/upload-raw-files/{raw_file_id}/download-approvals",
+    response_model=RawFileDownloadApprovalOut,
+    status_code=201,
+)
+def create_upload_raw_file_download_approval(
+    raw_file_id: UUID,
+    payload: RawFileDownloadApprovalCreate,
+    repository: Repository = Depends(get_repository),
+) -> dict:
+    if payload.raw_file_id != raw_file_id:
+        raise HTTPException(
+            status_code=400,
+            detail="raw_file_id path/body mismatch",
+        )
+    return repository.create_raw_file_download_approval(payload)
+
+
+@router.get(
+    "/upload-raw-files/{raw_file_id}/download-approvals",
+    response_model=list[RawFileDownloadApprovalOut],
+)
+def list_upload_raw_file_download_approvals(
+    raw_file_id: UUID,
+    approval_status: str | None = None,
+    limit: int = 20,
+    repository: Repository = Depends(get_repository),
+) -> list[dict]:
+    return list(
+        repository.list_raw_file_download_approvals(
+            raw_file_id=raw_file_id,
+            approval_status=approval_status,
             limit=limit,
         )
     )

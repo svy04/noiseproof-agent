@@ -42,6 +42,7 @@ class InMemoryRepository:
         self.uploaded_raw_files = []
         self.raw_file_scan_results = []
         self.raw_file_download_events = []
+        self.raw_file_download_approvals = []
         self.chunk_embeddings = []
 
     def create_document(self, payload: DocumentCreate) -> dict:
@@ -205,6 +206,30 @@ class InMemoryRepository:
         rows = self.raw_file_download_events
         if raw_file_id is not None:
             rows = [row for row in rows if str(row["raw_file_id"]) == str(raw_file_id)]
+        return sorted(
+            rows,
+            key=lambda row: (row["created_at"], str(row["id"])),
+            reverse=True,
+        )[:limit]
+
+    def create_raw_file_download_approval(self, payload) -> dict:
+        row = payload.model_dump()
+        row["id"] = uuid4()
+        row["created_at"] = datetime.now(timezone.utc)
+        self.raw_file_download_approvals.append(row)
+        return row
+
+    def list_raw_file_download_approvals(
+        self,
+        raw_file_id=None,
+        approval_status=None,
+        limit=20,
+    ):
+        rows = self.raw_file_download_approvals
+        if raw_file_id is not None:
+            rows = [row for row in rows if str(row["raw_file_id"]) == str(raw_file_id)]
+        if approval_status is not None:
+            rows = [row for row in rows if row["approval_status"] == approval_status]
         return sorted(
             rows,
             key=lambda row: (row["created_at"], str(row["id"])),
@@ -1548,6 +1573,99 @@ def test_document_upload_raw_file_scan_result_rejects_path_body_mismatch():
             "scan_status": "failed",
             "scan_verdict": "scan_error",
             "error_message": "scanner unavailable",
+        },
+    )
+
+    assert response.status_code == 400
+    assert "raw_file_id path/body mismatch" in response.json()["detail"]
+
+
+def test_document_upload_raw_file_download_approval_endpoint_persists_metadata_only():
+    client = make_client()
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", b"ticker,revenue\nALPHA,120\n", "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+    scan = client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/scan-results",
+        json={
+            "raw_file_id": raw_file_id,
+            "scanner_name": "manual-review-placeholder",
+            "scan_status": "failed",
+            "scan_verdict": "scan_error",
+            "error_message": "scanner unavailable",
+        },
+    )
+    expires_at = datetime(2026, 6, 5, tzinfo=timezone.utc).isoformat()
+
+    response = client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/download-approvals",
+        json={
+            "raw_file_id": raw_file_id,
+            "latest_scan_result_id": scan.json()["id"],
+            "approval_reason": "manual local review after latest scan metadata",
+            "approved_by_label": "local-operator",
+            "expires_at": expires_at,
+            "metadata_json": {"source": "route-test"},
+        },
+    )
+
+    assert upload.status_code == 201
+    assert scan.status_code == 201
+    assert response.status_code == 201
+    body = response.json()
+    assert body["raw_file_id"] == raw_file_id
+    assert body["latest_scan_result_id"] == scan.json()["id"]
+    assert body["approval_status"] == "approved"
+    assert body["approved_by_label"] == "local-operator"
+    assert body["metadata_json"] == {"source": "route-test"}
+    assert (
+        body["approval_boundary"]
+        == "local_v0_manual_operator_approval_not_production_auth"
+    )
+    assert body["identity_boundary"] == "operator_label_not_authenticated_identity"
+    assert "raw_bytes" not in body
+    assert "download_url" not in body
+
+    listed = client.get(
+        f"/documents/upload-raw-files/{raw_file_id}/download-approvals",
+        params={"approval_status": "approved"},
+    )
+    assert listed.status_code == 200
+    listed_body = listed.json()
+    assert len(listed_body) == 1
+    assert listed_body[0]["id"] == body["id"]
+    assert "raw_bytes" not in listed_body[0]
+    assert "download_url" not in listed_body[0]
+
+    download = client.get(f"/documents/upload-raw-files/{raw_file_id}/download")
+    assert download.status_code == 409
+    assert (
+        download.json()["detail"]
+        == "latest clean scan result required before raw file download"
+    )
+
+
+def test_document_upload_raw_file_download_approval_rejects_path_body_mismatch():
+    client = make_client()
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", b"ticker,revenue\nALPHA,120\n", "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+    other_raw_file_id = str(uuid4())
+
+    response = client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/download-approvals",
+        json={
+            "raw_file_id": other_raw_file_id,
+            "latest_scan_result_id": str(uuid4()),
+            "approval_reason": "manual local review after latest scan metadata",
+            "approved_by_label": "local-operator",
+            "expires_at": datetime(2026, 6, 5, tzinfo=timezone.utc).isoformat(),
         },
     )
 

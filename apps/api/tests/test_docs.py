@@ -13551,7 +13551,8 @@ def test_uploaded_raw_file_download_approval_schema_is_documented_without_route_
     assert "not user identity" in content
     assert "not signed URL support" in content
     assert "not RBAC" in content
-    assert "raw_file_download_approvals" not in route_py
+    download_route_segment = route_py.split("def download_upload_raw_file(", 1)[1]
+    assert "raw_file_download_approvals" not in download_route_segment
     assert (
         "Uploaded raw file download approval schema v0: implemented"
         in readme
@@ -13711,7 +13712,8 @@ def test_uploaded_raw_file_download_approval_repository_documents_code_boundary(
     assert "def create_raw_file_download_approval" in db_py
     assert "def list_raw_file_download_approvals" in db_py
     assert "raw_file_download_approvals" in db_py
-    assert "RawFileDownloadApproval" not in route_py
+    download_route_segment = route_py.split("def download_upload_raw_file(", 1)[1]
+    assert "RawFileDownloadApproval" not in download_route_segment
     assert (
         "Uploaded raw file download approval repository v0: implemented"
         in readme
@@ -13775,5 +13777,54 @@ def test_uploaded_raw_file_download_approval_endpoint_review_selects_metadata_on
     assert "uploaded raw file download approval endpoint review v0" in runbook
     assert (
         "docs/review/uploaded-raw-file-download-approval-endpoint-review.md"
+        in portfolio
+    )
+
+
+def test_uploaded_raw_file_download_approval_endpoint_documents_metadata_only_code():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-download-approval-endpoint.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    route_py = (REPO_ROOT / "apps/api/app/routes/documents.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Approval Endpoint" in content
+    assert "uploaded raw file download approval endpoint v0" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/download-approvals" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/download-approvals" in content
+    assert "RawFileDownloadApprovalCreate" in content
+    assert "RawFileDownloadApprovalOut" in content
+    assert "create_upload_raw_file_download_approval" in content
+    assert "list_upload_raw_file_download_approvals" in content
+    assert "path/body mismatch" in content
+    assert "metadata-only" in content
+    assert "download route still requires latest clean scan result" in content
+    assert "not approval enforcement" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert "not RBAC" in content
+    assert '"/upload-raw-files/{raw_file_id}/download-approvals"' in route_py
+    assert "RawFileDownloadApprovalOut" in route_py
+    assert "create_upload_raw_file_download_approval" in route_py
+    assert "list_upload_raw_file_download_approvals" in route_py
+    assert (
+        "Uploaded raw file download approval endpoint v0: implemented"
+        in readme
+    )
+    assert "Phase 407 - Uploaded Raw File Download Approval Endpoint v0" in goal
+    assert "uploaded raw file download approval endpoint v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-endpoint.md"
         in portfolio
     )

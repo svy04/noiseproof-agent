@@ -246,6 +246,8 @@ Phase 405 adds uploaded raw file download approval repository v0: `docs/review/u
 
 Phase 406 adds uploaded raw file download approval endpoint review v0: `docs/review/uploaded-raw-file-download-approval-endpoint-review.md` selects metadata-only create/list routes for manual approval rows: `POST /documents/upload-raw-files/{raw_file_id}/download-approvals` and `GET /documents/upload-raw-files/{raw_file_id}/download-approvals`. The future endpoint should reject path body raw_file_id mismatch. This is review-only, not endpoint code, not download route behavior, not approval enforcement, not production authorization, not user identity, not signed URL support, and not product-complete.
 
+Phase 407 adds uploaded raw file download approval endpoint v0: `docs/review/uploaded-raw-file-download-approval-endpoint.md` implements metadata-only create/list routes for manual approval rows. The route rejects path/body mismatch and preserves local approval/identity boundary strings. Route tests also confirm the download route still requires latest clean scan result even when approval metadata exists. This is not approval enforcement, not production authorization, not user identity, not signed URL support, not hosted evidence, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
