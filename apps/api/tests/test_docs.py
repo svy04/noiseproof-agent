@@ -10131,6 +10131,60 @@ def test_external_reviewer_architecture_current_state_request_refresh_is_documen
     )
 
 
+def test_external_review_issue_body_architecture_current_state_refresh_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-architecture-current-state-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Architecture Current-state Refresh" in content
+    assert (
+        "external review issue body architecture current-state refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "docs/review/architecture-current-state-refresh.md" in content
+    assert (
+        "docs/review/external-reviewer-architecture-current-state-request-refresh.md"
+        in content
+    )
+    assert "has_architecture_current_state_refresh_link: true" in content
+    assert "has_architecture_request_refresh_link: true" in content
+    assert "starts_with_request: true" in content
+    assert "first_codepoint: 35" in content
+    assert "comment_count: 1" in content
+    assert "owner-authored issue body edit" in content
+    assert "does not close external reviewer feedback v0" in content
+    assert "not hosted deployment evidence" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "not production semantic retrieval quality" in content
+    assert (
+        "External review issue body architecture current-state refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 338 - External Review Issue Body Architecture Current-state Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body architecture current-state refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-review-issue-body-architecture-current-state-refresh.md"
+        in portfolio
+    )
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

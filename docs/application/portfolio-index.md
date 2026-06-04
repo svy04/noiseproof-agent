@@ -457,6 +457,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/ci-node24-actions-runtime-remote-verification.md` | remote CI and External Feedback Screen success after Node.js 24 opt-in; annotation still present as forced-runtime notice |
 | `docs/review/architecture-current-state-refresh.md` | current-state architecture refresh separating implemented upload/chunk/retrieval/evidence handoff surfaces from still-unproven robust PDF extraction, embedding generation, hosted deployment, external feedback, and endpoint malicious-detection proof |
 | `docs/review/external-reviewer-architecture-current-state-request-refresh.md` | reviewer request surface refresh linking external-review request docs and issue template to the architecture current-state refresh; request infrastructure only, not external feedback |
+| `docs/review/external-review-issue-body-architecture-current-state-refresh.md` | owner-authored issue #1 body update pointing reviewers to the architecture current-state refresh; not external reviewer feedback, hosted deployment evidence, or endpoint malicious-detection proof |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
 
