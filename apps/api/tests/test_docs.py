@@ -16235,3 +16235,44 @@ def test_workflow_proof_bundle_read_model_documents_reviewer_read_model_boundary
     assert "docs/review/workflow-proof-bundle-read-model.md" in portfolio
     assert "docs/review/workflow-proof-bundle-read-model.md" in role_map
     assert "docs/review/workflow-proof-bundle-read-model.md" in proof_path
+
+
+def test_workflow_proof_bundle_runtime_smoke_documents_live_postgres_http_evidence():
+    review_path = REPO_ROOT / "docs/review/workflow-proof-bundle-runtime-smoke.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Workflow Proof Bundle Runtime Smoke" in content
+    assert "workflow proof bundle runtime smoke v0" in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert "local Docker PostgreSQL plus live FastAPI HTTP" in content
+    assert "health_status: ok" in content
+    assert "execute_preview_status_code: 201" in content
+    assert "proof_bundle_status_code: 200" in content
+    assert "metadata_only_proof_bundle_status_code: 200" in content
+    assert "bundle_boundary: read_model_only_existing_records_no_new_storage" in content
+    assert "detail_retrieval_run_count: 1" in content
+    assert "lineage_missing_reference_count: 0" in content
+    assert "trace_evidence_ledger_entry_count: 1" in content
+    assert "metadata_only_trace_is_null: true" in content
+    assert "metadata_only_workflow_trace_id_is_null: true" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert "Workflow proof bundle runtime smoke v0: implemented" in readme
+    assert "Phase 449 - Workflow Proof Bundle Runtime Smoke v0" in goal
+    assert "workflow proof bundle runtime smoke v0" in runbook
+    assert "docs/review/workflow-proof-bundle-runtime-smoke.md" in portfolio
+    assert "docs/review/workflow-proof-bundle-runtime-smoke.md" in proof_path

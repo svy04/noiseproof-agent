@@ -16308,6 +16308,45 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 449 - Workflow Proof Bundle Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+verify GET /workflow-runs/{id}/proof-bundle against local Docker PostgreSQL plus live FastAPI HTTP
+```
+
+Implemented:
+
+```text
+workflow proof bundle runtime smoke v0
+docs/review/workflow-proof-bundle-runtime-smoke.md
+local Docker PostgreSQL healthy on port 55432
+FastAPI live HTTP on 127.0.0.1:8058
+migration runner status: Applied migrations 21 / Pending migrations 0
+GET /health -> 200
+POST /workflow-runs/execute-preview -> 201
+GET /workflow-runs/{id}/proof-bundle -> 200
+POST /workflow-runs metadata-only row -> 201
+GET /workflow-runs/{metadata_only_id}/proof-bundle -> 200
+metadata-only workflow_trace_id null boundary
+metadata-only trace null boundary
+README runtime marker
+docs/runbook.md note
+docs/application/portfolio-index.md link
+docs/review/external-reader-proof-path.md link
+```
+
+Phase 449 is local runtime evidence only. It adds no runtime behavior, schema, migration, new persisted lineage fact, distributed tracing, hosted observability, external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer workflow proof bundle request refresh v0, then issue-body refresh, unless qualifying outside feedback appears first
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

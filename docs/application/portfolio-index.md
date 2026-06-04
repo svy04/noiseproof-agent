@@ -198,6 +198,8 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 
 Workflow proof bundle read model: `docs/review/workflow-proof-bundle-read-model.md` records `GET /workflow-runs/{id}/proof-bundle`, a convenience read model over existing workflow detail, lineage, and trace lookup surfaces. It is not new lineage storage, not distributed tracing, not hosted observability, and not external reviewer feedback.
 
+Workflow proof bundle runtime smoke: `docs/review/workflow-proof-bundle-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle` after a deterministic workflow preview and for a metadata-only workflow row. It is not distributed tracing, not hosted observability, not hosted deployment evidence, and not external reviewer feedback.
+
 ## Start Here
 
 1. `README.md`

@@ -110,6 +110,7 @@ Current status groups:
 
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
+Latest workflow proof bundle runtime marker: Workflow proof bundle runtime smoke v0: implemented.
 Latest product gate marker: Workflow proof bundle read model v0: implemented.
 Latest reviewer-routing marker: External review issue body readability refresh v0.
 Latest external-feedback state: pending; only self-authored issue comment is present.
