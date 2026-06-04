@@ -16831,6 +16831,43 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 462 - Trace Context Header Propagation v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+add local W3C-shaped traceparent response headers so API calls are easier to inspect without claiming distributed tracing
+```
+
+Implemented:
+
+```text
+trace context header propagation v0
+FastAPI middleware
+traceparent response header
+x-noiseproof-trace-source response header
+x-noiseproof-trace-boundary response header
+local_header_propagation_no_distributed_tracing
+valid incoming traceparent accepted
+missing traceparent generated locally
+invalid traceparent replaced with generated fallback
+docs/review/trace-context-header-propagation.md
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+application-ready boundary refresh
+```
+
+Phase 462 adds local trace header propagation only. It adds no OpenTelemetry dependency, hosted observability, trace export, span storage, schema, migration, cross-service tracing proof, distributed tracing claim, external reviewer feedback, customer validation, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

@@ -22,7 +22,7 @@ Current implemented capability groups:
 - document profiling, parser boundaries, uploaded digital PDF text extraction, chunk strategy comparison, and lexical retrieval
 - deterministic local hash embedding preview, collection planning, Evidence Ledger, Noise Gate, and claim-bounded report previews
 - persisted evidence/gate/report records, trace lookup, filters, workflow parents, and derived lineage
-- operations dashboard, failure-case persistence, manual workflow parent provenance, and proof-path documentation
+- trace context header propagation, operations dashboard, failure-case persistence, manual workflow parent provenance, and proof-path documentation
 
 Detailed phase history lives in `docs/GOAL.md`, `docs/application/portfolio-index.md`, and the phase-specific `docs/review/*` artifacts. This README now keeps the first-pass narrative focused on what the project currently demonstrates and what it still does not claim.
 The product thesis:
@@ -218,6 +218,8 @@ Not implemented yet:
 - full distributed tracing or hosted observability
 
 Deterministic text embedding preview v0: implemented. Boundary: local hash preview only; not actual embedding model generation, not persisted, and not vector search quality evidence.
+
+Trace context header propagation v0: implemented. Boundary: local `traceparent` response headers only; not distributed tracing, not OpenTelemetry, and not hosted observability.
 
 README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
 

@@ -18,6 +18,8 @@ Visual local proof surface: `docs/review/local-browser-screenshot-walkthrough.md
 
 Deterministic text embedding preview: `docs/review/deterministic-text-embedding-preview.md` records `POST /chunks/embedding-preview` for `local-hash-embedding-preview-v0`. It is preview-only, not persisted, not a semantic embedding model, not vector search quality evidence, and not external reviewer feedback.
 
+Trace context header propagation: `docs/review/trace-context-header-propagation.md` records local `traceparent` response headers for API inspection. It is not distributed tracing, not OpenTelemetry, not hosted observability, and not external reviewer feedback.
+
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
 External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.

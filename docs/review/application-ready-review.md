@@ -36,6 +36,7 @@ Forbidden claim: this is not hosted deployment evidence, automatic persistence r
 | contradictions are surfaced | Pass | Evidence Ledger and Noise Gate previews | not a full contradiction engine |
 | buy/sell recommendation questions are refused or reframed | Pass | collection, ledger, gate, and report boundaries | not legal or financial advice tooling |
 | every agent run leaves a trace | Pass for current preview endpoints | preview endpoints auto-create `agent_runs.trace_json`; retrieval has dedicated `retrieval_runs` | metadata trace only, not distributed tracing or a complete multi-stage workflow trace |
+| trace context header propagation exists | Pass | response `traceparent`, `x-noiseproof-trace-source`, `x-noiseproof-trace-boundary`, `docs/review/trace-context-header-propagation.md` | local header propagation only; not distributed tracing, no OpenTelemetry, no hosted observability, no span export |
 | failure cases are recorded | Pass | failure case endpoint and dashboard | not comprehensive |
 | operations dashboard shows runs and failures | Pass | `GET /ops/dashboard` | plain HTML, not polished UI |
 | README is understandable without explanation | Pass | `README.md` | should still be reviewed by an external reader |
@@ -100,7 +101,7 @@ Use:
 ```text
 Short external claim:
 
-NoiseProof Agent is a small, inspectable portfolio service for evidence-first market intelligence: source profiling, parser/chunk/retrieval previews, deterministic local hash embedding preview exists, uploaded file intake manifest preview/persistence, parsed document metadata persistence, manual chunk persistence, retrieval persistence with `metadata_json.candidate_chunk_ids`, caller-provided chunk embedding runtime proof, caller-provided semantic retrieval persistence runtime proof, retrieval-run-linked Evidence Ledger/Noise Gate/Report persistence with precondition `409`s, persisted proof records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
+NoiseProof Agent is a small, inspectable portfolio service for evidence-first market intelligence: source profiling, parser/chunk/retrieval previews, deterministic local hash embedding preview exists, trace context header propagation exists, uploaded file intake manifest preview/persistence, parsed document metadata persistence, manual chunk persistence, retrieval persistence with `metadata_json.candidate_chunk_ids`, caller-provided chunk embedding runtime proof, caller-provided semantic retrieval persistence runtime proof, retrieval-run-linked Evidence Ledger/Noise Gate/Report persistence with precondition `409`s, persisted proof records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
 
 Detailed phase history remains in `docs/GOAL.md`, `docs/review/external-reader-proof-path.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts.
 
@@ -150,6 +151,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - Operations Dashboard v0
 - evaluation/application package
 - Auto Trace Recording v0 for preview endpoint metadata
+- Trace context header propagation v0
 - Migration Runner Fresh DB Verification v0
 - Fresh DB API Smoke Verification v0
 - Failure-case Persistence Smoke Verification v0

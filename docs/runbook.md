@@ -8495,3 +8495,54 @@ does not modify chunk_embeddings
 not vector search quality evidence
 not semantic retrieval quality evidence
 ```
+
+## Trace Context Header Propagation
+
+Phase marker: trace context header propagation v0.
+
+Review artifact:
+
+```text
+docs/review/trace-context-header-propagation.md
+```
+
+Every response includes:
+
+```text
+traceparent
+x-noiseproof-trace-source
+x-noiseproof-trace-boundary
+```
+
+Expected boundary header:
+
+```text
+x-noiseproof-trace-boundary: local_header_propagation_no_distributed_tracing
+```
+
+Focused verification:
+
+```bash
+cd apps/api
+uv run pytest -q tests/test_routes.py -k "trace_context_header"
+uv run pytest -q tests/test_docs.py -k "trace_context_header_propagation"
+```
+
+Manual smoke example:
+
+```bash
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8000
+curl -i http://127.0.0.1:8000/health
+curl -i -H "traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01" http://127.0.0.1:8000/health
+```
+
+Claim boundary:
+
+```text
+not distributed tracing
+no OpenTelemetry
+no hosted observability
+no trace export
+no span storage
+no cross-service trace proof
+```

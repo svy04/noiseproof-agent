@@ -15,6 +15,7 @@ from app.routes import (
     traces,
     workflow_runs,
 )
+from app.services.trace_context import TRACE_CONTEXT_BOUNDARY, resolve_traceparent
 
 
 def create_app() -> FastAPI:
@@ -23,6 +24,16 @@ def create_app() -> FastAPI:
         version="0.33.0",
         description="NoiseProof Agent phased API with collection planning, retrieval, and evidence boundaries.",
     )
+
+    @app.middleware("http")
+    async def trace_context_header_middleware(request, call_next):
+        traceparent, source = resolve_traceparent(request.headers.get("traceparent"))
+        response = await call_next(request)
+        response.headers["traceparent"] = traceparent
+        response.headers["x-noiseproof-trace-source"] = source
+        response.headers["x-noiseproof-trace-boundary"] = TRACE_CONTEXT_BOUNDARY
+        return response
+
     app.include_router(health.router)
     app.include_router(collection_plans.router)
     app.include_router(documents.router)

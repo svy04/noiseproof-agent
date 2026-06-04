@@ -720,6 +720,53 @@ def test_health_endpoint():
     }
 
 
+def test_trace_context_header_is_generated_for_local_inspection():
+    client = make_client()
+
+    response = client.get("/health")
+
+    assert response.status_code == 200
+    traceparent = response.headers["traceparent"]
+    parts = traceparent.split("-")
+    assert len(parts) == 4
+    assert parts[0] == "00"
+    assert len(parts[1]) == 32
+    assert len(parts[2]) == 16
+    assert len(parts[3]) == 2
+    assert int(parts[1], 16) != 0
+    assert int(parts[2], 16) != 0
+    assert response.headers["x-noiseproof-trace-source"] == "generated_traceparent"
+    assert response.headers["x-noiseproof-trace-boundary"] == (
+        "local_header_propagation_no_distributed_tracing"
+    )
+
+
+def test_trace_context_header_accepts_valid_incoming_traceparent():
+    client = make_client()
+    incoming = "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
+
+    response = client.get("/health", headers={"traceparent": incoming})
+
+    assert response.status_code == 200
+    assert response.headers["traceparent"] == incoming
+    assert response.headers["x-noiseproof-trace-source"] == "incoming_traceparent"
+
+
+def test_trace_context_header_replaces_invalid_incoming_traceparent():
+    client = make_client()
+
+    response = client.get("/health", headers={"traceparent": "not-a-trace"})
+
+    assert response.status_code == 200
+    assert response.headers["traceparent"] != "not-a-trace"
+    assert response.headers["x-noiseproof-trace-source"] == (
+        "invalid_traceparent_generated_fallback"
+    )
+    assert response.headers["x-noiseproof-trace-boundary"] == (
+        "local_header_propagation_no_distributed_tracing"
+    )
+
+
 def test_runtime_workflow_version_names_dashboard_warning_code_surface():
     client = make_client()
 

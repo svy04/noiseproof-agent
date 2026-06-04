@@ -17009,3 +17009,35 @@ def test_deterministic_text_embedding_preview_documents_preview_only_boundary():
     assert "docs/review/deterministic-text-embedding-preview.md" in portfolio
     assert "deterministic local hash embedding preview exists" in app_review
     assert "actual embedding model generation remains unproven" in app_review
+
+
+def test_trace_context_header_propagation_documents_local_boundary():
+    review_path = REPO_ROOT / "docs/review/trace-context-header-propagation.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Trace Context Header Propagation" in content
+    assert "trace context header propagation v0" in content
+    assert "W3C Trace Context" in content
+    assert "traceparent" in content
+    assert "x-noiseproof-trace-boundary" in content
+    assert "local_header_propagation_no_distributed_tracing" in content
+    assert "not distributed tracing" in content
+    assert "no OpenTelemetry" in content
+    assert "no hosted observability" in content
+    assert "Trace context header propagation v0: implemented" in readme
+    assert "Phase 462 - Trace Context Header Propagation v0" in goal
+    assert "trace context header propagation v0" in runbook
+    assert "docs/review/trace-context-header-propagation.md" in portfolio
+    assert "trace context header propagation exists" in app_review
+    assert "not distributed tracing" in app_review
