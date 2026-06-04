@@ -10240,6 +10240,38 @@ def test_external_feedback_current_state_architecture_issue_verification_keeps_g
     )
 
 
+def test_uploaded_pdf_text_extraction_is_documented_without_robust_claim():
+    review_path = REPO_ROOT / "docs/review/uploaded-pdf-text-extraction.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+    api_readme = (REPO_ROOT / "apps/api/README.md").read_text(encoding="utf-8")
+
+    assert "Uploaded PDF Text Extraction" in content
+    assert "uploaded PDF text extraction v0" in content
+    assert "POST /documents/upload-preview" in content
+    assert "PyMuPDF" in content
+    assert "digital PDF text only" in content
+    assert "OCR, table extraction, and layout fidelity are not claimed" in content
+    assert "not robust PDF extraction" in content
+    assert "not raw file storage" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "Uploaded PDF text extraction v0: implemented" in readme
+    assert "Phase 340 - Uploaded PDF Text Extraction v0" in goal
+    assert "uploaded PDF text extraction v0" in runbook
+    assert "docs/review/uploaded-pdf-text-extraction.md" in portfolio
+    assert "PDF upload-preview can extract digital text with PyMuPDF" in architecture
+    assert "PDF upload preview can extract digital text with PyMuPDF" in api_readme
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

@@ -19,7 +19,7 @@ NoiseProof Agent is a planned RAG/agent service for market intelligence work whe
 Current implemented capability groups:
 
 - service skeleton, metadata persistence, PostgreSQL schema, migration runner, and CI
-- document profiling, parser boundaries, chunk strategy comparison, and lexical retrieval
+- document profiling, parser boundaries, uploaded digital PDF text extraction, chunk strategy comparison, and lexical retrieval
 - collection planning, Evidence Ledger, Noise Gate, and claim-bounded report previews
 - persisted evidence/gate/report records, trace lookup, filters, workflow parents, and derived lineage
 - operations dashboard, failure-case persistence, manual workflow parent provenance, and proof-path documentation
@@ -390,6 +390,8 @@ External reviewer architecture current-state request refresh v0: implemented. Bo
 External review issue body architecture current-state refresh v0: implemented. Boundary: issue #1 now points to the architecture current-state refresh and its reviewer request refresh; owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, and not endpoint malicious-detection runtime proof.
 
 External feedback current-state architecture issue verification v0: implemented. Boundary: current issue #1 screen after the architecture current-state issue-body refresh still has `comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
+
+Uploaded PDF text extraction v0: implemented. Boundary: `POST /documents/upload-preview` can extract digital PDF text with PyMuPDF for uploaded PDF bytes, while keeping `preview_only_not_persisted`; OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, and external reviewer feedback are not claimed.
 
 ci node24 actions runtime opt-in v0: implemented. Boundary: `.github/workflows/ci.yml` and `.github/workflows/external-feedback-screen.yml` set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"` after the remote run warned that Node.js 20 actions are deprecated; this is workflow runtime compatibility only, not product runtime evidence.
 

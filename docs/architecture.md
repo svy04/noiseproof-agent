@@ -131,14 +131,14 @@ Phase 3 implements a small parse-preview boundary, not full production parsing:
 - markdown parser returns text plus heading, link, and bullet metadata
 - CSV parser returns text plus row, column, header, and inconsistent-row metadata
 - HTML/URL parser strips tags into visible text and records link metadata
-- PDF parser is a text-only fallback and does not claim robust PDF extraction
+- PDF upload-preview can extract digital text with PyMuPDF from uploaded PDF bytes; JSON parse-preview still supports text-only fallback for already-extracted text. OCR, table extraction, layout fidelity, and robust PDF extraction are not claimed
 - unknown source types return a structured warning and failure-case candidate
 
 The parser output can feed Document Profiler v0. Parse-preview does not save records to the database.
 
 Planned defaults:
 
-- PyMuPDF or pdfplumber for PDF
+- PyMuPDF for uploaded digital PDF text extraction v0
 - pandas for CSV
 - BeautifulSoup or trafilatura for URL/HTML
 - plain markdown parser for memo

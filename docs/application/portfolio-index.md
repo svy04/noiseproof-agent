@@ -72,6 +72,8 @@ Uploaded file parsed document persistence runtime smoke: `docs/review/uploaded-f
 
 Uploaded file parsed document persistence application refresh: `docs/review/uploaded-file-parsed-document-persistence-application-refresh.md` surfaces the parsed document persistence runtime smoke in the portfolio, Braincrew role map, application-ready review, README, and runbook. It is not hosted deployment evidence, not external reviewer feedback, not Braincrew acceptance, not robust PDF extraction, and not raw file storage.
 
+Uploaded PDF text extraction: `docs/review/uploaded-pdf-text-extraction.md` records that `POST /documents/upload-preview` can extract digital PDF text with PyMuPDF from uploaded PDF bytes while keeping `preview_only_not_persisted`; it is not robust PDF extraction, OCR, table extraction, raw file storage, hosted deployment evidence, or external reviewer feedback.
+
 External reviewer parsed-document persistence request refresh: `docs/review/external-reviewer-parsed-document-persistence-request-refresh.md` points the reviewer request path to the uploaded-file parsed document persistence proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.
 
 External review issue body parsed document persistence refresh: `docs/review/external-review-issue-body-parsed-document-persistence-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file parsed document persistence proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.

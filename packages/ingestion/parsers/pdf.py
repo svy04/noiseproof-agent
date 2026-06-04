@@ -2,6 +2,9 @@ from packages.ingestion.parsers.base import empty_content_failure
 from packages.ingestion.types import FailureCaseCandidate, ParseInput, ParseResult
 
 PDF_FALLBACK_WARNING = "PDF parser is currently a text-only fallback; robust PDF extraction is not claimed."
+PDF_TEXT_EXTRACTION_WARNING = (
+    "PDF text extraction uses PyMuPDF for digital text only; OCR, table extraction, and layout fidelity are not claimed."
+)
 
 
 class PdfParser:
@@ -9,6 +12,35 @@ class PdfParser:
     source_types = {"pdf"}
 
     def parse(self, payload: ParseInput) -> ParseResult:
+        if payload.content_bytes:
+            extracted = _extract_pdf_text(payload.content_bytes)
+            if extracted is not None:
+                text, page_count = extracted
+                warnings = [PDF_TEXT_EXTRACTION_WARNING]
+                failure_case_candidate: FailureCaseCandidate | None = None
+                if not text:
+                    warnings.append("PyMuPDF opened the PDF, but no digital text was extracted.")
+                    failure_case_candidate = FailureCaseCandidate(
+                        failure_type="pdf_no_extractable_text",
+                        description="PDF text extraction produced an empty text result.",
+                        root_cause="The PDF may be scanned, image-only, encrypted, or otherwise lacking embedded digital text.",
+                        next_action="Use OCR or a more specialized PDF extraction stage before claiming PDF text coverage.",
+                    )
+                return ParseResult(
+                    source_type="pdf",
+                    parser="pdf-pymupdf",
+                    text=text,
+                    metadata={
+                        "robust_pdf_extraction": False,
+                        "text_only_fallback": False,
+                        "digital_pdf_text_extraction": True,
+                        "extraction_engine": "PyMuPDF",
+                        "page_count": page_count,
+                    },
+                    warnings=warnings,
+                    failure_case_candidate=failure_case_candidate,
+                )
+
         text = (payload.content or "").strip()
         warnings = [PDF_FALLBACK_WARNING]
         failure_case_candidate: FailureCaseCandidate | None = None
@@ -32,6 +64,7 @@ class PdfParser:
             metadata={
                 "robust_pdf_extraction": False,
                 "text_only_fallback": True,
+                "digital_pdf_text_extraction": False,
             },
             warnings=warnings,
             failure_case_candidate=failure_case_candidate,
@@ -45,3 +78,23 @@ def _looks_binary(text: str) -> bool:
         return False
     control_count = sum(1 for char in text if ord(char) < 32 and char not in "\n\r\t")
     return (control_count / max(len(text), 1)) > 0.05
+
+
+def _extract_pdf_text(content: bytes) -> tuple[str, int] | None:
+    try:
+        import pymupdf
+    except ImportError:
+        return None
+
+    try:
+        document = pymupdf.open(stream=content, filetype="pdf")
+    except Exception:
+        return None
+
+    try:
+        page_text = [page.get_text() for page in document]
+        return "\n".join(text.strip() for text in page_text if text.strip()), document.page_count
+    except Exception:
+        return None
+    finally:
+        document.close()

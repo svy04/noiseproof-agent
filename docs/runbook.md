@@ -10,6 +10,8 @@ Phase 338 adds external review issue body architecture current-state refresh v0:
 
 Phase 339 adds external feedback current-state architecture issue verification v0: current issue #1 still has `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and only a self-authored non-qualifying comment after the architecture current-state issue-body refresh. This does not close external reviewer feedback v0 and is not hosted deployment evidence, endpoint malicious-detection runtime proof, or production semantic retrieval quality.
 
+Phase 340 adds uploaded PDF text extraction v0: `POST /documents/upload-preview` can pass uploaded PDF bytes through PyMuPDF and return `parser: pdf-pymupdf`, `digital_pdf_text_extraction: true`, `robust_pdf_extraction: false`, and `preview_only_not_persisted`. This is digital PDF text only; it is not OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, or external reviewer feedback.
+
 Phase 22 adds an Evidence Ledger dashboard table: persisted evidence rows are now visible beside retrieval, gate, and report records in the plain operations dashboard.
 
 Phase 22.5 adds a review-only cross-link decision: direct evidence -> gate -> report links are deferred until a single workflow parent exists.
@@ -146,7 +148,7 @@ Implemented:
 - manual `workflow_run_id` values link to `/workflow-runs/{id}`
 - messy market data fixtures
 - Document Profiler v0
-- parser adapter stubs for markdown, CSV, HTML/URL, PDF text-only fallback, and unknown source types
+- parser adapter stubs for markdown, CSV, HTML/URL, PDF text-only fallback, unknown source types, and Phase 340 uploaded PDF text extraction
 - `POST /documents/parse-preview`
 - chunk strategy experiment v0 for fixed-window, heading-aware, and row-aware strategies
 - `POST /documents/chunk-preview`
@@ -747,7 +749,7 @@ curl -X POST http://localhost:8000/documents/parse-preview \
   -d "{\"source_type\":\"pdf\",\"content\":\"Extracted PDF text preview only.\"}"
 ```
 
-The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
+JSON PDF parse-preview still accepts already-extracted text through the text-only fallback. Upload-preview can extract digital PDF text with PyMuPDF from uploaded PDF bytes. Robust PDF extraction is not claimed.
 
 Preview chunk strategy comparison without saving chunks:
 

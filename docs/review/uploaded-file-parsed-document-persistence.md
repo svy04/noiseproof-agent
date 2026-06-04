@@ -38,7 +38,7 @@ This gate stores no raw uploaded bytes.
 
 It also stores no parsed text persistence. The parsed text is only used in-process to produce parser metadata and the document profile.
 
-This is not robust PDF extraction. PDF input still uses the existing text-only fallback/stub boundary unless a later gate implements and verifies real PDF extraction.
+This is not robust PDF extraction. Phase 340 adds uploaded digital PDF text extraction for `POST /documents/upload-preview`, but this parsed-document persistence gate still does not claim OCR, table extraction, layout fidelity, raw uploaded byte storage, or robust PDF extraction.
 
 This gate does not create chunks, retrieval runs, Evidence Ledger entries, Noise Gate records, report records, workflow runs, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, LLM calls, embeddings, semantic retrieval, automatic failure-case creation, or product-complete claims.
 

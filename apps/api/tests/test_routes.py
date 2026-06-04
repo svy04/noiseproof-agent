@@ -531,6 +531,42 @@ def _cosine_distance(left, right):
     return 1.0 - similarity / denominator
 
 
+def _minimal_pdf_bytes(text: str) -> bytes:
+    escaped_text = text.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
+    content_stream = f"BT /F1 12 Tf 72 720 Td ({escaped_text}) Tj ET\n".encode("ascii")
+    objects = [
+        b"<< /Type /Catalog /Pages 2 0 R >>",
+        b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+        (
+            b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] "
+            b"/Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>"
+        ),
+        b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+        b"<< /Length %d >>\nstream\n" % len(content_stream)
+        + content_stream
+        + b"endstream",
+    ]
+    output = bytearray(b"%PDF-1.4\n")
+    offsets = [0]
+    for index, body in enumerate(objects, start=1):
+        offsets.append(len(output))
+        output.extend(f"{index} 0 obj\n".encode("ascii"))
+        output.extend(body)
+        output.extend(b"\nendobj\n")
+    xref_offset = len(output)
+    output.extend(f"xref\n0 {len(objects) + 1}\n".encode("ascii"))
+    output.extend(b"0000000000 65535 f \n")
+    for offset in offsets[1:]:
+        output.extend(f"{offset:010d} 00000 n \n".encode("ascii"))
+    output.extend(
+        (
+            f"trailer\n<< /Size {len(objects) + 1} /Root 1 0 R >>\n"
+            f"startxref\n{xref_offset}\n%%EOF\n"
+        ).encode("ascii")
+    )
+    return bytes(output)
+
+
 def test_health_endpoint():
     client = make_client()
 
@@ -1512,6 +1548,32 @@ def test_document_upload_preview_surfaces_unknown_binary_boundary():
     assert body["failure_case_candidate"]["failure_type"] == "unknown_source_type"
     assert any("could not infer a supported source_type" in warning for warning in body["warnings"])
     assert any("does not claim robust PDF extraction" in warning for warning in body["warnings"])
+
+
+def test_document_upload_preview_extracts_digital_pdf_text_without_robust_claim():
+    client = make_client()
+    content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")
+
+    response = client.post(
+        "/documents/upload-preview",
+        files={"file": ("sample-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["filename"] == "sample-report.pdf"
+    assert body["content_type"] == "application/pdf"
+    assert body["byte_count"] == len(content)
+    assert body["source_type"] == "pdf"
+    assert body["parser"] == "pdf-pymupdf"
+    assert "Enterprise PDF demand grew 12% in 2026" in body["text"]
+    assert body["metadata"]["digital_pdf_text_extraction"] is True
+    assert body["metadata"]["robust_pdf_extraction"] is False
+    assert body["metadata"]["page_count"] == 1
+    assert body["profile"]["has_numbers"] is True
+    assert any("OCR" in warning for warning in body["warnings"])
+    assert client.get("/documents").json() == []
 
 
 def test_document_upload_chunk_preview_compares_uploaded_csv_without_persistence():

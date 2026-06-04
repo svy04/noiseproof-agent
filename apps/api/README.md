@@ -126,7 +126,7 @@ curl http://localhost:8000/workflow-runs/<uuid>
 curl http://localhost:8000/workflow-runs/<uuid>/lineage
 ```
 
-The PDF parser is currently a text-only fallback. Robust PDF extraction is not claimed.
+PDF upload preview can extract digital text with PyMuPDF from uploaded PDF bytes. JSON `parse-preview` can still accept already-extracted PDF text through the text-only fallback. OCR, table extraction, layout fidelity, and robust PDF extraction are not claimed.
 Collection Plan Preview is deterministic and does not call LLMs, search external sources, expand retrieval, create an Evidence Ledger by itself, or persist records.
 Evidence Ledger Preview is deterministic and does not call LLMs, search external sources, run a Critic / Noise Gate, or create a final report. `POST /evidence-ledgers` persists the generated preview entries as v0 ledger records.
 Noise Gate Preview is deterministic and does not call LLMs, create a final report, or build a dashboard.

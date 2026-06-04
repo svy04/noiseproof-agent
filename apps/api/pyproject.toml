@@ -9,6 +9,7 @@ dependencies = [
   "psycopg[binary]>=3.2.0",
   "python-multipart>=0.0.20",
   "uvicorn[standard]>=0.34.0",
+  "pymupdf>=1.24.0",
 ]
 
 [dependency-groups]

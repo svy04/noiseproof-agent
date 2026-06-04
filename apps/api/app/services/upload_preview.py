@@ -1,7 +1,10 @@
+from dataclasses import asdict
 from pathlib import Path
 
-from app.schemas import ParsePreviewRequest, UploadPreviewOut
-from app.services.parse_preview import preview_parse
+from app.schemas import DocumentProfileOut, UploadPreviewOut
+from packages.ingestion.profiler import profile_text
+from packages.ingestion.selector import parse_document
+from packages.ingestion.types import DocumentProfileInput, ParseInput
 
 EXTENSION_SOURCE_TYPES = {
     ".md": "markdown",
@@ -42,10 +45,19 @@ def preview_upload(
         warnings=warnings,
     )
     text = decode_upload_content(content, warnings)
-    parsed = preview_parse(
-        ParsePreviewRequest(
+    parsed = parse_document(
+        ParseInput(
             source_type=inferred_source_type,
             content=text,
+            content_bytes=content,
+            filename=filename,
+            source_uri=f"upload://{filename}" if filename else "upload://unnamed",
+        )
+    )
+    profile = profile_text(
+        DocumentProfileInput(
+            source_type=parsed.source_type,
+            text=parsed.text,
             filename=filename,
             source_uri=f"upload://{filename}" if filename else "upload://unnamed",
         )
@@ -61,8 +73,12 @@ def preview_upload(
         text=parsed.text,
         metadata=parsed.metadata,
         warnings=warnings + parsed.warnings,
-        failure_case_candidate=parsed.failure_case_candidate,
-        profile=parsed.profile,
+        failure_case_candidate=(
+            asdict(parsed.failure_case_candidate)
+            if parsed.failure_case_candidate is not None
+            else None
+        ),
+        profile=DocumentProfileOut(**profile.__dict__),
     )
 
 

@@ -20,6 +20,7 @@ def parse_document(payload: ParseInput) -> ParseResult:
     normalized_payload = ParseInput(
         source_type=source_type,
         content=payload.content,
+        content_bytes=payload.content_bytes,
         filename=payload.filename,
         source_uri=payload.source_uri,
     )
