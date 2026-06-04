@@ -458,6 +458,8 @@ External reviewer rate-limit request refresh v0: implemented. Boundary: reviewer
 
 External review issue body rate-limit refresh v0: implemented. Boundary: issue #1 now points to the guarded raw file download rate-limit runtime smoke and its reviewer request refresh; owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, not distributed rate limiting, not production authorization, and not endpoint malicious-detection runtime proof.
 
+External feedback current-state rate-limit issue verification v0: implemented. Boundary: current issue #1 screen after the rate-limit issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:
