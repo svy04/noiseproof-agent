@@ -74,6 +74,8 @@ Read in this order:
     - uploaded raw file scan execution endpoint runtime proof with local Docker DB and live FastAPI HTTP; default scanner-unavailable returns failed / scan_error, no real ClamAV execution, no malware scanning, and no download endpoint.
 31. `docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md`
     - guarded raw file download endpoint runtime smoke with local Docker DB and live FastAPI HTTP; no-scan download returns `409`, latest clean scan returns `200` bytes, later failed scan returns `409`; not hosted deployment evidence, not external reviewer feedback, and not production malware scanning evidence.
+32. `docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md`
+    - guarded raw file download rate-limit runtime smoke with local Docker DB and live FastAPI HTTP; same-file no-scan attempts return `[409, 409, 409, 409, 409]` then `429`, while a separate clean file still downloads with `200`; not hosted deployment evidence, not external reviewer feedback, not distributed rate limiting, and not production authorization.
 
 ## Optional source-level provenance
 

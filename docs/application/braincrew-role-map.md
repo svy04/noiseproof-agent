@@ -59,7 +59,7 @@ Runtime proof summary:
 - Preserved upload boundary markers: not raw file storage.
 - Retrieval handoffs: linked Evidence Ledger, Noise Gate, and Report endpoints have local Docker runtime smoke; no external feedback, LLM judgment, free-form final answer, or automatic failure-case creation.
 - Caller-provided chunk embedding endpoint: POST/GET embeddings, generated-claim rejection `400`, and pgvector normalization are locally smoke-tested; no embedding generation, vector search quality claim, or hosted deployment evidence.
-- Caller-provided semantic retrieval persistence: `POST /documents/{document_id}/semantic-retrieval-runs`, `GET /retrieval-runs`, dimension mismatch rejection `400`, and unchanged Evidence Ledger counts are locally smoke-tested; no embedding generation, no vector search quality evidence, no Evidence Ledger generation from semantic retrieval, and no hosted deployment evidence.
+- Caller-provided semantic retrieval persistence: `POST /documents/{document_id}/semantic-retrieval-runs`, `GET /retrieval-runs`, dimension mismatch `400`, and unchanged Evidence Ledger counts are locally smoke-tested; no embedding generation, vector quality evidence, semantic Evidence Ledger generation, or hosted deployment evidence.
 - toy semantic retrieval quality report: records ranking metrics and visible misses over a toy fixture; no vector search quality evidence, benchmark result, model comparison, or production semantic retrieval quality is claimed.
 
 Detailed proof links:
@@ -72,6 +72,7 @@ Detailed proof links:
 - `docs/review/uploaded-raw-file-storage-application-refresh.md`
 - `docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md`
 - `docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md`
+- `docs/review/external-reviewer-rate-limit-request-refresh.md`
 - `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
 - `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
 - `docs/review/retrieval-run-linked-report-runtime-smoke.md`

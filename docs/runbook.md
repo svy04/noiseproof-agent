@@ -182,6 +182,8 @@ Phase 373 adds uploaded raw file download rate limit local v0: `docs/review/uplo
 
 Phase 374 adds uploaded raw file download rate limit runtime smoke v0: `docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for guarded raw file download rate limiting: no-scan same-file attempts produce `[409, 409, 409, 409, 409]` then `429`, the 429 response has no raw bytes, and a separate clean file still downloads with `200`, `local_v0_in_memory_fixed_window_not_production`, `local_v0_no_auth_not_production`, and `nosniff`. This is not distributed rate limiting, production authorization, hosted deployment evidence, or product-complete.
 
+Phase 375 adds external reviewer rate-limit request refresh v0: `docs/review/external-reviewer-rate-limit-request-refresh.md` updates reviewer-facing repository surfaces so `docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md` is visible from the proof path, review request, reviewer brief, link map, portfolio index, Braincrew role map, and application-ready review. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed rate limiting, not production authorization, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

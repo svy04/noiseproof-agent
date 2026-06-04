@@ -207,6 +207,14 @@ docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md
 
 Boundary: this proof is local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /documents/upload-raw-files/{raw_file_id}/download`; no-scan download returns `409`, latest clean scan returns `200` bytes, and later failed scan returns `409`. It is not hosted deployment evidence, not external reviewer feedback, not production malware scanning evidence, not endpoint malicious-detection runtime proof, and not production authorization.
 
+guarded raw file download rate-limit runtime smoke:
+
+```text
+docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md
+```
+
+Boundary: this proof is local Docker PostgreSQL plus live FastAPI HTTP evidence for local v0 guarded raw file download rate limiting; same-file no-scan attempts return `[409, 409, 409, 409, 409]` then `429`, and a separate clean file still downloads with `200`. It is not hosted deployment evidence, not external reviewer feedback, not distributed rate limiting, not endpoint malicious-detection runtime proof, and not production authorization.
+
 architecture current-state refresh:
 
 ```text

@@ -454,6 +454,8 @@ Uploaded raw file download rate limit local v0: implemented. Boundary: guarded r
 
 Uploaded raw file download rate limit runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified `[409, 409, 409, 409, 409] -> 429` for repeated same-file no-scan downloads and `200` for a separate clean download with local rate-limit/no-auth/nosniff headers; not distributed rate limiting, production authorization, hosted deployment evidence, or product-complete.
 
+External reviewer rate-limit request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the guarded raw file download rate-limit runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed rate limiting, not production authorization, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

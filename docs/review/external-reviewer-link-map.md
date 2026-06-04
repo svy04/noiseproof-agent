@@ -82,10 +82,13 @@ https://github.com/svy04/noiseproof-agent/issues/1
 24. guarded raw file download endpoint runtime smoke:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md
    Boundary: local Docker DB plus live FastAPI HTTP for guarded raw download; no-scan download returns `409`, latest clean scan returns `200` bytes, and later failed scan returns `409`; not hosted deployment evidence, not external reviewer feedback, and not production malware scanning evidence.
-25. architecture current-state refresh:
+25. guarded raw file download rate-limit runtime smoke:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md
+   Boundary: local Docker DB plus live FastAPI HTTP for local v0 guarded raw file download rate limiting; same-file no-scan attempts return `[409, 409, 409, 409, 409]` then `429`, and a separate clean file still downloads with `200`; not hosted deployment evidence, not external reviewer feedback, not distributed rate limiting, and not production authorization.
+26. architecture current-state refresh:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/architecture-current-state-refresh.md
    Boundary: separates implemented upload/chunk/retrieval/evidence handoff surfaces from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality.
-24. Feedback intake criteria:
+27. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route
