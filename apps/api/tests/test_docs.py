@@ -13828,3 +13828,58 @@ def test_uploaded_raw_file_download_approval_endpoint_documents_metadata_only_co
         "docs/review/uploaded-raw-file-download-approval-endpoint.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_approval_endpoint_runtime_smoke_records_live_http_evidence():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-approval-endpoint-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Approval Endpoint Runtime Smoke" in content
+    assert (
+        "uploaded raw file download approval endpoint runtime smoke v0"
+        in content
+    )
+    assert "local Docker FastAPI plus PostgreSQL" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-raw-files -> 201" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan-results -> 201" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/download-approvals -> 201" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/download-approvals -> 200" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/download -> 409" in content
+    assert "listed_approval_count: 1" in content
+    assert "local_v0_manual_operator_approval_not_production_auth" in content
+    assert "operator_label_not_authenticated_identity" in content
+    assert "latest clean scan result required before raw file download" in content
+    assert "approval metadata did not override latest clean scan guard" in content
+    assert "not approval enforcement" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert "not hosted deployment evidence" in content
+    assert (
+        "Uploaded raw file download approval endpoint runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 408 - Uploaded Raw File Download Approval Endpoint Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "uploaded raw file download approval endpoint runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-endpoint-runtime-smoke.md"
+        in portfolio
+    )

@@ -248,6 +248,8 @@ Phase 406 adds uploaded raw file download approval endpoint review v0: `docs/rev
 
 Phase 407 adds uploaded raw file download approval endpoint v0: `docs/review/uploaded-raw-file-download-approval-endpoint.md` implements metadata-only create/list routes for manual approval rows. The route rejects path/body mismatch and preserves local approval/identity boundary strings. Route tests also confirm the download route still requires latest clean scan result even when approval metadata exists. This is not approval enforcement, not production authorization, not user identity, not signed URL support, not hosted evidence, and not product-complete.
 
+Phase 408 adds uploaded raw file download approval endpoint runtime smoke v0: `docs/review/uploaded-raw-file-download-approval-endpoint-runtime-smoke.md` records local Docker FastAPI plus PostgreSQL proof that approval metadata create/list works over HTTP. Observed flow: health `200`, upload `201`, scan metadata `201`, approval metadata `201`, approval list `200`, and raw download `409` because the latest scan verdict was `scan_error`. This proves approval metadata did not override latest clean scan guard. This is local runtime evidence only, not approval enforcement, not production authorization, not user identity, not signed URL support, not hosted evidence, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

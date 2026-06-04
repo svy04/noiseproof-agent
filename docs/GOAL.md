@@ -944,6 +944,47 @@ Next recommended gate:
 uploaded raw file download approval endpoint runtime smoke v0
 ```
 
+Phase 408 extension to the accepted state:
+
+```text
+Uploaded Raw File Download Approval Endpoint Runtime Smoke v0
+```
+
+### Phase 408 - Uploaded Raw File Download Approval Endpoint Runtime Smoke v0
+
+Goal:
+
+```text
+verify approval metadata create/list routes through local Docker FastAPI plus PostgreSQL
+```
+
+Implemented:
+
+```text
+uploaded raw file download approval endpoint runtime smoke v0
+docs/review/uploaded-raw-file-download-approval-endpoint-runtime-smoke.md
+docker compose --profile api up -d --build api
+GET /health -> 200
+POST /documents/upload-raw-files -> 201
+POST /documents/upload-raw-files/{raw_file_id}/scan-results -> 201
+POST /documents/upload-raw-files/{raw_file_id}/download-approvals -> 201
+GET /documents/upload-raw-files/{raw_file_id}/download-approvals -> 200
+GET /documents/upload-raw-files/{raw_file_id}/download -> 409
+listed_approval_count: 1
+approval metadata did not override latest clean scan guard
+README implementation marker
+docs/runbook.md runtime smoke note
+docs/application/portfolio-index.md runtime smoke entry
+```
+
+Phase 408 is local runtime evidence only. It adds no hosted deployment evidence, external reviewer feedback, approval enforcement, production authorization, user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+uploaded raw file download approval gate behavior review v0
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:
