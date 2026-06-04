@@ -401,7 +401,9 @@ External review issue body readability refresh v0: implemented. Boundary: issue 
 
 External feedback current-state issue body readability verification v0: implemented. Boundary: current issue #1 remains concise and sectioned with `body_length=3808`, literal `\\r\\n` text absent, `comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
-architecture current-state refresh v0: implemented. Boundary: `docs/architecture.md` now separates implemented uploaded-file persistence, chunk/retrieval persistence, caller-provided embeddings, semantic retrieval persistence, and retrieval-run-linked Evidence Ledger / Noise Gate / Report handoffs from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality.
+architecture current-state refresh v0: implemented. Boundary: `docs/architecture.md` separates implemented uploaded-file persistence, chunk/retrieval persistence, caller-provided embeddings, semantic retrieval persistence, and retrieval-run-linked Evidence Ledger / Noise Gate / Report handoffs from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, and production semantic retrieval quality.
+
+Architecture ClamAV proof boundary refresh v0: implemented. Boundary: `docs/architecture.md` and reviewer-facing current-state surfaces now recognize the local ClamAV endpoint malicious-detection owner-runtime smoke while keeping production malware scanning evidence, hosted deployment evidence, external reviewer feedback, production authorization, and product-complete claims unproven.
 
 External reviewer architecture current-state request refresh v0: implemented. Boundary: reviewer request surfaces now link to `docs/review/architecture-current-state-refresh.md`; this is request infrastructure only, not external reviewer feedback, not hosted deployment evidence, and not endpoint malicious-detection runtime proof.
 

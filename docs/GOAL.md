@@ -15787,6 +15787,41 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 436 - Architecture Current-state ClamAV Proof Boundary Refresh v0
+
+Goal:
+
+```text
+refresh current-facing architecture and reviewer surfaces after local ClamAV endpoint malicious-detection proof became available
+```
+
+Implemented:
+
+```text
+architecture current-state ClamAV proof boundary refresh v0
+docs/review/architecture-current-state-clamav-proof-boundary-refresh.md
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md
+local endpoint malicious-detection proof exists
+harness_status: verified_infected
+scan_verdict: infected
+matched_signature: Eicar-Test-Signature
+docs/architecture.md current-state boundary
+docs/review/external-review-request.md link
+docs/review/external-reviewer-link-map.md link
+.github/ISSUE_TEMPLATE/external-review-feedback.md link
+docs/application/portfolio-index.md link
+README implementation marker
+docs/runbook.md note
+```
+
+Phase 436 is documentation/current-state alignment only. It adds no runtime behavior, schema, migration, API endpoint, scanner behavior, malware signature payload, raw upload, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, production malware scanning evidence, production authorization, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

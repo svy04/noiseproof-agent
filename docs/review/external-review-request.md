@@ -279,13 +279,13 @@ docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md
 
 Boundary: this proof is local Docker FastAPI plus PostgreSQL evidence for local v0 approval audit metadata; active approval download returns `200`, allowed event metadata keeps approval id/status/expiry/latest-scan match, and identity remains `operator_label_not_authenticated_identity`. It is not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
 
-architecture current-state refresh:
+architecture current-state ClamAV proof boundary refresh:
 
 ```text
-docs/review/architecture-current-state-refresh.md
+docs/review/architecture-current-state-clamav-proof-boundary-refresh.md
 ```
 
-Boundary: this proof-surface correction separates implemented uploaded-file persistence, chunk/retrieval persistence, caller-provided embeddings, semantic retrieval persistence, and retrieval-run-linked Evidence Ledger / Noise Gate / Report handoffs from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality.
+Boundary: this proof-surface correction recognizes the local ClamAV endpoint malicious-detection owner-runtime smoke while still not claiming production malware scanning evidence, hosted deployment evidence, external reviewer feedback, production authorization, or product completion.
 
 ## Review Path
 
@@ -309,7 +309,7 @@ Please read in this order:
 16. `docs/evaluation/semantic-retrieval-quality-report.md`
 17. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
 18. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
-19. `docs/review/architecture-current-state-refresh.md`
+19. `docs/review/architecture-current-state-clamav-proof-boundary-refresh.md`
 20. `docs/application/braincrew-role-map.md`
 
 Optional source-level provenance:

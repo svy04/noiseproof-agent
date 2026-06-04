@@ -10441,7 +10441,9 @@ def test_architecture_current_state_refresh_removes_stale_planned_boundaries():
     assert "production semantic retrieval quality" in architecture
     assert "hosted deployment evidence" in architecture
     assert "external reviewer feedback" in architecture
-    assert "endpoint malicious-detection runtime proof" in architecture
+    assert "ClamAV endpoint malicious-detection owner-runtime proof" in architecture
+    assert "production malware scanning evidence" in architecture
+    assert "endpoint malicious-detection runtime proof" not in architecture
     assert stale_planned_boundary not in architecture
     assert "architecture current-state refresh v0: implemented" in readme
     assert "Phase 336 - Architecture Current-state Refresh v0" in goal
@@ -10476,6 +10478,9 @@ def test_external_reviewer_architecture_current_state_request_refresh_is_documen
     architecture_refresh_link = (
         "docs/review/architecture-current-state-refresh.md"
     )
+    current_architecture_refresh_link = (
+        "docs/review/architecture-current-state-clamav-proof-boundary-refresh.md"
+    )
 
     assert "External Reviewer Architecture Current-state Request Refresh" in content
     assert (
@@ -10487,9 +10492,9 @@ def test_external_reviewer_architecture_current_state_request_refresh_is_documen
     assert "not external reviewer feedback" in content
     assert "not hosted deployment evidence" in content
     assert "not endpoint malicious-detection runtime proof" in content
-    assert architecture_refresh_link in request
-    assert architecture_refresh_link in link_map
-    assert architecture_refresh_link in issue_template
+    assert current_architecture_refresh_link in request
+    assert current_architecture_refresh_link in link_map
+    assert current_architecture_refresh_link in issue_template
     assert (
         "External reviewer architecture current-state request refresh v0: implemented"
         in readme
@@ -15404,4 +15409,66 @@ def test_external_feedback_current_state_approval_audit_metadata_issue_verificat
     assert (
         "docs/review/external-feedback-current-state-approval-audit-metadata-issue-verification.md"
         in issue_body_refresh
+    )
+
+
+def test_architecture_current_state_clamav_proof_boundary_refresh_removes_stale_unproven_endpoint_claim():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/architecture-current-state-clamav-proof-boundary-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+    review_request = (
+        REPO_ROOT / "docs/review/external-review-request.md"
+    ).read_text(encoding="utf-8")
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = (
+        "docs/review/"
+        "architecture-current-state-clamav-proof-boundary-refresh.md"
+    )
+    smoke_doc = (
+        "docs/review/"
+        "clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md"
+    )
+
+    assert "Architecture Current-state ClamAV Proof Boundary Refresh" in content
+    assert "architecture current-state ClamAV proof boundary refresh v0" in content
+    assert smoke_doc in content
+    assert "local endpoint malicious-detection proof exists" in content
+    assert "harness_status: verified_infected" in content
+    assert "scan_verdict: infected" in content
+    assert "matched_signature: Eicar-Test-Signature" in content
+    assert "not production malware scanning evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not live issue body edit" in content
+    assert "Architecture ClamAV proof boundary refresh v0: implemented" in readme
+    assert (
+        "Phase 436 - Architecture Current-state ClamAV Proof Boundary Refresh v0"
+        in goal
+    )
+    assert "architecture current-state ClamAV proof boundary refresh v0" in runbook
+    assert proof_doc in review_request
+    assert proof_doc in link_map
+    assert proof_doc in issue_template
+    assert proof_doc in portfolio
+    assert "ClamAV endpoint malicious-detection owner-runtime proof" in architecture
+    assert "production malware scanning evidence" in architecture
+    assert (
+        "endpoint malicious-detection runtime proof" not in architecture
     )
