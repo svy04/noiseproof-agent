@@ -207,8 +207,8 @@ For exhaustive phase history, use `docs/GOAL.md`.
 Not implemented yet:
 
 - robust PDF extraction
-- download endpoint for stored raw uploads
-- malware scanning for stored raw uploads
+- production authorization and download rate limiting for stored raw uploads
+- production malware scanning evidence for stored raw uploads
 - automatic upload-preview-to-chunk persistence wiring
 - autonomous workflow execution endpoints
 - automatic failure-case persistence from workflow failures
@@ -437,6 +437,8 @@ ci node24 actions runtime remote verification v0: implemented. Boundary: remote 
 
 
 Uploaded raw file download endpoint review v0: implemented. Boundary: source-first review selects a future scan-first `GET /documents/upload-raw-files/{raw_file_id}/download` route that requires the latest clean scan result and keeps authorization / download rate limit explicit; review-only, not endpoint code, not a download endpoint, not malware scanning evidence, and not product-complete.
+
+Guarded raw file download endpoint v0: implemented. Boundary: explicit `GET /documents/upload-raw-files/{raw_file_id}/download` returns raw bytes only when the latest scan result is `completed / clean`; missing scan evidence or latest non-clean result returns `409`; local v0 marks authorization and download rate limit as planned, so this is not production malware scanning evidence, not hosted deployment evidence, and not product-complete.
 
 ## Planned Agent Workflow
 

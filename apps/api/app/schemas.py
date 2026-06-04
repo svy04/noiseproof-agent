@@ -118,7 +118,7 @@ class UploadedRawFileMetadata(BaseModel):
     size_bytes: int = Field(default=0, ge=0)
     storage_backend: str = "postgres_bytea"
     quarantine_status: str = "stored_quarantined"
-    persistence_boundary: str = "raw_upload_quarantine_db_bytea_no_download_endpoint"
+    persistence_boundary: str = "raw_upload_quarantine_db_bytea_guarded_download_endpoint"
     raw_file_storage: bool = True
     warnings_json: list[str] = Field(default_factory=list)
 

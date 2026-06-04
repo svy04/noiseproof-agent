@@ -11814,3 +11814,30 @@ def test_uploaded_raw_file_download_endpoint_review_keeps_downloads_scan_first_a
     )
     assert "Phase 366 - Uploaded Raw File Download Endpoint Review v0" in goal
     assert "uploaded raw file download endpoint review v0" in runbook
+
+
+def test_guarded_raw_file_download_endpoint_is_documented_as_scan_first_local_v0():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-download-endpoint.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Guarded Raw File Download Endpoint" in content
+    assert "guarded raw file download endpoint v0" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/download" in content
+    assert "latest clean scan result required" in content
+    assert "409" in content
+    assert "X-Content-Type-Options" in content
+    assert "local_v0_no_auth_not_production" in content
+    assert "raw_upload_quarantine_db_bytea_guarded_download_endpoint" in content
+    assert "db/migrations/019_uploaded_raw_file_guarded_download_boundary.sql" in content
+    assert "not production malware scanning evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert "Guarded raw file download endpoint v0: implemented" in readme
+    assert "Phase 367 - Guarded Raw File Download Endpoint v0" in goal
+    assert "guarded raw file download endpoint v0" in runbook

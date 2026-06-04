@@ -181,7 +181,11 @@ class InMemoryRepository:
             rows = [row for row in rows if row["scan_status"] == scan_status]
         if scan_verdict is not None:
             rows = [row for row in rows if row["scan_verdict"] == scan_verdict]
-        return rows[:limit]
+        return sorted(
+            rows,
+            key=lambda row: (row["created_at"], str(row["id"])),
+            reverse=True,
+        )[:limit]
 
     def create_agent_run(self, payload: AgentRunCreate) -> dict:
         row = payload.model_dump()
@@ -1313,7 +1317,7 @@ def test_document_upload_raw_file_persists_quarantined_bytes_without_filename_st
     assert body["raw_file_storage"] is True
     assert body["storage_backend"] == "postgres_bytea"
     assert body["quarantine_status"] == "stored_quarantined"
-    assert body["persistence_boundary"] == "raw_upload_quarantine_db_bytea_no_download_endpoint"
+    assert body["persistence_boundary"] == "raw_upload_quarantine_db_bytea_guarded_download_endpoint"
     assert body["storage_key"] != "../../evil.csv"
     assert ".." not in body["storage_key"]
     assert "/" not in body["storage_key"]
@@ -1513,6 +1517,85 @@ def test_document_upload_raw_file_scan_execution_returns_404_for_missing_raw_fil
     assert response.status_code == 404
     assert "uploaded raw file not found" in response.json()["detail"]
     assert client.get(f"/documents/upload-raw-files/{raw_file_id}/scan-results").json() == []
+
+
+def test_document_upload_raw_file_download_requires_latest_clean_scan_result():
+    client = make_client()
+    content = b"ticker,revenue\nALPHA,120\n"
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+
+    no_scan_response = client.get(f"/documents/upload-raw-files/{raw_file_id}/download")
+
+    assert upload.status_code == 201
+    assert no_scan_response.status_code == 409
+    assert "latest clean scan result required" in no_scan_response.json()["detail"]
+
+    clean_result = {
+        "raw_file_id": raw_file_id,
+        "scanner_name": "manual-clean",
+        "scan_status": "completed",
+        "scan_verdict": "clean",
+    }
+    failed_result = {
+        "raw_file_id": raw_file_id,
+        "scanner_name": "manual-failed",
+        "scan_status": "failed",
+        "scan_verdict": "scan_error",
+        "error_message": "scanner failed after clean result",
+    }
+    client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/scan-results",
+        json=clean_result,
+    )
+    client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/scan-results",
+        json=failed_result,
+    )
+
+    latest_failed_response = client.get(
+        f"/documents/upload-raw-files/{raw_file_id}/download"
+    )
+
+    assert latest_failed_response.status_code == 409
+    assert "latest clean scan result required" in latest_failed_response.json()["detail"]
+
+
+def test_document_upload_raw_file_download_returns_bytes_after_latest_clean_scan_only():
+    client = make_client()
+    scanner = RecordingCleanScanner()
+    client.app.dependency_overrides[get_scanner_adapter] = lambda: scanner
+    content = b"ticker,revenue\nALPHA,120\n"
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("../../sample.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+    scan = client.post(f"/documents/upload-raw-files/{raw_file_id}/scan")
+
+    response = client.get(f"/documents/upload-raw-files/{raw_file_id}/download")
+
+    assert upload.status_code == 201
+    assert scan.status_code == 201
+    assert scan.json()["scan_verdict"] == "clean"
+    assert response.status_code == 200
+    assert response.content == content
+    assert response.headers["x-content-type-options"] == "nosniff"
+    assert response.headers["x-noiseproof-download-boundary"] == (
+        "scan_first_latest_clean_result_required"
+    )
+    assert response.headers["x-noiseproof-authorization-boundary"] == (
+        "local_v0_no_auth_not_production"
+    )
+    assert response.headers["content-disposition"].startswith("attachment;")
+    assert "sample.csv" in response.headers["content-disposition"]
+    assert ".." not in response.headers["content-disposition"]
+    assert "raw_bytes" not in upload.json()
 
 
 def test_list_document_upload_intake_manifests_returns_recent_manifest_metadata():

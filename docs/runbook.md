@@ -166,6 +166,8 @@ Phase 365 adds external feedback current-state workflow review queue proof index
 
 Phase 366 adds uploaded raw file download endpoint review v0: `docs/review/uploaded-raw-file-download-endpoint-review.md` records the source-first decision that any future `GET /documents/upload-raw-files/{raw_file_id}/download` route must be scan-first, require the latest clean scan result, avoid storage-key exposure, and keep authorization boundary plus download rate limit explicit. This is review-only; it is not endpoint code, not a download endpoint, not malware scanning evidence, and not product-complete.
 
+Phase 367 adds guarded raw file download endpoint v0: `GET /documents/upload-raw-files/{raw_file_id}/download` now returns raw bytes only when the latest scan result is `completed / clean`; missing scan evidence or a latest non-clean result returns `409` with `latest clean scan result required`. The response sets `X-Content-Type-Options: nosniff`, `X-NoiseProof-Download-Boundary: scan_first_latest_clean_result_required`, `X-NoiseProof-Authorization-Boundary: local_v0_no_auth_not_production`, and `X-NoiseProof-Download-Rate-Limit-Boundary: planned_not_enforced_local_v0`. This is local API behavior only, not production malware scanning evidence, hosted deployment evidence, external reviewer feedback, production authorization, enforced rate limiting, or product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

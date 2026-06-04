@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS uploaded_raw_files (
   quarantine_status TEXT NOT NULL DEFAULT 'stored_quarantined' CHECK (
     quarantine_status IN ('stored_quarantined', 'rejected')
   ),
-  persistence_boundary TEXT NOT NULL DEFAULT 'raw_upload_quarantine_db_bytea_no_download_endpoint',
+  persistence_boundary TEXT NOT NULL DEFAULT 'raw_upload_quarantine_db_bytea_guarded_download_endpoint',
   raw_bytes BYTEA NOT NULL,
   warnings_json JSONB NOT NULL DEFAULT '[]'::jsonb,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()

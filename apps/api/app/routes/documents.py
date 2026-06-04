@@ -1,7 +1,9 @@
+import re
 from hashlib import sha256
 from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi.responses import Response
 
 from app.db import Repository, get_repository
 from app.schemas import (
@@ -60,6 +62,27 @@ from app.services.upload_retrieval_preview import preview_uploaded_retrieval
 from packages.ingestion.scanning import ScannerAdapter
 
 router = APIRouter(prefix="/documents", tags=["documents"])
+
+
+RAW_UPLOAD_GUARDED_DOWNLOAD_BOUNDARY = (
+    "raw_upload_quarantine_db_bytea_guarded_download_endpoint"
+)
+DOWNLOAD_BLOCK_DETAIL = "latest clean scan result required before raw file download"
+
+
+def _safe_download_filename(filename: str | None, raw_file_id: UUID) -> str:
+    fallback = f"raw-file-{raw_file_id}.bin"
+    if not filename:
+        return fallback
+    candidate = filename.replace("\\", "/").split("/")[-1].strip()
+    candidate = re.sub(r"[^A-Za-z0-9._-]+", "_", candidate).strip("._")
+    return candidate or fallback
+
+
+def _content_type_for_download(content_type: str | None) -> str:
+    if not content_type:
+        return "application/octet-stream"
+    return content_type
 
 
 @router.post("", response_model=DocumentOut, status_code=201)
@@ -336,7 +359,8 @@ async def upload_document_raw_file(
     warnings = [
         "Raw upload storage is quarantine-only and stores bytes in PostgreSQL bytea.",
         "The original filename is recorded as metadata only and is not used as a storage key.",
-        "No download endpoint, malware scan, robust PDF extraction, parsing guarantee, or hosted deployment evidence is claimed.",
+        "Raw byte retrieval requires the explicit scan-first download endpoint and a latest clean scan result.",
+        "No malware scan completeness, robust PDF extraction, parsing guarantee, hosted deployment evidence, or production authorization is claimed.",
     ]
     payload = UploadedRawFileCreate(
         content_sha256=sha256(content).hexdigest(),
@@ -347,7 +371,7 @@ async def upload_document_raw_file(
         size_bytes=byte_count,
         storage_backend="postgres_bytea",
         quarantine_status="stored_quarantined",
-        persistence_boundary="raw_upload_quarantine_db_bytea_no_download_endpoint",
+        persistence_boundary=RAW_UPLOAD_GUARDED_DOWNLOAD_BOUNDARY,
         raw_file_storage=True,
         raw_bytes=content,
         warnings_json=warnings,
@@ -428,6 +452,50 @@ def execute_upload_raw_file_scan(
             detail="uploaded raw file not found",
         )
     return result
+
+
+@router.get("/upload-raw-files/{raw_file_id}/download")
+def download_upload_raw_file(
+    raw_file_id: UUID,
+    repository: Repository = Depends(get_repository),
+) -> Response:
+    raw_file = repository.get_uploaded_raw_file_for_scan(raw_file_id)
+    if raw_file is None:
+        raise HTTPException(
+            status_code=404,
+            detail="uploaded raw file not found",
+        )
+
+    latest_results = list(
+        repository.list_raw_file_scan_results(raw_file_id=raw_file_id, limit=1)
+    )
+    latest_result = latest_results[0] if latest_results else None
+    if (
+        latest_result is None
+        or latest_result.get("scan_status") != "completed"
+        or latest_result.get("scan_verdict") != "clean"
+    ):
+        raise HTTPException(status_code=409, detail=DOWNLOAD_BLOCK_DETAIL)
+
+    if raw_file.get("quarantine_status") != "stored_quarantined":
+        raise HTTPException(
+            status_code=409,
+            detail="raw file quarantine status does not allow controlled download",
+        )
+
+    filename = _safe_download_filename(raw_file.get("filename"), raw_file_id)
+    headers = {
+        "Content-Disposition": f'attachment; filename="{filename}"',
+        "X-Content-Type-Options": "nosniff",
+        "X-NoiseProof-Download-Boundary": "scan_first_latest_clean_result_required",
+        "X-NoiseProof-Authorization-Boundary": "local_v0_no_auth_not_production",
+        "X-NoiseProof-Download-Rate-Limit-Boundary": "planned_not_enforced_local_v0",
+    }
+    return Response(
+        content=bytes(raw_file["raw_bytes"]),
+        media_type=_content_type_for_download(raw_file.get("content_type")),
+        headers=headers,
+    )
 
 
 @router.post(
