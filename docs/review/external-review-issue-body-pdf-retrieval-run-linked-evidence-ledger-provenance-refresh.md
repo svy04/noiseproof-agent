@@ -93,3 +93,9 @@ It is not production readiness.
 ```text
 external reviewer feedback v0 remains pending, external feedback current-state PDF retrieval-run-linked Evidence Ledger provenance issue verification v0, or select the next source-first product gate
 ```
+
+Current-state screen:
+
+```text
+docs/review/external-feedback-current-state-pdf-retrieval-run-linked-evidence-ledger-provenance-issue-verification.md
+```

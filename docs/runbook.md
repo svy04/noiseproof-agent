@@ -42,6 +42,8 @@ Phase 354 adds external reviewer PDF retrieval-run-linked Evidence Ledger proven
 
 Phase 355 adds external reviewer PDF retrieval-run-linked Evidence Ledger provenance issue-body refresh v0: live issue #1 now points reviewers to `docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance-runtime-smoke.md` and `docs/review/external-reviewer-pdf-retrieval-run-linked-evidence-ledger-provenance-request-refresh.md`; observed `updatedAt` is `2026-06-04T07:43:00Z`, `first_codepoint` is `35`, and `comment_count` remains `1`. This is an owner-authored issue body edit only; it is not external reviewer feedback, hosted deployment evidence, robust PDF extraction, OCR, table extraction, layout fidelity, raw file storage, full parsed text persistence, Noise Gate behavior, or report generation.
 
+Phase 356 adds external feedback current-state PDF retrieval-run-linked Evidence Ledger provenance issue verification v0: current issue #1 still has `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and only a self-authored non-qualifying comment after the PDF retrieval-run-linked Evidence Ledger provenance issue-body refresh. This does not close external reviewer feedback v0 and is not hosted deployment evidence, robust PDF extraction, OCR, table extraction, layout fidelity evidence, raw file storage, full parsed text persistence, Noise Gate behavior, or report generation.
+
 Phase 22 adds an Evidence Ledger dashboard table: persisted evidence rows are now visible beside retrieval, gate, and report records in the plain operations dashboard.
 
 Phase 22.5 adds a review-only cross-link decision: direct evidence -> gate -> report links are deferred until a single workflow parent exists.
