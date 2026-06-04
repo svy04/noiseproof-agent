@@ -12,7 +12,10 @@ from app.schemas import (
     TextEmbeddingPreviewOut,
     TextEmbeddingPreviewRequest,
 )
-from app.services.embedding_model_preview import preview_embedding_model_provider
+from app.services.embedding_model_preview import (
+    get_embedding_provider_client,
+    preview_embedding_model_provider,
+)
 from app.services.text_embedding_preview import preview_text_embedding
 from app.settings import Settings, get_settings
 
@@ -49,8 +52,9 @@ def create_text_embedding_preview(
 def create_embedding_model_preview(
     payload: EmbeddingModelPreviewRequest,
     settings: Settings = Depends(get_settings),
+    provider_client=Depends(get_embedding_provider_client),
 ) -> EmbeddingModelPreviewOut:
-    return preview_embedding_model_provider(payload, settings)
+    return preview_embedding_model_provider(payload, settings, provider_client)
 
 
 @router.post("/{chunk_id}/embeddings", response_model=ChunkEmbeddingOut, status_code=201)

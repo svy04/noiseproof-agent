@@ -41,6 +41,7 @@ Forbidden claim: this is not hosted deployment evidence, automatic persistence r
 | embedding provider source review exists | Pass | `docs/review/embedding-provider-source-review.md` | source review only; no API call; no dependency; no cost-incurring runtime path; actual embedding model generation remains unproven |
 | embedding model provider disabled path exists | Pass | `POST /chunks/embedding-model-preview`, `docs/review/embedding-model-provider-disabled-path.md` | readiness/disabled path only; no provider call; no embedding vector is generated; no persistence; actual embedding model generation remains unproven |
 | embedding model provider live-call review exists | Pass | `docs/review/embedding-model-provider-live-call-review.md` | guardrail review only; not implemented runtime behavior; no provider call; actual embedding model generation remains unproven |
+| embedding model mocked-provider call exists | Pass | `POST /chunks/embedding-model-preview`, `docs/review/embedding-model-mocked-provider-call.md` | injected mocked provider only; no live OpenAI provider call; no live provider call in CI; no automatic persistence; actual live embedding model generation remains unproven |
 | failure cases are recorded | Pass | failure case endpoint and dashboard | not comprehensive |
 | operations dashboard shows runs and failures | Pass | `GET /ops/dashboard` | plain HTML, not polished UI |
 | README is understandable without explanation | Pass | `README.md` | should still be reviewed by an external reader |

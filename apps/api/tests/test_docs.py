@@ -17182,3 +17182,38 @@ def test_embedding_model_provider_live_call_review_documents_next_guardrails():
     assert "embedding model provider live-call review v0" in runbook
     assert "docs/review/embedding-model-provider-live-call-review.md" in portfolio
     assert "embedding model provider live-call review exists" in app_review
+
+
+def test_embedding_model_mocked_provider_call_documents_no_live_boundary():
+    review_path = REPO_ROOT / "docs/review/embedding-model-mocked-provider-call.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Model Mocked-provider Call" in content
+    assert "embedding model mocked-provider call v0" in content
+    assert "POST /chunks/embedding-model-preview" in content
+    assert "allow_provider_call: true" in content
+    assert "mocked_provider_generated" in content
+    assert "mocked_provider_client" in content
+    assert "provider response dimension check" in content
+    assert "provider response dimension mismatch" in content
+    assert "mocked_provider_call_only" in content
+    assert "preview_only_not_persisted" in content
+    assert "no live OpenAI provider call" in content
+    assert "no live provider call in CI" in content
+    assert "actual live embedding model generation remains unproven" in content
+    assert "Embedding model mocked-provider call v0: implemented" in readme
+    assert "Phase 467 - Embedding Model Mocked-provider Call v0" in goal
+    assert "embedding model mocked-provider call v0" in runbook
+    assert "docs/review/embedding-model-mocked-provider-call.md" in portfolio
+    assert "embedding model mocked-provider call exists" in app_review

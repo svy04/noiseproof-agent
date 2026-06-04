@@ -28,6 +28,8 @@ Embedding model provider disabled path: `docs/review/embedding-model-provider-di
 
 Embedding model provider live-call review: `docs/review/embedding-model-provider-live-call-review.md` records the guardrails required before a future OpenAI embedding call, including `allow_provider_call`, timeout, dimension checks, secret redaction, and mocked-client-first tests. It is not implemented runtime behavior and not actual embedding generation.
 
+Embedding model mocked-provider call: `docs/review/embedding-model-mocked-provider-call.md` records provider response handling through an injected mocked provider client, including dimension-check failure behavior. It is not a live OpenAI provider call, not a live provider call in CI, not automatic persistence, and not actual live embedding generation.
+
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
 External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.

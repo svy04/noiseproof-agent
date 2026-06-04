@@ -318,6 +318,7 @@ class EmbeddingModelPreviewRequest(BaseModel):
     embedding_model: str | None = None
     embedding_dimension: int | None = Field(default=None, ge=1, le=4096)
     encoding_format: str = "float"
+    allow_provider_call: bool = False
 
 
 class EmbeddingModelPreviewOut(BaseModel):

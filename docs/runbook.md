@@ -8725,3 +8725,55 @@ no network call
 no cost-incurring path
 actual embedding model generation remains unproven
 ```
+
+## Embedding Model Mocked-provider Call
+
+Phase marker: embedding model mocked-provider call v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-mocked-provider-call.md
+```
+
+Endpoint:
+
+```text
+POST /chunks/embedding-model-preview
+```
+
+Mocked success state:
+
+```text
+allow_provider_call: true
+embedding_status: mocked_provider_generated
+metadata_json.network_boundary: mocked_provider_call_only
+metadata_json.provider_call_boundary: mocked_provider_client
+metadata_json.provider_response_dimension_check: passed
+metadata_json.persistence_boundary: preview_only_not_persisted
+```
+
+Failure state:
+
+```text
+provider response dimension mismatch
+```
+
+Focused verification:
+
+```bash
+cd apps/api
+uv run pytest -q tests/test_routes.py -k "embedding_model_preview"
+uv run pytest -q tests/test_docs.py -k "embedding_model_mocked_provider_call"
+```
+
+Claim boundary:
+
+```text
+no live OpenAI provider call
+no live provider call in CI
+no network call
+no live API cost
+no automatic persistence
+actual live embedding model generation remains unproven
+```

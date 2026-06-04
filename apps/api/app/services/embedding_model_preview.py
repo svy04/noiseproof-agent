@@ -8,9 +8,14 @@ from app.settings import Settings
 SOURCE_REVIEW_PATH = "docs/review/embedding-provider-source-review.md"
 
 
+def get_embedding_provider_client():
+    return None
+
+
 def preview_embedding_model_provider(
     payload: EmbeddingModelPreviewRequest,
     settings: Settings,
+    provider_client=None,
 ) -> EmbeddingModelPreviewOut:
     provider = payload.provider.lower()
     if provider != "openai":
@@ -27,6 +32,56 @@ def preview_embedding_model_provider(
     model = payload.embedding_model or settings.embedding_model or "text-embedding-3-small"
     dimension = payload.embedding_dimension or settings.embedding_dimension or 1536
     configured = bool(settings.openai_api_key.strip())
+    if payload.allow_provider_call and configured and provider_client is None:
+        raise HTTPException(
+            status_code=501,
+            detail="live embedding provider client is not implemented for this phase.",
+        )
+    if payload.allow_provider_call and configured and provider_client is not None:
+        provider_response = provider_client.create_embedding(
+            text=payload.text,
+            model=model,
+            dimension=dimension,
+            encoding_format="float",
+            api_key=settings.openai_api_key,
+        )
+        embedding = provider_response.get("embedding")
+        if not isinstance(embedding, list) or len(embedding) != dimension:
+            raise HTTPException(
+                status_code=502,
+                detail="provider response dimension mismatch.",
+            )
+        return EmbeddingModelPreviewOut(
+            provider=provider,
+            embedding_model=model,
+            embedding_dimension=dimension,
+            encoding_format="float",
+            configured=True,
+            embedding_status="mocked_provider_generated",
+            embedding=embedding,
+            metadata_json={
+                "provider": provider,
+                "provider_model": provider_response.get("model", model),
+                "provider_dimension": dimension,
+                "network_boundary": "mocked_provider_call_only",
+                "cost_boundary": "no_live_cost_incurred",
+                "persistence_boundary": "preview_only_not_persisted",
+                "source_review": SOURCE_REVIEW_PATH,
+                "provider_call_boundary": provider_response.get(
+                    "provider_call_boundary",
+                    "mocked_provider_client",
+                ),
+                "provider_response_dimension_check": "passed",
+                "usage": provider_response.get("usage", {}),
+                "secret_exposed": False,
+            },
+            warnings=[
+                "Embedding vector came from an injected mocked provider client.",
+                "No live OpenAI provider call was made by the default runtime.",
+                "The vector is preview-only and is not persisted or used for retrieval.",
+                "Actual live embedding model generation remains unproven.",
+            ],
+        )
     status = "configured_no_call" if configured else "disabled_missing_api_key"
 
     warnings = [

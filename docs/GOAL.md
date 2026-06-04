@@ -17022,6 +17022,45 @@ Next recommended evidence gate:
 embedding model mocked-provider call v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 467 - Embedding Model Mocked-provider Call v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+verify provider response handling through an injected mocked provider before any live OpenAI provider integration
+```
+
+Implemented:
+
+```text
+embedding model mocked-provider call v0
+POST /chunks/embedding-model-preview
+allow_provider_call true path
+get_embedding_provider_client dependency
+mocked_provider_generated response status
+mocked_provider_client boundary
+mocked_provider_call_only network boundary
+provider response dimension check
+provider response dimension mismatch -> 502
+secret_exposed = false
+preview_only_not_persisted boundary retained
+docs/review/embedding-model-mocked-provider-call.md
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+application-ready boundary refresh
+```
+
+Phase 467 adds mocked provider response handling only. It adds no live OpenAI provider call, live provider call in CI, default network call, live API cost, automatic persistence, retrieval expansion, Evidence Ledger generation, semantic retrieval quality evidence, hosted deployment evidence, external reviewer feedback, customer validation, autonomous/LLM-backed agents, polished web app, or product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+embedding model live-provider implementation review v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

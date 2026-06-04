@@ -23,6 +23,7 @@ from app.schemas import (
 )
 from app.settings import Settings, get_settings
 from app.services.raw_file_scan_execution import get_scanner_adapter
+from app.services.embedding_model_preview import get_embedding_provider_client
 from app.services.run_trace import run_with_trace
 from packages.ingestion.scanning import (
     ClamAvScannerAdapter,
@@ -1216,6 +1217,109 @@ def test_embedding_model_preview_with_configured_key_still_does_not_call_provide
     assert body["metadata_json"]["secret_exposed"] is False
     assert "sk-test-secret" not in response.text
     assert any("configured but not called" in warning for warning in body["warnings"])
+
+
+def test_embedding_model_preview_rejects_live_call_without_provider_client():
+    client = make_client()
+    client.app.dependency_overrides[get_settings] = lambda: Settings(
+        openai_api_key="sk-test-secret",
+        embedding_model="text-embedding-3-small",
+        embedding_dimension=1536,
+    )
+
+    response = client.post(
+        "/chunks/embedding-model-preview",
+        json={
+            "text": "Enterprise demand growth reached 12% in Q1.",
+            "allow_provider_call": True,
+        },
+    )
+
+    assert response.status_code == 501
+    assert "live embedding provider client is not implemented" in response.json()["detail"]
+    assert "sk-test-secret" not in response.text
+
+
+def test_embedding_model_preview_uses_injected_mocked_provider_without_persistence():
+    class FakeEmbeddingProvider:
+        def create_embedding(self, *, text, model, dimension, encoding_format, api_key):
+            assert text == "Enterprise demand growth reached 12% in Q1."
+            assert model == "text-embedding-3-small"
+            assert dimension == 3
+            assert encoding_format == "float"
+            assert api_key == "sk-test-secret"
+            return {
+                "embedding": [0.1, 0.2, 0.3],
+                "model": model,
+                "usage": {"total_tokens": 8},
+                "provider_call_boundary": "mocked_provider_client",
+            }
+
+    client = make_client()
+    client.app.dependency_overrides[get_settings] = lambda: Settings(
+        openai_api_key="sk-test-secret",
+        embedding_model="text-embedding-3-small",
+        embedding_dimension=3,
+    )
+    client.app.dependency_overrides[get_embedding_provider_client] = (
+        lambda: FakeEmbeddingProvider()
+    )
+
+    response = client.post(
+        "/chunks/embedding-model-preview",
+        json={
+            "text": "Enterprise demand growth reached 12% in Q1.",
+            "embedding_dimension": 3,
+            "allow_provider_call": True,
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["configured"] is True
+    assert body["embedding_status"] == "mocked_provider_generated"
+    assert body["embedding"] == [0.1, 0.2, 0.3]
+    assert body["metadata_json"]["network_boundary"] == "mocked_provider_call_only"
+    assert body["metadata_json"]["provider_call_boundary"] == "mocked_provider_client"
+    assert body["metadata_json"]["provider_response_dimension_check"] == "passed"
+    assert body["metadata_json"]["usage"]["total_tokens"] == 8
+    assert body["metadata_json"]["persistence_boundary"] == "preview_only_not_persisted"
+    assert "sk-test-secret" not in response.text
+    assert any("mocked provider client" in warning for warning in body["warnings"])
+
+
+def test_embedding_model_preview_rejects_mocked_provider_dimension_mismatch():
+    class BadEmbeddingProvider:
+        def create_embedding(self, **_kwargs):
+            return {
+                "embedding": [0.1, 0.2],
+                "model": "text-embedding-3-small",
+                "usage": {},
+                "provider_call_boundary": "mocked_provider_client",
+            }
+
+    client = make_client()
+    client.app.dependency_overrides[get_settings] = lambda: Settings(
+        openai_api_key="sk-test-secret",
+        embedding_model="text-embedding-3-small",
+        embedding_dimension=3,
+    )
+    client.app.dependency_overrides[get_embedding_provider_client] = (
+        lambda: BadEmbeddingProvider()
+    )
+
+    response = client.post(
+        "/chunks/embedding-model-preview",
+        json={
+            "text": "Enterprise demand growth reached 12% in Q1.",
+            "embedding_dimension": 3,
+            "allow_provider_call": True,
+        },
+    )
+
+    assert response.status_code == 502
+    assert "provider response dimension mismatch" in response.json()["detail"]
+    assert "sk-test-secret" not in response.text
 
 
 def test_semantic_retrieval_preview_ranks_caller_provided_vectors_without_persistence():
