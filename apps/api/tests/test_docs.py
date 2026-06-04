@@ -16972,3 +16972,40 @@ def test_external_feedback_current_state_shortlist_issue_verification_keeps_gate
         "external feedback current-state shortlist issue verification v0"
         in issue_body_refresh
     )
+
+
+def test_deterministic_text_embedding_preview_documents_preview_only_boundary():
+    review_path = REPO_ROOT / "docs/review/deterministic-text-embedding-preview.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Deterministic Text Embedding Preview" in content
+    assert "deterministic text embedding preview v0" in content
+    assert "POST /chunks/embedding-preview" in content
+    assert "local-hash-embedding-preview-v0" in content
+    assert "preview_only_not_persisted" in content
+    assert "not_semantic_quality_evidence" in content
+    assert "not a semantic embedding model" in content
+    assert "does not modify chunk_embeddings" in content
+    assert "no external model" in content
+    assert "no LLM" in content
+    assert "not vector search quality evidence" in content
+    assert (
+        "Deterministic text embedding preview v0: implemented"
+        in readme
+    )
+    assert "Phase 461 - Deterministic Text Embedding Preview v0" in goal
+    assert "deterministic text embedding preview v0" in runbook
+    assert "docs/review/deterministic-text-embedding-preview.md" in portfolio
+    assert "deterministic local hash embedding preview exists" in app_review
+    assert "actual embedding model generation remains unproven" in app_review

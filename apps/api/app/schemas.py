@@ -294,6 +294,24 @@ class SemanticRetrievalPreviewOut(BaseModel):
     metadata_json: dict[str, Any] = Field(default_factory=dict)
 
 
+class TextEmbeddingPreviewRequest(BaseModel):
+    text: str = Field(..., min_length=1)
+    embedding_model: str = "local-hash-embedding-preview-v0"
+    embedding_dimension: int = Field(default=8, ge=1, le=4096)
+    distance_metric: str = "cosine"
+
+
+class TextEmbeddingPreviewOut(BaseModel):
+    embedding_model: str
+    embedding_dimension: int
+    embedding_text_hash: str
+    distance_metric: str
+    embedding_status: str
+    embedding: list[float]
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
+    warnings: list[str]
+
+
 class ChunkEmbeddingRequest(BaseModel):
     embedding_model: str = Field(..., min_length=1)
     embedding_dimension: int = Field(..., ge=1)

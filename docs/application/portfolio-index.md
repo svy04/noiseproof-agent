@@ -16,6 +16,8 @@ Demo surface: `docs/review/demo-transcript-capture.md` records a self-authored r
 
 Visual local proof surface: `docs/review/local-browser-screenshot-walkthrough.md` records a local browser screenshot of `GET /ops/dashboard` with workflow-run lineage links. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, and not production observability.
 
+Deterministic text embedding preview: `docs/review/deterministic-text-embedding-preview.md` records `POST /chunks/embedding-preview` for `local-hash-embedding-preview-v0`. It is preview-only, not persisted, not a semantic embedding model, not vector search quality evidence, and not external reviewer feedback.
+
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
 External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.

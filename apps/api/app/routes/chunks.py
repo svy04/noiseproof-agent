@@ -3,7 +3,14 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException
 
 from app.db import Repository, get_repository
-from app.schemas import ChunkEmbeddingCreate, ChunkEmbeddingOut, ChunkEmbeddingRequest
+from app.schemas import (
+    ChunkEmbeddingCreate,
+    ChunkEmbeddingOut,
+    ChunkEmbeddingRequest,
+    TextEmbeddingPreviewOut,
+    TextEmbeddingPreviewRequest,
+)
+from app.services.text_embedding_preview import preview_text_embedding
 
 router = APIRouter(prefix="/chunks", tags=["chunk-embeddings"])
 
@@ -25,6 +32,13 @@ def _normalize_embedding_metadata(payload: ChunkEmbeddingRequest) -> dict:
     metadata["embedding_source"] = "caller_provided_vector"
     metadata["persistence_boundary"] = "caller_provided_embedding_only_no_generation"
     return metadata
+
+
+@router.post("/embedding-preview", response_model=TextEmbeddingPreviewOut)
+def create_text_embedding_preview(
+    payload: TextEmbeddingPreviewRequest,
+) -> TextEmbeddingPreviewOut:
+    return preview_text_embedding(payload)
 
 
 @router.post("/{chunk_id}/embeddings", response_model=ChunkEmbeddingOut, status_code=201)

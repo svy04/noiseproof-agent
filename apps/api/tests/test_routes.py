@@ -1057,6 +1057,66 @@ def test_chunk_embedding_endpoint_rejects_generated_embedding_claims():
     assert "caller-provided vector" in response.json()["detail"]
 
 
+def test_text_embedding_preview_generates_local_hash_vector_without_persistence():
+    client = make_client()
+    payload = {
+        "text": "Enterprise demand growth reached 12% in Q1.",
+        "embedding_dimension": 8,
+    }
+
+    response = client.post("/chunks/embedding-preview", json=payload)
+    repeated = client.post("/chunks/embedding-preview", json=payload)
+
+    assert response.status_code == 200
+    assert repeated.status_code == 200
+    body = response.json()
+    assert repeated.json()["embedding"] == body["embedding"]
+    assert body["embedding_model"] == "local-hash-embedding-preview-v0"
+    assert body["embedding_dimension"] == 8
+    assert body["embedding_text_hash"] == (
+        "sha256:" + sha256(payload["text"].encode("utf-8")).hexdigest()
+    )
+    assert body["distance_metric"] == "cosine"
+    assert body["embedding_status"] == "preview_generated"
+    assert len(body["embedding"]) == 8
+    assert sum(value * value for value in body["embedding"]) == pytest.approx(1.0)
+    assert body["metadata_json"]["embedding_source"] == (
+        "deterministic_local_hash_embedding_preview"
+    )
+    assert body["metadata_json"]["persistence_boundary"] == (
+        "preview_only_not_persisted"
+    )
+    assert body["metadata_json"]["quality_boundary"] == (
+        "not_semantic_quality_evidence"
+    )
+    assert body["metadata_json"]["external_model_used"] is False
+    assert body["metadata_json"]["llm_used"] is False
+    assert any("not a semantic embedding model" in warning for warning in body["warnings"])
+    assert any("not persisted" in warning for warning in body["warnings"])
+
+
+def test_text_embedding_preview_rejects_blank_text_and_non_local_models():
+    client = make_client()
+
+    blank = client.post(
+        "/chunks/embedding-preview",
+        json={"text": "   ", "embedding_dimension": 8},
+    )
+    non_local = client.post(
+        "/chunks/embedding-preview",
+        json={
+            "text": "Market demand rose.",
+            "embedding_model": "external-semantic-model",
+            "embedding_dimension": 8,
+        },
+    )
+
+    assert blank.status_code == 400
+    assert "text must contain at least one token" in blank.json()["detail"]
+    assert non_local.status_code == 400
+    assert "local-hash-embedding-preview-v0" in non_local.json()["detail"]
+
+
 def test_semantic_retrieval_preview_ranks_caller_provided_vectors_without_persistence():
     client = make_client()
     document = client.post(

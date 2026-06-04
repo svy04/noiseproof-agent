@@ -16792,6 +16792,45 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 461 - Deterministic Text Embedding Preview v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+add a local preview-only vector-shaped text embedding boundary without claiming semantic embedding quality or persistence
+```
+
+Implemented:
+
+```text
+deterministic text embedding preview v0
+POST /chunks/embedding-preview
+local-hash-embedding-preview-v0
+sha256 text hash
+deterministic lowercase alphanumeric token hashing
+metadata_json.embedding_source = deterministic_local_hash_embedding_preview
+metadata_json.generation_boundary = local_hash_preview_not_semantic_model
+metadata_json.persistence_boundary = preview_only_not_persisted
+metadata_json.quality_boundary = not_semantic_quality_evidence
+blank text 400
+non-local embedding model 400
+docs/review/deterministic-text-embedding-preview.md
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+application-ready boundary refresh
+```
+
+Phase 461 adds a deterministic local hash embedding preview endpoint only. It adds no database persistence, schema, migration, external model call, LLM call, production embedding generation, semantic retrieval quality evidence, vector search quality evidence, retrieval expansion, Evidence Ledger generation, hosted deployment evidence, external reviewer feedback, customer validation, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

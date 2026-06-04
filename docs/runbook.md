@@ -8440,3 +8440,58 @@ not Evidence Ledger generation
 not vector search quality evidence
 not hosted deployment evidence
 ```
+
+## Deterministic Text Embedding Preview
+
+Phase marker: deterministic text embedding preview v0.
+
+Review artifact:
+
+```text
+docs/review/deterministic-text-embedding-preview.md
+```
+
+Endpoint:
+
+```text
+POST /chunks/embedding-preview
+```
+
+Example payload:
+
+```json
+{
+  "text": "Enterprise demand growth reached 12% in Q1.",
+  "embedding_dimension": 8
+}
+```
+
+Expected response markers:
+
+```text
+embedding_model: local-hash-embedding-preview-v0
+embedding_status: preview_generated
+metadata_json.embedding_source: deterministic_local_hash_embedding_preview
+metadata_json.persistence_boundary: preview_only_not_persisted
+metadata_json.quality_boundary: not_semantic_quality_evidence
+```
+
+Focused verification:
+
+```bash
+cd apps/api
+uv run pytest -q tests/test_routes.py -k "text_embedding_preview"
+uv run pytest -q tests/test_docs.py -k "deterministic_text_embedding_preview"
+```
+
+Claim boundary:
+
+```text
+not a semantic embedding model
+no external model
+no LLM
+not persisted
+does not modify chunk_embeddings
+not vector search quality evidence
+not semantic retrieval quality evidence
+```

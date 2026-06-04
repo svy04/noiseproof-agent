@@ -4,7 +4,7 @@ Status: Phase 82 review packet.
 
 This is an application-ready review, not a product-complete declaration.
 
-Not product-complete: robust PDF extraction, embedding generation, semantic retrieval quality, distributed tracing, hosted deployment, and external user validation are still unproven.
+Not product-complete: robust PDF extraction, actual embedding model generation remains unproven, semantic retrieval quality, distributed tracing, hosted deployment, and external user validation are still unproven.
 
 README proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers after README scanability cleanup. It is source-level provenance, not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 
@@ -30,7 +30,7 @@ Forbidden claim: this is not hosted deployment evidence, automatic persistence r
 | uploaded PDF retrieval-run provenance runtime proof exists | Pass | `docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md` | local runtime evidence only; preserves parser provenance into retrieval-run candidate metadata; not OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, Evidence Ledger generation, or hosted deployment evidence |
 | document profile is generated | Pass | `POST /documents/profile` | direct text payloads only |
 | three chunk strategies can be compared | Pass | fixed-window, heading-aware, row-aware | chunks are not persisted |
-| retrieval returns source ids | Pass | lexical retrieval v0 plus caller-provided semantic retrieval preview/persistence | semantic retrieval quality remains unproven; embedding generation is not implemented |
+| retrieval returns source ids | Pass | lexical retrieval v0 plus caller-provided semantic retrieval preview/persistence | semantic retrieval quality remains unproven; actual embedding model generation remains unproven |
 | Evidence Ledger can be generated before final answer | Pass | `POST /evidence-ledgers/preview`, `POST /evidence-ledgers` | persisted v0 entries are not yet linked to retrieval run ids |
 | unsupported claims are blocked | Pass | Noise Gate, persisted Noise Gate, and Report Preview tests | deterministic checks only |
 | contradictions are surfaced | Pass | Evidence Ledger and Noise Gate previews | not a full contradiction engine |
@@ -69,6 +69,7 @@ Forbidden claim: this is not hosted deployment evidence, automatic persistence r
 | retrieval-run-linked Evidence Ledger persistence exists | Pass | `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, `GET /evidence-ledgers`, `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md` | deterministic handoff from persisted lexical retrieval runs only; no embeddings; no semantic retrieval; no LLM judgment; no Noise Gate or report generation |
 | retrieval-run-linked Noise Gate persistence exists | Pass | `POST /retrieval-runs/{retrieval_run_id}/noise-gate`, `GET /noise-gates`, `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md` | deterministic handoff after linked Evidence Ledger rows only; pre-ledger `409`; no LLM judgment; no report generation; not financial advice |
 | retrieval-run-linked Report persistence exists | Pass | `POST /retrieval-runs/{retrieval_run_id}/report`, `GET /reports`, `docs/review/retrieval-run-linked-report-runtime-smoke.md` | deterministic handoff after linked Evidence Ledger and Noise Gate rows only; pre-gate `409`; records `input_noise_gate_record_id`; no free-form final report generation; not financial advice |
+| deterministic local hash embedding preview exists | Pass | `POST /chunks/embedding-preview`, `docs/review/deterministic-text-embedding-preview.md` | preview-only local hash vector; not persisted; not a semantic embedding model; actual embedding model generation remains unproven; not vector search quality evidence |
 | caller-provided chunk embedding endpoint exists | Pass | `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, `docs/review/embedding-endpoint-runtime-smoke.md` | caller-provided vectors only; no embedding generation; no semantic retrieval; no HNSW/IVFFlat behavior; not vector search quality |
 | caller-provided semantic retrieval persistence exists | Pass | `POST /documents/{document_id}/semantic-retrieval-runs`, `GET /retrieval-runs`, `docs/review/semantic-retrieval-persistence-runtime-smoke.md`, `docs/review/semantic-retrieval-persistence-application-refresh.md` | caller-provided vectors over existing embeddings only; semantic retrieval quality remains unproven; no embedding generation; no Evidence Ledger generation from semantic retrieval |
 | toy semantic retrieval quality report exists | Pass | `docs/evaluation/semantic-retrieval-quality-report.md`, `docs/review/semantic-retrieval-quality-report-application-refresh.md` | semantic retrieval quality report is toy fixture output; not vector search quality evidence, not a benchmark result, not a model comparison |
@@ -99,7 +100,7 @@ Use:
 ```text
 Short external claim:
 
-NoiseProof Agent is a small, inspectable portfolio service for evidence-first market intelligence: source profiling, parser/chunk/retrieval previews, uploaded file intake manifest preview/persistence, parsed document metadata persistence, manual chunk persistence, retrieval persistence with `metadata_json.candidate_chunk_ids`, caller-provided chunk embedding runtime proof, caller-provided semantic retrieval persistence runtime proof, retrieval-run-linked Evidence Ledger/Noise Gate/Report persistence with precondition `409`s, persisted proof records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
+NoiseProof Agent is a small, inspectable portfolio service for evidence-first market intelligence: source profiling, parser/chunk/retrieval previews, deterministic local hash embedding preview exists, uploaded file intake manifest preview/persistence, parsed document metadata persistence, manual chunk persistence, retrieval persistence with `metadata_json.candidate_chunk_ids`, caller-provided chunk embedding runtime proof, caller-provided semantic retrieval persistence runtime proof, retrieval-run-linked Evidence Ledger/Noise Gate/Report persistence with precondition `409`s, persisted proof records, workflow-parent lineage, failure-case records, and manual failure-case workflow-parent provenance.
 
 Detailed phase history remains in `docs/GOAL.md`, `docs/review/external-reader-proof-path.md`, `docs/application/portfolio-index.md`, and phase-specific `docs/review/*` artifacts.
 
@@ -122,7 +123,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - evidence-first data agent
 - not a trading bot
 - parser/chunk/retrieval preview boundaries
-- uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence, uploaded file chunk persistence, uploaded file retrieval persistence, caller-provided chunk embedding endpoint, caller-provided semantic retrieval persistence, retrieval-run-linked Evidence Ledger persistence, and runtime smoke
+- uploaded file intake manifest preview, uploaded file intake manifest persistence, uploaded file parsed document persistence, uploaded file chunk persistence, uploaded file retrieval persistence, deterministic local hash embedding preview, caller-provided chunk embedding endpoint, caller-provided semantic retrieval persistence, retrieval-run-linked Evidence Ledger persistence, and runtime smoke
 - retrieval-run-linked Noise Gate persistence and pre-ledger `409` runtime smoke
 - retrieval-run-linked Report persistence and pre-gate `409` runtime smoke
 - Evidence Ledger Preview
@@ -175,7 +176,7 @@ Avoid claims about:
 - automatic failure-case persistence
 - external users
 - robust PDF extraction
-- embedding generation and semantic retrieval quality
+- actual embedding model generation and semantic retrieval quality
 - distributed tracing
 - market prediction accuracy
 - direct evidence -> gate -> report foreign-key lineage

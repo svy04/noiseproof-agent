@@ -20,7 +20,7 @@ Current implemented capability groups:
 
 - service skeleton, metadata persistence, PostgreSQL schema, migration runner, and CI
 - document profiling, parser boundaries, uploaded digital PDF text extraction, chunk strategy comparison, and lexical retrieval
-- collection planning, Evidence Ledger, Noise Gate, and claim-bounded report previews
+- deterministic local hash embedding preview, collection planning, Evidence Ledger, Noise Gate, and claim-bounded report previews
 - persisted evidence/gate/report records, trace lookup, filters, workflow parents, and derived lineage
 - operations dashboard, failure-case persistence, manual workflow parent provenance, and proof-path documentation
 
@@ -121,7 +121,7 @@ Still planned or explicitly unclaimed near the top:
 
 - web app and polished dashboard UI
 - raw upload quarantine storage exists; robust PDF extraction is unclaimed
-- automatic upload-preview-to-chunk wiring, embeddings, vector search quality evidence, LLM calls
+- automatic upload-preview-to-chunk wiring, actual embedding model generation, vector search quality evidence, LLM calls
 - hosted deployment evidence
 - production authorization and authenticated identity for stored raw uploads
 - automatic failure-case creation from workflow failures
@@ -214,8 +214,10 @@ Not implemented yet:
 - automatic upload-preview-to-chunk persistence wiring
 - autonomous workflow execution endpoints
 - automatic failure-case persistence from workflow failures
-- embedding generation and vector search quality evidence
+- embedding generation and vector search quality evidence beyond the deterministic local hash preview
 - full distributed tracing or hosted observability
+
+Deterministic text embedding preview v0: implemented. Boundary: local hash preview only; not actual embedding model generation, not persisted, and not vector search quality evidence.
 
 README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
 
