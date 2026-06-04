@@ -9109,3 +9109,51 @@ no route wiring
 no live provider call in CI
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Route Wiring Opt-in Disabled
+
+Phase marker: embedding model live-provider route wiring opt-in-disabled v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-route-wiring-opt-in-disabled.md
+```
+
+Implemented dependency boundary:
+
+```text
+NOISEPROOF_ENABLE_OPENAI_PROVIDER=true
+OPENAI_API_KEY configured
+CI is not true
+OPENAI_PROVIDER_TIMEOUT_SECONDS positive
+```
+
+Default safety behavior:
+
+```text
+NOISEPROOF_ENABLE_OPENAI_PROVIDER absent -> provider client remains disabled
+NOISEPROOF_ENABLE_OPENAI_PROVIDER=false -> provider client remains disabled
+OPENAI_API_KEY missing -> provider client remains disabled
+CI=true -> provider client remains disabled
+allow_provider_call=false -> no provider call
+```
+
+Local no-live-call checks:
+
+```bash
+cd apps/api
+uv run pytest -q tests/test_embedding_provider_wiring.py
+uv run pytest -q tests/test_routes.py -k "embedding_model_preview"
+```
+
+Manual owner-runtime live call remains a later gate.
+
+Claim boundary:
+
+```text
+owner-runtime opt-in only
+no live provider call in CI
+no default live provider call
+actual live embedding model generation remains unproven
+```

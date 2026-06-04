@@ -17456,3 +17456,61 @@ def test_embedding_model_live_provider_route_wiring_review_defines_opt_in_gate()
         in portfolio
     )
     assert "embedding model live-provider route wiring review exists" in app_review
+
+
+def test_embedding_model_live_provider_route_wiring_opt_in_disabled_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/embedding-model-live-provider-route-wiring-opt-in-disabled.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    settings = (REPO_ROOT / "apps/api/app/settings.py").read_text(encoding="utf-8")
+    service = (
+        REPO_ROOT / "apps/api/app/services/embedding_model_preview.py"
+    ).read_text(encoding="utf-8")
+    env_example = (REPO_ROOT / ".env.example").read_text(encoding="utf-8")
+
+    assert "Embedding Model Live-provider Route Wiring Opt-in Disabled" in content
+    assert "embedding model live-provider route wiring opt-in-disabled v0" in content
+    assert "NOISEPROOF_ENABLE_OPENAI_PROVIDER" in content
+    assert "OPENAI_PROVIDER_TIMEOUT_SECONDS" in content
+    assert "CI=true -> provider client remains disabled" in content
+    assert "allow_provider_call=false -> no provider call" in content
+    assert "owner-runtime opt-in only" in content
+    assert "no live provider call in CI" in content
+    assert "actual live embedding model generation remains unproven" in content
+    assert "enable_openai_provider" in settings
+    assert "NOISEPROOF_ENABLE_OPENAI_PROVIDER" in settings
+    assert "OpenAIEmbeddingProviderClient" in service
+    assert "settings.ci" in service
+    assert "settings.enable_openai_provider" in service
+    assert "NOISEPROOF_ENABLE_OPENAI_PROVIDER=false" in env_example
+    assert "OPENAI_PROVIDER_TIMEOUT_SECONDS=10" in env_example
+    assert (
+        "Embedding model live-provider route wiring opt-in-disabled v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 474 - Embedding Model Live-provider Route Wiring Opt-in Disabled v0"
+        in goal
+    )
+    assert "embedding model live-provider route wiring opt-in-disabled v0" in runbook
+    assert (
+        "docs/review/embedding-model-live-provider-route-wiring-opt-in-disabled.md"
+        in portfolio
+    )
+    assert (
+        "embedding model live-provider route wiring opt-in-disabled exists"
+        in app_review
+    )

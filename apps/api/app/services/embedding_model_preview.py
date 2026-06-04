@@ -1,15 +1,26 @@
 from __future__ import annotations
 
-from fastapi import HTTPException
+from fastapi import Depends, HTTPException
 
 from app.schemas import EmbeddingModelPreviewOut, EmbeddingModelPreviewRequest
-from app.settings import Settings
+from app.services.openai_embedding_provider import OpenAIEmbeddingProviderClient
+from app.settings import Settings, get_settings
 
 SOURCE_REVIEW_PATH = "docs/review/embedding-provider-source-review.md"
 
 
-def get_embedding_provider_client():
-    return None
+def get_embedding_provider_client(settings: Settings = Depends(get_settings)):
+    if settings.ci:
+        return None
+    if not settings.enable_openai_provider:
+        return None
+    if not settings.openai_api_key.strip():
+        return None
+    if settings.openai_provider_timeout_seconds <= 0:
+        return None
+    return OpenAIEmbeddingProviderClient(
+        timeout_seconds=settings.openai_provider_timeout_seconds
+    )
 
 
 def preview_embedding_model_provider(

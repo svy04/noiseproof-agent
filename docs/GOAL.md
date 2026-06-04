@@ -17294,6 +17294,46 @@ Next recommended evidence gate:
 embedding model live-provider route wiring opt-in-disabled v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 474 - Embedding Model Live-provider Route Wiring Opt-in Disabled v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+wire the disabled OpenAI embedding provider adapter into the route dependency boundary while keeping default and CI runtime calls disabled
+```
+
+Implemented:
+
+```text
+embedding model live-provider route wiring opt-in-disabled v0
+apps/api/app/settings.py
+apps/api/app/services/embedding_model_preview.py
+apps/api/tests/test_embedding_provider_wiring.py
+docs/review/embedding-model-live-provider-route-wiring-opt-in-disabled.md
+.env.example
+NOISEPROOF_ENABLE_OPENAI_PROVIDER setting
+OPENAI_PROVIDER_TIMEOUT_SECONDS setting
+CI=true disables provider client
+OPENAI_API_KEY remains required
+get_embedding_provider_client returns None by default
+get_embedding_provider_client returns OpenAIEmbeddingProviderClient only after owner-runtime opt-in
+allow_provider_call=false remains no-call boundary
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+application-ready boundary refresh
+```
+
+Phase 474 adds opt-in dependency wiring only. It adds no default live provider call, no CI live provider call, no automatic provider call without `allow_provider_call=true`, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+owner-runtime manual live embedding smoke review v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

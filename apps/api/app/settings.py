@@ -1,5 +1,6 @@
 from functools import lru_cache
 
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -15,10 +16,26 @@ class Settings(BaseSettings):
     openai_api_key: str = ""
     embedding_model: str = "text-embedding-3-small"
     embedding_dimension: int = 1536
+    enable_openai_provider: bool = Field(
+        default=False,
+        validation_alias=AliasChoices(
+            "NOISEPROOF_ENABLE_OPENAI_PROVIDER",
+            "enable_openai_provider",
+        ),
+    )
+    ci: bool = Field(default=False, validation_alias=AliasChoices("CI", "ci"))
+    openai_provider_timeout_seconds: float = Field(
+        default=10.0,
+        validation_alias=AliasChoices(
+            "OPENAI_PROVIDER_TIMEOUT_SECONDS",
+            "openai_provider_timeout_seconds",
+        ),
+    )
 
     model_config = SettingsConfigDict(
         env_file=("../../.env", ".env"),
         extra="ignore",
+        populate_by_name=True,
     )
 
 
