@@ -1602,6 +1602,47 @@ Next recommended gate:
 external review issue body approval-audit-metadata refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 424 extension to the accepted state:
+
+```text
+External Review Issue Body Approval-audit Metadata Refresh v0
+```
+
+### Phase 424 - External Review Issue Body Approval-audit Metadata Refresh v0
+
+Goal:
+
+```text
+update live issue #1 so reviewers can reach the approval audit metadata runtime proof and request refresh
+```
+
+Implemented:
+
+```text
+external review issue body approval-audit-metadata refresh v0
+docs/review/external-review-issue-body-approval-audit-metadata-refresh.md
+live issue #1 owner-authored body edit
+starts_with_request: true
+first_codepoint: 35
+has_approval_audit_metadata_proof: true
+has_approval_audit_metadata_request_refresh: true
+has_event_download_approval_id_matches: true
+has_event_approval_scan_result_matches_latest: true
+has_operator_label_not_authenticated_identity: true
+comment_count: 1
+README implementation marker
+docs/runbook.md issue-body note
+docs/application/portfolio-index.md issue-body artifact link
+```
+
+Phase 424 is an owner-authored issue body edit only. It adds no runtime behavior, schema, migration, API endpoint, hosted deployment evidence, external reviewer feedback, production authorization, authenticated user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim. It does not close external reviewer feedback v0.
+
+Next recommended gate:
+
+```text
+external feedback current-state approval-audit-metadata issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:
