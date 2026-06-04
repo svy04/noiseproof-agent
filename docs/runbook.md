@@ -158,6 +158,8 @@ Phase 359 adds failure-case workflow review queue dashboard surfacing review v0:
 
 Phase 360 adds failure-case workflow review queue dashboard surfacing v0: `GET /ops/dashboard` now renders a compact `Failure-case Workflow Review Queue` section using the existing `build_failure_case_workflow_review_queue` read model. It shows `pending_review_count`, `linked_failure_case_count`, `needs_failure_case_review`, `failure_case_linked`, workflow links, stage/error metadata, and a `draft preview` link. This dashboard surface does not create failure_cases and is not complete workflow failure causality.
 
+Phase 361 adds failure-case workflow review queue fresh-db dashboard smoke verification v0: `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` records local fresh migrated Docker DB dashboard evidence for `GET /ops/dashboard` with `pending_review_count: 1`, `linked_failure_case_count: 1`, `needs_failure_case_review`, `failure_case_linked`, `dashboard_contains_draft_preview: true`, and `dashboard_did_not_create_failure_cases: true`. This is local runtime smoke evidence only; it is not hosted deployment evidence, external reviewer feedback, automatic failure-case creation, or complete workflow failure causality.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

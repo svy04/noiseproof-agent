@@ -60,6 +60,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-workflow-review-queue-runtime-smoke-verification.md",
         "docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md",
         "docs/review/failure-case-workflow-review-queue-dashboard-surfacing.md",
+        "docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md",
     ]
 
     for file_path in required_files:
@@ -2252,6 +2253,47 @@ def test_failure_case_workflow_review_queue_dashboard_surfacing_docs_mark_plain_
     )
     assert "failure-case workflow review queue dashboard surfacing" in architecture
     assert "Failure-case Workflow Review Queue v0" in api_readme
+
+
+def test_failure_case_workflow_review_queue_fresh_db_dashboard_smoke_documents_runtime_html_proof():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Failure-case Workflow Review Queue Fresh DB Dashboard Smoke Verification" in content
+    assert "local fresh migrated Docker DB dashboard evidence" in content
+    assert "GET /ops/dashboard" in content
+    assert "Failure-case Workflow Review Queue" in content
+    assert "pending_review_count: 1" in content
+    assert "linked_failure_case_count: 1" in content
+    assert "dashboard_contains_review_queue: true" in content
+    assert "dashboard_contains_pending_status: true" in content
+    assert "dashboard_contains_linked_status: true" in content
+    assert "dashboard_contains_draft_preview: true" in content
+    assert "dashboard_did_not_create_failure_cases: true" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert (
+        "Phase 361 - Failure-case Workflow Review Queue Fresh DB Dashboard Smoke Verification v0"
+        in goal
+    )
+    assert (
+        "Failure-case workflow review queue fresh-db dashboard smoke verification v0: implemented"
+        in readme
+    )
+    assert "failure-case workflow review queue fresh-db dashboard smoke verification v0" in runbook
+    assert (
+        "docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md"
+        in portfolio
+    )
 
 
 def test_failure_case_workflow_parent_linkage_schema_review_selects_nullable_fk():

@@ -102,24 +102,25 @@ Implementation status:
 
 Current status groups:
 
-- documentation: product brief, architecture, ADRs, runbook, application package, and review artifacts
-- service skeleton: FastAPI health, ops summary/dashboard, metadata routes, PostgreSQL schema, document chunk repository, migration runner, and CI
-- ingestion/RAG boundaries: document profiling, parser adapters, chunk strategy comparison, lexical retrieval, semantic retrieval preview/persistence, and collection planning
-- evidence/report boundaries: Evidence Ledger, Noise Gate, claim-bounded report previews, trace lookup, filters, workflow parents, lineage, and warning codes
-- proof surfaces: DB/failure smoke artifacts, reviewer path/request/brief/link-map/root-guide, live issue/request-surface checks, feedback screening artifacts, and Braincrew application mapping
+- docs: product brief, architecture, ADRs, runbook, application package, review artifacts
+- service: FastAPI health, ops dashboard, metadata routes, PostgreSQL schema, migration runner, CI
+- ingestion/RAG: profiling, parsers, chunk comparison, lexical/semantic retrieval previews, collection planning
+- evidence/report: Evidence Ledger, Noise Gate, reports, traces, filters, workflow parents, lineage, warning codes
+- proof: DB/failure smokes, reviewer path/request/brief/link-map/root-guide, feedback screening, Braincrew mapping
 
 Latest marker: Failure-case workflow review queue v0: implemented.
 Latest runtime marker: Failure-case workflow review queue runtime smoke verification v0: implemented.
 Latest review marker: Failure-case workflow review queue dashboard surfacing review v0: implemented.
 Latest dashboard marker: Failure-case workflow review queue dashboard surfacing v0: implemented.
+Latest smoke marker: Failure-case workflow review queue fresh-db dashboard smoke verification v0: implemented.
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*` artifacts.
 
 Still planned or explicitly unclaimed near the top:
 
 - web app and polished dashboard UI
-- raw upload quarantine storage is implemented; robust PDF extraction is still unclaimed
-- automatic upload-preview-to-chunk persistence wiring, embedding generation, vector search quality evidence, and LLM calls
+- raw upload quarantine storage exists; robust PDF extraction is unclaimed
+- automatic upload-preview-to-chunk wiring, embeddings, vector search quality evidence, LLM calls
 - hosted deployment evidence
 - automatic failure-case creation from workflow failures
 - complete workflow failure causality
