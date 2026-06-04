@@ -27,6 +27,7 @@ from app.schemas import (
     RawFileDownloadApprovalOut,
     RawFileDownloadEventCreate,
     RawFileDownloadEventOut,
+    RawFileDownloadReadinessOut,
     RawFileScanResultCreate,
     RawFileScanResultOut,
     RetrievalRunResponse,
@@ -90,6 +91,7 @@ DOWNLOAD_RATE_LIMIT_WINDOW_SECONDS = 60.0
 DOWNLOAD_FILENAME_BOUNDARY = (
     "local_v0_content_disposition_filename_safety_not_production"
 )
+DOWNLOAD_READINESS_BOUNDARY = "download_readiness_preflight_no_raw_bytes_not_authorization"
 DOWNLOAD_FILENAME_MAX_LENGTH = 120
 SIGNATURE_VALIDATION_BOUNDARY = "local_v0_magic_prefix_allowlist_not_production"
 EXTENSION_ALLOWLIST_BOUNDARY = "local_v0_extension_allowlist_not_production"
@@ -212,6 +214,210 @@ def _record_raw_file_download_event(
         metadata_json=metadata_json or {},
     )
     return repository.create_raw_file_download_event(payload)
+
+
+def _readiness_check(
+    name: str,
+    status: str,
+    detail: str,
+    boundary: str | None = None,
+) -> dict:
+    return {
+        "name": name,
+        "status": status,
+        "detail": detail,
+        "boundary": boundary,
+    }
+
+
+def _build_raw_file_download_readiness(
+    *,
+    raw_file_id: UUID,
+    repository: Repository,
+    now: datetime,
+) -> dict | None:
+    raw_file = repository.get_uploaded_raw_file_for_scan(raw_file_id)
+    if raw_file is None:
+        return None
+
+    checks = [
+        _readiness_check(
+            "raw_file_exists",
+            "passed",
+            "uploaded raw file metadata exists",
+            "raw_upload_quarantine_db_bytea_guarded_download_endpoint",
+        )
+    ]
+    latest_results = list(
+        repository.list_raw_file_scan_results(raw_file_id=raw_file_id, limit=1)
+    )
+    latest_result = latest_results[0] if latest_results else None
+    latest_scan_result_id = latest_result.get("id") if latest_result else None
+
+    if (
+        latest_result is None
+        or latest_result.get("scan_status") != "completed"
+        or latest_result.get("scan_verdict") != "clean"
+    ):
+        checks.append(
+            _readiness_check(
+                "latest_clean_scan",
+                "failed",
+                DOWNLOAD_BLOCK_DETAIL,
+                "scan_first_latest_clean_result_required",
+            )
+        )
+        checks.append(
+            _readiness_check(
+                "quarantine_status",
+                "skipped",
+                "quarantine status is not evaluated until a latest clean scan exists",
+            )
+        )
+        checks.append(
+            _readiness_check(
+                "active_download_approval",
+                "skipped",
+                "approval is not evaluated until a latest clean scan exists",
+                "local_v0_manual_operator_approval_not_production_auth",
+            )
+        )
+        return {
+            "raw_file_id": raw_file_id,
+            "decision": "blocked",
+            "blocked_reason": (
+                "missing_clean_scan" if latest_result is None else "latest_scan_not_clean"
+            ),
+            "http_status_code_if_download_attempted": 409,
+            "latest_scan_result_id": latest_scan_result_id,
+            "active_approval_id": None,
+            "approval_boundary": None,
+            "identity_boundary": None,
+            "raw_bytes_returned": False,
+            "rate_limit_consumed": False,
+            "readiness_boundary": DOWNLOAD_READINESS_BOUNDARY,
+            "authorization_boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
+            "rate_limit_boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
+            "checks": checks,
+        }
+
+    checks.append(
+        _readiness_check(
+            "latest_clean_scan",
+            "passed",
+            "latest scan result is completed / clean",
+            "scan_first_latest_clean_result_required",
+        )
+    )
+
+    if raw_file.get("quarantine_status") != "stored_quarantined":
+        checks.append(
+            _readiness_check(
+                "quarantine_status",
+                "failed",
+                "raw file quarantine status does not allow controlled download",
+            )
+        )
+        checks.append(
+            _readiness_check(
+                "active_download_approval",
+                "skipped",
+                "approval is not evaluated until quarantine status allows download",
+                "local_v0_manual_operator_approval_not_production_auth",
+            )
+        )
+        return {
+            "raw_file_id": raw_file_id,
+            "decision": "blocked",
+            "blocked_reason": "quarantine_status_blocked",
+            "http_status_code_if_download_attempted": 409,
+            "latest_scan_result_id": latest_scan_result_id,
+            "active_approval_id": None,
+            "approval_boundary": None,
+            "identity_boundary": None,
+            "raw_bytes_returned": False,
+            "rate_limit_consumed": False,
+            "readiness_boundary": DOWNLOAD_READINESS_BOUNDARY,
+            "authorization_boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
+            "rate_limit_boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
+            "checks": checks,
+        }
+
+    checks.append(
+        _readiness_check(
+            "quarantine_status",
+            "passed",
+            "raw file remains in stored_quarantined status",
+            "raw_upload_quarantine_db_bytea_guarded_download_endpoint",
+        )
+    )
+    active_approval = repository.find_active_raw_file_download_approval(
+        raw_file_id=raw_file_id,
+        latest_scan_result_id=latest_result["id"],
+        now=now,
+    )
+    if active_approval is None:
+        matching_approvals = [
+            approval
+            for approval in repository.list_raw_file_download_approvals(
+                raw_file_id=raw_file_id,
+                limit=100,
+            )
+            if str(approval.get("latest_scan_result_id")) == str(latest_result["id"])
+        ]
+        checks.append(
+            _readiness_check(
+                "active_download_approval",
+                "failed",
+                DOWNLOAD_APPROVAL_BLOCK_DETAIL,
+                "local_v0_manual_operator_approval_not_production_auth",
+            )
+        )
+        return {
+            "raw_file_id": raw_file_id,
+            "decision": "blocked",
+            "blocked_reason": (
+                "revoked_or_expired_download_approval"
+                if matching_approvals
+                else "missing_download_approval"
+            ),
+            "http_status_code_if_download_attempted": 409,
+            "latest_scan_result_id": latest_scan_result_id,
+            "active_approval_id": None,
+            "approval_boundary": None,
+            "identity_boundary": None,
+            "raw_bytes_returned": False,
+            "rate_limit_consumed": False,
+            "readiness_boundary": DOWNLOAD_READINESS_BOUNDARY,
+            "authorization_boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
+            "rate_limit_boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
+            "checks": checks,
+        }
+
+    checks.append(
+        _readiness_check(
+            "active_download_approval",
+            "passed",
+            "active local manual approval matches the latest clean scan result",
+            active_approval.get("approval_boundary"),
+        )
+    )
+    return {
+        "raw_file_id": raw_file_id,
+        "decision": "allowed",
+        "blocked_reason": None,
+        "http_status_code_if_download_attempted": 200,
+        "latest_scan_result_id": latest_scan_result_id,
+        "active_approval_id": active_approval.get("id"),
+        "approval_boundary": active_approval.get("approval_boundary"),
+        "identity_boundary": active_approval.get("identity_boundary"),
+        "raw_bytes_returned": False,
+        "rate_limit_consumed": False,
+        "readiness_boundary": DOWNLOAD_READINESS_BOUNDARY,
+        "authorization_boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
+        "rate_limit_boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
+        "checks": checks,
+    }
 
 
 def _validate_raw_file_extension(
@@ -851,6 +1057,27 @@ def list_upload_raw_file_download_approvals(
             limit=limit,
         )
     )
+
+
+@router.get(
+    "/upload-raw-files/{raw_file_id}/download-readiness",
+    response_model=RawFileDownloadReadinessOut,
+)
+def get_upload_raw_file_download_readiness(
+    raw_file_id: UUID,
+    repository: Repository = Depends(get_repository),
+) -> dict:
+    readiness = _build_raw_file_download_readiness(
+        raw_file_id=raw_file_id,
+        repository=repository,
+        now=datetime.now(UTC),
+    )
+    if readiness is None:
+        raise HTTPException(
+            status_code=404,
+            detail="uploaded raw file not found",
+        )
+    return readiness
 
 
 @router.get("/upload-raw-files/{raw_file_id}/download")

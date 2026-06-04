@@ -15513,3 +15513,50 @@ def test_readme_latest_marker_current_state_refresh_points_to_current_proof_boun
     )
     assert "readme latest-marker current-state refresh v0" in runbook
     assert "docs/review/readme-latest-marker-current-state-refresh.md" in portfolio
+
+
+def test_uploaded_raw_file_download_readiness_preview_documents_preflight_boundary():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-download-readiness-preview.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+    route_py = (REPO_ROOT / "apps/api/app/routes/documents.py").read_text(
+        encoding="utf-8"
+    )
+    schemas_py = (REPO_ROOT / "apps/api/app/schemas.py").read_text(encoding="utf-8")
+
+    assert "Uploaded Raw File Download Readiness Preview" in content
+    assert "uploaded raw file download readiness preview v0" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/download-readiness" in content
+    assert "download_readiness_preflight_no_raw_bytes_not_authorization" in content
+    assert "raw_bytes_returned: false" in content
+    assert "rate_limit_consumed: false" in content
+    assert "not production authorization" in content
+    assert "not authenticated user identity" in content
+    assert "not raw byte download" in content
+    assert "not audit event persistence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Uploaded raw file download readiness preview v0: implemented" in readme
+    )
+    assert (
+        "Phase 438 - Uploaded Raw File Download Readiness Preview v0" in goal
+    )
+    assert "uploaded raw file download readiness preview v0" in runbook
+    assert "docs/review/uploaded-raw-file-download-readiness-preview.md" in portfolio
+    assert "uploaded raw file download readiness preview" in architecture
+    assert "def get_upload_raw_file_download_readiness" in route_py
+    assert "_consume_download_attempt" not in route_py.split(
+        "def get_upload_raw_file_download_readiness", 1
+    )[1].split("def download_upload_raw_file", 1)[0]
+    assert "RawFileDownloadReadinessOut" in schemas_py

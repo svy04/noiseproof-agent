@@ -110,6 +110,7 @@ Current status groups:
 
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
+Latest product gate marker: Uploaded raw file download readiness preview v0.
 Latest reviewer-routing marker: External review issue body readability refresh v0.
 Latest external-feedback state: pending; only self-authored issue comment is present.
 
@@ -121,6 +122,7 @@ Still planned or explicitly unclaimed near the top:
 - raw upload quarantine storage exists; robust PDF extraction is unclaimed
 - automatic upload-preview-to-chunk wiring, embeddings, vector search quality evidence, LLM calls
 - hosted deployment evidence
+- production authorization and authenticated identity for stored raw uploads
 - automatic failure-case creation from workflow failures
 - complete workflow failure causality
 - free-form final report generation
@@ -578,6 +580,8 @@ External reviewer approval-audit-metadata request refresh v0: implemented. Bound
 External review issue body approval-audit-metadata refresh v0: implemented. Boundary: issue #1 now points to the approval audit metadata runtime smoke and its reviewer request refresh; owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
 
 External feedback current-state approval-audit-metadata issue verification v0: implemented. Boundary: current issue #1 screen after the approval-audit-metadata issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
+
+Uploaded raw file download readiness preview v0: implemented. Boundary: `GET /documents/upload-raw-files/{raw_file_id}/download-readiness` reports whether latest clean scan, quarantine status, and active local manual approval currently satisfy the guarded download preconditions; it returns no raw bytes, consumes no download rate-limit attempt, and writes no download audit event. This is local v0 preflight only, not production authorization, not authenticated user identity, not signed URL support, not RBAC/ABAC/ReBAC, not hosted evidence, and not product-complete.
 
 ## Planned Agent Workflow
 

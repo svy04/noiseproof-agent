@@ -59,8 +59,8 @@ Current status:
 - Workflow Lineage Warning Code Dashboard Smoke Example v0 exists: the runbook shows the expected dashboard legend text.
 - Workflow Version Naming Review v0 exists: runtime `workflow_version` naming was reviewed before changing `phase36-structured-warning-taxonomy`.
 - Workflow Version Naming Update v0 exists: runtime `workflow_version` is now `phase40-lineage-warning-code-dashboard`.
-- Current implemented current-state surfaces include uploaded file intake manifest persistence, uploaded file parsed document metadata persistence, uploaded file chunk persistence, uploaded file retrieval persistence, uploaded raw file quarantine storage, metadata-only raw-file scan records, explicit scan execution with scanner-unavailable defaults, ClamAV opt-in clean-file endpoint proof, ClamAV endpoint malicious-detection owner-runtime proof, caller-provided chunk embeddings, caller-provided semantic retrieval persistence, retrieval-run-linked Evidence Ledger, retrieval-run-linked Noise Gate, retrieval-run-linked Report, workflow lineage read models, dashboard lineage links, and failure-case records.
-- still unproven: robust PDF extraction, embedding generation, production semantic retrieval quality, hosted deployment evidence, hosted observability, external reviewer feedback, production malware scanning evidence, autonomous/LLM-backed agents, and a polished web app.
+- Current implemented current-state surfaces include uploaded file intake manifest persistence, uploaded file parsed document metadata persistence, uploaded file chunk persistence, uploaded file retrieval persistence, uploaded raw file quarantine storage, metadata-only raw-file scan records, explicit scan execution with scanner-unavailable defaults, ClamAV opt-in clean-file endpoint proof, ClamAV endpoint malicious-detection owner-runtime proof, uploaded raw file download readiness preview, caller-provided chunk embeddings, caller-provided semantic retrieval persistence, retrieval-run-linked Evidence Ledger, retrieval-run-linked Noise Gate, retrieval-run-linked Report, workflow lineage read models, dashboard lineage links, and failure-case records.
+- still unproven: robust PDF extraction, embedding generation, production semantic retrieval quality, hosted deployment evidence, hosted observability, external reviewer feedback, production malware scanning evidence, production raw-file authorization, authenticated user identity, autonomous/LLM-backed agents, and a polished web app.
 
 This document describes the intended system so implementation can proceed without drifting into a trading bot or a generic RAG demo.
 
@@ -532,6 +532,11 @@ GET  /documents/upload-raw-files
 POST /documents/upload-raw-files/{raw_file_id}/scan-results
 GET  /documents/upload-raw-files/{raw_file_id}/scan-results
 POST /documents/upload-raw-files/{raw_file_id}/scan
+GET  /documents/upload-raw-files/{raw_file_id}/download-events
+POST /documents/upload-raw-files/{raw_file_id}/download-approvals
+GET  /documents/upload-raw-files/{raw_file_id}/download-approvals
+GET  /documents/upload-raw-files/{raw_file_id}/download-readiness
+GET  /documents/upload-raw-files/{raw_file_id}/download
 POST /collection-plans/preview
 POST /retrieval-runs
 GET  /retrieval-runs
@@ -569,9 +574,9 @@ GET  /documents/{id}
 GET  /retrieval-runs/{id}
 ```
 
-Current endpoints include uploaded file preview/parsing handoffs, parsed document metadata persistence, chunk persistence, retrieval persistence, raw upload quarantine storage, caller-provided embeddings, caller-provided semantic retrieval persistence, and retrieval-run-linked Evidence Ledger / Noise Gate / Report handoffs.
+Current endpoints include uploaded file preview/parsing handoffs, parsed document metadata persistence, chunk persistence, retrieval persistence, raw upload quarantine storage, raw file scan/approval/download audit metadata, uploaded raw file download readiness preview, caller-provided embeddings, caller-provided semantic retrieval persistence, and retrieval-run-linked Evidence Ledger / Noise Gate / Report handoffs.
 
-Current endpoints still do not perform robust PDF extraction, generate embeddings, persist collection plans, create direct evidence -> gate -> report foreign-key lineage, invoke an LLM, search external sources, create autonomous free-form agents, create free-form final answers, prove endpoint malicious-detection runtime behavior, prove hosted deployment, or provide distributed tracing. The current workflow parent proves common workflow membership, not direct stage-level causality between persisted Evidence Ledger rows, Noise Gate records, and Report records.
+Current endpoints still do not perform robust PDF extraction, generate embeddings, persist collection plans, create direct evidence -> gate -> report foreign-key lineage, invoke an LLM, search external sources, create autonomous free-form agents, create free-form final answers, prove production raw-file authorization, prove authenticated user identity, prove hosted deployment, or provide distributed tracing. The current workflow parent proves common workflow membership, not direct stage-level causality between persisted Evidence Ledger rows, Noise Gate records, and Report records.
 
 ## Agent Workflow
 

@@ -15852,6 +15852,49 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 438 - Uploaded Raw File Download Readiness Preview v0
+
+Goal:
+
+```text
+add a read-only preflight endpoint that shows whether a stored raw upload currently satisfies download prerequisites without returning raw bytes or mutating download side effects
+```
+
+Implemented:
+
+```text
+uploaded raw file download readiness preview v0
+GET /documents/upload-raw-files/{raw_file_id}/download-readiness
+RawFileDownloadReadinessOut
+RawFileDownloadReadinessCheckOut
+download_readiness_preflight_no_raw_bytes_not_authorization
+raw_file_exists check
+latest_clean_scan check
+quarantine_status check
+active_download_approval check
+blocked reason: missing_clean_scan
+blocked reason: latest_scan_not_clean
+blocked reason: quarantine_status_blocked
+blocked reason: missing_download_approval
+blocked reason: revoked_or_expired_download_approval
+allowed decision after latest clean scan and active approval
+rate_limit_consumed: false
+raw_bytes_returned: false
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+docs/architecture.md current-state surface
+docs/review/uploaded-raw-file-download-readiness-preview.md
+```
+
+Phase 438 is local v0 API preflight behavior only. It adds no production authorization, authenticated user identity, signed URL support, RBAC, ABAC, ReBAC, raw byte download, download audit event persistence, rate-limit consumption, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, production malware scanning evidence, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, raw file download readiness runtime smoke v0 if Docker/API verification is desired, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

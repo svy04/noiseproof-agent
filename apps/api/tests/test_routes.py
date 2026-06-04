@@ -1914,6 +1914,127 @@ def test_document_upload_raw_file_download_requires_latest_clean_scan_result():
     assert "latest clean scan result required" in latest_failed_response.json()["detail"]
 
 
+def test_document_upload_raw_file_download_readiness_blocks_without_scan_and_returns_no_raw_bytes():
+    client = make_client()
+    content = b"ticker,revenue\nALPHA,120\n"
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+
+    response = client.get(
+        f"/documents/upload-raw-files/{raw_file_id}/download-readiness"
+    )
+    events = client.get(f"/documents/upload-raw-files/{raw_file_id}/download-events")
+
+    assert upload.status_code == 201
+    assert response.status_code == 200
+    body = response.json()
+    assert body["raw_file_id"] == raw_file_id
+    assert body["decision"] == "blocked"
+    assert body["blocked_reason"] == "missing_clean_scan"
+    assert body["http_status_code_if_download_attempted"] == 409
+    assert body["raw_bytes_returned"] is False
+    assert body["latest_scan_result_id"] is None
+    assert body["active_approval_id"] is None
+    assert body["readiness_boundary"] == (
+        "download_readiness_preflight_no_raw_bytes_not_authorization"
+    )
+    assert body["authorization_boundary"] == "local_v0_no_auth_not_production"
+    assert body["rate_limit_boundary"] == DOWNLOAD_RATE_LIMIT_BOUNDARY
+    assert body["rate_limit_consumed"] is False
+    assert "raw_bytes" not in body
+    assert events.json() == []
+
+
+def test_document_upload_raw_file_download_readiness_blocks_without_active_approval():
+    client = make_client()
+    scanner = RecordingCleanScanner()
+    client.app.dependency_overrides[get_scanner_adapter] = lambda: scanner
+    content = b"ticker,revenue\nALPHA,120\n"
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+    scan = client.post(f"/documents/upload-raw-files/{raw_file_id}/scan")
+
+    response = client.get(
+        f"/documents/upload-raw-files/{raw_file_id}/download-readiness"
+    )
+
+    assert upload.status_code == 201
+    assert scan.status_code == 201
+    body = response.json()
+    assert body["decision"] == "blocked"
+    assert body["blocked_reason"] == "missing_download_approval"
+    assert body["http_status_code_if_download_attempted"] == 409
+    assert body["latest_scan_result_id"] == scan.json()["id"]
+    assert body["active_approval_id"] is None
+    check_names = [check["name"] for check in body["checks"]]
+    assert check_names == [
+        "raw_file_exists",
+        "latest_clean_scan",
+        "quarantine_status",
+        "active_download_approval",
+    ]
+    assert body["checks"][-1]["status"] == "failed"
+    assert body["checks"][-1]["boundary"] == (
+        "local_v0_manual_operator_approval_not_production_auth"
+    )
+
+
+def test_document_upload_raw_file_download_readiness_allows_after_clean_scan_and_active_approval():
+    client = make_client()
+    scanner = RecordingCleanScanner()
+    client.app.dependency_overrides[get_scanner_adapter] = lambda: scanner
+    content = b"ticker,revenue\nALPHA,120\n"
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+    scan = client.post(f"/documents/upload-raw-files/{raw_file_id}/scan")
+    approval = client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/download-approvals",
+        json={
+            "raw_file_id": raw_file_id,
+            "latest_scan_result_id": scan.json()["id"],
+            "approval_reason": "manual local review after latest clean scan",
+            "approved_by_label": "local-operator",
+            "expires_at": datetime(2999, 1, 1, tzinfo=timezone.utc).isoformat(),
+        },
+    )
+
+    response = client.get(
+        f"/documents/upload-raw-files/{raw_file_id}/download-readiness"
+    )
+    events = client.get(f"/documents/upload-raw-files/{raw_file_id}/download-events")
+
+    assert response.status_code == 200
+    assert approval.status_code == 201
+    body = response.json()
+    assert body["decision"] == "allowed"
+    assert body["blocked_reason"] is None
+    assert body["http_status_code_if_download_attempted"] == 200
+    assert body["latest_scan_result_id"] == scan.json()["id"]
+    assert body["active_approval_id"] == approval.json()["id"]
+    assert body["approval_boundary"] == (
+        "local_v0_manual_operator_approval_not_production_auth"
+    )
+    assert body["identity_boundary"] == "operator_label_not_authenticated_identity"
+    assert body["raw_bytes_returned"] is False
+    assert body["rate_limit_boundary"] == DOWNLOAD_RATE_LIMIT_BOUNDARY
+    assert body["rate_limit_consumed"] is False
+    assert all(check["status"] == "passed" for check in body["checks"])
+    assert "raw_bytes" not in body
+    assert events.json() == []
+
+
 def test_document_upload_raw_file_download_requires_active_approval_after_latest_clean_scan():
     client = make_client()
     scanner = RecordingCleanScanner()

@@ -198,6 +198,30 @@ class RawFileDownloadApprovalOut(RawFileDownloadApprovalBase):
     created_at: datetime
 
 
+class RawFileDownloadReadinessCheckOut(BaseModel):
+    name: str
+    status: Literal["passed", "failed", "skipped"]
+    detail: str
+    boundary: str | None = None
+
+
+class RawFileDownloadReadinessOut(BaseModel):
+    raw_file_id: UUID
+    decision: Literal["allowed", "blocked"]
+    blocked_reason: str | None = None
+    http_status_code_if_download_attempted: int = Field(..., ge=100, le=599)
+    latest_scan_result_id: UUID | None = None
+    active_approval_id: UUID | None = None
+    approval_boundary: str | None = None
+    identity_boundary: str | None = None
+    raw_bytes_returned: bool = False
+    rate_limit_consumed: bool = False
+    readiness_boundary: str = "download_readiness_preflight_no_raw_bytes_not_authorization"
+    authorization_boundary: str = "local_v0_no_auth_not_production"
+    rate_limit_boundary: str = "local_v0_in_memory_fixed_window_not_production"
+    checks: list[RawFileDownloadReadinessCheckOut]
+
+
 class DocumentChunkCreate(BaseModel):
     document_id: UUID
     source_type: str = Field(..., min_length=1)
