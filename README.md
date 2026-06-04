@@ -460,6 +460,8 @@ External review issue body rate-limit refresh v0: implemented. Boundary: issue #
 
 External feedback current-state rate-limit issue verification v0: implemented. Boundary: current issue #1 screen after the rate-limit issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
+Uploaded raw file signature validation review v0: implemented. Boundary: source-first review selects a future local magic-prefix allowlist boundary for PDF/CSV/HTML/markdown inputs; review-only, not endpoint code, not an enforced signature validator, not malware scanning evidence, and not production authorization.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

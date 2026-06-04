@@ -188,6 +188,8 @@ Phase 376 adds external review issue body rate-limit refresh v0: `docs/review/ex
 
 Phase 377 adds external feedback current-state rate-limit issue verification v0: `docs/review/external-feedback-current-state-rate-limit-issue-verification.md` records the live issue #1 state after the rate-limit issue-body refresh. Observed state: `starts_with_request: true`, `first_codepoint: 35`, `has_rate_limit_proof: true`, `has_rate_limit_request_refresh: true`, `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`. This is live request-surface evidence only and does not close external reviewer feedback v0.
 
+Phase 378 adds uploaded raw file signature validation review v0: `docs/review/uploaded-raw-file-signature-validation-review.md` records the source-first decision to keep upload file-type checks as a future local magic-prefix allowlist boundary. This is review-only; it is not endpoint code, not an enforced signature validator, not malware scanning evidence, not production authorization, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
