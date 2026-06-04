@@ -240,6 +240,8 @@ Phase 402 adds uploaded raw file download approval schema v0: `db/migrations/021
 
 Phase 403 adds uploaded raw file download approval schema runtime verification v0: `docs/review/uploaded-raw-file-download-approval-schema-runtime-verification.md` records local Docker DB evidence that migration `021_raw_file_download_approvals.sql` applied and migration runner status reached `Applied migrations: 20`, `Pending migrations: 0`. DB introspection observed 12 columns, 5 indexes, and 7 constraints on `raw_file_download_approvals`. This is schema verification only, not endpoint code, not repository code, not production authorization, not user identity, and not product-complete.
 
+Phase 404 adds uploaded raw file download approval repository review v0: `docs/review/uploaded-raw-file-download-approval-repository-review.md` selects the next repository-only boundary for local manual approval rows: `RawFileDownloadApprovalCreate`, `RawFileDownloadApprovalOut`, `create_raw_file_download_approval`, and `list_raw_file_download_approvals`. `approved_by_label` remains an operator-provided label, not authenticated user identity. This is review-only, not repository code, not endpoint code, not download route behavior, not production authorization, not user identity, not signed URL support, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

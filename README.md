@@ -512,6 +512,8 @@ Uploaded raw file download approval schema v0: implemented. Boundary: `raw_file_
 
 Uploaded raw file download approval schema runtime verification v0: implemented. Boundary: local Docker DB migration runner applied `021_raw_file_download_approvals.sql` and status reached `Applied migrations: 20`, `Pending migrations: 0`; table columns, indexes, and constraints were introspected; not endpoint code, not repository code, not production authorization, not user identity, and not product-complete.
 
+Uploaded raw file download approval repository review v0: implemented. Boundary: review-only selection of `RawFileDownloadApprovalCreate`, `RawFileDownloadApprovalOut`, `create_raw_file_download_approval`, and `list_raw_file_download_approvals`; no repository code, endpoint code, download route behavior, production authorization, user identity, signed URL support, RBAC, or product-complete claim.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:
