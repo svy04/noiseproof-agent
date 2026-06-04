@@ -210,6 +210,8 @@ Workflow proof bundle dashboard link: `docs/review/workflow-proof-bundle-dashboa
 
 Workflow proof bundle dashboard runtime smoke: `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence that `GET /ops/dashboard` includes the workflow proof bundle link and the linked `GET /workflow-runs/{id}/proof-bundle` route returns `200`. It is not hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, new lineage storage, or product-complete.
 
+External reviewer workflow proof bundle dashboard runtime request refresh: `docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md` records that reviewer-facing repository paths now point to `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md`. This is request-surface refresh only, not a live issue body edit, hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, new lineage storage, or product-complete.
+
 ## Start Here
 
 1. `README.md`

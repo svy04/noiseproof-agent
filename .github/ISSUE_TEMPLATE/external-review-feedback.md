@@ -24,6 +24,9 @@ Fast links:
 - workflow proof bundle runtime smoke: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/workflow-proof-bundle-runtime-smoke.md
   - Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md
   - Boundary: local Docker PostgreSQL plus live FastAPI HTTP proof for `GET /workflow-runs/{id}/proof-bundle`; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
+- workflow proof bundle dashboard runtime smoke: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md
+  - Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md
+  - Boundary: local Docker PostgreSQL plus live FastAPI HTTP proof that `GET /ops/dashboard` includes the workflow `proof bundle` link and the linked `GET /workflow-runs/{id}/proof-bundle` route returns `200`; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
 - Local browser screenshot walkthrough: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/local-browser-screenshot-walkthrough.md
 - uploaded-file intake manifest proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-intake-manifest-runtime-smoke.md
   - Boundary: not raw file storage, not hosted deployment evidence, and not external reviewer feedback.

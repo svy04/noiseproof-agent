@@ -16371,6 +16371,87 @@ def test_workflow_proof_bundle_dashboard_runtime_smoke_documents_live_link_evide
     assert "docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md" in portfolio
 
 
+def test_external_reviewer_workflow_proof_bundle_dashboard_runtime_request_refresh_links_latest_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    reviewer_brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Reviewer Workflow Proof Bundle Dashboard Runtime Request Refresh" in content
+    assert (
+        "external reviewer workflow proof bundle dashboard runtime request refresh v0"
+        in content
+    )
+    assert "docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md" in content
+    assert (
+        "docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md"
+        in content
+    )
+    assert "GET /ops/dashboard" in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert "dashboard_contains_proof_bundle_link: true" in content
+    assert "proof_bundle_status_code: 200" in content
+    assert "not a live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not product-complete" in content
+
+    for surface in [
+        contributing,
+        issue_template,
+        readme,
+        goal,
+        runbook,
+        portfolio,
+        proof_path,
+        review_request,
+        reviewer_brief,
+        link_map,
+    ]:
+        assert "docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md" in surface
+        assert (
+            "docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md"
+            in surface
+        )
+
+    assert (
+        "External reviewer workflow proof bundle dashboard runtime request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 455 - External Reviewer Workflow Proof Bundle Dashboard Runtime Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer workflow proof bundle dashboard runtime request refresh v0" in runbook
+
+
 def test_external_reviewer_workflow_proof_bundle_request_refresh_links_runtime_proof():
     review_path = (
         REPO_ROOT

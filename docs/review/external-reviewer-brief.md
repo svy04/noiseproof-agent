@@ -43,9 +43,11 @@ Latest workflow proof bundle runtime proof:
 ```text
 docs/review/workflow-proof-bundle-runtime-smoke.md
 docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md
+docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md
+docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md
 ```
 
-This proof records `GET /workflow-runs/{id}/proof-bundle`, `health_status: ok`, `execute_preview_status_code: 201`, `proof_bundle_status_code: 200`, `metadata_only_proof_bundle_status_code: 200`, `bundle_boundary: read_model_only_existing_records_no_new_storage`, and `metadata_only_trace_is_null: true`. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
+This proof records `GET /workflow-runs/{id}/proof-bundle`, `health_status: ok`, `execute_preview_status_code: 201`, `proof_bundle_status_code: 200`, `metadata_only_proof_bundle_status_code: 200`, `bundle_boundary: read_model_only_existing_records_no_new_storage`, and `metadata_only_trace_is_null: true`. The dashboard runtime proof also records `GET /ops/dashboard`, `dashboard_contains_proof_bundle_link: true`, and linked proof bundle status `200`. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
 
 uploaded-file intake manifest proof:
 

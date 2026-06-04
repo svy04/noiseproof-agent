@@ -16551,6 +16551,41 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 455 - External Reviewer Workflow Proof Bundle Dashboard Runtime Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the workflow proof bundle dashboard runtime smoke discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer workflow proof bundle dashboard runtime request refresh v0
+docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md
+docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md linked from reviewer-facing paths
+CONTRIBUTING.md fast path link
+.github/ISSUE_TEMPLATE/external-review-feedback.md fast link
+README implementation marker
+docs/application/portfolio-index.md link
+docs/review/external-reader-proof-path.md link
+docs/review/external-review-request.md latest workflow proof section
+docs/review/external-reviewer-brief.md latest workflow proof section
+docs/review/external-reviewer-link-map.md latest workflow proof section
+docs/runbook.md note
+```
+
+Phase 455 is request-surface refresh only. It adds no runtime behavior, endpoint, schema, migration, issue body edit, external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, new lineage storage, customer validation, Braincrew acceptance, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external review issue body workflow proof bundle dashboard runtime refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

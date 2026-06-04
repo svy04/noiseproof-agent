@@ -98,6 +98,8 @@ Read in this order:
     - workflow proof bundle read model with `GET /workflow-runs/{id}/proof-bundle`, collecting existing workflow detail, derived lineage, and trace lookup surfaces; not new lineage storage, not distributed tracing, not hosted observability, and not external reviewer feedback.
 43. `docs/review/workflow-proof-bundle-runtime-smoke.md`
     - workflow proof bundle runtime smoke with local Docker PostgreSQL plus live FastAPI HTTP; `GET /workflow-runs/{id}/proof-bundle` returns existing detail, lineage, and trace lookup surfaces for a deterministic workflow and keeps metadata-only workflows from claiming trace lookup; request refresh: `docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md`; not distributed tracing, not hosted observability, not hosted deployment evidence, and not external reviewer feedback.
+44. `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md`
+    - workflow proof bundle dashboard runtime smoke with local Docker PostgreSQL plus live FastAPI HTTP; `GET /ops/dashboard` includes the workflow `proof bundle` link and the linked `GET /workflow-runs/{id}/proof-bundle` route returns `200`; request refresh: `docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md`; not distributed tracing, hosted observability, hosted deployment evidence, live issue body edit, product-complete, or external reviewer feedback.
 
 ## Optional source-level provenance
 

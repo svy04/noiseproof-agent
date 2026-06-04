@@ -18,6 +18,7 @@ Please start here:
 4. `docs/application/portfolio-index.md`
 5. `docs/review/workflow-proof-bundle-runtime-smoke.md`
    - workflow proof bundle runtime smoke via `GET /workflow-runs/{id}/proof-bundle`; request refresh: `docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md`; not distributed tracing, hosted observability, hosted deployment evidence, external reviewer feedback, or product-complete.
+   - dashboard runtime proof: `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md`; request refresh: `docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md`; verifies `GET /ops/dashboard` includes the workflow `proof bundle` link and the linked proof bundle route returns `200`; not a live issue body edit, not distributed tracing, hosted observability, hosted deployment evidence, external reviewer feedback, or product-complete.
 6. `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
    - uploaded-file intake manifest proof; not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 7. `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
