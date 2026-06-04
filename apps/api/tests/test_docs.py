@@ -10957,6 +10957,67 @@ def test_external_feedback_current_state_pdf_retrieval_run_provenance_issue_veri
     )
 
 
+def test_uploaded_pdf_retrieval_run_linked_evidence_ledger_provenance_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    migration = (
+        REPO_ROOT / "db/migrations/018_evidence_ledger_metadata_json.sql"
+    ).read_text(encoding="utf-8")
+    init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
+
+    assert "Uploaded PDF Retrieval-run-linked Evidence Ledger Provenance" in content
+    assert (
+        "uploaded PDF retrieval-run-linked Evidence Ledger provenance v0"
+        in content
+    )
+    assert "db/migrations/018_evidence_ledger_metadata_json.sql" in content
+    assert "metadata_json JSONB NOT NULL DEFAULT '{}'::jsonb" in migration
+    assert "metadata_json JSONB NOT NULL DEFAULT '{}'::jsonb" in init_schema
+    assert "POST /documents/upload-chunks" in content
+    assert "POST /documents/{document_id}/retrieval-runs" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger" in content
+    assert "GET /evidence-ledgers?retrieval_run_id=" in content
+    assert "metadata_json.parser -> pdf-pymupdf" in content
+    assert "metadata_json.digital_pdf_text_extraction -> true" in content
+    assert "metadata_json.robust_pdf_extraction -> false" in content
+    assert (
+        "metadata_json.source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk"
+        in content
+    )
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction" in content
+    assert "not Noise Gate behavior" in content
+    assert "not report generation" in content
+    assert (
+        "Uploaded PDF retrieval-run-linked Evidence Ledger provenance v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 352 - Uploaded PDF Retrieval-run-linked Evidence Ledger Provenance v0"
+        in goal
+    )
+    assert (
+        "uploaded PDF retrieval-run-linked Evidence Ledger provenance v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance.md"
+        in portfolio
+    )
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

@@ -148,6 +148,7 @@ class EvidenceLedgerEntry:
     status: str
     matched_terms: list[str] = field(default_factory=list)
     role: str = "direct_support"
+    metadata_json: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

@@ -218,6 +218,7 @@ CREATE TABLE IF NOT EXISTS evidence_ledger_entries (
   ),
   matched_terms JSONB NOT NULL DEFAULT '[]'::jsonb,
   role TEXT NOT NULL,
+  metadata_json JSONB NOT NULL DEFAULT '{}'::jsonb,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 

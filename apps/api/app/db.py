@@ -735,9 +735,9 @@ class PostgresRepository:
                       run_id, agent_run_id, workflow_run_id, retrieval_run_id, workflow_trace_id,
                       question, claim, source_id, source_type, source_date,
                       evidence_span, confidence, limitation,
-                      contradicting_source_ids, status, matched_terms, role
+                      contradicting_source_ids, status, matched_terms, role, metadata_json
                     )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     RETURNING *
                     """,
                     (
@@ -758,6 +758,7 @@ class PostgresRepository:
                         entry.status,
                         Jsonb(entry.matched_terms),
                         entry.role,
+                        Jsonb(entry.metadata_json),
                     ),
                 ).fetchone()
                 rows.append(dict(row))

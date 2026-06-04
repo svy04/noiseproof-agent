@@ -34,6 +34,8 @@ Phase 350 adds external reviewer PDF retrieval-run provenance issue-body refresh
 
 Phase 351 adds external feedback current-state PDF retrieval-run provenance issue verification v0: current issue #1 still has `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and only a self-authored non-qualifying comment after the PDF retrieval-run provenance issue-body refresh. This does not close external reviewer feedback v0 and is not hosted deployment evidence, robust PDF extraction, OCR, table extraction, layout fidelity evidence, raw file storage, full parsed text persistence, Evidence Ledger generation, Noise Gate behavior, or report generation.
 
+Phase 352 adds uploaded PDF retrieval-run-linked Evidence Ledger provenance v0: retrieval-run-linked Evidence Ledger entries now persist candidate chunk parser/source provenance in `metadata_json`, including `metadata_json.parser -> pdf-pymupdf`, `metadata_json.digital_pdf_text_extraction -> true`, `metadata_json.robust_pdf_extraction -> false`, and `metadata_json.source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk`. This is route-level/schema proof only; it is not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, layout fidelity evidence, raw file storage, full parsed text persistence, Noise Gate behavior, or report generation.
+
 Phase 22 adds an Evidence Ledger dashboard table: persisted evidence rows are now visible beside retrieval, gate, and report records in the plain operations dashboard.
 
 Phase 22.5 adds a review-only cross-link decision: direct evidence -> gate -> report links are deferred until a single workflow parent exists.

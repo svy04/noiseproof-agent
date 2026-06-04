@@ -100,6 +100,7 @@ def _entry_from_candidate(
         status=status,
         matched_terms=sorted(set(candidate.matched_terms)),
         role="contradiction" if status == "contradicted" else "direct_support",
+        metadata_json=dict(candidate.metadata),
     )
 
 

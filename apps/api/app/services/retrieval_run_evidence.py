@@ -144,6 +144,9 @@ def _candidates_from_retrieval_run(
                 "document_id": str(document_id),
                 "source_table": "document_chunks",
                 "retrieval_run_id": str(retrieval_run_id),
+                "source_provenance_boundary": (
+                    "evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk"
+                ),
                 "persistence_boundary": (
                     "retrieval_run_linked_evidence_ledger_no_llm_no_embeddings"
                 ),

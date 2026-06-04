@@ -423,6 +423,7 @@ class EvidenceLedgerEntryOut(BaseModel):
     status: str
     matched_terms: list[str]
     role: str
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
 
 
 class EvidenceLedgerSummaryOut(BaseModel):
