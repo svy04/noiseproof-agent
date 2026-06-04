@@ -583,6 +583,8 @@ External feedback current-state approval-audit-metadata issue verification v0: i
 
 Uploaded raw file download readiness preview v0: implemented. Boundary: `GET /documents/upload-raw-files/{raw_file_id}/download-readiness` reports whether latest clean scan, quarantine status, and active local manual approval currently satisfy the guarded download preconditions; it returns no raw bytes, consumes no download rate-limit attempt, and writes no download audit event. This is local v0 preflight only, not production authorization, not authenticated user identity, not signed URL support, not RBAC/ABAC/ReBAC, not hosted evidence, and not product-complete.
 
+Uploaded raw file download readiness runtime smoke v0: implemented. Boundary: local Docker FastAPI plus PostgreSQL verified readiness before scan (`missing_clean_scan`), after clean scan without approval (`missing_download_approval`), and after clean scan plus active approval (`allowed`), while `raw_bytes_returned=false`, `rate_limit_consumed=false`, and `events_after_readiness_count=0`; not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, not external reviewer feedback, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

@@ -166,7 +166,11 @@ This is not product-complete.
 ## Next Gate
 
 ```text
-external reviewer feedback v0 if qualifying outside feedback exists, raw file
-download readiness runtime smoke v0 if Docker/API verification is desired, or
-another source-first product gate selected from docs/GOAL.md
+uploaded raw file download readiness runtime smoke v0
+```
+
+Runtime smoke artifact:
+
+```text
+docs/review/uploaded-raw-file-download-readiness-runtime-smoke.md
 ```

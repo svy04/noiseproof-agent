@@ -15560,3 +15560,68 @@ def test_uploaded_raw_file_download_readiness_preview_documents_preflight_bounda
         "def get_upload_raw_file_download_readiness", 1
     )[1].split("def download_upload_raw_file", 1)[0]
     assert "RawFileDownloadReadinessOut" in schemas_py
+
+
+def test_uploaded_raw_file_download_readiness_runtime_smoke_records_live_http_evidence():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-readiness-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    preview_doc = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-download-readiness-preview.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded Raw File Download Readiness Runtime Smoke" in content
+    assert "uploaded raw file download readiness runtime smoke v0" in content
+    assert "local Docker FastAPI plus PostgreSQL" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/download-readiness" in content
+    assert "health_status: ok" in content
+    assert "no_scan_decision: blocked" in content
+    assert "no_scan_blocked_reason: missing_clean_scan" in content
+    assert "no_scan_http_status_code_if_download_attempted: 409" in content
+    assert "clean_no_approval_decision: blocked" in content
+    assert "clean_no_approval_blocked_reason: missing_download_approval" in content
+    assert "clean_no_approval_latest_scan_result_id_matches: true" in content
+    assert "allowed_decision: allowed" in content
+    assert "allowed_http_status_code_if_download_attempted: 200" in content
+    assert "allowed_active_approval_id_matches: true" in content
+    assert "allowed_all_checks_passed: true" in content
+    assert "events_after_readiness_count: 0" in content
+    assert "raw_bytes_returned: false" in content
+    assert "rate_limit_consumed: false" in content
+    assert "readiness_boundary: download_readiness_preflight_no_raw_bytes_not_authorization" in content
+    assert "authorization_boundary: local_v0_no_auth_not_production" in content
+    assert "approval_boundary: local_v0_manual_operator_approval_not_production_auth" in content
+    assert "identity_boundary: operator_label_not_authenticated_identity" in content
+    assert "not production authorization" in content
+    assert "not authenticated user identity" in content
+    assert "not raw byte download" in content
+    assert "not download audit event persistence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Uploaded raw file download readiness runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 439 - Uploaded Raw File Download Readiness Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded raw file download readiness runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-download-readiness-runtime-smoke.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-readiness-runtime-smoke.md"
+        in preview_doc
+    )
