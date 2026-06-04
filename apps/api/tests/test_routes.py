@@ -1369,6 +1369,48 @@ def test_document_upload_raw_file_signature_validation_accepts_csv_despite_spoof
     assert "raw_bytes" not in body
 
 
+def test_document_upload_raw_file_extension_allowlist_accepts_csv_and_records_boundary():
+    client = make_client()
+    content = b"ticker,revenue\nALPHA,120\n"
+
+    response = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    warnings = "\n".join(body["warnings_json"])
+    assert body["filename"] == "sample.csv"
+    assert "extension_boundary: local_v0_extension_allowlist_not_production" in warnings
+    assert "client_filename_extension: .csv" in warnings
+    assert "extension_decision: allowed" in warnings
+    assert "Extension validation is local v0 and should not be used on its own." in warnings
+    assert "raw_bytes" not in body
+
+
+def test_document_upload_raw_file_extension_allowlist_blocks_double_extension_before_persistence():
+    client = make_client()
+    content = b"ticker,revenue\nALPHA,120\n"
+
+    response = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.exe.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+
+    assert response.status_code == 415
+    detail = response.json()["detail"]
+    assert detail["block_reason"] == "suspicious double extension"
+    assert detail["declared_source_type"] == "csv"
+    assert detail["client_filename_extension"] == ".csv"
+    assert detail["extension_boundary"] == "local_v0_extension_allowlist_not_production"
+    assert any("double extension" in warning for warning in detail["warnings"])
+    assert "raw_bytes" not in detail
+    assert client.get("/documents/upload-raw-files").json() == []
+
+
 def test_document_upload_raw_file_signature_validation_blocks_declared_pdf_without_pdf_prefix():
     client = make_client()
     content = b"ticker,revenue\nALPHA,120\n"

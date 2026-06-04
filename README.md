@@ -474,6 +474,8 @@ External feedback current-state signature-validation issue verification v0: impl
 
 Uploaded raw file extension allowlist review v0: implemented. Boundary: source-first review selects a future local filename extension allowlist for raw uploads, validating after filename decoding and naming double-extension/null-byte bypass cases; review-only, not endpoint code, not an enforced extension validator, not robust file-type detection, not malware scanning evidence, and not production authorization.
 
+Uploaded raw file extension allowlist local v0: implemented. Boundary: `POST /documents/upload-raw-files` now validates filename extensions before raw byte persistence, records `local_v0_extension_allowlist_not_production`, accepts allowed CSV filenames, and blocks `sample.exe.csv` double-extension uploads with `415` and no raw bytes; not robust file-type detection, malware scanning evidence, production authorization, hosted proof, or product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

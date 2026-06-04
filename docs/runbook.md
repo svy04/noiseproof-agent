@@ -202,6 +202,8 @@ Phase 383 adds external feedback current-state signature-validation issue verifi
 
 Phase 384 adds uploaded raw file extension allowlist review v0: `docs/review/uploaded-raw-file-extension-allowlist-review.md` records a source-first decision to add a future local filename extension allowlist before raw upload persistence. The selected boundary is `local_v0_extension_allowlist_not_production`; this is review-only, not endpoint code, not an enforced extension validator, not robust file-type detection, not malware scanning evidence, and not production authorization.
 
+Phase 385 adds uploaded raw file extension allowlist local v0: `docs/review/uploaded-raw-file-extension-allowlist-local.md` records local API behavior for extension validation before raw upload persistence. `POST /documents/upload-raw-files` records `extension_boundary: local_v0_extension_allowlist_not_production` on accepted CSV uploads and blocks `sample.exe.csv` as `suspicious double extension` with `415` and no raw bytes. This is local v0 endpoint code only, not robust file-type detection, malware scanning evidence, production authorization, hosted proof, or product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

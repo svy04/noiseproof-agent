@@ -12644,3 +12644,48 @@ def test_uploaded_raw_file_extension_allowlist_review_selects_bounded_local_v0()
         "docs/review/uploaded-raw-file-extension-allowlist-review.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_extension_allowlist_local_documents_route_behavior():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-extension-allowlist-local.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    route_py = (REPO_ROOT / "apps/api/app/routes/documents.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Extension Allowlist Local" in content
+    assert "uploaded raw file extension allowlist local v0" in content
+    assert "POST /documents/upload-raw-files" in content
+    assert "local_v0_extension_allowlist_not_production" in content
+    assert "extension_boundary" in content
+    assert "client_filename_extension" in content
+    assert "extension_decision: allowed" in content
+    assert "suspicious double extension" in content
+    assert "415" in content
+    assert "sample.exe.csv" in content
+    assert "no raw bytes" in content
+    assert "not robust file-type detection" in content
+    assert "not malware scanning evidence" in content
+    assert "not production authorization" in content
+    assert "uploaded raw file extension allowlist runtime smoke v0" in content
+    assert "EXTENSION_ALLOWLIST_BOUNDARY" in route_py
+    assert "DANGEROUS_INNER_EXTENSIONS" in route_py
+    assert "_validate_raw_file_extension" in route_py
+    assert "Uploaded raw file extension allowlist local v0: implemented" in readme
+    assert "Phase 385 - Uploaded Raw File Extension Allowlist Local v0" in goal
+    assert "uploaded raw file extension allowlist local v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-extension-allowlist-local.md"
+        in portfolio
+    )

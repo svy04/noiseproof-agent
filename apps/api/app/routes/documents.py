@@ -2,6 +2,7 @@ import re
 from collections import deque
 from hashlib import sha256
 from time import monotonic
+from urllib.parse import unquote
 from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
@@ -75,6 +76,37 @@ DOWNLOAD_RATE_LIMIT_BOUNDARY = "local_v0_in_memory_fixed_window_not_production"
 DOWNLOAD_RATE_LIMIT_ATTEMPTS = 5
 DOWNLOAD_RATE_LIMIT_WINDOW_SECONDS = 60.0
 SIGNATURE_VALIDATION_BOUNDARY = "local_v0_magic_prefix_allowlist_not_production"
+EXTENSION_ALLOWLIST_BOUNDARY = "local_v0_extension_allowlist_not_production"
+ALLOWED_RAW_FILE_EXTENSIONS = {
+    ".csv",
+    ".htm",
+    ".html",
+    ".markdown",
+    ".md",
+    ".pdf",
+    ".txt",
+}
+SOURCE_TYPE_EXTENSIONS = {
+    "csv": {".csv"},
+    "html": {".html", ".htm"},
+    "markdown": {".md", ".markdown", ".txt"},
+    "md": {".md", ".markdown", ".txt"},
+    "pdf": {".pdf"},
+    "text": {".txt"},
+    "txt": {".txt"},
+}
+DANGEROUS_INNER_EXTENSIONS = {
+    ".bat",
+    ".cmd",
+    ".com",
+    ".dll",
+    ".exe",
+    ".js",
+    ".php",
+    ".ps1",
+    ".sh",
+    ".vbs",
+}
 _download_attempt_windows: dict[tuple[str, str], deque[float]] = {}
 
 
@@ -109,6 +141,87 @@ def _consume_download_attempt(raw_file_id: UUID, request: Request) -> bool:
         return False
     attempts.append(now)
     return True
+
+
+def _validate_raw_file_extension(
+    *,
+    filename: str | None,
+    source_type: str | None,
+    content_type: str | None,
+) -> dict:
+    declared_source_type = (source_type or "unknown").strip().lower() or "unknown"
+    client_filename = filename or ""
+    decoded_filename = unquote(client_filename)
+    basename = decoded_filename.replace("\\", "/").split("/")[-1].strip()
+    extensions = _filename_extensions(basename)
+    normalized_extension = extensions[-1] if extensions else ""
+    decision, block_reason = _extension_allowlist_decision(
+        declared_source_type=declared_source_type,
+        decoded_filename=decoded_filename,
+        normalized_extension=normalized_extension,
+        extensions=extensions,
+    )
+    warnings = [
+        f"extension_boundary: {EXTENSION_ALLOWLIST_BOUNDARY}",
+        f"declared_source_type: {declared_source_type}",
+        f"declared_content_type: {content_type or 'unknown'}",
+        f"client_filename: {client_filename or 'unknown'}",
+        f"decoded_filename: {decoded_filename or 'unknown'}",
+        f"client_filename_extension: {normalized_extension or 'none'}",
+        f"extension_decision: {decision}",
+        "Content-Type header can be spoofed; local extension validation treats it as metadata only.",
+        "Extension validation is local v0 and should not be used on its own.",
+    ]
+    if client_filename != decoded_filename:
+        warnings.append("filename was URL-decoded before extension validation")
+    if "\\" in decoded_filename or "/" in decoded_filename:
+        warnings.append("path components ignored before extension validation")
+    if len(extensions) > 1:
+        warnings.append("double extension detected before extension validation")
+
+    return {
+        "accepted": decision == "allowed",
+        "block_reason": block_reason,
+        "declared_source_type": declared_source_type,
+        "declared_content_type": content_type or "unknown",
+        "client_filename": client_filename or "unknown",
+        "decoded_filename": decoded_filename or "unknown",
+        "client_filename_extension": normalized_extension or "none",
+        "extension_decision": decision,
+        "extension_boundary": EXTENSION_ALLOWLIST_BOUNDARY,
+        "warnings": warnings,
+    }
+
+
+def _filename_extensions(basename: str) -> list[str]:
+    parts = basename.lower().split(".")
+    if len(parts) < 2:
+        return []
+    return [f".{part}" for part in parts[1:] if part]
+
+
+def _extension_allowlist_decision(
+    *,
+    declared_source_type: str,
+    decoded_filename: str,
+    normalized_extension: str,
+    extensions: list[str],
+) -> tuple[str, str | None]:
+    if "\x00" in decoded_filename:
+        return "blocked", "filename contains null byte"
+    if not normalized_extension:
+        return "missing", "missing filename extension"
+    if normalized_extension not in ALLOWED_RAW_FILE_EXTENSIONS:
+        return "blocked", "filename extension not allowed"
+    if any(
+        extension in DANGEROUS_INNER_EXTENSIONS for extension in extensions[:-1]
+    ):
+        return "blocked", "suspicious double extension"
+
+    expected_extensions = SOURCE_TYPE_EXTENSIONS.get(declared_source_type)
+    if expected_extensions is not None and normalized_extension not in expected_extensions:
+        return "mismatch", "filename extension source_type mismatch"
+    return "allowed", None
 
 
 def _validate_raw_file_signature(
@@ -473,6 +586,29 @@ async def upload_document_raw_file(
             ),
         )
 
+    extension_result = _validate_raw_file_extension(
+        filename=file.filename,
+        source_type=source_type,
+        content_type=file.content_type,
+    )
+    if not extension_result["accepted"]:
+        raise HTTPException(
+            status_code=415,
+            detail={
+                "block_reason": extension_result["block_reason"],
+                "declared_source_type": extension_result["declared_source_type"],
+                "declared_content_type": extension_result["declared_content_type"],
+                "client_filename": extension_result["client_filename"],
+                "decoded_filename": extension_result["decoded_filename"],
+                "client_filename_extension": extension_result[
+                    "client_filename_extension"
+                ],
+                "extension_decision": extension_result["extension_decision"],
+                "extension_boundary": extension_result["extension_boundary"],
+                "warnings": extension_result["warnings"],
+            },
+        )
+
     signature_result = _validate_raw_file_signature(
         source_type=source_type,
         content_type=file.content_type,
@@ -497,6 +633,7 @@ async def upload_document_raw_file(
         "The original filename is recorded as metadata only and is not used as a storage key.",
         "Raw byte retrieval requires the explicit scan-first download endpoint and a latest clean scan result.",
         "No malware scan completeness, robust PDF extraction, parsing guarantee, hosted deployment evidence, or production authorization is claimed.",
+        *extension_result["warnings"],
         *signature_result["warnings"],
     ]
     payload = UploadedRawFileCreate(
