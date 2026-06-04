@@ -1436,3 +1436,13 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/failure-case-workflow-review-queue-proof-index.md`: added
 - Reader path: read-model queue -> runtime smoke -> dashboard surfacing -> fresh DB dashboard proof
 - Boundary: proof-index documentation only; not runtime behavior, not hosted deployment evidence, not external reviewer feedback, not automatic failure-case creation, and not complete workflow failure causality
+
+### Historical README Latest Markers
+
+These strings are retained for proof-marker continuity after the README top status moved to current ClamAV proof-boundary markers.
+
+- Failure-case workflow review queue v0: implemented.
+- Failure-case workflow review queue runtime smoke verification v0: implemented.
+- Failure-case workflow review queue dashboard surfacing review v0: implemented.
+- Failure-case workflow review queue dashboard surfacing v0: implemented.
+- Failure-case workflow review queue fresh-db dashboard smoke verification v0: implemented.

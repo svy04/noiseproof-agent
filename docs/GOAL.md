@@ -15822,6 +15822,36 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 437 - README Latest-marker Current-state Refresh v0
+
+Goal:
+
+```text
+replace stale README top latest markers with the current proof-boundary, runtime-proof, reviewer-routing, and external-feedback state markers
+```
+
+Implemented:
+
+```text
+readme latest-marker current-state refresh v0
+docs/review/readme-latest-marker-current-state-refresh.md
+Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0
+Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0
+Latest reviewer-routing marker: External review issue body readability refresh v0
+Latest external-feedback state: pending; only self-authored issue comment is present
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+```
+
+Phase 437 is README current-state alignment only. It adds no runtime behavior, schema, migration, API endpoint, scanner behavior, malware signature payload, raw upload, live issue body edit, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, production malware scanning evidence, production authorization, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

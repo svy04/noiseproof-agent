@@ -108,11 +108,10 @@ Current status groups:
 - evidence/report: Evidence Ledger, Noise Gate, reports, traces, filters, workflow parents, lineage, warning codes
 - proof: DB/failure smokes, reviewer path/request/brief/link-map/root-guide, feedback screening, Braincrew mapping
 
-Latest marker: Failure-case workflow review queue v0: implemented.
-Latest runtime marker: Failure-case workflow review queue runtime smoke verification v0: implemented.
-Latest review marker: Failure-case workflow review queue dashboard surfacing review v0: implemented.
-Latest dashboard marker: Failure-case workflow review queue dashboard surfacing v0: implemented.
-Latest smoke marker: Failure-case workflow review queue fresh-db dashboard smoke verification v0: implemented.
+Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
+Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
+Latest reviewer-routing marker: External review issue body readability refresh v0.
+Latest external-feedback state: pending; only self-authored issue comment is present.
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*` artifacts.
 
@@ -214,6 +213,8 @@ Not implemented yet:
 - automatic failure-case persistence from workflow failures
 - embedding generation and vector search quality evidence
 - full distributed tracing or hosted observability
+
+README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 

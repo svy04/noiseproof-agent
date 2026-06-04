@@ -15472,3 +15472,44 @@ def test_architecture_current_state_clamav_proof_boundary_refresh_removes_stale_
     assert (
         "endpoint malicious-detection runtime proof" not in architecture
     )
+
+
+def test_readme_latest_marker_current_state_refresh_points_to_current_proof_boundaries():
+    review_path = (
+        REPO_ROOT / "docs/review/readme-latest-marker-current-state-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "README Latest-marker Current-state Refresh" in content
+    assert "readme latest-marker current-state refresh v0" in content
+    assert "Architecture ClamAV proof boundary refresh v0" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke v0" in content
+    assert "external reviewer feedback remains pending" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0"
+        in readme
+    )
+    assert (
+        "Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0"
+        in readme
+    )
+    assert (
+        "Latest external-feedback state: pending; only self-authored issue comment is present"
+        in readme
+    )
+    assert "Latest marker: Failure-case workflow review queue v0" not in readme
+    assert "README latest-marker current-state refresh v0: implemented" in readme
+    assert (
+        "Phase 437 - README Latest-marker Current-state Refresh v0" in goal
+    )
+    assert "readme latest-marker current-state refresh v0" in runbook
+    assert "docs/review/readme-latest-marker-current-state-refresh.md" in portfolio
