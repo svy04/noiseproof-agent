@@ -16278,6 +16278,55 @@ def test_workflow_proof_bundle_runtime_smoke_documents_live_postgres_http_eviden
     assert "docs/review/workflow-proof-bundle-runtime-smoke.md" in proof_path
 
 
+def test_workflow_proof_bundle_dashboard_link_documents_inspection_navigation():
+    review_path = REPO_ROOT / "docs/review/workflow-proof-bundle-dashboard-link.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+    app_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    dashboard_py = (
+        REPO_ROOT / "apps/api/app/services/ops_dashboard.py"
+    ).read_text(encoding="utf-8")
+    routes_test = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Workflow Proof Bundle Dashboard Link" in content
+    assert "workflow proof bundle dashboard link v0" in content
+    assert "GET /ops/dashboard" in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert 'href="/workflow-runs/{workflow_run_id}/proof-bundle">proof bundle</a>' in content
+    assert "test_ops_dashboard_links_workflow_runs_to_detail_lineage_and_proof_bundle_views" in content
+    assert 'f"/workflow-runs/{workflow_run_id}/proof-bundle"' in dashboard_py
+    assert "proof bundle" in dashboard_py
+    assert "test_ops_dashboard_links_workflow_runs_to_detail_lineage_and_proof_bundle_views" in routes_test
+    assert "1 passed, 144 deselected" in content
+    assert "no new endpoint" in content
+    assert "no schema" in content
+    assert "no migration" in content
+    assert "no new lineage storage" in content
+    assert "no distributed tracing" in content
+    assert "no hosted observability" in content
+    assert "no external reviewer feedback" in content
+    assert "no hosted deployment evidence" in content
+    assert "no product-complete claim" in content
+    assert "Workflow proof bundle dashboard link v0: implemented" in readme
+    assert "Phase 453 - Workflow Proof Bundle Dashboard Link v0" in goal
+    assert "workflow proof bundle dashboard link v0" in runbook
+    assert "Workflow Proof Bundle Dashboard Link v0 exists" in architecture
+    assert "workflow proof bundle is discoverable from dashboard" in app_ready
+    assert "docs/review/workflow-proof-bundle-dashboard-link.md" in portfolio
+
+
 def test_external_reviewer_workflow_proof_bundle_request_refresh_links_runtime_proof():
     review_path = (
         REPO_ROOT

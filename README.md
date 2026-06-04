@@ -608,6 +608,8 @@ External review issue body workflow proof bundle refresh v0: implemented. Bounda
 
 External feedback current-state workflow proof bundle issue verification v0: implemented. Boundary: current issue #1 has the workflow proof bundle proof/request links, but `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
+Workflow proof bundle dashboard link v0: implemented. Boundary: `GET /ops/dashboard` workflow rows now link to the existing `GET /workflow-runs/{id}/proof-bundle` read model; this is dashboard navigation only, not a new endpoint, schema, migration, lineage storage, distributed tracing, hosted observability, external reviewer feedback, or product-complete claim.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

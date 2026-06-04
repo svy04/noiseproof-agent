@@ -206,6 +206,8 @@ External review issue body workflow proof bundle refresh: `docs/review/external-
 
 External feedback current-state workflow proof bundle issue verification: `docs/review/external-feedback-current-state-workflow-proof-bundle-issue-verification.md` records that issue #1 currently has the workflow proof bundle proof/request links but no qualifying outside feedback yet. It observes one self-authored non-qualifying comment, `candidate_count: 0`, `draft_count: 0`, and keeps external reviewer feedback v0 pending.
 
+Workflow proof bundle dashboard link: `docs/review/workflow-proof-bundle-dashboard-link.md` records that `GET /ops/dashboard` workflow rows now link to the existing `GET /workflow-runs/{id}/proof-bundle` read model. This is dashboard navigation only, not new storage, distributed tracing, hosted observability, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 ## Start Here
 
 1. `README.md`

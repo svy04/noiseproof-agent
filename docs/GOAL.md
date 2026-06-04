@@ -15703,6 +15703,46 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 453 - Workflow Proof Bundle Dashboard Link v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the existing workflow proof bundle read model discoverable from GET /ops/dashboard workflow rows
+```
+
+Implemented:
+
+```text
+workflow proof bundle dashboard link v0
+docs/review/workflow-proof-bundle-dashboard-link.md
+GET /ops/dashboard workflow rows link to /workflow-runs/{id}/proof-bundle
+dashboard link label: proof bundle
+test_ops_dashboard_links_workflow_runs_to_detail_lineage_and_proof_bundle_views
+README implementation marker
+docs/application/portfolio-index.md link
+docs/architecture.md current-state note
+docs/review/application-ready-review.md checklist note
+docs/runbook.md note
+```
+
+Verification:
+
+```text
+uv run pytest -q tests/test_routes.py -k "proof_bundle_views"
+1 passed, 144 deselected
+```
+
+Phase 453 is dashboard navigation only. It adds no new endpoint, schema, migration, new lineage storage, direct Evidence Ledger -> Noise Gate -> Report foreign-key links, distributed tracing, hosted observability, external reviewer feedback, hosted deployment evidence, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+workflow proof bundle dashboard runtime smoke v0 if Docker/API verification is desired, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 434 - External Review Issue Body Readability Refresh v0
 
 Goal:

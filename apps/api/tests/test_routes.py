@@ -3651,7 +3651,7 @@ def test_workflow_run_lineage_preserves_duplicate_manifest_reference_counts():
     ] == [evidence_entry_id, evidence_entry_id]
 
 
-def test_ops_dashboard_links_workflow_runs_to_detail_and_lineage_views():
+def test_ops_dashboard_links_workflow_runs_to_detail_lineage_and_proof_bundle_views():
     client = make_client()
     execution = client.post(
         "/workflow-runs/execute-preview",
@@ -3674,6 +3674,10 @@ def test_ops_dashboard_links_workflow_runs_to_detail_and_lineage_views():
     assert dashboard.status_code == 200
     assert f'href="/workflow-runs/{workflow_run_id}">detail</a>' in dashboard.text
     assert f'href="/workflow-runs/{workflow_run_id}/lineage">lineage</a>' in dashboard.text
+    assert (
+        f'href="/workflow-runs/{workflow_run_id}/proof-bundle">proof bundle</a>'
+        in dashboard.text
+    )
     assert "derived lineage read model" in dashboard.text
 
 

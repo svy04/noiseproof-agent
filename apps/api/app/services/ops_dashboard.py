@@ -378,7 +378,11 @@ def _workflow_run_links_cell(row: dict[str, Any]) -> str:
         return '<span class="muted">n/a</span>'
     detail = _link(f"/workflow-runs/{workflow_run_id}", "detail")
     lineage = _link(f"/workflow-runs/{workflow_run_id}/lineage", "lineage")
-    return f"{detail} / {lineage}"
+    proof_bundle = _link(
+        f"/workflow-runs/{workflow_run_id}/proof-bundle",
+        "proof bundle",
+    )
+    return f"{detail} / {lineage} / {proof_bundle}"
 
 
 def _workflow_parent_cell(row: dict[str, Any]) -> str:
