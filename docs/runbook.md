@@ -262,6 +262,8 @@ Phase 413 adds external reviewer approval-gate request refresh v0: `docs/review/
 
 Phase 414 adds external review issue body approval-gate refresh v0: `docs/review/external-review-issue-body-approval-gate-refresh.md` records the owner-authored issue #1 body edit pointing reviewers to the approval gate behavior runtime smoke and request refresh. Observed markers: `starts_with_request=true`, `first_codepoint=35`, `has_approval_gate_proof=true`, `has_approval_gate_request_refresh=true`, and `comment_count=1`. This is a live request update only, not external reviewer feedback, not hosted evidence, not production authorization, not user identity, not signed URL support, and not product-complete.
 
+Phase 415 adds external feedback current-state approval-gate issue verification v0: `docs/review/external-feedback-current-state-approval-gate-issue-verification.md` records the live issue #1 current state after the approval-gate issue-body refresh. The issue body has the approval proof and request-refresh links, but the only comment is owner-authored; screening produced `candidate_count=0`, acceptance drafting produced `draft_count=0`, and external reviewer feedback remains pending.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
