@@ -17297,3 +17297,40 @@ def test_embedding_model_live_provider_code_review_selects_isolated_adapter_boun
     assert "embedding model live-provider code review v0" in runbook
     assert "docs/review/embedding-model-live-provider-code-review.md" in portfolio
     assert "embedding model live-provider code review exists" in app_review
+
+
+def test_embedding_model_live_provider_dependency_review_records_pinned_candidate_without_installing():
+    review_path = (
+        REPO_ROOT / "docs/review/embedding-model-live-provider-dependency-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Model Live-provider Dependency Review" in content
+    assert "embedding model live-provider dependency review v0" in content
+    assert "openai==2.41.0" in content
+    assert "python -m pip index versions openai" in content
+    assert "https://platform.openai.com/docs/libraries" in content
+    assert "https://platform.openai.com/docs/api-reference/embeddings/create" in content
+    assert "dependency candidate only" in content
+    assert "do not install in this phase" in content
+    assert "uv.lock" in content
+    assert "uv lock --dry-run" in content
+    assert "no live provider call in CI" in content
+    assert "no runtime behavior" in content
+    assert "actual live embedding model generation remains unproven" in content
+    assert "Embedding model live-provider dependency review v0: implemented" in readme
+    assert "Phase 470 - Embedding Model Live-provider Dependency Review v0" in goal
+    assert "embedding model live-provider dependency review v0" in runbook
+    assert "docs/review/embedding-model-live-provider-dependency-review.md" in portfolio
+    assert "embedding model live-provider dependency review exists" in app_review

@@ -17140,6 +17140,44 @@ Next recommended evidence gate:
 embedding model live-provider dependency review v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 470 - Embedding Model Live-provider Dependency Review v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the OpenAI Python SDK dependency candidate and lockfile procedure before installing any dependency or adding live provider runtime behavior
+```
+
+Implemented:
+
+```text
+embedding model live-provider dependency review v0
+docs/review/embedding-model-live-provider-dependency-review.md
+OpenAI libraries docs checked
+OpenAI Create embeddings API reference checked
+OpenAI Embeddings guide checked
+python -m pip index versions openai registry check recorded
+openai==2.41.0 dependency candidate recorded
+apps/api/pyproject.toml unchanged boundary recorded
+uv.lock unchanged boundary recorded
+uv lock --dry-run future check recorded
+no live provider call in CI boundary retained
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+application-ready boundary refresh
+```
+
+Phase 470 is dependency review only. It adds no runtime behavior, dependency installation, lockfile change, provider adapter code, live provider call, network call, API cost, embedding vector, automatic persistence, retrieval expansion, Evidence Ledger generation, semantic retrieval quality evidence, hosted deployment evidence, external reviewer feedback, customer validation, autonomous/LLM-backed agents, polished web app, or product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+embedding model live-provider dependency addition v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

@@ -34,6 +34,8 @@ Embedding model live-provider implementation review: `docs/review/embedding-mode
 
 Embedding model live-provider code review: `docs/review/embedding-model-live-provider-code-review.md` records the future live provider insertion point as a tiny OpenAI Python SDK adapter behind the existing `get_embedding_provider_client` boundary. Dependency addition is deferred, and the review adds no runtime behavior or live embedding generation evidence.
 
+Embedding model live-provider dependency review: `docs/review/embedding-model-live-provider-dependency-review.md` records `openai==2.41.0` as a registry-observed future candidate and defines `uv.lock`, CI, and no-live-call checks before any dependency addition. It does not install a dependency, change the lockfile, or prove live embedding generation.
+
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
 External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.

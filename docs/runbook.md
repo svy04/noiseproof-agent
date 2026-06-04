@@ -8901,3 +8901,66 @@ no live provider call
 no API cost
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Dependency Review
+
+Phase marker: embedding model live-provider dependency review v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-dependency-review.md
+```
+
+Official source URLs:
+
+```text
+https://platform.openai.com/docs/libraries
+https://platform.openai.com/docs/api-reference/embeddings/create
+https://platform.openai.com/docs/guides/embeddings
+```
+
+Registry observation:
+
+```text
+python -m pip index versions openai
+observed_latest: openai==2.41.0
+```
+
+Dependency boundary:
+
+```text
+dependency candidate only
+do not install in this phase
+apps/api/pyproject.toml unchanged
+uv.lock unchanged
+```
+
+Future dependency check commands:
+
+```bash
+uv add "openai==2.41.0"
+uv lock --dry-run
+uv run pytest -q tests/test_routes.py -k "embedding_model_preview"
+uv run pytest -q tests/test_docs.py -k "embedding_model_live_provider"
+```
+
+Required future no-live-call checks:
+
+```text
+no live provider call in CI
+no real OPENAI_API_KEY required for tests
+default endpoint remains disabled/configured-no-call
+actual live embedding model generation remains unproven until owner runtime smoke
+```
+
+Claim boundary:
+
+```text
+no runtime behavior
+no dependency installed
+no lockfile change
+no live provider call
+no API cost
+actual live embedding model generation remains unproven
+```
