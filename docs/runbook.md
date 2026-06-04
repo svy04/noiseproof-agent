@@ -176,6 +176,8 @@ Phase 370 adds external review issue body guarded download refresh v0: `docs/rev
 
 Phase 371 adds external feedback current-state guarded download issue verification v0: `docs/review/external-feedback-current-state-guarded-download-issue-verification.md` records the live issue #1 state after the guarded download issue-body refresh. Observed state: `starts_with_request: true`, `first_codepoint: 35`, `has_guarded_download_proof: true`, `has_guarded_download_request_refresh: true`, `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`. This is live request-surface evidence only and does not close external reviewer feedback v0.
 
+Phase 372 adds uploaded raw file download rate limit review v0: `docs/review/uploaded-raw-file-download-rate-limit-review.md` records the source-first decision to keep production authorization separate and select a future local in-memory fixed-window rate limit for `GET /documents/upload-raw-files/{raw_file_id}/download`. This is review-only; it is not endpoint code, not an enforced rate limit, not production authorization, not hosted deployment evidence, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

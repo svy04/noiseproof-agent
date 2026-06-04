@@ -448,6 +448,8 @@ External review issue body guarded download refresh v0: implemented. Boundary: i
 
 External feedback current-state guarded download issue verification v0: implemented. Boundary: current issue #1 screen after the guarded download issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
+Uploaded raw file download rate limit review v0: implemented. Boundary: source-first review selects a future local in-memory fixed-window download rate limit for the guarded raw file endpoint; review-only, not endpoint code, not an enforced rate limit, not production authorization, not hosted deployment evidence, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

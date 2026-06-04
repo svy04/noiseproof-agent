@@ -12016,3 +12016,39 @@ def test_external_feedback_current_state_guarded_download_issue_verification_kee
         "docs/review/external-feedback-current-state-guarded-download-issue-verification.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_rate_limit_review_selects_local_v0_without_enforcement():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-rate-limit-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Rate Limit Review" in content
+    assert "uploaded raw file download rate limit review v0" in content
+    assert "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html" in content
+    assert "planned_not_enforced_local_v0" in content
+    assert "per-process in-memory fixed window" in content
+    assert "5 download attempts per 60 seconds" in content
+    assert "raw_file_id plus client host" in content
+    assert "HTTP 429" in content
+    assert "local_v0_in_memory_fixed_window_not_production" in content
+    assert "local_v0_no_auth_not_production" in content
+    assert "not endpoint code" in content
+    assert "not an enforced rate limit" in content
+    assert "not production authorization" in content
+    assert "not production malware scanning evidence" in content
+    assert "uploaded raw file download rate limit local v0" in content
+    assert "Uploaded raw file download rate limit review v0: implemented" in readme
+    assert "Phase 372 - Uploaded Raw File Download Rate Limit Review v0" in goal
+    assert "uploaded raw file download rate limit review v0" in runbook
+    assert "docs/review/uploaded-raw-file-download-rate-limit-review.md" in portfolio
