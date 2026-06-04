@@ -12900,3 +12900,50 @@ def test_external_feedback_current_state_extension_allowlist_issue_verification_
         "docs/review/external-feedback-current-state-extension-allowlist-issue-verification.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_filename_safety_runtime_smoke_is_linked_and_bounded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Filename Safety Runtime Smoke" in content
+    assert "uploaded raw file download filename safety runtime smoke v0" in content
+    assert "local_v0_content_disposition_filename_safety_not_production" in content
+    assert "safe_filename_length 120" in content
+    assert "'no_path': True" in content
+    assert "'no_dotdot': True" in content
+    assert "'no_crlf': True" in content
+    assert "'no_injected': True" in content
+    assert "'ends_csv': True" in content
+    assert "'lte_120': True" in content
+    assert "not production authorization" in content
+    assert "not hosted deployment evidence" in content
+    assert "not malware detection proof" in content
+    assert "not product-complete" in content
+    assert (
+        "Uploaded raw file download filename safety runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 391 - Uploaded Raw File Download Filename Safety Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "uploaded raw file download filename safety runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md"
+        in portfolio
+    )

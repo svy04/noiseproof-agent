@@ -214,6 +214,8 @@ Phase 389 adds external feedback current-state extension-allowlist issue verific
 
 Phase 390 adds uploaded raw file download filename safety local v0: `docs/review/uploaded-raw-file-download-filename-safety-local.md` records local API behavior for guarded raw file download attachment filenames. `GET /documents/upload-raw-files/{raw_file_id}/download` now returns `X-NoiseProof-Download-Filename-Boundary: local_v0_content_disposition_filename_safety_not_production`; the filename helper URL-decodes metadata filenames, ignores path components, restricts characters to a conservative ASCII subset, caps names at 120 characters, preserves short extensions where possible, and falls back to `raw-file-<uuid>.bin` when normalization empties the candidate. This is local v0 endpoint behavior only, not production authorization, hosted proof, robust file serving, or product-complete.
 
+Phase 391 adds uploaded raw file download filename safety runtime smoke v0: `docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md` records local Docker FastAPI proof for a path-like, URL-encoded-control, overlong CSV filename flowing through upload -> manual clean scan metadata -> guarded download. Observed output includes `filename_boundary local_v0_content_disposition_filename_safety_not_production`, `safe_filename_length 120`, and safe checks for no path, no dotdot, no CRLF, no injected label, `.csv` suffix preserved, and `lte_120`. This is local runtime proof only, not production authorization, hosted proof, malware detection proof, or product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

@@ -486,6 +486,8 @@ External feedback current-state extension-allowlist issue verification v0: imple
 
 Uploaded raw file download filename safety local v0: implemented. Boundary: guarded raw file downloads now expose `local_v0_content_disposition_filename_safety_not_production`, derive a conservative ASCII attachment filename, cap it at 120 characters, and fall back to `raw-file-<uuid>.bin` when normalization empties the candidate; not production authorization, hosted proof, robust file serving, or product-complete.
 
+Uploaded raw file download filename safety runtime smoke v0: implemented. Boundary: local Docker FastAPI verified a path/encoded-control/overlong CSV filename downloads with `local_v0_content_disposition_filename_safety_not_production`, a 120-character safe attachment filename, no path/dotdot/CRLF/injected-label content, and preserved `.csv`; not production authorization, hosted proof, malware detection proof, or product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:
