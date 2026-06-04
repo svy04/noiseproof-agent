@@ -169,6 +169,24 @@ class RawFileDownloadEventOut(RawFileDownloadEventCreate):
     created_at: datetime
 
 
+class RawFileDownloadApprovalCreate(BaseModel):
+    raw_file_id: UUID
+    latest_scan_result_id: UUID
+    approval_status: str = "approved"
+    approval_reason: str = Field(..., min_length=1)
+    approved_by_label: str = Field(..., min_length=1)
+    expires_at: datetime
+    revoked_at: datetime | None = None
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
+    approval_boundary: str = "local_v0_manual_operator_approval_not_production_auth"
+    identity_boundary: str = "operator_label_not_authenticated_identity"
+
+
+class RawFileDownloadApprovalOut(RawFileDownloadApprovalCreate):
+    id: UUID
+    created_at: datetime
+
+
 class DocumentChunkCreate(BaseModel):
     document_id: UUID
     source_type: str = Field(..., min_length=1)

@@ -827,6 +827,44 @@ Next recommended gate:
 uploaded raw file download approval repository v0
 ```
 
+Phase 405 extension to the accepted state:
+
+```text
+Uploaded Raw File Download Approval Repository v0
+```
+
+### Phase 405 - Uploaded Raw File Download Approval Repository v0
+
+Goal:
+
+```text
+add repository-only persistence for caller-provided local manual download approval rows
+```
+
+Implemented:
+
+```text
+uploaded raw file download approval repository v0
+docs/review/uploaded-raw-file-download-approval-repository.md
+RawFileDownloadApprovalCreate
+RawFileDownloadApprovalOut
+Repository.create_raw_file_download_approval
+Repository.list_raw_file_download_approvals
+PostgresRepository.create_raw_file_download_approval
+PostgresRepository.list_raw_file_download_approvals
+README implementation marker
+docs/runbook.md repository note
+docs/application/portfolio-index.md repository entry
+```
+
+Phase 405 is repository-only. It adds no route behavior, endpoint code, hosted deployment evidence, external reviewer feedback, production authorization, user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+uploaded raw file download approval endpoint review v0
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

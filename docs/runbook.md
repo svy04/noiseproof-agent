@@ -242,6 +242,8 @@ Phase 403 adds uploaded raw file download approval schema runtime verification v
 
 Phase 404 adds uploaded raw file download approval repository review v0: `docs/review/uploaded-raw-file-download-approval-repository-review.md` selects the next repository-only boundary for local manual approval rows: `RawFileDownloadApprovalCreate`, `RawFileDownloadApprovalOut`, `create_raw_file_download_approval`, and `list_raw_file_download_approvals`. `approved_by_label` remains an operator-provided label, not authenticated user identity. This is review-only, not repository code, not endpoint code, not download route behavior, not production authorization, not user identity, not signed URL support, and not product-complete.
 
+Phase 405 adds uploaded raw file download approval repository v0: `docs/review/uploaded-raw-file-download-approval-repository.md` implements repository-only caller-provided manual approval row persistence with `RawFileDownloadApprovalCreate`, `RawFileDownloadApprovalOut`, `create_raw_file_download_approval`, and `list_raw_file_download_approvals`. `approved_by_label` remains an operator-provided label, not authenticated user identity. This is not endpoint code, not download route behavior, not production authorization, not user identity, not signed URL support, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

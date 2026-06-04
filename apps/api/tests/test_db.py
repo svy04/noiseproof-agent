@@ -446,3 +446,115 @@ def test_list_raw_file_scan_results_filters_without_exposing_raw_bytes():
     assert "LIMIT %s" in sql
     assert params == (raw_file_id, "failed", "scan_error", 2)
     assert listed == rows
+
+
+def test_raw_file_download_approval_create_defaults_preserve_local_boundaries():
+    raw_file_id = UUID("55555555-5555-5555-5555-555555555555")
+    latest_scan_result_id = UUID("66666666-6666-6666-6666-666666666666")
+    expires_at = datetime(2026, 6, 4, tzinfo=UTC)
+
+    payload = schemas.RawFileDownloadApprovalCreate(
+        raw_file_id=raw_file_id,
+        latest_scan_result_id=latest_scan_result_id,
+        approval_reason="manual local review after latest clean scan",
+        approved_by_label="local-operator",
+        expires_at=expires_at,
+    )
+
+    assert payload.approval_status == "approved"
+    assert payload.metadata_json == {}
+    assert (
+        payload.approval_boundary
+        == "local_v0_manual_operator_approval_not_production_auth"
+    )
+    assert payload.identity_boundary == "operator_label_not_authenticated_identity"
+    assert payload.approved_by_label == "local-operator"
+
+
+def test_create_raw_file_download_approval_inserts_manual_row_without_authorization_enforcement():
+    created_at = datetime(2026, 6, 4, tzinfo=UTC)
+    expires_at = datetime(2026, 6, 5, tzinfo=UTC)
+    raw_file_id = UUID("55555555-5555-5555-5555-555555555555")
+    latest_scan_result_id = UUID("66666666-6666-6666-6666-666666666666")
+    approval_id = UUID("77777777-7777-7777-7777-777777777777")
+    row = {
+        "id": approval_id,
+        "raw_file_id": raw_file_id,
+        "latest_scan_result_id": latest_scan_result_id,
+        "approval_status": "approved",
+        "approval_reason": "manual local review after latest clean scan",
+        "approved_by_label": "local-operator",
+        "expires_at": expires_at,
+        "revoked_at": None,
+        "metadata_json": {"source": "unit-test"},
+        "approval_boundary": "local_v0_manual_operator_approval_not_production_auth",
+        "identity_boundary": "operator_label_not_authenticated_identity",
+        "created_at": created_at,
+    }
+    connection = FakeConnection(row=row)
+    repository = PostgresRepository(Settings())
+    repository._connect = lambda: connection
+
+    payload = schemas.RawFileDownloadApprovalCreate(
+        raw_file_id=raw_file_id,
+        latest_scan_result_id=latest_scan_result_id,
+        approval_reason="manual local review after latest clean scan",
+        approved_by_label="local-operator",
+        expires_at=expires_at,
+        metadata_json={"source": "unit-test"},
+    )
+
+    created = repository.create_raw_file_download_approval(payload)
+
+    sql, params = connection.calls[0]
+    assert "INSERT INTO raw_file_download_approvals" in sql
+    assert "raw_file_download_events" not in sql
+    assert "raw_bytes" not in sql
+    assert "download_url" not in sql
+    assert "jwt" not in sql.lower()
+    assert params[:7] == (
+        raw_file_id,
+        latest_scan_result_id,
+        "approved",
+        "manual local review after latest clean scan",
+        "local-operator",
+        expires_at,
+        None,
+    )
+    assert getattr(params[7], "obj", params[7]) == {"source": "unit-test"}
+    assert params[8] == "local_v0_manual_operator_approval_not_production_auth"
+    assert params[9] == "operator_label_not_authenticated_identity"
+    assert created["id"] == approval_id
+    assert created["approved_by_label"] == "local-operator"
+    assert connection.committed is True
+
+
+def test_list_raw_file_download_approvals_filters_without_allowing_downloads():
+    raw_file_id = UUID("55555555-5555-5555-5555-555555555555")
+    rows = [
+        {
+            "raw_file_id": raw_file_id,
+            "approval_status": "approved",
+            "approved_by_label": "local-operator",
+        },
+    ]
+    connection = FakeConnection(rows=rows)
+    repository = PostgresRepository(Settings())
+    repository._connect = lambda: connection
+
+    listed = repository.list_raw_file_download_approvals(
+        raw_file_id=raw_file_id,
+        approval_status="approved",
+        limit=2,
+    )
+
+    sql, params = connection.calls[0]
+    assert "SELECT * FROM raw_file_download_approvals" in sql
+    assert "raw_file_id = %s" in sql
+    assert "approval_status = %s" in sql
+    assert "raw_bytes" not in sql
+    assert "download_url" not in sql
+    assert "ORDER BY created_at DESC, id DESC" in sql
+    assert "LIMIT %s" in sql
+    assert params == (raw_file_id, "approved", 2)
+    assert listed == rows

@@ -13671,3 +13671,57 @@ def test_uploaded_raw_file_download_approval_repository_review_selects_minimal_r
         "docs/review/uploaded-raw-file-download-approval-repository-review.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_approval_repository_documents_code_boundary():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-download-approval-repository.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    db_py = (REPO_ROOT / "apps/api/app/db.py").read_text(encoding="utf-8")
+    schemas_py = (REPO_ROOT / "apps/api/app/schemas.py").read_text(encoding="utf-8")
+    route_py = (REPO_ROOT / "apps/api/app/routes/documents.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Approval Repository" in content
+    assert "uploaded raw file download approval repository v0" in content
+    assert "RawFileDownloadApprovalCreate" in content
+    assert "RawFileDownloadApprovalOut" in content
+    assert "create_raw_file_download_approval" in content
+    assert "list_raw_file_download_approvals" in content
+    assert "caller-provided manual approval rows" in content
+    assert "operator-provided label, not authenticated user identity" in content
+    assert "does not add endpoint code" in content
+    assert "does not change download route behavior" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert "not RBAC" in content
+    assert "class RawFileDownloadApprovalCreate" in schemas_py
+    assert "class RawFileDownloadApprovalOut" in schemas_py
+    assert "def create_raw_file_download_approval" in db_py
+    assert "def list_raw_file_download_approvals" in db_py
+    assert "raw_file_download_approvals" in db_py
+    assert "RawFileDownloadApproval" not in route_py
+    assert (
+        "Uploaded raw file download approval repository v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 405 - Uploaded Raw File Download Approval Repository v0"
+        in goal
+    )
+    assert "uploaded raw file download approval repository v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-repository.md"
+        in portfolio
+    )

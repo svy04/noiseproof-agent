@@ -15,6 +15,7 @@ from app.schemas import (
     FailureCaseCreate,
     NoiseGatePreviewOut,
     OpsSummaryOut,
+    RawFileDownloadApprovalCreate,
     RawFileScanResultCreate,
     RawFileDownloadEventCreate,
     ReportPreviewOut,
@@ -102,6 +103,16 @@ class Repository(Protocol):
     def list_raw_file_download_events(
         self,
         raw_file_id: UUID | None = None,
+        limit: int = 20,
+    ) -> Sequence[dict]: ...
+    def create_raw_file_download_approval(
+        self,
+        payload: RawFileDownloadApprovalCreate,
+    ) -> dict: ...
+    def list_raw_file_download_approvals(
+        self,
+        raw_file_id: UUID | None = None,
+        approval_status: str | None = None,
         limit: int = 20,
     ) -> Sequence[dict]: ...
     def create_agent_run(self, payload: AgentRunCreate) -> dict: ...
@@ -601,6 +612,67 @@ class PostgresRepository:
             rows = conn.execute(
                 f"""
                 SELECT * FROM raw_file_download_events
+                {where_clause}
+                ORDER BY created_at DESC, id DESC
+                LIMIT %s
+                """,
+                tuple(params),
+            ).fetchall()
+            return [dict(row) for row in rows]
+
+    def create_raw_file_download_approval(
+        self,
+        payload: RawFileDownloadApprovalCreate,
+    ) -> dict:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                INSERT INTO raw_file_download_approvals (
+                  raw_file_id, latest_scan_result_id, approval_status,
+                  approval_reason, approved_by_label, expires_at, revoked_at,
+                  metadata_json, approval_boundary, identity_boundary
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING *
+                """,
+                (
+                    payload.raw_file_id,
+                    payload.latest_scan_result_id,
+                    payload.approval_status,
+                    payload.approval_reason,
+                    payload.approved_by_label,
+                    payload.expires_at,
+                    payload.revoked_at,
+                    Jsonb(payload.metadata_json),
+                    payload.approval_boundary,
+                    payload.identity_boundary,
+                ),
+            ).fetchone()
+            conn.commit()
+            return dict(row)
+
+    def list_raw_file_download_approvals(
+        self,
+        raw_file_id: UUID | None = None,
+        approval_status: str | None = None,
+        limit: int = 20,
+    ) -> Sequence[dict]:
+        safe_limit = max(1, min(limit, 100))
+        filters = []
+        params: list[object] = []
+        if raw_file_id is not None:
+            filters.append("raw_file_id = %s")
+            params.append(raw_file_id)
+        if approval_status is not None:
+            filters.append("approval_status = %s")
+            params.append(approval_status)
+        where_clause = f"WHERE {' AND '.join(filters)}" if filters else ""
+        params.append(safe_limit)
+
+        with self._connect() as conn:
+            rows = conn.execute(
+                f"""
+                SELECT * FROM raw_file_download_approvals
                 {where_clause}
                 ORDER BY created_at DESC, id DESC
                 LIMIT %s
