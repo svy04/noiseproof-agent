@@ -30,6 +30,12 @@ external reviewer PDF retrieval-run provenance request refresh:
 docs/review/external-reviewer-pdf-retrieval-run-provenance-request-refresh.md
 ```
 
+Current-state screen:
+
+```text
+docs/review/external-feedback-current-state-pdf-retrieval-run-provenance-issue-verification.md
+```
+
 ## Evidence Markers
 
 ```text
@@ -90,5 +96,5 @@ It is not production readiness.
 ## Next Gate
 
 ```text
-external reviewer feedback v0 remains pending, external feedback current-state PDF retrieval-run provenance issue verification v0, or select the next source-first product gate
+external reviewer feedback v0 remains pending, or select the next source-first product gate
 ```

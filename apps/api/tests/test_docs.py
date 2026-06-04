@@ -10874,6 +10874,89 @@ def test_external_review_issue_body_pdf_retrieval_run_provenance_refresh_records
     )
 
 
+def test_external_feedback_current_state_pdf_retrieval_run_provenance_issue_verification_keeps_feedback_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-pdf-retrieval-run-provenance-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    issue_body_refresh = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-pdf-retrieval-run-provenance-refresh.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Feedback Current-state PDF Retrieval-run Provenance Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state PDF retrieval-run provenance issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt: 2026-06-04T06:48:07Z" in content
+    assert "starts_with_request: true" in content
+    assert "first_codepoint: 35" in content
+    assert "has_pdf_retrieval_run_provenance_runtime_proof: true" in content
+    assert "has_pdf_retrieval_run_provenance_runtime_link: true" in content
+    assert "has_pdf_retrieval_run_provenance_request_refresh: true" in content
+    assert "has_candidate_parsers_marker: true" in content
+    assert "has_source_provenance_boundary_marker: true" in content
+    assert "has_external_feedback_boundary: true" in content
+    assert "comment_count: 1" in content
+    assert "screened_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "self_authored_comment" in content
+    assert "non_qualifying" in content
+    assert "does_not_close_gate: true" in content
+    assert (
+        "docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md"
+        in content
+    )
+    assert (
+        "docs/review/external-reviewer-pdf-retrieval-run-provenance-request-refresh.md"
+        in content
+    )
+    assert "candidate_parsers -> pdf-pymupdf" in content
+    assert (
+        "source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only"
+        in content
+    )
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not Evidence Ledger generation" in content
+    assert (
+        "External feedback current-state PDF retrieval-run provenance issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 351 - External Feedback Current-state PDF Retrieval-run Provenance Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state PDF retrieval-run provenance issue verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-pdf-retrieval-run-provenance-issue-verification.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/external-feedback-current-state-pdf-retrieval-run-provenance-issue-verification.md"
+        in issue_body_refresh
+    )
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()
