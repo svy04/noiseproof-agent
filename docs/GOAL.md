@@ -16382,6 +16382,51 @@ Next recommended evidence gate:
 external review issue body workflow proof bundle refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 451 - External Review Issue Body Workflow Proof Bundle Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the owner-authored issue #1 body edit that points reviewers to the workflow proof bundle runtime smoke
+```
+
+Implemented:
+
+```text
+external review issue body workflow proof bundle refresh v0
+docs/review/external-review-issue-body-workflow-proof-bundle-refresh.md
+issue #1 body points to docs/review/workflow-proof-bundle-runtime-smoke.md
+issue #1 body points to docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md
+issue #1 body points to docs/review/external-review-issue-body-workflow-proof-bundle-refresh.md
+observed updatedAt: 2026-06-04T21:13:29Z
+starts_with_request: true
+first_codepoint: 35
+has_workflow_proof_bundle_runtime_proof: true
+has_workflow_proof_bundle_request_refresh: true
+has_workflow_proof_bundle_issue_body_refresh: true
+has_health_status_ok: true
+has_execute_preview_status_201: true
+has_proof_bundle_status_200: true
+has_metadata_only_proof_bundle_status_200: true
+has_bundle_boundary: true
+has_metadata_only_trace_null: true
+has_external_feedback_boundary: true
+comment_count: 1
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+```
+
+Phase 451 is owner-authored issue body routing only. It adds no runtime behavior, endpoint, schema, migration, external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, new lineage storage, customer validation, Braincrew acceptance, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state workflow proof bundle issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

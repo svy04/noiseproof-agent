@@ -202,6 +202,8 @@ Workflow proof bundle runtime smoke: `docs/review/workflow-proof-bundle-runtime-
 
 External reviewer workflow proof bundle request refresh: `docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md` points reviewer-facing repository paths to the workflow proof bundle runtime smoke. It is request infrastructure only, not a live public issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
 
+External review issue body workflow proof bundle refresh: `docs/review/external-review-issue-body-workflow-proof-bundle-refresh.md` records the owner-authored issue #1 body update that points reviewers to the workflow proof bundle runtime smoke and request refresh. It is not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
+
 ## Start Here
 
 1. `README.md`
