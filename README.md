@@ -464,6 +464,8 @@ Uploaded raw file signature validation review v0: implemented. Boundary: source-
 
 Uploaded raw file signature validation local v0: implemented. Boundary: `POST /documents/upload-raw-files` now runs a local magic-prefix allowlist check before persistence, accepts CSV despite spoofed Content-Type metadata, and blocks declared PDF without a `%PDF-` prefix with `415`; not robust file-type detection, malware scanning evidence, production authorization, or product-complete.
 
+Uploaded raw file signature validation runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified spoofed CSV upload `201`, declared PDF mismatch `415`, no raw bytes in the blocked response, and no recent persistence of the mismatch hash; not robust file-type detection, malware scanning evidence, production authorization, hosted deployment evidence, or product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

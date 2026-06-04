@@ -192,6 +192,8 @@ Phase 378 adds uploaded raw file signature validation review v0: `docs/review/up
 
 Phase 379 adds uploaded raw file signature validation local v0: `docs/review/uploaded-raw-file-signature-validation-local.md` records local API behavior for a magic-prefix allowlist check before `POST /documents/upload-raw-files` persists bytes. It accepts CSV even when `Content-Type` says `application/pdf`, blocks declared PDF without a `%PDF-` prefix with `415`, and returns no raw bytes in the error detail. This is not robust file-type detection, malware scanning evidence, production authorization, hosted proof, or product-complete.
 
+Phase 380 adds uploaded raw file signature validation runtime smoke v0: `docs/review/uploaded-raw-file-signature-validation-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for the local v0 signature check: spoofed CSV upload returns `201`, declared PDF mismatch returns `415`, the blocked response has no raw bytes, and the mismatch hash is not present in recent raw uploads. This is not robust file-type detection, malware scanning evidence, production authorization, hosted deployment evidence, or product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

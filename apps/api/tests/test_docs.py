@@ -12388,3 +12388,49 @@ def test_uploaded_raw_file_signature_validation_local_documents_route_behavior()
     assert "Phase 379 - Uploaded Raw File Signature Validation Local v0" in goal
     assert "uploaded raw file signature validation local v0" in runbook
     assert "docs/review/uploaded-raw-file-signature-validation-local.md" in portfolio
+
+
+def test_uploaded_raw_file_signature_validation_runtime_smoke_documents_live_http():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-signature-validation-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Signature Validation Runtime Smoke" in content
+    assert "uploaded raw file signature validation runtime smoke v0" in content
+    assert "docker compose --profile api up -d --build api" in content
+    assert "Applied migrations: 18" in content
+    assert "Pending migrations: 0" in content
+    assert "health 200" in content
+    assert "spoofed_csv_upload 201" in content
+    assert "detected_signature_type: csv" in content
+    assert "local_v0_magic_prefix_allowlist_not_production" in content
+    assert "declared_pdf_mismatch 415" in content
+    assert "file signature mismatch" in content
+    assert "raw_bytes" in content
+    assert "raw_bytes_present False" in content
+    assert "not robust file-type detection" in content
+    assert "not malware scanning evidence" in content
+    assert "not production authorization" in content
+    assert (
+        "Uploaded raw file signature validation runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 380 - Uploaded Raw File Signature Validation Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded raw file signature validation runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-signature-validation-runtime-smoke.md"
+        in portfolio
+    )
