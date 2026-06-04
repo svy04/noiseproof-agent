@@ -22,6 +22,8 @@ Trace context header propagation: `docs/review/trace-context-header-propagation.
 
 Trace context header runtime smoke: `docs/review/trace-context-header-runtime-smoke.md` records local `uvicorn` plus `curl` evidence for generated, accepted, and invalid-fallback `traceparent` headers on `GET /health`. It is not hosted observability, not distributed tracing, not cross-service trace proof, and not external reviewer feedback.
 
+Embedding provider source review: `docs/review/embedding-provider-source-review.md` records the official OpenAI embeddings contract selected for future actual model generation. It is source review only, not implemented runtime behavior, not an API call, not a cost-incurring path, and not semantic retrieval quality evidence.
+
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
 External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.

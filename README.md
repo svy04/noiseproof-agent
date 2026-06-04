@@ -223,6 +223,8 @@ Trace context header propagation v0: implemented. Boundary: local `traceparent` 
 
 Trace context header runtime smoke v0: implemented. Boundary: local uvicorn/curl evidence only; not hosted observability, not distributed tracing, and not cross-service trace proof.
 
+Embedding provider source review v0: implemented. Boundary: official OpenAI embeddings contract reviewed only; no API call, no dependency, no cost-incurring runtime path, and actual embedding model generation remains unproven.
+
 README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.

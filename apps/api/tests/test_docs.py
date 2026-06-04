@@ -17075,3 +17075,40 @@ def test_trace_context_header_runtime_smoke_documents_live_http_boundary():
     assert "trace context header runtime smoke v0" in runbook
     assert "docs/review/trace-context-header-runtime-smoke.md" in portfolio
     assert "trace context header runtime smoke exists" in app_review
+
+
+def test_embedding_provider_source_review_documents_official_openai_boundary():
+    review_path = REPO_ROOT / "docs/review/embedding-provider-source-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Provider Source Review" in content
+    assert "embedding provider source review v0" in content
+    assert "https://platform.openai.com/docs/guides/embeddings" in content
+    assert "https://platform.openai.com/docs/api-reference/embeddings/create" in content
+    assert "text-embedding-3-small" in content
+    assert "text-embedding-3-large" in content
+    assert "1536" in content
+    assert "3072" in content
+    assert "dimensions" in content
+    assert "encoding_format: float" in content
+    assert "OPENAI_API_KEY" in content
+    assert "not implemented" in content
+    assert "no API call" in content
+    assert "no cost-incurring runtime path" in content
+    assert "actual embedding model generation remains unproven" in content
+    assert "Embedding provider source review v0: implemented" in readme
+    assert "Phase 464 - Embedding Provider Source Review v0" in goal
+    assert "embedding provider source review v0" in runbook
+    assert "docs/review/embedding-provider-source-review.md" in portfolio
+    assert "embedding provider source review exists" in app_review

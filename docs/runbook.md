@@ -8583,3 +8583,52 @@ not hosted observability
 not distributed tracing
 not cross-service trace proof
 ```
+
+## Embedding Provider Source Review
+
+Phase marker: embedding provider source review v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-provider-source-review.md
+```
+
+Primary sources:
+
+```text
+https://platform.openai.com/docs/guides/embeddings
+https://platform.openai.com/docs/api-reference/embeddings/create
+```
+
+Selected future default candidate:
+
+```text
+provider: openai
+embedding_model: text-embedding-3-small
+embedding_dimension: 1536
+encoding_format: float
+```
+
+Alternative future candidate:
+
+```text
+embedding_model: text-embedding-3-large
+embedding_dimension: 3072
+```
+
+Configuration boundary:
+
+```text
+OPENAI_API_KEY
+```
+
+Claim boundary:
+
+```text
+source review only
+not implemented
+no API call
+no cost-incurring runtime path
+actual embedding model generation remains unproven
+```

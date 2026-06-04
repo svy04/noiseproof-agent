@@ -16905,6 +16905,45 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 464 - Embedding Provider Source Review v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+select the official-source provider contract for future actual embedding model generation before adding cost-incurring runtime behavior
+```
+
+Implemented:
+
+```text
+embedding provider source review v0
+docs/review/embedding-provider-source-review.md
+OpenAI Embeddings guide checked
+OpenAI Create embeddings API reference checked
+text-embedding-3-small selected as initial future default candidate
+text-embedding-3-small default dimension noted as 1536
+text-embedding-3-large noted as higher-capability candidate
+text-embedding-3-large default dimension noted as 3072
+dimensions parameter recorded
+encoding_format: float recorded
+OPENAI_API_KEY configuration boundary recorded
+future endpoint candidate: POST /chunks/embedding-model-preview
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+application-ready boundary refresh
+```
+
+Phase 464 is source review and contract selection only. It adds no API call, dependency, environment requirement, secret handling, network call, embedding persistence change, semantic retrieval quality evidence, cost-incurring runtime path, hosted deployment evidence, external reviewer feedback, customer validation, autonomous/LLM-backed agents, polished web app, or product-complete claim. Actual embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+embedding model provider disabled-path v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
