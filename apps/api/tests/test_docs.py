@@ -15625,3 +15625,80 @@ def test_uploaded_raw_file_download_readiness_runtime_smoke_records_live_http_ev
         "docs/review/uploaded-raw-file-download-readiness-runtime-smoke.md"
         in preview_doc
     )
+
+
+def test_external_reviewer_readiness_runtime_request_refresh_links_runtime_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-readiness-runtime-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (
+        REPO_ROOT / "docs/review/external-review-request.md"
+    ).read_text(encoding="utf-8")
+    reviewer_brief = (
+        REPO_ROOT / "docs/review/external-reviewer-brief.md"
+    ).read_text(encoding="utf-8")
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = (
+        "docs/review/"
+        "uploaded-raw-file-download-readiness-runtime-smoke.md"
+    )
+
+    assert "External Reviewer Readiness-runtime Request Refresh" in content
+    assert "external reviewer readiness-runtime request refresh v0" in content
+    assert proof_doc in content
+    assert "no_scan_blocked_reason: missing_clean_scan" in content
+    assert "clean_no_approval_blocked_reason: missing_download_approval" in content
+    assert "allowed_decision: allowed" in content
+    assert "events_after_readiness_count: 0" in content
+    assert "raw_bytes_returned: false" in content
+    assert "rate_limit_consumed: false" in content
+    assert "operator_label_not_authenticated_identity" in content
+    assert "not live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production authorization" in content
+    assert "not authenticated user identity" in content
+    assert "not signed URL support" in content
+    assert "not product-complete" in content
+    assert (
+        "External reviewer readiness-runtime request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 440 - External Reviewer Readiness-runtime Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer readiness-runtime request refresh v0" in runbook
+    assert "raw file download readiness runtime smoke" in proof_path
+    assert proof_doc in review_request
+    assert proof_doc in reviewer_brief
+    assert proof_doc in link_map
+    assert proof_doc in issue_template
+    assert proof_doc in role_map
+    assert proof_doc in portfolio
+    assert (
+        "docs/review/external-reviewer-readiness-runtime-request-refresh.md"
+        in portfolio
+    )

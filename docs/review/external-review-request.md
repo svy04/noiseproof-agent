@@ -279,6 +279,14 @@ docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md
 
 Boundary: this proof is local Docker FastAPI plus PostgreSQL evidence for local v0 approval audit metadata; active approval download returns `200`, allowed event metadata keeps approval id/status/expiry/latest-scan match, and identity remains `operator_label_not_authenticated_identity`. It is not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
 
+raw file download readiness runtime smoke:
+
+```text
+docs/review/uploaded-raw-file-download-readiness-runtime-smoke.md
+```
+
+Boundary: this proof is local Docker FastAPI plus PostgreSQL evidence for the read-only download readiness preflight; it blocks with `missing_clean_scan`, blocks with `missing_download_approval`, allows after active approval, returns no raw bytes, consumes no rate limit, and writes no download audit event. It is not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
+
 architecture current-state ClamAV proof boundary refresh:
 
 ```text

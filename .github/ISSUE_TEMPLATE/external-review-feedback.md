@@ -56,6 +56,8 @@ Fast links:
   - Boundary: deterministic fake-runner smoke for adapter mappings; not real ClamAV execution, not signature database evidence, not hosted deployment evidence, not malware scanning, and not external reviewer feedback.
 - uploaded raw file scan execution endpoint runtime proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
   - Boundary: local Docker DB plus live FastAPI HTTP for upload, explicit scan execution, and scan-result listing; default scanner-unavailable returns failed / scan_error, not real ClamAV execution, not malware scanning, and not external reviewer feedback.
+- raw file download readiness runtime smoke: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-download-readiness-runtime-smoke.md
+  - Boundary: local Docker FastAPI plus PostgreSQL for read-only guarded download readiness; no-scan blocks with `missing_clean_scan`, clean scan without active approval blocks with `missing_download_approval`, active approval allows readiness, and the endpoint returns no raw bytes, consumes no rate limit, and writes no download audit event.
 - architecture current-state ClamAV proof boundary refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/architecture-current-state-clamav-proof-boundary-refresh.md
   - Boundary: recognizes the local ClamAV endpoint malicious-detection owner-runtime smoke while still not claiming production malware scanning evidence, hosted deployment evidence, external reviewer feedback, production authorization, or product completion.
 - Feedback intake criteria: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md

@@ -106,13 +106,16 @@ https://github.com/svy04/noiseproof-agent/issues/1
 32. raw file download approval audit metadata runtime smoke:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md
    Boundary: local Docker FastAPI plus PostgreSQL for local v0 approval audit metadata; active approval download returns `200`, allowed event metadata keeps approval id/status/expiry/latest-scan match, and identity remains `operator_label_not_authenticated_identity`; not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, and not signed URL support.
-33. architecture current-state ClamAV proof boundary refresh:
+33. raw file download readiness runtime smoke:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-download-readiness-runtime-smoke.md
+   Boundary: local Docker FastAPI plus PostgreSQL for local v0 download readiness preflight; before scan returns `missing_clean_scan`, after clean scan without active approval returns `missing_download_approval`, active approval returns `allowed`, no raw bytes are returned, no rate limit is consumed, and no download audit event is written; not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, and not signed URL support.
+34. architecture current-state ClamAV proof boundary refresh:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/architecture-current-state-clamav-proof-boundary-refresh.md
    Boundary: recognizes the local ClamAV endpoint malicious-detection owner-runtime smoke while still not claiming production malware scanning evidence, hosted deployment evidence, external reviewer feedback, production authorization, or product completion.
-34. ClamAV API endpoint malicious-detection owner-runtime smoke:
+35. ClamAV API endpoint malicious-detection owner-runtime smoke:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md
    Boundary: local Docker FastAPI plus ClamAV endpoint evidence for owner-provided stdin input; `harness_status: verified_infected`, `scan_verdict: infected`, `matched_signature: Eicar-Test-Signature`, `payload_committed_to_repo: false`, and `raw_payload_logged: false`; not hosted deployment evidence, not external reviewer feedback, and not production malware scanning evidence.
-35. Feedback intake criteria:
+36. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route

@@ -15945,6 +15945,41 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, external reviewer readiness-runtime request refresh v0, or another source-first product gate selected from this file
 ```
 
+### Phase 440 - External Reviewer Readiness-runtime Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the raw file download readiness runtime smoke discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer readiness-runtime request refresh v0
+docs/review/external-reviewer-readiness-runtime-request-refresh.md
+docs/review/uploaded-raw-file-download-readiness-runtime-smoke.md
+docs/review/external-reader-proof-path.md link
+docs/review/external-review-request.md link
+docs/review/external-reviewer-brief.md link
+docs/review/external-reviewer-link-map.md link
+.github/ISSUE_TEMPLATE/external-review-feedback.md link
+docs/application/braincrew-role-map.md link
+docs/application/portfolio-index.md link
+README implementation marker
+docs/runbook.md note
+```
+
+Phase 440 is request-surface refresh only. It adds no live issue body edit, external reviewer feedback, hosted deployment evidence, production authorization, authenticated user identity, signed URL support, RBAC, ABAC, ReBAC, raw byte download, download audit event persistence, rate-limit consumption, customer validation, Braincrew acceptance, production malware scanning evidence, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external review issue body readiness-runtime refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
