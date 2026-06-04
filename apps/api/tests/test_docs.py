@@ -13227,3 +13227,48 @@ def test_uploaded_raw_file_download_audit_schema_is_documented():
         "docs/review/uploaded-raw-file-download-audit-schema.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_audit_runtime_smoke_is_documented():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-download-audit-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Audit Runtime Smoke" in content
+    assert "uploaded raw file download audit runtime smoke v0" in content
+    assert "docker compose --profile api up -d --build api" in content
+    assert "GET /health -> 200" in content
+    assert "missing_download -> 409" in content
+    assert "missing_blocked_reason -> missing_clean_scan" in content
+    assert "rate_statuses -> [409, 409, 409, 409, 409, 429]" in content
+    assert "rate_blocked_reason -> rate_limited" in content
+    assert "allowed_download -> 200" in content
+    assert "allowed_latest_scan_matches -> true" in content
+    assert "allowed_filename -> audit-allowed.csv" in content
+    assert "raw_file_download_events" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not hosted deployment evidence" in content
+    assert "not malware detection proof" in content
+    assert (
+        "Uploaded raw file download audit runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded raw file download audit runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-download-audit-runtime-smoke.md"
+        in portfolio
+    )

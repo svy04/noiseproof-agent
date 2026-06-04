@@ -498,6 +498,8 @@ Uploaded raw file download authorization audit review v0: implemented. Boundary:
 
 Uploaded raw file download audit schema v0: implemented. Boundary: `raw_file_download_events` now records guarded raw file download decisions for missing scan, rate-limited, and allowed paths, with local v0 boundary strings; this is audit persistence only, not production authorization, not user identity, not hosted deployment evidence, and not product-complete.
 
+Uploaded raw file download audit runtime smoke v0: implemented. Boundary: local Docker FastAPI plus PostgreSQL verified missing-scan 409, rate-limited `[409, 409, 409, 409, 409, 429]`, and allowed 200 download decisions are persisted and inspectable through download events; not production authorization, not user identity, not hosted deployment evidence, not malware detection proof, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

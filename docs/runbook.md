@@ -226,6 +226,8 @@ Phase 395 adds uploaded raw file download authorization audit review v0: `docs/r
 
 Phase 396 adds uploaded raw file download audit schema v0: `docs/review/uploaded-raw-file-download-audit-schema.md` records the local v0 audit table, repository methods, and `GET /documents/upload-raw-files/{raw_file_id}/download-events` inspectability surface. Guarded downloads now persist events for missing-scan 409, rate-limited 429, and allowed 200 paths. This is audit persistence only, not production authorization, not user identity, not hosted deployment evidence, and not product-complete.
 
+Phase 397 adds uploaded raw file download audit runtime smoke v0: `docs/review/uploaded-raw-file-download-audit-runtime-smoke.md` records local Docker FastAPI plus PostgreSQL proof that `raw_file_download_events` are created and listed for missing-scan 409, rate-limited `[409, 409, 409, 409, 409, 429]`, and allowed 200 download decisions. The allowed event linked the latest clean scan result and preserved `audit-allowed.csv` as metadata. This is local runtime evidence only, not production authorization, not user identity, not hosted deployment evidence, not malware detection proof, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
