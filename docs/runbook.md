@@ -5641,6 +5641,47 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery CI Check
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke input discovery ci check v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery-ci-check.md
+```
+
+CI step:
+
+```text
+Check ClamAV owner runtime input discovery no-payload missing state
+```
+
+Expected markers:
+
+```text
+expected_status=4
+owner_runtime_input_missing
+input_payload_inspected: false
+api_calls_attempted: false
+raw_payload_logged: false
+does not include a test signature payload
+not endpoint malicious-detection runtime proof
+```
+
+Verification:
+
+```bash
+cd apps/api
+uv run pytest tests/test_docs.py -q -k "input_discovery_ci_check"
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## CI Node24 Actions Runtime Opt-in
 
 Phase marker: ci node24 actions runtime opt-in v0.

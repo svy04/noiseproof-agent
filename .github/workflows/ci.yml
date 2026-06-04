@@ -42,6 +42,31 @@ jobs:
             --k 2 \
             --check
 
+      - name: Check ClamAV owner runtime input discovery no-payload missing state
+        working-directory: apps/api
+        run: |
+          set +e
+          uv run python -m app.services.clamav_api_malicious_detection_harness \
+            --discover-owner-runtime-input > owner-runtime-input-discovery.json
+          status=$?
+          set -e
+          cat owner-runtime-input-discovery.json
+          test "$status" -eq 4
+          python - owner-runtime-input-discovery.json <<'PY'
+          import json
+          import sys
+
+          payload = json.load(open(sys.argv[1], encoding="utf-8"))
+          assert payload["discovery_status"] == "owner_runtime_input_missing"
+          assert payload["api_calls_attempted"] is False
+          assert payload["input_payload_inspected"] is False
+          assert payload["malicious_detection_verified"] is False
+          assert payload["payload_committed_to_repo"] is False
+          assert payload["raw_payload_logged"] is False
+          assert payload["required_owner_input_missing"] is True
+          PY
+          rm owner-runtime-input-discovery.json
+
       - name: Run API smoke tests
         working-directory: apps/api
         run: uv run pytest -q
