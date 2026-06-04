@@ -42,6 +42,8 @@ External review owner request comment verification: `docs/review/external-review
 
 External reviewer outreach packet: `docs/review/external-reviewer-outreach-packet.md` gives copy-paste messages for asking FDE/product engineer, RAG/data engineer, and founder/operator reviewers to inspect issue #1. It is not external reviewer feedback itself.
 
+External reviewer ClamAV malicious-detection request refresh: `docs/review/external-reviewer-clamav-malicious-detection-request-refresh.md` points reviewer-facing request surfaces to the ClamAV API endpoint malicious-detection owner-runtime smoke. It is request infrastructure only, not a live public issue body edit, not external reviewer feedback, not hosted deployment evidence, and not production malware scanning evidence.
+
 External reviewer upload-manifest request refresh: `docs/review/external-reviewer-upload-manifest-request-refresh.md` points the reviewer request path to the uploaded-file intake manifest proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.
 
 External review issue body upload-manifest refresh: `docs/review/external-review-issue-body-upload-manifest-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file intake manifest proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.
@@ -552,6 +554,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-signature-file-read-guard.md` | missing or unreadable signature-file paths now return structured no-payload read-failure reports |
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-current-readiness-recheck.md` | current local Docker/API/clamd readiness recheck before owner runtime input; no scan request and no malicious-detection proof |
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md` | local Docker FastAPI plus ClamAV endpoint malicious-detection owner-runtime smoke; stdin input, infected scan verdict, payload-free report, and local row cleanup; not production malware scanning evidence |
+| `docs/review/external-reviewer-clamav-malicious-detection-request-refresh.md` | reviewer-facing request-path refresh for the ClamAV API endpoint malicious-detection owner-runtime smoke; not live issue body edit, external reviewer feedback, hosted deployment evidence, or production malware scanning evidence |
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery.md` | no-payload command for discovering whether owner runtime input is configured; no payload inspection and no scan request |
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery-ci-check.md` | GitHub Actions no-payload missing-input discovery check before the normal API test suite |
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery-ci-remote-verification.md` | remote GitHub Actions proof that the no-payload missing-input discovery step ran successfully |

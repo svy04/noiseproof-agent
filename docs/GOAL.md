@@ -15592,6 +15592,43 @@ Next recommended evidence gate:
 external reviewer feedback v0
 ```
 
+### Phase 431 - External Reviewer ClamAV Malicious-detection Request Refresh v0
+
+Goal:
+
+```text
+point external reviewers to the ClamAV API endpoint malicious-detection owner-runtime smoke without claiming external feedback or production malware scanning
+```
+
+Implemented:
+
+```text
+external reviewer clamav malicious-detection request refresh v0
+docs/review/external-reviewer-clamav-malicious-detection-request-refresh.md
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md
+harness_status: verified_infected
+scan_verdict: infected
+matched_signature: Eicar-Test-Signature
+payload_committed_to_repo: false
+raw_payload_logged: false
+README implementation marker
+docs/review/external-reader-proof-path.md link
+docs/review/external-review-request.md link
+docs/review/external-reviewer-brief.md link
+docs/review/external-reviewer-link-map.md link
+docs/application/braincrew-role-map.md link
+docs/application/portfolio-index.md link
+docs/runbook.md request refresh note
+```
+
+Phase 431 is reviewer-facing request infrastructure only. It adds no runtime behavior, schema, migration, API endpoint, live issue body edit, external reviewer feedback, hosted deployment evidence, production malware scanning evidence, customer validation, Braincrew acceptance, automatic failure-case creation, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external review issue body ClamAV malicious-detection refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

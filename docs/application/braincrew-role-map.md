@@ -70,6 +70,7 @@ Detailed proof links:
 - `docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md`
 - `docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md`
 - `docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md`
+- `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md`
 - `docs/review/retrieval-run-linked-report-runtime-smoke.md`
 - `docs/review/embedding-endpoint-runtime-smoke.md`
 - `docs/review/semantic-retrieval-persistence-runtime-smoke.md`

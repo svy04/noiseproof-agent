@@ -5871,6 +5871,36 @@ not external reviewer feedback
 not product-complete
 ```
 
+## External Reviewer ClamAV Malicious-detection Request Refresh
+
+Phase marker: external reviewer clamav malicious-detection request refresh v0.
+
+Use this artifact:
+
+```text
+docs/review/external-reviewer-clamav-malicious-detection-request-refresh.md
+```
+
+Linked runtime proof:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md
+harness_status: verified_infected
+scan_verdict: infected
+matched_signature: Eicar-Test-Signature
+payload_committed_to_repo: false
+raw_payload_logged: false
+```
+
+Boundary:
+
+```text
+not live issue body edit
+not external reviewer feedback
+not hosted deployment evidence
+not production malware scanning evidence
+```
+
 ## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery
 
 Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke input discovery v0.

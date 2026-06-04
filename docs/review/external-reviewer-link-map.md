@@ -109,7 +109,10 @@ https://github.com/svy04/noiseproof-agent/issues/1
 33. architecture current-state refresh:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/architecture-current-state-refresh.md
    Boundary: separates implemented upload/chunk/retrieval/evidence handoff surfaces from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality.
-34. Feedback intake criteria:
+34. ClamAV API endpoint malicious-detection owner-runtime smoke:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md
+   Boundary: local Docker FastAPI plus ClamAV endpoint evidence for owner-provided stdin input; `harness_status: verified_infected`, `scan_verdict: infected`, `matched_signature: Eicar-Test-Signature`, `payload_committed_to_repo: false`, and `raw_payload_logged: false`; not hosted deployment evidence, not external reviewer feedback, and not production malware scanning evidence.
+35. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route

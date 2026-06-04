@@ -199,6 +199,14 @@ docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
 
 Boundary: this proof is local Docker PostgreSQL plus live FastAPI HTTP evidence for `POST /documents/upload-raw-files/{raw_file_id}/scan`; the default scanner-unavailable result is `failed / scan_error`, and it remains not hosted deployment evidence, not external reviewer feedback, not real ClamAV execution, not signature database evidence, not malware scanning, and not a download endpoint.
 
+ClamAV API endpoint malicious-detection owner-runtime smoke:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md
+```
+
+Boundary: this proof is local Docker FastAPI plus ClamAV endpoint evidence for owner-provided stdin input. It records `harness_status: verified_infected`, `scan_verdict: infected`, `matched_signature: Eicar-Test-Signature`, `payload_committed_to_repo: false`, and `raw_payload_logged: false`. It is not hosted deployment evidence, not external reviewer feedback, not production malware scanning evidence, and not product-complete.
+
 guarded raw file download endpoint runtime smoke:
 
 ```text

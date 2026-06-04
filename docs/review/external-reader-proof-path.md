@@ -90,6 +90,8 @@ Read in this order:
     - raw file download approval input guard runtime smoke with local Docker FastAPI plus PostgreSQL; valid approval metadata creates/lists, unknown approval status returns `422`, and expired active approval returns `422`; not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, and not signed URL support.
 39. `docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md`
     - raw file download approval audit metadata runtime smoke with local Docker FastAPI plus PostgreSQL; active approval download returns `200`, allowed event metadata keeps approval id/status/expiry/latest-scan match and `operator_label_not_authenticated_identity`; not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, and not signed URL support.
+40. `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md`
+    - ClamAV endpoint malicious-detection owner-runtime smoke with local Docker FastAPI plus ClamAV; owner-provided stdin input yields `harness_status: verified_infected`, `scan_verdict: infected`, and `matched_signature: Eicar-Test-Signature`; payload is not committed or logged, local rows were cleaned up, and this is not hosted deployment evidence, not external reviewer feedback, and not production malware scanning evidence.
 
 ## Optional source-level provenance
 

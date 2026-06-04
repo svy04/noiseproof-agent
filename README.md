@@ -391,6 +391,8 @@ External feedback current-state owner-runtime input-source contract issue verifi
 
 clamav api endpoint malicious-detection owner runtime smoke v0: implemented. Boundary: local Docker FastAPI plus ClamAV endpoint evidence accepted owner-provided stdin input, returned `harness_status=verified_infected`, `scan_verdict=infected`, and `matched_signature=Eicar-Test-Signature`, then cleaned the local raw-file and scan rows. The repository contains metadata only; no test signature payload or encoded payload is included, and this is not production malware scanning evidence.
 
+External reviewer ClamAV malicious-detection request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md`; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, and not production malware scanning evidence.
+
 architecture current-state refresh v0: implemented. Boundary: `docs/architecture.md` now separates implemented uploaded-file persistence, chunk/retrieval persistence, caller-provided embeddings, semantic retrieval persistence, and retrieval-run-linked Evidence Ledger / Noise Gate / Report handoffs from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality.
 
 External reviewer architecture current-state request refresh v0: implemented. Boundary: reviewer request surfaces now link to `docs/review/architecture-current-state-refresh.md`; this is request infrastructure only, not external reviewer feedback, not hosted deployment evidence, and not endpoint malicious-detection runtime proof.
