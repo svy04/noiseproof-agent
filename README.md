@@ -227,6 +227,8 @@ Embedding provider source review v0: implemented. Boundary: official OpenAI embe
 
 Embedding model provider disabled-path v0: implemented. Boundary: `POST /chunks/embedding-model-preview` reports provider configuration only; no provider call, no embedding vector, no persistence, and no cost.
 
+Embedding model provider live-call review v0: implemented. Boundary: guardrail review only; `allow_provider_call`, timeout, dimension check, redaction, and mocked-client-first test order are documented, but no provider call is implemented.
+
 README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.

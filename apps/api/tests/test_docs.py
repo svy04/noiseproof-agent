@@ -17146,3 +17146,39 @@ def test_embedding_model_provider_disabled_path_documents_safe_boundary():
     assert "embedding model provider disabled-path v0" in runbook
     assert "docs/review/embedding-model-provider-disabled-path.md" in portfolio
     assert "embedding model provider disabled path exists" in app_review
+
+
+def test_embedding_model_provider_live_call_review_documents_next_guardrails():
+    review_path = REPO_ROOT / "docs/review/embedding-model-provider-live-call-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Model Provider Live-call Review" in content
+    assert "embedding model provider live-call review v0" in content
+    assert "POST /chunks/embedding-model-preview" in content
+    assert "allow_provider_call" in content
+    assert "OPENAI_API_KEY" in content
+    assert "input text hash" in content
+    assert "provider response dimension check" in content
+    assert "secret redaction" in content
+    assert "timeout" in content
+    assert "no automatic persistence" in content
+    assert "mocked client first" in content
+    assert "no live provider call in CI" in content
+    assert "not implemented" in content
+    assert "actual embedding model generation remains unproven" in content
+    assert "Embedding model provider live-call review v0: implemented" in readme
+    assert "Phase 466 - Embedding Model Provider Live-call Review v0" in goal
+    assert "embedding model provider live-call review v0" in runbook
+    assert "docs/review/embedding-model-provider-live-call-review.md" in portfolio
+    assert "embedding model provider live-call review exists" in app_review

@@ -8674,3 +8674,54 @@ no_cost_incurred
 preview_only_not_persisted
 actual embedding model generation remains unproven
 ```
+
+## Embedding Model Provider Live-call Review
+
+Phase marker: embedding model provider live-call review v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-provider-live-call-review.md
+```
+
+Reviewed future call surface:
+
+```text
+POST /chunks/embedding-model-preview
+```
+
+Required future guard:
+
+```text
+allow_provider_call
+```
+
+Required future implementation checks:
+
+```text
+OPENAI_API_KEY
+input text hash
+provider response dimension check
+secret redaction
+timeout
+no automatic persistence
+```
+
+Required future test boundary:
+
+```text
+mocked client first
+no live provider call in CI
+```
+
+Claim boundary:
+
+```text
+not implemented
+no API call
+no dependency
+no network call
+no cost-incurring path
+actual embedding model generation remains unproven
+```

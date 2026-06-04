@@ -40,6 +40,7 @@ Forbidden claim: this is not hosted deployment evidence, automatic persistence r
 | trace context header runtime smoke exists | Pass | `docs/review/trace-context-header-runtime-smoke.md` | local uvicorn/curl evidence only; not hosted observability, not distributed tracing, not cross-service trace proof |
 | embedding provider source review exists | Pass | `docs/review/embedding-provider-source-review.md` | source review only; no API call; no dependency; no cost-incurring runtime path; actual embedding model generation remains unproven |
 | embedding model provider disabled path exists | Pass | `POST /chunks/embedding-model-preview`, `docs/review/embedding-model-provider-disabled-path.md` | readiness/disabled path only; no provider call; no embedding vector is generated; no persistence; actual embedding model generation remains unproven |
+| embedding model provider live-call review exists | Pass | `docs/review/embedding-model-provider-live-call-review.md` | guardrail review only; not implemented runtime behavior; no provider call; actual embedding model generation remains unproven |
 | failure cases are recorded | Pass | failure case endpoint and dashboard | not comprehensive |
 | operations dashboard shows runs and failures | Pass | `GET /ops/dashboard` | plain HTML, not polished UI |
 | README is understandable without explanation | Pass | `README.md` | should still be reviewed by an external reader |
