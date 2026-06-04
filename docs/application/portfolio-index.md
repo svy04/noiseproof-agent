@@ -446,6 +446,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-current-readiness-recheck.md` | current local Docker/API/clamd readiness recheck before owner runtime input; no scan request and no malicious-detection proof |
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery.md` | no-payload command for discovering whether owner runtime input is configured; no payload inspection and no scan request |
 | `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery-ci-check.md` | GitHub Actions no-payload missing-input discovery check before the normal API test suite |
+| `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery-ci-remote-verification.md` | remote GitHub Actions proof that the no-payload missing-input discovery step ran successfully |
 | `docs/review/ci-node24-actions-runtime-opt-in.md` | workflow runtime compatibility opt-in after remote Node.js 20 action deprecation warning; not product runtime evidence |
 | `docs/review/ci-node24-actions-runtime-remote-verification.md` | remote CI and External Feedback Screen success after Node.js 24 opt-in; annotation still present as forced-runtime notice |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |

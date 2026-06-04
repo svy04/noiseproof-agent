@@ -9774,6 +9774,36 @@ def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_input_disco
     assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery-ci-check.md" in portfolio
 
 
+def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_input_discovery_ci_remote_verification_is_documented():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery-ci-remote-verification.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery CI Remote Verification" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke input discovery ci remote verification v0" in content
+    assert "run_id: 26927767832" in content
+    assert "job_id: 79441163152" in content
+    assert "head: 3089f02" in content
+    assert "workflow: CI" in content
+    assert "step_number: 8" in content
+    assert "Check ClamAV owner runtime input discovery no-payload missing state" in content
+    assert "step_conclusion: success" in content
+    assert "owner_runtime_input_missing" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "does not include a test signature payload" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke input discovery ci remote verification v0: implemented" in readme
+    assert "Phase 329 - ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery CI Remote Verification v0" in goal
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke input discovery ci remote verification v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery-ci-remote-verification.md" in portfolio
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

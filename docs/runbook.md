@@ -5682,6 +5682,46 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery CI Remote Verification
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke input discovery ci remote verification v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery-ci-remote-verification.md
+```
+
+Remote evidence:
+
+```text
+run_id: 26927767832
+job_id: 79441163152
+head: 3089f02
+workflow: CI
+job: api-smoke
+job_conclusion: success
+step_number: 8
+Check ClamAV owner runtime input discovery no-payload missing state
+step_conclusion: success
+owner_runtime_input_missing
+not endpoint malicious-detection runtime proof
+```
+
+Verification:
+
+```bash
+gh run view 26927767832 --repo svy04/noiseproof-agent --json databaseId,headSha,conclusion,status,event,workflowName,createdAt,updatedAt,url,jobs
+cd apps/api
+uv run pytest tests/test_docs.py -q -k "input_discovery_ci_remote_verification"
+```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## CI Node24 Actions Runtime Opt-in
 
 Phase marker: ci node24 actions runtime opt-in v0.

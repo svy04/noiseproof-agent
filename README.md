@@ -369,6 +369,8 @@ ClamAV API endpoint malicious-detection owner runtime smoke input discovery v0: 
 
 ClamAV API endpoint malicious-detection owner runtime smoke input discovery ci check v0: implemented. Boundary: CI now runs the no-payload discovery command and expects `exit_code=4` plus `owner_runtime_input_missing`, proving the missing-input guard path stays inspectable; this does not run the smoke and is not endpoint malicious-detection runtime proof.
 
+ClamAV API endpoint malicious-detection owner runtime smoke input discovery ci remote verification v0: implemented. Boundary: remote GitHub Actions run `26927767832` on head `3089f02` completed CI job `api-smoke` successfully and step 8, `Check ClamAV owner runtime input discovery no-payload missing state`, concluded success; this is remote missing-input guard evidence only, not endpoint malicious-detection runtime proof.
+
 ci node24 actions runtime opt-in v0: implemented. Boundary: `.github/workflows/ci.yml` and `.github/workflows/external-feedback-screen.yml` set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"` after the remote run warned that Node.js 20 actions are deprecated; this is workflow runtime compatibility only, not product runtime evidence.
 
 ci node24 actions runtime remote verification v0: implemented. Boundary: remote runs `26870586255` (`CI`) and `26870586219` (`External Feedback Screen`) succeeded on head `c3c6908`; the annotation is still present as a forced Node.js 24 runtime warning, so this is compatibility evidence only, not product runtime evidence.
