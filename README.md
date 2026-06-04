@@ -548,6 +548,8 @@ External feedback current-state approval-input guard issue verification v0: impl
 
 Uploaded raw file download approval audit metadata v0: implemented. Boundary: allowed raw file download audit events now include approval status, expiry, latest scan-result reference, scan-match boolean, approval boundary, identity boundary, and operator label; this is local v0 audit metadata only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
 
+Uploaded raw file download approval audit metadata runtime smoke v0: implemented. Boundary: local Docker FastAPI plus PostgreSQL verified upload, clean scan metadata, active approval, download `200`, and allowed audit event metadata with approval id/status/expiry/latest-scan-match/identity boundary; this is local runtime evidence only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

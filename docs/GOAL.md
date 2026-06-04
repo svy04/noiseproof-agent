@@ -1517,6 +1517,54 @@ Next recommended gate:
 approval audit metadata runtime smoke v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 422 extension to the accepted state:
+
+```text
+Uploaded Raw File Download Approval Audit Metadata Runtime Smoke v0
+```
+
+### Phase 422 - Uploaded Raw File Download Approval Audit Metadata Runtime Smoke v0
+
+Goal:
+
+```text
+verify approval audit metadata enrichment through local Docker FastAPI plus PostgreSQL runtime
+```
+
+Implemented:
+
+```text
+uploaded raw file download approval audit metadata runtime smoke v0
+docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md
+docker compose --profile api up -d --build api
+health_status: ok
+scan_status: completed
+scan_verdict: clean
+approval_status: approved
+download_http: 200
+event_download_result: allowed
+event_http_status_code: 200
+event_download_approval_id_matches: true
+event_approval_status: approved
+event_approval_expires_at_present: true
+event_approval_latest_scan_result_id_matches: true
+event_approval_scan_result_matches_latest: true
+event_identity_boundary: operator_label_not_authenticated_identity
+event_authorization_boundary: local_v0_no_auth_not_production
+event_count_for_raw_file: 1
+README implementation marker
+docs/runbook.md runtime smoke note
+docs/application/portfolio-index.md runtime smoke artifact link
+```
+
+Phase 422 is local Docker runtime evidence only. It adds no schema, migration, API endpoint, hosted deployment evidence, external reviewer feedback, production authorization, authenticated user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+external reviewer approval-audit-metadata request refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

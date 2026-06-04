@@ -276,6 +276,8 @@ Phase 420 adds external feedback current-state approval-input guard issue verifi
 
 Phase 421 adds uploaded raw file download approval audit metadata v0: `docs/review/uploaded-raw-file-download-approval-audit-metadata.md` records local v0 allowed download audit metadata enrichment. Allowed raw file download events now include `approval_status`, `approval_expires_at`, `approval_latest_scan_result_id`, and `approval_scan_result_matches_latest` in addition to the approval id, approval boundary, identity boundary, and operator label. This is local audit metadata only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
 
+Phase 422 adds uploaded raw file download approval audit metadata runtime smoke v0: `docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md` records local Docker FastAPI plus PostgreSQL evidence after rebuilding the API container. Observed: health `ok`, clean scan metadata, active approval `approved`, download `200`, allowed event `200`, approval id match, approval status `approved`, approval expiry present, approval latest scan result id match, approval scan-result match `true`, and identity boundary `operator_label_not_authenticated_identity`. This is local runtime evidence only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

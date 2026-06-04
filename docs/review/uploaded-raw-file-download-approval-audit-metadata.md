@@ -103,3 +103,9 @@ autonomous/LLM-backed agents, or product-complete.
 ```text
 approval audit metadata runtime smoke v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from docs/GOAL.md
 ```
+
+Runtime smoke artifact:
+
+```text
+docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md
+```

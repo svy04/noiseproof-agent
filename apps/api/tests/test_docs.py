@@ -14626,3 +14626,70 @@ def test_uploaded_raw_file_download_approval_audit_metadata_records_inspectable_
         in portfolio
     )
     assert "approval audit metadata" in role_map
+
+
+def test_uploaded_raw_file_download_approval_audit_metadata_runtime_smoke_records_live_http_evidence():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    metadata_review = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-approval-audit-metadata.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded Raw File Download Approval Audit Metadata Runtime Smoke" in content
+    assert (
+        "uploaded raw file download approval audit metadata runtime smoke v0"
+        in content
+    )
+    assert "local Docker FastAPI plus PostgreSQL" in content
+    assert "health_status: ok" in content
+    assert "scan_status: completed" in content
+    assert "scan_verdict: clean" in content
+    assert "approval_status: approved" in content
+    assert "download_http: 200" in content
+    assert "event_download_result: allowed" in content
+    assert "event_http_status_code: 200" in content
+    assert "event_download_approval_id_matches: true" in content
+    assert "event_approval_status: approved" in content
+    assert "event_approval_expires_at_present: true" in content
+    assert "event_approval_latest_scan_result_id_matches: true" in content
+    assert "event_approval_scan_result_matches_latest: true" in content
+    assert "event_identity_boundary: operator_label_not_authenticated_identity" in content
+    assert "event_authorization_boundary: local_v0_no_auth_not_production" in content
+    assert "event_count_for_raw_file: 1" in content
+    assert "not production authorization" in content
+    assert "not authenticated user identity" in content
+    assert "not signed URL support" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Uploaded raw file download approval audit metadata runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 422 - Uploaded Raw File Download Approval Audit Metadata Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "uploaded raw file download approval audit metadata runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md"
+        in metadata_review
+    )
