@@ -17258,6 +17258,42 @@ Next recommended evidence gate:
 embedding model live-provider route wiring review v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 473 - Embedding Model Live-provider Route Wiring Review v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+define a safe future opt-in gate for wiring the disabled OpenAI embedding provider adapter into the route without allowing accidental live provider calls
+```
+
+Implemented:
+
+```text
+embedding model live-provider route wiring review v0
+docs/review/embedding-model-live-provider-route-wiring-review.md
+NOISEPROOF_ENABLE_OPENAI_PROVIDER future guard selected
+OPENAI_API_KEY future precondition retained
+allow_provider_call per-request guard retained
+CI=true disables provider client requirement
+get_embedding_provider_client remains None by default boundary recorded
+owner-runtime opt-in only boundary recorded
+no live provider call in CI boundary retained
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+application-ready boundary refresh
+```
+
+Phase 473 is review only. It adds no runtime behavior, route wiring, provider client default, live provider call, CI live provider call, API cost, automatic persistence, retrieval expansion, Evidence Ledger generation, semantic retrieval quality evidence, hosted deployment evidence, external reviewer feedback, customer validation, autonomous/LLM-backed agents, polished web app, or product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+embedding model live-provider route wiring opt-in-disabled v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

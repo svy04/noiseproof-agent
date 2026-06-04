@@ -241,6 +241,8 @@ Embedding model live-provider dependency addition v0: implemented. Boundary: `op
 
 Embedding model live-provider adapter disabled-code v0: implemented. Boundary: `OpenAIEmbeddingProviderClient` exists behind fake-client unit tests, but `get_embedding_provider_client` still returns `None`; the route remains unwired and no live provider call occurs in CI or by default.
 
+Embedding model live-provider route wiring review v0: implemented. Boundary: future wiring must require `NOISEPROOF_ENABLE_OPENAI_PROVIDER=true`, `OPENAI_API_KEY`, `allow_provider_call=true`, and `CI` not true; this review adds no runtime behavior and no route wiring.
+
 README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.

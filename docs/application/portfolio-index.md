@@ -40,6 +40,8 @@ Embedding model live-provider dependency addition: `docs/review/embedding-model-
 
 Embedding model live-provider adapter disabled-code: `docs/review/embedding-model-live-provider-adapter-disabled-code.md` records `OpenAIEmbeddingProviderClient` and fake-client unit coverage. The route remains unwired because `get_embedding_provider_client` still returns `None`; no live provider call in CI or default runtime is claimed.
 
+Embedding model live-provider route wiring review: `docs/review/embedding-model-live-provider-route-wiring-review.md` defines a future owner-runtime opt-in gate using `NOISEPROOF_ENABLE_OPENAI_PROVIDER`, `OPENAI_API_KEY`, `allow_provider_call`, and `CI` safeguards. It adds no runtime behavior and no route wiring.
+
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
 External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.

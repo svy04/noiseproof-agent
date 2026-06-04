@@ -9066,3 +9066,46 @@ no live provider call in CI
 no default live provider call
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Route Wiring Review
+
+Phase marker: embedding model live-provider route wiring review v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-route-wiring-review.md
+```
+
+Current route boundary:
+
+```text
+get_embedding_provider_client remains None by default
+```
+
+Future owner-runtime opt-in gate:
+
+```text
+NOISEPROOF_ENABLE_OPENAI_PROVIDER=true
+OPENAI_API_KEY configured
+allow_provider_call=true
+CI is not true
+```
+
+Required future default behavior:
+
+```text
+NOISEPROOF_ENABLE_OPENAI_PROVIDER absent -> None
+NOISEPROOF_ENABLE_OPENAI_PROVIDER=false -> None
+CI=true -> None
+allow_provider_call=false -> no provider call
+```
+
+Claim boundary:
+
+```text
+no runtime behavior
+no route wiring
+no live provider call in CI
+actual live embedding model generation remains unproven
+```

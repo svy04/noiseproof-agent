@@ -17418,3 +17418,41 @@ def test_embedding_model_live_provider_adapter_disabled_code_keeps_route_unwired
         in portfolio
     )
     assert "embedding model live-provider adapter disabled-code exists" in app_review
+
+
+def test_embedding_model_live_provider_route_wiring_review_defines_opt_in_gate():
+    review_path = (
+        REPO_ROOT / "docs/review/embedding-model-live-provider-route-wiring-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Model Live-provider Route Wiring Review" in content
+    assert "embedding model live-provider route wiring review v0" in content
+    assert "NOISEPROOF_ENABLE_OPENAI_PROVIDER" in content
+    assert "allow_provider_call" in content
+    assert "OPENAI_API_KEY" in content
+    assert "CI" in content
+    assert "get_embedding_provider_client remains None by default" in content
+    assert "owner-runtime opt-in only" in content
+    assert "no live provider call in CI" in content
+    assert "no runtime behavior" in content
+    assert "actual live embedding model generation remains unproven" in content
+    assert "Embedding model live-provider route wiring review v0: implemented" in readme
+    assert "Phase 473 - Embedding Model Live-provider Route Wiring Review v0" in goal
+    assert "embedding model live-provider route wiring review v0" in runbook
+    assert (
+        "docs/review/embedding-model-live-provider-route-wiring-review.md"
+        in portfolio
+    )
+    assert "embedding model live-provider route wiring review exists" in app_review
