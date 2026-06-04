@@ -5795,6 +5795,41 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## External Feedback Current-state Owner-runtime Input-source Contract Issue Verification
+
+Phase marker: external feedback current-state owner-runtime input-source contract issue verification v0.
+
+Use this artifact:
+
+```text
+docs/review/external-feedback-current-state-owner-runtime-input-source-contract-issue-verification.md
+```
+
+The current-state screen records:
+
+```text
+updatedAt: 2026-06-04T03:53:20Z
+starts_with_request: true
+first_codepoint: 35
+has_input_source_contract_ci_link: true
+comment_count: 1
+screened_comment_count: 1
+candidate_count: 0
+draft_count: 0
+self_authored_comment
+non_qualifying
+does_not_close_gate: true
+```
+
+This is live issue screening evidence only. It does not run the owner runtime smoke, does not include a test signature payload, does not call the API, is not endpoint malicious-detection runtime proof, and does not close external reviewer feedback v0.
+
+Next gates:
+
+```text
+external reviewer feedback v0
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0 if owner-provided runtime input exists
+```
+
 ## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery CI Check
 
 Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke input discovery ci check v0.
