@@ -274,6 +274,8 @@ Phase 419 adds external review issue body approval-input guard refresh v0: `docs
 
 Phase 420 adds external feedback current-state approval-input guard issue verification v0: `docs/review/external-feedback-current-state-approval-input-guard-issue-verification.md` records the live issue #1 current state after the approval-input guard issue-body refresh. The issue body has the approval input guard proof and request-refresh links, but the only comment is owner-authored; screening produced `candidate_count=0`, acceptance drafting produced `draft_count=0`, and external reviewer feedback remains pending.
 
+Phase 421 adds uploaded raw file download approval audit metadata v0: `docs/review/uploaded-raw-file-download-approval-audit-metadata.md` records local v0 allowed download audit metadata enrichment. Allowed raw file download events now include `approval_status`, `approval_expires_at`, `approval_latest_scan_result_id`, and `approval_scan_result_matches_latest` in addition to the approval id, approval boundary, identity boundary, and operator label. This is local audit metadata only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

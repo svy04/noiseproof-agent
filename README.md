@@ -546,6 +546,8 @@ External review issue body approval-input guard refresh v0: implemented. Boundar
 
 External feedback current-state approval-input guard issue verification v0: implemented. Boundary: current issue #1 screen after the approval-input guard issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
+Uploaded raw file download approval audit metadata v0: implemented. Boundary: allowed raw file download audit events now include approval status, expiry, latest scan-result reference, scan-match boolean, approval boundary, identity boundary, and operator label; this is local v0 audit metadata only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

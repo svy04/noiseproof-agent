@@ -14566,3 +14566,63 @@ def test_uploaded_raw_file_download_approval_input_guard_runtime_smoke_records_l
         "docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_approval_audit_metadata_records_inspectable_boundary():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-approval-audit-metadata.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    route_py = (REPO_ROOT / "apps/api/app/routes/documents.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Approval Audit Metadata" in content
+    assert "uploaded raw file download approval audit metadata v0" in content
+    assert "Primary references checked" in content
+    assert "OWASP Authorization Cheat Sheet" in content
+    assert "OWASP Logging Cheat Sheet" in content
+    assert "approval_status" in content
+    assert "approval_expires_at" in content
+    assert "approval_latest_scan_result_id" in content
+    assert "approval_scan_result_matches_latest" in content
+    assert "identity_boundary" in content
+    assert "operator_label_not_authenticated_identity" in content
+    assert "not production authorization" in content
+    assert "not authenticated user identity" in content
+    assert "not signed URL support" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "approval_status" in route_py
+    assert "approval_expires_at" in route_py
+    assert "approval_latest_scan_result_id" in route_py
+    assert "approval_scan_result_matches_latest" in route_py
+    assert (
+        "Uploaded raw file download approval audit metadata v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 421 - Uploaded Raw File Download Approval Audit Metadata v0"
+        in goal
+    )
+    assert (
+        "uploaded raw file download approval audit metadata v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-audit-metadata.md"
+        in portfolio
+    )
+    assert "approval audit metadata" in role_map

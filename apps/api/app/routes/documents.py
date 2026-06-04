@@ -163,6 +163,12 @@ def _content_type_for_download(content_type: str | None) -> str:
     return content_type
 
 
+def _metadata_datetime(value: object) -> object:
+    if isinstance(value, datetime):
+        return value.isoformat().replace("+00:00", "Z")
+    return value
+
+
 def _download_rate_limit_client_host(request: Request) -> str:
     if request.client is None:
         return "unknown-client"
@@ -978,6 +984,17 @@ def download_upload_raw_file(
             "approval_boundary": active_approval.get("approval_boundary"),
             "identity_boundary": active_approval.get("identity_boundary"),
             "approved_by_label": active_approval.get("approved_by_label"),
+            "approval_status": active_approval.get("approval_status"),
+            "approval_expires_at": _metadata_datetime(
+                active_approval.get("expires_at")
+            ),
+            "approval_latest_scan_result_id": str(
+                active_approval.get("latest_scan_result_id")
+            ),
+            "approval_scan_result_matches_latest": str(
+                active_approval.get("latest_scan_result_id")
+            )
+            == str(latest_result["id"]),
         },
     )
     headers = {

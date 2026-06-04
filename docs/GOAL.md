@@ -1476,6 +1476,47 @@ Next recommended gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 421 extension to the accepted state:
+
+```text
+Uploaded Raw File Download Approval Audit Metadata v0
+```
+
+### Phase 421 - Uploaded Raw File Download Approval Audit Metadata v0
+
+Goal:
+
+```text
+make allowed raw file download audit events show the local approval context used by the download route
+```
+
+Implemented:
+
+```text
+uploaded raw file download approval audit metadata v0
+docs/review/uploaded-raw-file-download-approval-audit-metadata.md
+allowed raw file download event metadata includes approval_status
+allowed raw file download event metadata includes approval_expires_at
+allowed raw file download event metadata includes approval_latest_scan_result_id
+allowed raw file download event metadata includes approval_scan_result_matches_latest
+allowed raw file download event metadata keeps approval_boundary
+allowed raw file download event metadata keeps identity_boundary
+allowed raw file download event metadata keeps approved_by_label
+focused route test for allowed audit event metadata
+README implementation marker
+docs/runbook.md current-state note
+docs/application/portfolio-index.md artifact link
+docs/application/braincrew-role-map.md upload path marker
+```
+
+Phase 421 is local v0 audit metadata only. It adds no schema, migration, API endpoint, hosted deployment evidence, external reviewer feedback, production authorization, authenticated user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+approval audit metadata runtime smoke v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

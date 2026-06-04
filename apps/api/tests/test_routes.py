@@ -2177,6 +2177,18 @@ def test_document_upload_raw_file_download_records_allowed_audit_event():
     assert events.json()[0]["metadata_json"]["approval_boundary"] == (
         "local_v0_manual_operator_approval_not_production_auth"
     )
+    assert events.json()[0]["metadata_json"]["identity_boundary"] == (
+        "operator_label_not_authenticated_identity"
+    )
+    assert events.json()[0]["metadata_json"]["approved_by_label"] == "local-operator"
+    assert events.json()[0]["metadata_json"]["approval_status"] == "approved"
+    assert events.json()[0]["metadata_json"]["approval_expires_at"] == approval.json()[
+        "expires_at"
+    ]
+    assert events.json()[0]["metadata_json"]["approval_latest_scan_result_id"] == scan.json()[
+        "id"
+    ]
+    assert events.json()[0]["metadata_json"]["approval_scan_result_matches_latest"] is True
 
 
 def test_list_document_upload_intake_manifests_returns_recent_manifest_metadata():
