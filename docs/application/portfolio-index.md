@@ -208,6 +208,8 @@ External feedback current-state workflow proof bundle issue verification: `docs/
 
 Workflow proof bundle dashboard link: `docs/review/workflow-proof-bundle-dashboard-link.md` records that `GET /ops/dashboard` workflow rows now link to the existing `GET /workflow-runs/{id}/proof-bundle` read model. This is dashboard navigation only, not new storage, distributed tracing, hosted observability, hosted deployment evidence, external reviewer feedback, or product-complete.
 
+Workflow proof bundle dashboard runtime smoke: `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence that `GET /ops/dashboard` includes the workflow proof bundle link and the linked `GET /workflow-runs/{id}/proof-bundle` route returns `200`. It is not hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, new lineage storage, or product-complete.
+
 ## Start Here
 
 1. `README.md`

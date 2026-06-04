@@ -15703,46 +15703,6 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
-### Phase 453 - Workflow Proof Bundle Dashboard Link v0
-
-Status: accepted.
-
-Purpose:
-
-```text
-make the existing workflow proof bundle read model discoverable from GET /ops/dashboard workflow rows
-```
-
-Implemented:
-
-```text
-workflow proof bundle dashboard link v0
-docs/review/workflow-proof-bundle-dashboard-link.md
-GET /ops/dashboard workflow rows link to /workflow-runs/{id}/proof-bundle
-dashboard link label: proof bundle
-test_ops_dashboard_links_workflow_runs_to_detail_lineage_and_proof_bundle_views
-README implementation marker
-docs/application/portfolio-index.md link
-docs/architecture.md current-state note
-docs/review/application-ready-review.md checklist note
-docs/runbook.md note
-```
-
-Verification:
-
-```text
-uv run pytest -q tests/test_routes.py -k "proof_bundle_views"
-1 passed, 144 deselected
-```
-
-Phase 453 is dashboard navigation only. It adds no new endpoint, schema, migration, new lineage storage, direct Evidence Ledger -> Noise Gate -> Report foreign-key links, distributed tracing, hosted observability, external reviewer feedback, hosted deployment evidence, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
-
-Next recommended evidence gate:
-
-```text
-workflow proof bundle dashboard runtime smoke v0 if Docker/API verification is desired, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
-```
-
 ### Phase 434 - External Review Issue Body Readability Refresh v0
 
 Goal:
@@ -16505,6 +16465,85 @@ docs/runbook.md note
 ```
 
 Phase 452 is current-state verification only. It adds no runtime behavior, endpoint, schema, migration, issue body edit, external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, new lineage storage, customer validation, Braincrew acceptance, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
+### Phase 453 - Workflow Proof Bundle Dashboard Link v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the existing workflow proof bundle read model discoverable from GET /ops/dashboard workflow rows
+```
+
+Implemented:
+
+```text
+workflow proof bundle dashboard link v0
+docs/review/workflow-proof-bundle-dashboard-link.md
+GET /ops/dashboard workflow rows link to /workflow-runs/{id}/proof-bundle
+dashboard link label: proof bundle
+test_ops_dashboard_links_workflow_runs_to_detail_lineage_and_proof_bundle_views
+README implementation marker
+docs/application/portfolio-index.md link
+docs/architecture.md current-state note
+docs/review/application-ready-review.md checklist note
+docs/runbook.md note
+```
+
+Verification:
+
+```text
+uv run pytest -q tests/test_routes.py -k "proof_bundle_views"
+1 passed, 144 deselected
+```
+
+Phase 453 is dashboard navigation only. It adds no new endpoint, schema, migration, new lineage storage, direct Evidence Ledger -> Noise Gate -> Report foreign-key links, distributed tracing, hosted observability, external reviewer feedback, hosted deployment evidence, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+workflow proof bundle dashboard runtime smoke v0 if Docker/API verification is desired, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
+### Phase 454 - Workflow Proof Bundle Dashboard Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+verify the workflow proof bundle dashboard link against local Docker PostgreSQL plus live FastAPI HTTP
+```
+
+Implemented:
+
+```text
+workflow proof bundle dashboard runtime smoke v0
+docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md
+local Docker PostgreSQL healthy on port 55432
+FastAPI live HTTP on 127.0.0.1:8062
+migration runner status: Applied migrations 21 / Pending migrations 0
+GET /health -> 200
+POST /workflow-runs/execute-preview -> 201
+GET /ops/dashboard -> 200
+GET /workflow-runs/{id}/proof-bundle -> 200
+dashboard_contains_detail_link: true
+dashboard_contains_lineage_link: true
+dashboard_contains_proof_bundle_link: true
+bundle_boundary: read_model_only_existing_records_no_new_storage
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+```
+
+Phase 454 is local runtime evidence only. It adds no runtime behavior beyond Phase 453, no endpoint, schema, migration, new lineage storage, direct Evidence Ledger -> Noise Gate -> Report foreign-key links, distributed tracing, hosted observability, external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
 
 Next recommended evidence gate:
 

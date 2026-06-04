@@ -610,6 +610,8 @@ External feedback current-state workflow proof bundle issue verification v0: imp
 
 Workflow proof bundle dashboard link v0: implemented. Boundary: `GET /ops/dashboard` workflow rows now link to the existing `GET /workflow-runs/{id}/proof-bundle` read model; this is dashboard navigation only, not a new endpoint, schema, migration, lineage storage, distributed tracing, hosted observability, external reviewer feedback, or product-complete claim.
 
+Workflow proof bundle dashboard runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified `GET /ops/dashboard` includes the workflow proof bundle link and `GET /workflow-runs/{id}/proof-bundle` returns `200`; this is not new endpoint behavior, schema, migration, lineage storage, distributed tracing, hosted observability, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:
