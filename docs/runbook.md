@@ -204,6 +204,8 @@ Phase 384 adds uploaded raw file extension allowlist review v0: `docs/review/upl
 
 Phase 385 adds uploaded raw file extension allowlist local v0: `docs/review/uploaded-raw-file-extension-allowlist-local.md` records local API behavior for extension validation before raw upload persistence. `POST /documents/upload-raw-files` records `extension_boundary: local_v0_extension_allowlist_not_production` on accepted CSV uploads and blocks `sample.exe.csv` as `suspicious double extension` with `415` and no raw bytes. This is local v0 endpoint code only, not robust file-type detection, malware scanning evidence, production authorization, hosted proof, or product-complete.
 
+Phase 386 adds uploaded raw file extension allowlist runtime smoke v0: `docs/review/uploaded-raw-file-extension-allowlist-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for extension allowlisting: allowed CSV upload returns `201` with extension boundary warnings, `sample.exe.csv` returns `415` as `suspicious double extension`, raw bytes are absent from responses, and the blocked content hash is not present in recent raw uploads. This is not robust file-type detection, malware scanning evidence, production authorization, hosted deployment evidence, or product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

@@ -12689,3 +12689,51 @@ def test_uploaded_raw_file_extension_allowlist_local_documents_route_behavior():
         "docs/review/uploaded-raw-file-extension-allowlist-local.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_extension_allowlist_runtime_smoke_documents_live_http():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-extension-allowlist-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Extension Allowlist Runtime Smoke" in content
+    assert "uploaded raw file extension allowlist runtime smoke v0" in content
+    assert "docker compose --profile api up -d --build api" in content
+    assert "Applied migrations: 18" in content
+    assert "Pending migrations: 0" in content
+    assert "health 200" in content
+    assert "allowed_csv_upload 201" in content
+    assert "extension_boundary_present True" in content
+    assert "extension_allowed_present True" in content
+    assert "double_extension_upload 415" in content
+    assert "suspicious double extension" in content
+    assert "local_v0_extension_allowlist_not_production" in content
+    assert "raw_bytes_present False" in content
+    assert "double_extension_hash_persisted_recent 200 False" in content
+    assert "requests module was unavailable" in content
+    assert "not robust file-type detection" in content
+    assert "not malware scanning evidence" in content
+    assert "not production authorization" in content
+    assert (
+        "Uploaded raw file extension allowlist runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 386 - Uploaded Raw File Extension Allowlist Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded raw file extension allowlist runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-extension-allowlist-runtime-smoke.md"
+        in portfolio
+    )
