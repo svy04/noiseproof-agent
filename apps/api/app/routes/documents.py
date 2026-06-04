@@ -22,6 +22,8 @@ from app.schemas import (
     DocumentRetrievalRunRequest,
     ParsePreviewOut,
     ParsePreviewRequest,
+    RawFileDownloadEventCreate,
+    RawFileDownloadEventOut,
     RawFileScanResultCreate,
     RawFileScanResultOut,
     RetrievalRunResponse,
@@ -72,6 +74,7 @@ RAW_UPLOAD_GUARDED_DOWNLOAD_BOUNDARY = (
 )
 DOWNLOAD_BLOCK_DETAIL = "latest clean scan result required before raw file download"
 DOWNLOAD_RATE_LIMIT_DETAIL = "raw file download rate limit exceeded"
+DOWNLOAD_AUTHORIZATION_BOUNDARY = "local_v0_no_auth_not_production"
 DOWNLOAD_RATE_LIMIT_BOUNDARY = "local_v0_in_memory_fixed_window_not_production"
 DOWNLOAD_RATE_LIMIT_ATTEMPTS = 5
 DOWNLOAD_RATE_LIMIT_WINDOW_SECONDS = 60.0
@@ -167,6 +170,33 @@ def _consume_download_attempt(raw_file_id: UUID, request: Request) -> bool:
         return False
     attempts.append(now)
     return True
+
+
+def _record_raw_file_download_event(
+    *,
+    repository: Repository,
+    raw_file_id: UUID,
+    latest_scan_result: dict | None,
+    download_result: str,
+    blocked_reason: str | None,
+    http_status_code: int,
+    metadata_json: dict | None = None,
+) -> dict:
+    payload = RawFileDownloadEventCreate(
+        raw_file_id=raw_file_id,
+        latest_scan_result_id=(
+            latest_scan_result.get("id") if latest_scan_result is not None else None
+        ),
+        download_result=download_result,
+        blocked_reason=blocked_reason,
+        http_status_code=http_status_code,
+        authorization_boundary=DOWNLOAD_AUTHORIZATION_BOUNDARY,
+        rate_limit_boundary=DOWNLOAD_RATE_LIMIT_BOUNDARY,
+        filename_boundary=DOWNLOAD_FILENAME_BOUNDARY,
+        client_host_boundary="local_request_client_host_not_identity",
+        metadata_json=metadata_json or {},
+    )
+    return repository.create_raw_file_download_event(payload)
 
 
 def _validate_raw_file_extension(
@@ -754,6 +784,23 @@ def execute_upload_raw_file_scan(
     return result
 
 
+@router.get(
+    "/upload-raw-files/{raw_file_id}/download-events",
+    response_model=list[RawFileDownloadEventOut],
+)
+def list_upload_raw_file_download_events(
+    raw_file_id: UUID,
+    limit: int = 20,
+    repository: Repository = Depends(get_repository),
+) -> list[dict]:
+    return list(
+        repository.list_raw_file_download_events(
+            raw_file_id=raw_file_id,
+            limit=limit,
+        )
+    )
+
+
 @router.get("/upload-raw-files/{raw_file_id}/download")
 def download_upload_raw_file(
     raw_file_id: UUID,
@@ -767,12 +814,23 @@ def download_upload_raw_file(
             detail="uploaded raw file not found",
         )
     if not _consume_download_attempt(raw_file_id, request):
+        _record_raw_file_download_event(
+            repository=repository,
+            raw_file_id=raw_file_id,
+            latest_scan_result=None,
+            download_result="blocked",
+            blocked_reason="rate_limited",
+            http_status_code=429,
+            metadata_json={
+                "detail": DOWNLOAD_RATE_LIMIT_DETAIL,
+            },
+        )
         raise HTTPException(
             status_code=429,
             detail=DOWNLOAD_RATE_LIMIT_DETAIL,
             headers={
                 "X-NoiseProof-Download-Rate-Limit-Boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
-                "X-NoiseProof-Authorization-Boundary": "local_v0_no_auth_not_production",
+                "X-NoiseProof-Authorization-Boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
             },
         )
 
@@ -785,20 +843,63 @@ def download_upload_raw_file(
         or latest_result.get("scan_status") != "completed"
         or latest_result.get("scan_verdict") != "clean"
     ):
+        _record_raw_file_download_event(
+            repository=repository,
+            raw_file_id=raw_file_id,
+            latest_scan_result=latest_result,
+            download_result="blocked",
+            blocked_reason=(
+                "missing_clean_scan" if latest_result is None else "latest_scan_not_clean"
+            ),
+            http_status_code=409,
+            metadata_json={
+                "detail": DOWNLOAD_BLOCK_DETAIL,
+                "latest_scan_status": (
+                    latest_result.get("scan_status") if latest_result else None
+                ),
+                "latest_scan_verdict": (
+                    latest_result.get("scan_verdict") if latest_result else None
+                ),
+            },
+        )
         raise HTTPException(status_code=409, detail=DOWNLOAD_BLOCK_DETAIL)
 
     if raw_file.get("quarantine_status") != "stored_quarantined":
+        _record_raw_file_download_event(
+            repository=repository,
+            raw_file_id=raw_file_id,
+            latest_scan_result=latest_result,
+            download_result="blocked",
+            blocked_reason="quarantine_status_blocked",
+            http_status_code=409,
+            metadata_json={
+                "detail": "raw file quarantine status does not allow controlled download",
+                "quarantine_status": raw_file.get("quarantine_status"),
+            },
+        )
         raise HTTPException(
             status_code=409,
             detail="raw file quarantine status does not allow controlled download",
         )
 
     filename = _safe_download_filename(raw_file.get("filename"), raw_file_id)
+    _record_raw_file_download_event(
+        repository=repository,
+        raw_file_id=raw_file_id,
+        latest_scan_result=latest_result,
+        download_result="allowed",
+        blocked_reason=None,
+        http_status_code=200,
+        metadata_json={
+            "content_disposition_filename": filename,
+            "content_type": _content_type_for_download(raw_file.get("content_type")),
+        },
+    )
     headers = {
         "Content-Disposition": f'attachment; filename="{filename}"',
         "X-Content-Type-Options": "nosniff",
         "X-NoiseProof-Download-Boundary": "scan_first_latest_clean_result_required",
-        "X-NoiseProof-Authorization-Boundary": "local_v0_no_auth_not_production",
+        "X-NoiseProof-Authorization-Boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
         "X-NoiseProof-Download-Rate-Limit-Boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
         "X-NoiseProof-Download-Filename-Boundary": DOWNLOAD_FILENAME_BOUNDARY,
     }

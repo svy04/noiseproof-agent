@@ -151,6 +151,24 @@ class RawFileScanResultOut(RawFileScanResultCreate):
     created_at: datetime
 
 
+class RawFileDownloadEventCreate(BaseModel):
+    raw_file_id: UUID
+    latest_scan_result_id: UUID | None = None
+    download_result: str = Field(..., min_length=1)
+    blocked_reason: str | None = None
+    http_status_code: int = Field(..., ge=100, le=599)
+    authorization_boundary: str = "local_v0_no_auth_not_production"
+    rate_limit_boundary: str = "local_v0_in_memory_fixed_window_not_production"
+    filename_boundary: str = "local_v0_content_disposition_filename_safety_not_production"
+    client_host_boundary: str = "local_request_client_host_not_identity"
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
+
+
+class RawFileDownloadEventOut(RawFileDownloadEventCreate):
+    id: UUID
+    created_at: datetime
+
+
 class DocumentChunkCreate(BaseModel):
     document_id: UUID
     source_type: str = Field(..., min_length=1)

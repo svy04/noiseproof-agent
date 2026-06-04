@@ -16,6 +16,7 @@ from app.schemas import (
     NoiseGatePreviewOut,
     OpsSummaryOut,
     RawFileScanResultCreate,
+    RawFileDownloadEventCreate,
     ReportPreviewOut,
     RetrievalRunCreate,
     UploadedFileIntakeManifestCreate,
@@ -92,6 +93,15 @@ class Repository(Protocol):
         raw_file_id: UUID | None = None,
         scan_status: str | None = None,
         scan_verdict: str | None = None,
+        limit: int = 20,
+    ) -> Sequence[dict]: ...
+    def create_raw_file_download_event(
+        self,
+        payload: RawFileDownloadEventCreate,
+    ) -> dict: ...
+    def list_raw_file_download_events(
+        self,
+        raw_file_id: UUID | None = None,
         limit: int = 20,
     ) -> Sequence[dict]: ...
     def create_agent_run(self, payload: AgentRunCreate) -> dict: ...
@@ -535,6 +545,64 @@ class PostgresRepository:
                 SELECT * FROM raw_file_scan_results
                 {where_clause}
                 ORDER BY scan_started_at DESC NULLS LAST, created_at DESC, id DESC
+                LIMIT %s
+                """,
+                tuple(params),
+            ).fetchall()
+            return [dict(row) for row in rows]
+
+    def create_raw_file_download_event(
+        self,
+        payload: RawFileDownloadEventCreate,
+    ) -> dict:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                INSERT INTO raw_file_download_events (
+                  raw_file_id, latest_scan_result_id, download_result,
+                  blocked_reason, http_status_code, authorization_boundary,
+                  rate_limit_boundary, filename_boundary,
+                  client_host_boundary, metadata_json
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING *
+                """,
+                (
+                    payload.raw_file_id,
+                    payload.latest_scan_result_id,
+                    payload.download_result,
+                    payload.blocked_reason,
+                    payload.http_status_code,
+                    payload.authorization_boundary,
+                    payload.rate_limit_boundary,
+                    payload.filename_boundary,
+                    payload.client_host_boundary,
+                    Jsonb(payload.metadata_json),
+                ),
+            ).fetchone()
+            conn.commit()
+            return dict(row)
+
+    def list_raw_file_download_events(
+        self,
+        raw_file_id: UUID | None = None,
+        limit: int = 20,
+    ) -> Sequence[dict]:
+        safe_limit = max(1, min(limit, 100))
+        filters = []
+        params: list[object] = []
+        if raw_file_id is not None:
+            filters.append("raw_file_id = %s")
+            params.append(raw_file_id)
+        where_clause = f"WHERE {' AND '.join(filters)}" if filters else ""
+        params.append(safe_limit)
+
+        with self._connect() as conn:
+            rows = conn.execute(
+                f"""
+                SELECT * FROM raw_file_download_events
+                {where_clause}
+                ORDER BY created_at DESC, id DESC
                 LIMIT %s
                 """,
                 tuple(params),

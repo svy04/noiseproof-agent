@@ -11,6 +11,7 @@ from app.main import create_app
 from app.routes.documents import (
     DOWNLOAD_FILENAME_BOUNDARY,
     DOWNLOAD_FILENAME_MAX_LENGTH,
+    DOWNLOAD_RATE_LIMIT_BOUNDARY,
     _safe_download_filename,
 )
 from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
@@ -40,6 +41,7 @@ class InMemoryRepository:
         self.uploaded_file_intake_manifests = []
         self.uploaded_raw_files = []
         self.raw_file_scan_results = []
+        self.raw_file_download_events = []
         self.chunk_embeddings = []
 
     def create_document(self, payload: DocumentCreate) -> dict:
@@ -186,6 +188,23 @@ class InMemoryRepository:
             rows = [row for row in rows if row["scan_status"] == scan_status]
         if scan_verdict is not None:
             rows = [row for row in rows if row["scan_verdict"] == scan_verdict]
+        return sorted(
+            rows,
+            key=lambda row: (row["created_at"], str(row["id"])),
+            reverse=True,
+        )[:limit]
+
+    def create_raw_file_download_event(self, payload) -> dict:
+        row = payload.model_dump()
+        row["id"] = uuid4()
+        row["created_at"] = datetime.now(timezone.utc)
+        self.raw_file_download_events.append(row)
+        return row
+
+    def list_raw_file_download_events(self, raw_file_id=None, limit=20):
+        rows = self.raw_file_download_events
+        if raw_file_id is not None:
+            rows = [row for row in rows if str(row["raw_file_id"]) == str(raw_file_id)]
         return sorted(
             rows,
             key=lambda row: (row["created_at"], str(row["id"])),
@@ -1682,6 +1701,40 @@ def test_document_upload_raw_file_download_requires_latest_clean_scan_result():
     assert "latest clean scan result required" in latest_failed_response.json()["detail"]
 
 
+def test_document_upload_raw_file_download_records_missing_scan_audit_event():
+    client = make_client()
+    content = b"ticker,revenue\nALPHA,120\n"
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+
+    response = client.get(f"/documents/upload-raw-files/{raw_file_id}/download")
+    events = client.get(f"/documents/upload-raw-files/{raw_file_id}/download-events")
+
+    assert response.status_code == 409
+    assert events.status_code == 200
+    assert events.json()[0]["raw_file_id"] == raw_file_id
+    assert events.json()[0]["latest_scan_result_id"] is None
+    assert events.json()[0]["download_result"] == "blocked"
+    assert events.json()[0]["blocked_reason"] == "missing_clean_scan"
+    assert events.json()[0]["http_status_code"] == 409
+    assert events.json()[0]["authorization_boundary"] == (
+        "local_v0_no_auth_not_production"
+    )
+    assert events.json()[0]["rate_limit_boundary"] == (
+        DOWNLOAD_RATE_LIMIT_BOUNDARY
+    )
+    assert events.json()[0]["filename_boundary"] == (
+        DOWNLOAD_FILENAME_BOUNDARY
+    )
+    assert events.json()[0]["client_host_boundary"] == (
+        "local_request_client_host_not_identity"
+    )
+
+
 def test_document_upload_raw_file_download_rate_limits_blocked_attempts_without_raw_bytes():
     client = make_client()
     content = b"ticker,revenue\nALPHA,120\n"
@@ -1725,6 +1778,33 @@ def test_document_upload_raw_file_download_rate_limits_blocked_attempts_without_
     assert other_response.status_code == 409
 
 
+def test_document_upload_raw_file_download_records_rate_limited_audit_event():
+    client = make_client()
+    content = b"ticker,revenue\nALPHA,120\n"
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+
+    for _ in range(5):
+        client.get(f"/documents/upload-raw-files/{raw_file_id}/download")
+    limited_response = client.get(
+        f"/documents/upload-raw-files/{raw_file_id}/download"
+    )
+    events = client.get(f"/documents/upload-raw-files/{raw_file_id}/download-events")
+
+    assert limited_response.status_code == 429
+    assert events.status_code == 200
+    assert events.json()[0]["download_result"] == "blocked"
+    assert events.json()[0]["blocked_reason"] == "rate_limited"
+    assert events.json()[0]["http_status_code"] == 429
+    assert events.json()[0]["authorization_boundary"] == (
+        "local_v0_no_auth_not_production"
+    )
+
+
 def test_document_upload_raw_file_download_returns_bytes_after_latest_clean_scan_only():
     client = make_client()
     scanner = RecordingCleanScanner()
@@ -1762,6 +1842,37 @@ def test_document_upload_raw_file_download_returns_bytes_after_latest_clean_scan
     assert "sample.csv" in response.headers["content-disposition"]
     assert ".." not in response.headers["content-disposition"]
     assert "raw_bytes" not in upload.json()
+
+
+def test_document_upload_raw_file_download_records_allowed_audit_event():
+    client = make_client()
+    scanner = RecordingCleanScanner()
+    client.app.dependency_overrides[get_scanner_adapter] = lambda: scanner
+    content = b"ticker,revenue\nALPHA,120\n"
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+    scan = client.post(f"/documents/upload-raw-files/{raw_file_id}/scan")
+
+    response = client.get(f"/documents/upload-raw-files/{raw_file_id}/download")
+    events = client.get(f"/documents/upload-raw-files/{raw_file_id}/download-events")
+
+    assert response.status_code == 200
+    assert events.status_code == 200
+    assert events.json()[0]["raw_file_id"] == raw_file_id
+    assert events.json()[0]["latest_scan_result_id"] == scan.json()["id"]
+    assert events.json()[0]["download_result"] == "allowed"
+    assert events.json()[0]["blocked_reason"] is None
+    assert events.json()[0]["http_status_code"] == 200
+    assert events.json()[0]["authorization_boundary"] == (
+        "local_v0_no_auth_not_production"
+    )
+    assert events.json()[0]["metadata_json"]["content_disposition_filename"] == (
+        "sample.csv"
+    )
 
 
 def test_list_document_upload_intake_manifests_returns_recent_manifest_metadata():

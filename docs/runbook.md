@@ -224,6 +224,8 @@ Phase 394 adds external feedback current-state filename-safety issue verificatio
 
 Phase 395 adds uploaded raw file download authorization audit review v0: `docs/review/uploaded-raw-file-download-authorization-audit-review.md` records a source-first decision to add `raw_file_download_events` before any production authorization claim. The planned event captures `raw_file_id`, `latest_scan_result_id`, `download_result`, `blocked_reason`, status, local v0 boundary strings, and metadata. This is review-only, not endpoint code, not schema, not user identity, not hosted deployment evidence, and not production authorization.
 
+Phase 396 adds uploaded raw file download audit schema v0: `docs/review/uploaded-raw-file-download-audit-schema.md` records the local v0 audit table, repository methods, and `GET /documents/upload-raw-files/{raw_file_id}/download-events` inspectability surface. Guarded downloads now persist events for missing-scan 409, rate-limited 429, and allowed 200 paths. This is audit persistence only, not production authorization, not user identity, not hosted deployment evidence, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

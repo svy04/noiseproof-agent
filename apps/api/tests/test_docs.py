@@ -13172,3 +13172,58 @@ def test_uploaded_raw_file_download_authorization_audit_review_selects_audit_sch
         "docs/review/uploaded-raw-file-download-authorization-audit-review.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_audit_schema_is_documented():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-download-audit-schema.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    migration = (
+        REPO_ROOT / "db/migrations/020_raw_file_download_events.sql"
+    ).read_text(encoding="utf-8")
+    init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(
+        encoding="utf-8"
+    )
+    route = (REPO_ROOT / "apps/api/app/routes/documents.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Audit Schema" in content
+    assert "uploaded raw file download audit schema v0" in content
+    assert "raw_file_download_events" in content
+    assert "db/migrations/020_raw_file_download_events.sql" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/download-events" in content
+    assert "download_result: allowed | blocked" in content
+    assert "blocked_reason: missing_clean_scan" in content
+    assert "blocked_reason: rate_limited" in content
+    assert "latest_scan_result_id" in content
+    assert "local_v0_no_auth_not_production" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not hosted deployment evidence" in content
+    assert "CREATE TABLE IF NOT EXISTS raw_file_download_events" in migration
+    assert "CREATE TABLE IF NOT EXISTS raw_file_download_events" in init_schema
+    assert "create_raw_file_download_event" in route
+    assert "list_raw_file_download_events" in route
+    assert (
+        "Uploaded raw file download audit schema v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 396 - Uploaded Raw File Download Audit Schema v0"
+        in goal
+    )
+    assert "uploaded raw file download audit schema v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-download-audit-schema.md"
+        in portfolio
+    )

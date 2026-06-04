@@ -496,6 +496,8 @@ External feedback current-state filename-safety issue verification v0: implement
 
 Uploaded raw file download authorization audit review v0: implemented. Boundary: source-first review selects a future `raw_file_download_events` audit schema before any production authorization claim; review-only, not endpoint code, not schema, not user identity, not hosted deployment evidence, and not product-complete.
 
+Uploaded raw file download audit schema v0: implemented. Boundary: `raw_file_download_events` now records guarded raw file download decisions for missing scan, rate-limited, and allowed paths, with local v0 boundary strings; this is audit persistence only, not production authorization, not user identity, not hosted deployment evidence, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:
