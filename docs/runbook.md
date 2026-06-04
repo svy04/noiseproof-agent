@@ -162,6 +162,8 @@ Phase 361 adds failure-case workflow review queue fresh-db dashboard smoke verif
 
 Phase 364 adds external review issue body workflow review queue proof index refresh v0: `docs/review/external-review-issue-body-workflow-review-queue-proof-index-refresh.md` records that GitHub issue #1 now links to the workflow review queue proof index and fresh DB dashboard smoke proof. Observed state: `has_workflow_review_queue_proof_index_link: true`, `has_workflow_review_queue_fresh_db_dashboard_smoke_link: true`, `comment_count: 1`, `candidate_count: 0`, and `self_authored_comment`. This is an owner-authored request-surface edit only and does not close external reviewer feedback v0.
 
+Phase 365 adds external feedback current-state workflow review queue proof index issue verification v0: `docs/review/external-feedback-current-state-workflow-review-queue-proof-index-issue-verification.md` records the live issue #1 state after the proof-index issue-body refresh. Observed state: `starts_with_request: true`, `first_codepoint: 35`, `has_workflow_review_queue_proof_index_link: true`, `has_workflow_review_queue_fresh_db_dashboard_smoke_link: true`, `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`. This is live request-surface evidence only and does not close external reviewer feedback v0.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

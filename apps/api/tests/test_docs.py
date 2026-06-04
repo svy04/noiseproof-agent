@@ -64,6 +64,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-workflow-review-queue-proof-index.md",
         "docs/review/external-reviewer-workflow-review-queue-proof-index-request-refresh.md",
         "docs/review/external-review-issue-body-workflow-review-queue-proof-index-refresh.md",
+        "docs/review/external-feedback-current-state-workflow-review-queue-proof-index-issue-verification.md",
     ]
 
     for file_path in required_files:
@@ -2416,6 +2417,47 @@ def test_external_review_issue_body_workflow_review_queue_proof_index_refresh_re
     )
     assert (
         "external review issue body workflow review queue proof index refresh v0"
+        in runbook
+    )
+
+
+def test_external_feedback_current_state_workflow_review_queue_proof_index_issue_verification_keeps_feedback_pending():
+    content = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-workflow-review-queue-proof-index-issue-verification.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert (
+        "External Feedback Current-state Workflow Review Queue Proof Index Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state workflow review queue proof index issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "has_workflow_review_queue_proof_index_link: true" in content
+    assert "has_workflow_review_queue_fresh_db_dashboard_smoke_link: true" in content
+    assert "starts_with_request: true" in content
+    assert "first_codepoint: 35" in content
+    assert "comment_count: 1" in content
+    assert "screened_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "status: pending" in content
+    assert "next_gate: external reviewer feedback v0" in content
+    assert "self_authored_comment" in content
+    assert "does_not_close_gate: true" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert (
+        "Phase 365 - External Feedback Current-state Workflow Review Queue Proof Index Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state workflow review queue proof index issue verification v0"
         in runbook
     )
 
