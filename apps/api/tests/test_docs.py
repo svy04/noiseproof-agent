@@ -12798,3 +12798,51 @@ def test_external_reviewer_extension_allowlist_request_refresh_links_runtime_pro
         "docs/review/external-reviewer-extension-allowlist-request-refresh.md"
         in portfolio
     )
+
+
+def test_external_review_issue_body_extension_allowlist_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-extension-allowlist-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Extension-allowlist Refresh" in content
+    assert "external review issue body extension-allowlist refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert '"has_extension_allowlist_proof": true' in content
+    assert '"has_extension_allowlist_request_refresh": true' in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"comment_count": 1' in content
+    assert "docs/review/uploaded-raw-file-extension-allowlist-runtime-smoke.md" in content
+    assert "docs/review/external-reviewer-extension-allowlist-request-refresh.md" in content
+    assert "owner-authored issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust file-type detection" in content
+    assert "not malware scanning evidence" in content
+    assert "not production authorization" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "external feedback current-state extension-allowlist issue verification v0" in content
+    assert (
+        "External review issue body extension-allowlist refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 388 - External Review Issue Body Extension-allowlist Refresh v0"
+        in goal
+    )
+    assert "external review issue body extension-allowlist refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-extension-allowlist-refresh.md"
+        in portfolio
+    )
