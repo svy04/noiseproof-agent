@@ -1,5 +1,6 @@
 import re
 from collections import deque
+from datetime import UTC, datetime
 from hashlib import sha256
 from time import monotonic
 from urllib.parse import unquote
@@ -75,6 +76,12 @@ RAW_UPLOAD_GUARDED_DOWNLOAD_BOUNDARY = (
     "raw_upload_quarantine_db_bytea_guarded_download_endpoint"
 )
 DOWNLOAD_BLOCK_DETAIL = "latest clean scan result required before raw file download"
+DOWNLOAD_APPROVAL_BLOCK_DETAIL = (
+    "active download approval required before raw file download"
+)
+DOWNLOAD_WITH_APPROVAL_BOUNDARY = (
+    "scan_first_latest_clean_result_and_active_approval_required"
+)
 DOWNLOAD_RATE_LIMIT_DETAIL = "raw file download rate limit exceeded"
 DOWNLOAD_AUTHORIZATION_BOUNDARY = "local_v0_no_auth_not_production"
 DOWNLOAD_RATE_LIMIT_BOUNDARY = "local_v0_in_memory_fixed_window_not_production"
@@ -921,6 +928,42 @@ def download_upload_raw_file(
             detail="raw file quarantine status does not allow controlled download",
         )
 
+    active_approval = repository.find_active_raw_file_download_approval(
+        raw_file_id=raw_file_id,
+        latest_scan_result_id=latest_result["id"],
+        now=datetime.now(UTC),
+    )
+    if active_approval is None:
+        matching_approvals = [
+            approval
+            for approval in repository.list_raw_file_download_approvals(
+                raw_file_id=raw_file_id,
+                approval_status="approved",
+                limit=100,
+            )
+            if str(approval.get("latest_scan_result_id")) == str(latest_result["id"])
+        ]
+        blocked_reason = (
+            "revoked_or_expired_download_approval"
+            if matching_approvals
+            else "missing_download_approval"
+        )
+        _record_raw_file_download_event(
+            repository=repository,
+            raw_file_id=raw_file_id,
+            latest_scan_result=latest_result,
+            download_result="blocked",
+            blocked_reason=blocked_reason,
+            http_status_code=409,
+            metadata_json={
+                "detail": DOWNLOAD_APPROVAL_BLOCK_DETAIL,
+                "latest_scan_status": latest_result.get("scan_status"),
+                "latest_scan_verdict": latest_result.get("scan_verdict"),
+                "approval_candidate_count": len(matching_approvals),
+            },
+        )
+        raise HTTPException(status_code=409, detail=DOWNLOAD_APPROVAL_BLOCK_DETAIL)
+
     filename = _safe_download_filename(raw_file.get("filename"), raw_file_id)
     _record_raw_file_download_event(
         repository=repository,
@@ -932,12 +975,16 @@ def download_upload_raw_file(
         metadata_json={
             "content_disposition_filename": filename,
             "content_type": _content_type_for_download(raw_file.get("content_type")),
+            "download_approval_id": str(active_approval.get("id")),
+            "approval_boundary": active_approval.get("approval_boundary"),
+            "identity_boundary": active_approval.get("identity_boundary"),
+            "approved_by_label": active_approval.get("approved_by_label"),
         },
     )
     headers = {
         "Content-Disposition": f'attachment; filename="{filename}"',
         "X-Content-Type-Options": "nosniff",
-        "X-NoiseProof-Download-Boundary": "scan_first_latest_clean_result_required",
+        "X-NoiseProof-Download-Boundary": DOWNLOAD_WITH_APPROVAL_BOUNDARY,
         "X-NoiseProof-Authorization-Boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
         "X-NoiseProof-Download-Rate-Limit-Boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
         "X-NoiseProof-Download-Filename-Boundary": DOWNLOAD_FILENAME_BOUNDARY,

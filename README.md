@@ -526,6 +526,8 @@ Uploaded raw file download approval gate behavior review v0: implemented. Bounda
 
 Uploaded raw file download approval helper v0: implemented. Boundary: repository-only `find_active_raw_file_download_approval` returns one approved, unexpired, non-revoked row for a raw file and latest scan result; not route behavior, approval enforcement, production authorization, user identity, signed URL support, RBAC, hosted evidence, or product-complete claim.
 
+Uploaded raw file download approval gate behavior v0: implemented. Boundary: guarded raw downloads now require latest clean scan and active approval; missing/expired approval attempts are blocked and audited, allowed events include `download_approval_id` in metadata_json; not production authorization, user identity, signed URL support, RBAC, hosted evidence, or product-complete claim.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

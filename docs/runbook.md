@@ -254,6 +254,8 @@ Phase 409 adds uploaded raw file download approval gate behavior review v0: `doc
 
 Phase 410 adds uploaded raw file download approval helper v0: `docs/review/uploaded-raw-file-download-approval-helper.md` implements repository-only `find_active_raw_file_download_approval`. The helper returns one row matching raw file id, latest scan result id, `approval_status = approved`, `expires_at > now`, and `revoked_at IS NULL`. This is not route behavior, not approval enforcement, not production authorization, not user identity, and not product-complete.
 
+Phase 411 adds uploaded raw file download approval gate behavior v0: `docs/review/uploaded-raw-file-download-approval-gate-behavior.md` wires `find_active_raw_file_download_approval` into the raw download route. Guarded raw downloads now require latest clean scan and active approval. Missing approval and expired/revoked approval attempts are blocked with `missing_download_approval` or `revoked_or_expired_download_approval`; allowed audit metadata records `download_approval_id`. This is local v0 route behavior, not production authorization, not user identity, not signed URL support, not hosted evidence, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

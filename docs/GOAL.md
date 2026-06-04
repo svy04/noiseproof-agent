@@ -1069,6 +1069,44 @@ Next recommended gate:
 uploaded raw file download approval gate behavior v0
 ```
 
+Phase 411 extension to the accepted state:
+
+```text
+Uploaded Raw File Download Approval Gate Behavior v0
+```
+
+### Phase 411 - Uploaded Raw File Download Approval Gate Behavior v0
+
+Goal:
+
+```text
+wire active approval lookup into guarded raw download behavior without claiming production authorization
+```
+
+Implemented:
+
+```text
+uploaded raw file download approval gate behavior v0
+docs/review/uploaded-raw-file-download-approval-gate-behavior.md
+download route calls find_active_raw_file_download_approval
+latest clean scan and active approval required
+missing_download_approval block reason
+revoked_or_expired_download_approval block reason
+download_approval_id in metadata_json for allowed events
+X-NoiseProof-Download-Boundary: scan_first_latest_clean_result_and_active_approval_required
+README implementation marker
+docs/runbook.md route behavior note
+docs/application/portfolio-index.md route behavior entry
+```
+
+Phase 411 is local v0 route behavior. It adds no hosted deployment evidence, external reviewer feedback, production authorization, user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+uploaded raw file download approval gate behavior runtime smoke v0
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

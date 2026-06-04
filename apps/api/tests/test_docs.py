@@ -13521,9 +13521,6 @@ def test_uploaded_raw_file_download_approval_schema_is_documented_without_route_
         REPO_ROOT / "db/migrations/021_raw_file_download_approvals.sql"
     ).read_text(encoding="utf-8")
     init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
-    route_py = (REPO_ROOT / "apps/api/app/routes/documents.py").read_text(
-        encoding="utf-8"
-    )
 
     assert "Uploaded Raw File Download Approval Schema" in content
     assert "uploaded raw file download approval schema v0" in content
@@ -13551,8 +13548,6 @@ def test_uploaded_raw_file_download_approval_schema_is_documented_without_route_
     assert "not user identity" in content
     assert "not signed URL support" in content
     assert "not RBAC" in content
-    download_route_segment = route_py.split("def download_upload_raw_file(", 1)[1]
-    assert "raw_file_download_approvals" not in download_route_segment
     assert (
         "Uploaded raw file download approval schema v0: implemented"
         in readme
@@ -13973,8 +13968,6 @@ def test_uploaded_raw_file_download_approval_helper_documents_repository_only_co
     assert "not signed URL support" in content
     assert "not RBAC" in content
     assert "def find_active_raw_file_download_approval" in db_py
-    download_route_segment = route_py.split("def download_upload_raw_file(", 1)[1]
-    assert "find_active_raw_file_download_approval" not in download_route_segment
     assert (
         "Uploaded raw file download approval helper v0: implemented"
         in readme
@@ -13983,5 +13976,58 @@ def test_uploaded_raw_file_download_approval_helper_documents_repository_only_co
     assert "uploaded raw file download approval helper v0" in runbook
     assert (
         "docs/review/uploaded-raw-file-download-approval-helper.md"
+        in portfolio
+    )
+
+
+def test_uploaded_raw_file_download_approval_gate_behavior_documents_route_enforcement():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-download-approval-gate-behavior.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    route_py = (REPO_ROOT / "apps/api/app/routes/documents.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Approval Gate Behavior" in content
+    assert "uploaded raw file download approval gate behavior v0" in content
+    assert "latest clean scan and active approval required" in content
+    assert "find_active_raw_file_download_approval" in content
+    assert "missing_download_approval" in content
+    assert "revoked_or_expired_download_approval" in content
+    assert "download_approval_id" in content
+    assert "scan_first_latest_clean_result_and_active_approval_required" in content
+    assert "active download approval required before raw file download" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert "not RBAC" in content
+    download_route_segment = route_py.split("def download_upload_raw_file(", 1)[1]
+    assert "find_active_raw_file_download_approval" in download_route_segment
+    assert "missing_download_approval" in download_route_segment
+    assert "revoked_or_expired_download_approval" in download_route_segment
+    assert "download_approval_id" in download_route_segment
+    assert (
+        "Uploaded raw file download approval gate behavior v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 411 - Uploaded Raw File Download Approval Gate Behavior v0"
+        in goal
+    )
+    assert (
+        "uploaded raw file download approval gate behavior v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-gate-behavior.md"
         in portfolio
     )
