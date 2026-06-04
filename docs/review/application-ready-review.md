@@ -27,6 +27,7 @@ Forbidden claim: this is not hosted deployment evidence, automatic persistence r
 | local Docker Compose stack runs | Pass | `docker compose ps` shows healthy `noiseproof-agent-db` | local only |
 | PDF, CSV, URL/HTML, markdown memo inputs supported | Partial | parser adapter stubs, JSON text-only PDF fallback, and uploaded PDF text extraction v0 | OCR, table extraction, layout fidelity, and robust PDF extraction are not claimed |
 | uploaded PDF downstream handoff runtime proof exists | Pass | `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md` | local runtime evidence only; digital PDF text only; not OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, or hosted deployment evidence |
+| uploaded PDF retrieval-run provenance runtime proof exists | Pass | `docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md` | local runtime evidence only; preserves parser provenance into retrieval-run candidate metadata; not OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, Evidence Ledger generation, or hosted deployment evidence |
 | document profile is generated | Pass | `POST /documents/profile` | direct text payloads only |
 | three chunk strategies can be compared | Pass | fixed-window, heading-aware, row-aware | chunks are not persisted |
 | retrieval returns source ids | Pass | lexical retrieval v0 plus caller-provided semantic retrieval preview/persistence | semantic retrieval quality remains unproven; embedding generation is not implemented |

@@ -44,29 +44,31 @@ Read in this order:
     - uploaded-file parsed document persistence proof with document metadata/profile persistence and no raw file storage.
 17. `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md`
     - uploaded PDF downstream handoff proof with `parser -> pdf-pymupdf`, `digital_pdf_text_extraction -> true`, upload chunk preview, explicit upload-to-chunks persistence, listed chunk lookup, and upload retrieval preview.
-18. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
+18. `docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md`
+    - uploaded PDF retrieval-run provenance proof with `POST /documents/upload-chunks`, `POST /documents/{document_id}/retrieval-runs`, `candidate_parsers -> pdf-pymupdf`, and `source_provenance_boundary`.
+19. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
     - uploaded-file chunk handoff proof with explicit `POST /documents/upload-chunks` and no raw uploaded byte storage.
-19. `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
+20. `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
     - uploaded-file retrieval persistence proof with explicit `POST /documents/{document_id}/retrieval-runs`, persisted `retrieval_runs`, and no Evidence Ledger generation.
-20. `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
+21. `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
     - retrieval-run-linked Evidence Ledger proof with explicit `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`.
-21. `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
+22. `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
     - retrieval-run-linked Noise Gate proof with explicit `POST /retrieval-runs/{retrieval_run_id}/noise-gate` after linked ledger rows.
-22. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
+23. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
     - retrieval-run-linked Report proof with explicit `POST /retrieval-runs/{retrieval_run_id}/report`, `pre_report_status: 409`, and `input_noise_gate_record_id`.
-23. `docs/review/embedding-endpoint-runtime-smoke.md`
+24. `docs/review/embedding-endpoint-runtime-smoke.md`
     - caller-provided chunk embedding endpoint proof with explicit `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, and generated-claim rejection `400`.
-24. `docs/review/semantic-retrieval-persistence-runtime-smoke.md`
+25. `docs/review/semantic-retrieval-persistence-runtime-smoke.md`
     - caller-provided semantic retrieval persistence proof with explicit `POST /documents/{document_id}/semantic-retrieval-runs`, `GET /retrieval-runs`, dimension mismatch `400`, and unchanged Evidence Ledger counts.
-25. `docs/evaluation/semantic-retrieval-quality-report.md`
+26. `docs/evaluation/semantic-retrieval-quality-report.md`
     - toy semantic retrieval quality report with visible misses and disagreement; not vector search quality evidence.
-26. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
+27. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
     - uploaded raw file storage proof with explicit `POST /documents/upload-raw-files`, `GET /documents/upload-raw-files`, quarantined PostgreSQL BYTEA storage, no malware scanning, and no download endpoint.
-27. `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md`
+28. `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md`
     - uploaded raw file scan result endpoint proof with explicit `POST /documents/upload-raw-files/{raw_file_id}/scan-results`, `GET /documents/upload-raw-files/{raw_file_id}/scan-results`, `scan_verdict -> scan_error`, `response_has_raw_bytes -> false`, no malware scanning, and no download endpoint.
-28. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
+29. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
     - ClamAV adapter runtime smoke proof with deterministic fake-runner scenarios; no real ClamAV execution, no signature database evidence, no malware scanning, and no download endpoint.
-29. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
+30. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
     - uploaded raw file scan execution endpoint runtime proof with local Docker DB and live FastAPI HTTP; default scanner-unavailable returns failed / scan_error, no real ClamAV execution, no malware scanning, and no download endpoint.
 
 ## Optional source-level provenance
@@ -185,6 +187,14 @@ docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
 ```
 
 This proof is explicit `POST /documents/{document_id}/retrieval-runs` over persisted `document_chunks`, not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.
+
+uploaded PDF retrieval-run provenance proof:
+
+```text
+docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md
+```
+
+This proof is explicit `POST /documents/upload-chunks` into `POST /documents/{document_id}/retrieval-runs` with `candidate_parsers -> pdf-pymupdf` and `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`. It is not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction, not OCR, not table extraction, not raw file storage, and not Evidence Ledger generation.
 
 uploaded raw file storage proof:
 

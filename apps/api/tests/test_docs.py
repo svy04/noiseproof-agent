@@ -10643,11 +10643,73 @@ def test_uploaded_pdf_retrieval_run_provenance_is_documented_without_robust_pdf_
     assert "does not create Evidence Ledger entries" in content
     assert "Uploaded PDF retrieval-run provenance v0: implemented" in readme
     assert "Phase 347 - Uploaded PDF Retrieval-run Provenance v0" in goal
-    assert "Accepted state as of Phase 347" in goal
+    assert "Uploaded PDF Retrieval-run Provenance v0" in goal
     assert "uploaded PDF retrieval-run provenance v0" in runbook
     assert "docs/review/uploaded-pdf-retrieval-run-provenance.md" in portfolio
     assert "PDF-derived upload chunks preserve minimal parser provenance" in architecture
     assert "PDF-derived upload chunks preserve minimal parser provenance" in api_readme
+
+
+def test_uploaded_pdf_retrieval_run_provenance_runtime_smoke_records_live_http_evidence():
+    smoke_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md"
+    )
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded PDF Retrieval-run Provenance Runtime Smoke" in content
+    assert "uploaded PDF retrieval-run provenance runtime smoke v0" in content
+    assert "Docker version" in content
+    assert "Docker Compose version" in content
+    assert "docker compose --profile api up -d --build api" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/retrieval-runs -> 201" in content
+    assert "GET /retrieval-runs -> 200" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "chunk_metadata_parser -> pdf-pymupdf" in content
+    assert "retrieval_candidate_parsers -> pdf-pymupdf" in content
+    assert "retrieval_digital_pdf_text_extraction -> true" in content
+    assert "retrieval_robust_pdf_extraction -> false" in content
+    assert "source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only" in content
+    assert "all_required_markers_passed -> true" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction" in content
+    assert "not Evidence Ledger generation" in content
+    assert (
+        "Uploaded PDF retrieval-run provenance runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 348 - Uploaded PDF Retrieval-run Provenance Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded PDF retrieval-run provenance runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md"
+        in portfolio
+    )
+    assert "uploaded PDF retrieval-run provenance runtime proof exists" in application_ready
+    assert (
+        "docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md"
+        in proof_path
+    )
+    assert "candidate_parsers -> pdf-pymupdf" in proof_path
 
 
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
