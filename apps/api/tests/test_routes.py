@@ -1871,7 +1871,7 @@ def test_document_upload_raw_file_download_requires_active_approval_after_latest
     assert events.json()[0]["latest_scan_result_id"] == scan.json()["id"]
 
 
-def test_document_upload_raw_file_download_blocks_expired_approval_after_latest_clean_scan():
+def test_document_upload_raw_file_download_blocks_revoked_approval_after_latest_clean_scan():
     client = make_client()
     scanner = RecordingCleanScanner()
     client.app.dependency_overrides[get_scanner_adapter] = lambda: scanner
@@ -1888,9 +1888,10 @@ def test_document_upload_raw_file_download_blocks_expired_approval_after_latest_
         json={
             "raw_file_id": raw_file_id,
             "latest_scan_result_id": scan.json()["id"],
-            "approval_reason": "expired local approval test",
+            "approval_status": "revoked",
+            "approval_reason": "revoked local approval test",
             "approved_by_label": "local-operator",
-            "expires_at": datetime(2000, 1, 1, tzinfo=timezone.utc).isoformat(),
+            "expires_at": datetime(2999, 1, 1, tzinfo=timezone.utc).isoformat(),
         },
     )
 

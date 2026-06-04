@@ -1107,6 +1107,57 @@ Next recommended gate:
 uploaded raw file download approval gate behavior runtime smoke v0
 ```
 
+Phase 412 extension to the accepted state:
+
+```text
+Uploaded Raw File Download Approval Gate Behavior Runtime Smoke v0
+```
+
+### Phase 412 - Uploaded Raw File Download Approval Gate Behavior Runtime Smoke v0
+
+Goal:
+
+```text
+verify active-approval-gated raw file download behavior through local Docker FastAPI plus PostgreSQL runtime
+```
+
+Implemented:
+
+```text
+uploaded raw file download approval gate behavior runtime smoke v0
+docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md
+db/migrations/022_raw_file_download_event_approval_block_reasons.sql
+db/init/001_schema.sql blocked reason alignment
+docker compose --profile api config
+docker compose --profile api up -d --build api
+migration runner applied 022
+Applied migrations: 21
+Pending migrations: 0
+GET /health -> 200
+GET /ops/summary -> 200
+clean_without_approval_status: 409
+clean_without_approval_blocked_reason: missing_download_approval
+revoked_approval_create_status: 201
+revoked_approval_status: 409
+revoked_approval_blocked_reason: revoked_or_expired_download_approval
+active_approval_create_status: 201
+active_approval_status: 200
+active_download_boundary: scan_first_latest_clean_result_and_active_approval_required
+active_approval_event_result: allowed
+download_approval_id_present: true
+README implementation marker
+docs/runbook.md runtime smoke note
+docs/application/portfolio-index.md runtime smoke entry
+```
+
+Phase 412 is local runtime evidence only. It adds no hosted deployment evidence, external reviewer feedback, production authorization, user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+external reviewer request refresh for the approval gate runtime smoke, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

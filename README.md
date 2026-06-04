@@ -528,6 +528,8 @@ Uploaded raw file download approval helper v0: implemented. Boundary: repository
 
 Uploaded raw file download approval gate behavior v0: implemented. Boundary: guarded raw downloads now require latest clean scan and active approval; missing/expired approval attempts are blocked and audited, allowed events include `download_approval_id` in metadata_json; not production authorization, user identity, signed URL support, RBAC, hosted evidence, or product-complete claim.
 
+Uploaded raw file download approval gate behavior runtime smoke v0: implemented. Boundary: local Docker FastAPI plus PostgreSQL verified `missing_download_approval`, `revoked_or_expired_download_approval`, and active approval 200 paths after migration 022 aligned the audit event blocked-reason constraint; not production authorization, user identity, signed URL support, RBAC, hosted evidence, or product-complete claim.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

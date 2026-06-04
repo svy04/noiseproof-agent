@@ -14031,3 +14031,59 @@ def test_uploaded_raw_file_download_approval_gate_behavior_documents_route_enfor
         "docs/review/uploaded-raw-file-download-approval-gate-behavior.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_approval_gate_behavior_runtime_smoke_records_live_http_evidence():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Approval Gate Behavior Runtime Smoke" in content
+    assert (
+        "uploaded raw file download approval gate behavior runtime smoke v0"
+        in content
+    )
+    assert "local Docker FastAPI plus PostgreSQL" in content
+    assert "clean_without_approval_status: 409" in content
+    assert "clean_without_approval_blocked_reason: missing_download_approval" in content
+    assert (
+        "revoked_approval_blocked_reason: revoked_or_expired_download_approval"
+        in content
+    )
+    assert "revoked_approval_create_status: 201" in content
+    assert "revoked_approval_status: 409" in content
+    assert "active_approval_status: 200" in content
+    assert "active_approval_event_result: allowed" in content
+    assert "download_approval_id_present: true" in content
+    assert "scan_first_latest_clean_result_and_active_approval_required" in content
+    assert "db/migrations/022_raw_file_download_event_approval_block_reasons.sql" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert "not hosted deployment evidence" in content
+    assert (
+        "Uploaded raw file download approval gate behavior runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 412 - Uploaded Raw File Download Approval Gate Behavior Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "uploaded raw file download approval gate behavior runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md"
+        in portfolio
+    )

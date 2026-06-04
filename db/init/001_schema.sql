@@ -153,7 +153,9 @@ CREATE TABLE IF NOT EXISTS raw_file_download_events (
       'latest_scan_not_clean',
       'quarantine_status_blocked',
       'rate_limited',
-      'raw_file_missing'
+      'raw_file_missing',
+      'missing_download_approval',
+      'revoked_or_expired_download_approval'
     )
   ),
   http_status_code INTEGER NOT NULL CHECK (

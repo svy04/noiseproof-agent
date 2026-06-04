@@ -256,6 +256,8 @@ Phase 410 adds uploaded raw file download approval helper v0: `docs/review/uploa
 
 Phase 411 adds uploaded raw file download approval gate behavior v0: `docs/review/uploaded-raw-file-download-approval-gate-behavior.md` wires `find_active_raw_file_download_approval` into the raw download route. Guarded raw downloads now require latest clean scan and active approval. Missing approval and expired/revoked approval attempts are blocked with `missing_download_approval` or `revoked_or_expired_download_approval`; allowed audit metadata records `download_approval_id`. This is local v0 route behavior, not production authorization, not user identity, not signed URL support, not hosted evidence, and not product-complete.
 
+Phase 412 adds uploaded raw file download approval gate behavior runtime smoke v0: `docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md` records local Docker FastAPI plus PostgreSQL proof that guarded raw downloads now block latest-clean-scan/no-approval attempts with `missing_download_approval`, block latest-clean-scan/non-active-approval attempts with `revoked_or_expired_download_approval`, and allow latest-clean-scan/active-approval downloads with `download_approval_id` in audit metadata. Migration runner applied `022_raw_file_download_event_approval_block_reasons.sql` and reached `Applied migrations: 21`, `Pending migrations: 0`. This is local runtime evidence only, not production authorization, not user identity, not signed URL support, not hosted evidence, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

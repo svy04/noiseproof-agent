@@ -938,7 +938,6 @@ def download_upload_raw_file(
             approval
             for approval in repository.list_raw_file_download_approvals(
                 raw_file_id=raw_file_id,
-                approval_status="approved",
                 limit=100,
             )
             if str(approval.get("latest_scan_result_id")) == str(latest_result["id"])
