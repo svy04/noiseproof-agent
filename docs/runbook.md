@@ -5933,6 +5933,42 @@ not hosted deployment evidence
 not production malware scanning evidence
 ```
 
+## External Feedback Current-state ClamAV Malicious-detection Issue Verification
+
+Phase marker: external feedback current-state clamav malicious-detection issue verification v0.
+
+Use this artifact:
+
+```text
+docs/review/external-feedback-current-state-clamav-malicious-detection-issue-verification.md
+```
+
+Observed live issue markers:
+
+```text
+updatedAt: 2026-06-04T18:22:31Z
+starts_with_request: true
+first_codepoint: 35
+has_clamav_malicious_detection_proof: true
+has_clamav_malicious_detection_request_refresh: true
+comment_count: 1
+screened_comment_count: 1
+candidate_count: 0
+draft_count: 0
+classification: non_qualifying
+reason: self_authored_comment
+does_not_close_gate: true
+```
+
+Boundary:
+
+```text
+not external reviewer feedback
+not hosted deployment evidence
+not production malware scanning evidence
+external reviewer feedback remains pending
+```
+
 ## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery
 
 Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke input discovery v0.

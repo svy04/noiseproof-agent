@@ -58,3 +58,11 @@ not product-complete
 ```
 
 This refresh changes reviewer navigation on issue #1 only. It adds no runtime behavior, schema, migration, API endpoint, external reviewer feedback, hosted deployment evidence, production malware scanning evidence, customer validation, Braincrew acceptance, or product-complete claim.
+
+## Follow-up Current-state Verification
+
+The current issue state after this owner-authored edit is recorded here:
+
+```text
+docs/review/external-feedback-current-state-clamav-malicious-detection-issue-verification.md
+```
