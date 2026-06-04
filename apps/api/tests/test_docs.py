@@ -11925,3 +11925,41 @@ def test_external_reviewer_guarded_download_request_refresh_links_runtime_proof(
     )
     assert "Phase 369 - External Reviewer Guarded Download Request Refresh v0" in goal
     assert "external reviewer guarded download request refresh v0" in runbook
+
+
+def test_external_review_issue_body_guarded_download_refresh_records_owner_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-guarded-download-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Guarded Download Refresh" in content
+    assert "external review issue body guarded download refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert '"has_guarded_download_proof": true' in content
+    assert '"has_guarded_download_request_refresh": true' in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"comment_count": 1' in content
+    assert "docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md" in content
+    assert "docs/review/external-reviewer-guarded-download-request-refresh.md" in content
+    assert "owner-authored issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production malware scanning evidence" in content
+    assert "not production authorization" in content
+    assert "not enforced download rate limiting" in content
+    assert "external feedback current-state guarded download issue verification v0" in content
+    assert "External review issue body guarded download refresh v0: implemented" in readme
+    assert "Phase 370 - External Review Issue Body Guarded Download Refresh v0" in goal
+    assert "external review issue body guarded download refresh v0" in runbook
+    assert "docs/review/external-review-issue-body-guarded-download-refresh.md" in portfolio

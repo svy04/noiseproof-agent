@@ -172,6 +172,8 @@ Phase 368 adds guarded raw file download endpoint runtime smoke v0: `docs/review
 
 Phase 369 adds external reviewer guarded download request refresh v0: `docs/review/external-reviewer-guarded-download-request-refresh.md` updates reviewer-facing repository surfaces so `docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md` is visible from the proof path, review request, reviewer brief, link map, portfolio index, Braincrew role map, and application-ready review. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not production malware scanning evidence, and not product-complete.
 
+Phase 370 adds external review issue body guarded download refresh v0: `docs/review/external-review-issue-body-guarded-download-refresh.md` records the owner-authored issue #1 body update that points reviewers to `docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md` and `docs/review/external-reviewer-guarded-download-request-refresh.md`. This is not external reviewer feedback, not hosted deployment evidence, not production malware scanning evidence, not production authorization, not enforced download rate limiting, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

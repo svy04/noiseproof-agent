@@ -444,6 +444,8 @@ Guarded raw file download endpoint runtime smoke v0: implemented. Boundary: loca
 
 External reviewer guarded download request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the guarded raw file download runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not production malware scanning evidence, and not product-complete.
 
+External review issue body guarded download refresh v0: implemented. Boundary: issue #1 now points to the guarded raw file download runtime smoke and its reviewer request refresh; owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, not production malware scanning evidence, not production authorization, and not enforced download rate limiting.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:
