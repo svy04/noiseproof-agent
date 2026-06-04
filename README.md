@@ -597,6 +597,8 @@ Uploaded raw file guard ops summary runtime smoke v0: implemented. Boundary: loc
 
 External reviewer raw-file guard ops summary request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the raw-file guard ops summary runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not production authorization, not authenticated identity, not signed URL support, and not product-complete.
 
+External review issue body raw-file guard ops summary refresh v0: implemented. Boundary: issue #1 now points reviewers to the raw-file guard ops summary runtime smoke and its reviewer request refresh; owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, not production authorization, not authenticated identity, not signed URL support, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

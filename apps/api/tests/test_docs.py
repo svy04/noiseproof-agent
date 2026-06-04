@@ -16035,3 +16035,70 @@ def test_external_reviewer_raw_file_guard_ops_summary_request_refresh_links_runt
         "docs/review/external-reviewer-raw-file-guard-ops-summary-request-refresh.md"
         in portfolio
     )
+
+
+def test_external_review_issue_body_raw_file_guard_ops_summary_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-raw-file-guard-ops-summary-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = "docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-raw-file-guard-ops-summary-request-refresh.md"
+    )
+
+    assert "External Review Issue Body Raw-file Guard Ops Summary Refresh" in content
+    assert "external review issue body raw-file guard ops summary refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_raw_file_guard_ops_summary_runtime_proof": true' in content
+    assert '"has_raw_file_guard_ops_summary_request_refresh": true' in content
+    assert '"has_upload_status_201": true' in content
+    assert '"has_missing_scan_download_409": true' in content
+    assert '"has_allowed_download_200": true' in content
+    assert '"has_ops_summary_delta": true' in content
+    assert '"has_dashboard_label_boundary": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert "upload_status_code: 201" in content
+    assert "missing_scan_download_status_code: 409" in content
+    assert "allowed_download_status_code: 200" in content
+    assert "uploaded_raw_file_count delta: 1" in content
+    assert "raw_file_scan_result_count delta: 2" in content
+    assert "raw_file_download_event_count delta: 2" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production authorization" in content
+    assert "not authenticated identity" in content
+    assert "not signed URL support" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body raw-file guard ops summary refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 446 - External Review Issue Body Raw-file Guard Ops Summary Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body raw-file guard ops summary refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-review-issue-body-raw-file-guard-ops-summary-refresh.md"
+        in portfolio
+    )
