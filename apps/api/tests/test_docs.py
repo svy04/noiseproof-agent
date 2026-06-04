@@ -14275,3 +14275,55 @@ def test_external_feedback_current_state_approval_gate_issue_verification_keeps_
         "docs/review/external-feedback-current-state-approval-gate-issue-verification.md"
         in issue_body_refresh
     )
+
+
+def test_uploaded_raw_file_download_approval_input_guard_documents_validation_boundary():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-download-approval-input-guard.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    schemas_py = (REPO_ROOT / "apps/api/app/schemas.py").read_text(encoding="utf-8")
+
+    assert "Uploaded Raw File Download Approval Input Guard" in content
+    assert "uploaded raw file download approval input guard v0" in content
+    assert "approved" in content
+    assert "revoked" in content
+    assert "expired" in content
+    assert "expires_at must be in the future" in content
+    assert "expected 422, observed 201" in content
+    assert "5 passed, 134 deselected, 1 warning" in content
+    assert "historical approval" in content
+    assert "not production authorization" in content
+    assert "not authenticated user identity" in content
+    assert "not signed URL support" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        'approval_status: Literal["approved", "revoked", "expired"]'
+        in schemas_py
+    )
+    assert "approved_status_requires_future_expiry" in schemas_py
+    assert (
+        "Uploaded raw file download approval input guard v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 416 - Uploaded Raw File Download Approval Input Guard v0"
+        in goal
+    )
+    assert "uploaded raw file download approval input guard v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-input-guard.md"
+        in portfolio
+    )
+    assert "approval input guard" in role_map

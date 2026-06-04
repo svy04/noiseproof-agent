@@ -451,7 +451,7 @@ def test_list_raw_file_scan_results_filters_without_exposing_raw_bytes():
 def test_raw_file_download_approval_create_defaults_preserve_local_boundaries():
     raw_file_id = UUID("55555555-5555-5555-5555-555555555555")
     latest_scan_result_id = UUID("66666666-6666-6666-6666-666666666666")
-    expires_at = datetime(2026, 6, 4, tzinfo=UTC)
+    expires_at = datetime(2999, 1, 1, tzinfo=UTC)
 
     payload = schemas.RawFileDownloadApprovalCreate(
         raw_file_id=raw_file_id,

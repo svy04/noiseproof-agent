@@ -536,6 +536,8 @@ External review issue body approval-gate refresh v0: implemented. Boundary: issu
 
 External feedback current-state approval-gate issue verification v0: implemented. Boundary: current issue #1 screen after the approval-gate issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
+Uploaded raw file download approval input guard v0: implemented. Boundary: `RawFileDownloadApprovalCreate` now rejects unknown approval statuses and rejects already expired `approved` approvals before they can become active approval metadata, while `RawFileDownloadApprovalOut` remains separate for historical audit rows; this is local v0 API/model input validation, not production authorization, not user identity, not signed URL support, not hosted evidence, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

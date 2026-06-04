@@ -264,6 +264,8 @@ Phase 414 adds external review issue body approval-gate refresh v0: `docs/review
 
 Phase 415 adds external feedback current-state approval-gate issue verification v0: `docs/review/external-feedback-current-state-approval-gate-issue-verification.md` records the live issue #1 current state after the approval-gate issue-body refresh. The issue body has the approval proof and request-refresh links, but the only comment is owner-authored; screening produced `candidate_count=0`, acceptance drafting produced `draft_count=0`, and external reviewer feedback remains pending.
 
+Phase 416 adds uploaded raw file download approval input guard v0: `docs/review/uploaded-raw-file-download-approval-input-guard.md` records local v0 API/model validation for manual approval metadata. `RawFileDownloadApprovalCreate` now rejects unknown `approval_status` values and rejects already expired `approved` approvals before they can become active approval rows; `RawFileDownloadApprovalOut` remains separate so historical expired approved rows can still be listed as audit records. Focused verification: `uv run pytest tests/test_routes.py -q -k "download_approval"` -> `5 passed, 134 deselected, 1 warning`. This is local input validation only, not production authorization, not authenticated user identity, not signed URL support, not hosted evidence, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

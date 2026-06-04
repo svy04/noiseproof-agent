@@ -14,7 +14,13 @@ from app.routes.documents import (
     DOWNLOAD_RATE_LIMIT_BOUNDARY,
     _safe_download_filename,
 )
-from app.schemas import AgentRunCreate, DocumentCreate, FailureCaseCreate, OpsSummaryOut
+from app.schemas import (
+    AgentRunCreate,
+    DocumentCreate,
+    FailureCaseCreate,
+    OpsSummaryOut,
+    RawFileDownloadApprovalOut,
+)
 from app.settings import Settings
 from app.services.raw_file_scan_execution import get_scanner_adapter
 from app.services.run_trace import run_with_trace
@@ -1622,7 +1628,7 @@ def test_document_upload_raw_file_download_approval_endpoint_persists_metadata_o
             "error_message": "scanner unavailable",
         },
     )
-    expires_at = datetime(2026, 6, 5, tzinfo=timezone.utc).isoformat()
+    expires_at = datetime(2999, 1, 1, tzinfo=timezone.utc).isoformat()
 
     response = client.post(
         f"/documents/upload-raw-files/{raw_file_id}/download-approvals",
@@ -1689,7 +1695,7 @@ def test_document_upload_raw_file_download_approval_rejects_path_body_mismatch()
             "latest_scan_result_id": str(uuid4()),
             "approval_reason": "manual local review after latest scan metadata",
             "approved_by_label": "local-operator",
-            "expires_at": datetime(2026, 6, 5, tzinfo=timezone.utc).isoformat(),
+            "expires_at": datetime(2999, 1, 1, tzinfo=timezone.utc).isoformat(),
         },
     )
 
@@ -1698,6 +1704,71 @@ def test_document_upload_raw_file_download_approval_rejects_path_body_mismatch()
     assert client.get(
         f"/documents/upload-raw-files/{raw_file_id}/scan-results"
     ).json() == []
+
+
+def test_document_upload_raw_file_download_approval_rejects_unknown_status():
+    client = make_client()
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", b"ticker,revenue\nALPHA,120\n", "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+
+    response = client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/download-approvals",
+        json={
+            "raw_file_id": raw_file_id,
+            "latest_scan_result_id": str(uuid4()),
+            "approval_status": "operator-said-ok",
+            "approval_reason": "manual local review after latest scan metadata",
+            "approved_by_label": "local-operator",
+            "expires_at": datetime(2999, 1, 1, tzinfo=timezone.utc).isoformat(),
+        },
+    )
+
+    assert response.status_code == 422
+    assert "approval_status" in str(response.json()["detail"])
+
+
+def test_document_upload_raw_file_download_approval_rejects_expired_active_approval():
+    client = make_client()
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", b"ticker,revenue\nALPHA,120\n", "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+
+    response = client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/download-approvals",
+        json={
+            "raw_file_id": raw_file_id,
+            "latest_scan_result_id": str(uuid4()),
+            "approval_status": "approved",
+            "approval_reason": "manual local review after latest scan metadata",
+            "approved_by_label": "local-operator",
+            "expires_at": datetime(2020, 1, 1, tzinfo=timezone.utc).isoformat(),
+        },
+    )
+
+    assert response.status_code == 422
+    assert "expires_at" in str(response.json()["detail"])
+
+
+def test_raw_file_download_approval_output_allows_historical_expired_approved_rows():
+    row = RawFileDownloadApprovalOut(
+        id=uuid4(),
+        raw_file_id=uuid4(),
+        latest_scan_result_id=uuid4(),
+        approval_status="approved",
+        approval_reason="manual local review before expiration",
+        approved_by_label="local-operator",
+        expires_at=datetime(2020, 1, 1, tzinfo=timezone.utc),
+        created_at=datetime(2020, 1, 1, tzinfo=timezone.utc),
+    )
+
+    assert row.approval_status == "approved"
 
 
 def test_document_upload_raw_file_scan_execution_defaults_to_scan_error_without_clean_claim():

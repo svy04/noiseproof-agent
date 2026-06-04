@@ -1277,6 +1277,45 @@ Next recommended gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 416 extension to the accepted state:
+
+```text
+Uploaded Raw File Download Approval Input Guard v0
+```
+
+### Phase 416 - Uploaded Raw File Download Approval Input Guard v0
+
+Goal:
+
+```text
+reject invalid manual approval metadata at the API/model boundary before approval rows feed guarded raw file downloads
+```
+
+Implemented:
+
+```text
+uploaded raw file download approval input guard v0
+docs/review/uploaded-raw-file-download-approval-input-guard.md
+RawFileDownloadApprovalCreate approval_status Literal approved/revoked/expired
+approved status requires future expires_at
+RawFileDownloadApprovalOut remains separate for historical audit rows
+unknown approval_status returns 422
+expired approved approval returns 422
+fixed approval endpoint route test to use a non-time-sensitive future expires_at
+README implementation marker
+docs/runbook.md input guard note
+docs/application/portfolio-index.md input guard artifact link
+docs/application/braincrew-role-map.md upload path marker
+```
+
+Phase 416 is local v0 API/model input validation only. It keeps the output model separate so historical audit rows remain listable. It adds no DB schema change, hosted deployment evidence, external reviewer feedback, production authorization, authenticated user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim. It does not close external reviewer feedback v0.
+
+Next recommended gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

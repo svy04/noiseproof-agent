@@ -1,9 +1,9 @@
 from datetime import date, datetime
 from decimal import Decimal
-from typing import Any
+from typing import Any, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 class DocumentCreate(BaseModel):
@@ -169,10 +169,10 @@ class RawFileDownloadEventOut(RawFileDownloadEventCreate):
     created_at: datetime
 
 
-class RawFileDownloadApprovalCreate(BaseModel):
+class RawFileDownloadApprovalBase(BaseModel):
     raw_file_id: UUID
     latest_scan_result_id: UUID
-    approval_status: str = "approved"
+    approval_status: Literal["approved", "revoked", "expired"] = "approved"
     approval_reason: str = Field(..., min_length=1)
     approved_by_label: str = Field(..., min_length=1)
     expires_at: datetime
@@ -182,7 +182,18 @@ class RawFileDownloadApprovalCreate(BaseModel):
     identity_boundary: str = "operator_label_not_authenticated_identity"
 
 
-class RawFileDownloadApprovalOut(RawFileDownloadApprovalCreate):
+class RawFileDownloadApprovalCreate(RawFileDownloadApprovalBase):
+    @model_validator(mode="after")
+    def approved_status_requires_future_expiry(self) -> "RawFileDownloadApprovalCreate":
+        if self.approval_status != "approved":
+            return self
+        now = datetime.now(self.expires_at.tzinfo)
+        if self.expires_at <= now:
+            raise ValueError("expires_at must be in the future for approved download approvals")
+        return self
+
+
+class RawFileDownloadApprovalOut(RawFileDownloadApprovalBase):
     id: UUID
     created_at: datetime
 
