@@ -12947,3 +12947,69 @@ def test_uploaded_raw_file_download_filename_safety_runtime_smoke_is_linked_and_
         "docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_external_reviewer_filename_safety_request_refresh_links_runtime_proof():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-filename-safety-request-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    review_request = (
+        REPO_ROOT / "docs/review/external-review-request.md"
+    ).read_text(encoding="utf-8")
+    reviewer_brief = (
+        REPO_ROOT / "docs/review/external-reviewer-brief.md"
+    ).read_text(encoding="utf-8")
+    link_map = (
+        REPO_ROOT / "docs/review/external-reviewer-link-map.md"
+    ).read_text(encoding="utf-8")
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = (
+        "docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md"
+    )
+
+    assert "External Reviewer Filename-safety Request Refresh" in content
+    assert "external reviewer filename-safety request refresh v0" in content
+    assert proof_doc in content
+    assert "safe_filename_length 120" in content
+    assert "no_path/no_dotdot/no_crlf/no_injected/ends_csv/lte_120" in content
+    assert "not live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production authorization" in content
+    assert "not malware detection proof" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert (
+        "External reviewer filename-safety request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 392 - External Reviewer Filename-safety Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer filename-safety request refresh v0" in runbook
+    assert "raw file download filename safety runtime smoke" in proof_path
+    assert proof_doc in review_request
+    assert proof_doc in reviewer_brief
+    assert proof_doc in link_map
+    assert proof_doc in role_map
+    assert proof_doc in portfolio
+    assert (
+        "docs/review/external-reviewer-filename-safety-request-refresh.md"
+        in portfolio
+    )

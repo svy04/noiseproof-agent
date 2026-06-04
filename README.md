@@ -488,6 +488,8 @@ Uploaded raw file download filename safety local v0: implemented. Boundary: guar
 
 Uploaded raw file download filename safety runtime smoke v0: implemented. Boundary: local Docker FastAPI verified a path/encoded-control/overlong CSV filename downloads with `local_v0_content_disposition_filename_safety_not_production`, a 120-character safe attachment filename, no path/dotdot/CRLF/injected-label content, and preserved `.csv`; not production authorization, hosted proof, malware detection proof, or product-complete.
 
+External reviewer filename-safety request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the raw file download filename safety runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not production authorization, not malware detection proof, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

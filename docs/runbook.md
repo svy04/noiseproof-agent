@@ -216,6 +216,8 @@ Phase 390 adds uploaded raw file download filename safety local v0: `docs/review
 
 Phase 391 adds uploaded raw file download filename safety runtime smoke v0: `docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md` records local Docker FastAPI proof for a path-like, URL-encoded-control, overlong CSV filename flowing through upload -> manual clean scan metadata -> guarded download. Observed output includes `filename_boundary local_v0_content_disposition_filename_safety_not_production`, `safe_filename_length 120`, and safe checks for no path, no dotdot, no CRLF, no injected label, `.csv` suffix preserved, and `lte_120`. This is local runtime proof only, not production authorization, hosted proof, malware detection proof, or product-complete.
 
+Phase 392 adds external reviewer filename-safety request refresh v0: `docs/review/external-reviewer-filename-safety-request-refresh.md` updates reviewer-facing repository surfaces so `docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md` is visible from the proof path, review request, reviewer brief, link map, Braincrew role map, and portfolio index. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not production authorization, not malware detection proof, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

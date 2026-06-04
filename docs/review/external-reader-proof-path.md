@@ -80,6 +80,8 @@ Read in this order:
     - raw file signature validation runtime smoke with local Docker DB and live FastAPI HTTP; spoofed CSV upload returns `201`, declared PDF mismatch returns `415`, blocked response has no raw bytes, and mismatch hash is not recently persisted; not hosted deployment evidence, not external reviewer feedback, not robust file-type detection, not malware scanning evidence, and not production authorization.
 34. `docs/review/uploaded-raw-file-extension-allowlist-runtime-smoke.md`
     - raw file extension allowlist runtime smoke with local Docker DB and live FastAPI HTTP; allowed CSV upload returns `201`, `sample.exe.csv` double-extension upload returns `415`, responses include no raw bytes, and blocked content hash is not recently persisted; not hosted deployment evidence, not external reviewer feedback, not robust file-type detection, not malware scanning evidence, and not production authorization.
+35. `docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md`
+    - raw file download filename safety runtime smoke with local Docker FastAPI; path-like and URL-encoded-control CSV filename input downloads with `local_v0_content_disposition_filename_safety_not_production`, a 120-character safe attachment filename, no path/dotdot/CRLF/injected-label content, and preserved `.csv`; not hosted deployment evidence, not external reviewer feedback, not malware detection proof, and not production authorization.
 
 ## Optional source-level provenance
 

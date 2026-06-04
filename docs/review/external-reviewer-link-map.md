@@ -91,10 +91,13 @@ https://github.com/svy04/noiseproof-agent/issues/1
 27. raw file extension allowlist runtime smoke:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-extension-allowlist-runtime-smoke.md
    Boundary: local Docker DB plus live FastAPI HTTP for local v0 raw file extension allowlisting; allowed CSV upload returns `201`, `sample.exe.csv` double-extension block returns `415`, responses include no raw bytes, and the blocked content hash is not recently persisted; not hosted deployment evidence, not external reviewer feedback, not robust file-type detection, not malware scanning evidence, and not production authorization.
-28. architecture current-state refresh:
+28. raw file download filename safety runtime smoke:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md
+   Boundary: local Docker FastAPI for local v0 guarded raw file download attachment filename safety; path-like and URL-encoded-control CSV filename input downloads with a 120-character safe attachment filename and `local_v0_content_disposition_filename_safety_not_production`; not hosted deployment evidence, not external reviewer feedback, not malware detection proof, not robust file serving, and not production authorization.
+29. architecture current-state refresh:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/architecture-current-state-refresh.md
    Boundary: separates implemented upload/chunk/retrieval/evidence handoff surfaces from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality.
-29. Feedback intake criteria:
+30. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route

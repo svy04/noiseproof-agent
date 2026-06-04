@@ -231,6 +231,14 @@ docs/review/uploaded-raw-file-extension-allowlist-runtime-smoke.md
 
 Boundary: this proof is local Docker PostgreSQL plus live FastAPI HTTP evidence for local v0 raw file extension allowlisting; allowed CSV upload returns `201`, `sample.exe.csv` double-extension block returns `415`, responses include no raw bytes, and the blocked content hash is not recently persisted. It is not hosted deployment evidence, not external reviewer feedback, not robust file-type detection, not malware scanning evidence, not endpoint malicious-detection runtime proof, and not production authorization.
 
+raw file download filename safety runtime smoke:
+
+```text
+docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md
+```
+
+Boundary: this proof is local Docker FastAPI evidence for local v0 guarded raw file download attachment filename safety; a path-like and URL-encoded-control CSV filename downloads with a 120-character safe attachment filename and `local_v0_content_disposition_filename_safety_not_production`. It is not hosted deployment evidence, not external reviewer feedback, not malware detection proof, not robust file serving, not endpoint malicious-detection runtime proof, and not production authorization.
+
 architecture current-state refresh:
 
 ```text
