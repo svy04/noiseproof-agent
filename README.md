@@ -109,6 +109,7 @@ Current status groups:
 - proof surfaces: DB/failure smoke artifacts, reviewer path/request/brief/link-map/root-guide, live issue/request-surface checks, feedback screening artifacts, and Braincrew application mapping
 
 Latest marker: Failure-case workflow review queue v0: implemented.
+Latest runtime marker: Failure-case workflow review queue runtime smoke verification v0: implemented.
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*` artifacts.
 
