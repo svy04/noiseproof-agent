@@ -28,6 +28,14 @@ uploaded PDF retrieval-run-linked Evidence Ledger provenance runtime proof:
 docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance-runtime-smoke.md
 ```
 
+## Follow-up
+
+The live issue body refresh is recorded here:
+
+```text
+docs/review/external-review-issue-body-pdf-retrieval-run-linked-evidence-ledger-provenance-refresh.md
+```
+
 ## Evidence Markers
 
 ```text

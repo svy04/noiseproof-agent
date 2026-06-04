@@ -11185,6 +11185,89 @@ def test_external_reviewer_pdf_retrieval_run_linked_evidence_ledger_request_refr
         )
 
 
+def test_external_review_issue_body_pdf_retrieval_run_linked_evidence_ledger_refresh_records_live_issue_update():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-pdf-retrieval-run-linked-evidence-ledger-provenance-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    request_refresh = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-pdf-retrieval-run-linked-evidence-ledger-provenance-request-refresh.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Review Issue Body PDF Retrieval-run-linked Evidence Ledger Provenance Refresh"
+        in content
+    )
+    assert (
+        "external reviewer PDF retrieval-run-linked Evidence Ledger provenance issue-body refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert (
+        "uploaded PDF retrieval-run-linked Evidence Ledger provenance runtime proof"
+        in content
+    )
+    assert (
+        "docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance-runtime-smoke.md"
+        in content
+    )
+    assert (
+        "docs/review/external-reviewer-pdf-retrieval-run-linked-evidence-ledger-provenance-request-refresh.md"
+        in content
+    )
+    assert "POST /documents/upload-chunks" in content
+    assert "POST /documents/{document_id}/retrieval-runs" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger" in content
+    assert "GET /evidence-ledgers?retrieval_run_id=" in content
+    assert "metadata_json.parser -> pdf-pymupdf" in content
+    assert (
+        "metadata_json.source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk"
+        in content
+    )
+    assert "ledger_retrieval_run_id_matches -> true" in content
+    assert "updatedAt:" in content
+    assert "has_pdf_retrieval_run_linked_evidence_ledger_runtime_proof: true" in content
+    assert "has_pdf_retrieval_run_linked_evidence_ledger_request_refresh: true" in content
+    assert "has_metadata_json_parser_marker: true" in content
+    assert "has_ledger_retrieval_run_match_marker: true" in content
+    assert "owner-authored issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not Noise Gate behavior" in content
+    assert "not report generation" in content
+    assert (
+        "External reviewer PDF retrieval-run-linked Evidence Ledger provenance issue-body refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 355 - External Reviewer PDF Retrieval-run-linked Evidence Ledger Provenance Issue-body Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer PDF retrieval-run-linked Evidence Ledger provenance issue-body refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-review-issue-body-pdf-retrieval-run-linked-evidence-ledger-provenance-refresh.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/external-review-issue-body-pdf-retrieval-run-linked-evidence-ledger-provenance-refresh.md"
+        in request_refresh
+    )
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()
