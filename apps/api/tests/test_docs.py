@@ -10312,6 +10312,55 @@ def test_uploaded_pdf_downstream_handoff_is_documented_without_robust_claim():
     )
 
 
+def test_uploaded_pdf_downstream_handoff_runtime_smoke_records_live_http_evidence():
+    smoke_path = REPO_ROOT / "docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md"
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded PDF Downstream Handoff Runtime Smoke" in content
+    assert "uploaded PDF downstream handoff runtime smoke v0" in content
+    assert "Docker version" in content
+    assert "Docker Compose version" in content
+    assert "docker compose --profile api up -d --build api" in content
+    assert "uv run python -m app.migration_runner --status" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-chunk-preview -> 200" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/upload-retrieval-preview -> 200" in content
+    assert "GET /documents/{document_id}/chunks -> 200" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "digital_pdf_text_extraction -> true" in content
+    assert "robust_pdf_extraction -> false" in content
+    assert "chunk_text_contains_pdf_text -> true" in content
+    assert "retrieval_text_contains_pdf_text -> true" in content
+    assert "replacement_decode_warning_present -> false" in content
+    assert "explicit_upload_to_chunks_no_raw_file_storage" in content
+    assert "chunk_text_only_no_raw_file_storage" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction" in content
+    assert (
+        "Uploaded PDF downstream handoff runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 342 - Uploaded PDF Downstream Handoff Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded PDF downstream handoff runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md"
+        in portfolio
+    )
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

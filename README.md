@@ -395,6 +395,8 @@ Uploaded PDF text extraction v0: implemented. Boundary: `POST /documents/upload-
 
 Uploaded PDF downstream handoff v0: implemented. Boundary: `POST /documents/upload-chunk-preview`, `POST /documents/upload-chunks`, and `POST /documents/upload-retrieval-preview` reuse PyMuPDF digital text extraction for uploaded PDF bytes; OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, and external reviewer feedback are not claimed.
 
+Uploaded PDF downstream handoff runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence shows uploaded digital PDF bytes flow through PyMuPDF extraction into upload chunk preview, explicit upload-to-chunks persistence, listed chunk lookup, and upload retrieval preview; this is not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, or raw file storage.
+
 ci node24 actions runtime opt-in v0: implemented. Boundary: `.github/workflows/ci.yml` and `.github/workflows/external-feedback-screen.yml` set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"` after the remote run warned that Node.js 20 actions are deprecated; this is workflow runtime compatibility only, not product runtime evidence.
 
 ci node24 actions runtime remote verification v0: implemented. Boundary: remote runs `26870586255` (`CI`) and `26870586219` (`External Feedback Screen`) succeeded on head `c3c6908`; the annotation is still present as a forced Node.js 24 runtime warning, so this is compatibility evidence only, not product runtime evidence.
