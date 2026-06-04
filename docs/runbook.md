@@ -5761,6 +5761,40 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## External Review Issue Body Owner-runtime Input-source Contract Refresh
+
+Phase marker: external review issue body owner-runtime input-source contract refresh v0.
+
+Use this artifact:
+
+```text
+docs/review/external-review-issue-body-owner-runtime-input-source-contract-refresh.md
+```
+
+The live issue body now points reviewers to:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-input-source-contract-ci-check.md
+```
+
+The refresh records:
+
+```text
+run_id: 26929243011
+head: 2c4da65
+discoverable_input_sources=file,stdin,environment
+accepted_input_sources=file,stdin
+first_codepoint: 35
+```
+
+This is owner-authored issue-body request infrastructure only. It does not run the owner runtime smoke, does not include a test signature payload, does not call the API, and is not endpoint malicious-detection runtime proof.
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery CI Check
 
 Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke input discovery ci check v0.

@@ -9923,6 +9923,52 @@ def test_clamav_api_endpoint_malicious_detection_owner_runtime_input_source_cont
     assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-input-source-contract-ci-check.md" in portfolio
 
 
+def test_external_review_issue_body_owner_runtime_input_source_contract_refresh_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-owner-runtime-input-source-contract-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Owner-runtime Input-source Contract Refresh" in content
+    assert "external review issue body owner-runtime input-source contract refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-input-source-contract-ci-check.md" in content
+    assert "run_id: 26929243011" in content
+    assert "head: 2c4da65" in content
+    assert "discoverable_input_sources=file,stdin,environment" in content
+    assert "accepted_input_sources=file,stdin" in content
+    assert "first_codepoint: 35" in content
+    assert "owner-authored issue body edit" in content
+    assert "does not close external reviewer feedback v0" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "does not include a test signature payload" in content
+    assert (
+        "External review issue body owner-runtime input-source contract refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 334 - External Review Issue Body Owner-runtime Input-source Contract Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body owner-runtime input-source contract refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-review-issue-body-owner-runtime-input-source-contract-refresh.md"
+        in portfolio
+    )
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

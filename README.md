@@ -379,6 +379,8 @@ ClamAV API endpoint malicious-detection owner runtime smoke input-source contrac
 
 ClamAV API endpoint malicious-detection owner runtime input-source contract ci check v0: implemented. Boundary: CI now checks the no-payload discovery output for `discoverable_input_sources=file,stdin,environment`, `accepted_input_sources=file,stdin`, and validator acceptance flags; this is CI contract guard evidence only, not endpoint malicious-detection runtime proof.
 
+External review issue body owner-runtime input-source contract refresh v0: implemented. Boundary: issue #1 now points to the owner-runtime input-source contract CI proof from run `26929243011` on head `2c4da65`; owner-authored issue edit only, not external reviewer feedback, not hosted deployment evidence, and not endpoint malicious-detection runtime proof.
+
 ci node24 actions runtime opt-in v0: implemented. Boundary: `.github/workflows/ci.yml` and `.github/workflows/external-feedback-screen.yml` set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"` after the remote run warned that Node.js 20 actions are deprecated; this is workflow runtime compatibility only, not product runtime evidence.
 
 ci node24 actions runtime remote verification v0: implemented. Boundary: remote runs `26870586255` (`CI`) and `26870586219` (`External Feedback Screen`) succeeded on head `c3c6908`; the annotation is still present as a forced Node.js 24 runtime warning, so this is compatibility evidence only, not product runtime evidence.
