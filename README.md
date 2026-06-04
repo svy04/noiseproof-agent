@@ -606,6 +606,8 @@ External reviewer workflow proof bundle request refresh v0: implemented. Boundar
 
 External review issue body workflow proof bundle refresh v0: implemented. Boundary: issue #1 now points reviewers to the workflow proof bundle runtime smoke and its request refresh; owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
 
+External feedback current-state workflow proof bundle issue verification v0: implemented. Boundary: current issue #1 has the workflow proof bundle proof/request links, but `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

@@ -204,6 +204,8 @@ External reviewer workflow proof bundle request refresh: `docs/review/external-r
 
 External review issue body workflow proof bundle refresh: `docs/review/external-review-issue-body-workflow-proof-bundle-refresh.md` records the owner-authored issue #1 body update that points reviewers to the workflow proof bundle runtime smoke and request refresh. It is not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
 
+External feedback current-state workflow proof bundle issue verification: `docs/review/external-feedback-current-state-workflow-proof-bundle-issue-verification.md` records that issue #1 currently has the workflow proof bundle proof/request links but no qualifying outside feedback yet. It observes one self-authored non-qualifying comment, `candidate_count: 0`, `draft_count: 0`, and keeps external reviewer feedback v0 pending.
+
 ## Start Here
 
 1. `README.md`
