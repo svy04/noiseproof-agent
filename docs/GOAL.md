@@ -1722,6 +1722,45 @@ Next recommended gate:
 ci node24 action version remote verification v0 after GitHub Actions runs, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 427 extension to the accepted state:
+
+```text
+CI Node24 Action Version Remote Verification v0
+```
+
+### Phase 427 - CI Node24 Action Version Remote Verification v0
+
+Goal:
+
+```text
+record remote GitHub Actions evidence after refreshing action references to Node.js 24-compatible upstream refs
+```
+
+Implemented:
+
+```text
+ci node24 action version remote verification v0
+docs/review/ci-node24-action-version-remote-verification.md
+remote run: 26969000702
+remote run: 26969000663
+head: 83fb603
+job id: 79579051552
+job id: 79579051531
+check-run annotations: []
+Node.js 20 forced-runtime warning observed: no
+README implementation marker
+docs/runbook.md remote verification note
+docs/application/portfolio-index.md artifact link
+```
+
+Phase 427 is workflow runtime compatibility evidence only. It adds no runtime behavior, schema, migration, API endpoint, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, production authorization, malware detection proof, endpoint malicious-detection runtime proof, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

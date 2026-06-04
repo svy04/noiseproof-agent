@@ -11830,6 +11830,39 @@ def test_ci_node24_action_versions_are_refreshed_to_current_major_tags():
     assert "docs/review/ci-node24-action-version-refresh.md" in portfolio
 
 
+def test_ci_node24_action_version_remote_verification_is_documented():
+    review_path = (
+        REPO_ROOT / "docs/review/ci-node24-action-version-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "CI Node24 Action Version Remote Verification" in content
+    assert "ci node24 action version remote verification v0" in content
+    assert "remote run: 26969000702" in content
+    assert "remote run: 26969000663" in content
+    assert "head: 83fb603" in content
+    assert "job id: 79579051552" in content
+    assert "job id: 79579051531" in content
+    assert "check-run annotations: []" in content
+    assert "Node.js 20 forced-runtime warning observed: no" in content
+    assert "workflow runtime compatibility only" in content
+    assert "not product runtime evidence" in content
+    assert (
+        "ci node24 action version remote verification v0: implemented" in readme
+    )
+    assert "Phase 427 - CI Node24 Action Version Remote Verification v0" in goal
+    assert "ci node24 action version remote verification v0" in runbook
+    assert "docs/review/ci-node24-action-version-remote-verification.md" in portfolio
+
+
 def test_uploaded_raw_file_download_endpoint_review_keeps_downloads_scan_first_and_review_only():
     review_path = REPO_ROOT / "docs/review/uploaded-raw-file-download-endpoint-review.md"
     assert review_path.is_file()

@@ -6199,6 +6199,51 @@ not external reviewer feedback
 not product-complete
 ```
 
+## CI Node24 Action Version Remote Verification
+
+Phase marker: ci node24 action version remote verification v0.
+
+Use this artifact:
+
+```text
+docs/review/ci-node24-action-version-remote-verification.md
+```
+
+Verified remote runs:
+
+```text
+remote run: 26969000702
+workflow: CI
+head: 83fb603
+job: api-smoke
+job id: 79579051552
+conclusion: success
+
+remote run: 26969000663
+workflow: External Feedback Screen
+head: 83fb603
+job: screen
+job id: 79579051531
+conclusion: success
+```
+
+Observed result:
+
+```text
+check-run annotations: []
+Node.js 20 forced-runtime warning observed: no
+```
+
+Boundary:
+
+```text
+workflow runtime compatibility only
+not product runtime evidence
+not hosted deployment evidence
+not external reviewer feedback
+not product-complete
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.
