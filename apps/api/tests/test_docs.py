@@ -16276,3 +16276,76 @@ def test_workflow_proof_bundle_runtime_smoke_documents_live_postgres_http_eviden
     assert "workflow proof bundle runtime smoke v0" in runbook
     assert "docs/review/workflow-proof-bundle-runtime-smoke.md" in portfolio
     assert "docs/review/workflow-proof-bundle-runtime-smoke.md" in proof_path
+
+
+def test_external_reviewer_workflow_proof_bundle_request_refresh_links_runtime_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (
+        REPO_ROOT / "docs/review/external-review-request.md"
+    ).read_text(encoding="utf-8")
+    reviewer_brief = (
+        REPO_ROOT / "docs/review/external-reviewer-brief.md"
+    ).read_text(encoding="utf-8")
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = "docs/review/workflow-proof-bundle-runtime-smoke.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-proof-bundle-request-refresh.md"
+    )
+
+    assert "External Reviewer Workflow Proof Bundle Request Refresh" in content
+    assert "external reviewer workflow proof bundle request refresh v0" in content
+    assert proof_doc in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert "health_status: ok" in content
+    assert "execute_preview_status_code: 201" in content
+    assert "proof_bundle_status_code: 200" in content
+    assert "metadata_only_proof_bundle_status_code: 200" in content
+    assert "bundle_boundary: read_model_only_existing_records_no_new_storage" in content
+    assert "metadata_only_trace_is_null: true" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert "not live issue body edit" in content
+    assert "not new lineage storage" in content
+    assert (
+        "External reviewer workflow proof bundle request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 450 - External Reviewer Workflow Proof Bundle Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer workflow proof bundle request refresh v0" in runbook
+    assert proof_doc in proof_path
+    assert proof_doc in review_request
+    assert proof_doc in reviewer_brief
+    assert proof_doc in link_map
+    assert proof_doc in issue_template
+    assert proof_doc in contributing
+    assert proof_doc in portfolio
+    assert request_doc in portfolio

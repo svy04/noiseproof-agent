@@ -16347,6 +16347,41 @@ Next recommended evidence gate:
 external reviewer workflow proof bundle request refresh v0, then issue-body refresh, unless qualifying outside feedback appears first
 ```
 
+### Phase 450 - External Reviewer Workflow Proof Bundle Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the workflow proof bundle runtime smoke discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer workflow proof bundle request refresh v0
+docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md
+reviewer-facing links to docs/review/workflow-proof-bundle-runtime-smoke.md
+CONTRIBUTING.md fast path link
+.github/ISSUE_TEMPLATE/external-review-feedback.md fast link
+README reviewer-routing marker
+docs/runbook.md note
+docs/application/portfolio-index.md link
+docs/review/external-reader-proof-path.md request-refresh link
+docs/review/external-review-request.md latest workflow proof section
+docs/review/external-reviewer-brief.md latest workflow proof section
+docs/review/external-reviewer-link-map.md latest workflow proof section
+```
+
+Phase 450 is request-surface refresh only. It adds no runtime behavior, endpoint, schema, migration, issue body edit, external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, new lineage storage, customer validation, Braincrew acceptance, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external review issue body workflow proof bundle refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

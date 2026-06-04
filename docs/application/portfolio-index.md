@@ -200,6 +200,8 @@ Workflow proof bundle read model: `docs/review/workflow-proof-bundle-read-model.
 
 Workflow proof bundle runtime smoke: `docs/review/workflow-proof-bundle-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle` after a deterministic workflow preview and for a metadata-only workflow row. It is not distributed tracing, not hosted observability, not hosted deployment evidence, and not external reviewer feedback.
 
+External reviewer workflow proof bundle request refresh: `docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md` points reviewer-facing repository paths to the workflow proof bundle runtime smoke. It is request infrastructure only, not a live public issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
+
 ## Start Here
 
 1. `README.md`

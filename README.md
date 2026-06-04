@@ -602,6 +602,8 @@ External review issue body raw-file guard ops summary refresh v0: implemented. B
 
 External feedback current-state raw-file guard ops summary issue verification v0: implemented. Boundary: current issue #1 has the raw-file guard ops summary proof/request links, but `comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
+External reviewer workflow proof bundle request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the workflow proof bundle runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

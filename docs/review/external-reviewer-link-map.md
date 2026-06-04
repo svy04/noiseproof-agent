@@ -8,6 +8,14 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest Workflow Proof Bundle Runtime Proof
+
+- Runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/workflow-proof-bundle-runtime-smoke.md
+- Request refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md
+- Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle`; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
+
 ## Public Feedback Surface
 
 Leave feedback here:
