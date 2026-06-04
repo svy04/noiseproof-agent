@@ -180,6 +180,8 @@ Phase 372 adds uploaded raw file download rate limit review v0: `docs/review/upl
 
 Phase 373 adds uploaded raw file download rate limit local v0: `docs/review/uploaded-raw-file-download-rate-limit-local.md` records local API behavior for an in-memory fixed-window limit on `GET /documents/upload-raw-files/{raw_file_id}/download`: 5 attempts per 60 seconds per raw_file_id/client-host key, `429` when exceeded, no raw bytes in the 429 response, and `X-NoiseProof-Download-Rate-Limit-Boundary: local_v0_in_memory_fixed_window_not_production`. This is not distributed rate limiting, production authorization, hosted deployment evidence, or product-complete.
 
+Phase 374 adds uploaded raw file download rate limit runtime smoke v0: `docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for guarded raw file download rate limiting: no-scan same-file attempts produce `[409, 409, 409, 409, 409]` then `429`, the 429 response has no raw bytes, and a separate clean file still downloads with `200`, `local_v0_in_memory_fixed_window_not_production`, `local_v0_no_auth_not_production`, and `nosniff`. This is not distributed rate limiting, production authorization, hosted deployment evidence, or product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

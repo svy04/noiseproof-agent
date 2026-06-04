@@ -12089,3 +12089,62 @@ def test_uploaded_raw_file_download_rate_limit_local_documents_local_api_behavio
     assert "Phase 373 - Uploaded Raw File Download Rate Limit Local v0" in goal
     assert "uploaded raw file download rate limit local v0" in runbook
     assert "docs/review/uploaded-raw-file-download-rate-limit-local.md" in portfolio
+
+
+def test_uploaded_raw_file_download_rate_limit_runtime_smoke_documents_live_http_evidence():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    app_ready = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Rate Limit Runtime Smoke" in content
+    assert "uploaded raw file download rate limit runtime smoke v0" in content
+    assert "Applied migrations: 18" in content
+    assert "Pending migrations: 0" in content
+    assert "blocked_statuses [409, 409, 409, 409, 409]" in content
+    assert "limited 429" in content
+    assert "raw file download rate limit exceeded" in content
+    assert "local_v0_in_memory_fixed_window_not_production" in content
+    assert "local_v0_no_auth_not_production" in content
+    assert "clean_download 200 True" in content
+    assert "nosniff" in content
+    assert "attachment; filename=\"clean-download.csv\"" in content
+    assert "not distributed rate limiting" in content
+    assert "not production authorization" in content
+    assert "not hosted deployment evidence" in content
+    assert (
+        "Uploaded raw file download rate limit runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 374 - Uploaded Raw File Download Rate Limit Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded raw file download rate limit runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md"
+        in role_map
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md"
+        in app_ready
+    )
