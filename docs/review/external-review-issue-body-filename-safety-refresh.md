@@ -88,3 +88,9 @@ This is not customer validation, Braincrew acceptance, production readiness, rob
 ```text
 external feedback current-state filename-safety issue verification v0
 ```
+
+Current-state verification artifact:
+
+```text
+docs/review/external-feedback-current-state-filename-safety-issue-verification.md
+```
