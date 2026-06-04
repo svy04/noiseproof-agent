@@ -13,6 +13,7 @@ def render_ops_dashboard(
     evidence_ledger_entries: list[dict[str, Any]] | None = None,
     noise_gate_records: list[dict[str, Any]] | None = None,
     report_records: list[dict[str, Any]] | None = None,
+    failure_case_review_queue: Any | None = None,
 ) -> str:
     workflow_runs = workflow_runs or []
     evidence_ledger_entries = evidence_ledger_entries or []
@@ -72,6 +73,10 @@ def render_ops_dashboard(
     <h2>Failure Cases</h2>
     <p class="muted">Workflow parent links are manual workflow parent link provenance only, not automatic failure-case creation.</p>
     {_failure_cases_table(failure_cases)}
+  </section>
+  <section>
+    <h2>Failure-case Workflow Review Queue</h2>
+    {_failure_case_workflow_review_queue_section(failure_case_review_queue)}
   </section>
   <section>
     <h2>Workflow Runs</h2>
@@ -144,6 +149,58 @@ def _failure_cases_table(rows: list[dict[str, Any]]) -> str:
         for row in rows[:10]
     )
     return f"<table><thead><tr><th>Created</th><th>Workflow Parent</th><th>Type</th><th>Description</th><th>Fix Status</th><th>Next Action</th></tr></thead><tbody>{body}</tbody></table>"
+
+
+def _failure_case_workflow_review_queue_section(queue: Any | None) -> str:
+    if queue is None:
+        return '<p class="muted">Failure-case workflow review queue unavailable.</p>'
+    items = list(getattr(queue, "items", []) or [])
+    summary = (
+        '<div class="grid">'
+        f'{_metric("pending_review_count", getattr(queue, "pending_review_count", 0))}'
+        f'{_metric("linked_failure_case_count", getattr(queue, "linked_failure_case_count", 0))}'
+        f'{_metric("persistence_boundary", getattr(queue, "persistence_boundary", ""))}'
+        "</div>"
+    )
+    warnings = " ".join(str(warning) for warning in getattr(queue, "warnings", []))
+    boundary = (
+        f'<p class="muted">{_cell(warnings)} This dashboard surface is a read model and does not create failure_cases.</p>'
+    )
+    if not items:
+        return (
+            summary
+            + boundary
+            + '<p class="muted">No failed, blocked, or needs_revision workflow parents need failure-case review.</p>'
+        )
+    body = "\n".join(
+        "<tr>"
+        f"<td>{_workflow_review_queue_workflow_cell(item)}</td>"
+        f"<td>{_cell(getattr(item.workflow_run, 'status', ''))}</td>"
+        f"<td>{_cell(item.review_status)}</td>"
+        f"<td>{_cell(item.stage)}</td>"
+        f"<td>{_cell(item.error_type)}</td>"
+        f"<td>{_cell(item.linked_failure_case_count)}</td>"
+        f"<td>{_cell(', '.join(str(value) for value in item.linked_failure_case_ids))}</td>"
+        f"<td>{_link(item.draft_preview_path, 'draft preview')}</td>"
+        "</tr>"
+        for item in items[:10]
+    )
+    table = (
+        "<table><thead><tr>"
+        "<th>Workflow</th><th>Workflow Status</th><th>Review Status</th>"
+        "<th>Stage</th><th>Error Type</th><th>Linked Count</th>"
+        "<th>Linked Failure Cases</th><th>Draft</th>"
+        f"</tr></thead><tbody>{body}</tbody></table>"
+    )
+    return summary + boundary + table
+
+
+def _workflow_review_queue_workflow_cell(item: Any) -> str:
+    workflow_run_id = getattr(item.workflow_run, "id", None)
+    if not workflow_run_id:
+        return '<span class="muted">n/a</span>'
+    question = getattr(item.workflow_run, "question", "")
+    return f"{_link(f'/workflow-runs/{workflow_run_id}', workflow_run_id)}<br>{_cell(question)}"
 
 
 def _workflow_runs_table(rows: list[dict[str, Any]]) -> str:

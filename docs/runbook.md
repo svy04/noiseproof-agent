@@ -156,6 +156,8 @@ Phase 358 adds failure-case workflow review queue runtime smoke verification v0:
 
 Phase 359 adds failure-case workflow review queue dashboard surfacing review v0: `docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md` selects a compact `Failure-case Workflow Review Queue` section for future `GET /ops/dashboard` rendering, with `pending_review_count`, `linked_failure_case_count`, `needs_failure_case_review`, `failure_case_linked`, and a draft preview link. This review gate does not change dashboard HTML and is not automatic failure-case creation.
 
+Phase 360 adds failure-case workflow review queue dashboard surfacing v0: `GET /ops/dashboard` now renders a compact `Failure-case Workflow Review Queue` section using the existing `build_failure_case_workflow_review_queue` read model. It shows `pending_review_count`, `linked_failure_case_count`, `needs_failure_case_review`, `failure_case_linked`, workflow links, stage/error metadata, and a `draft preview` link. This dashboard surface does not create failure_cases and is not complete workflow failure causality.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

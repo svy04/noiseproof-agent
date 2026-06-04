@@ -333,6 +333,8 @@ The current tracing boundary creates `agent_runs` records for traced operations 
 
 The failure-case workflow review queue is a read model over failed, blocked, and needs-revision `workflow_runs` plus existing `failure_cases.workflow_run_id` links. `GET /failure-cases/workflow-review-queue` surfaces parents that still need human review, but it does not create failure_cases, does not automate root-cause classification, and does not prove complete workflow failure causality.
 
+The failure-case workflow review queue dashboard surfacing adds a compact read-model section to `GET /ops/dashboard`. It shows queue counts and review statuses, but it does not create failure_cases or change workflow/failure-case persistence.
+
 ## Planned Data Model
 
 ### Document
@@ -628,6 +630,7 @@ Current limitations:
 - unsupported claim and contradiction counts come from persisted Evidence Ledger entries
 - blocked and needs-revision gate counts come from persisted Noise Gate records
 - generated, blocked, and needs-revision report counts come from persisted Report records
+- the failure-case workflow review queue dashboard surfacing is a read-model display over existing workflow and failure-case rows
 - token cost rollups and chunk strategy comparison require later persistence work
 - dashboard does not add Next.js or a polished product UI
 - dashboard does not create new retrieval, evidence, gate, or report behavior

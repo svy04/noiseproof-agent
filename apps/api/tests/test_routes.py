@@ -2894,6 +2894,68 @@ def test_ops_dashboard_links_failure_cases_to_manual_workflow_parent():
     assert "not automatic failure-case creation" in response.text
 
 
+def test_ops_dashboard_surfaces_failure_case_workflow_review_queue_without_persistence():
+    client = make_client()
+    pending_workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which failed workflow still needs dashboard review?",
+            "status": "failed",
+            "error_message": "simulated evidence persistence failure",
+            "trace_json": {
+                "stage": "workflow_execute_preview",
+                "error_type": "RuntimeError",
+            },
+        },
+    ).json()
+    linked_workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which failed workflow already has a dashboard-linked failure case?",
+            "status": "failed",
+            "error_message": "simulated report persistence failure",
+            "trace_json": {
+                "stage": "report_preview",
+                "error_type": "RuntimeError",
+            },
+        },
+    ).json()
+    client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which completed workflow stays out of the review queue?",
+            "status": "completed",
+        },
+    )
+    linked_failure = client.post(
+        "/failure-cases",
+        json={
+            "workflow_run_id": linked_workflow["id"],
+            "failure_type": "workflow_stage_error",
+            "description": "Report persistence failed after evidence gating.",
+            "fix_status": "open",
+        },
+    ).json()
+
+    response = client.get("/ops/dashboard")
+
+    assert response.status_code == 200
+    assert "Failure-case Workflow Review Queue" in response.text
+    assert "pending_review_count" in response.text
+    assert "linked_failure_case_count" in response.text
+    assert "needs_failure_case_review" in response.text
+    assert "failure_case_linked" in response.text
+    assert "workflow_execute_preview" in response.text
+    assert "RuntimeError" in response.text
+    assert f'href="/workflow-runs/{pending_workflow["id"]}">' in response.text
+    assert f'href="/workflow-runs/{linked_workflow["id"]}">' in response.text
+    assert linked_failure["id"] in response.text
+    assert 'href="/failure-cases/draft-preview">draft preview</a>' in response.text
+    assert "read_model_only_no_automatic_failure_case_creation" in response.text
+    assert "does not create failure_cases" in response.text
+    assert len(client.get("/failure-cases").json()) == 1
+
+
 def test_core_preview_endpoints_auto_record_agent_run_traces():
     client = make_client()
 

@@ -59,6 +59,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-workflow-review-queue.md",
         "docs/review/failure-case-workflow-review-queue-runtime-smoke-verification.md",
         "docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md",
+        "docs/review/failure-case-workflow-review-queue-dashboard-surfacing.md",
     ]
 
     for file_path in required_files:
@@ -2206,6 +2207,51 @@ def test_failure_case_workflow_review_queue_dashboard_surfacing_review_defers_re
         "docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md"
         in portfolio
     )
+
+
+def test_failure_case_workflow_review_queue_dashboard_surfacing_docs_mark_plain_dashboard_boundary():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-review-queue-dashboard-surfacing.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+    api_readme = (REPO_ROOT / "apps/api/README.md").read_text(encoding="utf-8")
+
+    assert "Failure-case Workflow Review Queue Dashboard Surfacing" in content
+    assert "failure-case workflow review queue dashboard surfacing v0" in content
+    assert "GET /ops/dashboard" in content
+    assert "Failure-case Workflow Review Queue" in content
+    assert "pending_review_count" in content
+    assert "linked_failure_case_count" in content
+    assert "needs_failure_case_review" in content
+    assert "failure_case_linked" in content
+    assert "draft preview" in content
+    assert "render_ops_dashboard" in content
+    assert "build_failure_case_workflow_review_queue" in content
+    assert "does not create failure_cases" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert (
+        "Phase 360 - Failure-case Workflow Review Queue Dashboard Surfacing v0"
+        in goal
+    )
+    assert (
+        "Failure-case workflow review queue dashboard surfacing v0: implemented"
+        in readme
+    )
+    assert "failure-case workflow review queue dashboard surfacing v0" in runbook
+    assert (
+        "docs/review/failure-case-workflow-review-queue-dashboard-surfacing.md"
+        in portfolio
+    )
+    assert "failure-case workflow review queue dashboard surfacing" in architecture
+    assert "Failure-case Workflow Review Queue v0" in api_readme
 
 
 def test_failure_case_workflow_parent_linkage_schema_review_selects_nullable_fk():
