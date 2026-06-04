@@ -1158,6 +1158,43 @@ Next recommended gate:
 external reviewer request refresh for the approval gate runtime smoke, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 413 extension to the accepted state:
+
+```text
+External Reviewer Approval-gate Request Refresh v0
+```
+
+### Phase 413 - External Reviewer Approval-gate Request Refresh v0
+
+Goal:
+
+```text
+make the approval-gated raw file download runtime smoke discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer approval-gate request refresh v0
+docs/review/external-reviewer-approval-gate-request-refresh.md
+docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md linked from external-reader proof path
+docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md linked from external-review request
+docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md linked from external-reviewer brief
+docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md linked from external-reviewer link map
+docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md linked from Braincrew role map
+docs/application/portfolio-index.md request-refresh entry
+README implementation marker
+docs/runbook.md request-refresh note
+```
+
+Phase 413 is request-surface refresh only. It adds no live issue body edit, hosted deployment evidence, external reviewer feedback, production authorization, user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+external review issue body approval-gate refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

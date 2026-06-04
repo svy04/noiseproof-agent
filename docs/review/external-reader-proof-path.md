@@ -84,6 +84,8 @@ Read in this order:
     - raw file download filename safety runtime smoke with local Docker FastAPI; path-like and URL-encoded-control CSV filename input downloads with `local_v0_content_disposition_filename_safety_not_production`, a 120-character safe attachment filename, no path/dotdot/CRLF/injected-label content, and preserved `.csv`; not hosted deployment evidence, not external reviewer feedback, not malware detection proof, and not production authorization.
 36. `docs/review/uploaded-raw-file-download-audit-runtime-smoke.md`
     - raw file download audit runtime smoke with local Docker FastAPI plus PostgreSQL; missing-scan `409`, rate-limited `[409, 409, 409, 409, 409, 429]`, and allowed `200` decisions persist to `raw_file_download_events`; not hosted deployment evidence, not external reviewer feedback, not malware detection proof, not production authorization, and not user identity.
+37. `docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md`
+    - raw file download approval gate behavior runtime smoke with local Docker FastAPI plus PostgreSQL; latest-clean/no-approval returns `409` with `missing_download_approval`, non-active approval returns `409` with `revoked_or_expired_download_approval`, and active approval returns `200` with `download_approval_id` in audit metadata; not hosted deployment evidence, not external reviewer feedback, not production authorization, not user identity, and not signed URL support.
 
 ## Optional source-level provenance
 

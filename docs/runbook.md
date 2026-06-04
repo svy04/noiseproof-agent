@@ -258,6 +258,8 @@ Phase 411 adds uploaded raw file download approval gate behavior v0: `docs/revie
 
 Phase 412 adds uploaded raw file download approval gate behavior runtime smoke v0: `docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md` records local Docker FastAPI plus PostgreSQL proof that guarded raw downloads now block latest-clean-scan/no-approval attempts with `missing_download_approval`, block latest-clean-scan/non-active-approval attempts with `revoked_or_expired_download_approval`, and allow latest-clean-scan/active-approval downloads with `download_approval_id` in audit metadata. Migration runner applied `022_raw_file_download_event_approval_block_reasons.sql` and reached `Applied migrations: 21`, `Pending migrations: 0`. This is local runtime evidence only, not production authorization, not user identity, not signed URL support, not hosted evidence, and not product-complete.
 
+Phase 413 adds external reviewer approval-gate request refresh v0: `docs/review/external-reviewer-approval-gate-request-refresh.md` makes the approval gate behavior runtime smoke discoverable from reviewer-facing repository paths, including the external-reader proof path, review request packet, reviewer brief, link map, Braincrew role map, and portfolio index. This is a request-surface refresh only, not a live issue body edit, not external reviewer feedback, not hosted evidence, not production authorization, not user identity, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

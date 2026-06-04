@@ -14087,3 +14087,72 @@ def test_uploaded_raw_file_download_approval_gate_behavior_runtime_smoke_records
         "docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_external_reviewer_approval_gate_request_refresh_links_runtime_proof():
+    review_path = (
+        REPO_ROOT / "docs/review/external-reviewer-approval-gate-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (
+        REPO_ROOT / "docs/review/external-review-request.md"
+    ).read_text(encoding="utf-8")
+    reviewer_brief = (
+        REPO_ROOT / "docs/review/external-reviewer-brief.md"
+    ).read_text(encoding="utf-8")
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = (
+        "docs/review/"
+        "uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md"
+    )
+
+    assert "External Reviewer Approval-gate Request Refresh" in content
+    assert "external reviewer approval-gate request refresh v0" in content
+    assert proof_doc in content
+    assert "clean_without_approval_status: 409" in content
+    assert "revoked_approval_status: 409" in content
+    assert "active_approval_status: 200" in content
+    assert "download_approval_id_present: true" in content
+    assert "db/migrations/022_raw_file_download_event_approval_block_reasons.sql" in content
+    assert "not live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert (
+        "External reviewer approval-gate request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 413 - External Reviewer Approval-gate Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer approval-gate request refresh v0" in runbook
+    assert "raw file download approval gate behavior runtime smoke" in proof_path
+    assert proof_doc in review_request
+    assert proof_doc in reviewer_brief
+    assert proof_doc in link_map
+    assert proof_doc in role_map
+    assert proof_doc in portfolio
+    assert (
+        "docs/review/external-reviewer-approval-gate-request-refresh.md"
+        in portfolio
+    )

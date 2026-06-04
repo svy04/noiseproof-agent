@@ -247,6 +247,14 @@ docs/review/uploaded-raw-file-download-audit-runtime-smoke.md
 
 Boundary: this proof is local Docker FastAPI plus PostgreSQL evidence for local v0 guarded raw file download audit events; missing-scan `409`, rate-limited `[409, 409, 409, 409, 409, 429]`, and allowed `200` decisions persist to `raw_file_download_events`. It is not hosted deployment evidence, not external reviewer feedback, not malware detection proof, not endpoint malicious-detection runtime proof, not production authorization, and not user identity.
 
+raw file download approval gate behavior runtime smoke:
+
+```text
+docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md
+```
+
+Boundary: this proof is local Docker FastAPI plus PostgreSQL evidence for local v0 approval-gated raw file downloads; latest-clean/no-approval returns `409` with `missing_download_approval`, non-active approval returns `409` with `revoked_or_expired_download_approval`, and active approval returns `200` with `download_approval_id` in audit metadata. It is not hosted deployment evidence, not external reviewer feedback, not production authorization, not user identity, not signed URL support, and not product-complete.
+
 architecture current-state refresh:
 
 ```text
