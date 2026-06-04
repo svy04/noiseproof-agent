@@ -865,6 +865,47 @@ Next recommended gate:
 uploaded raw file download approval endpoint review v0
 ```
 
+Phase 406 extension to the accepted state:
+
+```text
+Uploaded Raw File Download Approval Endpoint Review v0
+```
+
+### Phase 406 - Uploaded Raw File Download Approval Endpoint Review v0
+
+Goal:
+
+```text
+select the smallest metadata-only approval create/list API boundary before adding endpoint code
+```
+
+Implemented:
+
+```text
+uploaded raw file download approval endpoint review v0
+docs/review/uploaded-raw-file-download-approval-endpoint-review.md
+selected POST /documents/upload-raw-files/{raw_file_id}/download-approvals
+selected GET /documents/upload-raw-files/{raw_file_id}/download-approvals
+selected path body raw_file_id mismatch rejection
+README implementation marker
+docs/runbook.md endpoint review note
+docs/application/portfolio-index.md endpoint review entry
+```
+
+Selected next gate:
+
+```text
+uploaded raw file download approval endpoint v0
+```
+
+Phase 406 is review-only. It adds no route behavior, endpoint code, hosted deployment evidence, external reviewer feedback, approval enforcement, production authorization, user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+uploaded raw file download approval endpoint v0
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

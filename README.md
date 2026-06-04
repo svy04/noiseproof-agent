@@ -516,6 +516,8 @@ Uploaded raw file download approval repository review v0: implemented. Boundary:
 
 Uploaded raw file download approval repository v0: implemented. Boundary: repository-only caller-provided manual approval rows through `RawFileDownloadApprovalCreate`, `RawFileDownloadApprovalOut`, `create_raw_file_download_approval`, and `list_raw_file_download_approvals`; no endpoint code, download route behavior, production authorization, user identity, signed URL support, RBAC, or product-complete claim.
 
+Uploaded raw file download approval endpoint review v0: implemented. Boundary: review-only selection of metadata-only `POST /documents/upload-raw-files/{raw_file_id}/download-approvals` and `GET /documents/upload-raw-files/{raw_file_id}/download-approvals`; no endpoint code, download route behavior, approval enforcement, production authorization, user identity, signed URL support, RBAC, or product-complete claim.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

@@ -244,6 +244,8 @@ Phase 404 adds uploaded raw file download approval repository review v0: `docs/r
 
 Phase 405 adds uploaded raw file download approval repository v0: `docs/review/uploaded-raw-file-download-approval-repository.md` implements repository-only caller-provided manual approval row persistence with `RawFileDownloadApprovalCreate`, `RawFileDownloadApprovalOut`, `create_raw_file_download_approval`, and `list_raw_file_download_approvals`. `approved_by_label` remains an operator-provided label, not authenticated user identity. This is not endpoint code, not download route behavior, not production authorization, not user identity, not signed URL support, and not product-complete.
 
+Phase 406 adds uploaded raw file download approval endpoint review v0: `docs/review/uploaded-raw-file-download-approval-endpoint-review.md` selects metadata-only create/list routes for manual approval rows: `POST /documents/upload-raw-files/{raw_file_id}/download-approvals` and `GET /documents/upload-raw-files/{raw_file_id}/download-approvals`. The future endpoint should reject path body raw_file_id mismatch. This is review-only, not endpoint code, not download route behavior, not approval enforcement, not production authorization, not user identity, not signed URL support, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

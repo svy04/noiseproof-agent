@@ -13725,3 +13725,55 @@ def test_uploaded_raw_file_download_approval_repository_documents_code_boundary(
         "docs/review/uploaded-raw-file-download-approval-repository.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_approval_endpoint_review_selects_metadata_only_routes():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-approval-endpoint-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Approval Endpoint Review" in content
+    assert "uploaded raw file download approval endpoint review v0" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/download-approvals" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/download-approvals" in content
+    assert "RawFileDownloadApprovalCreate" in content
+    assert "RawFileDownloadApprovalOut" in content
+    assert "create_raw_file_download_approval" in content
+    assert "list_raw_file_download_approvals" in content
+    assert "path body raw_file_id mismatch" in content
+    assert "operator-provided label, not authenticated user identity" in content
+    assert "metadata-only endpoint" in content
+    assert "not endpoint code" in content
+    assert "not download route behavior" in content
+    assert "not approval enforcement" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert "not RBAC" in content
+    assert (
+        "selected next gate: uploaded raw file download approval endpoint v0"
+        in content
+    )
+    assert (
+        "Uploaded raw file download approval endpoint review v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 406 - Uploaded Raw File Download Approval Endpoint Review v0"
+        in goal
+    )
+    assert "uploaded raw file download approval endpoint review v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-endpoint-review.md"
+        in portfolio
+    )
