@@ -591,6 +591,8 @@ External review issue body readiness-runtime refresh v0: implemented. Boundary: 
 
 External feedback current-state readiness-runtime issue verification v0: implemented. Boundary: current issue #1 screen after the readiness-runtime issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
+Uploaded raw file guard ops summary v0: implemented. Boundary: `GET /ops/summary` and `GET /ops/dashboard` now surface raw-file guard counts for uploaded raw files, scan results, clean/error scans, download approvals, active approvals, download events, blocked downloads, and allowed downloads; this is local operations metadata only, not download readiness call persistence, production authorization, authenticated user identity, signed URL support, hosted evidence, external reviewer feedback, or product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

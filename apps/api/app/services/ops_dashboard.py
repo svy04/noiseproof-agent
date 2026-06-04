@@ -56,6 +56,15 @@ def render_ops_dashboard(
       {_metric("Generated Reports", summary.generated_report_count)}
       {_metric("Blocked Reports", summary.blocked_report_count)}
       {_metric("Revision Reports", summary.revision_report_count)}
+      {_metric("Uploaded Raw Files", summary.uploaded_raw_file_count)}
+      {_metric("Raw File Scan Results", summary.raw_file_scan_result_count)}
+      {_metric("Raw File Clean Scans", summary.raw_file_clean_scan_count)}
+      {_metric("Raw File Scan Errors", summary.raw_file_scan_error_count)}
+      {_metric("Download Approvals", summary.raw_file_download_approval_count)}
+      {_metric("Active Download Approvals", summary.active_download_approval_count)}
+      {_metric("Raw File Download Events", summary.raw_file_download_event_count)}
+      {_metric("Blocked Downloads", summary.blocked_download_event_count)}
+      {_metric("Allowed Downloads", summary.allowed_download_event_count)}
       {_metric("Unsupported Claims", summary.unsupported_claim_count)}
       {_metric("Contradictions", summary.contradiction_count)}
       {_metric("Average Latency", summary.average_latency_ms if summary.average_latency_ms is not None else "n/a")}

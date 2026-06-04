@@ -840,6 +840,15 @@ class OpsSummaryOut(BaseModel):
     generated_report_count: int = 0
     blocked_report_count: int = 0
     revision_report_count: int = 0
+    uploaded_raw_file_count: int = 0
+    raw_file_scan_result_count: int = 0
+    raw_file_clean_scan_count: int = 0
+    raw_file_scan_error_count: int = 0
+    raw_file_download_approval_count: int = 0
+    active_download_approval_count: int = 0
+    raw_file_download_event_count: int = 0
+    blocked_download_event_count: int = 0
+    allowed_download_event_count: int = 0
     unsupported_claim_count: int
     contradiction_count: int
     average_latency_ms: float | None

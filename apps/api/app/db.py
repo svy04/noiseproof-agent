@@ -1234,6 +1234,42 @@ class PostgresRepository:
                     FROM report_records
                     WHERE status = 'needs_revision'
                   ) AS revision_report_count,
+                  (SELECT count(*) FROM uploaded_raw_files)
+                    AS uploaded_raw_file_count,
+                  (SELECT count(*) FROM raw_file_scan_results)
+                    AS raw_file_scan_result_count,
+                  (
+                    SELECT count(*)
+                    FROM raw_file_scan_results
+                    WHERE scan_verdict = 'clean'
+                  ) AS raw_file_clean_scan_count,
+                  (
+                    SELECT count(*)
+                    FROM raw_file_scan_results
+                    WHERE scan_status = 'failed'
+                       OR scan_verdict = 'scan_error'
+                  ) AS raw_file_scan_error_count,
+                  (SELECT count(*) FROM raw_file_download_approvals)
+                    AS raw_file_download_approval_count,
+                  (
+                    SELECT count(*)
+                    FROM raw_file_download_approvals
+                    WHERE approval_status = 'approved'
+                      AND expires_at > now()
+                      AND revoked_at IS NULL
+                  ) AS active_download_approval_count,
+                  (SELECT count(*) FROM raw_file_download_events)
+                    AS raw_file_download_event_count,
+                  (
+                    SELECT count(*)
+                    FROM raw_file_download_events
+                    WHERE download_result = 'blocked'
+                  ) AS blocked_download_event_count,
+                  (
+                    SELECT count(*)
+                    FROM raw_file_download_events
+                    WHERE download_result = 'allowed'
+                  ) AS allowed_download_event_count,
                   (
                     SELECT count(*)
                     FROM evidence_ledger_entries
@@ -1263,11 +1299,23 @@ class PostgresRepository:
             generated_report_count=row["generated_report_count"],
             blocked_report_count=row["blocked_report_count"],
             revision_report_count=row["revision_report_count"],
+            uploaded_raw_file_count=row["uploaded_raw_file_count"],
+            raw_file_scan_result_count=row["raw_file_scan_result_count"],
+            raw_file_clean_scan_count=row["raw_file_clean_scan_count"],
+            raw_file_scan_error_count=row["raw_file_scan_error_count"],
+            raw_file_download_approval_count=row[
+                "raw_file_download_approval_count"
+            ],
+            active_download_approval_count=row["active_download_approval_count"],
+            raw_file_download_event_count=row["raw_file_download_event_count"],
+            blocked_download_event_count=row["blocked_download_event_count"],
+            allowed_download_event_count=row["allowed_download_event_count"],
             unsupported_claim_count=row["unsupported_claim_count"],
             contradiction_count=row["contradiction_count"],
             average_latency_ms=row["average_latency_ms"],
             notes=[
                 f"Retrieval runs recorded: {row['retrieval_run_count']}. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
+                f"Raw file guard records: {row['uploaded_raw_file_count']} upload(s), {row['raw_file_scan_result_count']} scan result(s), {row['raw_file_download_approval_count']} approval row(s), {row['raw_file_download_event_count']} download event(s).",
                 "Embeddings, semantic retrieval, distributed tracing, and final report generation beyond deterministic previews are still not implemented.",
             ],
         )

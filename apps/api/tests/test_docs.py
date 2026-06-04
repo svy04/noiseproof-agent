@@ -15835,3 +15835,61 @@ def test_external_feedback_current_state_readiness_runtime_issue_verification_ke
         "docs/review/external-feedback-current-state-readiness-runtime-issue-verification.md"
         in issue_body_refresh
     )
+
+
+def test_uploaded_raw_file_guard_ops_summary_documents_operational_counts():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-guard-ops-summary.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    schemas_py = (REPO_ROOT / "apps/api/app/schemas.py").read_text(encoding="utf-8")
+    db_py = (REPO_ROOT / "apps/api/app/db.py").read_text(encoding="utf-8")
+    dashboard_py = (
+        REPO_ROOT / "apps/api/app/services/ops_dashboard.py"
+    ).read_text(encoding="utf-8")
+    routes_test = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Guard Ops Summary" in content
+    assert "uploaded raw file guard ops summary v0" in content
+    assert "GET /ops/summary" in content
+    assert "GET /ops/dashboard" in content
+    assert "uploaded_raw_file_count" in content
+    assert "raw_file_scan_result_count" in content
+    assert "raw_file_clean_scan_count" in content
+    assert "raw_file_scan_error_count" in content
+    assert "raw_file_download_approval_count" in content
+    assert "active_download_approval_count" in content
+    assert "raw_file_download_event_count" in content
+    assert "blocked_download_event_count" in content
+    assert "allowed_download_event_count" in content
+    assert "Raw file guard records" in content
+    assert "not download readiness call persistence" in content
+    assert "not production authorization" in content
+    assert "not authenticated user identity" in content
+    assert "not signed URL support" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert "Uploaded raw file guard ops summary v0: implemented" in readme
+    assert "Phase 443 - Uploaded Raw File Guard Ops Summary v0" in goal
+    assert "uploaded raw file guard ops summary v0" in runbook
+    assert "uploaded raw file guard ops summary" in architecture
+    assert "docs/review/uploaded-raw-file-guard-ops-summary.md" in portfolio
+    assert "uploaded_raw_file_count" in schemas_py
+    assert "raw_file_download_event_count" in schemas_py
+    assert "uploaded_raw_files" in db_py
+    assert "raw_file_scan_results" in db_py
+    assert "raw_file_download_approvals" in db_py
+    assert "raw_file_download_events" in db_py
+    assert "Uploaded Raw Files" in dashboard_py
+    assert "Raw File Download Events" in dashboard_py
+    assert "test_ops_summary_and_dashboard_surface_raw_file_guard_counts" in routes_test

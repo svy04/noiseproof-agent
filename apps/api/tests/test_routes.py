@@ -537,6 +537,31 @@ class InMemoryRepository:
             revision_report_count=sum(
                 row["status"] == "needs_revision" for row in self.report_records
             ),
+            uploaded_raw_file_count=len(self.uploaded_raw_files),
+            raw_file_scan_result_count=len(self.raw_file_scan_results),
+            raw_file_clean_scan_count=sum(
+                row["scan_verdict"] == "clean" for row in self.raw_file_scan_results
+            ),
+            raw_file_scan_error_count=sum(
+                row["scan_status"] == "failed" or row["scan_verdict"] == "scan_error"
+                for row in self.raw_file_scan_results
+            ),
+            raw_file_download_approval_count=len(self.raw_file_download_approvals),
+            active_download_approval_count=sum(
+                row["approval_status"] == "approved"
+                and row["expires_at"] > datetime.now(timezone.utc)
+                and row["revoked_at"] is None
+                for row in self.raw_file_download_approvals
+            ),
+            raw_file_download_event_count=len(self.raw_file_download_events),
+            blocked_download_event_count=sum(
+                row["download_result"] == "blocked"
+                for row in self.raw_file_download_events
+            ),
+            allowed_download_event_count=sum(
+                row["download_result"] == "allowed"
+                for row in self.raw_file_download_events
+            ),
             unsupported_claim_count=sum(
                 row["status"] in {"unsupported", "blocked"}
                 for row in self.evidence_ledger_entries
@@ -546,7 +571,10 @@ class InMemoryRepository:
                 for row in self.evidence_ledger_entries
             ),
             average_latency_ms=None,
-            notes=["test repository"],
+            notes=[
+                "test repository",
+                f"Raw file guard records: {len(self.uploaded_raw_files)} upload(s), {len(self.raw_file_scan_results)} scan result(s), {len(self.raw_file_download_approvals)} approval row(s), {len(self.raw_file_download_events)} download event(s).",
+            ],
         )
 
 
@@ -3607,6 +3635,83 @@ def test_ops_summary_placeholder_counts_registered_records():
     assert response.json()["failure_case_count"] == 1
     assert response.json()["unsupported_claim_count"] == 0
     assert response.json()["contradiction_count"] == 0
+
+
+def test_ops_summary_and_dashboard_surface_raw_file_guard_counts():
+    client = make_client()
+
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", b"ticker,revenue\nALPHA,120\n", "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+
+    missing_scan_download = client.get(
+        f"/documents/upload-raw-files/{raw_file_id}/download"
+    )
+    failed_scan = client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/scan-results",
+        json={
+            "raw_file_id": raw_file_id,
+            "scanner_name": "manual-review-placeholder",
+            "scan_status": "failed",
+            "scan_verdict": "scan_error",
+            "error_message": "scanner unavailable",
+        },
+    )
+    clean_scan = client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/scan-results",
+        json={
+            "raw_file_id": raw_file_id,
+            "scanner_name": "manual-review-placeholder",
+            "scan_status": "completed",
+            "scan_verdict": "clean",
+        },
+    )
+    approval = client.post(
+        f"/documents/upload-raw-files/{raw_file_id}/download-approvals",
+        json={
+            "raw_file_id": raw_file_id,
+            "latest_scan_result_id": clean_scan.json()["id"],
+            "approval_reason": "local operator approval for ops summary smoke",
+            "approved_by_label": "local-operator",
+            "expires_at": datetime(2999, 1, 1, tzinfo=timezone.utc).isoformat(),
+        },
+    )
+    allowed_download = client.get(f"/documents/upload-raw-files/{raw_file_id}/download")
+
+    assert missing_scan_download.status_code == 409
+    assert failed_scan.status_code == 201
+    assert clean_scan.status_code == 201
+    assert approval.status_code == 201
+    assert allowed_download.status_code == 200
+
+    summary = client.get("/ops/summary").json()
+
+    assert summary["uploaded_raw_file_count"] == 1
+    assert summary["raw_file_scan_result_count"] == 2
+    assert summary["raw_file_clean_scan_count"] == 1
+    assert summary["raw_file_scan_error_count"] == 1
+    assert summary["raw_file_download_approval_count"] == 1
+    assert summary["active_download_approval_count"] == 1
+    assert summary["raw_file_download_event_count"] == 2
+    assert summary["blocked_download_event_count"] == 1
+    assert summary["allowed_download_event_count"] == 1
+    assert any("Raw file guard records" in note for note in summary["notes"])
+
+    dashboard = client.get("/ops/dashboard")
+
+    assert dashboard.status_code == 200
+    assert "Uploaded Raw Files" in dashboard.text
+    assert "Raw File Scan Results" in dashboard.text
+    assert "Raw File Clean Scans" in dashboard.text
+    assert "Raw File Scan Errors" in dashboard.text
+    assert "Download Approvals" in dashboard.text
+    assert "Active Download Approvals" in dashboard.text
+    assert "Raw File Download Events" in dashboard.text
+    assert "Blocked Downloads" in dashboard.text
+    assert "Allowed Downloads" in dashboard.text
 
 
 def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
