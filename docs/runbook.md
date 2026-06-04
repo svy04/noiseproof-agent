@@ -6244,6 +6244,42 @@ not external reviewer feedback
 not product-complete
 ```
 
+## TestClient Dependency Warning Cleanup
+
+Phase marker: testclient dependency warning cleanup v0.
+
+Use this artifact:
+
+```text
+docs/review/testclient-dependency-warning-cleanup.md
+```
+
+Configured test dependency and warning guard:
+
+```text
+apps/api/pyproject.toml
+  httpx2>=2.3.0
+  error::starlette.exceptions.StarletteDeprecationWarning
+```
+
+Local verification:
+
+```text
+uv run python -W error::DeprecationWarning -c "from fastapi.testclient import TestClient; print(TestClient)"
+uv run pytest -q
+```
+
+Boundary:
+
+```text
+test dependency hygiene only
+remote warning result remains unverified until the next push
+not product runtime evidence
+not hosted deployment evidence
+not external reviewer feedback
+not product-complete
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

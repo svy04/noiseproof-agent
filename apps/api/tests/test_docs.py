@@ -11863,6 +11863,35 @@ def test_ci_node24_action_version_remote_verification_is_documented():
     assert "docs/review/ci-node24-action-version-remote-verification.md" in portfolio
 
 
+def test_testclient_dependency_warning_cleanup_is_documented_and_enforced():
+    review_path = REPO_ROOT / "docs/review/testclient-dependency-warning-cleanup.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    pyproject = (REPO_ROOT / "apps/api/pyproject.toml").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "TestClient Dependency Warning Cleanup" in content
+    assert "testclient dependency warning cleanup v0" in content
+    assert "StarletteDeprecationWarning" in content
+    assert "httpx2>=2.3.0" in pyproject
+    assert "error::starlette.exceptions.StarletteDeprecationWarning" in pyproject
+    assert "httpx2 2.3.0" in content
+    assert "local Starlette testclient source" in content
+    assert "not product runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "remote warning result remains unverified until the next push" in content
+    assert "testclient dependency warning cleanup v0: implemented" in readme
+    assert "Phase 428 - TestClient Dependency Warning Cleanup v0" in goal
+    assert "testclient dependency warning cleanup v0" in runbook
+    assert "docs/review/testclient-dependency-warning-cleanup.md" in portfolio
+
+
 def test_uploaded_raw_file_download_endpoint_review_keeps_downloads_scan_first_and_review_only():
     review_path = REPO_ROOT / "docs/review/uploaded-raw-file-download-endpoint-review.md"
     assert review_path.is_file()

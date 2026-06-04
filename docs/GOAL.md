@@ -1761,6 +1761,45 @@ Next recommended gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 428 extension to the accepted state:
+
+```text
+TestClient Dependency Warning Cleanup v0
+```
+
+### Phase 428 - TestClient Dependency Warning Cleanup v0
+
+Goal:
+
+```text
+remove the recurring Starlette TestClient deprecation warning from local test output by satisfying the httpx2 dependency boundary and making that warning an error
+```
+
+Implemented:
+
+```text
+testclient dependency warning cleanup v0
+docs/review/testclient-dependency-warning-cleanup.md
+apps/api/pyproject.toml dev dependency: httpx2>=2.3.0
+apps/api/pyproject.toml pytest warning guard: error::starlette.exceptions.StarletteDeprecationWarning
+apps/api/uv.lock httpx2==2.3.0
+apps/api/uv.lock httpcore2==2.3.0
+apps/api/uv.lock truststore==0.10.4
+local Starlette testclient source check
+PyPI httpx2 metadata check
+README implementation marker
+docs/runbook.md warning cleanup note
+docs/application/portfolio-index.md artifact link
+```
+
+Phase 428 is test dependency hygiene only. It adds no runtime behavior, schema, migration, API endpoint, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, production authorization, malware detection proof, endpoint malicious-detection runtime proof, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim. The remote warning result remains unverified until the next push.
+
+Next recommended gate:
+
+```text
+testclient dependency warning remote verification v0 after GitHub Actions runs, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

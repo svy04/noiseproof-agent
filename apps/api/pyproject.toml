@@ -16,6 +16,7 @@ dependencies = [
 dev = [
   "pytest>=8.3.0",
   "httpx>=0.28.0",
+  "httpx2>=2.3.0",
 ]
 
 [build-system]
@@ -27,3 +28,6 @@ packages = ["app"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+filterwarnings = [
+  "error::starlette.exceptions.StarletteDeprecationWarning",
+]
