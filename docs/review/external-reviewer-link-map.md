@@ -40,43 +40,46 @@ https://github.com/svy04/noiseproof-agent/issues/1
 10. uploaded PDF downstream handoff proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md
    Boundary: `parser -> pdf-pymupdf`, digital PDF text only, not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
-11. uploaded-file chunk persistence proof:
+11. uploaded PDF retrieval-run provenance runtime proof:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md
+   Boundary: `candidate_parsers -> pdf-pymupdf`, `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`, not hosted deployment evidence, not robust PDF extraction, not Evidence Ledger generation, and not external reviewer feedback.
+12. uploaded-file chunk persistence proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-chunk-persistence-runtime-smoke.md
    Boundary: not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
-12. uploaded-file chunk handoff proof:
+13. uploaded-file chunk handoff proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md
    Boundary: explicit `POST /documents/upload-chunks`, not raw uploaded byte storage, not hosted deployment evidence, and not external reviewer feedback.
-13. uploaded-file retrieval persistence proof:
+14. uploaded-file retrieval persistence proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
    Boundary: `POST /documents/{document_id}/retrieval-runs` over persisted `document_chunks`, not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.
-14. retrieval-run-linked Evidence Ledger proof:
+15. retrieval-run-linked Evidence Ledger proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md
    Boundary: `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, no LLM, no embeddings, no semantic retrieval, not hosted deployment evidence, and not external reviewer feedback.
-15. retrieval-run-linked Noise Gate proof:
+16. retrieval-run-linked Noise Gate proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md
    Boundary: `POST /retrieval-runs/{retrieval_run_id}/noise-gate` after linked Evidence Ledger rows, not report generation, not hosted deployment evidence, and not external reviewer feedback.
-16. retrieval-run-linked Report proof:
+17. retrieval-run-linked Report proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/retrieval-run-linked-report-runtime-smoke.md
    Boundary: `POST /retrieval-runs/{retrieval_run_id}/report` after linked Evidence Ledger and Noise Gate rows, `pre_report_status: 409`, `input_noise_gate_record_id`, no free-form final report generation, not hosted deployment evidence, and not external reviewer feedback.
-17. toy semantic retrieval quality report:
+18. toy semantic retrieval quality report:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/evaluation/semantic-retrieval-quality-report.md
    Boundary: toy fixture metric output with visible `q-what-missing`; not vector search quality evidence, not a benchmark result, not a model comparison, and not external reviewer feedback.
-18. uploaded raw file storage proof:
+19. uploaded raw file storage proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-storage-runtime-smoke.md
    Boundary: `POST /documents/upload-raw-files` and `GET /documents/upload-raw-files` over quarantined PostgreSQL BYTEA storage; not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
-19. uploaded raw file scan result endpoint proof:
+20. uploaded raw file scan result endpoint proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md
    Boundary: `POST /documents/upload-raw-files/{raw_file_id}/scan-results`, `GET /documents/upload-raw-files/{raw_file_id}/scan-results`, `scan_verdict -> scan_error`, and `response_has_raw_bytes -> false`; not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
-20. ClamAV adapter runtime smoke proof:
+21. ClamAV adapter runtime smoke proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md
    Boundary: deterministic fake-runner smoke for `ClamAvScannerAdapter` mappings; not real ClamAV execution, not signature database evidence, not hosted deployment evidence, not malware scanning, and not external reviewer feedback.
-21. uploaded raw file scan execution endpoint runtime proof:
+22. uploaded raw file scan execution endpoint runtime proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
    Boundary: local Docker DB plus live FastAPI HTTP for upload, explicit scan execution, and scan-result listing; default scanner-unavailable returns failed / scan_error, not real ClamAV execution, not malware scanning, and not external reviewer feedback.
-22. architecture current-state refresh:
+23. architecture current-state refresh:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/architecture-current-state-refresh.md
    Boundary: separates implemented upload/chunk/retrieval/evidence handoff surfaces from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality.
-23. Feedback intake criteria:
+24. Feedback intake criteria:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 
 ## Optional Public Portfolio Route

@@ -45,7 +45,7 @@ Read in this order:
 17. `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md`
     - uploaded PDF downstream handoff proof with `parser -> pdf-pymupdf`, `digital_pdf_text_extraction -> true`, upload chunk preview, explicit upload-to-chunks persistence, listed chunk lookup, and upload retrieval preview.
 18. `docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md`
-    - uploaded PDF retrieval-run provenance proof with `POST /documents/upload-chunks`, `POST /documents/{document_id}/retrieval-runs`, `candidate_parsers -> pdf-pymupdf`, and `source_provenance_boundary`.
+    - uploaded PDF retrieval-run provenance runtime proof with `POST /documents/upload-chunks`, `POST /documents/{document_id}/retrieval-runs`, `candidate_parsers -> pdf-pymupdf`, and `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`.
 19. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
     - uploaded-file chunk handoff proof with explicit `POST /documents/upload-chunks` and no raw uploaded byte storage.
 20. `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
@@ -192,9 +192,10 @@ uploaded PDF retrieval-run provenance proof:
 
 ```text
 docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md
+docs/review/external-reviewer-pdf-retrieval-run-provenance-request-refresh.md
 ```
 
-This proof is explicit `POST /documents/upload-chunks` into `POST /documents/{document_id}/retrieval-runs` with `candidate_parsers -> pdf-pymupdf` and `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`. It is not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction, not OCR, not table extraction, not raw file storage, and not Evidence Ledger generation.
+This uploaded PDF retrieval-run provenance runtime proof is explicit `POST /documents/upload-chunks` into `POST /documents/{document_id}/retrieval-runs` with `candidate_parsers -> pdf-pymupdf` and `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`. The request refresh is request infrastructure only. It is not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction, not OCR, not table extraction, not raw file storage, and not Evidence Ledger generation.
 
 uploaded raw file storage proof:
 
