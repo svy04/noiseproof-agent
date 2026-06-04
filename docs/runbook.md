@@ -228,6 +228,8 @@ Phase 396 adds uploaded raw file download audit schema v0: `docs/review/uploaded
 
 Phase 397 adds uploaded raw file download audit runtime smoke v0: `docs/review/uploaded-raw-file-download-audit-runtime-smoke.md` records local Docker FastAPI plus PostgreSQL proof that `raw_file_download_events` are created and listed for missing-scan 409, rate-limited `[409, 409, 409, 409, 409, 429]`, and allowed 200 download decisions. The allowed event linked the latest clean scan result and preserved `audit-allowed.csv` as metadata. This is local runtime evidence only, not production authorization, not user identity, not hosted deployment evidence, not malware detection proof, and not product-complete.
 
+Phase 398 adds external reviewer download-audit request refresh v0: `docs/review/external-reviewer-download-audit-request-refresh.md` updates reviewer-facing repository surfaces so `docs/review/uploaded-raw-file-download-audit-runtime-smoke.md` is visible from the proof path, review request, reviewer brief, link map, Braincrew role map, and portfolio index. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not production authorization, not user identity, not malware detection proof, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

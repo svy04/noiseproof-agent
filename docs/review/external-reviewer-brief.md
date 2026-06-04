@@ -184,6 +184,14 @@ docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md
 
 This proof is local Docker FastAPI evidence for local v0 guarded raw file download attachment filename safety; a path-like and URL-encoded-control CSV filename downloads with a 120-character safe attachment filename and `local_v0_content_disposition_filename_safety_not_production`. It is not hosted deployment evidence, not external reviewer feedback, not malware detection proof, not robust file serving, not endpoint malicious-detection runtime proof, and not production authorization.
 
+raw file download audit runtime smoke:
+
+```text
+docs/review/uploaded-raw-file-download-audit-runtime-smoke.md
+```
+
+This proof is local Docker FastAPI plus PostgreSQL evidence for local v0 guarded raw file download audit events; missing-scan `409`, rate-limited `[409, 409, 409, 409, 409, 429]`, and allowed `200` decisions persist to `raw_file_download_events`. It is not hosted deployment evidence, not external reviewer feedback, not malware detection proof, not endpoint malicious-detection runtime proof, not production authorization, and not user identity.
+
 retrieval-run-linked Report proof:
 
 ```text

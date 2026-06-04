@@ -82,6 +82,8 @@ Read in this order:
     - raw file extension allowlist runtime smoke with local Docker DB and live FastAPI HTTP; allowed CSV upload returns `201`, `sample.exe.csv` double-extension upload returns `415`, responses include no raw bytes, and blocked content hash is not recently persisted; not hosted deployment evidence, not external reviewer feedback, not robust file-type detection, not malware scanning evidence, and not production authorization.
 35. `docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md`
     - raw file download filename safety runtime smoke with local Docker FastAPI; path-like and URL-encoded-control CSV filename input downloads with `local_v0_content_disposition_filename_safety_not_production`, a 120-character safe attachment filename, no path/dotdot/CRLF/injected-label content, and preserved `.csv`; not hosted deployment evidence, not external reviewer feedback, not malware detection proof, and not production authorization.
+36. `docs/review/uploaded-raw-file-download-audit-runtime-smoke.md`
+    - raw file download audit runtime smoke with local Docker FastAPI plus PostgreSQL; missing-scan `409`, rate-limited `[409, 409, 409, 409, 409, 429]`, and allowed `200` decisions persist to `raw_file_download_events`; not hosted deployment evidence, not external reviewer feedback, not malware detection proof, not production authorization, and not user identity.
 
 ## Optional source-level provenance
 

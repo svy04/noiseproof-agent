@@ -42,9 +42,9 @@ It is a small service that shows how I define a messy customer-like data problem
 
 External-reader proof path (5-minute path): `docs/review/external-reader-proof-path.md`.
 
-README proof-marker archive: `docs/review/readme-proof-marker-archive.md` for source-level provenance.
+Proof archive: `docs/review/readme-proof-marker-archive.md`.
 
-These are not product runtime evidence, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality.
+This is source-level provenance, not product runtime evidence, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality.
 
 Runtime proof links below are local proof surfaces, not hosted deployment evidence.
 
@@ -52,14 +52,14 @@ Runtime proof summary:
 
 - Migration/API: migration runner, fresh DB API smoke, and local Docker DB runtime checks exist for bounded service paths only.
 - Failure/provenance: manual failure-case persistence, workflow parent linkage, and dashboard proof keep human handoff visible; not automatic failure-case creation, not automatic failure detection, and not complete workflow failure causality.
-- Preserved proof markers: failure-case persistence smoke; linked failure-case proof; failed workflow parent proof; historical failure-case workflow linkage review; human-confirmed draft payload; route-level smoke; draft.fix_status from draft to open; fresh migrated Docker DB handoff proof; workflow failure-to-draft smoke; workflow parent linkage fresh DB proof; dashboard manual workflow parent link; fresh DB dashboard Workflow Parent proof; workflow parent proof index; reader path; manual workflow parent linkage now exists.
+- Proof markers: failure-case persistence smoke; linked failure-case proof; failed workflow parent proof; historical failure-case workflow linkage review; human-confirmed draft payload; route-level smoke; draft.fix_status from draft to open; fresh migrated Docker DB handoff proof; workflow failure-to-draft smoke; workflow parent linkage fresh DB proof; dashboard manual workflow parent link; fresh DB dashboard Workflow Parent proof; workflow parent proof index; reader path; manual workflow parent linkage now exists.
 - Preserved boundary markers: preview_only_not_persisted; not fresh Docker DB evidence; not automatic failure-case persistence; automatic failure-case creation remains unclaimed.
-- Upload path: raw upload quarantine metadata, guarded raw file download endpoint runtime smoke, rate-limit smoke and filename smoke exist; production authorization, distributed limits, malware evidence, robust serving/PDF, and hosted evidence unproven.
+- Upload path: raw upload quarantine metadata; guarded raw file download endpoint runtime smoke; rate-limit, filename, and download audit runtime smokes; production authorization, user identity, distributed limits, malware evidence, robust serving/PDF, hosted evidence unproven. `docs/review/uploaded-raw-file-download-audit-runtime-smoke.md`.
 - Preserved upload proof markers: upload intake manifest runtime smoke; upload intake manifest persistence runtime smoke; upload parsed document persistence runtime smoke.
 - Preserved upload boundary markers: not raw file storage.
 - Retrieval handoffs: linked Evidence Ledger, Noise Gate, and Report endpoints have local Docker runtime smoke; no external feedback, LLM judgment, free-form final answer, or automatic failure-case creation.
 - Caller-provided chunk embedding endpoint: POST/GET embeddings, generated-claim rejection `400`, and pgvector normalization are locally smoke-tested; no embedding generation, vector search quality claim, or hosted deployment evidence.
-- Caller-provided semantic retrieval persistence: `POST /documents/{document_id}/semantic-retrieval-runs`, `GET /retrieval-runs`, dimension mismatch `400`, and unchanged Evidence Ledger counts are locally smoke-tested; no embedding generation, vector quality evidence, semantic Evidence Ledger generation, or hosted deployment evidence.
+- Caller-provided semantic retrieval persistence: POST/GET runs, dimension mismatch `400`, and unchanged Evidence Ledger counts are locally smoke-tested; no embedding generation, vector quality evidence, semantic Evidence Ledger generation, or hosted deployment evidence.
 - toy semantic retrieval quality report: records ranking metrics and visible misses over a toy fixture; no vector search quality evidence, benchmark result, model comparison, or production semantic retrieval quality is claimed.
 
 Detailed proof links:
