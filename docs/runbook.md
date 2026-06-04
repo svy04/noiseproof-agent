@@ -4858,6 +4858,33 @@ ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 
 This is request-surface hygiene only. It is not external reviewer feedback, not hosted deployment evidence, not endpoint malicious-detection runtime proof, and does not include a test signature payload.
 
+## External Review Issue Body BOM Cleanup
+
+Phase marker: external review issue body BOM cleanup v0.
+
+Use this artifact when checking why issue #1 starts directly with `## Request` again after the owner-runtime input discovery refresh:
+
+```text
+docs/review/external-review-issue-body-bom-cleanup.md
+```
+
+Observed live issue cleanup:
+
+```text
+previous_first_codepoint: 65279
+starts_with_request: true
+first_codepoint: 35
+```
+
+The cleanup preserved:
+
+```text
+docs/review/external-review-issue-body-owner-runtime-input-discovery-refresh.md
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery-ci-remote-verification.md
+```
+
+This is request-surface readability hygiene only. It is not external reviewer feedback, not hosted deployment evidence, not endpoint malicious-detection runtime proof, and does not include a test signature payload.
+
 ## CI Node24 Actions Runtime Opt-in
 
 ## ClamAV API Endpoint Malicious-detection Stdin Input Review

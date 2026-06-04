@@ -9833,6 +9833,35 @@ def test_external_review_issue_body_owner_runtime_input_discovery_refresh_is_doc
     assert "docs/review/external-review-issue-body-owner-runtime-input-discovery-refresh.md" in portfolio
 
 
+def test_external_review_issue_body_bom_cleanup_is_documented():
+    review_path = REPO_ROOT / "docs/review/external-review-issue-body-bom-cleanup.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body BOM Cleanup" in content
+    assert "external review issue body BOM cleanup v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert '"previous_first_codepoint": 65279' in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert "external-review-issue-body-owner-runtime-input-discovery-refresh.md" in content
+    assert "clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-discovery-ci-remote-verification.md" in content
+    assert "owner-authored issue body edit" in content
+    assert "does not close external reviewer feedback v0" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "External review issue body BOM cleanup v0: implemented" in readme
+    assert "Phase 331 - External Review Issue Body BOM Cleanup v0" in goal
+    assert "external review issue body BOM cleanup v0" in runbook
+    assert "docs/review/external-review-issue-body-bom-cleanup.md" in portfolio
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()
