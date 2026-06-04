@@ -16102,6 +16102,55 @@ Next recommended evidence gate:
 uploaded raw file guard ops summary runtime smoke v0 if Docker/API verification is desired, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 444 - Uploaded Raw File Guard Ops Summary Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+verify the raw-file guard ops summary counters through local Docker PostgreSQL plus live FastAPI HTTP without claiming production authorization
+```
+
+Implemented:
+
+```text
+uploaded raw file guard ops summary runtime smoke v0
+docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md
+Docker version 29.4.3
+Docker Compose version v5.1.3
+Applied migrations: 21
+Pending migrations: 0
+GET /health
+GET /ops/summary
+POST /documents/upload-raw-files
+GET /documents/upload-raw-files/{raw_file_id}/download
+POST /documents/upload-raw-files/{raw_file_id}/scan-results
+POST /documents/upload-raw-files/{raw_file_id}/download-approvals
+GET /ops/dashboard
+uploaded_raw_file_count delta 1
+raw_file_scan_result_count delta 2
+raw_file_clean_scan_count delta 1
+raw_file_scan_error_count delta 1
+raw_file_download_approval_count delta 1
+active_download_approval_count delta 1
+raw_file_download_event_count delta 2
+blocked_download_event_count delta 1
+allowed_download_event_count delta 1
+dashboard metric label confirmation
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+```
+
+Phase 444 is local Docker PostgreSQL plus live FastAPI HTTP evidence only. It adds no new endpoint, schema, migration, raw byte policy change, production authorization, authenticated identity, signed URL support, RBAC, ABAC, ReBAC, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

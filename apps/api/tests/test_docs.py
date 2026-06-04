@@ -15893,3 +15893,67 @@ def test_uploaded_raw_file_guard_ops_summary_documents_operational_counts():
     assert "Uploaded Raw Files" in dashboard_py
     assert "Raw File Download Events" in dashboard_py
     assert "test_ops_summary_and_dashboard_surface_raw_file_guard_counts" in routes_test
+
+
+def test_uploaded_raw_file_guard_ops_summary_runtime_smoke_documents_local_evidence():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Guard Ops Summary Runtime Smoke" in content
+    assert "uploaded raw file guard ops summary runtime smoke v0" in content
+    assert "Docker version 29.4.3" in content
+    assert "Docker Compose version v5.1.3" in content
+    assert "Applied migrations: 21" in content
+    assert "Pending migrations: 0" in content
+    assert "GET /health" in content
+    assert "POST /documents/upload-raw-files" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/download" in content
+    assert "POST /documents/upload-raw-files/{raw_file_id}/scan-results" in content
+    assert (
+        "POST /documents/upload-raw-files/{raw_file_id}/download-approvals"
+        in content
+    )
+    assert "GET /ops/summary" in content
+    assert "GET /ops/dashboard" in content
+    assert '"upload_status_code": 201' in content
+    assert '"missing_scan_download_status_code": 409' in content
+    assert '"allowed_download_status_code": 200' in content
+    assert '"uploaded_raw_file_count": 1' in content
+    assert '"raw_file_scan_result_count": 2' in content
+    assert '"raw_file_clean_scan_count": 1' in content
+    assert '"raw_file_scan_error_count": 1' in content
+    assert '"raw_file_download_approval_count": 1' in content
+    assert '"active_download_approval_count": 1' in content
+    assert '"raw_file_download_event_count": 2' in content
+    assert '"blocked_download_event_count": 1' in content
+    assert '"allowed_download_event_count": 1' in content
+    assert '"summary_note_present": true' in content
+    assert '"UploadedRawFiles": true' in content
+    assert '"RawFileDownloadEvents": true' in content
+    assert "not production authorization" in content
+    assert "not authenticated identity" in content
+    assert "not signed URL" in content
+    assert "not hosted deployment" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Uploaded raw file guard ops summary runtime smoke v0: implemented"
+        in readme
+    )
+    assert "Phase 444 - Uploaded Raw File Guard Ops Summary Runtime Smoke v0" in goal
+    assert "uploaded raw file guard ops summary runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md"
+        in portfolio
+    )

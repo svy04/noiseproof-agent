@@ -593,6 +593,8 @@ External feedback current-state readiness-runtime issue verification v0: impleme
 
 Uploaded raw file guard ops summary v0: implemented. Boundary: `GET /ops/summary` and `GET /ops/dashboard` now surface raw-file guard counts for uploaded raw files, scan results, clean/error scans, download approvals, active approvals, download events, blocked downloads, and allowed downloads; this is local operations metadata only, not download readiness call persistence, production authorization, authenticated user identity, signed URL support, hosted evidence, external reviewer feedback, or product-complete.
 
+Uploaded raw file guard ops summary runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified raw upload, blocked missing-scan download, failed scan metadata, clean scan metadata, active approval, allowed download, expected `/ops/summary` counter deltas, and `/ops/dashboard` metric labels; not production authorization, authenticated identity, signed URL support, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:
