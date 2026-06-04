@@ -12,6 +12,8 @@ external reviewer feedback v0
 
 Please start here:
 
+Shortest path first: `docs/review/external-reviewer-shortlist.md`
+
 1. `README.md`
 2. `docs/review/external-reader-proof-path.md`
 3. `docs/review/external-reviewer-link-map.md`

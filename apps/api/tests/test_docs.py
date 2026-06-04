@@ -16814,3 +16814,65 @@ def test_external_feedback_current_state_workflow_proof_bundle_dashboard_runtime
         "external feedback current-state workflow proof bundle dashboard runtime issue verification v0"
         in issue_body_refresh
     )
+
+
+def test_external_reviewer_shortlist_links_compact_proof_path():
+    shortlist_path = REPO_ROOT / "docs/review/external-reviewer-shortlist.md"
+    assert shortlist_path.is_file()
+
+    content = shortlist_path.read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    reviewer_brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Reviewer Shortlist" in content
+    assert "external reviewer shortlist v0" in content
+    assert "90-second shortlist" in content
+    assert "maximum five proof artifacts" in content
+    assert "README.md" in content
+    assert "docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md" in content
+    assert "docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md" in content
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md" in content
+    assert "docs/review/retrieval-run-linked-report-runtime-smoke.md" in content
+    assert "docs/review/external-feedback-intake-criteria.md" in content
+    assert "does not replace the full proof path" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    for surface in [
+        contributing,
+        issue_template,
+        readme,
+        goal,
+        runbook,
+        portfolio,
+        proof_path,
+        review_request,
+        reviewer_brief,
+        link_map,
+    ]:
+        assert "docs/review/external-reviewer-shortlist.md" in surface
+
+    assert "External reviewer shortlist v0: implemented" in readme
+    assert "Phase 458 - External Reviewer Shortlist v0" in goal
+    assert "external reviewer shortlist v0" in runbook

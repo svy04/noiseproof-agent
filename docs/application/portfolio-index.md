@@ -216,6 +216,8 @@ External review issue body workflow proof bundle dashboard runtime refresh: `doc
 
 External feedback current-state workflow proof bundle dashboard runtime issue verification: `docs/review/external-feedback-current-state-workflow-proof-bundle-dashboard-runtime-issue-verification.md` records that the current issue #1 body still points to the dashboard runtime proof path, while the only screened comment is owner-authored and external reviewer feedback remains pending.
 
+External reviewer shortlist: `docs/review/external-reviewer-shortlist.md` gives outside reviewers a 90-second shortlist with a maximum five proof artifacts before the full proof path. It is navigation only, not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete.
+
 ## Start Here
 
 1. `README.md`

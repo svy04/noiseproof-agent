@@ -26,6 +26,12 @@ Leave feedback here:
 
 https://github.com/svy04/noiseproof-agent/issues/1
 
+## 90-second Shortlist
+
+Start here before opening the full path:
+
+https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-shortlist.md
+
 ## 2-minute Path
 
 1. Reviewer brief:

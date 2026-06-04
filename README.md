@@ -618,6 +618,8 @@ External review issue body workflow proof bundle dashboard runtime refresh v0: i
 
 External feedback current-state workflow proof bundle dashboard runtime issue verification v0: implemented. Boundary: current issue #1 has the dashboard runtime proof, request refresh, and issue-body refresh links, but the only screened comment is owner-authored, `candidate_count=0`, `draft_count=0`, and external reviewer feedback remains pending.
 
+External reviewer shortlist v0: implemented. Boundary: `docs/review/external-reviewer-shortlist.md` gives outside reviewers a 90-second shortlist with a maximum five proof artifacts before the full proof path; this is reviewer navigation only, not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

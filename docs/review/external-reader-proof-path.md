@@ -8,6 +8,12 @@ This page is the shortest repository-native path for an external reviewer who wa
 
 ## 5-minute path
 
+For a shorter first pass, start with:
+
+```text
+docs/review/external-reviewer-shortlist.md
+```
+
 Read in this order:
 
 1. `README.md`

@@ -12,6 +12,12 @@ It prepares the `external reviewer feedback v0` gate, but it does not complete i
 
 ## 2-minute path
 
+If time is tight, start with:
+
+```text
+docs/review/external-reviewer-shortlist.md
+```
+
 Read only these:
 
 1. `README.md`

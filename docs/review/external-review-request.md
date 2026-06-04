@@ -22,6 +22,12 @@ Shortest reviewer brief:
 docs/review/external-reviewer-brief.md
 ```
 
+90-second reviewer shortlist:
+
+```text
+docs/review/external-reviewer-shortlist.md
+```
+
 Current failure-case workflow review queue proof index:
 
 ```text

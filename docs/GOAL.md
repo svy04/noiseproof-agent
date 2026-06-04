@@ -16674,6 +16674,48 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 458 - External Reviewer Shortlist v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+give outside reviewers a 90-second shortlist before the full proof path
+```
+
+Implemented:
+
+```text
+external reviewer shortlist v0
+docs/review/external-reviewer-shortlist.md
+90-second shortlist
+maximum five proof artifacts
+README.md
+docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md
+docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md
+docs/review/retrieval-run-linked-report-runtime-smoke.md
+docs/review/external-feedback-intake-criteria.md
+CONTRIBUTING.md shortcut
+.github/ISSUE_TEMPLATE/external-review-feedback.md shortcut
+docs/review/external-reader-proof-path.md shortcut
+docs/review/external-review-request.md shortcut
+docs/review/external-reviewer-brief.md shortcut
+docs/review/external-reviewer-link-map.md shortcut
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+```
+
+Phase 458 is reviewer navigation only. It adds no runtime behavior, endpoint, schema, migration, issue body edit, external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, external review issue body shortlist refresh v0 if live issue routing should point at the shortlist, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
