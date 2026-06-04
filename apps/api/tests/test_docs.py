@@ -13562,3 +13562,62 @@ def test_uploaded_raw_file_download_approval_schema_is_documented_without_route_
         "docs/review/uploaded-raw-file-download-approval-schema.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_approval_schema_runtime_verification_records_db_evidence():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-approval-schema-runtime-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Approval Schema Runtime Verification" in content
+    assert (
+        "uploaded raw file download approval schema runtime verification v0"
+        in content
+    )
+    assert "Applied migrations: 20" in content
+    assert "Pending migrations: 0" in content
+    assert "raw_file_download_approvals" in content
+    assert "12 rows" in content
+    assert "5 rows" in content
+    assert "7 rows" in content
+    assert "approval_status" in content
+    assert "'approved'::text" in content
+    assert "local_v0_manual_operator_approval_not_production_auth" in content
+    assert "operator_label_not_authenticated_identity" in content
+    assert "idx_raw_file_download_approvals_raw_file_id" in content
+    assert "idx_raw_file_download_approvals_latest_scan_result_id" in content
+    assert "idx_raw_file_download_approvals_status" in content
+    assert "idx_raw_file_download_approvals_expires_at" in content
+    assert "FOREIGN KEY (raw_file_id) REFERENCES uploaded_raw_files(id) ON DELETE CASCADE" in content
+    assert "FOREIGN KEY (latest_scan_result_id) REFERENCES raw_file_scan_results(id) ON DELETE CASCADE" in content
+    assert "not endpoint code" in content
+    assert "not repository code" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert (
+        "Uploaded raw file download approval schema runtime verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 403 - Uploaded Raw File Download Approval Schema Runtime Verification v0"
+        in goal
+    )
+    assert (
+        "uploaded raw file download approval schema runtime verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-schema-runtime-verification.md"
+        in portfolio
+    )
