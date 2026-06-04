@@ -15,6 +15,7 @@ from urllib.request import Request, urlopen
 PHASE_MARKER = "ClamAV API endpoint malicious-detection test harness v0"
 ALLOW_ENV = "NOISEPROOF_ALLOW_TEST_SIGNATURE_SMOKE"
 SIGNATURE_ENV = "NOISEPROOF_CLAMAV_TEST_SIGNATURE_TEXT"
+SIGNATURE_FILE_ENV = "NOISEPROOF_CLAMAV_TEST_SIGNATURE_FILE"
 API_BASE_URL_ENV = "NOISEPROOF_API_BASE_URL"
 OWNER_RUNTIME_SMOKE_PACKET_PHASE_MARKER = (
     "ClamAV API endpoint malicious-detection owner runtime smoke packet v0"
@@ -27,6 +28,9 @@ OWNER_RUNTIME_SMOKE_REPORT_CONTRACT_PHASE_MARKER = (
 )
 OWNER_RUNTIME_SMOKE_REPORT_SCHEMA_PHASE_MARKER = (
     "ClamAV API endpoint malicious-detection owner runtime smoke report schema v0"
+)
+OWNER_RUNTIME_INPUT_DISCOVERY_PHASE_MARKER = (
+    "ClamAV API endpoint malicious-detection owner runtime smoke input discovery v0"
 )
 OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY = {
     "scanner_name": "clamav-clamd",
@@ -343,6 +347,92 @@ def build_owner_runtime_smoke_validator_handoff_report(
     }
 
 
+def build_owner_runtime_input_discovery_report(
+    *,
+    source_env: Mapping[str, str],
+    signature_file_path: Path | None,
+) -> dict[str, object]:
+    signature_file_env_value = source_env.get(SIGNATURE_FILE_ENV)
+    signature_text_present = bool(_normalize_owner_runtime_input(source_env.get(SIGNATURE_ENV)))
+    file_argument = _signature_file_candidate(signature_file_path)
+    file_env = _signature_file_candidate(
+        Path(signature_file_env_value) if signature_file_env_value else None
+    )
+
+    discovered = (
+        bool(file_argument.get("readable"))
+        or bool(file_env.get("readable"))
+        or signature_text_present
+    )
+
+    return {
+        **_base_report(),
+        "phase_marker": OWNER_RUNTIME_INPUT_DISCOVERY_PHASE_MARKER,
+        "discovery_status": "owner_runtime_input_discovered"
+        if discovered
+        else "owner_runtime_input_missing",
+        "accepted_input_sources": ["file", "stdin", "environment"],
+        "api_calls_attempted": False,
+        "payload_length_bytes": 0,
+        "input_payload_inspected": False,
+        "malicious_detection_verified": False,
+        "required_owner_input_missing": not discovered,
+        "candidates": {
+            "signature_file_argument": file_argument,
+            "signature_file_env": {
+                "env_var": SIGNATURE_FILE_ENV,
+                "present": signature_file_env_value is not None,
+                **{
+                    key: value
+                    for key, value in file_env.items()
+                    if key != "provided"
+                },
+            },
+            "signature_text_env": {
+                "env_var": SIGNATURE_ENV,
+                "present": signature_text_present,
+                "value_logged": False,
+            },
+            "stdin": {
+                "supported": True,
+                "inspected": False,
+            },
+        },
+        "blocked_reason": None
+        if discovered
+        else "owner-provided runtime input was not discovered",
+        "scan_result_summary": None,
+    }
+
+
+def _signature_file_candidate(path: Path | None) -> dict[str, object]:
+    if path is None:
+        return {
+            "provided": False,
+            "path_allowed": None,
+            "path_location": None,
+            "exists": False,
+            "is_file": False,
+            "readable": False,
+            "path_logged": False,
+        }
+
+    path_allowed = not _path_is_inside_repository(path)
+    exists = path.exists()
+    is_file = path.is_file()
+    readable = path_allowed and is_file and os.access(path, os.R_OK)
+
+    return {
+        "provided": True,
+        "path_allowed": path_allowed,
+        "path_location": "outside_repository" if path_allowed else "inside_repository",
+        "exists": exists,
+        "is_file": is_file,
+        "readable": readable,
+        "path_logged": False,
+    }
+
+
 def build_owner_runtime_smoke_report_contract() -> dict[str, object]:
     return {
         "phase_marker": OWNER_RUNTIME_SMOKE_REPORT_CONTRACT_PHASE_MARKER,
@@ -640,6 +730,14 @@ def main(
         ),
     )
     parser.add_argument(
+        "--discover-owner-runtime-input",
+        action="store_true",
+        help=(
+            "Print a no-payload discovery report showing whether owner runtime "
+            "input appears configured without reading or logging the input value."
+        ),
+    )
+    parser.add_argument(
         "--print-owner-runtime-smoke-report-contract",
         action="store_true",
         help=(
@@ -682,6 +780,7 @@ def main(
         or args.print_owner_runtime_smoke_report_contract
         or args.print_owner_runtime_smoke_report_schema
         or args.print_owner_runtime_smoke_packet
+        or args.discover_owner_runtime_input
     )
 
     if (
@@ -711,6 +810,11 @@ def main(
         report = build_owner_runtime_smoke_report_schema()
     elif args.print_owner_runtime_smoke_packet:
         report = build_owner_runtime_smoke_packet()
+    elif args.discover_owner_runtime_input:
+        report = build_owner_runtime_input_discovery_report(
+            source_env=source_env,
+            signature_file_path=signature_file_path,
+        )
     else:
         input_source = _input_source_from_args(args)
         if signature_file_path is not None:
@@ -760,6 +864,8 @@ def main(
         or args.print_owner_runtime_smoke_report_schema
     ):
         return 0
+    if args.discover_owner_runtime_input:
+        return 0 if report["discovery_status"] == "owner_runtime_input_discovered" else 4
     if args.validate_owner_runtime_smoke_report:
         return 0 if report["accepted_owner_runtime_smoke"] is True else 5
     return _exit_code_for_status(str(report["harness_status"]), report)

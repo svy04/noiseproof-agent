@@ -12,6 +12,8 @@ if str(REPO_ROOT) not in sys.path:
 from app.services.clamav_api_malicious_detection_harness import (
     ALLOW_ENV,
     PHASE_MARKER,
+    SIGNATURE_ENV,
+    SIGNATURE_FILE_ENV,
     build_malicious_detection_harness_report,
     main,
 )
@@ -376,6 +378,93 @@ def test_malicious_detection_harness_directory_signature_file_returns_structured
     assert payload["malicious_detection_verified"] is False
     assert payload["signature_file_read_boundary"]["signature_file_readable"] is False
     assert str(signature_path) not in json.dumps(payload, sort_keys=True)
+    assert client.upload_calls == []
+
+
+def test_malicious_detection_harness_owner_runtime_input_discovery_reports_missing_without_api_calls(
+    capsys,
+):
+    client = RecordingClient()
+
+    exit_code = main(["--discover-owner-runtime-input"], env={}, client=client)
+
+    assert exit_code == 4
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["discovery_status"] == "owner_runtime_input_missing"
+    assert payload["api_calls_attempted"] is False
+    assert payload["malicious_detection_verified"] is False
+    assert payload["payload_committed_to_repo"] is False
+    assert payload["raw_payload_logged"] is False
+    assert payload["accepted_input_sources"] == ["file", "stdin", "environment"]
+    assert payload["candidates"]["signature_file_argument"]["provided"] is False
+    assert payload["candidates"]["signature_file_env"]["env_var"] == SIGNATURE_FILE_ENV
+    assert payload["candidates"]["signature_file_env"]["present"] is False
+    assert payload["candidates"]["signature_text_env"]["env_var"] == SIGNATURE_ENV
+    assert payload["candidates"]["signature_text_env"]["present"] is False
+    assert payload["candidates"]["signature_text_env"]["value_logged"] is False
+    assert payload["candidates"]["stdin"]["supported"] is True
+    assert payload["candidates"]["stdin"]["inspected"] is False
+    assert client.upload_calls == []
+
+
+def test_malicious_detection_harness_owner_runtime_input_discovery_reports_file_candidate_without_reading_payload(
+    capsys, tmp_path
+):
+    signature_text = "owner-provided-placeholder-not-a-test-signature"
+    signature_path = tmp_path / "owner-runtime-only-signature.txt"
+    signature_path.write_text(signature_text, encoding="utf-8")
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--discover-owner-runtime-input", "--signature-file", str(signature_path)],
+        env={},
+        client=client,
+    )
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    dumped = json.dumps(payload, sort_keys=True)
+    assert payload["discovery_status"] == "owner_runtime_input_discovered"
+    assert payload["api_calls_attempted"] is False
+    assert payload["malicious_detection_verified"] is False
+    assert payload["candidates"]["signature_file_argument"] == {
+        "provided": True,
+        "path_allowed": True,
+        "path_location": "outside_repository",
+        "exists": True,
+        "is_file": True,
+        "readable": True,
+        "path_logged": False,
+    }
+    assert str(signature_path) not in dumped
+    assert signature_text not in dumped
+    assert client.upload_calls == []
+
+
+def test_malicious_detection_harness_owner_runtime_input_discovery_reports_env_candidate_without_logging_value(
+    capsys,
+):
+    signature_text = "owner-provided-placeholder-not-a-test-signature"
+    client = RecordingClient()
+
+    exit_code = main(
+        ["--discover-owner-runtime-input"],
+        env={SIGNATURE_ENV: signature_text},
+        client=client,
+    )
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    dumped = json.dumps(payload, sort_keys=True)
+    assert payload["discovery_status"] == "owner_runtime_input_discovered"
+    assert payload["api_calls_attempted"] is False
+    assert payload["malicious_detection_verified"] is False
+    assert payload["candidates"]["signature_text_env"] == {
+        "env_var": SIGNATURE_ENV,
+        "present": True,
+        "value_logged": False,
+    }
+    assert signature_text not in dumped
     assert client.upload_calls == []
 
 
