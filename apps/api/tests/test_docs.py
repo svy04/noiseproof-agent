@@ -11784,3 +11784,33 @@ def test_ci_node24_actions_runtime_remote_verification_is_documented():
     assert "Phase 310 - CI Node24 Actions Runtime Remote Verification v0" in goal
     assert "ci node24 actions runtime remote verification v0" in runbook
     assert "docs/review/ci-node24-actions-runtime-remote-verification.md" in portfolio
+
+
+def test_uploaded_raw_file_download_endpoint_review_keeps_downloads_scan_first_and_review_only():
+    review_path = REPO_ROOT / "docs/review/uploaded-raw-file-download-endpoint-review.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Uploaded Raw File Download Endpoint Review" in content
+    assert "uploaded raw file download endpoint review v0" in content
+    assert "source-first review" in content
+    assert "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html" in content
+    assert "scan-first" in content
+    assert "latest clean scan result" in content
+    assert "generated raw_file_id and storage_key" in content
+    assert "authorization boundary remains planned" in content
+    assert "download rate limit remains planned" in content
+    assert "do not implement the download endpoint in this gate" in content
+    assert "next product gate: guarded raw file download endpoint v0" in content
+    assert "not malware scanning evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Uploaded raw file download endpoint review v0: implemented"
+        in readme
+    )
+    assert "Phase 366 - Uploaded Raw File Download Endpoint Review v0" in goal
+    assert "uploaded raw file download endpoint review v0" in runbook

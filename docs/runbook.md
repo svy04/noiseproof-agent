@@ -164,6 +164,8 @@ Phase 364 adds external review issue body workflow review queue proof index refr
 
 Phase 365 adds external feedback current-state workflow review queue proof index issue verification v0: `docs/review/external-feedback-current-state-workflow-review-queue-proof-index-issue-verification.md` records the live issue #1 state after the proof-index issue-body refresh. Observed state: `starts_with_request: true`, `first_codepoint: 35`, `has_workflow_review_queue_proof_index_link: true`, `has_workflow_review_queue_fresh_db_dashboard_smoke_link: true`, `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`. This is live request-surface evidence only and does not close external reviewer feedback v0.
 
+Phase 366 adds uploaded raw file download endpoint review v0: `docs/review/uploaded-raw-file-download-endpoint-review.md` records the source-first decision that any future `GET /documents/upload-raw-files/{raw_file_id}/download` route must be scan-first, require the latest clean scan result, avoid storage-key exposure, and keep authorization boundary plus download rate limit explicit. This is review-only; it is not endpoint code, not a download endpoint, not malware scanning evidence, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
