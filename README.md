@@ -504,6 +504,8 @@ External reviewer download-audit request refresh v0: implemented. Boundary: revi
 
 External review issue body download-audit refresh v0: implemented. Boundary: issue #1 now points to the raw file download audit runtime smoke and its reviewer request refresh; owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, not production authorization, not user identity, not malware detection proof, and not product-complete.
 
+External feedback current-state download-audit issue verification v0: implemented. Boundary: current issue #1 screen after the download-audit issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

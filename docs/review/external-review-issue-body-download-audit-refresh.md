@@ -123,3 +123,9 @@ It is not customer validation, Braincrew acceptance, production readiness, robus
 ```text
 external feedback current-state download-audit issue verification v0
 ```
+
+Current-state verification artifact:
+
+```text
+docs/review/external-feedback-current-state-download-audit-issue-verification.md
+```
