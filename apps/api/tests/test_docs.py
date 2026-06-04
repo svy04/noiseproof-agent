@@ -11808,7 +11808,7 @@ def test_ci_node24_action_versions_are_refreshed_to_current_major_tags():
     assert "git ls-remote --tags" in content
     assert "actions/checkout@v6" in ci_workflow
     assert "actions/setup-python@v6" in ci_workflow
-    assert "astral-sh/setup-uv@v8" in ci_workflow
+    assert "astral-sh/setup-uv@v8.2.0" in ci_workflow
     assert "actions/checkout@v6" in feedback_workflow
     assert "actions/setup-python@v6" in feedback_workflow
     assert "actions/upload-artifact@v7" in feedback_workflow
@@ -11816,6 +11816,7 @@ def test_ci_node24_action_versions_are_refreshed_to_current_major_tags():
         "actions/checkout@v4",
         "actions/setup-python@v5",
         "astral-sh/setup-uv@v5",
+        "astral-sh/setup-uv@v8\n",
         "actions/upload-artifact@v4",
     ]:
         assert old_reference not in ci_workflow

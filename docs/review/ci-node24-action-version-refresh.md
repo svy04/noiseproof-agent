@@ -6,7 +6,7 @@ Phase marker: ci node24 action version refresh v0
 
 ## Goal
 
-Refresh GitHub Actions JavaScript action references to current major tags after the repository proved that the workflows run under the forced Node.js 24 runtime but still emit a forced-runtime annotation.
+Refresh GitHub Actions JavaScript action references to current upstream refs after the repository proved that the workflows run under the forced Node.js 24 runtime but still emit a forced-runtime annotation.
 
 This is workflow runtime compatibility only. It is not API behavior, product runtime evidence, hosted deployment evidence, external reviewer feedback, customer validation, or product-complete evidence.
 
@@ -21,12 +21,13 @@ git ls-remote --tags https://github.com/astral-sh/setup-uv.git
 git ls-remote --tags https://github.com/actions/upload-artifact.git
 ```
 
-Observed current major tags:
+Observed selected current refs:
 
 ```text
 actions/checkout: v6
 actions/setup-python: v6
 astral-sh/setup-uv: v8
+astral-sh/setup-uv exact ref: v8.2.0
 actions/upload-artifact: v7
 ```
 
@@ -42,7 +43,7 @@ https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-action
 .github/workflows/ci.yml
   actions/checkout@v6
   actions/setup-python@v6
-  astral-sh/setup-uv@v8
+  astral-sh/setup-uv@v8.2.0
 
 .github/workflows/external-feedback-screen.yml
   actions/checkout@v6

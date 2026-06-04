@@ -6180,7 +6180,7 @@ Configured workflow action references:
 .github/workflows/ci.yml
   actions/checkout@v6
   actions/setup-python@v6
-  astral-sh/setup-uv@v8
+  astral-sh/setup-uv@v8.2.0
 
 .github/workflows/external-feedback-screen.yml
   actions/checkout@v6

@@ -1696,7 +1696,7 @@ CI Node24 Action Version Refresh v0
 Goal:
 
 ```text
-refresh GitHub Actions JavaScript action references to current upstream major tags after the forced Node.js 24 runtime annotation remained
+refresh GitHub Actions JavaScript action references to current upstream refs after the forced Node.js 24 runtime annotation remained
 ```
 
 Implemented:
@@ -1707,7 +1707,7 @@ docs/review/ci-node24-action-version-refresh.md
 upstream tag check
 actions/checkout@v6
 actions/setup-python@v6
-astral-sh/setup-uv@v8
+astral-sh/setup-uv@v8.2.0
 actions/upload-artifact@v7
 README implementation marker
 docs/runbook.md configuration note
