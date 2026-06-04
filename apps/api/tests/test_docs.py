@@ -12053,6 +12053,70 @@ def test_external_reviewer_clamav_malicious_detection_request_refresh_links_runt
     )
 
 
+def test_external_review_issue_body_clamav_malicious_detection_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-clamav-malicious-detection-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    request_refresh = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-clamav-malicious-detection-request-refresh.md"
+    ).read_text(encoding="utf-8")
+
+    proof_doc = (
+        "docs/review/"
+        "clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-clamav-malicious-detection-request-refresh.md"
+    )
+
+    assert "External Review Issue Body ClamAV Malicious-detection Refresh" in content
+    assert "external review issue body clamav malicious-detection refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_clamav_malicious_detection_proof": true' in content
+    assert '"has_clamav_malicious_detection_request_refresh": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert "harness_status: verified_infected" in content
+    assert "scan_verdict: infected" in content
+    assert "matched_signature: Eicar-Test-Signature" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production malware scanning evidence" in content
+    assert (
+        "External review issue body ClamAV malicious-detection refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 432 - External Review Issue Body ClamAV Malicious-detection Refresh v0"
+        in goal
+    )
+    assert "external review issue body clamav malicious-detection refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-clamav-malicious-detection-refresh.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/external-review-issue-body-clamav-malicious-detection-refresh.md"
+        in request_refresh
+    )
+
+
 def test_uploaded_raw_file_download_endpoint_review_keeps_downloads_scan_first_and_review_only():
     review_path = REPO_ROOT / "docs/review/uploaded-raw-file-download-endpoint-review.md"
     assert review_path.is_file()

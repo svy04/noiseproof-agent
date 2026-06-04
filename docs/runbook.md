@@ -5901,6 +5901,38 @@ not hosted deployment evidence
 not production malware scanning evidence
 ```
 
+## External Review Issue Body ClamAV Malicious-detection Refresh
+
+Phase marker: external review issue body clamav malicious-detection refresh v0.
+
+Use this artifact:
+
+```text
+docs/review/external-review-issue-body-clamav-malicious-detection-refresh.md
+```
+
+Observed live issue markers:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+starts_with_request: true
+first_codepoint: 35
+has_clamav_malicious_detection_proof: true
+has_clamav_malicious_detection_request_refresh: true
+has_external_feedback_boundary: true
+comment_count: 1
+```
+
+Boundary:
+
+```text
+owner-authored issue body edit only
+does not close external reviewer feedback v0
+not external reviewer feedback
+not hosted deployment evidence
+not production malware scanning evidence
+```
+
 ## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery
 
 Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke input discovery v0.

@@ -15629,6 +15629,41 @@ Next recommended evidence gate:
 external review issue body ClamAV malicious-detection refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 432 - External Review Issue Body ClamAV Malicious-detection Refresh v0
+
+Goal:
+
+```text
+update issue #1 so reviewers can reach the ClamAV API endpoint malicious-detection owner-runtime smoke from the live external review request
+```
+
+Implemented:
+
+```text
+external review issue body clamav malicious-detection refresh v0
+https://github.com/svy04/noiseproof-agent/issues/1
+docs/review/external-review-issue-body-clamav-malicious-detection-refresh.md
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md
+docs/review/external-reviewer-clamav-malicious-detection-request-refresh.md
+starts_with_request: true
+first_codepoint: 35
+has_clamav_malicious_detection_proof: true
+has_clamav_malicious_detection_request_refresh: true
+has_external_feedback_boundary: true
+comment_count: 1
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md issue-body refresh note
+```
+
+Phase 432 is an owner-authored issue body edit only. It adds no runtime behavior, schema, migration, API endpoint, external reviewer feedback, hosted deployment evidence, production malware scanning evidence, customer validation, Braincrew acceptance, automatic failure-case creation, autonomous/LLM-backed agents, polished web app, or product-complete claim. It does not close external reviewer feedback v0.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state ClamAV malicious-detection issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

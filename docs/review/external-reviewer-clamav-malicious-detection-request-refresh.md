@@ -46,3 +46,11 @@ not product-complete
 ```
 
 This refresh changes reviewer navigation only. It adds no runtime behavior, schema, migration, API endpoint, live issue body edit, external reviewer feedback, hosted deployment evidence, production malware scanning evidence, customer validation, Braincrew acceptance, or product-complete claim.
+
+## Follow-up Issue-body Refresh
+
+The live issue body refresh is recorded here:
+
+```text
+docs/review/external-review-issue-body-clamav-malicious-detection-refresh.md
+```
