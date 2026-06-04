@@ -20,6 +20,14 @@ Point reviewer-facing request surfaces to the uploaded PDF retrieval-run provena
 - `docs/review/external-reader-proof-path.md` now names the runtime proof and this request refresh.
 - `README.md`, `docs/runbook.md`, `docs/GOAL.md`, and `docs/application/portfolio-index.md` now record this phase.
 
+## Follow-up
+
+The live issue body refresh is recorded here:
+
+```text
+docs/review/external-review-issue-body-pdf-retrieval-run-provenance-refresh.md
+```
+
 ## Proof Link
 
 uploaded PDF retrieval-run provenance runtime proof:
@@ -75,5 +83,5 @@ It is not production readiness.
 ## Next Gate
 
 ```text
-external reviewer feedback v0 remains pending, external reviewer PDF retrieval-run provenance issue-body refresh v0, or select the next source-first product gate
+external reviewer feedback v0 remains pending, external feedback current-state PDF retrieval-run provenance issue verification v0, or select the next source-first product gate
 ```
