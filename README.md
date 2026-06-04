@@ -595,6 +595,8 @@ Uploaded raw file guard ops summary v0: implemented. Boundary: `GET /ops/summary
 
 Uploaded raw file guard ops summary runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified raw upload, blocked missing-scan download, failed scan metadata, clean scan metadata, active approval, allowed download, expected `/ops/summary` counter deltas, and `/ops/dashboard` metric labels; not production authorization, authenticated identity, signed URL support, hosted deployment evidence, external reviewer feedback, or product-complete.
 
+External reviewer raw-file guard ops summary request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the raw-file guard ops summary runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not production authorization, not authenticated identity, not signed URL support, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

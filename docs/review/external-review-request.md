@@ -287,6 +287,15 @@ docs/review/uploaded-raw-file-download-readiness-runtime-smoke.md
 
 Boundary: this proof is local Docker FastAPI plus PostgreSQL evidence for the read-only download readiness preflight; it blocks with `missing_clean_scan`, blocks with `missing_download_approval`, allows after active approval, returns no raw bytes, consumes no rate limit, and writes no download audit event. It is not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
 
+raw file guard ops summary runtime smoke:
+
+```text
+docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md
+docs/review/external-reviewer-raw-file-guard-ops-summary-request-refresh.md
+```
+
+Boundary: this proof is local Docker PostgreSQL plus live FastAPI HTTP evidence for raw upload, blocked missing-scan download, failed/clean scan metadata, active approval, allowed download, `/ops/summary` deltas, and `/ops/dashboard` labels. It is not a live issue body edit, not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated identity, not signed URL support, and not product-complete.
+
 architecture current-state ClamAV proof boundary refresh:
 
 ```text
@@ -317,8 +326,9 @@ Please read in this order:
 16. `docs/evaluation/semantic-retrieval-quality-report.md`
 17. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
 18. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
-19. `docs/review/architecture-current-state-clamav-proof-boundary-refresh.md`
-20. `docs/application/braincrew-role-map.md`
+19. `docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md`
+20. `docs/review/architecture-current-state-clamav-proof-boundary-refresh.md`
+21. `docs/application/braincrew-role-map.md`
 
 Optional source-level provenance:
 

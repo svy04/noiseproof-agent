@@ -255,6 +255,15 @@ docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
 
 This proof shows local Docker DB plus live FastAPI HTTP evidence for `POST /documents/upload-raw-files/{raw_file_id}/scan`, `GET /documents/upload-raw-files/{raw_file_id}/scan-results`, default `scanner-unavailable`, and `scan_verdict -> scan_error`. It is not real ClamAV execution, not signature database evidence, not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
 
+raw file guard ops summary runtime smoke:
+
+```text
+docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md
+docs/review/external-reviewer-raw-file-guard-ops-summary-request-refresh.md
+```
+
+This proof shows local Docker PostgreSQL plus live FastAPI HTTP evidence that raw upload, blocked missing-scan download, failed/clean scan metadata, active approval, allowed download, `/ops/summary` deltas, and `/ops/dashboard` labels work together. The request refresh is request infrastructure only. It is not live issue body edit, not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated identity, and not signed URL support.
+
 retrieval-run-linked Report proof:
 
 ```text

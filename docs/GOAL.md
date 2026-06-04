@@ -16151,6 +16151,41 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 445 - External Reviewer Raw-file Guard Ops Summary Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the raw-file guard ops summary runtime smoke discoverable from reviewer-facing repository paths without claiming external feedback
+```
+
+Implemented:
+
+```text
+external reviewer raw-file guard ops summary request refresh v0
+docs/review/external-reviewer-raw-file-guard-ops-summary-request-refresh.md
+docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md
+docs/review/external-reader-proof-path.md
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+docs/application/braincrew-role-map.md
+docs/application/portfolio-index.md
+README implementation marker
+docs/runbook.md note
+```
+
+Phase 445 is request-surface refresh only. It adds no runtime behavior, endpoint, schema, migration, live issue body edit, external reviewer feedback, hosted deployment evidence, production authorization, authenticated identity, signed URL support, customer validation, Braincrew acceptance, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external review issue body raw-file guard ops summary refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

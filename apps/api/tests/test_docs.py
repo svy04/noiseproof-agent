@@ -15957,3 +15957,81 @@ def test_uploaded_raw_file_guard_ops_summary_runtime_smoke_documents_local_evide
         "docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_external_reviewer_raw_file_guard_ops_summary_request_refresh_links_runtime_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-raw-file-guard-ops-summary-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (
+        REPO_ROOT / "docs/review/external-review-request.md"
+    ).read_text(encoding="utf-8")
+    reviewer_brief = (
+        REPO_ROOT / "docs/review/external-reviewer-brief.md"
+    ).read_text(encoding="utf-8")
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = "docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md"
+
+    assert "External Reviewer Raw-file Guard Ops Summary Request Refresh" in content
+    assert "external reviewer raw-file guard ops summary request refresh v0" in content
+    assert proof_doc in content
+    assert "upload_status_code: 201" in content
+    assert "missing_scan_download_status_code: 409" in content
+    assert "allowed_download_status_code: 200" in content
+    assert "uploaded_raw_file_count delta: 1" in content
+    assert "raw_file_scan_result_count delta: 2" in content
+    assert "raw_file_download_event_count delta: 2" in content
+    assert "blocked_download_event_count delta: 1" in content
+    assert "allowed_download_event_count delta: 1" in content
+    assert "not live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production authorization" in content
+    assert "not authenticated identity" in content
+    assert "not signed URL support" in content
+    assert "not product-complete" in content
+    assert (
+        "External reviewer raw-file guard ops summary request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 445 - External Reviewer Raw-file Guard Ops Summary Request Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer raw-file guard ops summary request refresh v0"
+        in runbook
+    )
+    assert "raw file guard ops summary runtime smoke" in proof_path
+    assert proof_doc in review_request
+    assert proof_doc in reviewer_brief
+    assert proof_doc in link_map
+    assert proof_doc in issue_template
+    assert proof_doc in role_map
+    assert proof_doc in portfolio
+    assert (
+        "docs/review/external-reviewer-raw-file-guard-ops-summary-request-refresh.md"
+        in portfolio
+    )

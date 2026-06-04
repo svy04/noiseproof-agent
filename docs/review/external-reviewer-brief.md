@@ -250,6 +250,14 @@ docs/evaluation/semantic-retrieval-quality-report.md
 
 This report is toy fixture metric output with `q-what-missing` kept visible. It is not vector search quality evidence, not a benchmark result, not a model comparison, not hosted deployment evidence, and not external reviewer feedback.
 
+raw file guard ops summary runtime smoke:
+
+```text
+docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md
+```
+
+This proof shows local Docker PostgreSQL plus live FastAPI HTTP evidence that raw upload, blocked missing-scan download, failed/clean scan metadata, active approval, allowed download, `/ops/summary` deltas, and `/ops/dashboard` labels work together. It is not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated identity, and not signed URL support.
+
 Optional public proof route:
 
 ```text
