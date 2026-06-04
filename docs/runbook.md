@@ -198,6 +198,8 @@ Phase 381 adds external reviewer signature-validation request refresh v0: `docs/
 
 Phase 382 adds external review issue body signature-validation refresh v0: `docs/review/external-review-issue-body-signature-validation-refresh.md` records the owner-authored issue #1 body update that points reviewers to `docs/review/uploaded-raw-file-signature-validation-runtime-smoke.md` and `docs/review/external-reviewer-signature-validation-request-refresh.md`. This is not external reviewer feedback, not hosted deployment evidence, not robust file-type detection, not malware scanning evidence, not production authorization, not endpoint malicious-detection runtime proof, and not product-complete.
 
+Phase 383 adds external feedback current-state signature-validation issue verification v0: `docs/review/external-feedback-current-state-signature-validation-issue-verification.md` records the live issue #1 state after the signature-validation issue-body refresh. Observed state: `starts_with_request: true`, `first_codepoint: 35`, `has_signature_validation_proof: true`, `has_signature_validation_request_refresh: true`, `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`. This is live request-surface evidence only and does not close external reviewer feedback v0.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
