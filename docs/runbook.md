@@ -8,6 +8,8 @@ Phase 337 adds external reviewer architecture current-state request refresh v0: 
 
 Phase 338 adds external review issue body architecture current-state refresh v0: issue #1 now links to `docs/review/architecture-current-state-refresh.md` and `docs/review/external-reviewer-architecture-current-state-request-refresh.md`. Observed issue markers were `updatedAt: 2026-06-04T04:27:19Z`, `first_codepoint: 35`, and `comment_count: 1`. This is an owner-authored issue body edit only, not external reviewer feedback, hosted deployment evidence, or endpoint malicious-detection runtime proof.
 
+Phase 339 adds external feedback current-state architecture issue verification v0: current issue #1 still has `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and only a self-authored non-qualifying comment after the architecture current-state issue-body refresh. This does not close external reviewer feedback v0 and is not hosted deployment evidence, endpoint malicious-detection runtime proof, or production semantic retrieval quality.
+
 Phase 22 adds an Evidence Ledger dashboard table: persisted evidence rows are now visible beside retrieval, gate, and report records in the plain operations dashboard.
 
 Phase 22.5 adds a review-only cross-link decision: direct evidence -> gate -> report links are deferred until a single workflow parent exists.

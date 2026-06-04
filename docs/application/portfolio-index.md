@@ -32,6 +32,8 @@ External review issue body root-guide verification: `docs/review/external-review
 
 External review issue body link-map verification: `docs/review/external-review-issue-body-link-map-verification.md` records that issue #1 currently contains direct reviewer links and has `comment_count: 1` with only owner-authored request/status context. It is not external reviewer feedback itself.
 
+External feedback current-state architecture issue verification: `docs/review/external-feedback-current-state-architecture-issue-verification.md` records the current issue #1 screen after the architecture current-state issue-body refresh. It observes `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`; it does not close external reviewer feedback v0.
+
 External review issue template link-map refresh: `docs/review/external-review-issue-template-link-map-refresh.md` records that `.github/ISSUE_TEMPLATE/external-review-feedback.md` now contains direct reviewer links. It is not external reviewer feedback itself.
 
 External review issue label verification: `docs/review/external-review-issue-label-verification.md` records that issue #1 is open and labeled `external-review` and `feedback`, while `comment_count` remains `0`. It is not external reviewer feedback itself.
