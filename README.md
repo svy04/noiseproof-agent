@@ -462,6 +462,8 @@ External feedback current-state rate-limit issue verification v0: implemented. B
 
 Uploaded raw file signature validation review v0: implemented. Boundary: source-first review selects a future local magic-prefix allowlist boundary for PDF/CSV/HTML/markdown inputs; review-only, not endpoint code, not an enforced signature validator, not malware scanning evidence, and not production authorization.
 
+Uploaded raw file signature validation local v0: implemented. Boundary: `POST /documents/upload-raw-files` now runs a local magic-prefix allowlist check before persistence, accepts CSV despite spoofed Content-Type metadata, and blocks declared PDF without a `%PDF-` prefix with `415`; not robust file-type detection, malware scanning evidence, production authorization, or product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

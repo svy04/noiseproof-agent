@@ -1348,6 +1348,47 @@ def test_document_upload_raw_file_rejects_oversized_file_without_persistence():
     assert client.get("/documents/upload-raw-files").json() == []
 
 
+def test_document_upload_raw_file_signature_validation_accepts_csv_despite_spoofed_content_type():
+    client = make_client()
+    content = b"ticker,revenue\nALPHA,120\n"
+
+    response = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", content, "application/pdf")},
+        data={"source_type": "csv"},
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    warnings = "\n".join(body["warnings_json"])
+    assert body["source_type"] == "csv"
+    assert body["content_type"] == "application/pdf"
+    assert "signature_boundary: local_v0_magic_prefix_allowlist_not_production" in warnings
+    assert "detected_signature_type: csv" in warnings
+    assert "Content-Type header can be spoofed" in warnings
+    assert "raw_bytes" not in body
+
+
+def test_document_upload_raw_file_signature_validation_blocks_declared_pdf_without_pdf_prefix():
+    client = make_client()
+    content = b"ticker,revenue\nALPHA,120\n"
+
+    response = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.pdf", content, "application/pdf")},
+        data={"source_type": "pdf"},
+    )
+
+    assert response.status_code == 415
+    detail = response.json()["detail"]
+    assert detail["block_reason"] == "file signature mismatch"
+    assert detail["declared_source_type"] == "pdf"
+    assert detail["detected_signature_type"] == "csv"
+    assert detail["signature_boundary"] == "local_v0_magic_prefix_allowlist_not_production"
+    assert "raw_bytes" not in detail
+    assert client.get("/documents/upload-raw-files").json() == []
+
+
 def test_document_upload_raw_file_scan_result_endpoint_persists_metadata_only():
     client = make_client()
     upload = client.post(

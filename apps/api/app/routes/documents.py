@@ -74,6 +74,7 @@ DOWNLOAD_RATE_LIMIT_DETAIL = "raw file download rate limit exceeded"
 DOWNLOAD_RATE_LIMIT_BOUNDARY = "local_v0_in_memory_fixed_window_not_production"
 DOWNLOAD_RATE_LIMIT_ATTEMPTS = 5
 DOWNLOAD_RATE_LIMIT_WINDOW_SECONDS = 60.0
+SIGNATURE_VALIDATION_BOUNDARY = "local_v0_magic_prefix_allowlist_not_production"
 _download_attempt_windows: dict[tuple[str, str], deque[float]] = {}
 
 
@@ -108,6 +109,97 @@ def _consume_download_attempt(raw_file_id: UUID, request: Request) -> bool:
         return False
     attempts.append(now)
     return True
+
+
+def _validate_raw_file_signature(
+    *,
+    source_type: str | None,
+    content_type: str | None,
+    content: bytes,
+) -> dict:
+    declared_source_type = (source_type or "unknown").strip().lower() or "unknown"
+    detected_signature_type, confidence, detection_warnings = _detect_signature_type(
+        content,
+        declared_source_type=declared_source_type,
+    )
+    warnings = [
+        f"signature_boundary: {SIGNATURE_VALIDATION_BOUNDARY}",
+        f"declared_source_type: {declared_source_type}",
+        f"declared_content_type: {content_type or 'unknown'}",
+        f"detected_signature_type: {detected_signature_type}",
+        f"signature_confidence: {confidence}",
+        "Content-Type header can be spoofed; local signature validation treats it as metadata only.",
+        "File signature validation is local v0 and should not be used on its own.",
+        *detection_warnings,
+    ]
+
+    accepted, block_reason = _signature_validation_decision(
+        declared_source_type=declared_source_type,
+        detected_signature_type=detected_signature_type,
+    )
+    result = {
+        "accepted": accepted,
+        "block_reason": block_reason,
+        "declared_source_type": declared_source_type,
+        "declared_content_type": content_type or "unknown",
+        "detected_signature_type": detected_signature_type,
+        "signature_confidence": confidence,
+        "signature_boundary": SIGNATURE_VALIDATION_BOUNDARY,
+        "warnings": warnings,
+    }
+    return result
+
+
+def _detect_signature_type(
+    content: bytes,
+    *,
+    declared_source_type: str,
+) -> tuple[str, str, list[str]]:
+    prefix = content[:4096]
+    if prefix.startswith(b"%PDF-"):
+        return "pdf", "high", []
+    if _has_binary_control_bytes(prefix):
+        return "binary", "medium", ["binary control-byte signal present"]
+
+    text = prefix.decode("utf-8", errors="ignore").lstrip("\ufeff\r\n\t ")
+    lowered = text[:512].lower()
+    if lowered.startswith("<!doctype html") or "<html" in lowered:
+        return "html", "medium", []
+    if declared_source_type == "markdown" and text.strip():
+        return "markdown", "low", ["text-like markdown signature only"]
+    if "," in text and "\n" in text:
+        return "csv", "medium", []
+    if text.strip():
+        return "text", "low", ["text-like signature without a stronger local v0 match"]
+    return "unknown", "low", ["empty or unknown signature prefix"]
+
+
+def _has_binary_control_bytes(prefix: bytes) -> bool:
+    allowed_controls = {9, 10, 12, 13}
+    return any(byte < 32 and byte not in allowed_controls for byte in prefix)
+
+
+def _signature_validation_decision(
+    *,
+    declared_source_type: str,
+    detected_signature_type: str,
+) -> tuple[bool, str | None]:
+    if detected_signature_type == "binary":
+        return False, "unsupported binary signature"
+    if declared_source_type == "pdf" and detected_signature_type != "pdf":
+        return False, "file signature mismatch"
+    if declared_source_type == "html" and detected_signature_type != "html":
+        return False, "file signature mismatch"
+    if declared_source_type in {"csv", "markdown"}:
+        return detected_signature_type in {
+            declared_source_type,
+            "csv",
+            "markdown",
+            "text",
+        }, None
+    if declared_source_type in {"unknown", "txt", "text"}:
+        return detected_signature_type in {"csv", "markdown", "html", "text"}, None
+    return detected_signature_type != "unknown", None
 
 
 @router.post("", response_model=DocumentOut, status_code=201)
@@ -381,11 +473,31 @@ async def upload_document_raw_file(
             ),
         )
 
+    signature_result = _validate_raw_file_signature(
+        source_type=source_type,
+        content_type=file.content_type,
+        content=content,
+    )
+    if not signature_result["accepted"]:
+        raise HTTPException(
+            status_code=415,
+            detail={
+                "block_reason": signature_result["block_reason"],
+                "declared_source_type": signature_result["declared_source_type"],
+                "declared_content_type": signature_result["declared_content_type"],
+                "detected_signature_type": signature_result["detected_signature_type"],
+                "signature_confidence": signature_result["signature_confidence"],
+                "signature_boundary": signature_result["signature_boundary"],
+                "warnings": signature_result["warnings"],
+            },
+        )
+
     warnings = [
         "Raw upload storage is quarantine-only and stores bytes in PostgreSQL bytea.",
         "The original filename is recorded as metadata only and is not used as a storage key.",
         "Raw byte retrieval requires the explicit scan-first download endpoint and a latest clean scan result.",
         "No malware scan completeness, robust PDF extraction, parsing guarantee, hosted deployment evidence, or production authorization is claimed.",
+        *signature_result["warnings"],
     ]
     payload = UploadedRawFileCreate(
         content_sha256=sha256(content).hexdigest(),

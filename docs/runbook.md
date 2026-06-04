@@ -190,6 +190,8 @@ Phase 377 adds external feedback current-state rate-limit issue verification v0:
 
 Phase 378 adds uploaded raw file signature validation review v0: `docs/review/uploaded-raw-file-signature-validation-review.md` records the source-first decision to keep upload file-type checks as a future local magic-prefix allowlist boundary. This is review-only; it is not endpoint code, not an enforced signature validator, not malware scanning evidence, not production authorization, and not product-complete.
 
+Phase 379 adds uploaded raw file signature validation local v0: `docs/review/uploaded-raw-file-signature-validation-local.md` records local API behavior for a magic-prefix allowlist check before `POST /documents/upload-raw-files` persists bytes. It accepts CSV even when `Content-Type` says `application/pdf`, blocks declared PDF without a `%PDF-` prefix with `415`, and returns no raw bytes in the error detail. This is not robust file-type detection, malware scanning evidence, production authorization, hosted proof, or product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

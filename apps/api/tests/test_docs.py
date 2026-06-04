@@ -12349,3 +12349,42 @@ def test_uploaded_raw_file_signature_validation_review_selects_bounded_local_v0(
     assert "Phase 378 - Uploaded Raw File Signature Validation Review v0" in goal
     assert "uploaded raw file signature validation review v0" in runbook
     assert "docs/review/uploaded-raw-file-signature-validation-review.md" in portfolio
+
+
+def test_uploaded_raw_file_signature_validation_local_documents_route_behavior():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-signature-validation-local.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Signature Validation Local" in content
+    assert "uploaded raw file signature validation local v0" in content
+    assert "POST /documents/upload-raw-files" in content
+    assert "local_v0_magic_prefix_allowlist_not_production" in content
+    assert "signature_boundary" in content
+    assert "detected_signature_type" in content
+    assert "Content-Type header can be spoofed" in content
+    assert "application/pdf" in content
+    assert "source_type=csv" in content
+    assert "201" in content
+    assert "source_type=pdf" in content
+    assert "415" in content
+    assert "file signature mismatch" in content
+    assert "no raw bytes" in content
+    assert "not robust file-type detection" in content
+    assert "not malware scanning evidence" in content
+    assert "not production authorization" in content
+    assert "uploaded raw file signature validation runtime smoke v0" in content
+    assert "Uploaded raw file signature validation local v0: implemented" in readme
+    assert "Phase 379 - Uploaded Raw File Signature Validation Local v0" in goal
+    assert "uploaded raw file signature validation local v0" in runbook
+    assert "docs/review/uploaded-raw-file-signature-validation-local.md" in portfolio
