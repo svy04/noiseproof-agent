@@ -62,6 +62,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-workflow-review-queue-dashboard-surfacing.md",
         "docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md",
         "docs/review/failure-case-workflow-review-queue-proof-index.md",
+        "docs/review/external-reviewer-workflow-review-queue-proof-index-request-refresh.md",
     ]
 
     for file_path in required_files:
@@ -2338,6 +2339,54 @@ def test_failure_case_workflow_review_queue_proof_index_gives_reader_path_and_bo
     assert "Failure-case workflow review queue proof index v0: implemented" in readme
     assert "Failure-case workflow review queue proof index" in portfolio
     assert "read-model queue -> runtime smoke -> dashboard surfacing" in portfolio
+
+
+def test_external_reviewer_workflow_review_queue_proof_index_request_refresh_surfaces_reader_path():
+    content = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-workflow-review-queue-proof-index-request-refresh.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    external_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Reviewer Workflow Review Queue Proof Index Request Refresh" in content
+    assert "external reviewer workflow review queue proof index request refresh v0" in content
+    assert "docs/review/failure-case-workflow-review-queue-proof-index.md" in content
+    assert (
+        "docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md"
+        in content
+    )
+    assert "external reviewer feedback remains pending" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert (
+        "Phase 363 - External Reviewer Workflow Review Queue Proof Index Request Refresh v0"
+        in goal
+    )
+    assert (
+        "docs/review/failure-case-workflow-review-queue-proof-index.md"
+        in external_path
+    )
+    assert (
+        "docs/review/failure-case-workflow-review-queue-proof-index.md"
+        in request
+    )
+    assert "docs/review/failure-case-workflow-review-queue-proof-index.md" in brief
+    assert "failure-case workflow review queue proof index" in readme
+    assert "failure-case workflow review queue proof index" in portfolio
 
 
 def test_failure_case_workflow_parent_linkage_schema_review_selects_nullable_fk():

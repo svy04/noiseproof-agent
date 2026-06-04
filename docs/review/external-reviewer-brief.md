@@ -17,6 +17,7 @@ Read only these:
 1. `README.md`
 2. `docs/review/external-reader-proof-path.md`
 3. `docs/application/portfolio-index.md`
+   - Related proof index: `docs/review/failure-case-workflow-review-queue-proof-index.md`
 4. `docs/review/local-browser-screenshot-walkthrough.md`
 5. `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
 6. `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`

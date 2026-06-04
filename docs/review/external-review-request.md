@@ -22,6 +22,12 @@ Shortest reviewer brief:
 docs/review/external-reviewer-brief.md
 ```
 
+Current failure-case workflow review queue proof index:
+
+```text
+docs/review/failure-case-workflow-review-queue-proof-index.md
+```
+
 Copy-paste outreach packet:
 
 ```text

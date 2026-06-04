@@ -8,7 +8,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 Start with `docs/review/external-reader-proof-path.md`.
 
-That file is the 5-minute repository-native path for reviewing what this project currently proves. It points to the README, portfolio index, failure-case workflow parent proof index, application-ready review, and Braincrew role map.
+That file is the 5-minute repository-native path for reviewing what this project currently proves. It points to the README, portfolio index, failure-case workflow parent proof index, failure-case workflow review queue proof index, application-ready review, and Braincrew role map.
 
 Boundary: this fast path is not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 

@@ -4,7 +4,7 @@ Status: Phase 10 application artifact.
 
 This page maps the repository into a reviewer-readable path.
 
-Fast path: `docs/review/external-reader-proof-path.md` is the 5-minute path for external readers. It starts with `README.md`, then points to this portfolio index, the failure-case workflow parent proof index, the application-ready review, and the Braincrew role map.
+Fast path: `docs/review/external-reader-proof-path.md` is the 5-minute path for external readers. It starts with `README.md`, then points to this portfolio index, the failure-case workflow parent proof index, the failure-case workflow review queue proof index, the application-ready review, and the Braincrew role map.
 
 Boundary: this fast path is not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 

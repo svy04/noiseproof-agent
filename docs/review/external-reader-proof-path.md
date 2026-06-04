@@ -16,6 +16,8 @@ Read in this order:
    - Repository map from system surface to proof artifacts.
 3. `docs/review/failure-case-workflow-parent-linkage-proof-index.md`
    - Compact reader path for manual failure-case workflow parent linkage.
+   - Related proof index: `docs/review/failure-case-workflow-review-queue-proof-index.md`
+   - Purpose: compact reader path for the failed workflow review queue, dashboard surfacing, and fresh DB dashboard proof.
 4. `docs/review/application-ready-review.md`
    - Current application-readiness judgment and claim boundaries.
 5. `docs/application/braincrew-role-map.md`
