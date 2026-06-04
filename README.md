@@ -506,6 +506,8 @@ External review issue body download-audit refresh v0: implemented. Boundary: iss
 
 External feedback current-state download-audit issue verification v0: implemented. Boundary: current issue #1 screen after the download-audit issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
+Uploaded raw file download authorization gate review v0: implemented. Boundary: source-first review selects a future `raw_file_download_approvals` manual approval schema before any production authorization claim; review-only, not endpoint code, not schema, not user identity, not signed URL support, not RBAC, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

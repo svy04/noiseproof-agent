@@ -13451,3 +13451,54 @@ def test_external_feedback_current_state_download_audit_issue_verification_keeps
         "docs/review/external-feedback-current-state-download-audit-issue-verification.md"
         in issue_body_refresh
     )
+
+
+def test_uploaded_raw_file_download_authorization_gate_review_selects_manual_approval_schema_next():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-download-authorization-gate-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Authorization Gate Review" in content
+    assert "uploaded raw file download authorization gate review v0" in content
+    assert "OWASP Authorization Cheat Sheet" in content
+    assert "OWASP API1:2023 Broken Object Level Authorization" in content
+    assert "OWASP API5:2023 Broken Function Level Authorization" in content
+    assert "OWASP File Upload Cheat Sheet" in content
+    assert "raw_file_download_approvals" in content
+    assert "manual approval schema" in content
+    assert "missing_download_approval" in content
+    assert "approved_by_label" in content
+    assert "operator-provided label, not authenticated user identity" in content
+    assert "do not implement production authorization yet" in content
+    assert "not endpoint code" in content
+    assert "not schema" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert "not RBAC" in content
+    assert (
+        "selected next gate: uploaded raw file download approval schema v0"
+        in content
+    )
+    assert (
+        "Uploaded raw file download authorization gate review v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 401 - Uploaded Raw File Download Authorization Gate Review v0"
+        in goal
+    )
+    assert "uploaded raw file download authorization gate review v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-download-authorization-gate-review.md"
+        in portfolio
+    )

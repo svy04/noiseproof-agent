@@ -234,6 +234,8 @@ Phase 399 adds external review issue body download-audit refresh v0: `docs/revie
 
 Phase 400 adds external feedback current-state download-audit issue verification v0: `docs/review/external-feedback-current-state-download-audit-issue-verification.md` records the live issue #1 state after the download-audit issue-body refresh. Observed state: `starts_with_request: true`, `first_codepoint: 35`, `has_download_audit_proof: true`, `has_download_audit_request_refresh: true`, `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`. This is live request-surface evidence only and does not close external reviewer feedback v0.
 
+Phase 401 adds uploaded raw file download authorization gate review v0: `docs/review/uploaded-raw-file-download-authorization-gate-review.md` uses OWASP Authorization, API1/BOLA, API5/BFLA, and File Upload guidance to choose a future local manual approval schema before any production authorization claim. Selected next gate: `uploaded raw file download approval schema v0` with planned `raw_file_download_approvals`; `approved_by_label` remains an operator-provided label, not authenticated user identity. This is review-only, not endpoint code, not schema, not production authorization, not user identity, not signed URL support, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
