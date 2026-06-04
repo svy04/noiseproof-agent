@@ -11841,3 +11841,35 @@ def test_guarded_raw_file_download_endpoint_is_documented_as_scan_first_local_v0
     assert "Guarded raw file download endpoint v0: implemented" in readme
     assert "Phase 367 - Guarded Raw File Download Endpoint v0" in goal
     assert "guarded raw file download endpoint v0" in runbook
+
+
+def test_guarded_raw_file_download_endpoint_runtime_smoke_is_documented():
+    smoke_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md"
+    )
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "Guarded Raw File Download Endpoint Runtime Smoke" in content
+    assert "guarded raw file download endpoint runtime smoke v0" in content
+    assert "Applied migrations: 18" in content
+    assert "Pending migrations: 0" in content
+    assert "download_no_scan 409" in content
+    assert "download_clean 200 True" in content
+    assert "download_after_failed 409" in content
+    assert "raw_upload_quarantine_db_bytea_guarded_download_endpoint" in content
+    assert "scan_first_latest_clean_result_required" in content
+    assert "local_v0_no_auth_not_production" in content
+    assert "attachment; filename=\"sample.csv\"" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not production malware scanning evidence" in content
+    assert "not product-complete" in content
+    assert "Guarded raw file download endpoint runtime smoke v0: implemented" in readme
+    assert "Phase 368 - Guarded Raw File Download Endpoint Runtime Smoke v0" in goal
+    assert "guarded raw file download endpoint runtime smoke v0" in runbook

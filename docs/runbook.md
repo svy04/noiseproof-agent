@@ -168,6 +168,8 @@ Phase 366 adds uploaded raw file download endpoint review v0: `docs/review/uploa
 
 Phase 367 adds guarded raw file download endpoint v0: `GET /documents/upload-raw-files/{raw_file_id}/download` now returns raw bytes only when the latest scan result is `completed / clean`; missing scan evidence or a latest non-clean result returns `409` with `latest clean scan result required`. The response sets `X-Content-Type-Options: nosniff`, `X-NoiseProof-Download-Boundary: scan_first_latest_clean_result_required`, `X-NoiseProof-Authorization-Boundary: local_v0_no_auth_not_production`, and `X-NoiseProof-Download-Rate-Limit-Boundary: planned_not_enforced_local_v0`. This is local API behavior only, not production malware scanning evidence, hosted deployment evidence, external reviewer feedback, production authorization, enforced rate limiting, or product-complete.
 
+Phase 368 adds guarded raw file download endpoint runtime smoke v0: `docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for upload -> no-scan download `409` -> clean scan metadata -> download `200` with `scan_first_latest_clean_result_required` and `local_v0_no_auth_not_production` headers -> later failed scan metadata -> download `409`. This is local runtime smoke only, not hosted deployment evidence, external reviewer feedback, production malware scanning evidence, production authorization, enforced rate limiting, or product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
