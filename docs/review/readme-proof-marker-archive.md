@@ -1429,3 +1429,10 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Observed `comment_count: 1`, `candidate_count: 0`, and `self_authored_comment`
 - `docs/review/semantic-retrieval-quality-report-ci-remote-issue-body-refresh.md`: added
 - Boundary: owner-authored request-surface refresh only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0
+
+### Phase 362 - Failure-case Workflow Review Queue Proof Index v0
+
+- Failure-case workflow review queue proof index v0: implemented
+- `docs/review/failure-case-workflow-review-queue-proof-index.md`: added
+- Reader path: read-model queue -> runtime smoke -> dashboard surfacing -> fresh DB dashboard proof
+- Boundary: proof-index documentation only; not runtime behavior, not hosted deployment evidence, not external reviewer feedback, not automatic failure-case creation, and not complete workflow failure causality

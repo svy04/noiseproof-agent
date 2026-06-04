@@ -61,6 +61,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md",
         "docs/review/failure-case-workflow-review-queue-dashboard-surfacing.md",
         "docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md",
+        "docs/review/failure-case-workflow-review-queue-proof-index.md",
     ]
 
     for file_path in required_files:
@@ -2294,6 +2295,49 @@ def test_failure_case_workflow_review_queue_fresh_db_dashboard_smoke_documents_r
         "docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md"
         in portfolio
     )
+
+
+def test_failure_case_workflow_review_queue_proof_index_gives_reader_path_and_boundaries():
+    content = (
+        REPO_ROOT
+        / "docs/review/failure-case-workflow-review-queue-proof-index.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Failure-case Workflow Review Queue Proof Index" in content
+    assert "reader path" in content
+    assert "read-model queue boundary" in content
+    assert "runtime queue smoke" in content
+    assert "dashboard surfacing review" in content
+    assert "plain dashboard surfacing" in content
+    assert "fresh DB dashboard proof" in content
+    assert "docs/review/failure-case-workflow-review-queue.md" in content
+    assert (
+        "docs/review/failure-case-workflow-review-queue-runtime-smoke-verification.md"
+        in content
+    )
+    assert (
+        "docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md"
+        in content
+    )
+    assert "Allowed claim" in content
+    assert "Forbidden claim" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not automatic failure-case creation" in content
+    assert "not complete workflow failure causality" in content
+    assert (
+        "Phase 362 - Failure-case Workflow Review Queue Proof Index v0"
+        in goal
+    )
+    assert "failure-case workflow review queue proof index v0" in goal
+    assert "Failure-case workflow review queue proof index v0: implemented" in readme
+    assert "Failure-case workflow review queue proof index" in portfolio
+    assert "read-model queue -> runtime smoke -> dashboard surfacing" in portfolio
 
 
 def test_failure_case_workflow_parent_linkage_schema_review_selects_nullable_fk():

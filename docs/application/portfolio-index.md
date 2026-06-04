@@ -271,6 +271,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | Failure-case workflow review queue dashboard surfacing review | `docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md` | reviewed |
 | Failure-case workflow review queue dashboard surfacing | `GET /ops/dashboard`, `docs/review/failure-case-workflow-review-queue-dashboard-surfacing.md` | implemented v0 |
 | Failure-case workflow review queue fresh DB dashboard smoke verification | `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` | verified local |
+| Failure-case workflow review queue proof index | `docs/review/failure-case-workflow-review-queue-proof-index.md` | implemented v0 |
 | External-reader proof path | `docs/review/external-reader-proof-path.md` | implemented v0 |
 | Portfolio site proof artifact route verification | `docs/review/portfolio-site-proof-artifact-route-verification.md` | verified live portfolio route |
 | Demo transcript capture | `docs/review/demo-transcript-capture.md` | self-authored route walkthrough |
@@ -317,6 +318,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | `docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md` | review-only selection for future plain dashboard queue section; no dashboard rendering yet |
 | `docs/review/failure-case-workflow-review-queue-dashboard-surfacing.md` | plain dashboard queue section for failed workflow parent review; no automatic failure-case creation |
 | `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` | local fresh migrated Docker DB dashboard evidence for the review queue section; pending 1, linked 1, draft preview visible, no automatic failure-case creation |
+| `docs/review/failure-case-workflow-review-queue-proof-index.md` | reader path: read-model queue -> runtime smoke -> dashboard surfacing -> fresh DB dashboard proof; no automatic failure-case creation |
 | `docs/review/portfolio-site-proof-artifact-route-verification.md` | live portfolio route proof that the public NoiseProof proof surface references the current repo proof path and boundaries |
 | `docs/review/demo-transcript-capture.md` | self-authored route transcript for collection planning, deterministic workflow preview, lineage, and dashboard inspection |
 | `docs/review/local-browser-screenshot-walkthrough.md` | local browser screenshot walkthrough for the operations dashboard and workflow-run lineage link |
