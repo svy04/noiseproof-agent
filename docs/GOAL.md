@@ -1195,6 +1195,46 @@ Next recommended gate:
 external review issue body approval-gate refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 414 extension to the accepted state:
+
+```text
+External Review Issue Body Approval-gate Refresh v0
+```
+
+### Phase 414 - External Review Issue Body Approval-gate Refresh v0
+
+Goal:
+
+```text
+update the live external review issue body so reviewers can reach the approval gate runtime smoke
+```
+
+Implemented:
+
+```text
+external review issue body approval-gate refresh v0
+docs/review/external-review-issue-body-approval-gate-refresh.md
+live issue #1 owner-authored body edit
+docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md linked from issue #1
+docs/review/external-reviewer-approval-gate-request-refresh.md linked from issue #1
+starts_with_request: true
+first_codepoint: 35
+has_approval_gate_proof: true
+has_approval_gate_request_refresh: true
+comment_count: 1
+README implementation marker
+docs/runbook.md issue-body refresh note
+docs/application/portfolio-index.md issue-body artifact link
+```
+
+Phase 414 is an owner-authored issue body edit only. It adds no runtime behavior, schema, migration, API endpoint, hosted deployment evidence, external reviewer feedback, production authorization, user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+external feedback current-state approval-gate issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

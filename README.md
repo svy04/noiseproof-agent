@@ -532,6 +532,8 @@ Uploaded raw file download approval gate behavior runtime smoke v0: implemented.
 
 External reviewer approval-gate request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the raw file download approval gate behavior runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not production authorization, not user identity, not signed URL support, and not product-complete.
 
+External review issue body approval-gate refresh v0: implemented. Boundary: issue #1 now points to the approval gate behavior runtime smoke and its reviewer request refresh; owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, not production authorization, not user identity, not signed URL support, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

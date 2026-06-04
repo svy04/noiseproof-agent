@@ -14156,3 +14156,59 @@ def test_external_reviewer_approval_gate_request_refresh_links_runtime_proof():
         "docs/review/external-reviewer-approval-gate-request-refresh.md"
         in portfolio
     )
+
+
+def test_external_review_issue_body_approval_gate_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT / "docs/review/external-review-issue-body-approval-gate-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Approval-gate Refresh" in content
+    assert "external review issue body approval-gate refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_approval_gate_proof": true' in content
+    assert '"has_approval_gate_request_refresh": true' in content
+    assert '"comment_count": 1' in content
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md"
+        in content
+    )
+    assert (
+        "docs/review/external-reviewer-approval-gate-request-refresh.md"
+        in content
+    )
+    assert "clean_without_approval_status: 409" in content
+    assert "revoked_approval_status: 409" in content
+    assert "active_approval_status: 200" in content
+    assert "download_approval_id_present: true" in content
+    assert "owner-authored issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert "external feedback current-state approval-gate issue verification v0" in content
+    assert (
+        "External review issue body approval-gate refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 414 - External Review Issue Body Approval-gate Refresh v0"
+        in goal
+    )
+    assert "external review issue body approval-gate refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-approval-gate-refresh.md"
+        in portfolio
+    )

@@ -260,6 +260,8 @@ Phase 412 adds uploaded raw file download approval gate behavior runtime smoke v
 
 Phase 413 adds external reviewer approval-gate request refresh v0: `docs/review/external-reviewer-approval-gate-request-refresh.md` makes the approval gate behavior runtime smoke discoverable from reviewer-facing repository paths, including the external-reader proof path, review request packet, reviewer brief, link map, Braincrew role map, and portfolio index. This is a request-surface refresh only, not a live issue body edit, not external reviewer feedback, not hosted evidence, not production authorization, not user identity, and not product-complete.
 
+Phase 414 adds external review issue body approval-gate refresh v0: `docs/review/external-review-issue-body-approval-gate-refresh.md` records the owner-authored issue #1 body edit pointing reviewers to the approval gate behavior runtime smoke and request refresh. Observed markers: `starts_with_request=true`, `first_codepoint=35`, `has_approval_gate_proof=true`, `has_approval_gate_request_refresh=true`, and `comment_count=1`. This is a live request update only, not external reviewer feedback, not hosted evidence, not production authorization, not user identity, not signed URL support, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
