@@ -10361,6 +10361,66 @@ def test_uploaded_pdf_downstream_handoff_runtime_smoke_records_live_http_evidenc
     )
 
 
+def test_uploaded_pdf_downstream_handoff_application_refresh_surfaces_runtime_proof():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-downstream-handoff-application-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded PDF Downstream Handoff Application Refresh" in content
+    assert "uploaded PDF downstream handoff application refresh v0" in content
+    assert "docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md" in content
+    assert "POST /documents/upload-chunk-preview" in content
+    assert "POST /documents/upload-chunks" in content
+    assert "POST /documents/upload-retrieval-preview" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "digital_pdf_text_extraction -> true" in content
+    assert "replacement_decode_warning_present -> false" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction" in content
+    assert (
+        "Uploaded PDF downstream handoff application refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 343 - Uploaded PDF Downstream Handoff Application Refresh v0"
+        in goal
+    )
+    assert "uploaded PDF downstream handoff application refresh v0" in runbook
+    assert (
+        "docs/review/uploaded-pdf-downstream-handoff-application-refresh.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md"
+        in role_map
+    )
+    assert "uploaded PDF downstream handoff runtime proof exists" in application_ready
+    assert (
+        "docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md"
+        in proof_path
+    )
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

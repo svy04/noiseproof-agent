@@ -40,13 +40,13 @@ It is a small service that shows how I define a messy customer-like data problem
 
 ## Runtime Proof Surfaces
 
-External-reader proof path: `docs/review/external-reader-proof-path.md`.
+External-reader proof path (5-minute path): `docs/review/external-reader-proof-path.md`.
 
-README proof-marker archive: `docs/review/readme-proof-marker-archive.md`.
+README proof-marker archive: `docs/review/readme-proof-marker-archive.md` for source-level provenance.
 
-These are the 5-minute path and source-level provenance path, not product runtime evidence, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality.
+These are not product runtime evidence, hosted deployment evidence, automatic failure-case creation, or complete workflow failure causality.
 
-The runtime proof links below are local proof surfaces, not hosted deployment evidence.
+Runtime proof links below are local proof surfaces, not hosted deployment evidence.
 
 Runtime proof summary:
 
@@ -54,19 +54,20 @@ Runtime proof summary:
 - Failure/provenance: manual failure-case persistence, workflow parent linkage, and dashboard proof keep human handoff visible; not automatic failure-case creation, not automatic failure detection, and not complete workflow failure causality.
 - Preserved proof markers: failure-case persistence smoke; linked failure-case proof; failed workflow parent proof; historical failure-case workflow linkage review; human-confirmed draft payload; route-level smoke; draft.fix_status from draft to open; fresh migrated Docker DB handoff proof; workflow failure-to-draft smoke; workflow parent linkage fresh DB proof; dashboard manual workflow parent link; fresh DB dashboard Workflow Parent proof; workflow parent proof index; reader path; manual workflow parent linkage now exists.
 - Preserved boundary markers: preview_only_not_persisted; not fresh Docker DB evidence; not automatic failure-case persistence; automatic failure-case creation remains unclaimed.
-- Upload path: intake manifest, raw upload quarantine metadata with PostgreSQL BYTEA storage, parsed-document metadata, chunk persistence/handoff, and document-scoped retrieval persistence are locally smoke-tested with no download endpoint, no malware scanning, no robust PDF claim, and no hosted deployment evidence.
+- Upload path: intake manifest, raw upload quarantine metadata, parsed-document metadata, uploaded digital PDF downstream handoff, chunk persistence/handoff, and document-scoped retrieval persistence are locally smoke-tested with no download endpoint, no malware scanning, no robust PDF claim, and no hosted deployment evidence.
 - Preserved upload proof markers: upload intake manifest runtime smoke; upload intake manifest persistence runtime smoke; upload parsed document persistence runtime smoke.
 - Preserved upload boundary markers: not raw file storage.
 - Retrieval handoffs: linked Evidence Ledger, Noise Gate, and Report endpoints have local Docker runtime smoke; no external feedback, LLM judgment, free-form final answer, or automatic failure-case creation.
-- Caller-provided chunk embedding endpoint: `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, generated-claim rejection `400`, and pgvector normalization are locally smoke-tested; no embedding generation, vector search quality claim, or hosted deployment evidence.
+- Caller-provided chunk embedding endpoint: POST/GET embeddings, generated-claim rejection `400`, and pgvector normalization are locally smoke-tested; no embedding generation, vector search quality claim, or hosted deployment evidence.
 - Caller-provided semantic retrieval persistence: `POST /documents/{document_id}/semantic-retrieval-runs`, `GET /retrieval-runs`, dimension mismatch rejection `400`, and unchanged Evidence Ledger counts are locally smoke-tested; no embedding generation, no vector search quality evidence, no Evidence Ledger generation from semantic retrieval, and no hosted deployment evidence.
-- toy semantic retrieval quality report: `docs/evaluation/semantic-retrieval-quality-report.md` records Hit@k, Recall@k, MRR@k, nDCG@k, missing embedding rate, disagreement, role coverage, and the visible `q-what-missing` failure over a toy fixture; no vector search quality evidence, benchmark result, model comparison, or production semantic retrieval quality is claimed.
+- toy semantic retrieval quality report: records ranking metrics and visible misses over a toy fixture; no vector search quality evidence, benchmark result, model comparison, or production semantic retrieval quality is claimed.
 
 Detailed proof links:
 
 - `docs/review/failure-case-workflow-parent-linkage-proof-index.md`
 - `docs/review/uploaded-file-chunk-persistence-application-refresh.md`
 - `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md`
+- `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md`
 - `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
 - `docs/review/uploaded-raw-file-storage-application-refresh.md`
 - `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`

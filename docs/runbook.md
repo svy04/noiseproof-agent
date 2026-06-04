@@ -16,6 +16,8 @@ Phase 341 adds uploaded PDF downstream handoff v0: `POST /documents/upload-chunk
 
 Phase 342 adds uploaded PDF downstream handoff runtime smoke v0: local Docker PostgreSQL plus live FastAPI HTTP observed uploaded digital PDF bytes flowing through `POST /documents/upload-preview`, `POST /documents/upload-chunk-preview`, `POST /documents/upload-chunks`, `GET /documents/{document_id}/chunks`, and `POST /documents/upload-retrieval-preview` with `parser -> pdf-pymupdf`, `digital_pdf_text_extraction -> true`, and `replacement_decode_warning_present -> false`. This is local runtime evidence only; it is not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, or raw file storage.
 
+Phase 343 adds uploaded PDF downstream handoff application refresh v0: README, GOAL, runbook, portfolio index, Braincrew role map, application-ready review, and external-reader proof path now surface `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md`. This is application packaging only; it is not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, or raw file storage.
+
 Phase 22 adds an Evidence Ledger dashboard table: persisted evidence rows are now visible beside retrieval, gate, and report records in the plain operations dashboard.
 
 Phase 22.5 adds a review-only cross-link decision: direct evidence -> gate -> report links are deferred until a single workflow parent exists.

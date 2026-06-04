@@ -78,6 +78,8 @@ Uploaded PDF downstream handoff: `docs/review/uploaded-pdf-downstream-handoff.md
 
 Uploaded PDF downstream handoff runtime smoke: `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for uploaded digital PDF bytes flowing through upload preview, upload chunk preview, explicit upload-to-chunks persistence, listed chunk lookup, and upload retrieval preview. It is not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, or raw file storage.
 
+Uploaded PDF downstream handoff application refresh: `docs/review/uploaded-pdf-downstream-handoff-application-refresh.md` surfaces the uploaded PDF downstream handoff runtime smoke in the reader-facing application docs. It is not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, or raw file storage.
+
 External reviewer parsed-document persistence request refresh: `docs/review/external-reviewer-parsed-document-persistence-request-refresh.md` points the reviewer request path to the uploaded-file parsed document persistence proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.
 
 External review issue body parsed document persistence refresh: `docs/review/external-review-issue-body-parsed-document-persistence-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file parsed document persistence proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.
