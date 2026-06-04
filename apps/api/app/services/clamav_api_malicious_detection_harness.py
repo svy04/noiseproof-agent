@@ -40,6 +40,7 @@ OWNER_RUNTIME_SMOKE_ACCEPTED_SUMMARY = {
     "metadata_boundary": "metadata_only_no_raw_bytes_no_download_url",
 }
 OWNER_RUNTIME_SMOKE_ACCEPTED_INPUT_SOURCES = ["file", "stdin"]
+OWNER_RUNTIME_INPUT_DISCOVERABLE_SOURCES = ["file", "stdin", "environment"]
 OWNER_RUNTIME_SMOKE_FORBIDDEN_PAYLOAD_KEYS = {
     "content_bytes",
     "download_url",
@@ -371,7 +372,8 @@ def build_owner_runtime_input_discovery_report(
         "discovery_status": "owner_runtime_input_discovered"
         if discovered
         else "owner_runtime_input_missing",
-        "accepted_input_sources": ["file", "stdin", "environment"],
+        "discoverable_input_sources": list(OWNER_RUNTIME_INPUT_DISCOVERABLE_SOURCES),
+        "accepted_input_sources": list(OWNER_RUNTIME_SMOKE_ACCEPTED_INPUT_SOURCES),
         "api_calls_attempted": False,
         "payload_length_bytes": 0,
         "input_payload_inspected": False,
@@ -382,6 +384,7 @@ def build_owner_runtime_input_discovery_report(
             "signature_file_env": {
                 "env_var": SIGNATURE_FILE_ENV,
                 "present": signature_file_env_value is not None,
+                "validator_accepted": True,
                 **{
                     key: value
                     for key, value in file_env.items()
@@ -392,10 +395,12 @@ def build_owner_runtime_input_discovery_report(
                 "env_var": SIGNATURE_ENV,
                 "present": signature_text_present,
                 "value_logged": False,
+                "validator_accepted": False,
             },
             "stdin": {
                 "supported": True,
                 "inspected": False,
+                "validator_accepted": True,
             },
         },
         "blocked_reason": None
@@ -580,7 +585,10 @@ def validate_owner_runtime_smoke_report(
             formatted = str(expected_value).lower()
             missing_or_failed_checks.append(f"{field} must be {formatted}")
     if report.get("input_source") not in set(OWNER_RUNTIME_SMOKE_ACCEPTED_INPUT_SOURCES):
-        missing_or_failed_checks.append("input_source must be stdin or file")
+        accepted_sources = ", ".join(OWNER_RUNTIME_SMOKE_ACCEPTED_INPUT_SOURCES)
+        missing_or_failed_checks.append(
+            f"input_source must be one of: {accepted_sources}"
+        )
 
     summary = report.get("scan_result_summary")
     if not isinstance(summary, Mapping):

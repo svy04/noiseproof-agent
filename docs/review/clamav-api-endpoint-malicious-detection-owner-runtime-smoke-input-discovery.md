@@ -22,7 +22,10 @@ uv run python -m app.services.clamav_api_malicious_detection_harness --discover-
 The command checks for possible owner runtime input locations without printing secrets or payload material:
 
 ```text
-accepted_input_sources: file, stdin, environment
+discoverable_input_sources: file, stdin, environment
+accepted_input_sources: file, stdin
+signature_text_env.validator_accepted: false
+stdin.validator_accepted: true
 input_payload_inspected: false
 api_calls_attempted: false
 raw_payload_logged: false

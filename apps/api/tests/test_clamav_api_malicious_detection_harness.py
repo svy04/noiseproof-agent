@@ -395,7 +395,8 @@ def test_malicious_detection_harness_owner_runtime_input_discovery_reports_missi
     assert payload["malicious_detection_verified"] is False
     assert payload["payload_committed_to_repo"] is False
     assert payload["raw_payload_logged"] is False
-    assert payload["accepted_input_sources"] == ["file", "stdin", "environment"]
+    assert payload["discoverable_input_sources"] == ["file", "stdin", "environment"]
+    assert payload["accepted_input_sources"] == ["file", "stdin"]
     assert payload["candidates"]["signature_file_argument"]["provided"] is False
     assert payload["candidates"]["signature_file_env"]["env_var"] == SIGNATURE_FILE_ENV
     assert payload["candidates"]["signature_file_env"]["present"] is False
@@ -404,6 +405,23 @@ def test_malicious_detection_harness_owner_runtime_input_discovery_reports_missi
     assert payload["candidates"]["signature_text_env"]["value_logged"] is False
     assert payload["candidates"]["stdin"]["supported"] is True
     assert payload["candidates"]["stdin"]["inspected"] is False
+    assert client.upload_calls == []
+
+
+def test_malicious_detection_harness_owner_runtime_input_discovery_separates_discoverable_and_accepted_sources(
+    capsys,
+):
+    client = RecordingClient()
+
+    exit_code = main(["--discover-owner-runtime-input"], env={}, client=client)
+
+    assert exit_code == 4
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["discoverable_input_sources"] == ["file", "stdin", "environment"]
+    assert payload["accepted_input_sources"] == ["file", "stdin"]
+    assert payload["candidates"]["signature_text_env"]["validator_accepted"] is False
+    assert payload["candidates"]["stdin"]["validator_accepted"] is True
+    assert payload["api_calls_attempted"] is False
     assert client.upload_calls == []
 
 
@@ -463,6 +481,7 @@ def test_malicious_detection_harness_owner_runtime_input_discovery_reports_env_c
         "env_var": SIGNATURE_ENV,
         "present": True,
         "value_logged": False,
+        "validator_accepted": False,
     }
     assert signature_text not in dumped
     assert client.upload_calls == []
@@ -829,6 +848,45 @@ def test_owner_runtime_smoke_validator_accepts_verified_infected_metadata_report
     assert payload["payload_committed_to_repo"] is False
     assert payload["raw_payload_logged"] is False
     assert payload["non_claims"]["production_malware_scanning_evidence"] is False
+
+
+def test_owner_runtime_smoke_validator_rejects_environment_input_source_metadata_report(
+    capsys, tmp_path
+):
+    report_path = tmp_path / "owner-runtime-smoke-report.json"
+    report_path.write_text(
+        json.dumps(
+            {
+                "harness_status": "verified_infected",
+                "malicious_detection_verified": True,
+                "api_calls_attempted": True,
+                "payload_committed_to_repo": False,
+                "raw_payload_logged": False,
+                "input_source": "environment",
+                "required_owner_input_missing": False,
+                "scan_result_summary": {
+                    "scanner_name": "clamav-clamd",
+                    "scan_status": "completed",
+                    "scan_verdict": "infected",
+                    "matched_signature": "Eicar-Test-Signature",
+                    "metadata_boundary": "metadata_only_no_raw_bytes_no_download_url",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    exit_code = main(["--validate-owner-runtime-smoke-report", str(report_path)])
+
+    assert exit_code == 5
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["validation_status"] == "rejected"
+    assert payload["accepted_owner_runtime_smoke"] is False
+    assert payload["missing_or_failed_checks"] == [
+        "input_source must be one of: file, stdin"
+    ]
+    assert payload["payload_committed_to_repo"] is False
+    assert payload["raw_payload_logged"] is False
 
 
 def test_owner_runtime_smoke_validator_accepts_windows_bom_json_report(

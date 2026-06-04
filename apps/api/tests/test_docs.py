@@ -9729,7 +9729,10 @@ def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_input_disco
     assert "ClamAV API endpoint malicious-detection owner runtime smoke input discovery v0" in content
     assert "--discover-owner-runtime-input" in content
     assert "owner_runtime_input_missing" in content
-    assert "accepted_input_sources: file, stdin, environment" in content
+    assert "discoverable_input_sources: file, stdin, environment" in content
+    assert "accepted_input_sources: file, stdin" in content
+    assert "signature_text_env.validator_accepted: false" in content
+    assert "stdin.validator_accepted: true" in content
     assert "input_payload_inspected: false" in content
     assert "api_calls_attempted: false" in content
     assert "raw_payload_logged: false" in content
@@ -9860,6 +9863,33 @@ def test_external_review_issue_body_bom_cleanup_is_documented():
     assert "Phase 331 - External Review Issue Body BOM Cleanup v0" in goal
     assert "external review issue body BOM cleanup v0" in runbook
     assert "docs/review/external-review-issue-body-bom-cleanup.md" in portfolio
+
+
+def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_input_source_contract_alignment_is_documented():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-source-contract-alignment.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input-source Contract Alignment" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke input-source contract alignment v0" in content
+    assert "discoverable_input_sources: file, stdin, environment" in content
+    assert "accepted_input_sources: file, stdin" in content
+    assert "signature_text_env.validator_accepted: false" in content
+    assert "stdin.validator_accepted: true" in content
+    assert "input_source must be one of: file, stdin" in content
+    assert "does not include a test signature payload" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke input-source contract alignment v0: implemented" in readme
+    assert "Phase 332 - ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input-source Contract Alignment v0" in goal
+    assert "ClamAV API endpoint malicious-detection owner runtime smoke input-source contract alignment v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-source-contract-alignment.md" in portfolio
 
 
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():

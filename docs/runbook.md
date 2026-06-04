@@ -5674,7 +5674,10 @@ Expected no-input markers:
 
 ```text
 owner_runtime_input_missing
-accepted_input_sources: file, stdin, environment
+discoverable_input_sources: file, stdin, environment
+accepted_input_sources: file, stdin
+signature_text_env.validator_accepted: false
+stdin.validator_accepted: true
 input_payload_inspected: false
 api_calls_attempted: false
 raw_payload_logged: false
@@ -5690,6 +5693,34 @@ Exit code:
 0 when owner runtime input is discoverable
 4 when owner runtime input is missing
 ```
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
+## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input-source Contract Alignment
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke input-source contract alignment v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-source-contract-alignment.md
+```
+
+Current contract:
+
+```text
+discoverable_input_sources: file, stdin, environment
+accepted_input_sources: file, stdin
+signature_text_env.validator_accepted: false
+stdin.validator_accepted: true
+input_source must be one of: file, stdin
+```
+
+This is contract-alignment proof only. It does not run the owner runtime smoke, does not include a test signature payload, does not call the API, and is not endpoint malicious-detection runtime proof.
 
 Next product gate:
 

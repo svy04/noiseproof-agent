@@ -375,6 +375,8 @@ External review issue body owner-runtime input discovery refresh v0: implemented
 
 External review issue body BOM cleanup v0: implemented. Boundary: issue #1 now starts directly with `## Request` again after removing a leading UTF-8 byte order mark introduced during the owner-runtime input discovery issue refresh; owner-authored issue edit only, not external reviewer feedback and not endpoint malicious-detection runtime proof.
 
+ClamAV API endpoint malicious-detection owner runtime smoke input-source contract alignment v0: implemented. Boundary: owner-runtime input discovery now distinguishes `discoverable_input_sources=file,stdin,environment` from validator `accepted_input_sources=file,stdin`, and validator rejection now says `input_source must be one of: file, stdin`; this is not endpoint malicious-detection runtime proof and includes no test signature payload.
+
 ci node24 actions runtime opt-in v0: implemented. Boundary: `.github/workflows/ci.yml` and `.github/workflows/external-feedback-screen.yml` set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"` after the remote run warned that Node.js 20 actions are deprecated; this is workflow runtime compatibility only, not product runtime evidence.
 
 ci node24 actions runtime remote verification v0: implemented. Boundary: remote runs `26870586255` (`CI`) and `26870586219` (`External Feedback Screen`) succeeded on head `c3c6908`; the annotation is still present as a forced Node.js 24 runtime warning, so this is compatibility evidence only, not product runtime evidence.
