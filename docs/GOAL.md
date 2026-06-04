@@ -1394,6 +1394,46 @@ Next recommended gate:
 external review issue body approval-input guard refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 419 extension to the accepted state:
+
+```text
+External Review Issue Body Approval-input Guard Refresh v0
+```
+
+### Phase 419 - External Review Issue Body Approval-input Guard Refresh v0
+
+Goal:
+
+```text
+update live issue #1 so reviewers can reach the approval input guard runtime proof and request refresh
+```
+
+Implemented:
+
+```text
+external review issue body approval-input guard refresh v0
+docs/review/external-review-issue-body-approval-input-guard-refresh.md
+live issue #1 owner-authored body edit
+starts_with_request: true
+first_codepoint: 35
+has_approval_input_guard_proof: true
+has_approval_input_guard_request_refresh: true
+has_unknown_status_422: true
+has_expired_approved_422: true
+comment_count: 1
+README implementation marker
+docs/runbook.md issue-body note
+docs/application/portfolio-index.md issue-body artifact link
+```
+
+Phase 419 is an owner-authored issue body edit only. It adds no runtime behavior, schema, migration, API endpoint, hosted deployment evidence, external reviewer feedback, production authorization, authenticated user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim. It does not close external reviewer feedback v0.
+
+Next recommended gate:
+
+```text
+external feedback current-state approval-input guard issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:
