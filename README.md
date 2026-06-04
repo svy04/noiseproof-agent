@@ -622,6 +622,8 @@ External reviewer shortlist v0: implemented. Boundary: `docs/review/external-rev
 
 External review issue body shortlist refresh v0: implemented. Boundary: issue #1 body now starts its Fast Path with `docs/review/external-reviewer-shortlist.md`; this is owner-authored issue routing only, not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete.
 
+External feedback current-state shortlist issue verification v0: implemented. Boundary: current issue #1 starts its Fast Path with `docs/review/external-reviewer-shortlist.md`, but the only screened comment is owner-authored, `candidate_count=0`, `draft_count=0`, and external reviewer feedback remains pending.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

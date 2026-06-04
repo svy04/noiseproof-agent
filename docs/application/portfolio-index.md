@@ -220,6 +220,8 @@ External reviewer shortlist: `docs/review/external-reviewer-shortlist.md` gives 
 
 External review issue body shortlist refresh: `docs/review/external-review-issue-body-shortlist-refresh.md` records the owner-authored issue #1 body edit that puts `docs/review/external-reviewer-shortlist.md` at the top of the public Fast Path. This is issue routing only, not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete.
 
+External feedback current-state shortlist issue verification: `docs/review/external-feedback-current-state-shortlist-issue-verification.md` records that the current issue #1 body still starts with the shortlist while the only screened comment is owner-authored and external reviewer feedback remains pending.
+
 ## Start Here
 
 1. `README.md`

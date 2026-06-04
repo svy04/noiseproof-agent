@@ -16751,6 +16751,47 @@ Next recommended evidence gate:
 external feedback current-state shortlist issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 460 - External Feedback Current-state Shortlist Issue Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+verify the public issue state after the shortlist issue-body refresh and keep external reviewer feedback pending
+```
+
+Implemented:
+
+```text
+external feedback current-state shortlist issue verification v0
+docs/review/external-feedback-current-state-shortlist-issue-verification.md
+current issue #1 body starts Fast Path with docs/review/external-reviewer-shortlist.md
+observed updatedAt: 2026-06-04T22:02:43Z
+starts_with_request: true
+first_codepoint: 35
+has_external_reviewer_shortlist: true
+has_external_feedback_boundary: true
+comment_count: 1
+screened_comment_count: 1
+candidate_count: 0
+draft_count: 0
+screening status: pending
+classification: non_qualifying
+reason: self_authored_comment
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+```
+
+Phase 460 is current-state verification only. It adds no runtime behavior, endpoint, schema, migration, issue body edit, external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
