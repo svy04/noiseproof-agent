@@ -985,6 +985,52 @@ Next recommended gate:
 uploaded raw file download approval gate behavior review v0
 ```
 
+Phase 409 extension to the accepted state:
+
+```text
+Uploaded Raw File Download Approval Gate Behavior Review v0
+```
+
+### Phase 409 - Uploaded Raw File Download Approval Gate Behavior Review v0
+
+Goal:
+
+```text
+use primary authorization and upload-security sources to choose the next smallest gate before changing guarded raw download behavior
+```
+
+Implemented:
+
+```text
+uploaded raw file download approval gate behavior review v0
+docs/review/uploaded-raw-file-download-approval-gate-behavior-review.md
+OWASP Authorization Cheat Sheet
+OWASP API1:2023 Broken Object Level Authorization
+OWASP API5:2023 Broken Function Level Authorization
+OWASP File Upload Cheat Sheet
+selected find_active_raw_file_download_approval
+selected future rule: latest clean scan and active approval
+selected future block reasons: missing_download_approval, revoked_or_expired_download_approval
+selected download_approval_id in metadata_json first
+README implementation marker
+docs/runbook.md behavior review note
+docs/application/portfolio-index.md behavior review entry
+```
+
+Selected next gate:
+
+```text
+uploaded raw file download approval helper v0
+```
+
+Phase 409 is review-only. It adds no route behavior, endpoint behavior, hosted deployment evidence, external reviewer feedback, approval enforcement, production authorization, user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+uploaded raw file download approval helper v0
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

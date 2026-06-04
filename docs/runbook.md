@@ -250,6 +250,8 @@ Phase 407 adds uploaded raw file download approval endpoint v0: `docs/review/upl
 
 Phase 408 adds uploaded raw file download approval endpoint runtime smoke v0: `docs/review/uploaded-raw-file-download-approval-endpoint-runtime-smoke.md` records local Docker FastAPI plus PostgreSQL proof that approval metadata create/list works over HTTP. Observed flow: health `200`, upload `201`, scan metadata `201`, approval metadata `201`, approval list `200`, and raw download `409` because the latest scan verdict was `scan_error`. This proves approval metadata did not override latest clean scan guard. This is local runtime evidence only, not approval enforcement, not production authorization, not user identity, not signed URL support, not hosted evidence, and not product-complete.
 
+Phase 409 adds uploaded raw file download approval gate behavior review v0: `docs/review/uploaded-raw-file-download-approval-gate-behavior-review.md` uses OWASP authorization and upload-security sources to choose a helper-first path before changing raw download route behavior. Selected next gate: `find_active_raw_file_download_approval`, with a future rule of latest clean scan and active approval. Future block reasons include `missing_download_approval` and `revoked_or_expired_download_approval`; future audit may record `download_approval_id in metadata_json` before adding a column. This is review-only, not route behavior, not approval enforcement, not production authorization, not user identity, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

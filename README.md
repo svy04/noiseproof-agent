@@ -522,6 +522,8 @@ Uploaded raw file download approval endpoint v0: implemented. Boundary: metadata
 
 Uploaded raw file download approval endpoint runtime smoke v0: implemented. Boundary: local Docker FastAPI plus PostgreSQL verified approval metadata create/list over HTTP and confirmed approval metadata did not override the latest clean scan guard; not approval enforcement, production authorization, user identity, signed URL support, hosted evidence, or product-complete claim.
 
+Uploaded raw file download approval gate behavior review v0: implemented. Boundary: source-first review selects `find_active_raw_file_download_approval` as the next helper gate before changing raw download route behavior; not route behavior, approval enforcement, production authorization, user identity, signed URL support, RBAC, hosted evidence, or product-complete claim.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

@@ -13883,3 +13883,58 @@ def test_uploaded_raw_file_download_approval_endpoint_runtime_smoke_records_live
         "docs/review/uploaded-raw-file-download-approval-endpoint-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_approval_gate_behavior_review_selects_helper_before_route_change():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-approval-gate-behavior-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Approval Gate Behavior Review" in content
+    assert "uploaded raw file download approval gate behavior review v0" in content
+    assert "OWASP Authorization Cheat Sheet" in content
+    assert "OWASP API1:2023 Broken Object Level Authorization" in content
+    assert "OWASP API5:2023 Broken Function Level Authorization" in content
+    assert "OWASP File Upload Cheat Sheet" in content
+    assert "deny by default" in content
+    assert "latest clean scan and active approval" in content
+    assert "missing_download_approval" in content
+    assert "revoked_or_expired_download_approval" in content
+    assert "find_active_raw_file_download_approval" in content
+    assert "download_approval_id in metadata_json" in content
+    assert "not route behavior" in content
+    assert "not approval enforcement" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert "not RBAC" in content
+    assert (
+        "selected next gate: uploaded raw file download approval helper v0"
+        in content
+    )
+    assert (
+        "Uploaded raw file download approval gate behavior review v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 409 - Uploaded Raw File Download Approval Gate Behavior Review v0"
+        in goal
+    )
+    assert (
+        "uploaded raw file download approval gate behavior review v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-gate-behavior-review.md"
+        in portfolio
+    )
