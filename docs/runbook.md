@@ -12,6 +12,8 @@ Phase 339 adds external feedback current-state architecture issue verification v
 
 Phase 340 adds uploaded PDF text extraction v0: `POST /documents/upload-preview` can pass uploaded PDF bytes through PyMuPDF and return `parser: pdf-pymupdf`, `digital_pdf_text_extraction: true`, `robust_pdf_extraction: false`, and `preview_only_not_persisted`. This is digital PDF text only; it is not OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, or external reviewer feedback.
 
+Phase 341 adds uploaded PDF downstream handoff v0: `POST /documents/upload-chunk-preview`, `POST /documents/upload-chunks`, and `POST /documents/upload-retrieval-preview` reuse the same PyMuPDF digital text extraction path for uploaded PDF bytes before chunking or lexical retrieval. This is digital PDF text only; it is not OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, or external reviewer feedback.
+
 Phase 22 adds an Evidence Ledger dashboard table: persisted evidence rows are now visible beside retrieval, gate, and report records in the plain operations dashboard.
 
 Phase 22.5 adds a review-only cross-link decision: direct evidence -> gate -> report links are deferred until a single workflow parent exists.

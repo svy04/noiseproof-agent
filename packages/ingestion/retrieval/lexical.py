@@ -51,6 +51,7 @@ def retrieve_candidates(
             ParseInput(
                 source_type=source.source_type,
                 content=source.content,
+                content_bytes=source.content_bytes,
                 filename=source.filename,
                 source_uri=source.source_uri,
             )

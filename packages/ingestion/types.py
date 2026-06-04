@@ -81,6 +81,7 @@ class RetrievalSource:
     source_id: str
     source_type: str
     content: str
+    content_bytes: bytes | None = None
     filename: str | None = None
     source_uri: str | None = None
 

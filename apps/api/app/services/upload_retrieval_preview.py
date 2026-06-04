@@ -2,7 +2,7 @@ from packages.ingestion.retrieval import retrieve_candidates
 from packages.ingestion.types import ChunkOptions, RetrievalSource
 
 from app.schemas import UploadRetrievalPreviewOut
-from app.services.upload_preview import decode_upload_content, infer_upload_source_type
+from app.services.upload_preview import infer_upload_source_type, parse_uploaded_content
 
 TRADING_DRIFT_TERMS = ("buy", "sell", "target price", "매수", "매도", "목표가")
 
@@ -51,15 +51,22 @@ def preview_uploaded_retrieval(
             warnings=warnings,
         )
 
-    text = decode_upload_content(content, warnings)
+    parsed, _profile = parse_uploaded_content(
+        filename=filename,
+        content_type=content_type,
+        source_type=source_type,
+        content=content,
+        warnings=warnings,
+    )
     source_id = f"upload://{filename}" if filename else "upload://unnamed"
     result = retrieve_candidates(
         question=question,
         sources=[
             RetrievalSource(
                 source_id=source_id,
-                source_type=inferred_source_type,
-                content=text,
+                source_type=parsed.source_type,
+                content=parsed.text,
+                content_bytes=content,
                 filename=filename,
                 source_uri=source_id,
             )
@@ -74,7 +81,7 @@ def preview_uploaded_retrieval(
         content_type=content_type,
         byte_count=len(content),
         persistence_boundary="preview_only_not_persisted",
-        source_type=inferred_source_type,
+        source_type=parsed.source_type,
         question=question,
         strategy=result.strategy,
         status="completed" if result.result_count else "no_results",
@@ -84,7 +91,7 @@ def preview_uploaded_retrieval(
         missing_evidence_count=result.missing_evidence_count,
         trading_advice_boundary=None,
         results=[candidate.__dict__ for candidate in result.results],
-        warnings=warnings + result.warnings,
+        warnings=warnings + parsed.warnings + result.warnings,
     )
 
 

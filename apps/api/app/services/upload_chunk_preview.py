@@ -1,6 +1,9 @@
-from app.schemas import ChunkPreviewRequest, UploadChunkPreviewOut
-from app.services.chunk_preview import preview_chunks
-from app.services.upload_preview import decode_upload_content, infer_upload_source_type
+from dataclasses import asdict
+
+from app.schemas import ChunkStrategyOut, UploadChunkPreviewOut
+from app.services.upload_preview import parse_uploaded_content
+from packages.ingestion.chunking import compare_chunk_strategies
+from packages.ingestion.types import ChunkOptions
 
 
 def preview_uploaded_chunks(
@@ -16,22 +19,16 @@ def preview_uploaded_chunks(
         "Upload chunk preview is preview-only and does not create documents, chunks, or retrieval runs.",
         "File upload preview does not claim robust PDF extraction.",
     ]
-    inferred_source_type = infer_upload_source_type(
-        source_type=source_type,
+    parsed, profile = parse_uploaded_content(
         filename=filename,
         content_type=content_type,
+        source_type=source_type,
+        content=content,
         warnings=warnings,
     )
-    text = decode_upload_content(content, warnings)
-    chunked = preview_chunks(
-        ChunkPreviewRequest(
-            source_type=inferred_source_type,
-            content=text,
-            filename=filename,
-            source_uri=f"upload://{filename}" if filename else "upload://unnamed",
-            max_characters=max_characters,
-            overlap=overlap,
-        )
+    strategies = compare_chunk_strategies(
+        parsed,
+        ChunkOptions(max_characters=max_characters, overlap=overlap),
     )
 
     return UploadChunkPreviewOut(
@@ -39,10 +36,14 @@ def preview_uploaded_chunks(
         content_type=content_type,
         byte_count=len(content),
         persistence_boundary="preview_only_not_persisted",
-        source_type=chunked.source_type,
-        parser=chunked.parser,
-        profile=chunked.profile,
-        parse_warnings=warnings + chunked.parse_warnings,
-        failure_case_candidate=chunked.failure_case_candidate,
-        strategies=chunked.strategies,
+        source_type=parsed.source_type,
+        parser=parsed.parser,
+        profile=profile,
+        parse_warnings=warnings + parsed.warnings,
+        failure_case_candidate=(
+            asdict(parsed.failure_case_candidate)
+            if parsed.failure_case_candidate is not None
+            else None
+        ),
+        strategies=[ChunkStrategyOut(**asdict(strategy)) for strategy in strategies],
     )

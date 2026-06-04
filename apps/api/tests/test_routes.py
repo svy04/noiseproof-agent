@@ -1573,6 +1573,7 @@ def test_document_upload_preview_extracts_digital_pdf_text_without_robust_claim(
     assert body["metadata"]["page_count"] == 1
     assert body["profile"]["has_numbers"] is True
     assert any("OCR" in warning for warning in body["warnings"])
+    assert not any("replacement" in warning for warning in body["warnings"])
     assert client.get("/documents").json() == []
 
 
@@ -1598,6 +1599,33 @@ def test_document_upload_chunk_preview_compares_uploaded_csv_without_persistence
     assert {"fixed-window", "row-aware"}.issubset(strategy_names)
     assert body["profile"]["has_tables"] is True
     assert any("does not create documents" in warning for warning in body["parse_warnings"])
+    assert client.get("/documents").json() == []
+
+
+def test_document_upload_chunk_preview_uses_pdf_text_extraction_for_uploaded_pdf():
+    client = make_client()
+    content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")
+
+    response = client.post(
+        "/documents/upload-chunk-preview",
+        data={"max_characters": "80", "overlap": "0"},
+        files={"file": ("sample-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["source_type"] == "pdf"
+    assert body["parser"] == "pdf-pymupdf"
+    assert body["profile"]["has_numbers"] is True
+    assert any("OCR" in warning for warning in body["parse_warnings"])
+    chunk_texts = [
+        chunk["text"]
+        for strategy in body["strategies"]
+        for chunk in strategy["chunks"]
+    ]
+    assert any("Enterprise PDF demand grew 12% in 2026" in text for text in chunk_texts)
+    assert not any("replacement" in warning for warning in body["parse_warnings"])
     assert client.get("/documents").json() == []
 
 
@@ -1668,6 +1696,40 @@ def test_document_upload_chunks_persists_document_and_chunks_without_raw_file_st
     assert listed_chunks == chunks
 
 
+def test_document_upload_chunks_persists_chunks_from_uploaded_pdf_text_extraction():
+    client = make_client()
+    content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")
+
+    response = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Uploaded PDF report",
+            "strategy": "fixed-window",
+            "max_characters": "80",
+            "overlap": "0",
+        },
+        files={"file": ("sample-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["source_type"] == "pdf"
+    assert body["parser"] == "pdf-pymupdf"
+    assert body["handoff_boundary"] == "explicit_upload_to_chunks_no_raw_file_storage"
+    assert body["persistence_boundary"] == "chunk_text_only_no_raw_file_storage"
+    assert body["raw_file_storage"] is False
+    assert body["parsed_text_storage"] is False
+    assert body["document"]["profile_json"]["parser"] == "pdf-pymupdf"
+    assert body["document"]["profile_json"]["chunk_count"] >= 1
+    assert body["chunks"]
+    assert any(
+        "Enterprise PDF demand grew 12% in 2026" in chunk["chunk_text"]
+        for chunk in body["chunks"]
+    )
+    assert any("OCR" in warning for warning in body["warnings"])
+    assert not any("replacement" in warning for warning in body["warnings"])
+
+
 def test_document_upload_retrieval_preview_searches_uploaded_markdown_without_persistence():
     client = make_client()
     content = b"# Market note\nEnterprise demand growth was 12 percent in 2026.\nConsumer demand declined.\n"
@@ -1698,6 +1760,38 @@ def test_document_upload_retrieval_preview_searches_uploaded_markdown_without_pe
     assert body["results"][0]["source_id"] == "upload://sample-note.md"
     assert "enterprise" in body["results"][0]["matched_terms"]
     assert any("does not create retrieval_runs" in warning for warning in body["warnings"])
+    assert client.get("/retrieval-runs").json() == []
+
+
+def test_document_upload_retrieval_preview_uses_pdf_text_extraction_for_uploaded_pdf():
+    client = make_client()
+    content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")
+
+    response = client.post(
+        "/documents/upload-retrieval-preview",
+        data={
+            "question": "What grew in 2026?",
+            "strategy": "fixed-window",
+            "top_k": "3",
+            "max_characters": "80",
+            "overlap": "0",
+        },
+        files={"file": ("sample-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["source_type"] == "pdf"
+    assert body["status"] == "completed"
+    assert body["result_count"] >= 1
+    assert any(
+        "Enterprise PDF demand grew 12% in 2026" in result["text"]
+        for result in body["results"]
+    )
+    assert any("OCR" in warning for warning in body["warnings"])
+    assert not any("replacement" in warning for warning in body["warnings"])
+    assert client.get("/documents").json() == []
     assert client.get("/retrieval-runs").json() == []
 
 
