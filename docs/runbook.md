@@ -236,6 +236,8 @@ Phase 400 adds external feedback current-state download-audit issue verification
 
 Phase 401 adds uploaded raw file download authorization gate review v0: `docs/review/uploaded-raw-file-download-authorization-gate-review.md` uses OWASP Authorization, API1/BOLA, API5/BFLA, and File Upload guidance to choose a future local manual approval schema before any production authorization claim. Selected next gate: `uploaded raw file download approval schema v0` with planned `raw_file_download_approvals`; `approved_by_label` remains an operator-provided label, not authenticated user identity. This is review-only, not endpoint code, not schema, not production authorization, not user identity, not signed URL support, and not product-complete.
 
+Phase 402 adds uploaded raw file download approval schema v0: `db/migrations/021_raw_file_download_approvals.sql`, `db/init/001_schema.sql`, and `docs/review/uploaded-raw-file-download-approval-schema.md` define `raw_file_download_approvals` as a local manual approval table. `approved_by_label` is an operator-provided label, not authenticated user identity. Download route behavior is unchanged. This is schema-only, not endpoint code, not repository code, not production authorization, not user identity, not signed URL support, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

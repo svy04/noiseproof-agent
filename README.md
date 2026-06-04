@@ -508,6 +508,8 @@ External feedback current-state download-audit issue verification v0: implemente
 
 Uploaded raw file download authorization gate review v0: implemented. Boundary: source-first review selects a future `raw_file_download_approvals` manual approval schema before any production authorization claim; review-only, not endpoint code, not schema, not user identity, not signed URL support, not RBAC, and not product-complete.
 
+Uploaded raw file download approval schema v0: implemented. Boundary: `raw_file_download_approvals` now exists in the fresh schema and migration 021 as a local manual approval table; download route behavior is unchanged, and this is not endpoint code, not repository code, not production authorization, not user identity, not signed URL support, and not product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

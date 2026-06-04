@@ -13502,3 +13502,63 @@ def test_uploaded_raw_file_download_authorization_gate_review_selects_manual_app
         "docs/review/uploaded-raw-file-download-authorization-gate-review.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_download_approval_schema_is_documented_without_route_behavior():
+    review_path = (
+        REPO_ROOT / "docs/review/uploaded-raw-file-download-approval-schema.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    migration = (
+        REPO_ROOT / "db/migrations/021_raw_file_download_approvals.sql"
+    ).read_text(encoding="utf-8")
+    init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
+    route_py = (REPO_ROOT / "apps/api/app/routes/documents.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Approval Schema" in content
+    assert "uploaded raw file download approval schema v0" in content
+    assert "raw_file_download_approvals" in content
+    assert "db/migrations/021_raw_file_download_approvals.sql" in content
+    assert "CREATE TABLE IF NOT EXISTS raw_file_download_approvals" in migration
+    assert "CREATE TABLE IF NOT EXISTS raw_file_download_approvals" in init_schema
+    assert "raw_file_id UUID NOT NULL REFERENCES uploaded_raw_files(id) ON DELETE CASCADE" in migration
+    assert "latest_scan_result_id UUID NOT NULL REFERENCES raw_file_scan_results(id) ON DELETE CASCADE" in migration
+    assert "approval_status TEXT NOT NULL DEFAULT 'approved'" in migration
+    assert "approval_status IN ('approved', 'revoked', 'expired')" in migration
+    assert "approved_by_label TEXT NOT NULL" in migration
+    assert "expires_at TIMESTAMPTZ NOT NULL" in migration
+    assert "approval_boundary TEXT NOT NULL DEFAULT 'local_v0_manual_operator_approval_not_production_auth'" in migration
+    assert "identity_boundary TEXT NOT NULL DEFAULT 'operator_label_not_authenticated_identity'" in migration
+    assert "idx_raw_file_download_approvals_raw_file_id" in migration
+    assert "idx_raw_file_download_approvals_latest_scan_result_id" in migration
+    assert "idx_raw_file_download_approvals_status" in migration
+    assert "idx_raw_file_download_approvals_expires_at" in migration
+    assert "operator-provided label, not authenticated user identity" in content
+    assert "download route behavior unchanged" in content
+    assert "not endpoint code" in content
+    assert "not repository code" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not signed URL support" in content
+    assert "not RBAC" in content
+    assert "raw_file_download_approvals" not in route_py
+    assert (
+        "Uploaded raw file download approval schema v0: implemented"
+        in readme
+    )
+    assert "Phase 402 - Uploaded Raw File Download Approval Schema v0" in goal
+    assert "uploaded raw file download approval schema v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-download-approval-schema.md"
+        in portfolio
+    )
