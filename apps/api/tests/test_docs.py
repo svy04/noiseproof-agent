@@ -10421,6 +10421,81 @@ def test_uploaded_pdf_downstream_handoff_application_refresh_surfaces_runtime_pr
     )
 
 
+def test_external_reviewer_pdf_downstream_handoff_request_refresh_routes_reviewers_to_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-pdf-downstream-handoff-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+
+    assert "External Reviewer PDF Downstream Handoff Request Refresh" in content
+    assert "external reviewer PDF downstream handoff request refresh v0" in content
+    assert "request infrastructure only" in content
+    assert "uploaded PDF downstream handoff proof" in content
+    assert "docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md" in content
+    assert "POST /documents/upload-chunk-preview" in content
+    assert "POST /documents/upload-chunks" in content
+    assert "POST /documents/upload-retrieval-preview" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "digital_pdf_text_extraction -> true" in content
+    assert "replacement_decode_warning_present -> false" in content
+    assert "does not edit the live public issue body" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert (
+        "External reviewer PDF downstream handoff request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 344 - External Reviewer PDF Downstream Handoff Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer PDF downstream handoff request refresh v0" in runbook
+    assert (
+        "docs/review/external-reviewer-pdf-downstream-handoff-request-refresh.md"
+        in portfolio
+    )
+    for reviewer_surface in [
+        proof_path,
+        request,
+        brief,
+        link_map,
+        issue_template,
+        contributing,
+    ]:
+        assert "uploaded PDF downstream handoff proof" in reviewer_surface
+        assert (
+            "docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md"
+            in reviewer_surface
+        )
+        assert "parser -> pdf-pymupdf" in reviewer_surface
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

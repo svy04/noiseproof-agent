@@ -18,6 +18,8 @@ Phase 342 adds uploaded PDF downstream handoff runtime smoke v0: local Docker Po
 
 Phase 343 adds uploaded PDF downstream handoff application refresh v0: README, GOAL, runbook, portfolio index, Braincrew role map, application-ready review, and external-reader proof path now surface `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md`. This is application packaging only; it is not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, or raw file storage.
 
+Phase 344 adds external reviewer PDF downstream handoff request refresh v0: `CONTRIBUTING.md`, the external review issue template, request packet, reviewer brief, link map, portfolio index, README, GOAL, and runbook now point reviewers to `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md`. This is request infrastructure only; it is not external reviewer feedback, hosted deployment evidence, robust PDF extraction, OCR, table extraction, or raw file storage.
+
 Phase 22 adds an Evidence Ledger dashboard table: persisted evidence rows are now visible beside retrieval, gate, and report records in the plain operations dashboard.
 
 Phase 22.5 adds a review-only cross-link decision: direct evidence -> gate -> report links are deferred until a single workflow parent exists.

@@ -154,6 +154,7 @@ uploaded PDF downstream handoff proof:
 ```text
 docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md
 docs/review/uploaded-pdf-downstream-handoff-application-refresh.md
+docs/review/external-reviewer-pdf-downstream-handoff-request-refresh.md
 ```
 
 This proof is uploaded digital PDF text only, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.

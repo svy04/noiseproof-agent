@@ -21,18 +21,19 @@ Read only these:
 5. `docs/review/uploaded-file-intake-manifest-runtime-smoke.md`
 6. `docs/review/uploaded-file-intake-manifest-persistence-runtime-smoke.md`
 7. `docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md`
-8. `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`
-9. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
-10. `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
-11. `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
-12. `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
-13. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
-14. `docs/evaluation/semantic-retrieval-quality-report.md`
-15. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
-16. `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md`
-17. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
-18. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
-19. `docs/review/external-feedback-intake-criteria.md`
+8. `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md`
+9. `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`
+10. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
+11. `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
+12. `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
+13. `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
+14. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
+15. `docs/evaluation/semantic-retrieval-quality-report.md`
+16. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
+17. `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md`
+18. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
+19. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
+20. `docs/review/external-feedback-intake-criteria.md`
 
 uploaded-file intake manifest proof:
 
@@ -57,6 +58,14 @@ docs/review/uploaded-file-parsed-document-persistence-runtime-smoke.md
 ```
 
 This proof is document metadata/profile only, not raw file storage, not parsed text persistence, not hosted deployment evidence, and not external reviewer feedback.
+
+uploaded PDF downstream handoff proof:
+
+```text
+docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md
+```
+
+This proof records `parser -> pdf-pymupdf` for uploaded digital PDF text flowing through upload preview, upload chunk preview, explicit upload-to-chunks persistence, listed chunk lookup, and upload retrieval preview. It is not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 
 uploaded-file chunk persistence proof:
 
