@@ -56,6 +56,8 @@ Phase 457 adds external feedback current-state workflow proof bundle dashboard r
 
 Phase 458 adds external reviewer shortlist v0: `docs/review/external-reviewer-shortlist.md` gives outside reviewers a 90-second shortlist with a maximum five proof artifacts before the full proof path. This is reviewer navigation only, not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete.
 
+Phase 459 adds external review issue body shortlist refresh v0: issue #1 body now starts its Fast Path with `docs/review/external-reviewer-shortlist.md`. This is owner-authored issue routing only, not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete. See `docs/review/external-review-issue-body-shortlist-refresh.md`.
+
 Phase 340 adds uploaded PDF text extraction v0: `POST /documents/upload-preview` can pass uploaded PDF bytes through PyMuPDF and return `parser: pdf-pymupdf`, `digital_pdf_text_extraction: true`, `robust_pdf_extraction: false`, and `preview_only_not_persisted`. This is digital PDF text only; it is not OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, or external reviewer feedback.
 
 Phase 341 adds uploaded PDF downstream handoff v0: `POST /documents/upload-chunk-preview`, `POST /documents/upload-chunks`, and `POST /documents/upload-retrieval-preview` reuse the same PyMuPDF digital text extraction path for uploaded PDF bytes before chunking or lexical retrieval. This is digital PDF text only; it is not OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, or external reviewer feedback.

@@ -16716,6 +16716,41 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, external review issue body shortlist refresh v0 if live issue routing should point at the shortlist, or another source-first product gate selected from this file
 ```
 
+### Phase 459 - External Review Issue Body Shortlist Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the owner-authored issue #1 body edit that puts the 90-second reviewer shortlist at the top of the public feedback request
+```
+
+Implemented:
+
+```text
+external review issue body shortlist refresh v0
+docs/review/external-review-issue-body-shortlist-refresh.md
+issue #1 body starts Fast Path with docs/review/external-reviewer-shortlist.md
+observed updatedAt: 2026-06-04T22:02:43Z
+starts_with_request: true
+first_codepoint: 35
+has_external_reviewer_shortlist: true
+has_external_feedback_boundary: true
+comment_count: 1
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+```
+
+Phase 459 is owner-authored issue body routing only. It adds no runtime behavior, endpoint, schema, migration, external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state shortlist issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

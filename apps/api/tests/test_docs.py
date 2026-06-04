@@ -16876,3 +16876,41 @@ def test_external_reviewer_shortlist_links_compact_proof_path():
     assert "External reviewer shortlist v0: implemented" in readme
     assert "Phase 458 - External Reviewer Shortlist v0" in goal
     assert "external reviewer shortlist v0" in runbook
+
+
+def test_external_review_issue_body_shortlist_refresh_records_live_issue_edit():
+    refresh_path = REPO_ROOT / "docs/review/external-review-issue-body-shortlist-refresh.md"
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Shortlist Refresh" in content
+    assert "external review issue body shortlist refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "docs/review/external-reviewer-shortlist.md" in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_external_reviewer_shortlist": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert "90-second shortlist" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body shortlist refresh v0: implemented"
+        in readme
+    )
+    assert "Phase 459 - External Review Issue Body Shortlist Refresh v0" in goal
+    assert "external review issue body shortlist refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-shortlist-refresh.md"
+        in portfolio
+    )

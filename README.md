@@ -620,6 +620,8 @@ External feedback current-state workflow proof bundle dashboard runtime issue ve
 
 External reviewer shortlist v0: implemented. Boundary: `docs/review/external-reviewer-shortlist.md` gives outside reviewers a 90-second shortlist with a maximum five proof artifacts before the full proof path; this is reviewer navigation only, not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete.
 
+External review issue body shortlist refresh v0: implemented. Boundary: issue #1 body now starts its Fast Path with `docs/review/external-reviewer-shortlist.md`; this is owner-authored issue routing only, not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

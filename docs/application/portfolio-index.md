@@ -218,6 +218,8 @@ External feedback current-state workflow proof bundle dashboard runtime issue ve
 
 External reviewer shortlist: `docs/review/external-reviewer-shortlist.md` gives outside reviewers a 90-second shortlist with a maximum five proof artifacts before the full proof path. It is navigation only, not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete.
 
+External review issue body shortlist refresh: `docs/review/external-review-issue-body-shortlist-refresh.md` records the owner-authored issue #1 body edit that puts `docs/review/external-reviewer-shortlist.md` at the top of the public Fast Path. This is issue routing only, not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete.
+
 ## Start Here
 
 1. `README.md`
