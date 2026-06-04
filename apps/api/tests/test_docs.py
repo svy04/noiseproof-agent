@@ -12052,3 +12052,40 @@ def test_uploaded_raw_file_download_rate_limit_review_selects_local_v0_without_e
     assert "Phase 372 - Uploaded Raw File Download Rate Limit Review v0" in goal
     assert "uploaded raw file download rate limit review v0" in runbook
     assert "docs/review/uploaded-raw-file-download-rate-limit-review.md" in portfolio
+
+
+def test_uploaded_raw_file_download_rate_limit_local_documents_local_api_behavior():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-rate-limit-local.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Rate Limit Local" in content
+    assert "uploaded raw file download rate limit local v0" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/download" in content
+    assert "per-process in-memory fixed window" in content
+    assert "5 attempts per 60 seconds" in content
+    assert "raw_file_id and client host" in content
+    assert "HTTP 429" in content
+    assert "raw file download rate limit exceeded" in content
+    assert "local_v0_in_memory_fixed_window_not_production" in content
+    assert "local_v0_no_auth_not_production" in content
+    assert "blocked no-scan attempts count" in content
+    assert "successful clean-download attempts count" in content
+    assert "not distributed rate limiting" in content
+    assert "not production authorization" in content
+    assert "not hosted deployment evidence" in content
+    assert "uploaded raw file download rate limit runtime smoke v0" in content
+    assert "Uploaded raw file download rate limit local v0: implemented" in readme
+    assert "Phase 373 - Uploaded Raw File Download Rate Limit Local v0" in goal
+    assert "uploaded raw file download rate limit local v0" in runbook
+    assert "docs/review/uploaded-raw-file-download-rate-limit-local.md" in portfolio

@@ -1,8 +1,10 @@
 import re
+from collections import deque
 from hashlib import sha256
+from time import monotonic
 from uuid import UUID, uuid4
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import Response
 
 from app.db import Repository, get_repository
@@ -68,6 +70,11 @@ RAW_UPLOAD_GUARDED_DOWNLOAD_BOUNDARY = (
     "raw_upload_quarantine_db_bytea_guarded_download_endpoint"
 )
 DOWNLOAD_BLOCK_DETAIL = "latest clean scan result required before raw file download"
+DOWNLOAD_RATE_LIMIT_DETAIL = "raw file download rate limit exceeded"
+DOWNLOAD_RATE_LIMIT_BOUNDARY = "local_v0_in_memory_fixed_window_not_production"
+DOWNLOAD_RATE_LIMIT_ATTEMPTS = 5
+DOWNLOAD_RATE_LIMIT_WINDOW_SECONDS = 60.0
+_download_attempt_windows: dict[tuple[str, str], deque[float]] = {}
 
 
 def _safe_download_filename(filename: str | None, raw_file_id: UUID) -> str:
@@ -83,6 +90,24 @@ def _content_type_for_download(content_type: str | None) -> str:
     if not content_type:
         return "application/octet-stream"
     return content_type
+
+
+def _download_rate_limit_client_host(request: Request) -> str:
+    if request.client is None:
+        return "unknown-client"
+    return request.client.host or "unknown-client"
+
+
+def _consume_download_attempt(raw_file_id: UUID, request: Request) -> bool:
+    key = (str(raw_file_id), _download_rate_limit_client_host(request))
+    now = monotonic()
+    attempts = _download_attempt_windows.setdefault(key, deque())
+    while attempts and now - attempts[0] >= DOWNLOAD_RATE_LIMIT_WINDOW_SECONDS:
+        attempts.popleft()
+    if len(attempts) >= DOWNLOAD_RATE_LIMIT_ATTEMPTS:
+        return False
+    attempts.append(now)
+    return True
 
 
 @router.post("", response_model=DocumentOut, status_code=201)
@@ -457,6 +482,7 @@ def execute_upload_raw_file_scan(
 @router.get("/upload-raw-files/{raw_file_id}/download")
 def download_upload_raw_file(
     raw_file_id: UUID,
+    request: Request,
     repository: Repository = Depends(get_repository),
 ) -> Response:
     raw_file = repository.get_uploaded_raw_file_for_scan(raw_file_id)
@@ -464,6 +490,15 @@ def download_upload_raw_file(
         raise HTTPException(
             status_code=404,
             detail="uploaded raw file not found",
+        )
+    if not _consume_download_attempt(raw_file_id, request):
+        raise HTTPException(
+            status_code=429,
+            detail=DOWNLOAD_RATE_LIMIT_DETAIL,
+            headers={
+                "X-NoiseProof-Download-Rate-Limit-Boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
+                "X-NoiseProof-Authorization-Boundary": "local_v0_no_auth_not_production",
+            },
         )
 
     latest_results = list(
@@ -489,7 +524,7 @@ def download_upload_raw_file(
         "X-Content-Type-Options": "nosniff",
         "X-NoiseProof-Download-Boundary": "scan_first_latest_clean_result_required",
         "X-NoiseProof-Authorization-Boundary": "local_v0_no_auth_not_production",
-        "X-NoiseProof-Download-Rate-Limit-Boundary": "planned_not_enforced_local_v0",
+        "X-NoiseProof-Download-Rate-Limit-Boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
     }
     return Response(
         content=bytes(raw_file["raw_bytes"]),

@@ -1565,6 +1565,49 @@ def test_document_upload_raw_file_download_requires_latest_clean_scan_result():
     assert "latest clean scan result required" in latest_failed_response.json()["detail"]
 
 
+def test_document_upload_raw_file_download_rate_limits_blocked_attempts_without_raw_bytes():
+    client = make_client()
+    content = b"ticker,revenue\nALPHA,120\n"
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+    other_upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("other.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+    other_raw_file_id = other_upload.json()["id"]
+
+    blocked_attempts = [
+        client.get(f"/documents/upload-raw-files/{raw_file_id}/download")
+        for _ in range(5)
+    ]
+    limited_response = client.get(
+        f"/documents/upload-raw-files/{raw_file_id}/download"
+    )
+    other_response = client.get(
+        f"/documents/upload-raw-files/{other_raw_file_id}/download"
+    )
+
+    assert upload.status_code == 201
+    assert all(response.status_code == 409 for response in blocked_attempts)
+    assert limited_response.status_code == 429
+    assert limited_response.json() == {
+        "detail": "raw file download rate limit exceeded"
+    }
+    assert "raw_bytes" not in limited_response.json()
+    assert limited_response.headers["x-noiseproof-download-rate-limit-boundary"] == (
+        "local_v0_in_memory_fixed_window_not_production"
+    )
+    assert limited_response.headers["x-noiseproof-authorization-boundary"] == (
+        "local_v0_no_auth_not_production"
+    )
+    assert other_response.status_code == 409
+
+
 def test_document_upload_raw_file_download_returns_bytes_after_latest_clean_scan_only():
     client = make_client()
     scanner = RecordingCleanScanner()
@@ -1591,6 +1634,9 @@ def test_document_upload_raw_file_download_returns_bytes_after_latest_clean_scan
     )
     assert response.headers["x-noiseproof-authorization-boundary"] == (
         "local_v0_no_auth_not_production"
+    )
+    assert response.headers["x-noiseproof-download-rate-limit-boundary"] == (
+        "local_v0_in_memory_fixed_window_not_production"
     )
     assert response.headers["content-disposition"].startswith("attachment;")
     assert "sample.csv" in response.headers["content-disposition"]

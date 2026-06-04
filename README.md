@@ -438,7 +438,7 @@ ci node24 actions runtime remote verification v0: implemented. Boundary: remote 
 
 Uploaded raw file download endpoint review v0: implemented. Boundary: source-first review selects a future scan-first `GET /documents/upload-raw-files/{raw_file_id}/download` route that requires the latest clean scan result and keeps authorization / download rate limit explicit; review-only, not endpoint code, not a download endpoint, not malware scanning evidence, and not product-complete.
 
-Guarded raw file download endpoint v0: implemented. Boundary: explicit `GET /documents/upload-raw-files/{raw_file_id}/download` returns raw bytes only when the latest scan result is `completed / clean`; missing scan evidence or latest non-clean result returns `409`; local v0 marks authorization and download rate limit as planned, so this is not production malware scanning evidence, not hosted deployment evidence, and not product-complete.
+Guarded raw file download endpoint v0: implemented. Boundary: explicit `GET /documents/upload-raw-files/{raw_file_id}/download` returns raw bytes only when the latest scan result is `completed / clean`; missing scan evidence or latest non-clean result returns `409`; local v0 keeps authorization as no-auth/not-production, so this is not production malware scanning evidence, not hosted deployment evidence, and not product-complete.
 
 Guarded raw file download endpoint runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP proved upload -> no-scan download `409` -> clean scan metadata -> download `200` with raw bytes and nosniff/download headers -> later failed scan metadata -> download `409`; not hosted deployment evidence, not external reviewer feedback, not production malware scanning evidence, and not product-complete.
 
@@ -449,6 +449,8 @@ External review issue body guarded download refresh v0: implemented. Boundary: i
 External feedback current-state guarded download issue verification v0: implemented. Boundary: current issue #1 screen after the guarded download issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
 Uploaded raw file download rate limit review v0: implemented. Boundary: source-first review selects a future local in-memory fixed-window download rate limit for the guarded raw file endpoint; review-only, not endpoint code, not an enforced rate limit, not production authorization, not hosted deployment evidence, and not product-complete.
+
+Uploaded raw file download rate limit local v0: implemented. Boundary: guarded raw file download now has a per-process in-memory fixed-window local rate limit: 5 attempts per 60 seconds per raw_file_id/client-host key, returning `429` with no raw bytes when exceeded; not distributed rate limiting, not production authorization, not hosted deployment evidence, and not product-complete.
 
 ## Planned Agent Workflow
 
