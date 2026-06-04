@@ -26,29 +26,31 @@ Please start here:
    - uploaded PDF downstream handoff proof with `parser -> pdf-pymupdf`; digital PDF text only, not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
 9. `docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md`
    - uploaded PDF retrieval-run provenance runtime proof with `candidate_parsers -> pdf-pymupdf` and `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`; not hosted deployment evidence, not robust PDF extraction, not Evidence Ledger generation, and not external reviewer feedback.
-10. `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`
+10. `docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance-runtime-smoke.md`
+   - uploaded PDF retrieval-run-linked Evidence Ledger provenance runtime proof with `metadata_json.parser -> pdf-pymupdf` and `metadata_json.source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk`; not hosted deployment evidence, not robust PDF extraction, not Noise Gate behavior, not report generation, and not external reviewer feedback.
+11. `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`
    - uploaded-file chunk persistence proof; not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
-11. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
+12. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
    - uploaded-file chunk handoff proof via `POST /documents/upload-chunks`; not raw uploaded byte storage, not hosted deployment evidence, and not external reviewer feedback.
-12. `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
+13. `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
    - uploaded-file retrieval persistence proof via `POST /documents/{document_id}/retrieval-runs`; not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.
-13. `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
+14. `docs/review/retrieval-run-linked-evidence-ledger-runtime-smoke.md`
    - retrieval-run-linked Evidence Ledger proof via `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`; no LLM, no embeddings, no semantic retrieval, not hosted deployment evidence, and not external reviewer feedback.
-14. `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
+15. `docs/review/retrieval-run-linked-noise-gate-runtime-smoke.md`
    - retrieval-run-linked Noise Gate proof via `POST /retrieval-runs/{retrieval_run_id}/noise-gate`; not report generation, not hosted deployment evidence, and not external reviewer feedback.
-15. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
+16. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
    - retrieval-run-linked Report proof via `POST /retrieval-runs/{retrieval_run_id}/report`; records `pre_report_status: 409` and `input_noise_gate_record_id`, not hosted deployment evidence, and not external reviewer feedback.
-16. `docs/evaluation/semantic-retrieval-quality-report.md`
+17. `docs/evaluation/semantic-retrieval-quality-report.md`
    - toy semantic retrieval quality report; keeps `q-what-missing` visible, not vector search quality evidence, not a benchmark result, and not external reviewer feedback.
-17. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
+18. `docs/review/uploaded-raw-file-storage-runtime-smoke.md`
    - uploaded raw file storage proof via `POST /documents/upload-raw-files` and `GET /documents/upload-raw-files`; not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
-18. `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md`
+19. `docs/review/uploaded-raw-file-scan-result-endpoint-runtime-smoke.md`
    - uploaded raw file scan result endpoint proof via `POST /documents/upload-raw-files/{raw_file_id}/scan-results` and `GET /documents/upload-raw-files/{raw_file_id}/scan-results`; `scan_verdict -> scan_error`, not hosted deployment evidence, not external reviewer feedback, not malware scanning, and not a download endpoint.
-19. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
+20. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
    - ClamAV adapter runtime smoke proof through fake runners; not real ClamAV execution, not signature database evidence, not hosted deployment evidence, not malware scanning, and not external reviewer feedback.
-20. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
+21. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
    - explicit raw upload scan execution endpoint proof via local Docker DB and live FastAPI HTTP; default scanner-unavailable returns failed / scan_error, not real ClamAV execution, not malware scanning, and not external reviewer feedback.
-21. `docs/review/external-feedback-intake-criteria.md`
+22. `docs/review/external-feedback-intake-criteria.md`
 
 Public feedback issue:
 

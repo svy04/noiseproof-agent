@@ -197,6 +197,15 @@ docs/review/external-reviewer-pdf-retrieval-run-provenance-request-refresh.md
 
 This uploaded PDF retrieval-run provenance runtime proof is explicit `POST /documents/upload-chunks` into `POST /documents/{document_id}/retrieval-runs` with `candidate_parsers -> pdf-pymupdf` and `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`. The request refresh is request infrastructure only. It is not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction, not OCR, not table extraction, not raw file storage, and not Evidence Ledger generation.
 
+uploaded PDF retrieval-run-linked Evidence Ledger provenance proof:
+
+```text
+docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance-runtime-smoke.md
+docs/review/external-reviewer-pdf-retrieval-run-linked-evidence-ledger-provenance-request-refresh.md
+```
+
+This uploaded PDF retrieval-run-linked Evidence Ledger provenance runtime proof is explicit `POST /documents/upload-chunks` into `POST /documents/{document_id}/retrieval-runs`, `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, and `GET /evidence-ledgers?retrieval_run_id=` with `metadata_json.parser -> pdf-pymupdf`, `metadata_json.source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk`, and `ledger_retrieval_run_id_matches -> true`. The request refresh is request infrastructure only. It is not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction, not OCR, not table extraction, not raw file storage, not Noise Gate behavior, and not report generation.
+
 uploaded raw file storage proof:
 
 ```text

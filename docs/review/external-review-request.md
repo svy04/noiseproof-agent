@@ -107,6 +107,15 @@ docs/review/external-reviewer-pdf-retrieval-run-provenance-request-refresh.md
 
 Boundary: this proof records uploaded digital PDF bytes flowing through `POST /documents/upload-chunks`, `POST /documents/{document_id}/retrieval-runs`, and `GET /retrieval-runs` with `candidate_parsers -> pdf-pymupdf` and `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`. It is request infrastructure only when surfaced here, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, not Evidence Ledger generation, and not external reviewer feedback.
 
+uploaded PDF retrieval-run-linked Evidence Ledger provenance runtime proof:
+
+```text
+docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance-runtime-smoke.md
+docs/review/external-reviewer-pdf-retrieval-run-linked-evidence-ledger-provenance-request-refresh.md
+```
+
+Boundary: this proof records uploaded digital PDF bytes flowing through `POST /documents/upload-chunks`, `POST /documents/{document_id}/retrieval-runs`, `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, and `GET /evidence-ledgers?retrieval_run_id=` with `metadata_json.parser -> pdf-pymupdf`, `metadata_json.source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk`, and `ledger_retrieval_run_id_matches -> true`. It is request infrastructure only when surfaced here, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, not Noise Gate behavior, not report generation, and not external reviewer feedback.
+
 uploaded-file chunk persistence proof:
 
 ```text
