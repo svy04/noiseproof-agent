@@ -6280,6 +6280,53 @@ not external reviewer feedback
 not product-complete
 ```
 
+## TestClient Dependency Warning Remote Verification
+
+Phase marker: testclient dependency warning remote verification v0.
+
+Use this artifact:
+
+```text
+docs/review/testclient-dependency-warning-remote-verification.md
+```
+
+Verified remote runs:
+
+```text
+remote run: 26969672909
+workflow: CI
+head: 29f1afa
+job: api-smoke
+job id: 79581346237
+conclusion: success
+
+remote run: 26969672911
+workflow: External Feedback Screen
+head: 29f1afa
+job: screen
+job id: 79581346224
+conclusion: success
+```
+
+Observed result:
+
+```text
+check-run annotations: []
+StarletteDeprecationWarning observed: no
+TestClient fallback warning observed: no
+generic `warning` text still appears in unrelated checkout hints and external-feedback JSON fields
+```
+
+Boundary:
+
+```text
+test dependency hygiene evidence only
+not product runtime evidence
+not hosted deployment evidence
+not external reviewer feedback
+not product-complete
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

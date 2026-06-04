@@ -11892,6 +11892,44 @@ def test_testclient_dependency_warning_cleanup_is_documented_and_enforced():
     assert "docs/review/testclient-dependency-warning-cleanup.md" in portfolio
 
 
+def test_testclient_dependency_warning_remote_verification_is_documented():
+    review_path = (
+        REPO_ROOT / "docs/review/testclient-dependency-warning-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "TestClient Dependency Warning Remote Verification" in content
+    assert "testclient dependency warning remote verification v0" in content
+    assert "remote run: 26969672909" in content
+    assert "remote run: 26969672911" in content
+    assert "head: 29f1afa" in content
+    assert "job id: 79581346237" in content
+    assert "job id: 79581346224" in content
+    assert "check-run annotations: []" in content
+    assert "StarletteDeprecationWarning observed: no" in content
+    assert "TestClient fallback warning observed: no" in content
+    assert "generic `warning` text still appears" in content
+    assert "not product runtime evidence" in content
+    assert (
+        "testclient dependency warning remote verification v0: implemented"
+        in readme
+    )
+    assert "Phase 429 - TestClient Dependency Warning Remote Verification v0" in goal
+    assert "testclient dependency warning remote verification v0" in runbook
+    assert (
+        "docs/review/testclient-dependency-warning-remote-verification.md"
+        in portfolio
+    )
+
+
 def test_uploaded_raw_file_download_endpoint_review_keeps_downloads_scan_first_and_review_only():
     review_path = REPO_ROOT / "docs/review/uploaded-raw-file-download-endpoint-review.md"
     assert review_path.is_file()

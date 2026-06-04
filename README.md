@@ -441,6 +441,8 @@ ci node24 action version remote verification v0: implemented. Boundary: remote r
 
 testclient dependency warning cleanup v0: implemented. Boundary: API test dependencies now include `httpx2>=2.3.0`, and pytest treats `StarletteDeprecationWarning` as an error so deprecated TestClient fallback warnings cannot quietly pass locally; remote warning result remains unverified until the next push.
 
+testclient dependency warning remote verification v0: implemented. Boundary: remote runs `26969672909` (`CI`) and `26969672911` (`External Feedback Screen`) succeeded on head `29f1afa`; CI check-run annotations were empty and no `StarletteDeprecationWarning` / TestClient fallback warning was observed, but generic `warning` text still appears in unrelated checkout hints and external-feedback JSON fields.
+
 
 Uploaded raw file download endpoint review v0: implemented. Boundary: source-first review selects a future scan-first `GET /documents/upload-raw-files/{raw_file_id}/download` route that requires the latest clean scan result and keeps authorization / download rate limit explicit; review-only, not endpoint code, not a download endpoint, not malware scanning evidence, and not product-complete.
 

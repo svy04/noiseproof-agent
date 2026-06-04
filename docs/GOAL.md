@@ -1800,6 +1800,47 @@ Next recommended gate:
 testclient dependency warning remote verification v0 after GitHub Actions runs, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 429 extension to the accepted state:
+
+```text
+TestClient Dependency Warning Remote Verification v0
+```
+
+### Phase 429 - TestClient Dependency Warning Remote Verification v0
+
+Goal:
+
+```text
+record remote GitHub Actions evidence after adding httpx2 and making StarletteDeprecationWarning a pytest error
+```
+
+Implemented:
+
+```text
+testclient dependency warning remote verification v0
+docs/review/testclient-dependency-warning-remote-verification.md
+remote run: 26969672909
+remote run: 26969672911
+head: 29f1afa
+job id: 79581346237
+job id: 79581346224
+check-run annotations: []
+StarletteDeprecationWarning observed: no
+TestClient fallback warning observed: no
+generic warning boundary documented
+README implementation marker
+docs/runbook.md remote verification note
+docs/application/portfolio-index.md artifact link
+```
+
+Phase 429 is test dependency hygiene evidence only. It adds no runtime behavior, schema, migration, API endpoint, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, production authorization, malware detection proof, endpoint malicious-detection runtime proof, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim.
+
+Next recommended gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:
