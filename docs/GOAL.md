@@ -1643,6 +1643,48 @@ Next recommended gate:
 external feedback current-state approval-audit-metadata issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 425 extension to the accepted state:
+
+```text
+External Feedback Current-state Approval-audit Metadata Issue Verification v0
+```
+
+### Phase 425 - External Feedback Current-state Approval-audit Metadata Issue Verification v0
+
+Goal:
+
+```text
+verify that the live issue still has no qualifying external reviewer feedback after the approval-audit-metadata issue-body refresh
+```
+
+Implemented:
+
+```text
+external feedback current-state approval-audit-metadata issue verification v0
+docs/review/external-feedback-current-state-approval-audit-metadata-issue-verification.md
+live issue #1 current-state screen
+starts_with_request: true
+first_codepoint: 35
+has_approval_audit_metadata_proof: true
+has_approval_audit_metadata_request_refresh: true
+comment_count: 1
+screened_comment_count: 1
+candidate_count: 0
+draft_count: 0
+self_authored_comment
+README implementation marker
+docs/runbook.md current-state note
+docs/application/portfolio-index.md current-state artifact link
+```
+
+Phase 425 is live issue current-state screen only. It adds no runtime behavior, schema, migration, API endpoint, hosted deployment evidence, external reviewer feedback, production authorization, authenticated user identity, signed URL support, RBAC, ABAC, ReBAC, malware detection proof, endpoint malicious-detection runtime proof, customer validation, Braincrew acceptance, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim. It does not close external reviewer feedback v0.
+
+Next recommended gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:

@@ -282,6 +282,8 @@ Phase 423 adds external reviewer approval-audit-metadata request refresh v0: `do
 
 Phase 424 adds external review issue body approval-audit-metadata refresh v0: `docs/review/external-review-issue-body-approval-audit-metadata-refresh.md` records the owner-authored issue #1 body edit pointing reviewers to the approval audit metadata runtime smoke and request refresh. Observed markers: `starts_with_request=true`, `first_codepoint=35`, `has_approval_audit_metadata_proof=true`, `has_approval_audit_metadata_request_refresh=true`, `has_event_download_approval_id_matches=true`, `has_event_approval_scan_result_matches_latest=true`, and `comment_count=1`. This is a live request update only, not external reviewer feedback, not hosted evidence, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
 
+Phase 425 adds external feedback current-state approval-audit-metadata issue verification v0: `docs/review/external-feedback-current-state-approval-audit-metadata-issue-verification.md` records the live issue #1 current state after the approval-audit-metadata issue-body refresh. The issue body has the approval audit metadata proof and request-refresh links, but the only comment is owner-authored; screening produced `candidate_count=0`, acceptance drafting produced `draft_count=0`, and external reviewer feedback remains pending.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
