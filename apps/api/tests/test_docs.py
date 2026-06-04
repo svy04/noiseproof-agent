@@ -16452,6 +16452,80 @@ def test_external_reviewer_workflow_proof_bundle_dashboard_runtime_request_refre
     assert "external reviewer workflow proof bundle dashboard runtime request refresh v0" in runbook
 
 
+def test_external_review_issue_body_workflow_proof_bundle_dashboard_runtime_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-workflow-proof-bundle-dashboard-runtime-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = "docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md"
+    )
+
+    assert (
+        "External Review Issue Body Workflow Proof Bundle Dashboard Runtime Refresh"
+        in content
+    )
+    assert (
+        "external review issue body workflow proof bundle dashboard runtime refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_workflow_proof_bundle_dashboard_runtime_proof": true' in content
+    assert '"has_workflow_proof_bundle_dashboard_request_refresh": true' in content
+    assert '"has_workflow_proof_bundle_dashboard_issue_body_refresh": true' in content
+    assert '"has_dashboard_status_200": true' in content
+    assert '"has_dashboard_contains_proof_bundle_link": true' in content
+    assert '"has_proof_bundle_status_200": true' in content
+    assert '"has_bundle_boundary": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert "GET /ops/dashboard" in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert "dashboard_status_code: 200" in content
+    assert "dashboard_contains_proof_bundle_link: true" in content
+    assert "proof_bundle_status_code: 200" in content
+    assert "bundle_boundary: read_model_only_existing_records_no_new_storage" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not live issue body edit by an outside reviewer" in content
+    assert "not new lineage storage" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body workflow proof bundle dashboard runtime refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 456 - External Review Issue Body Workflow Proof Bundle Dashboard Runtime Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body workflow proof bundle dashboard runtime refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-review-issue-body-workflow-proof-bundle-dashboard-runtime-refresh.md"
+        in portfolio
+    )
+
+
 def test_external_reviewer_workflow_proof_bundle_request_refresh_links_runtime_proof():
     review_path = (
         REPO_ROOT

@@ -16586,6 +16586,49 @@ Next recommended evidence gate:
 external review issue body workflow proof bundle dashboard runtime refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 456 - External Review Issue Body Workflow Proof Bundle Dashboard Runtime Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the owner-authored issue #1 body edit that points reviewers to the workflow proof bundle dashboard runtime smoke
+```
+
+Implemented:
+
+```text
+external review issue body workflow proof bundle dashboard runtime refresh v0
+docs/review/external-review-issue-body-workflow-proof-bundle-dashboard-runtime-refresh.md
+issue #1 body points to docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md
+issue #1 body points to docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md
+issue #1 body points to docs/review/external-review-issue-body-workflow-proof-bundle-dashboard-runtime-refresh.md
+observed updatedAt: 2026-06-04T21:47:33Z
+starts_with_request: true
+first_codepoint: 35
+has_workflow_proof_bundle_dashboard_runtime_proof: true
+has_workflow_proof_bundle_dashboard_request_refresh: true
+has_workflow_proof_bundle_dashboard_issue_body_refresh: true
+has_dashboard_status_200: true
+has_dashboard_contains_proof_bundle_link: true
+has_proof_bundle_status_200: true
+has_bundle_boundary: true
+has_external_feedback_boundary: true
+comment_count: 1
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+```
+
+Phase 456 is owner-authored issue body routing only. It adds no runtime behavior, endpoint, schema, migration, external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, new lineage storage, customer validation, Braincrew acceptance, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state workflow proof bundle dashboard runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

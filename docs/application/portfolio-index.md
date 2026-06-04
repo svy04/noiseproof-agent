@@ -212,6 +212,8 @@ Workflow proof bundle dashboard runtime smoke: `docs/review/workflow-proof-bundl
 
 External reviewer workflow proof bundle dashboard runtime request refresh: `docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md` records that reviewer-facing repository paths now point to `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md`. This is request-surface refresh only, not a live issue body edit, hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, new lineage storage, or product-complete.
 
+External review issue body workflow proof bundle dashboard runtime refresh: `docs/review/external-review-issue-body-workflow-proof-bundle-dashboard-runtime-refresh.md` records the owner-authored issue #1 body edit that points reviewers to `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md` and its request-refresh record. This is live issue routing only, not outside reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, new lineage storage, or product-complete.
+
 ## Start Here
 
 1. `README.md`
