@@ -11963,3 +11963,56 @@ def test_external_review_issue_body_guarded_download_refresh_records_owner_edit(
     assert "Phase 370 - External Review Issue Body Guarded Download Refresh v0" in goal
     assert "external review issue body guarded download refresh v0" in runbook
     assert "docs/review/external-review-issue-body-guarded-download-refresh.md" in portfolio
+
+
+def test_external_feedback_current_state_guarded_download_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-guarded-download-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Feedback Current-state Guarded Download Issue Verification" in content
+    assert "external feedback current-state guarded download issue verification v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert '"has_guarded_download_proof": true' in content
+    assert '"has_guarded_download_request_refresh": true' in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"comment_count": 1' in content
+    assert '"screened_comment_count": 1' in content
+    assert '"candidate_count": 0' in content
+    assert '"draft_count": 0' in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment" in content
+    assert "does_not_close_gate: true" in content
+    assert "external reviewer feedback v0" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production malware scanning evidence" in content
+    assert "not production authorization" in content
+    assert "not enforced download rate limiting" in content
+    assert (
+        "External feedback current-state guarded download issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 371 - External Feedback Current-state Guarded Download Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state guarded download issue verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-guarded-download-issue-verification.md"
+        in portfolio
+    )

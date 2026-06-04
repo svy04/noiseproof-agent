@@ -174,6 +174,8 @@ Phase 369 adds external reviewer guarded download request refresh v0: `docs/revi
 
 Phase 370 adds external review issue body guarded download refresh v0: `docs/review/external-review-issue-body-guarded-download-refresh.md` records the owner-authored issue #1 body update that points reviewers to `docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md` and `docs/review/external-reviewer-guarded-download-request-refresh.md`. This is not external reviewer feedback, not hosted deployment evidence, not production malware scanning evidence, not production authorization, not enforced download rate limiting, and not product-complete.
 
+Phase 371 adds external feedback current-state guarded download issue verification v0: `docs/review/external-feedback-current-state-guarded-download-issue-verification.md` records the live issue #1 state after the guarded download issue-body refresh. Observed state: `starts_with_request: true`, `first_codepoint: 35`, `has_guarded_download_proof: true`, `has_guarded_download_request_refresh: true`, `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`. This is live request-surface evidence only and does not close external reviewer feedback v0.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
