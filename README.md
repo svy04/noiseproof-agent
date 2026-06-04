@@ -110,7 +110,7 @@ Current status groups:
 
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
-Latest product gate marker: Uploaded raw file download readiness preview v0.
+Latest product gate marker: Workflow proof bundle read model v0: implemented.
 Latest reviewer-routing marker: External review issue body readability refresh v0.
 Latest external-feedback state: pending; only self-authored issue comment is present.
 
@@ -768,6 +768,7 @@ curl -X POST http://localhost:8000/workflow-runs/execute-preview \
   -d "{\"question\":\"Which segment had enterprise demand growth?\",\"strategy\":\"fixed-window\",\"sources\":[{\"source_id\":\"doc-demand\",\"source_type\":\"markdown\",\"content\":\"Enterprise segment demand growth was 12 percent in 2026.\"}],\"draft_claims\":[\"Enterprise segment demand growth was supported by current retrieved evidence.\"]}"
 curl http://localhost:8000/workflow-runs/<uuid>
 curl http://localhost:8000/workflow-runs/<uuid>/lineage
+curl http://localhost:8000/workflow-runs/<uuid>/proof-bundle
 curl http://localhost:8000/agent-runs
 ```
 

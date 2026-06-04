@@ -10,6 +10,7 @@ from app.schemas import (
     WorkflowLineageOut,
     WorkflowLineageSummaryOut,
     WorkflowNoiseGateLineageOut,
+    WorkflowProofBundleOut,
     WorkflowReportLineageOut,
     WorkflowRunCreate,
     WorkflowRunDetailOut,
@@ -17,6 +18,8 @@ from app.schemas import (
     WorkflowRunExecutePreviewOut,
     WorkflowRunExecutePreviewRequest,
     WorkflowRunOut,
+    TraceLookupOut,
+    TraceLookupSummaryOut,
 )
 from app.services.workflow_execution import execute_workflow_preview
 
@@ -56,6 +59,47 @@ def get_workflow_run_lineage(
     return _build_workflow_lineage(workflow_run, children)
 
 
+@router.get("/{workflow_run_id}/proof-bundle", response_model=WorkflowProofBundleOut)
+def get_workflow_run_proof_bundle(
+    workflow_run_id: UUID,
+    repository: Repository = Depends(get_repository),
+) -> WorkflowProofBundleOut:
+    workflow_run = repository.get_workflow_run(workflow_run_id)
+    if workflow_run is None:
+        raise HTTPException(status_code=404, detail="workflow run not found")
+    children = repository.lookup_workflow_run_records(workflow_run_id)
+    detail = _build_workflow_detail(workflow_run, children)
+    lineage = _build_workflow_lineage(workflow_run, children)
+    workflow_trace_id, trace_warning = _workflow_trace_id_from_run(workflow_run)
+    trace = (
+        _build_trace_lookup(workflow_trace_id, repository)
+        if workflow_trace_id is not None
+        else None
+    )
+    proof_surfaces = [
+        f"/workflow-runs/{workflow_run_id}",
+        f"/workflow-runs/{workflow_run_id}/lineage",
+    ]
+    warnings = [
+        "Workflow proof bundle is a read model over existing records and creates no new storage.",
+        "It is not distributed tracing, hosted observability, a quality benchmark, or product-complete evidence.",
+    ]
+    if workflow_trace_id is not None:
+        proof_surfaces.append(f"/traces/{workflow_trace_id}")
+    if trace_warning is not None:
+        warnings.append(trace_warning)
+    return WorkflowProofBundleOut(
+        workflow_run=WorkflowRunOut(**workflow_run),
+        workflow_trace_id=workflow_trace_id,
+        bundle_boundary="read_model_only_existing_records_no_new_storage",
+        detail=detail,
+        lineage=lineage,
+        trace=trace,
+        proof_surfaces=proof_surfaces,
+        warnings=warnings,
+    )
+
+
 @router.get("/{workflow_run_id}", response_model=WorkflowRunDetailOut)
 def get_workflow_run_detail(
     workflow_run_id: UUID,
@@ -65,6 +109,13 @@ def get_workflow_run_detail(
     if workflow_run is None:
         raise HTTPException(status_code=404, detail="workflow run not found")
     children = repository.lookup_workflow_run_records(workflow_run_id)
+    return _build_workflow_detail(workflow_run, children)
+
+
+def _build_workflow_detail(
+    workflow_run: dict,
+    children: dict[str, list[dict]],
+) -> WorkflowRunDetailOut:
     return WorkflowRunDetailOut(
         workflow_run=WorkflowRunOut(**workflow_run),
         retrieval_runs=children["retrieval_runs"],
@@ -78,6 +129,47 @@ def get_workflow_run_detail(
             report_record_count=len(children["report_records"]),
         ),
     )
+
+
+def _build_trace_lookup(
+    workflow_trace_id: UUID,
+    repository: Repository,
+) -> TraceLookupOut:
+    records = repository.lookup_trace_records(workflow_trace_id)
+    agent_runs = [AgentRunOut(**row) for row in records["agent_runs"]]
+    evidence_entries = [
+        EvidenceLedgerStoredEntryOut(**row)
+        for row in records["evidence_ledger_entries"]
+    ]
+    noise_gate_records = [
+        NoiseGateStoredRecordOut(**row) for row in records["noise_gate_records"]
+    ]
+    report_records = [
+        ReportStoredRecordOut(**row) for row in records["report_records"]
+    ]
+    return TraceLookupOut(
+        workflow_trace_id=workflow_trace_id,
+        agent_runs=agent_runs,
+        evidence_ledger_entries=evidence_entries,
+        noise_gate_records=noise_gate_records,
+        report_records=report_records,
+        summary=TraceLookupSummaryOut(
+            agent_run_count=len(agent_runs),
+            evidence_ledger_entry_count=len(evidence_entries),
+            noise_gate_record_count=len(noise_gate_records),
+            report_record_count=len(report_records),
+        ),
+    )
+
+
+def _workflow_trace_id_from_run(workflow_run: dict) -> tuple[UUID | None, str | None]:
+    value = (workflow_run.get("trace_json") or {}).get("workflow_trace_id")
+    if value is None:
+        return None, "No workflow_trace_id is present, so the bundle omits trace lookup."
+    try:
+        return UUID(str(value)), None
+    except ValueError:
+        return None, "workflow_trace_id is present but is not a valid UUID."
 
 
 def _build_workflow_lineage(

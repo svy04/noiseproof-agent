@@ -143,6 +143,7 @@ If this repo is linked from the portfolio site, link only these claims:
 - Direct Evidence-to-gate/report Cross-link Review v0
 - Direct Cross-stage Link Schema Review v0
 - Workflow Lineage Read Model v0
+- Workflow Proof Bundle Read Model v0
 - Workflow Lineage Dashboard Links v0
 - Operations Dashboard v0
 - evaluation/application package

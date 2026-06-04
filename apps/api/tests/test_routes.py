@@ -3368,6 +3368,90 @@ def test_workflow_run_lineage_read_model_resolves_manifest_inputs_without_new_st
     ]
 
 
+def test_workflow_run_proof_bundle_collects_existing_detail_lineage_and_trace_records():
+    client = make_client()
+    execution = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    ).json()
+    workflow_run_id = execution["workflow_run"]["id"]
+    workflow_trace_id = execution["workflow_trace_id"]
+
+    response = client.get(f"/workflow-runs/{workflow_run_id}/proof-bundle")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["workflow_run"]["id"] == workflow_run_id
+    assert payload["workflow_trace_id"] == workflow_trace_id
+    assert payload["bundle_boundary"] == (
+        "read_model_only_existing_records_no_new_storage"
+    )
+    assert payload["detail"]["summary"] == {
+        "retrieval_run_count": 1,
+        "evidence_ledger_entry_count": 1,
+        "noise_gate_record_count": 1,
+        "report_record_count": 1,
+    }
+    assert payload["lineage"]["lineage_boundary"] == "derived_read_model_only"
+    assert payload["lineage"]["summary"]["missing_reference_count"] == 0
+    assert payload["trace"]["workflow_trace_id"] == workflow_trace_id
+    assert payload["trace"]["summary"] == {
+        "agent_run_count": 0,
+        "evidence_ledger_entry_count": 1,
+        "noise_gate_record_count": 1,
+        "report_record_count": 1,
+    }
+    assert payload["proof_surfaces"] == [
+        f"/workflow-runs/{workflow_run_id}",
+        f"/workflow-runs/{workflow_run_id}/lineage",
+        f"/traces/{workflow_trace_id}",
+    ]
+    assert any("read model over existing records" in warning for warning in payload["warnings"])
+    assert any("distributed tracing" in warning for warning in payload["warnings"])
+
+
+def test_workflow_run_proof_bundle_handles_metadata_only_workflow_without_trace_claim():
+    client = make_client()
+    workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which sources disagree about memory demand?",
+            "status": "created",
+            "trace_json": {"phase": "metadata-only"},
+        },
+    ).json()
+
+    response = client.get(f"/workflow-runs/{workflow['id']}/proof-bundle")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["workflow_run"]["id"] == workflow["id"]
+    assert payload["workflow_trace_id"] is None
+    assert payload["trace"] is None
+    assert payload["detail"]["summary"] == {
+        "retrieval_run_count": 0,
+        "evidence_ledger_entry_count": 0,
+        "noise_gate_record_count": 0,
+        "report_record_count": 0,
+    }
+    assert payload["lineage"]["summary"]["missing_reference_count"] == 0
+    assert payload["proof_surfaces"] == [
+        f"/workflow-runs/{workflow['id']}",
+        f"/workflow-runs/{workflow['id']}/lineage",
+    ]
+    assert any("No workflow_trace_id is present" in warning for warning in payload["warnings"])
+
+
 def test_workflow_run_lineage_reports_missing_manifest_references_without_mutation_api():
     client = make_client()
     repository = client.app.dependency_overrides[get_repository]()

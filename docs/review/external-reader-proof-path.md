@@ -94,6 +94,8 @@ Read in this order:
     - raw file download readiness runtime smoke with local Docker FastAPI plus PostgreSQL; readiness blocks before clean scan with `missing_clean_scan`, blocks after clean scan without active approval with `missing_download_approval`, allows after active approval, returns no raw bytes, consumes no rate limit, and writes no download audit event; not hosted deployment evidence, not external reviewer feedback, not production authorization, not authenticated user identity, and not signed URL support.
 41. `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md`
     - ClamAV endpoint malicious-detection owner-runtime smoke with local Docker FastAPI plus ClamAV; owner-provided stdin input yields `harness_status: verified_infected`, `scan_verdict: infected`, and `matched_signature: Eicar-Test-Signature`; payload is not committed or logged, local rows were cleaned up, and this is not hosted deployment evidence, not external reviewer feedback, and not production malware scanning evidence.
+42. `docs/review/workflow-proof-bundle-read-model.md`
+    - workflow proof bundle read model with `GET /workflow-runs/{id}/proof-bundle`, collecting existing workflow detail, derived lineage, and trace lookup surfaces; not new lineage storage, not distributed tracing, not hosted observability, and not external reviewer feedback.
 
 ## Optional source-level provenance
 

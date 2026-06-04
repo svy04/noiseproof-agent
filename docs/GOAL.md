@@ -16260,6 +16260,54 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 448 - Workflow Proof Bundle Read Model v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make existing workflow detail, lineage, and trace lookup surfaces easier for a reviewer to inspect from one route
+```
+
+Implemented:
+
+```text
+workflow proof bundle read model v0
+GET /workflow-runs/{id}/proof-bundle
+WorkflowProofBundleOut
+workflow parent
+workflow_trace_id when present
+existing workflow detail response
+existing derived lineage response
+existing trace lookup response when trace id exists
+proof_surfaces list
+bundle_boundary: read_model_only_existing_records_no_new_storage
+metadata-only workflow handling without trace overclaim
+docs/review/workflow-proof-bundle-read-model.md
+README implementation marker
+docs/runbook.md note
+docs/architecture.md API surface update
+docs/application/portfolio-index.md link
+docs/application/braincrew-role-map.md link
+docs/review/external-reader-proof-path.md link
+```
+
+Verification:
+
+```text
+uv run pytest -q tests/test_routes.py -k "proof_bundle"
+2 passed, 143 deselected
+```
+
+Phase 448 is a convenience read model over existing records only. It adds no database table, migration, new persisted lineage fact, direct Evidence Ledger -> Noise Gate -> Report foreign-key links, distributed tracing, hosted observability, external reviewer feedback, hosted deployment evidence, autonomous/LLM-backed agents, embeddings, retrieval expansion, report generation, polished web app, or product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

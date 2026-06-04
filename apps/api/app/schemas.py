@@ -869,3 +869,14 @@ class TraceLookupOut(BaseModel):
     noise_gate_records: list[NoiseGateStoredRecordOut]
     report_records: list[ReportStoredRecordOut]
     summary: TraceLookupSummaryOut
+
+
+class WorkflowProofBundleOut(BaseModel):
+    workflow_run: WorkflowRunOut
+    workflow_trace_id: UUID | None
+    bundle_boundary: str
+    detail: WorkflowRunDetailOut
+    lineage: WorkflowLineageOut
+    trace: TraceLookupOut | None
+    proof_surfaces: list[str]
+    warnings: list[str]

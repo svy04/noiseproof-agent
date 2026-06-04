@@ -196,6 +196,8 @@ Owner-approved product continuation decision: `docs/review/owner-approved-produc
 
 Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves legacy README proof markers after README scanability cleanup. It is source-level provenance, not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 
+Workflow proof bundle read model: `docs/review/workflow-proof-bundle-read-model.md` records `GET /workflow-runs/{id}/proof-bundle`, a convenience read model over existing workflow detail, lineage, and trace lookup surfaces. It is not new lineage storage, not distributed tracing, not hosted observability, and not external reviewer feedback.
+
 ## Start Here
 
 1. `README.md`
@@ -244,6 +246,7 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 | Workflow stage input manifest | `stage_input_manifest` on workflow-created Noise Gate and Report records | implemented v0 |
 | Direct cross-stage link schema review | `docs/review/direct-cross-stage-link-schema-review.md` | reviewed |
 | Workflow lineage read model | `GET /workflow-runs/{id}/lineage` | implemented v0 |
+| Workflow proof bundle read model | `GET /workflow-runs/{id}/proof-bundle` | implemented v0 |
 | Workflow lineage dashboard links | `GET /ops/dashboard` workflow row detail/lineage links | implemented v0 |
 | Workflow lineage missing-reference review | `docs/review/workflow-lineage-missing-reference-review.md` | reviewed |
 | Workflow lineage missing-reference test | `apps/api/tests/test_routes.py` broken manifest fixture | implemented v0 |

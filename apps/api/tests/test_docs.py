@@ -16177,3 +16177,61 @@ def test_external_feedback_current_state_raw_file_guard_ops_summary_issue_verifi
         "external feedback current-state raw-file guard ops summary issue verification v0"
         in issue_body_refresh
     )
+
+
+def test_workflow_proof_bundle_read_model_documents_reviewer_read_model_boundary():
+    review_path = REPO_ROOT / "docs/review/workflow-proof-bundle-read-model.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    routes_py = (REPO_ROOT / "apps/api/app/routes/workflow_runs.py").read_text(
+        encoding="utf-8"
+    )
+    schemas_py = (REPO_ROOT / "apps/api/app/schemas.py").read_text(
+        encoding="utf-8"
+    )
+    routes_test = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Workflow Proof Bundle Read Model" in content
+    assert "workflow proof bundle read model v0" in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert "bundle_boundary: read_model_only_existing_records_no_new_storage" in content
+    assert "No workflow_trace_id is present" in routes_py
+    assert "WorkflowProofBundleOut" in schemas_py
+    assert "test_workflow_run_proof_bundle_collects_existing_detail_lineage_and_trace_records" in routes_test
+    assert "test_workflow_run_proof_bundle_handles_metadata_only_workflow_without_trace_claim" in routes_test
+    assert "2 passed, 143 deselected" in content
+    assert "no database table" in content
+    assert "no migration" in content
+    assert "no new persisted lineage fact" in content
+    assert "no distributed tracing" in content
+    assert "no hosted observability" in content
+    assert "no external reviewer feedback" in content
+    assert "no hosted deployment evidence" in content
+    assert "no product-complete claim" in content
+    assert "Workflow proof bundle read model v0: implemented" in readme
+    assert (
+        "Latest product gate marker: Workflow proof bundle read model v0: implemented."
+        in readme
+    )
+    assert "Phase 448 - Workflow Proof Bundle Read Model v0" in goal
+    assert "workflow proof bundle read model v0" in runbook
+    assert "GET  /workflow-runs/{id}/proof-bundle" in architecture
+    assert "docs/review/workflow-proof-bundle-read-model.md" in portfolio
+    assert "docs/review/workflow-proof-bundle-read-model.md" in role_map
+    assert "docs/review/workflow-proof-bundle-read-model.md" in proof_path

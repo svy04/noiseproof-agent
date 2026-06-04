@@ -34,6 +34,8 @@ Phase 446 adds external review issue body raw-file guard ops summary refresh v0:
 
 Phase 447 adds external feedback current-state raw-file guard ops summary issue verification v0: current issue #1 has the raw-file guard ops summary proof/request links, but the only comment is owner-authored, `candidate_count=0`, `draft_count=0`, and external reviewer feedback remains pending. See `docs/review/external-feedback-current-state-raw-file-guard-ops-summary-issue-verification.md`.
 
+Phase 448 adds workflow proof bundle read model v0: `GET /workflow-runs/{id}/proof-bundle` collects the existing workflow detail, derived lineage, and trace lookup surfaces into one reviewer-readable response. This is a read model over existing records only; it adds no table, migration, persisted lineage fact, distributed tracing, hosted observability, external reviewer feedback, hosted deployment evidence, or product-complete claim. See `docs/review/workflow-proof-bundle-read-model.md`.
+
 Phase 340 adds uploaded PDF text extraction v0: `POST /documents/upload-preview` can pass uploaded PDF bytes through PyMuPDF and return `parser: pdf-pymupdf`, `digital_pdf_text_extraction: true`, `robust_pdf_extraction: false`, and `preview_only_not_persisted`. This is digital PDF text only; it is not OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, or external reviewer feedback.
 
 Phase 341 adds uploaded PDF downstream handoff v0: `POST /documents/upload-chunk-preview`, `POST /documents/upload-chunks`, and `POST /documents/upload-retrieval-preview` reuse the same PyMuPDF digital text extraction path for uploaded PDF bytes before chunking or lexical retrieval. This is digital PDF text only; it is not OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, or external reviewer feedback.
@@ -119,6 +121,8 @@ Phase 37.5 reviews dashboard surfacing for lineage warning codes: `docs/review/w
 Phase 38 surfaces the warning-code legend in `GET /ops/dashboard`: the dashboard now shows Lineage warning codes as response-level taxonomy only, not persisted dashboard analytics.
 
 Phase 38.5 adds the dashboard warning-code smoke example below, without changing runtime behavior.
+
+Phase 38.6 adds a workflow proof bundle read model: `GET /workflow-runs/{id}/proof-bundle` is a convenience response over existing workflow detail, lineage, and trace lookup records. It is not distributed tracing, not hosted observability, and not new lineage storage.
 
 Phase 39 reviews workflow-version naming: `docs/review/workflow-version-naming-review.md` kept `phase36-structured-warning-taxonomy` as the reviewed runtime value until a dedicated update gate changed all affected examples together.
 

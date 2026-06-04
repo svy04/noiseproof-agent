@@ -57,6 +57,7 @@ Current status:
 - Workflow Lineage Warning Code Dashboard Review v0 exists: warning-code dashboard surfacing is reviewed before any `GET /ops/dashboard` rendering change.
 - Workflow Lineage Warning Code Dashboard Surfacing v0 exists: `GET /ops/dashboard` shows a compact warning-code legend without adding storage or analytics.
 - Workflow Lineage Warning Code Dashboard Smoke Example v0 exists: the runbook shows the expected dashboard legend text.
+- Workflow Proof Bundle Read Model v0 exists: `GET /workflow-runs/{id}/proof-bundle` collects existing workflow detail, lineage, and trace lookup surfaces without adding storage, distributed tracing, or hosted observability.
 - Workflow Version Naming Review v0 exists: runtime `workflow_version` naming was reviewed before changing `phase36-structured-warning-taxonomy`.
 - Workflow Version Naming Update v0 exists: runtime `workflow_version` is now `phase40-lineage-warning-code-dashboard`.
 - Current implemented current-state surfaces include uploaded file intake manifest persistence, uploaded file parsed document metadata persistence, uploaded file chunk persistence, uploaded file retrieval persistence, uploaded raw file quarantine storage, metadata-only raw-file scan records, explicit scan execution with scanner-unavailable defaults, ClamAV opt-in clean-file endpoint proof, ClamAV endpoint malicious-detection owner-runtime proof, uploaded raw file download readiness preview and local runtime smoke, uploaded raw file guard ops summary, caller-provided chunk embeddings, caller-provided semantic retrieval persistence, retrieval-run-linked Evidence Ledger, retrieval-run-linked Noise Gate, retrieval-run-linked Report, workflow lineage read models, dashboard lineage links, and failure-case records.
@@ -560,6 +561,7 @@ GET  /workflow-runs
 POST /workflow-runs/execute-preview
 GET  /workflow-runs/{id}
 GET  /workflow-runs/{id}/lineage
+GET  /workflow-runs/{id}/proof-bundle
 POST /failure-cases
 GET  /failure-cases
 GET  /failure-cases/workflow-review-queue
