@@ -64,6 +64,10 @@ jobs:
           assert payload["payload_committed_to_repo"] is False
           assert payload["raw_payload_logged"] is False
           assert payload["required_owner_input_missing"] is True
+          assert payload["discoverable_input_sources"] == ["file", "stdin", "environment"]
+          assert payload["accepted_input_sources"] == ["file", "stdin"]
+          assert payload["candidates"]["signature_text_env"]["validator_accepted"] is False
+          assert payload["candidates"]["stdin"]["validator_accepted"] is True
           PY
           rm owner-runtime-input-discovery.json
 

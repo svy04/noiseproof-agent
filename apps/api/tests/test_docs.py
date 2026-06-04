@@ -9892,6 +9892,37 @@ def test_clamav_api_endpoint_malicious_detection_owner_runtime_smoke_input_sourc
     assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke-input-source-contract-alignment.md" in portfolio
 
 
+def test_clamav_api_endpoint_malicious_detection_owner_runtime_input_source_contract_ci_check_is_documented():
+    review_path = REPO_ROOT / "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-input-source-contract-ci-check.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    ci = (REPO_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+
+    assert "ClamAV API Endpoint Malicious-detection Owner-runtime Input-source Contract CI Check" in content
+    assert "ClamAV API endpoint malicious-detection owner runtime input-source contract ci check v0" in content
+    assert "Check ClamAV owner runtime input discovery no-payload missing state" in content
+    assert "discoverable_input_sources" in content
+    assert "accepted_input_sources" in content
+    assert "validator_accepted" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "does not include a test signature payload" in content
+    assert "payload[\"discoverable_input_sources\"] == [\"file\", \"stdin\", \"environment\"]" in ci
+    assert "payload[\"accepted_input_sources\"] == [\"file\", \"stdin\"]" in ci
+    assert "payload[\"candidates\"][\"signature_text_env\"][\"validator_accepted\"] is False" in ci
+    assert "payload[\"candidates\"][\"stdin\"][\"validator_accepted\"] is True" in ci
+    assert "ClamAV API endpoint malicious-detection owner runtime input-source contract ci check v0: implemented" in readme
+    assert "Phase 333 - ClamAV API Endpoint Malicious-detection Owner-runtime Input-source Contract CI Check v0" in goal
+    assert "ClamAV API endpoint malicious-detection owner runtime input-source contract ci check v0" in runbook
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-input-source-contract-ci-check.md" in portfolio
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()

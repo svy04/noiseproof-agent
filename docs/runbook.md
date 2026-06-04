@@ -5728,6 +5728,39 @@ Next product gate:
 ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
 ```
 
+## ClamAV API Endpoint Malicious-detection Owner-runtime Input-source Contract CI Check
+
+Phase marker: ClamAV API endpoint malicious-detection owner runtime input-source contract ci check v0.
+
+Use this artifact:
+
+```text
+docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-input-source-contract-ci-check.md
+```
+
+The CI step remains:
+
+```text
+Check ClamAV owner runtime input discovery no-payload missing state
+```
+
+It now asserts:
+
+```text
+discoverable_input_sources: file, stdin, environment
+accepted_input_sources: file, stdin
+signature_text_env.validator_accepted: false
+stdin.validator_accepted: true
+```
+
+This is CI contract guard evidence only. It does not run the owner runtime smoke, does not include a test signature payload, does not call the API, and is not endpoint malicious-detection runtime proof.
+
+Next product gate:
+
+```text
+ClamAV API endpoint malicious-detection owner-provided runtime smoke v0
+```
+
 ## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery CI Check
 
 Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke input discovery ci check v0.
