@@ -200,6 +200,8 @@ Phase 382 adds external review issue body signature-validation refresh v0: `docs
 
 Phase 383 adds external feedback current-state signature-validation issue verification v0: `docs/review/external-feedback-current-state-signature-validation-issue-verification.md` records the live issue #1 state after the signature-validation issue-body refresh. Observed state: `starts_with_request: true`, `first_codepoint: 35`, `has_signature_validation_proof: true`, `has_signature_validation_request_refresh: true`, `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`. This is live request-surface evidence only and does not close external reviewer feedback v0.
 
+Phase 384 adds uploaded raw file extension allowlist review v0: `docs/review/uploaded-raw-file-extension-allowlist-review.md` records a source-first decision to add a future local filename extension allowlist before raw upload persistence. The selected boundary is `local_v0_extension_allowlist_not_production`; this is review-only, not endpoint code, not an enforced extension validator, not robust file-type detection, not malware scanning evidence, and not production authorization.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

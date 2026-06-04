@@ -472,6 +472,8 @@ External review issue body signature-validation refresh v0: implemented. Boundar
 
 External feedback current-state signature-validation issue verification v0: implemented. Boundary: current issue #1 screen after the signature-validation issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
+Uploaded raw file extension allowlist review v0: implemented. Boundary: source-first review selects a future local filename extension allowlist for raw uploads, validating after filename decoding and naming double-extension/null-byte bypass cases; review-only, not endpoint code, not an enforced extension validator, not robust file-type detection, not malware scanning evidence, and not production authorization.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

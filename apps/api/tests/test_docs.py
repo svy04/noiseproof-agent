@@ -12597,3 +12597,50 @@ def test_external_feedback_current_state_signature_validation_issue_verification
         "docs/review/external-feedback-current-state-signature-validation-issue-verification.md"
         in portfolio
     )
+
+
+def test_uploaded_raw_file_extension_allowlist_review_selects_bounded_local_v0():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-extension-allowlist-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Extension Allowlist Review" in content
+    assert "uploaded raw file extension allowlist review v0" in content
+    assert "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html" in content
+    assert "extension allowlist" in content
+    assert "validate after decoding the filename" in content
+    assert "double extension" in content
+    assert "null byte" in content
+    assert "Content-Type header can be spoofed" in content
+    assert "file signature validation should not be used on its own" in content
+    assert "defense in depth" in content
+    assert "planned_not_enforced_local_v0" in content
+    assert "local_v0_extension_allowlist_not_production" in content
+    assert ".pdf" in content
+    assert ".csv" in content
+    assert ".html" in content
+    assert ".md" in content
+    assert ".txt" in content
+    assert "not endpoint code" in content
+    assert "not an enforced extension validator" in content
+    assert "not robust file-type detection" in content
+    assert "not malware scanning evidence" in content
+    assert "not production authorization" in content
+    assert "uploaded raw file extension allowlist local v0" in content
+    assert "Uploaded raw file extension allowlist review v0: implemented" in readme
+    assert "Phase 384 - Uploaded Raw File Extension Allowlist Review v0" in goal
+    assert "uploaded raw file extension allowlist review v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-extension-allowlist-review.md"
+        in portfolio
+    )
