@@ -544,6 +544,8 @@ External reviewer approval-input guard request refresh v0: implemented. Boundary
 
 External review issue body approval-input guard refresh v0: implemented. Boundary: issue #1 now points to the approval input guard runtime smoke and its reviewer request refresh; owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
 
+External feedback current-state approval-input guard issue verification v0: implemented. Boundary: current issue #1 screen after the approval-input guard issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

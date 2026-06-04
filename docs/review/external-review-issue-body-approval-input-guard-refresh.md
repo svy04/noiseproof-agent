@@ -133,3 +133,9 @@ product-complete.
 ```text
 external feedback current-state approval-input guard issue verification v0
 ```
+
+Current-state verification artifact:
+
+```text
+docs/review/external-feedback-current-state-approval-input-guard-issue-verification.md
+```

@@ -272,6 +272,8 @@ Phase 418 adds external reviewer approval-input guard request refresh v0: `docs/
 
 Phase 419 adds external review issue body approval-input guard refresh v0: `docs/review/external-review-issue-body-approval-input-guard-refresh.md` records the owner-authored issue #1 body edit pointing reviewers to the approval input guard runtime smoke and request refresh. Observed markers: `starts_with_request=true`, `first_codepoint=35`, `has_approval_input_guard_proof=true`, `has_approval_input_guard_request_refresh=true`, `has_unknown_status_422=true`, `has_expired_approved_422=true`, and `comment_count=1`. This is a live request update only, not external reviewer feedback, not hosted evidence, not production authorization, not authenticated user identity, not signed URL support, and not product-complete.
 
+Phase 420 adds external feedback current-state approval-input guard issue verification v0: `docs/review/external-feedback-current-state-approval-input-guard-issue-verification.md` records the live issue #1 current state after the approval-input guard issue-body refresh. The issue body has the approval input guard proof and request-refresh links, but the only comment is owner-authored; screening produced `candidate_count=0`, acceptance drafting produced `draft_count=0`, and external reviewer feedback remains pending.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
