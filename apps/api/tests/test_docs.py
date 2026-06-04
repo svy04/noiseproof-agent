@@ -63,6 +63,7 @@ def test_phase10_evaluation_and_application_artifacts_exist():
         "docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md",
         "docs/review/failure-case-workflow-review-queue-proof-index.md",
         "docs/review/external-reviewer-workflow-review-queue-proof-index-request-refresh.md",
+        "docs/review/external-review-issue-body-workflow-review-queue-proof-index-refresh.md",
     ]
 
     for file_path in required_files:
@@ -2387,6 +2388,36 @@ def test_external_reviewer_workflow_review_queue_proof_index_request_refresh_sur
     assert "docs/review/failure-case-workflow-review-queue-proof-index.md" in brief
     assert "failure-case workflow review queue proof index" in readme
     assert "failure-case workflow review queue proof index" in portfolio
+
+
+def test_external_review_issue_body_workflow_review_queue_proof_index_refresh_records_live_request_surface():
+    content = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-workflow-review-queue-proof-index-refresh.md"
+    ).read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "External Review Issue Body Workflow Review Queue Proof Index Refresh" in content
+    assert "external review issue body workflow review queue proof index refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "has_workflow_review_queue_proof_index_link: true" in content
+    assert "has_workflow_review_queue_fresh_db_dashboard_smoke_link: true" in content
+    assert "comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "self_authored_comment" in content
+    assert "does not close external reviewer feedback v0" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert (
+        "Phase 364 - External Review Issue Body Workflow Review Queue Proof Index Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body workflow review queue proof index refresh v0"
+        in runbook
+    )
 
 
 def test_failure_case_workflow_parent_linkage_schema_review_selects_nullable_fk():

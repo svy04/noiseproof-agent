@@ -160,6 +160,8 @@ Phase 360 adds failure-case workflow review queue dashboard surfacing v0: `GET /
 
 Phase 361 adds failure-case workflow review queue fresh-db dashboard smoke verification v0: `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` records local fresh migrated Docker DB dashboard evidence for `GET /ops/dashboard` with `pending_review_count: 1`, `linked_failure_case_count: 1`, `needs_failure_case_review`, `failure_case_linked`, `dashboard_contains_draft_preview: true`, and `dashboard_did_not_create_failure_cases: true`. This is local runtime smoke evidence only; it is not hosted deployment evidence, external reviewer feedback, automatic failure-case creation, or complete workflow failure causality.
 
+Phase 364 adds external review issue body workflow review queue proof index refresh v0: `docs/review/external-review-issue-body-workflow-review-queue-proof-index-refresh.md` records that GitHub issue #1 now links to the workflow review queue proof index and fresh DB dashboard smoke proof. Observed state: `has_workflow_review_queue_proof_index_link: true`, `has_workflow_review_queue_fresh_db_dashboard_smoke_link: true`, `comment_count: 1`, `candidate_count: 0`, and `self_authored_comment`. This is an owner-authored request-surface edit only and does not close external reviewer feedback v0.
+
 Expected failure-case draft preview smoke check:
 
 ```bash
