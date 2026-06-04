@@ -17372,3 +17372,49 @@ def test_embedding_model_live_provider_dependency_addition_records_openai_withou
     assert "embedding model live-provider dependency addition v0" in runbook
     assert "docs/review/embedding-model-live-provider-dependency-addition.md" in portfolio
     assert "embedding model live-provider dependency addition exists" in app_review
+
+
+def test_embedding_model_live_provider_adapter_disabled_code_keeps_route_unwired():
+    review_path = (
+        REPO_ROOT / "docs/review/embedding-model-live-provider-adapter-disabled-code.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    adapter = (
+        REPO_ROOT / "apps/api/app/services/openai_embedding_provider.py"
+    ).read_text(encoding="utf-8")
+    service = (
+        REPO_ROOT / "apps/api/app/services/embedding_model_preview.py"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Model Live-provider Adapter Disabled-code" in content
+    assert "embedding model live-provider adapter disabled-code v0" in content
+    assert "OpenAIEmbeddingProviderClient" in adapter
+    assert "client.embeddings.create" in adapter
+    assert "EmbeddingProviderError" in adapter
+    assert "provider_timeout" in adapter
+    assert "openai_python_sdk_disabled_adapter" in adapter
+    assert "get_embedding_provider_client" in service
+    assert "return None" in service
+    assert "route remains unwired" in content
+    assert "secret redaction" in content
+    assert "no live provider call in CI" in content
+    assert "actual live embedding model generation remains unproven" in content
+    assert "Embedding model live-provider adapter disabled-code v0: implemented" in readme
+    assert "Phase 472 - Embedding Model Live-provider Adapter Disabled-code v0" in goal
+    assert "embedding model live-provider adapter disabled-code v0" in runbook
+    assert (
+        "docs/review/embedding-model-live-provider-adapter-disabled-code.md"
+        in portfolio
+    )
+    assert "embedding model live-provider adapter disabled-code exists" in app_review

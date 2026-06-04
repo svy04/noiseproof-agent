@@ -9015,3 +9015,54 @@ no runtime behavior change
 no live provider call in CI
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Adapter Disabled-code
+
+Phase marker: embedding model live-provider adapter disabled-code v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-adapter-disabled-code.md
+```
+
+Implemented code:
+
+```text
+apps/api/app/services/openai_embedding_provider.py
+OpenAIEmbeddingProviderClient
+EmbeddingProviderError
+```
+
+SDK call shape:
+
+```text
+client.embeddings.create
+```
+
+Current route boundary:
+
+```text
+apps/api/app/services/embedding_model_preview.py
+get_embedding_provider_client returns None
+route remains unwired
+```
+
+Focused verification:
+
+```bash
+cd apps/api
+uv run pytest -q tests/test_openai_embedding_provider.py
+uv run pytest -q tests/test_routes.py -k "embedding_model_preview"
+uv run pytest -q tests/test_docs.py -k "embedding_model_live_provider_adapter_disabled_code"
+```
+
+Claim boundary:
+
+```text
+adapter code exists
+no route wiring
+no live provider call in CI
+no default live provider call
+actual live embedding model generation remains unproven
+```

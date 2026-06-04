@@ -38,6 +38,8 @@ Embedding model live-provider dependency review: `docs/review/embedding-model-li
 
 Embedding model live-provider dependency addition: `docs/review/embedding-model-live-provider-dependency-addition.md` records `openai==2.41.0` added to `apps/api/pyproject.toml` and `apps/api/uv.lock`. This is dependency metadata only; no app code, route behavior, provider call, or live embedding generation evidence was added.
 
+Embedding model live-provider adapter disabled-code: `docs/review/embedding-model-live-provider-adapter-disabled-code.md` records `OpenAIEmbeddingProviderClient` and fake-client unit coverage. The route remains unwired because `get_embedding_provider_client` still returns `None`; no live provider call in CI or default runtime is claimed.
+
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
 External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.

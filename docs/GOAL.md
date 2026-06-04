@@ -17218,6 +17218,46 @@ Next recommended evidence gate:
 embedding model live-provider adapter disabled-code v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 472 - Embedding Model Live-provider Adapter Disabled-code v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+add a unit-tested OpenAI SDK adapter while keeping the embedding model preview route unwired from live provider calls by default
+```
+
+Implemented:
+
+```text
+embedding model live-provider adapter disabled-code v0
+apps/api/app/services/openai_embedding_provider.py
+OpenAIEmbeddingProviderClient
+EmbeddingProviderError
+client.embeddings.create adapter call shape
+provider_timeout error boundary
+provider_error error boundary
+secret redaction
+openai_python_sdk_disabled_adapter boundary
+fake-client unit coverage
+get_embedding_provider_client still returns None
+route remains unwired
+no live provider call in CI boundary retained
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+application-ready boundary refresh
+```
+
+Phase 472 adds disabled adapter code only. It adds no route wiring, default live provider call, CI live provider call, API cost, automatic persistence, retrieval expansion, Evidence Ledger generation, semantic retrieval quality evidence, hosted deployment evidence, external reviewer feedback, customer validation, autonomous/LLM-backed agents, polished web app, or product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+embedding model live-provider route wiring review v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

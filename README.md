@@ -239,6 +239,8 @@ Embedding model live-provider dependency review v0: implemented. Boundary: `open
 
 Embedding model live-provider dependency addition v0: implemented. Boundary: `openai==2.41.0` is added to `apps/api/pyproject.toml` and `apps/api/uv.lock`; this is dependency metadata only, no app code or route behavior changed, and actual live embedding model generation remains unproven.
 
+Embedding model live-provider adapter disabled-code v0: implemented. Boundary: `OpenAIEmbeddingProviderClient` exists behind fake-client unit tests, but `get_embedding_provider_client` still returns `None`; the route remains unwired and no live provider call occurs in CI or by default.
+
 README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
