@@ -456,6 +456,8 @@ Uploaded raw file download rate limit runtime smoke v0: implemented. Boundary: l
 
 External reviewer rate-limit request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to the guarded raw file download rate-limit runtime smoke; this is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed rate limiting, not production authorization, and not product-complete.
 
+External review issue body rate-limit refresh v0: implemented. Boundary: issue #1 now points to the guarded raw file download rate-limit runtime smoke and its reviewer request refresh; owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, not distributed rate limiting, not production authorization, and not endpoint malicious-detection runtime proof.
+
 ## Planned Agent Workflow
 
 NoiseProof Agent will use five explicit roles before introducing any complex multi-agent abstraction:

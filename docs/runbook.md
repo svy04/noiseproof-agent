@@ -184,6 +184,8 @@ Phase 374 adds uploaded raw file download rate limit runtime smoke v0: `docs/rev
 
 Phase 375 adds external reviewer rate-limit request refresh v0: `docs/review/external-reviewer-rate-limit-request-refresh.md` updates reviewer-facing repository surfaces so `docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md` is visible from the proof path, review request, reviewer brief, link map, portfolio index, Braincrew role map, and application-ready review. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed rate limiting, not production authorization, and not product-complete.
 
+Phase 376 adds external review issue body rate-limit refresh v0: `docs/review/external-review-issue-body-rate-limit-refresh.md` records the owner-authored issue #1 body update that points reviewers to `docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md` and `docs/review/external-reviewer-rate-limit-request-refresh.md`. This is not external reviewer feedback, not hosted deployment evidence, not distributed rate limiting, not production authorization, not endpoint malicious-detection runtime proof, and not product-complete.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

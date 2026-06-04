@@ -12218,3 +12218,41 @@ def test_external_reviewer_rate_limit_request_refresh_links_runtime_proof():
         in role_map
     )
     assert proof_doc in app_ready
+
+
+def test_external_review_issue_body_rate_limit_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-rate-limit-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Rate-limit Refresh" in content
+    assert "external review issue body rate-limit refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert '"has_rate_limit_proof": true' in content
+    assert '"has_rate_limit_request_refresh": true' in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"comment_count": 1' in content
+    assert "docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md" in content
+    assert "docs/review/external-reviewer-rate-limit-request-refresh.md" in content
+    assert "owner-authored issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not distributed rate limiting" in content
+    assert "not production authorization" in content
+    assert "not endpoint malicious-detection runtime proof" in content
+    assert "external feedback current-state rate-limit issue verification v0" in content
+    assert "External review issue body rate-limit refresh v0: implemented" in readme
+    assert "Phase 376 - External Review Issue Body Rate-limit Refresh v0" in goal
+    assert "external review issue body rate-limit refresh v0" in runbook
+    assert "docs/review/external-review-issue-body-rate-limit-refresh.md" in portfolio
