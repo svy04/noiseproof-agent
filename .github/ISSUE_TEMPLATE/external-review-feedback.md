@@ -50,6 +50,8 @@ Fast links:
   - Boundary: deterministic fake-runner smoke for adapter mappings; not real ClamAV execution, not signature database evidence, not hosted deployment evidence, not malware scanning, and not external reviewer feedback.
 - uploaded raw file scan execution endpoint runtime proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
   - Boundary: local Docker DB plus live FastAPI HTTP for upload, explicit scan execution, and scan-result listing; default scanner-unavailable returns failed / scan_error, not real ClamAV execution, not malware scanning, and not external reviewer feedback.
+- architecture current-state refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/architecture-current-state-refresh.md
+  - Boundary: separates implemented upload/chunk/retrieval/evidence handoff surfaces from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality.
 - Feedback intake criteria: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-feedback-intake-criteria.md
 - Public feedback issue: https://github.com/svy04/noiseproof-agent/issues/1
 

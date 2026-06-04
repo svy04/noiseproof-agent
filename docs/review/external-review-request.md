@@ -166,6 +166,14 @@ docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md
 
 Boundary: this proof is local Docker PostgreSQL plus live FastAPI HTTP evidence for `POST /documents/upload-raw-files/{raw_file_id}/scan`; the default scanner-unavailable result is `failed / scan_error`, and it remains not hosted deployment evidence, not external reviewer feedback, not real ClamAV execution, not signature database evidence, not malware scanning, and not a download endpoint.
 
+architecture current-state refresh:
+
+```text
+docs/review/architecture-current-state-refresh.md
+```
+
+Boundary: this proof-surface correction separates implemented uploaded-file persistence, chunk/retrieval persistence, caller-provided embeddings, semantic retrieval persistence, and retrieval-run-linked Evidence Ledger / Noise Gate / Report handoffs from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality.
+
 ## Review Path
 
 Please read in this order:
@@ -186,7 +194,8 @@ Please read in this order:
 14. `docs/evaluation/semantic-retrieval-quality-report.md`
 15. `docs/review/uploaded-raw-file-clamav-adapter-runtime-smoke.md`
 16. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
-17. `docs/application/braincrew-role-map.md`
+17. `docs/review/architecture-current-state-refresh.md`
+18. `docs/application/braincrew-role-map.md`
 
 Optional source-level provenance:
 
