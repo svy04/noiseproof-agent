@@ -222,6 +222,8 @@ Phase 393 adds external review issue body filename-safety refresh v0: `docs/revi
 
 Phase 394 adds external feedback current-state filename-safety issue verification v0: `docs/review/external-feedback-current-state-filename-safety-issue-verification.md` records the live issue #1 state after the filename-safety issue-body refresh. Observed state: `starts_with_request: true`, `first_codepoint: 35`, `has_filename_safety_proof: true`, `has_filename_safety_request_refresh: true`, `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`. This is live request-surface evidence only and does not close external reviewer feedback v0.
 
+Phase 395 adds uploaded raw file download authorization audit review v0: `docs/review/uploaded-raw-file-download-authorization-audit-review.md` records a source-first decision to add `raw_file_download_events` before any production authorization claim. The planned event captures `raw_file_id`, `latest_scan_result_id`, `download_result`, `blocked_reason`, status, local v0 boundary strings, and metadata. This is review-only, not endpoint code, not schema, not user identity, not hosted deployment evidence, and not production authorization.
+
 Expected failure-case draft preview smoke check:
 
 ```bash

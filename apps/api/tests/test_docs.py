@@ -13125,3 +13125,50 @@ def test_external_feedback_current_state_filename_safety_issue_verification_keep
         "docs/review/external-feedback-current-state-filename-safety-issue-verification.md"
         in issue_body_refresh
     )
+
+
+def test_uploaded_raw_file_download_authorization_audit_review_selects_audit_schema_next():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-raw-file-download-authorization-audit-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded Raw File Download Authorization Audit Review" in content
+    assert "uploaded raw file download authorization audit review v0" in content
+    assert "OWASP File Upload Cheat Sheet" in content
+    assert "OWASP Authorization Cheat Sheet" in content
+    assert "OWASP Logging Cheat Sheet" in content
+    assert "OWASP Logging Vocabulary Cheat Sheet" in content
+    assert "raw_file_download_events" in content
+    assert "authorization_boundary" in content
+    assert "local_v0_no_auth_not_production" in content
+    assert "download_result" in content
+    assert "blocked_reason" in content
+    assert "latest_scan_result_id" in content
+    assert "not endpoint code" in content
+    assert "not schema" in content
+    assert "not production authorization" in content
+    assert "not user identity" in content
+    assert "not hosted deployment evidence" in content
+    assert (
+        "Uploaded raw file download authorization audit review v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 395 - Uploaded Raw File Download Authorization Audit Review v0"
+        in goal
+    )
+    assert "uploaded raw file download authorization audit review v0" in runbook
+    assert (
+        "docs/review/uploaded-raw-file-download-authorization-audit-review.md"
+        in portfolio
+    )
