@@ -11018,6 +11018,70 @@ def test_uploaded_pdf_retrieval_run_linked_evidence_ledger_provenance_is_documen
     )
 
 
+def test_uploaded_pdf_retrieval_run_linked_evidence_ledger_runtime_smoke_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Uploaded PDF Retrieval-run-linked Evidence Ledger Provenance Runtime Smoke"
+        in content
+    )
+    assert (
+        "uploaded PDF retrieval-run-linked Evidence Ledger provenance runtime smoke v0"
+        in content
+    )
+    assert "docker compose --profile api up -d --build api" in content
+    assert "uv run python -m app.migration_runner" in content
+    assert "Applied migrations: 17" in content
+    assert "Pending migrations: 0" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/retrieval-runs -> 201" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger -> 201" in content
+    assert "GET /evidence-ledgers?retrieval_run_id= -> 200" in content
+    assert "metadata_json.parser -> pdf-pymupdf" in content
+    assert "metadata_json.digital_pdf_text_extraction -> true" in content
+    assert "metadata_json.robust_pdf_extraction -> false" in content
+    assert (
+        "metadata_json.source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk"
+        in content
+    )
+    assert "ledger_retrieval_run_id_matches -> true" in content
+    assert "listed_metadata_parser -> pdf-pymupdf" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction" in content
+    assert "not Noise Gate behavior" in content
+    assert "not report generation" in content
+    assert (
+        "Uploaded PDF retrieval-run-linked Evidence Ledger provenance runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 353 - Uploaded PDF Retrieval-run-linked Evidence Ledger Provenance Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "uploaded PDF retrieval-run-linked Evidence Ledger provenance runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance-runtime-smoke.md"
+        in portfolio
+    )
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()
