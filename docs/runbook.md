@@ -5969,6 +5969,42 @@ not production malware scanning evidence
 external reviewer feedback remains pending
 ```
 
+## External Review Issue Body Readability Refresh
+
+Phase marker: external review issue body readability refresh v0.
+
+Use this artifact:
+
+```text
+docs/review/external-review-issue-body-readability-refresh.md
+```
+
+Observed live issue markers:
+
+```text
+updatedAt: 2026-06-04T18:34:51Z
+starts_with_request: true
+first_codepoint: 35
+has_fast_path: true
+has_latest_proof: true
+has_feedback_format: true
+has_boundaries: true
+has_literal_crlf_text: false
+body_length: 3808
+body_length_under_12000: true
+has_clamav_malicious_detection_proof: true
+comment_count: 1
+```
+
+Boundary:
+
+```text
+owner-authored issue body edit only
+not external reviewer feedback
+not hosted deployment evidence
+not production malware scanning evidence
+```
+
 ## ClamAV API Endpoint Malicious-detection Owner-runtime Smoke Input Discovery
 
 Phase marker: ClamAV API endpoint malicious-detection owner runtime smoke input discovery v0.

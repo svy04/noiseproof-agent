@@ -12182,6 +12182,54 @@ def test_external_feedback_current_state_clamav_malicious_detection_issue_verifi
     )
 
 
+def test_external_review_issue_body_readability_refresh_keeps_issue_scannable_and_bounded():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-readability-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Readability Refresh" in content
+    assert "external review issue body readability refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_fast_path": true' in content
+    assert '"has_latest_proof": true' in content
+    assert '"has_feedback_format": true' in content
+    assert '"has_boundaries": true' in content
+    assert '"has_literal_crlf_text": false' in content
+    assert '"body_length_under_12000": true' in content
+    assert '"has_clamav_malicious_detection_proof": true' in content
+    assert "docs/review/external-reader-proof-path.md" in content
+    assert "docs/review/external-reviewer-link-map.md" in content
+    assert "docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production malware scanning evidence" in content
+    assert (
+        "External review issue body readability refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 434 - External Review Issue Body Readability Refresh v0"
+        in goal
+    )
+    assert "external review issue body readability refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-readability-refresh.md"
+        in portfolio
+    )
+
+
 def test_uploaded_raw_file_download_endpoint_review_keeps_downloads_scan_first_and_review_only():
     review_path = REPO_ROOT / "docs/review/uploaded-raw-file-download-endpoint-review.md"
     assert review_path.is_file()

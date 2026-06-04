@@ -397,6 +397,8 @@ External review issue body ClamAV malicious-detection refresh v0: implemented. B
 
 External feedback current-state ClamAV malicious-detection issue verification v0: implemented. Boundary: current issue #1 screen after the ClamAV malicious-detection issue-body refresh still has `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
+External review issue body readability refresh v0: implemented. Boundary: issue #1 was rewritten as a concise proof-routing request with fast path, latest proof, feedback format, and boundaries; `body_length=3808`, literal `\\r\\n` text absent, owner-authored issue body edit only, not external reviewer feedback.
+
 architecture current-state refresh v0: implemented. Boundary: `docs/architecture.md` now separates implemented uploaded-file persistence, chunk/retrieval persistence, caller-provided embeddings, semantic retrieval persistence, and retrieval-run-linked Evidence Ledger / Noise Gate / Report handoffs from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality.
 
 External reviewer architecture current-state request refresh v0: implemented. Boundary: reviewer request surfaces now link to `docs/review/architecture-current-state-refresh.md`; this is request infrastructure only, not external reviewer feedback, not hosted deployment evidence, and not endpoint malicious-detection runtime proof.
