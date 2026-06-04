@@ -17217,3 +17217,46 @@ def test_embedding_model_mocked_provider_call_documents_no_live_boundary():
     assert "embedding model mocked-provider call v0" in runbook
     assert "docs/review/embedding-model-mocked-provider-call.md" in portfolio
     assert "embedding model mocked-provider call exists" in app_review
+
+
+def test_embedding_model_live_provider_implementation_review_documents_owner_runtime_gate():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/embedding-model-live-provider-implementation-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Model Live-provider Implementation Review" in content
+    assert "embedding model live-provider implementation review v0" in content
+    assert "POST /chunks/embedding-model-preview" in content
+    assert "allow_provider_call" in content
+    assert "OPENAI_API_KEY" in content
+    assert "https://platform.openai.com/docs/api-reference/embeddings/create" in content
+    assert "https://platform.openai.com/docs/guides/embeddings" in content
+    assert "timeout" in content
+    assert "secret redaction" in content
+    assert "provider response dimension check" in content
+    assert "usage metadata" in content
+    assert "manual owner runtime smoke" in content
+    assert "no live provider call in CI" in content
+    assert "not implemented" in content
+    assert "actual live embedding model generation remains unproven" in content
+    assert "Embedding model live-provider implementation review v0: implemented" in readme
+    assert "Phase 468 - Embedding Model Live-provider Implementation Review v0" in goal
+    assert "embedding model live-provider implementation review v0" in runbook
+    assert (
+        "docs/review/embedding-model-live-provider-implementation-review.md"
+        in portfolio
+    )
+    assert "embedding model live-provider implementation review exists" in app_review

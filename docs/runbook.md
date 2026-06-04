@@ -8777,3 +8777,63 @@ no live API cost
 no automatic persistence
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Implementation Review
+
+Phase marker: embedding model live-provider implementation review v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-implementation-review.md
+```
+
+Future call surface:
+
+```text
+POST /chunks/embedding-model-preview
+```
+
+Official source URLs:
+
+```text
+https://platform.openai.com/docs/guides/embeddings
+https://platform.openai.com/docs/api-reference/embeddings/create
+```
+
+Required future implementation gate:
+
+```text
+allow_provider_call
+OPENAI_API_KEY
+timeout
+secret redaction
+provider response dimension check
+usage metadata
+no live provider call in CI
+manual owner runtime smoke
+```
+
+Future manual owner runtime smoke must record:
+
+```text
+exact command
+model
+configured dimension
+returned vector length
+provider response dimension check result
+usage metadata presence
+secret_exposed: false
+preview_only_not_persisted
+```
+
+Claim boundary:
+
+```text
+not implemented
+no live OpenAI provider call
+no network call
+no API cost
+no automatic persistence
+actual live embedding model generation remains unproven
+```
