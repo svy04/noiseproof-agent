@@ -6164,6 +6164,41 @@ not external reviewer feedback
 not product-complete
 ```
 
+## CI Node24 Action Version Refresh
+
+Phase marker: ci node24 action version refresh v0.
+
+Use this artifact:
+
+```text
+docs/review/ci-node24-action-version-refresh.md
+```
+
+Configured workflow action references:
+
+```text
+.github/workflows/ci.yml
+  actions/checkout@v6
+  actions/setup-python@v6
+  astral-sh/setup-uv@v8
+
+.github/workflows/external-feedback-screen.yml
+  actions/checkout@v6
+  actions/setup-python@v6
+  actions/upload-artifact@v7
+```
+
+Boundary:
+
+```text
+workflow runtime compatibility only
+remote annotation result remains unverified until the next push
+not product runtime evidence
+not hosted deployment evidence
+not external reviewer feedback
+not product-complete
+```
+
 ## Uploaded file chunk persistence handoff review
 
 Phase marker: uploaded file chunk persistence handoff review v0.

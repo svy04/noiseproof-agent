@@ -3867,7 +3867,7 @@ def test_external_feedback_screening_workflow_runs_cli_without_closing_gate():
     assert "gh issue view 1" in workflow
     assert "python -m packages.review.external_feedback_cli" in workflow
     assert "external-feedback-screen.json" in workflow
-    assert "actions/upload-artifact@v4" in workflow
+    assert "actions/upload-artifact@v7" in workflow
     assert "External Feedback Screening Workflow" in content
     assert "external feedback screening workflow v0" in content
     assert "does not close the gate" in content
@@ -11784,6 +11784,49 @@ def test_ci_node24_actions_runtime_remote_verification_is_documented():
     assert "Phase 310 - CI Node24 Actions Runtime Remote Verification v0" in goal
     assert "ci node24 actions runtime remote verification v0" in runbook
     assert "docs/review/ci-node24-actions-runtime-remote-verification.md" in portfolio
+
+
+def test_ci_node24_action_versions_are_refreshed_to_current_major_tags():
+    review_path = REPO_ROOT / "docs/review/ci-node24-action-version-refresh.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    ci_workflow = (REPO_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+    feedback_workflow = (
+        REPO_ROOT / ".github/workflows/external-feedback-screen.yml"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "CI Node24 Action Version Refresh" in content
+    assert "ci node24 action version refresh v0" in content
+    assert "upstream tag check" in content
+    assert "git ls-remote --tags" in content
+    assert "actions/checkout@v6" in ci_workflow
+    assert "actions/setup-python@v6" in ci_workflow
+    assert "astral-sh/setup-uv@v8" in ci_workflow
+    assert "actions/checkout@v6" in feedback_workflow
+    assert "actions/setup-python@v6" in feedback_workflow
+    assert "actions/upload-artifact@v7" in feedback_workflow
+    for old_reference in [
+        "actions/checkout@v4",
+        "actions/setup-python@v5",
+        "astral-sh/setup-uv@v5",
+        "actions/upload-artifact@v4",
+    ]:
+        assert old_reference not in ci_workflow
+        assert old_reference not in feedback_workflow
+    assert "workflow runtime compatibility only" in content
+    assert "not product runtime evidence" in content
+    assert "remote annotation result remains unverified until the next push" in content
+    assert "ci node24 action version refresh v0: implemented" in readme
+    assert "Phase 426 - CI Node24 Action Version Refresh v0" in goal
+    assert "ci node24 action version refresh v0" in runbook
+    assert "docs/review/ci-node24-action-version-refresh.md" in portfolio
 
 
 def test_uploaded_raw_file_download_endpoint_review_keeps_downloads_scan_first_and_review_only():

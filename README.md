@@ -435,6 +435,8 @@ ci node24 actions runtime opt-in v0: implemented. Boundary: `.github/workflows/c
 
 ci node24 actions runtime remote verification v0: implemented. Boundary: remote runs `26870586255` (`CI`) and `26870586219` (`External Feedback Screen`) succeeded on head `c3c6908`; the annotation is still present as a forced Node.js 24 runtime warning, so this is compatibility evidence only, not product runtime evidence.
 
+ci node24 action version refresh v0: implemented. Boundary: workflow action references were refreshed to upstream current major tags after the forced Node.js 24 runtime warning remained; this is workflow runtime compatibility only, and the remote annotation result remains unverified until the next push.
+
 
 Uploaded raw file download endpoint review v0: implemented. Boundary: source-first review selects a future scan-first `GET /documents/upload-raw-files/{raw_file_id}/download` route that requires the latest clean scan result and keeps authorization / download rate limit explicit; review-only, not endpoint code, not a download endpoint, not malware scanning evidence, and not product-complete.
 

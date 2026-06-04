@@ -1685,6 +1685,43 @@ Next recommended gate:
 external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+Phase 426 extension to the accepted state:
+
+```text
+CI Node24 Action Version Refresh v0
+```
+
+### Phase 426 - CI Node24 Action Version Refresh v0
+
+Goal:
+
+```text
+refresh GitHub Actions JavaScript action references to current upstream major tags after the forced Node.js 24 runtime annotation remained
+```
+
+Implemented:
+
+```text
+ci node24 action version refresh v0
+docs/review/ci-node24-action-version-refresh.md
+upstream tag check
+actions/checkout@v6
+actions/setup-python@v6
+astral-sh/setup-uv@v8
+actions/upload-artifact@v7
+README implementation marker
+docs/runbook.md configuration note
+docs/application/portfolio-index.md artifact link
+```
+
+Phase 426 is workflow runtime compatibility only. It adds no runtime behavior, schema, migration, API endpoint, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, production authorization, malware detection proof, endpoint malicious-detection runtime proof, automatic failure-case creation, complete workflow failure causality, autonomous/LLM-backed agents, polished web app, or product-complete claim. The remote annotation result remains unverified until the next push.
+
+Next recommended gate:
+
+```text
+ci node24 action version remote verification v0 after GitHub Actions runs, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ### Phase 397 - Uploaded Raw File Download Audit Runtime Smoke v0
 
 Goal:
