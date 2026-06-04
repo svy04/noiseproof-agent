@@ -16740,3 +16740,77 @@ def test_external_feedback_current_state_workflow_proof_bundle_issue_verificatio
         "external feedback current-state workflow proof bundle issue verification v0"
         in issue_body_refresh
     )
+
+
+def test_external_feedback_current_state_workflow_proof_bundle_dashboard_runtime_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-workflow-proof-bundle-dashboard-runtime-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    issue_body_refresh = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-workflow-proof-bundle-dashboard-runtime-refresh.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Feedback Current-state Workflow Proof Bundle Dashboard Runtime Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state workflow proof bundle dashboard runtime issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert '"updatedAt": "2026-06-04T21:47:33Z"' in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_workflow_proof_bundle_dashboard_runtime_proof": true' in content
+    assert '"has_workflow_proof_bundle_dashboard_request_refresh": true' in content
+    assert '"has_workflow_proof_bundle_dashboard_issue_body_refresh": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert '"screened_comment_count": 1' in content
+    assert '"candidate_count": 0' in content
+    assert '"draft_count": 0' in content
+    assert '"status": "pending"' in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment" in content
+    assert "does_not_close_gate: true" in content
+    assert "GET /ops/dashboard" in content
+    assert "dashboard_contains_proof_bundle_link: true" in content
+    assert "proof_bundle_status_code: 200" in content
+    assert "bundle_boundary: read_model_only_existing_records_no_new_storage" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state workflow proof bundle dashboard runtime issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 457 - External Feedback Current-state Workflow Proof Bundle Dashboard Runtime Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state workflow proof bundle dashboard runtime issue verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-workflow-proof-bundle-dashboard-runtime-issue-verification.md"
+        in portfolio
+    )
+    assert (
+        "external feedback current-state workflow proof bundle dashboard runtime issue verification v0"
+        in issue_body_refresh
+    )

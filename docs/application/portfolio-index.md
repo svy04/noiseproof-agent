@@ -214,6 +214,8 @@ External reviewer workflow proof bundle dashboard runtime request refresh: `docs
 
 External review issue body workflow proof bundle dashboard runtime refresh: `docs/review/external-review-issue-body-workflow-proof-bundle-dashboard-runtime-refresh.md` records the owner-authored issue #1 body edit that points reviewers to `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md` and its request-refresh record. This is live issue routing only, not outside reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, new lineage storage, or product-complete.
 
+External feedback current-state workflow proof bundle dashboard runtime issue verification: `docs/review/external-feedback-current-state-workflow-proof-bundle-dashboard-runtime-issue-verification.md` records that the current issue #1 body still points to the dashboard runtime proof path, while the only screened comment is owner-authored and external reviewer feedback remains pending.
+
 ## Start Here
 
 1. `README.md`
