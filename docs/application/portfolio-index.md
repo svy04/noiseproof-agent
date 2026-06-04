@@ -86,6 +86,8 @@ External reviewer PDF downstream handoff issue-body refresh: `docs/review/extern
 
 External feedback current-state PDF downstream handoff issue verification: `docs/review/external-feedback-current-state-pdf-downstream-handoff-issue-verification.md` records the current issue #1 screen after the PDF downstream handoff issue-body refresh. It keeps external reviewer feedback pending because the only comment is self-authored and candidate_count remains 0.
 
+Uploaded PDF retrieval-run provenance: `docs/review/uploaded-pdf-retrieval-run-provenance.md` records route-level proof that PDF-derived upload chunk rows keep `parser: pdf-pymupdf`, `digital_pdf_text_extraction: true`, and `robust_pdf_extraction: false` into persisted document retrieval-run candidate provenance. It is not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, layout fidelity, raw file storage, full parsed text persistence, Evidence Ledger generation, Noise Gate behavior, or report generation.
+
 External reviewer parsed-document persistence request refresh: `docs/review/external-reviewer-parsed-document-persistence-request-refresh.md` points the reviewer request path to the uploaded-file parsed document persistence proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.
 
 External review issue body parsed document persistence refresh: `docs/review/external-review-issue-body-parsed-document-persistence-refresh.md` records the owner-authored issue #1 body update that points reviewers to the uploaded-file parsed document persistence proof. It is not external reviewer feedback itself, not raw file storage, and not hosted deployment evidence.

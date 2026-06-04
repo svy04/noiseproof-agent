@@ -24,6 +24,8 @@ Phase 345 adds external reviewer PDF downstream handoff issue-body refresh v0: l
 
 Phase 346 adds external feedback current-state PDF downstream handoff issue verification v0: current issue #1 still has `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and only a self-authored non-qualifying comment after the PDF downstream handoff issue-body refresh. This does not close external reviewer feedback v0 and is not hosted deployment evidence, robust PDF extraction, OCR, table extraction, layout fidelity evidence, or raw file storage.
 
+Phase 347 adds uploaded PDF retrieval-run provenance v0: PDF-derived `POST /documents/upload-chunks` rows now keep `parser: pdf-pymupdf`, `digital_pdf_text_extraction: true`, and `robust_pdf_extraction: false` in chunk metadata, and `POST /documents/{document_id}/retrieval-runs` summarizes candidate provenance with `candidate_source_types`, `candidate_parsers`, and `source_provenance_boundary`. This is route-level proof only; it is not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, layout fidelity, raw file storage, full parsed text persistence, Evidence Ledger generation, Noise Gate behavior, or report generation.
+
 Phase 22 adds an Evidence Ledger dashboard table: persisted evidence rows are now visible beside retrieval, gate, and report records in the plain operations dashboard.
 
 Phase 22.5 adds a review-only cross-link decision: direct evidence -> gate -> report links are deferred until a single workflow parent exists.

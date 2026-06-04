@@ -1730,6 +1730,53 @@ def test_document_upload_chunks_persists_chunks_from_uploaded_pdf_text_extractio
     assert not any("replacement" in warning for warning in body["warnings"])
 
 
+def test_uploaded_pdf_chunk_retrieval_run_keeps_pdf_parser_provenance():
+    client = make_client()
+    content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")
+
+    upload = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Uploaded PDF report",
+            "strategy": "fixed-window",
+            "max_characters": "80",
+            "overlap": "0",
+        },
+        files={"file": ("sample-report.pdf", content, "application/pdf")},
+    ).json()
+
+    assert upload["parser"] == "pdf-pymupdf"
+    assert upload["chunks"]
+    assert upload["chunks"][0]["metadata_json"]["parser"] == "pdf-pymupdf"
+    assert upload["chunks"][0]["metadata_json"]["digital_pdf_text_extraction"] is True
+    assert upload["chunks"][0]["metadata_json"]["robust_pdf_extraction"] is False
+
+    retrieval = client.post(
+        f"/documents/{upload['document']['id']}/retrieval-runs",
+        json={
+            "question": "Which evidence supports Enterprise PDF demand in 2026?",
+            "strategy": "fixed-window",
+            "top_k": 1,
+        },
+    )
+
+    assert retrieval.status_code == 201
+    body = retrieval.json()
+    assert body["status"] == "completed"
+    assert body["result_count"] == 1
+    assert body["metadata_json"]["source_table"] == "document_chunks"
+    assert body["metadata_json"]["candidate_source_types"] == ["pdf"]
+    assert body["metadata_json"]["candidate_parsers"] == ["pdf-pymupdf"]
+    assert body["metadata_json"]["digital_pdf_text_extraction"] is True
+    assert body["metadata_json"]["robust_pdf_extraction"] is False
+    assert body["metadata_json"]["source_provenance_boundary"] == (
+        "retrieval_run_candidate_chunk_metadata_only"
+    )
+    assert body["results"][0]["metadata"]["parser"] == "pdf-pymupdf"
+    assert body["results"][0]["metadata"]["digital_pdf_text_extraction"] is True
+    assert body["results"][0]["metadata"]["robust_pdf_extraction"] is False
+
+
 def test_document_upload_retrieval_preview_searches_uploaded_markdown_without_persistence():
     client = make_client()
     content = b"# Market note\nEnterprise demand growth was 12 percent in 2026.\nConsumer demand declined.\n"

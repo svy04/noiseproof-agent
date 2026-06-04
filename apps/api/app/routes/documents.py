@@ -626,12 +626,22 @@ async def upload_document_chunks(
             metadata = dict(chunk.metadata)
             metadata.update(
                 {
+                    "parser": preview.parser,
                     "handoff_boundary": "explicit_upload_to_chunks_no_raw_file_storage",
                     "raw_file_storage": False,
                     "parsed_text_storage": False,
                     "source_profile": preview.profile.model_dump(),
                 }
             )
+            if preview.source_type == "pdf":
+                metadata.update(
+                    {
+                        "digital_pdf_text_extraction": (
+                            preview.parser == "pdf-pymupdf"
+                        ),
+                        "robust_pdf_extraction": False,
+                    }
+                )
             persisted_chunks.append(
                 repository.create_document_chunk(
                     DocumentChunkCreate(

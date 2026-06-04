@@ -47,6 +47,7 @@ def run_document_chunk_retrieval(
     latency_ms = max(0, round((time.perf_counter() - started_at) * 1000))
     result_count = len(candidates)
     candidate_chunk_ids = [candidate.metadata["chunk_id"] for candidate in candidates]
+    candidate_provenance = _candidate_provenance(candidates)
     run = repository.create_retrieval_run(
         RetrievalRunCreate(
             question=payload.question,
@@ -67,6 +68,7 @@ def run_document_chunk_retrieval(
                 "persistence_boundary": (
                     "document_chunk_retrieval_run_only_no_evidence_ledger"
                 ),
+                **candidate_provenance,
                 "no_embeddings": True,
                 "no_semantic_retrieval": True,
                 "no_evidence_ledger_generation": True,
@@ -144,3 +146,38 @@ def _hit_rate(
     if result_count == 0:
         return 0.0
     return round(result_count / max(min(top_k, len(candidates) or top_k), 1), 4)
+
+
+def _candidate_provenance(candidates: list[RetrievalCandidate]) -> dict[str, object]:
+    source_types = sorted(
+        {candidate.source_type for candidate in candidates if candidate.source_type}
+    )
+    parsers = sorted(
+        {
+            str(candidate.metadata["parser"])
+            for candidate in candidates
+            if candidate.metadata.get("parser")
+        }
+    )
+    has_pdf_candidate = "pdf" in source_types
+    digital_pdf_text_extraction = any(
+        candidate.metadata.get("digital_pdf_text_extraction") is True
+        for candidate in candidates
+    )
+    robust_pdf_values = [
+        candidate.metadata.get("robust_pdf_extraction")
+        for candidate in candidates
+        if "robust_pdf_extraction" in candidate.metadata
+    ]
+
+    provenance: dict[str, object] = {
+        "candidate_source_types": source_types,
+        "candidate_parsers": parsers,
+        "source_provenance_boundary": "retrieval_run_candidate_chunk_metadata_only",
+    }
+    if has_pdf_candidate:
+        provenance["digital_pdf_text_extraction"] = digital_pdf_text_extraction
+        provenance["robust_pdf_extraction"] = any(
+            value is True for value in robust_pdf_values
+        )
+    return provenance

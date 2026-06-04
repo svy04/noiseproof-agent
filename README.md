@@ -405,6 +405,8 @@ External reviewer PDF downstream handoff issue-body refresh v0: implemented. Bou
 
 External feedback current-state PDF downstream handoff issue verification v0: implemented. Boundary: current issue #1 screen after the PDF downstream handoff issue-body refresh still has `comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment; external reviewer feedback remains pending.
 
+Uploaded PDF retrieval-run provenance v0: implemented. Boundary: PDF-derived upload chunk rows now carry `parser`, `digital_pdf_text_extraction`, and `robust_pdf_extraction` metadata into persisted document retrieval-run candidate provenance; this is route-level proof only, not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, layout fidelity, raw file storage, full parsed text persistence, Evidence Ledger generation, Noise Gate behavior, or report generation.
+
 ci node24 actions runtime opt-in v0: implemented. Boundary: `.github/workflows/ci.yml` and `.github/workflows/external-feedback-screen.yml` set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"` after the remote run warned that Node.js 20 actions are deprecated; this is workflow runtime compatibility only, not product runtime evidence.
 
 ci node24 actions runtime remote verification v0: implemented. Boundary: remote runs `26870586255` (`CI`) and `26870586219` (`External Feedback Screen`) succeeded on head `c3c6908`; the annotation is still present as a forced Node.js 24 runtime warning, so this is compatibility evidence only, not product runtime evidence.

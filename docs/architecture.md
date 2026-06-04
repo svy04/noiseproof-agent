@@ -170,7 +170,7 @@ Current persistence boundary:
 - `POST /documents/upload-chunks` can explicitly hand off uploaded content into a document row plus `document_chunks` rows.
 - `POST /documents/upload-chunk-preview` remains preview-only and does not create documents or chunks.
 
-Chunk persistence stores derived chunk text only. It stores no raw uploaded bytes and no full parsed text. Retrieval persistence is a separate explicit handoff surface, and embeddings are a separate caller-provided chunk embedding surface.
+Chunk persistence stores derived chunk text only. It stores no raw uploaded bytes and no full parsed text. PDF-derived upload chunks preserve minimal parser provenance (`parser`, `digital_pdf_text_extraction`, and `robust_pdf_extraction`) so persisted document retrieval runs can summarize candidate provenance without claiming robust PDF extraction. Retrieval persistence is a separate explicit handoff surface, and embeddings are a separate caller-provided chunk embedding surface.
 
 Research scope note:
 

@@ -10615,6 +10615,41 @@ def test_external_feedback_current_state_pdf_downstream_handoff_issue_verificati
     )
 
 
+def test_uploaded_pdf_retrieval_run_provenance_is_documented_without_robust_pdf_claim():
+    review_path = REPO_ROOT / "docs/review/uploaded-pdf-retrieval-run-provenance.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+    api_readme = (REPO_ROOT / "apps/api/README.md").read_text(encoding="utf-8")
+
+    assert "Uploaded PDF Retrieval-run Provenance" in content
+    assert "uploaded PDF retrieval-run provenance v0" in content
+    assert "POST /documents/upload-chunks" in content
+    assert "POST /documents/{document_id}/retrieval-runs" in content
+    assert "pdf-pymupdf" in content
+    assert "digital_pdf_text_extraction -> true" in content
+    assert "robust_pdf_extraction -> false" in content
+    assert "source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction" in content
+    assert "does not create Evidence Ledger entries" in content
+    assert "Uploaded PDF retrieval-run provenance v0: implemented" in readme
+    assert "Phase 347 - Uploaded PDF Retrieval-run Provenance v0" in goal
+    assert "Accepted state as of Phase 347" in goal
+    assert "uploaded PDF retrieval-run provenance v0" in runbook
+    assert "docs/review/uploaded-pdf-retrieval-run-provenance.md" in portfolio
+    assert "PDF-derived upload chunks preserve minimal parser provenance" in architecture
+    assert "PDF-derived upload chunks preserve minimal parser provenance" in api_readme
+
+
 def test_ci_node24_actions_runtime_opt_in_is_documented_and_configured():
     review_path = REPO_ROOT / "docs/review/ci-node24-actions-runtime-opt-in.md"
     assert review_path.is_file()
