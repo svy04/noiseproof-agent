@@ -22666,3 +22666,34 @@ DASHBOARD_HAS_PERSISTENCE_BOUNDARY=True
 Boundary: local Docker/FastAPI runtime evidence for read-surface inspectability only; not a new retrieval algorithm, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not Evidence Ledger generation, not free-form final report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 620 - Retrieval Run Semantic Provenance Runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that Phase 619 passed repository checks on `main`.
+
+Implemented artifacts:
+
+```text
+retrieval run semantic provenance runtime smoke remote verification v0
+docs/review/retrieval-run-semantic-provenance-runtime-smoke-remote-verification.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Observed remote runs:
+
+```text
+head_sha -> 31af13a55399a0f5526a3523f035a7ab5c16fa78
+CI run 27043472010 -> success
+api-smoke -> success
+External Feedback Screen run 27043472009 -> success
+screen -> success
+```
+
+Boundary: remote workflow verification only; not the local runtime smoke itself, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not semantic retrieval quality evidence, not embedding generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

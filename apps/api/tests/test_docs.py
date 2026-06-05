@@ -26793,6 +26793,55 @@ def test_retrieval_run_semantic_provenance_runtime_smoke_is_recorded():
     )
 
 
+def test_retrieval_run_semantic_provenance_runtime_smoke_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/retrieval-run-semantic-provenance-runtime-smoke-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme_with_archive = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "retrieval run semantic provenance runtime smoke remote verification v0"
+        in content
+    )
+    assert "31af13a55399a0f5526a3523f035a7ab5c16fa78" in content
+    assert "CI run 27043472010 -> success" in content
+    assert "External Feedback Screen run 27043472009 -> success" in content
+    assert "api-smoke" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Retrieval run semantic provenance runtime smoke remote verification v0: implemented"
+        in readme_with_archive
+    )
+    assert (
+        "Phase 620 - Retrieval Run Semantic Provenance Runtime Smoke Remote Verification v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 619 - Retrieval Run Semantic Provenance Runtime Smoke v0"
+    ) < goal.index(
+        "Phase 620 - Retrieval Run Semantic Provenance Runtime Smoke Remote Verification v0"
+    )
+    assert (
+        "retrieval run semantic provenance runtime smoke remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/retrieval-run-semantic-provenance-runtime-smoke-remote-verification.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
