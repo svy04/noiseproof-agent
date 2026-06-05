@@ -1,6 +1,8 @@
 from datetime import date, datetime, timezone
 from hashlib import sha256
+from html import unescape
 from pathlib import Path
+import re
 from uuid import uuid4
 
 import pytest
@@ -4552,6 +4554,48 @@ def test_ops_dashboard_marks_clickable_anchors_as_get_method_links():
     assert f'<a data-method="GET" href="/workflow-runs/{workflow["id"]}">' in response.text
     assert 'data-method="POST"' not in response.text
     assert 'data-method="GET" href="/failure-cases/draft-preview"' not in response.text
+
+
+def test_ops_dashboard_get_anchors_resolve_as_inspection_routes():
+    client = make_client()
+    execution = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which dashboard inspection links should resolve?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-dashboard-links",
+                    "source_type": "markdown",
+                    "content": "Enterprise demand grew 12 percent in 2026.",
+                }
+            ],
+        },
+    ).json()
+    workflow_run_id = execution["workflow_run"]["id"]
+    client.post(
+        "/failure-cases",
+        json={
+            "workflow_run_id": workflow_run_id,
+            "failure_type": "workflow_stage_error",
+            "description": "Dashboard link smoke should keep manual inspection routes alive.",
+            "fix_status": "open",
+        },
+    )
+
+    response = client.get("/ops/dashboard")
+
+    assert response.status_code == 200
+    hrefs = [
+        unescape(match)
+        for match in re.findall(r'<a data-method="GET" href="([^"]+)">', response.text)
+    ]
+    assert hrefs
+    assert "/failure-cases/draft-preview" not in hrefs
+    assert all(href.startswith("/") for href in hrefs)
+
+    statuses = {href: client.get(href).status_code for href in sorted(set(hrefs))}
+    assert all(status == 200 for status in statuses.values()), statuses
 
 
 def test_core_preview_endpoints_auto_record_agent_run_traces():

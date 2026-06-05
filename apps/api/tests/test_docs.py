@@ -2410,6 +2410,42 @@ def test_ops_dashboard_anchor_method_metadata_documents_machine_readable_get_lin
     assert 'data-method="GET"' in api_readme
 
 
+def test_ops_dashboard_anchor_get_smoke_documents_resolvable_inspection_links():
+    review_path = (
+        REPO_ROOT / "docs/review/ops-dashboard-anchor-get-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    route_test = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Ops Dashboard Anchor GET Smoke" in content
+    assert "ops dashboard anchor GET smoke v0" in content
+    assert "GET /ops/dashboard" in content
+    assert 'data-method="GET"' in content
+    assert "GET 200 inspection route" in content
+    assert "POST-only actions remain non-clickable method cues" in content
+    assert "not browser automation evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert "test_ops_dashboard_get_anchors_resolve_as_inspection_routes" in route_test
+    assert "client.get(href)" in route_test
+    assert (
+        "Ops dashboard anchor GET smoke v0: implemented" in readme
+    )
+    assert "Phase 521 - Ops Dashboard Anchor GET Smoke v0" in goal
+    assert "ops dashboard anchor GET smoke v0" in runbook
+    assert "docs/review/ops-dashboard-anchor-get-smoke.md" in portfolio
+
+
 def test_failure_case_workflow_review_queue_fresh_db_dashboard_smoke_documents_runtime_html_proof():
     content = (
         REPO_ROOT

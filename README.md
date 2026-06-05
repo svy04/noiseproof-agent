@@ -345,6 +345,8 @@ Ops dashboard GET-only link method boundary v0: implemented. Boundary: `GET /ops
 
 Ops dashboard anchor method metadata v0: implemented. Boundary: clickable `GET /ops/dashboard` anchors now include `data-method="GET"` so inspection links are machine-readable; POST-only actions remain method cues, not anchors. This is not a route behavior change, automatic failure-case creation, background automation, hosted deployment evidence, external reviewer feedback, or product-complete.
 
+Ops dashboard anchor GET smoke v0: implemented. Boundary: local FastAPI test-client smoke verifies each clickable dashboard `data-method="GET"` anchor resolves as a GET 200 inspection route; POST-only actions remain non-clickable method cues. This is not browser automation evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
 Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence only; not hosted deployment evidence, not external reviewer feedback, and not malware scanning.

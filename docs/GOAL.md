@@ -19047,6 +19047,36 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 521 - Ops Dashboard Anchor GET Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+verify every clickable operations dashboard anchor marked with GET method metadata resolves as a GET 200 inspection route
+```
+
+Implemented:
+
+```text
+ops dashboard anchor GET smoke v0
+docs/review/ops-dashboard-anchor-get-smoke.md
+GET /ops/dashboard
+data-method="GET"
+GET 200 inspection route
+POST-only actions remain non-clickable method cues
+apps/api/tests/test_routes.py::test_ops_dashboard_get_anchors_resolve_as_inspection_routes
+```
+
+Phase 521 records local FastAPI test-client smoke evidence only. It adds no endpoint, no route behavior change, no runtime workflow semantics, no schema or migration, no browser automation evidence, no hosted deployment evidence, no automatic failure-case creation, no background automation, no root-cause automation, no complete workflow failure causality, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
