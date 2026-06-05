@@ -21390,6 +21390,58 @@ Next recommended evidence gate:
 external feedback current-state workflow failed stage event runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 585 - External Feedback Current-state Workflow Failed Stage Event Runtime Issue Verification v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+record current issue #1 state after the failed-stage runtime issue-body refresh and keep external reviewer feedback v0 pending
+```
+
+Implemented artifacts:
+
+```text
+external feedback current-state workflow failed stage event runtime issue verification v0
+docs/review/external-feedback-current-state-workflow-failed-stage-event-runtime-issue-verification.md
+docs/review/workflow-failed-stage-event-runtime-smoke.md
+docs/review/external-reviewer-workflow-failed-stage-event-runtime-request-refresh.md
+docs/review/external-review-issue-body-workflow-failed-stage-event-runtime-refresh.md
+https://github.com/svy04/noiseproof-agent/issues/1
+starts_with_request -> true
+first_codepoint -> 35
+has_workflow_failed_stage_event_runtime_proof -> true
+has_workflow_failed_stage_event_request_refresh -> true
+has_workflow_failed_stage_event_issue_body_refresh -> true
+has_execute_preview_500 -> true
+has_workflow_stage_event_count -> true
+has_retrieval_completed -> true
+has_evidence_ledger_failed -> true
+has_failure_case_count_delta -> true
+has_failed_stage_boundary -> true
+has_external_feedback_boundary -> true
+comment_count -> 1
+screened_comment_count -> 1
+candidate_count -> 0
+draft_count -> 0
+classification -> non_qualifying
+reason -> self_authored_comment
+status -> pending
+```
+
+Boundary:
+
+```text
+Phase 585 is current-state verification of a public request issue only. It is not external reviewer feedback, not hosted deployment evidence, not retry behavior, not automatic failure-case creation, not root-cause automation, not complete workflow failure causality, not distributed tracing, not hosted observability, not customer validation, not Braincrew acceptance, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
