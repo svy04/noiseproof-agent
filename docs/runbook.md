@@ -9561,3 +9561,55 @@ not hosted deployment evidence
 not product-complete
 actual live embedding model generation remains unproven
 ```
+
+## External Review Issue Body Embedding Provider Owner-runtime Smoke Validator Refresh
+
+Phase marker: external review issue body embedding provider owner-runtime smoke validator refresh v0.
+
+Live issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+Review artifact:
+
+```text
+docs/review/external-review-issue-body-embedding-provider-owner-runtime-smoke-validator-refresh.md
+```
+
+Issue body now points reviewers to:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md
+docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-validator-request-refresh.md
+docs/review/external-review-issue-body-embedding-provider-owner-runtime-smoke-validator-refresh.md
+```
+
+Observed issue state:
+
+```text
+updatedAt: 2026-06-05T01:27:45Z
+starts_with_request: true
+first_codepoint: 35
+has_embedding_provider_owner_runtime_smoke_validator: true
+has_embedding_provider_owner_runtime_smoke_post_run_validation: true
+has_embedding_provider_validator_request_refresh: true
+has_embedding_provider_validator_issue_body_refresh: true
+has_validate_owner_runtime_smoke_report_command: true
+has_validator_success_criteria: true
+comment_count: 1
+```
+
+Boundary:
+
+```text
+owner-authored issue routing only
+not live embedding generation proof
+not external reviewer feedback
+not hosted deployment evidence
+not product-complete
+actual live embedding model generation remains unproven
+```

@@ -18134,3 +18134,89 @@ def test_external_reviewer_embedding_provider_owner_runtime_smoke_validator_requ
         "external reviewer embedding provider owner-runtime smoke validator request refresh v0"
         in runbook
     )
+
+
+def test_external_review_issue_body_embedding_provider_owner_runtime_smoke_validator_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-review-issue-body-embedding-provider-owner-runtime-smoke-validator-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    packet_doc = "docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md"
+    validator_doc = (
+        "docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md"
+    )
+    post_run_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-embedding-provider-owner-runtime-smoke-validator-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-embedding-provider-owner-runtime-smoke-validator-refresh.md"
+    )
+    validator_command = (
+        "--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>"
+    )
+
+    assert (
+        "External Review Issue Body Embedding Provider Owner-runtime Smoke Validator Refresh"
+        in content
+    )
+    assert (
+        "external review issue body embedding provider owner-runtime smoke validator refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert packet_doc in content
+    assert validator_doc in content
+    assert post_run_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert validator_command in content
+    assert "accepted_owner_runtime_smoke: true" in content
+    assert "missing_or_failed_checks: []" in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_embedding_provider_owner_runtime_smoke_packet": true' in content
+    assert '"has_embedding_provider_owner_runtime_smoke_validator": true' in content
+    assert (
+        '"has_embedding_provider_owner_runtime_smoke_post_run_validation": true'
+        in content
+    )
+    assert '"has_embedding_provider_validator_request_refresh": true' in content
+    assert '"has_embedding_provider_validator_issue_body_refresh": true' in content
+    assert '"has_validate_owner_runtime_smoke_report_command": true' in content
+    assert '"has_validator_success_criteria": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not live embedding generation proof" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body embedding provider owner-runtime smoke validator refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 485 - External Review Issue Body Embedding Provider Owner-runtime Smoke Validator Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body embedding provider owner-runtime smoke validator refresh v0"
+        in runbook
+    )
+    assert issue_doc in portfolio

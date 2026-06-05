@@ -17686,6 +17686,46 @@ Next recommended evidence gate:
 external review issue body embedding provider owner-runtime smoke validator refresh v0, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 485 - External Review Issue Body Embedding Provider Owner-runtime Smoke Validator Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+update the live public external review issue body so reviewers can reach the embedding provider owner-runtime smoke validator and post-run validation path from issue #1
+```
+
+Implemented:
+
+```text
+external review issue body embedding provider owner-runtime smoke validator refresh v0
+https://github.com/svy04/noiseproof-agent/issues/1 live issue body edited by owner
+docs/review/external-review-issue-body-embedding-provider-owner-runtime-smoke-validator-refresh.md
+issue #1 has embedding provider owner-runtime smoke packet link
+issue #1 has embedding provider owner-runtime smoke validator link
+issue #1 has embedding provider owner-runtime smoke post-run validation command link
+issue #1 has embedding provider validator request refresh link
+issue #1 has embedding provider validator issue-body refresh link
+--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
+accepted_owner_runtime_smoke=true success criterion
+missing_or_failed_checks=[] success criterion
+starts_with_request=true
+first_codepoint=35
+comment_count=1
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 485 updates owner-authored public issue routing only. It adds no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven, and external reviewer feedback remains pending.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state embedding provider owner-runtime smoke validator issue verification v0, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
