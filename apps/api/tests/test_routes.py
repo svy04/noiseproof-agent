@@ -4529,6 +4529,31 @@ def test_ops_dashboard_declares_get_only_link_method_boundary():
     assert "POST /failure-cases/draft-preview" in response.text
 
 
+def test_ops_dashboard_marks_clickable_anchors_as_get_method_links():
+    client = make_client()
+    workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which failed workflow has machine-readable dashboard links?",
+            "status": "failed",
+            "trace_json": {
+                "stage": "report_preview",
+                "error_type": "RuntimeError",
+            },
+        },
+    ).json()
+
+    response = client.get("/ops/dashboard")
+
+    assert response.status_code == 200
+    anchor_count = response.text.count("<a ")
+    assert anchor_count > 0
+    assert response.text.count('data-method="GET"') == anchor_count
+    assert f'<a data-method="GET" href="/workflow-runs/{workflow["id"]}">' in response.text
+    assert 'data-method="POST"' not in response.text
+    assert 'data-method="GET" href="/failure-cases/draft-preview"' not in response.text
+
+
 def test_core_preview_endpoints_auto_record_agent_run_traces():
     client = make_client()
 

@@ -2368,6 +2368,48 @@ def test_ops_dashboard_get_only_link_method_boundary_documents_dashboard_guard()
     assert "Dashboard links are GET-only inspection routes." in api_readme
 
 
+def test_ops_dashboard_anchor_method_metadata_documents_machine_readable_get_links():
+    review_path = (
+        REPO_ROOT / "docs/review/ops-dashboard-anchor-method-metadata.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    api_readme = (REPO_ROOT / "apps/api/README.md").read_text(encoding="utf-8")
+    dashboard_py = (
+        REPO_ROOT / "apps/api/app/services/ops_dashboard.py"
+    ).read_text(encoding="utf-8")
+    route_test = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Ops Dashboard Anchor Method Metadata" in content
+    assert "ops dashboard anchor method metadata v0" in content
+    assert "GET /ops/dashboard" in content
+    assert 'data-method="GET"' in content
+    assert 'data-method="POST"' not in content
+    assert "machine-readable GET method metadata" in content
+    assert "POST-only actions remain method cues" in content
+    assert "not a route behavior change" in content
+    assert "not automatic failure-case creation" in content
+    assert "not product-complete" in content
+    assert 'data-method="GET"' in dashboard_py
+    assert "test_ops_dashboard_marks_clickable_anchors_as_get_method_links" in route_test
+    assert (
+        "Ops dashboard anchor method metadata v0: implemented" in readme
+    )
+    assert "Phase 520 - Ops Dashboard Anchor Method Metadata v0" in goal
+    assert "ops dashboard anchor method metadata v0" in runbook
+    assert "docs/review/ops-dashboard-anchor-method-metadata.md" in portfolio
+    assert 'data-method="GET"' in api_readme
+
+
 def test_failure_case_workflow_review_queue_fresh_db_dashboard_smoke_documents_runtime_html_proof():
     content = (
         REPO_ROOT

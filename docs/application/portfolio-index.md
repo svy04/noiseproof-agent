@@ -421,6 +421,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | Failure-case workflow review queue dashboard surfacing | `GET /ops/dashboard`, `docs/review/failure-case-workflow-review-queue-dashboard-surfacing.md` | implemented v0 |
 | Workflow review queue dashboard draft-preview method boundary | `docs/review/workflow-review-queue-dashboard-draft-preview-method-boundary.md` | POST-only cue; no clickable GET-looking draft-preview link |
 | Ops dashboard GET-only link method boundary | `docs/review/ops-dashboard-get-only-link-method-boundary.md` | GET links only; POST-only actions render as method cues |
+| Ops dashboard anchor method metadata | `docs/review/ops-dashboard-anchor-method-metadata.md` | every clickable dashboard anchor carries GET method metadata |
 | Failure-case workflow review queue fresh DB dashboard smoke verification | `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` | verified local |
 | Failure-case workflow review queue proof index | `docs/review/failure-case-workflow-review-queue-proof-index.md` | implemented v0 |
 | External-reader proof path | `docs/review/external-reader-proof-path.md` | implemented v0 |
@@ -471,6 +472,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` | local fresh migrated Docker DB dashboard evidence for the review queue section; pending 1, linked 1, draft preview visible, no automatic failure-case creation |
 | `docs/review/workflow-review-queue-dashboard-draft-preview-method-boundary.md` | current dashboard method-boundary proof that draft preview renders as a POST-only cue instead of a clickable GET-looking link |
 | `docs/review/ops-dashboard-get-only-link-method-boundary.md` | current dashboard method-boundary proof that clickable dashboard links are GET-only inspection routes |
+| `docs/review/ops-dashboard-anchor-method-metadata.md` | current dashboard method-boundary proof that clickable dashboard anchors carry machine-readable GET metadata |
 | `docs/review/failure-case-workflow-review-queue-proof-index.md` | reader path: read-model queue -> runtime smoke -> dashboard surfacing -> fresh DB dashboard proof; no automatic failure-case creation |
 | `docs/review/portfolio-site-proof-artifact-route-verification.md` | live portfolio route proof that the public NoiseProof proof surface references the current repo proof path and boundaries |
 | `docs/review/demo-transcript-capture.md` | self-authored route transcript for collection planning, deterministic workflow preview, lineage, and dashboard inspection |

@@ -19016,6 +19016,37 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 520 - Ops Dashboard Anchor Method Metadata v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make every clickable operations dashboard anchor carry machine-readable GET method metadata while POST-only actions remain method cues
+```
+
+Implemented:
+
+```text
+ops dashboard anchor method metadata v0
+docs/review/ops-dashboard-anchor-method-metadata.md
+GET /ops/dashboard
+data-method="GET"
+machine-readable GET method metadata
+POST-only actions remain method cues
+apps/api/app/services/ops_dashboard.py _link helper
+apps/api/tests/test_routes.py::test_ops_dashboard_marks_clickable_anchors_as_get_method_links
+```
+
+Phase 520 is dashboard anchor metadata only. It adds no endpoint, no route behavior change, no runtime workflow semantics, no schema or migration, no automatic failure-case creation, no background automation, no root-cause automation, no complete workflow failure causality, no hosted deployment evidence, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

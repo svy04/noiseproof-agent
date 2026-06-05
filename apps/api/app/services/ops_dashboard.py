@@ -448,7 +448,7 @@ def _trace_id_from_agent_run(row: dict[str, Any]) -> object:
 
 
 def _link(href: str, label: object) -> str:
-    return f'<a href="{escape(str(href), quote=True)}">{_cell(label)}</a>'
+    return f'<a data-method="GET" href="{escape(str(href), quote=True)}">{_cell(label)}</a>'
 
 
 def _cell(value: object) -> str:
