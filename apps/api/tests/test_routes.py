@@ -4505,6 +4505,30 @@ def test_ops_dashboard_surfaces_failure_case_workflow_review_queue_without_persi
     assert len(client.get("/failure-cases").json()) == 1
 
 
+def test_ops_dashboard_declares_get_only_link_method_boundary():
+    client = make_client()
+    workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which failed workflow needs method-boundary review?",
+            "status": "failed",
+            "trace_json": {
+                "stage": "report_preview",
+                "error_type": "RuntimeError",
+            },
+        },
+    ).json()
+
+    response = client.get("/ops/dashboard")
+
+    assert response.status_code == 200
+    assert "Dashboard links are GET-only inspection routes." in response.text
+    assert "POST-only actions render as method cues, not anchors." in response.text
+    assert f'href="/workflow-runs/{workflow["id"]}">' in response.text
+    assert 'href="/failure-cases/draft-preview"' not in response.text
+    assert "POST /failure-cases/draft-preview" in response.text
+
+
 def test_core_preview_endpoints_auto_record_agent_run_traces():
     client = make_client()
 

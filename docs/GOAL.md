@@ -18985,6 +18985,37 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 519 - Ops Dashboard GET-only Link Method Boundary v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the operations dashboard explicitly state that clickable links are GET-only inspection routes while POST-only actions render as method cues rather than anchors
+```
+
+Implemented:
+
+```text
+ops dashboard GET-only link method boundary v0
+docs/review/ops-dashboard-get-only-link-method-boundary.md
+GET /ops/dashboard
+Dashboard links are GET-only inspection routes.
+POST-only actions render as method cues, not anchors.
+POST /failure-cases/draft-preview remains visible as method cue
+draft-preview POST route is not exposed as clickable href
+apps/api/tests/test_routes.py::test_ops_dashboard_declares_get_only_link_method_boundary
+```
+
+Phase 519 is dashboard boundary-copy and regression-guard work only. It adds no endpoint, no route behavior change, no runtime workflow semantics, no schema or migration, no automatic failure-case creation, no background automation, no root-cause automation, no complete workflow failure causality, no hosted deployment evidence, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

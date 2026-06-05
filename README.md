@@ -341,6 +341,8 @@ External feedback current-state workflow dashboard failure-case counts runtime i
 
 Workflow review queue dashboard draft-preview method boundary v0: implemented. Boundary: `GET /ops/dashboard` now renders `POST /failure-cases/draft-preview` as a method-aware cue instead of a clickable GET link; this is dashboard method-boundary hardening only, not automatic failure-case creation, background automation, complete workflow failure causality, external reviewer feedback, hosted deployment evidence, or product-complete.
 
+Ops dashboard GET-only link method boundary v0: implemented. Boundary: `GET /ops/dashboard` now states that dashboard links are GET-only inspection routes and POST-only actions render as method cues, not anchors; this is not a route behavior change, automatic failure-case creation, background automation, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
 Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence only; not hosted deployment evidence, not external reviewer feedback, and not malware scanning.

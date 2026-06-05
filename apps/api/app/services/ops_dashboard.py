@@ -114,6 +114,8 @@ def render_ops_dashboard(
     <h2>Boundary</h2>
     <ul>
       <li>This dashboard renders existing metadata and preview records only.</li>
+      <li>Dashboard links are GET-only inspection routes.</li>
+      <li>POST-only actions render as method cues, not anchors.</li>
       <li>Unsupported claim and contradiction counts come from persisted Evidence Ledger entries.</li>
       <li>Persisted evidence, gate, and report records link back to their parent agent run through trace lookup.</li>
       <li>Embedding generation, semantic retrieval quality evidence, distributed tracing, and free-form final reports are still not implemented.</li>

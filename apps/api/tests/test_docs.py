@@ -2322,6 +2322,52 @@ def test_workflow_review_queue_dashboard_draft_preview_method_boundary_documents
     )
 
 
+def test_ops_dashboard_get_only_link_method_boundary_documents_dashboard_guard():
+    review_path = (
+        REPO_ROOT / "docs/review/ops-dashboard-get-only-link-method-boundary.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    api_readme = (REPO_ROOT / "apps/api/README.md").read_text(encoding="utf-8")
+    dashboard_py = (
+        REPO_ROOT / "apps/api/app/services/ops_dashboard.py"
+    ).read_text(encoding="utf-8")
+    route_test = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Ops Dashboard GET-only Link Method Boundary" in content
+    assert "ops dashboard GET-only link method boundary v0" in content
+    assert "GET /ops/dashboard" in content
+    assert "Dashboard links are GET-only inspection routes." in content
+    assert "POST-only actions render as method cues, not anchors." in content
+    assert "POST /failure-cases/draft-preview" in content
+    assert 'href="/failure-cases/draft-preview"' not in content
+    assert "not a route behavior change" in content
+    assert "not automatic failure-case creation" in content
+    assert "not background automation" in content
+    assert "not product-complete" in content
+    assert "Dashboard links are GET-only inspection routes." in dashboard_py
+    assert "POST-only actions render as method cues, not anchors." in dashboard_py
+    assert "test_ops_dashboard_declares_get_only_link_method_boundary" in route_test
+    assert (
+        "Ops dashboard GET-only link method boundary v0: implemented" in readme
+    )
+    assert (
+        "Phase 519 - Ops Dashboard GET-only Link Method Boundary v0" in goal
+    )
+    assert "ops dashboard GET-only link method boundary v0" in runbook
+    assert "docs/review/ops-dashboard-get-only-link-method-boundary.md" in portfolio
+    assert "Dashboard links are GET-only inspection routes." in api_readme
+
+
 def test_failure_case_workflow_review_queue_fresh_db_dashboard_smoke_documents_runtime_html_proof():
     content = (
         REPO_ROOT
