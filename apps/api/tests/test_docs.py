@@ -13426,6 +13426,62 @@ def test_uploaded_pdf_table_candidate_diagnostics_is_documented_without_table_ex
     assert "uploaded PDF table-candidate diagnostics route proof exists" in application_ready
 
 
+def test_uploaded_pdf_table_candidate_diagnostics_runtime_smoke_records_live_http_evidence():
+    smoke_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-table-candidate-diagnostics-runtime-smoke.md"
+    )
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded PDF Table-candidate Diagnostics Runtime Smoke" in content
+    assert "uploaded PDF table-candidate diagnostics runtime smoke v0" in content
+    assert "Docker version" in content
+    assert "noiseproof-agent-db -> healthy" in content
+    assert "noiseproof-agent-api -> Up" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-preview -> 200" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "digital_pdf_text_extraction -> true" in content
+    assert "robust_pdf_extraction -> false" in content
+    assert "table_candidate_diagnostics_available -> true" in content
+    assert "table_candidate_count -> 1" in content
+    assert "table_candidate_page_counts -> [1]" in content
+    assert "table_candidate_shapes -> page_index=0,row_count=2,col_count=2,cell_count=4" in content
+    assert "table_extraction_performed -> false" in content
+    assert "document_count_delta -> 0" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not table extraction" in content
+    assert "not layout fidelity" in content
+    assert (
+        "Uploaded PDF table-candidate diagnostics runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 601 - Uploaded PDF Table-candidate Diagnostics Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded PDF table-candidate diagnostics runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-pdf-table-candidate-diagnostics-runtime-smoke.md"
+        in portfolio
+    )
+    assert "uploaded PDF table-candidate diagnostics runtime proof exists" in application_ready
+
+
 def test_uploaded_pdf_page_diagnostics_runtime_smoke_records_live_http_evidence():
     smoke_path = REPO_ROOT / "docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md"
     assert smoke_path.is_file()

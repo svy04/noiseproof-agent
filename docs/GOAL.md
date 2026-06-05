@@ -21965,3 +21965,47 @@ warning -> PyMuPDF table candidate diagnostics found potential tables but does n
 Boundary: this is route-level table-candidate diagnostics only. It is not table extraction, does not extract table contents, is not OCR, not layout fidelity, not robust PDF extraction, not raw file storage, not parsed text persistence, not retrieval quality evidence, not Evidence Ledger generation, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
 
 Next gate: local Docker/FastAPI runtime smoke for uploaded PDF table-candidate diagnostics if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 601 - Uploaded PDF Table-candidate Diagnostics Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: record local Docker PostgreSQL plus live FastAPI HTTP evidence that `POST /documents/upload-preview` returns uploaded PDF table-candidate diagnostics while staying preview-only and not claiming table extraction.
+
+Implemented artifacts:
+
+```text
+uploaded PDF table-candidate diagnostics runtime smoke v0
+docs/review/uploaded-pdf-table-candidate-diagnostics-runtime-smoke.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+apps/api/tests/test_docs.py
+```
+
+Observed runtime:
+
+```text
+Docker version 29.4.3, build 055a478
+Docker Compose version v5.1.3
+API image -> noiseproof-agent-api@sha256:ec7ffc44e2b71f649fb0fc970c9af356d41831a2dae1fbf1bdab98e864e8ea40
+noiseproof-agent-db -> healthy
+noiseproof-agent-api -> Up, 0.0.0.0:8000->8000/tcp
+Applied migrations: 23
+Pending migrations: 0
+GET /health -> 200
+POST /documents/upload-preview -> 200
+parser -> pdf-pymupdf
+table_candidate_diagnostics_available -> true
+table_candidate_count -> 1
+table_candidate_page_counts -> [1]
+table_candidate_shapes -> page_index=0,row_count=2,col_count=2,cell_count=4
+table_extraction_performed -> false
+document_count_delta -> 0
+persistence_boundary -> preview_only_not_persisted
+```
+
+Boundary: this is local runtime evidence only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity, not raw file storage, not parsed text persistence, not retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next gate: downstream provenance runtime smoke for uploaded PDF table-candidate diagnostics if retrieval candidate proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
