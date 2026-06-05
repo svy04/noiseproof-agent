@@ -25581,3 +25581,36 @@ def test_compose_project_isolation_removes_fixed_container_names_and_documents_r
     assert "Phase 595 - Compose Project Isolation v0" in goal
     assert "compose project isolation v0" in runbook
     assert "Compose project isolation" in application_ready
+
+
+def test_compose_service_name_runbook_refresh_documents_future_smoke_pattern():
+    review_path = REPO_ROOT / "docs/review/compose-service-name-runbook-refresh.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "compose service-name runbook refresh v0" in content
+    assert "Phase 595" in content
+    assert "historical smoke docs may still mention `noiseproof-agent-db`" in content
+    assert "docker compose -p <project> ps db" in content
+    assert "docker compose -p <project> ps -q db" in content
+    assert (
+        "docker compose -p <project> exec -T db pg_isready -U noiseproof -d noiseproof"
+        in content
+    )
+    assert "do not write new smokes around `docker inspect noiseproof-agent-db`" in content
+    assert "do not write new smokes around `docker exec noiseproof-agent-db`" in content
+    assert "not a new runtime smoke" in content
+    assert "not hosted deployment evidence" in content
+    assert "Future Compose smoke command pattern" in runbook
+    assert "docker compose -p noiseproof-phaseXXX ps db" in runbook
+    assert "docker compose -p noiseproof-phaseXXX ps -q db" in runbook
+    assert (
+        "docker compose -p noiseproof-phaseXXX exec -T db pg_isready -U noiseproof -d noiseproof"
+        in runbook
+    )
+    assert "Compose service-name runbook refresh v0: implemented" in readme
+    assert "Phase 596 - Compose Service-name Runbook Refresh v0" in goal

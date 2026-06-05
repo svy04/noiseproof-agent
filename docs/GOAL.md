@@ -21841,3 +21841,26 @@ docker compose -p noiseproof-phase595 down -v
 Boundary: local Compose project isolation only; not hosted deployment evidence, not production orchestration, not Kubernetes readiness, not a database migration, not API behavior, not external reviewer feedback, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 596 - Compose Service-name Runbook Refresh v0
+
+Status: implemented.
+
+Purpose: document the future-facing Compose smoke command pattern after Phase 595 removed fixed container names, so new smokes use project-scoped service commands instead of assuming `noiseproof-agent-db`.
+
+Implemented artifacts:
+
+```text
+compose service-name runbook refresh v0
+docs/review/compose-service-name-runbook-refresh.md
+docs/runbook.md
+README.md
+apps/api/tests/test_docs.py
+docker compose -p <project> ps db
+docker compose -p <project> ps -q db
+docker compose -p <project> exec -T db pg_isready -U noiseproof -d noiseproof
+```
+
+Boundary: future smoke command guidance only; historical smoke docs may still mention old fixed container names; not a new runtime smoke, not hosted deployment evidence, not production orchestration, not database migration, not API behavior, not external reviewer feedback, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

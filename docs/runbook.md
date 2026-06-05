@@ -11222,3 +11222,39 @@ not distributed tracing
 not hosted observability
 not product-complete
 ```
+
+## Compose Service-name Runbook Refresh
+
+Phase marker: compose service-name runbook refresh v0.
+
+Review artifact:
+
+```text
+docs/review/compose-service-name-runbook-refresh.md
+```
+
+Future Compose smoke command pattern:
+
+```powershell
+$env:POSTGRES_PORT='55439'
+docker compose -p noiseproof-phaseXXX up -d db
+docker compose -p noiseproof-phaseXXX ps db
+$container = docker compose -p noiseproof-phaseXXX ps -q db
+docker inspect -f '{{.Name}}' $container
+docker inspect -f '{{.State.Health.Status}}' $container
+docker compose -p noiseproof-phaseXXX exec -T db pg_isready -U noiseproof -d noiseproof
+docker compose -p noiseproof-phaseXXX down -v
+Remove-Item Env:\POSTGRES_PORT
+```
+
+Boundary:
+
+```text
+future runtime smoke command guidance only
+historical smoke docs may still mention old fixed container names
+not a new runtime smoke
+not hosted deployment evidence
+not production orchestration
+not database migration
+not product-complete
+```
