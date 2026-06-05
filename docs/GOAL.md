@@ -19965,6 +19965,46 @@ Next recommended evidence gate:
 uploaded PDF page diagnostics downstream provenance runtime smoke v0 if local Docker/FastAPI proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 546 - Uploaded PDF Page Diagnostics Downstream Provenance Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+verify the uploaded PDF page diagnostics downstream provenance path against local Docker PostgreSQL plus live FastAPI HTTP
+```
+
+Implemented:
+
+```text
+uploaded PDF page diagnostics downstream provenance runtime smoke v0
+docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md
+Docker version 29.4.3
+Docker Compose version v5.1.3
+POST /documents/upload-chunks -> 201
+POST /documents/{document_id}/retrieval-runs -> 201
+GET /retrieval-runs -> 200
+document_profile_page_text_char_counts -> [39]
+chunk_metadata_page_text_char_counts -> [39]
+retrieval_metadata_page_text_char_counts -> [39]
+retrieval_candidate_page_text_char_counts -> [39]
+document_profile_empty_page_count -> 0
+chunk_metadata_text_block_count -> 1
+retrieval_metadata_image_block_count -> 0
+source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only
+raw_file_storage -> false
+parsed_text_storage -> false
+```
+
+Phase 546 is local runtime smoke evidence only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not full parsed text persistence, not semantic retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

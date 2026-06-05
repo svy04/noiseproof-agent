@@ -12417,6 +12417,72 @@ def test_uploaded_pdf_page_diagnostics_downstream_provenance_is_documented_witho
     assert "PDF upload chunks preserve page diagnostics" in api_readme
 
 
+def test_uploaded_pdf_page_diagnostics_downstream_provenance_runtime_smoke_records_live_http_evidence():
+    smoke_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md"
+    )
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded PDF Page Diagnostics Downstream Provenance Runtime Smoke" in content
+    assert (
+        "uploaded PDF page diagnostics downstream provenance runtime smoke v0"
+        in content
+    )
+    assert "Docker version" in content
+    assert "Docker Compose version" in content
+    assert "docker compose --profile api up -d --build api" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/retrieval-runs -> 201" in content
+    assert "GET /retrieval-runs -> 200" in content
+    assert "document_profile_page_text_char_counts -> [39]" in content
+    assert "chunk_metadata_page_text_char_counts -> [39]" in content
+    assert "retrieval_metadata_page_text_char_counts -> [39]" in content
+    assert "retrieval_candidate_page_text_char_counts -> [39]" in content
+    assert "document_profile_empty_page_count -> 0" in content
+    assert "chunk_metadata_text_block_count -> 1" in content
+    assert "retrieval_metadata_image_block_count -> 0" in content
+    assert "retrieval_run_candidate_chunk_metadata_only" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not table extraction" in content
+    assert "not layout fidelity" in content
+    assert (
+        "Uploaded PDF page diagnostics downstream provenance runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 546 - Uploaded PDF Page Diagnostics Downstream Provenance Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "uploaded PDF page diagnostics downstream provenance runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md"
+        in proof_path
+    )
+
+
 def test_uploaded_pdf_downstream_handoff_is_documented_without_robust_claim():
     review_path = REPO_ROOT / "docs/review/uploaded-pdf-downstream-handoff.md"
     assert review_path.is_file()
