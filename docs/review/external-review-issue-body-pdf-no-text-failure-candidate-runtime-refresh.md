@@ -101,3 +101,9 @@ Self-authored issue edits or comments do not close the external reviewer feedbac
 ## Next Gate
 
 Next recommended gate: external feedback current-state PDF no-text failure candidate runtime issue verification v0, to screen issue #1 after this owner-authored routing edit and keep external reviewer feedback pending unless a qualifying outside comment exists.
+
+That screen is recorded at:
+
+```text
+docs/review/external-feedback-current-state-pdf-no-text-failure-candidate-runtime-issue-verification.md
+```

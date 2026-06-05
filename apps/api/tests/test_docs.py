@@ -22769,3 +22769,92 @@ def test_external_review_issue_body_pdf_no_text_failure_candidate_runtime_refres
         in runbook
     )
     assert issue_doc in portfolio
+
+
+def test_external_feedback_current_state_pdf_no_text_failure_candidate_runtime_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-pdf-no-text-failure-candidate-runtime-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    issue_body_refresh = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-pdf-no-text-failure-candidate-runtime-refresh.md"
+    ).read_text(encoding="utf-8")
+
+    proof_doc = "docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-pdf-no-text-failure-candidate-runtime-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-pdf-no-text-failure-candidate-runtime-refresh.md"
+    )
+    verification_doc = (
+        "docs/review/"
+        "external-feedback-current-state-pdf-no-text-failure-candidate-runtime-issue-verification.md"
+    )
+
+    assert (
+        "External Feedback Current-state PDF No-text Failure Candidate Runtime Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state PDF no-text failure candidate runtime issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert '"updatedAt": "2026-06-05T12:45:27Z"' in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_pdf_no_text_failure_candidate_runtime_proof": true' in content
+    assert '"has_pdf_no_text_failure_candidate_request_refresh": true' in content
+    assert '"has_pdf_no_text_failure_candidate_issue_body_record": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert '"screened_comment_count": 1' in content
+    assert '"owner_comment_count": 1' in content
+    assert '"candidate_count": 0' in content
+    assert '"draft_count": 0' in content
+    assert '"classification": "non_qualifying"' in content
+    assert '"reason": "self_authored_comment"' in content
+    assert '"status": "pending"' in content
+    assert "does_not_close_gate: true" in content
+    assert "external reviewer feedback v0 gate remains pending" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "pdf_no_extractable_text" in content
+    assert "chunk_handoff_no_chunks" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state PDF no-text failure candidate runtime issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 556 - External Feedback Current-state PDF No-text Failure Candidate Runtime Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state PDF no-text failure candidate runtime issue verification v0"
+        in runbook
+    )
+    assert verification_doc in portfolio
+    assert (
+        "external feedback current-state PDF no-text failure candidate runtime issue verification v0"
+        in issue_body_refresh
+    )
