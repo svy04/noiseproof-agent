@@ -55,6 +55,12 @@ def _owner_runtime_smoke_packet() -> dict:
         "embedding_dimension": 1536,
         "encoding_format": "float",
     }
+    response_handoff_command = (
+        "uv run python -m app.services.embedding_model_live_provider_harness "
+        "--build-owner-runtime-smoke-report-from-response "
+        "<owner-runtime-response-json-outside-repo> "
+        "--output <runtime-report-path-outside-repo>"
+    )
     return {
         "phase_marker": PHASE_MARKER,
         "packet_status": "ready_for_owner_input",
@@ -103,6 +109,16 @@ def _owner_runtime_smoke_packet() -> dict:
             "uv run python -m app.services.embedding_model_live_provider_harness "
             "--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>"
         ),
+        "response_handoff_command": response_handoff_command,
+        "response_handoff_commands": {
+            "posix": response_handoff_command,
+            "powershell": (
+                "uv run python -m app.services.embedding_model_live_provider_harness "
+                "--build-owner-runtime-smoke-report-from-response "
+                "'<owner-runtime-response-json-outside-repo>' "
+                "--output '<runtime-report-path-outside-repo>'"
+            ),
+        },
         "post_run_validation_commands": {
             "posix": (
                 "uv run python -m app.services.embedding_model_live_provider_harness "
@@ -128,7 +144,9 @@ def _owner_runtime_smoke_packet() -> dict:
         ],
         "runtime_report_handling": {
             "write_report_outside_repo": True,
+            "write_response_capture_outside_repo": True,
             "validate_metadata_only": True,
+            "emit_response_handoff_report": True,
             "do_not_commit_report_if_it_contains_secret_fields": True,
         },
         "api_calls_attempted": False,

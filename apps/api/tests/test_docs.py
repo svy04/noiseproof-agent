@@ -18484,6 +18484,59 @@ def test_embedding_model_live_provider_owner_runtime_smoke_response_handoff_repo
     assert review_doc in portfolio
 
 
+def test_embedding_model_live_provider_owner_runtime_smoke_packet_command_template_handoff_alignment_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment.md"
+    )
+
+    assert (
+        "Embedding Model Live-provider Owner-runtime Smoke Packet Command-template Handoff Alignment"
+        in content
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke packet command-template handoff alignment v0"
+        in content
+    )
+    assert "response_handoff_command" in content
+    assert "response_handoff_commands" in content
+    assert "--build-owner-runtime-smoke-report-from-response" in content
+    assert "<owner-runtime-response-json-outside-repo>" in content
+    assert "<runtime-report-path-outside-repo>" in content
+    assert "emit_response_handoff_report" in content
+    assert "write_response_capture_outside_repo" in content
+    assert "not live embedding generation proof" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Embedding model live-provider owner-runtime smoke packet command-template handoff alignment v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 495 - Embedding Model Live-provider Owner-runtime Smoke Packet Command-template Handoff Alignment v0"
+        in goal
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke packet command-template handoff alignment v0"
+        in runbook
+    )
+    assert review_doc in portfolio
+
+
 def test_external_reviewer_embedding_provider_owner_runtime_smoke_validator_request_refresh_links_validation_path():
     review_path = (
         REPO_ROOT

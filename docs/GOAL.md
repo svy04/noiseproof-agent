@@ -18061,6 +18061,41 @@ Next recommended evidence gate:
 embedding model live-provider owner-runtime smoke packet command-template handoff alignment v0, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 495 - Embedding Model Live-provider Owner-runtime Smoke Packet Command-template Handoff Alignment v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the no-secret owner-runtime smoke packet point to the response-to-report handoff command so future route response captures can be converted into strict validator reports outside the repository
+```
+
+Implemented:
+
+```text
+embedding model live-provider owner-runtime smoke packet command-template handoff alignment v0
+apps/api/app/services/embedding_model_live_provider_harness.py --print-owner-runtime-smoke-packet
+response_handoff_command
+response_handoff_commands
+--build-owner-runtime-smoke-report-from-response <owner-runtime-response-json-outside-repo>
+--output <runtime-report-path-outside-repo>
+runtime_report_handling.emit_response_handoff_report=true
+runtime_report_handling.write_response_capture_outside_repo=true
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment.md
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 495 adds packet command-template metadata only. It adds no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

@@ -10012,3 +10012,49 @@ not live embedding generation proof
 not external reviewer feedback
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Owner-runtime Smoke Packet Command-template Handoff Alignment
+
+Phase marker: embedding model live-provider owner-runtime smoke packet command-template handoff alignment v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment.md
+```
+
+Packet command:
+
+```bash
+cd apps/api
+uv run python -m app.services.embedding_model_live_provider_harness --print-owner-runtime-smoke-packet
+```
+
+Expected packet fields:
+
+```text
+response_handoff_command
+response_handoff_commands
+runtime_report_handling.emit_response_handoff_report: true
+runtime_report_handling.write_response_capture_outside_repo: true
+```
+
+Expected handoff command template:
+
+```bash
+uv run python -m app.services.embedding_model_live_provider_harness --build-owner-runtime-smoke-report-from-response <owner-runtime-response-json-outside-repo> --output <runtime-report-path-outside-repo>
+```
+
+Boundary:
+
+```text
+command-template metadata only
+does not call the OpenAI provider
+does not read OPENAI_API_KEY
+does not print OPENAI_API_KEY
+response capture path must be outside repository
+report output path must be outside repository
+not live embedding generation proof
+not external reviewer feedback
+actual live embedding model generation remains unproven
+```

@@ -81,6 +81,35 @@ def test_embedding_model_live_provider_harness_prints_owner_runtime_smoke_packet
     assert payload["non_claims"]["live_embedding_generation_proof"] is False
 
 
+def test_embedding_model_live_provider_harness_packet_links_response_handoff_command_without_secret(
+    capsys,
+):
+    exit_code = main(["--print-owner-runtime-smoke-packet"], env={})
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    expected_command = (
+        "uv run python -m app.services.embedding_model_live_provider_harness "
+        "--build-owner-runtime-smoke-report-from-response "
+        "<owner-runtime-response-json-outside-repo> "
+        "--output <runtime-report-path-outside-repo>"
+    )
+    assert payload["response_handoff_command"] == expected_command
+    assert payload["response_handoff_commands"] == {
+        "posix": expected_command,
+        "powershell": (
+            "uv run python -m app.services.embedding_model_live_provider_harness "
+            "--build-owner-runtime-smoke-report-from-response "
+            "'<owner-runtime-response-json-outside-repo>' "
+            "--output '<runtime-report-path-outside-repo>'"
+        ),
+    }
+    assert payload["runtime_report_handling"]["emit_response_handoff_report"] is True
+    assert payload["runtime_report_handling"]["write_response_capture_outside_repo"] is True
+    assert "OPENAI_API_KEY" not in payload["response_handoff_command"]
+    assert "sk-" not in json.dumps(payload, sort_keys=True)
+
+
 def test_embedding_model_live_provider_harness_discovers_missing_owner_runtime_input_without_secret(
     capsys,
 ):
