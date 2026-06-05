@@ -18582,6 +18582,48 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 509 - Workflow Proof Bundle Failure-case Links Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+verify the workflow proof bundle failure-case links read model against local Docker PostgreSQL plus live FastAPI HTTP
+```
+
+Implemented:
+
+```text
+workflow proof bundle failure-case links runtime smoke v0
+docs/review/workflow-proof-bundle-failure-case-links-runtime-smoke.md
+local Docker PostgreSQL healthy on port 55432
+Applied migrations: 21
+Pending migrations: 0
+FastAPI live on 127.0.0.1:8099
+POST /workflow-runs -> 201
+POST /failure-cases/workflow-runs/{workflow_run_id} -> 201
+GET /workflow-runs/{workflow_run_id} -> 200
+GET /workflow-runs/{workflow_run_id}/proof-bundle -> 200
+GET /failure-cases?workflow_run_id={workflow_run_id} -> 200
+detail_failure_case_count: 1
+bundle_failure_case_count: 1
+filtered_failure_case_count: 1
+unrelated_filtered_out: true
+proof_surface_has_failure_case_filter: true
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 509 records local runtime evidence only. It adds no new endpoint, no schema or migration, no automatic failure detection, no background automation, no root-cause automation, no retry or repair behavior, no complete workflow failure causality, no hosted deployment evidence, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

@@ -110,7 +110,7 @@ Current status groups:
 
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
-Latest workflow proof bundle runtime marker: Workflow proof bundle runtime smoke v0: implemented.
+Latest workflow proof bundle runtime marker: Workflow proof bundle failure-case links runtime smoke v0: implemented.
 Latest product gate marker: Workflow proof bundle failure-case links v0: implemented.
 Latest reviewer-routing marker: Embedding provider handoff alignment issue-body refresh v0.
 Latest external-feedback state: pending after handoff issue verification; candidate_count=0; self-authored comment only.
@@ -316,7 +316,11 @@ External feedback current-state workflow failure-case persistence runtime issue 
 
 Workflow proof bundle read model v0: implemented. Boundary: `GET /workflow-runs/{id}/proof-bundle` collects existing workflow detail, derived lineage, and trace lookup surfaces without new storage, distributed tracing, hosted observability, external reviewer feedback, or product-complete claims.
 
+Workflow proof bundle runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified `GET /workflow-runs/{id}/proof-bundle` returns existing detail, lineage, and trace lookup surfaces without distributed tracing, hosted observability, hosted deployment evidence, external reviewer feedback, or product-complete claims.
+
 Workflow proof bundle failure-case links v0: implemented. Boundary: `GET /workflow-runs/{id}` and `GET /workflow-runs/{id}/proof-bundle` now surface linked `failure_cases` plus `failure_case_count`, and `GET /failure-cases?workflow_run_id={id}` filters failure cases by workflow parent. This is a read model only, not automatic failure detection, background automation, complete workflow failure causality, root-cause automation, hosted deployment evidence, external reviewer feedback, or product-complete.
+
+Workflow proof bundle failure-case links runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified linked failure cases appear in `GET /workflow-runs/{id}` and `GET /workflow-runs/{id}/proof-bundle`, while `GET /failure-cases?workflow_run_id={id}` filters out an unrelated failure case. This is local runtime evidence only, not automatic failure detection, background automation, complete workflow failure causality, root-cause automation, hosted deployment evidence, external reviewer feedback, or product-complete.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
