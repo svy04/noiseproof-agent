@@ -4082,6 +4082,57 @@ def test_workflow_execute_preview_marks_parent_failed_when_stage_errors():
     assert repository.failure_cases == []
 
 
+def test_workflow_execute_preview_records_failed_stage_event_when_stage_errors():
+    app = create_app()
+    repository = EvidencePersistenceFailureRepository()
+    app.dependency_overrides[get_repository] = lambda: repository
+    client = TestClient(app, raise_server_exceptions=False)
+
+    response = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    )
+
+    assert response.status_code == 500
+    workflow_run = repository.workflow_runs[0]
+    detail = client.get(f"/workflow-runs/{workflow_run['id']}")
+
+    assert detail.status_code == 200
+    stage_events = detail.json()["stage_events"]
+    assert [event["stage_name"] for event in stage_events] == [
+        "retrieval",
+        "evidence_ledger",
+    ]
+    assert [event["stage_status"] for event in stage_events] == [
+        "completed",
+        "failed",
+    ]
+    failed_event = stage_events[1]
+    assert failed_event["stage_order"] == 2
+    assert failed_event["latency_ms"] >= 0
+    assert failed_event["ended_at"] is not None
+    assert failed_event["input_summary_json"]["retrieval_result_count"] >= 1
+    assert failed_event["output_summary_json"] == {
+        "error_type": "RuntimeError",
+        "error_message": "simulated evidence persistence failure",
+        "failed_stage_boundary": (
+            "local_workflow_stage_failure_event_no_retry_no_auto_failure_case"
+        ),
+    }
+    assert detail.json()["summary"]["workflow_stage_event_count"] == 2
+    assert repository.failure_cases == []
+
+
 def test_failed_workflow_parent_can_feed_failure_case_draft_preview_without_persistence():
     app = create_app()
     repository = EvidencePersistenceFailureRepository()

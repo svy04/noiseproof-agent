@@ -34,7 +34,7 @@ Current implemented capability groups:
 - document profiling, parser boundaries, uploaded digital PDF text extraction, chunk strategy comparison, and lexical retrieval
 - deterministic local hash embedding preview, collection planning, Evidence Ledger, Noise Gate, claim-bounded report previews, and persisted report markdown exports
 - persisted evidence/gate/report records, trace lookup, filters, workflow parents, and derived lineage
-- trace context header propagation, operations dashboard, failure-case persistence, manual workflow parent provenance, and proof-path documentation
+- trace context header propagation, operations dashboard, failure-case persistence, failed-stage event logging, manual workflow parent provenance, and proof-path documentation
 
 Detailed phase history lives in `docs/GOAL.md`, `docs/application/portfolio-index.md`, and the phase-specific `docs/review/*` artifacts. This README now keeps the first-pass narrative focused on what the project currently demonstrates and what it still does not claim.
 The product thesis:
@@ -124,7 +124,7 @@ Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
 Latest workflow proof bundle runtime marker: Workflow proof bundle failure-case links runtime smoke v0: implemented.
 Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented.
-Latest product gate marker: Workflow stage event log v0: implemented.
+Latest product gate marker: Workflow failed stage event v0: implemented.
 Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0.
 Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 
@@ -139,7 +139,7 @@ Still planned/unclaimed near the top:
 - hosted deployment evidence
 - local token guard exists; production auth/identity unclaimed
 - caller-triggered failure-case handoff exists; no background automation
-- complete failure causality
+- complete causality; local failed-stage only
 - free-form reports
 
 ## Implementation Status
@@ -236,6 +236,8 @@ Workflow direct stage links v0: implemented. Boundary: deterministic workflow-cr
 Workflow direct stage links runtime smoke v0: implemented. Boundary: local Docker PostgreSQL applied `023_workflow_stage_links.sql`, and live FastAPI HTTP verified `POST /workflow-runs/execute-preview` plus `GET /workflow-runs/{id}/lineage` returned `direct_stage_link_count=3` with `direct_stage_link_table`. This is not hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, or product-complete.
 
 Workflow stage event log v0: implemented. Boundary: deterministic `POST /workflow-runs/execute-preview` now records local stage event rows in `workflow_stage_events` for retrieval, Evidence Ledger, Noise Gate, and Report stages, surfaced through `GET /workflow-runs/{id}` and `GET /workflow-runs/{id}/proof-bundle` with `workflow_stage_event_count`. This is local workflow observability only, not distributed tracing, hosted observability, autonomous workflow execution, external reviewer feedback, or product-complete.
+
+Workflow failed stage event v0: implemented. Boundary: deterministic `POST /workflow-runs/execute-preview` failures now record the active failed stage in `workflow_stage_events` with `stage_status=failed`, `error_type`, `error_message`, and `failed_stage_boundary`. This improves local failure inspection only; it is not retry behavior, automatic failure-case creation, root-cause automation, hosted observability, external reviewer feedback, or product-complete.
 
 Workflow stage event log runtime smoke v0: implemented. Boundary: local Docker PostgreSQL has `024_workflow_stage_events.sql` applied with `Pending migrations: 0`, and live FastAPI HTTP verified `POST /workflow-runs/execute-preview`, `GET /workflow-runs/{id}`, and `GET /workflow-runs/{id}/proof-bundle` returned `detail_stage_event_count=4` and `bundle_stage_event_count=4`. This is not hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, autonomous workflow execution, or product-complete.
 

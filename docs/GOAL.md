@@ -21214,6 +21214,44 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 581 - Workflow Failed Stage Event v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+make deterministic workflow preview failures easier to inspect by recording the active failed stage in workflow_stage_events
+```
+
+Implemented artifacts:
+
+```text
+workflow failed stage event v0
+apps/api/app/services/workflow_execution.py
+apps/api/tests/test_routes.py::test_workflow_execute_preview_records_failed_stage_event_when_stage_errors
+docs/review/workflow-failed-stage-event.md
+README.md
+docs/runbook.md
+docs/review/application-ready-review.md
+POST /workflow-runs/execute-preview failure path
+GET /workflow-runs/{workflow_run_id}
+stage_status=failed
+failed_stage_boundary=local_workflow_stage_failure_event_no_retry_no_auto_failure_case
+```
+
+Boundary:
+
+```text
+Phase 581 is local workflow failure observability only. It is not retry behavior, not automatic failure-case creation, not root-cause automation, not complete workflow failure causality, not distributed tracing, not hosted observability, not external reviewer feedback, not customer validation, not Braincrew acceptance, not an LLM call, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+workflow failed stage event runtime smoke v0 if Docker/API verification is desired, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

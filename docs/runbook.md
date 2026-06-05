@@ -10661,3 +10661,51 @@ not external reviewer feedback
 not hosted deployment evidence
 not product-complete
 ```
+
+## Workflow Failed Stage Event
+
+Phase marker: workflow failed stage event v0.
+
+Review artifact:
+
+```text
+docs/review/workflow-failed-stage-event.md
+```
+
+Covered regression:
+
+```text
+POST /workflow-runs/execute-preview
+simulated Evidence Ledger persistence failure
+GET /workflow-runs/{workflow_run_id}
+```
+
+Expected local inspection shape:
+
+```text
+retrieval -> completed
+evidence_ledger -> failed
+workflow_stage_event_count -> 2
+failed_stage_boundary -> local_workflow_stage_failure_event_no_retry_no_auto_failure_case
+failure_case_count_delta -> 0
+```
+
+Verification:
+
+```powershell
+cd apps/api
+uv run pytest -q tests/test_routes.py::test_workflow_execute_preview_records_failed_stage_event_when_stage_errors
+```
+
+Boundary:
+
+```text
+local workflow failure observability only
+not retry behavior
+not automatic failure-case creation
+not root-cause automation
+not distributed tracing
+not hosted observability
+not external reviewer feedback
+not product-complete
+```

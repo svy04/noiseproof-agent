@@ -1173,7 +1173,7 @@ def test_workflow_direct_stage_links_docs_and_schema_are_inspectable():
     assert "REFERENCES report_records(id) ON DELETE CASCADE" in migration
     assert "Phase 530 - Workflow Direct Stage Links v0" in goal
     assert "Workflow direct stage links v0: implemented" in readme
-    assert "Latest product gate marker: Workflow stage event log v0: implemented." in readme
+    assert "Latest product gate marker: Workflow failed stage event v0: implemented." in readme
     assert "workflow direct stage links v0" in runbook
     assert "workflow direct stage links v0" in app_review
     assert "docs/review/workflow-direct-stage-links.md" in portfolio
@@ -1252,7 +1252,7 @@ def test_workflow_stage_event_log_docs_and_schema_are_inspectable():
     assert "workflow_stage_event_count" in review
     assert "Phase 535 - Workflow Stage Event Log v0" in goal
     assert "Workflow stage event log v0: implemented" in readme
-    assert "Latest product gate marker: Workflow stage event log v0: implemented." in readme
+    assert "Latest product gate marker: Workflow failed stage event v0: implemented." in readme
     assert "workflow stage event log v0" in runbook
     assert "workflow stage event log exists" in app_review
     assert "docs/review/workflow-stage-event-log.md" in portfolio
@@ -19952,7 +19952,7 @@ def test_workflow_dashboard_failure_case_counts_document_read_model_boundary():
     assert "_workflow_failure_case_count_cell" in dashboard_py
     assert "test_ops_dashboard_surfaces_workflow_failure_case_counts_and_filter_links" in routes_test
     assert "Workflow dashboard failure-case counts v0: implemented" in readme
-    assert "Latest product gate marker: Workflow stage event log v0: implemented." in readme
+    assert "Latest product gate marker: Workflow failed stage event v0: implemented." in readme
     assert "Phase 513 - Workflow Dashboard Failure-case Counts v0" in goal
     assert "workflow dashboard failure-case counts v0" in runbook
     assert "docs/review/workflow-dashboard-failure-case-counts.md" in portfolio
