@@ -18903,6 +18903,57 @@ Next recommended evidence gate:
 external feedback current-state workflow dashboard failure-case counts runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 517 - External Feedback Current-state Workflow Dashboard Failure-case Counts Runtime Issue Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the current public issue #1 state after the workflow dashboard failure-case counts runtime issue-body refresh without treating owner-authored routing as external reviewer feedback
+```
+
+Implemented:
+
+```text
+external feedback current-state workflow dashboard failure-case counts runtime issue verification v0
+docs/review/external-feedback-current-state-workflow-dashboard-failure-case-counts-runtime-issue-verification.md
+current issue #1 links docs/review/workflow-dashboard-failure-case-counts-runtime-smoke.md
+current issue #1 links docs/review/external-reviewer-workflow-dashboard-failure-case-counts-runtime-request-refresh.md
+current issue #1 links docs/review/external-review-issue-body-workflow-dashboard-failure-case-counts-runtime-refresh.md
+observed updatedAt 2026-06-05T06:25:07Z
+starts_with_request true
+first_codepoint 35
+comment_count 1
+screened_comment_count 1
+candidate_count 0
+draft_count 0
+status pending
+classification non_qualifying
+reason self_authored_comment
+does_not_close_gate true
+```
+
+Observed issue markers:
+
+```text
+has_workflow_dashboard_failure_case_counts_runtime_proof true
+has_workflow_dashboard_failure_case_counts_request_refresh true
+has_workflow_dashboard_failure_case_counts_issue_body_refresh true
+has_dashboard_contains_linked_failure_cases_header true
+has_dashboard_contains_linked_failure_case_filter true
+has_dashboard_omits_unlinked_failure_case_filter true
+has_external_feedback_boundary true
+```
+
+Phase 517 records current-state issue verification only. It adds no runtime behavior, no schema or migration, no automatic failure detection, no background automation, no root-cause automation, no retry or repair behavior, no complete workflow failure causality, no hosted deployment evidence, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

@@ -337,6 +337,8 @@ External reviewer workflow dashboard failure-case counts runtime request refresh
 
 External review issue body workflow dashboard failure-case counts runtime refresh v0: implemented. Boundary: issue #1 now points reviewers to `docs/review/workflow-dashboard-failure-case-counts-runtime-smoke.md`, `docs/review/external-reviewer-workflow-dashboard-failure-case-counts-runtime-request-refresh.md`, and `docs/review/external-review-issue-body-workflow-dashboard-failure-case-counts-runtime-refresh.md`; this is owner-authored issue routing only, not external reviewer feedback, hosted deployment evidence, automatic failure detection, background automation, complete workflow failure causality, or product-complete.
 
+External feedback current-state workflow dashboard failure-case counts runtime issue verification v0: implemented. Boundary: current issue #1 has the workflow dashboard failure-case counts runtime proof, request refresh, and issue-body refresh links, but the only screened comment is owner-authored, `candidate_count=0`, `draft_count=0`, and external reviewer feedback remains pending.
+
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
 Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence only; not hosted deployment evidence, not external reviewer feedback, and not malware scanning.
