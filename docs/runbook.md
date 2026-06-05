@@ -9665,3 +9665,38 @@ not hosted deployment evidence
 not product-complete
 external reviewer feedback v0 gate remains pending
 ```
+
+## Embedding Model Live-provider Owner-runtime Smoke Post-run Validation Cross-shell Commands
+
+Phase marker: embedding model live-provider owner-runtime smoke post-run validation cross-shell commands v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-cross-shell-commands.md
+```
+
+Updated packet artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
+```
+
+Post-run validation commands:
+
+```text
+post_run_validation_commands
+posix: uv run python -m app.services.embedding_model_live_provider_harness --validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
+powershell: uv run python -m app.services.embedding_model_live_provider_harness --validate-owner-runtime-smoke-report '<runtime-report-path-outside-repo>'
+```
+
+Boundary:
+
+```text
+validator metadata only
+not live embedding generation proof
+not external reviewer feedback
+not hosted deployment evidence
+not product-complete
+actual live embedding model generation remains unproven
+```

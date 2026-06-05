@@ -65,6 +65,14 @@ Post-run validation command for a future outside-repo runtime report:
 uv run python -m app.services.embedding_model_live_provider_harness --validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
 ```
 
+Post-run validation cross-shell commands:
+
+```text
+post_run_validation_commands
+posix: uv run python -m app.services.embedding_model_live_provider_harness --validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
+powershell: uv run python -m app.services.embedding_model_live_provider_harness --validate-owner-runtime-smoke-report '<runtime-report-path-outside-repo>'
+```
+
 Post-run validation success criteria:
 
 ```text

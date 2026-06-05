@@ -18038,6 +18038,66 @@ def test_embedding_model_live_provider_owner_runtime_smoke_post_run_validation_c
     assert review_doc in portfolio
 
 
+def test_embedding_model_live_provider_owner_runtime_smoke_post_run_validation_cross_shell_commands_are_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-post-run-validation-cross-shell-commands.md"
+    )
+    packet_path = (
+        REPO_ROOT
+        / "docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    packet = packet_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-post-run-validation-cross-shell-commands.md"
+    )
+
+    assert (
+        "Embedding Model Live-provider Owner-runtime Smoke Post-run Validation Cross-shell Commands"
+        in content
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke post-run validation cross-shell commands v0"
+        in content
+    )
+    assert "post_run_validation_commands" in content
+    assert "posix" in content
+    assert "powershell" in content
+    assert "--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>" in content
+    assert "--validate-owner-runtime-smoke-report '<runtime-report-path-outside-repo>'" in content
+    assert "validator metadata only" in content
+    assert "not live embedding generation proof" in content
+    assert "not external reviewer feedback" in content
+    assert "post_run_validation_commands" in packet
+    assert "posix" in packet
+    assert "powershell" in packet
+    assert (
+        "Embedding model live-provider owner-runtime smoke post-run validation cross-shell commands v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 487 - Embedding Model Live-provider Owner-runtime Smoke Post-run Validation Cross-shell Commands v0"
+        in goal
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke post-run validation cross-shell commands v0"
+        in runbook
+    )
+    assert review_doc in portfolio
+
+
 def test_external_reviewer_embedding_provider_owner_runtime_smoke_validator_request_refresh_links_validation_path():
     review_path = (
         REPO_ROOT
