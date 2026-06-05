@@ -1738,6 +1738,87 @@ def test_external_feedback_current_state_workflow_failure_auto_creation_runtime_
     assert review_path.name in portfolio
 
 
+def test_workflow_failure_auto_created_failure_case_dashboard_runtime_smoke_documents_ops_surface():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "Workflow Failure Auto-created Failure-case Dashboard Runtime Smoke"
+        in content
+    )
+    assert (
+        "workflow failure auto-created failure-case dashboard runtime smoke v0"
+        in content
+    )
+    assert "local Docker PostgreSQL plus live FastAPI HTTP" in content
+    assert "POST /workflow-runs/execute-preview -> 500" in content
+    assert "GET /ops/dashboard -> 200" in content
+    assert "GET /failure-cases?workflow_run_id={id} -> 200" in content
+    assert "failure_case_count_delta -> 1" in content
+    assert "auto_failure_case_id" in content
+    assert "auto_created_from_workflow_failure_local_v0" in content
+    assert (
+        "local_workflow_stage_failure_event_auto_failure_case_local_v0"
+        in content
+    )
+    assert "dashboard_contains_linked_failure_cases_header -> true" in content
+    assert (
+        "dashboard_contains_auto_created_failure_case_filter -> true"
+        in content
+    )
+    assert (
+        "dashboard_contains_auto_created_failure_case_id -> true"
+        in content
+    )
+    assert "dashboard_contains_workflow_parent_link -> true" in content
+    assert "dashboard_contains_review_queue_linked_count -> true" in content
+    assert "not retry behavior" in content
+    assert "not root-cause automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Workflow failure auto-created failure-case dashboard runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Latest workflow dashboard runtime marker: Workflow failure auto-created failure-case dashboard runtime smoke v0"
+        in readme
+    )
+    assert (
+        "Phase 591 - Workflow Failure Auto-created Failure-case Dashboard Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "workflow failure auto-created failure-case dashboard runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md"
+        in app_review
+    )
+
+
 def test_external_reviewer_workflow_failed_stage_event_runtime_request_refresh_links_latest_proof():
     review_path = (
         REPO_ROOT

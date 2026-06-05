@@ -122,7 +122,7 @@ Current status groups:
 
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: Workflow failure auto failure-case creation runtime smoke v0.
-Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented.
+Latest workflow dashboard runtime marker: Workflow failure auto-created failure-case dashboard runtime smoke v0
 Latest product gate marker: Workflow failure auto failure-case creation v0: implemented.
 Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0.
 Latest reviewer-routing marker: Workflow failure auto-creation runtime issue-body refresh v0.
@@ -231,6 +231,7 @@ Not implemented yet:
 - full distributed tracing or hosted observability
 
 Historical latest-marker compatibility: Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
+Historical latest-marker compatibility: Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented.
 
 Workflow direct stage links v0: implemented. Boundary: deterministic workflow-created records now create direct local link rows in `noise_gate_evidence_links`, `report_evidence_links`, and `report_noise_gate_links`, surfaced through `GET /workflow-runs/{id}/lineage` as `direct_stage_links`. Standalone gate/report endpoints remain payload-only unless they create explicit links. This is not distributed tracing, hosted observability, autonomous workflow execution, external reviewer feedback, or product-complete.
 
@@ -253,6 +254,8 @@ External feedback current-state workflow failed stage event runtime issue verifi
 Workflow failure auto failure-case creation v0: implemented. Boundary: route-level tests now verify a failed deterministic workflow preview auto-creates one linked local v0 failure case with `failure_case_count -> 1`, `failed_stage: evidence_ledger`, `workflow_stage_error`, `auto_failure_case_id`, `auto_created_from_workflow_failure_local_v0`, and `local_workflow_stage_failure_event_auto_failure_case_local_v0`; this is not retry behavior, root-cause automation, complete workflow failure causality, Docker runtime smoke, hosted deployment evidence, external reviewer feedback, or product-complete.
 
 Workflow failure auto failure-case creation runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified `POST /workflow-runs/execute-preview -> 500` under a smoke-only `smoke_fail_auto_failure_case` constraint, then `GET /workflow-runs/{id}`, `GET /workflow-runs/{id}/proof-bundle`, and `GET /failure-cases?workflow_run_id={id}` surfaced `auto_failure_case_id`, `failure_case_count_delta -> 1`, `detail_failure_case_count -> 1`, `bundle_detail_failure_case_count -> 1`, `filtered_failure_case_count -> 1`, `auto_created_from_workflow_failure_local_v0`, and `local_workflow_stage_failure_event_auto_failure_case_local_v0`; this is not retry behavior, root-cause automation, complete workflow failure causality, hosted deployment evidence, external reviewer feedback, or product-complete.
+
+Workflow failure auto-created failure-case dashboard runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified a failed deterministic workflow auto-created one linked local v0 failure case and `GET /ops/dashboard -> 200` surfaced the linked failure-case count/filter, workflow parent link, review queue linked count, and auto-created failure-case id; this is not retry behavior, root-cause automation, complete workflow failure causality, hosted deployment evidence, external reviewer feedback, or product-complete.
 
 External reviewer workflow failure auto-creation runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md` and `docs/review/external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, retry behavior, root-cause automation, complete workflow failure causality, or product-complete.
 

@@ -2920,6 +2920,51 @@ not external reviewer feedback
 not product-complete
 ```
 
+## Workflow Failure Auto-created Failure-case Dashboard Runtime Smoke
+
+Phase marker: workflow failure auto-created failure-case dashboard runtime smoke v0.
+
+Review artifact:
+
+```text
+docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md
+```
+
+Runtime proof:
+
+```text
+local Docker PostgreSQL plus live FastAPI HTTP
+Applied migrations: 23
+Pending migrations: 0
+GET /health -> 200
+POST /workflow-runs/execute-preview -> 500
+GET /workflow-runs/{id} -> 200
+GET /workflow-runs/{id}/proof-bundle -> 200
+GET /failure-cases?workflow_run_id={id} -> 200
+GET /ops/dashboard -> 200
+failure_case_count_delta -> 1
+auto_failure_case_id
+auto_created_from_workflow_failure_local_v0
+local_workflow_stage_failure_event_auto_failure_case_local_v0
+dashboard_contains_linked_failure_cases_header -> true
+dashboard_contains_auto_created_failure_case_filter -> true
+dashboard_contains_auto_created_failure_case_id -> true
+dashboard_contains_workflow_parent_link -> true
+dashboard_contains_review_queue_linked_count -> true
+```
+
+Boundary:
+
+```text
+dashboard read-model runtime proof only
+not retry behavior
+not root-cause automation
+not complete workflow failure causality
+not hosted deployment evidence
+not external reviewer feedback
+not product-complete
+```
+
 ## Uploaded Raw File Storage Runtime Smoke
 
 Phase 248 records uploaded raw file storage runtime smoke v0.

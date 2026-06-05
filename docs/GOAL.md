@@ -21697,3 +21697,35 @@ external reviewer feedback v0 gate remains pending
 Boundary: current-state issue verification only; not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, and not product-complete.
 
 Next gate: external reviewer feedback v0 or the next bounded product proof gate selected from the current repository state.
+
+### Phase 591 - Workflow Failure Auto-created Failure-case Dashboard Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: verify that a local v0 auto-created workflow failure case is visible from the existing operations dashboard read model.
+
+Implemented artifacts:
+
+```text
+workflow failure auto-created failure-case dashboard runtime smoke v0
+docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md
+GET /health -> 200
+POST /workflow-runs/execute-preview -> 500
+GET /workflow-runs/{id} -> 200
+GET /workflow-runs/{id}/proof-bundle -> 200
+GET /failure-cases?workflow_run_id={id} -> 200
+GET /ops/dashboard -> 200
+failure_case_count_delta -> 1
+auto_failure_case_id
+auto_created_from_workflow_failure_local_v0
+local_workflow_stage_failure_event_auto_failure_case_local_v0
+dashboard_contains_linked_failure_cases_header -> true
+dashboard_contains_auto_created_failure_case_filter -> true
+dashboard_contains_auto_created_failure_case_id -> true
+dashboard_contains_workflow_parent_link -> true
+dashboard_contains_review_queue_linked_count -> true
+```
+
+Boundary: local Docker PostgreSQL plus live FastAPI HTTP dashboard read-model proof only; not retry behavior, not root-cause automation, not complete workflow failure causality, not production background worker behavior, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, request-surface refresh for this dashboard proof if it should be routed to reviewers, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
