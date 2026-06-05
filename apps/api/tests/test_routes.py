@@ -3586,6 +3586,63 @@ def test_uploaded_pdf_page_diagnostics_flow_into_chunk_and_retrieval_provenance(
     assert body["results"][0]["metadata"]["image_block_count"] == 0
 
 
+def test_uploaded_pdf_table_candidate_diagnostics_flow_into_chunk_and_retrieval_provenance():
+    client = make_client()
+    content = _table_pdf_bytes()
+
+    upload = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Uploaded table PDF report",
+            "strategy": "fixed-window",
+            "max_characters": "120",
+            "overlap": "0",
+        },
+        files={"file": ("table-report.pdf", content, "application/pdf")},
+    ).json()
+
+    document_profile = upload["document"]["profile_json"]
+    chunk_metadata = upload["chunks"][0]["metadata_json"]
+    expected_shape = [
+        {"page_index": 0, "row_count": 2, "col_count": 2, "cell_count": 4}
+    ]
+
+    assert document_profile["table_candidate_diagnostics_available"] is True
+    assert document_profile["table_candidate_count"] == 1
+    assert document_profile["table_candidate_page_counts"] == [1]
+    assert document_profile["table_candidate_shapes"] == expected_shape
+    assert document_profile["table_extraction_performed"] is False
+
+    assert chunk_metadata["table_candidate_diagnostics_available"] is True
+    assert chunk_metadata["table_candidate_count"] == 1
+    assert chunk_metadata["table_candidate_page_counts"] == [1]
+    assert chunk_metadata["table_candidate_shapes"] == expected_shape
+    assert chunk_metadata["table_extraction_performed"] is False
+
+    retrieval = client.post(
+        f"/documents/{upload['document']['id']}/retrieval-runs",
+        json={
+            "question": "Which evidence mentions Enterprise Growth?",
+            "strategy": "fixed-window",
+            "top_k": 1,
+        },
+    )
+
+    assert retrieval.status_code == 201
+    body = retrieval.json()
+    assert body["metadata_json"]["table_candidate_diagnostics_available"] is True
+    assert body["metadata_json"]["table_candidate_count"] == 1
+    assert body["metadata_json"]["table_candidate_page_counts"] == [1]
+    assert body["metadata_json"]["table_candidate_shapes"] == expected_shape
+    assert body["metadata_json"]["table_extraction_performed"] is False
+    assert body["metadata_json"]["source_provenance_boundary"] == (
+        "retrieval_run_candidate_chunk_metadata_only"
+    )
+    assert body["results"][0]["metadata"]["table_candidate_count"] == 1
+    assert body["results"][0]["metadata"]["table_candidate_shapes"] == expected_shape
+    assert body["results"][0]["metadata"]["table_extraction_performed"] is False
+
+
 def test_uploaded_pdf_retrieval_run_evidence_ledger_preserves_source_provenance():
     client = make_client()
     content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")

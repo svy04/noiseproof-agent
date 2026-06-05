@@ -22009,3 +22009,51 @@ persistence_boundary -> preview_only_not_persisted
 Boundary: this is local runtime evidence only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity, not raw file storage, not parsed text persistence, not retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
 
 Next gate: downstream provenance runtime smoke for uploaded PDF table-candidate diagnostics if retrieval candidate proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 602 - Uploaded PDF Table-candidate Downstream Provenance Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: record local Docker PostgreSQL plus live FastAPI HTTP evidence that uploaded PDF table-candidate diagnostics flow into explicit upload chunk metadata and persisted document retrieval-run candidate provenance.
+
+Implemented artifacts:
+
+```text
+uploaded PDF table-candidate downstream provenance runtime smoke v0
+docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+```
+
+Observed runtime:
+
+```text
+Docker version 29.4.3, build 055a478
+Docker Compose version v5.1.3
+API image -> noiseproof-agent-api@sha256:db20c10218c68e19e1f7c5be54d47d525b672426a1e0e7e1623abbb763af63c3
+noiseproof-agent-db -> healthy
+noiseproof-agent-api -> Up, 0.0.0.0:8000->8000/tcp
+Applied migrations: 23
+Pending migrations: 0
+GET /health -> 200
+POST /documents/upload-chunks -> 201
+POST /documents/{document_id}/retrieval-runs -> 201
+GET /retrieval-runs -> 200
+parser -> pdf-pymupdf
+document_profile_table_candidate_count -> 1
+chunk_metadata_table_candidate_count -> 1
+retrieval_metadata_table_candidate_count -> 1
+retrieval_candidate_table_candidate_count -> 1
+table_extraction_performed -> false across document, chunk, retrieval metadata, and retrieval candidate metadata
+source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only
+raw_file_storage -> false
+parsed_text_storage -> false
+```
+
+Boundary: this is local runtime evidence only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity, not raw file storage, not full parsed text persistence, not retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

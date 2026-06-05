@@ -13482,6 +13482,72 @@ def test_uploaded_pdf_table_candidate_diagnostics_runtime_smoke_records_live_htt
     assert "uploaded PDF table-candidate diagnostics runtime proof exists" in application_ready
 
 
+def test_uploaded_pdf_table_candidate_downstream_provenance_runtime_smoke_records_live_http_evidence():
+    smoke_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md"
+    )
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded PDF Table-candidate Downstream Provenance Runtime Smoke" in content
+    assert (
+        "uploaded PDF table-candidate downstream provenance runtime smoke v0"
+        in content
+    )
+    assert "Docker version" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/retrieval-runs -> 201" in content
+    assert "GET /retrieval-runs -> 200" in content
+    assert "document_profile_table_candidate_count -> 1" in content
+    assert "chunk_metadata_table_candidate_count -> 1" in content
+    assert "retrieval_metadata_table_candidate_count -> 1" in content
+    assert "retrieval_candidate_table_candidate_count -> 1" in content
+    assert "document_profile_table_candidate_shapes -> page_index=0,row_count=2,col_count=2,cell_count=4" in content
+    assert "chunk_metadata_table_extraction_performed -> false" in content
+    assert "retrieval_metadata_table_extraction_performed -> false" in content
+    assert "retrieval_candidate_table_extraction_performed -> false" in content
+    assert "retrieval_run_candidate_chunk_metadata_only" in content
+    assert "raw_file_storage -> false" in content
+    assert "parsed_text_storage -> false" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not table extraction" in content
+    assert "not layout fidelity" in content
+    assert (
+        "Uploaded PDF table-candidate downstream provenance runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 602 - Uploaded PDF Table-candidate Downstream Provenance Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "uploaded PDF table-candidate downstream provenance runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md"
+        in portfolio
+    )
+    assert (
+        "uploaded PDF table-candidate downstream provenance runtime proof exists"
+        in application_ready
+    )
+
+
 def test_uploaded_pdf_page_diagnostics_runtime_smoke_records_live_http_evidence():
     smoke_path = REPO_ROOT / "docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md"
     assert smoke_path.is_file()
