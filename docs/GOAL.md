@@ -21096,6 +21096,42 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 578 - External Review Issue Body BOM Removal Refresh v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+repair the live public issue body so the reviewer-facing request starts with the visible markdown heading and no leading BOM
+```
+
+Implemented artifacts:
+
+```text
+external review issue body BOM removal refresh v0
+docs/review/external-review-issue-body-bom-removal-refresh.md
+https://github.com/svy04/noiseproof-agent/issues/1
+before_first_codepoint: 65279
+after_first_codepoint: 35
+after_starts_with_request: true
+utf8_no_bom_body_file
+persisted Report markdown export proof
+GET /reports/{report_record_id}/markdown
+```
+
+Boundary:
+
+```text
+Phase 578 is owner-authored request-surface hygiene only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not free-form report generation, not a new report-generation path, not an LLM call, not retrieval, not Evidence Ledger creation, not Noise Gate behavior, not Report record creation, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state verification after the issue-body readability repair, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

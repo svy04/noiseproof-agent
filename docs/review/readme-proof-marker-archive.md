@@ -1477,6 +1477,14 @@ This hidden source archive preserves earlier README proof markers while the rend
 - External Feedback Screen run `27024339136`: success on the same head
 - Boundary: remote workflow evidence only; not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, free-form report generation, or product-complete
 
+### Phase 578 - External Review Issue Body BOM Removal Refresh v0
+
+- External review issue body BOM removal refresh v0: implemented
+- `docs/review/external-review-issue-body-bom-removal-refresh.md`: added
+- Issue #1 readability repaired from `before_first_codepoint: 65279` to `after_first_codepoint: 35`
+- Body file was written as `utf8_no_bom_body_file`
+- Boundary: owner-authored request-surface hygiene only; not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete
+
 ### Phase 362 - Failure-case Workflow Review Queue Proof Index v0
 
 - Failure-case workflow review queue proof index v0: implemented

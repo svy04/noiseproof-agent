@@ -26,6 +26,8 @@ External feedback current-state persisted Report markdown export issue verificat
 
 External feedback current-state persisted Report markdown export issue verification remote verification: `docs/review/external-feedback-current-state-persisted-report-markdown-export-issue-verification-remote-verification.md` records remote workflow success for that issue-verification gate on head `57b6bd9eadce2b9b21d6ec2a3471210f5ad46403`: CI run `27024339169` and External Feedback Screen run `27024339136`. This is not external reviewer feedback or hosted deployment evidence.
 
+External review issue body BOM removal refresh: `docs/review/external-review-issue-body-bom-removal-refresh.md` records the owner-authored repair that removed a leading BOM from issue #1, changing `before_first_codepoint: 65279` to `after_first_codepoint: 35` while preserving the persisted Report markdown export proof routing. This is request-surface hygiene only, not external reviewer feedback.
+
 Visual local proof surface: `docs/review/local-browser-screenshot-walkthrough.md` records a local browser screenshot of `GET /ops/dashboard` with workflow-run lineage links. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, and not production observability.
 
 Deterministic text embedding preview: `docs/review/deterministic-text-embedding-preview.md` records `POST /chunks/embedding-preview` for `local-hash-embedding-preview-v0`. It is preview-only, not persisted, not a semantic embedding model, not vector search quality evidence, and not external reviewer feedback.

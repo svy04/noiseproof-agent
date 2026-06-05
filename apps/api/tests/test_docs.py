@@ -8520,6 +8520,45 @@ def test_external_feedback_current_state_persisted_report_markdown_export_issue_
     assert remote_doc in portfolio
 
 
+def test_external_review_issue_body_bom_removal_refresh_records_readability_repair():
+    review_path = (
+        REPO_ROOT / "docs/review/external-review-issue-body-bom-removal-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body BOM Removal Refresh" in content
+    assert "external review issue body BOM removal refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "before_first_codepoint: 65279" in content
+    assert "after_first_codepoint: 35" in content
+    assert "after_starts_with_request: true" in content
+    assert "utf8_no_bom_body_file" in content
+    assert "persisted Report markdown export proof" in content
+    assert "GET /reports/{report_record_id}/markdown" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not Braincrew acceptance" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body BOM removal refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 578 - External Review Issue Body BOM Removal Refresh v0" in goal
+    )
+    assert "external review issue body BOM removal refresh v0" in runbook
+    assert "docs/review/external-review-issue-body-bom-removal-refresh.md" in portfolio
+
+
 def test_semantic_retrieval_quality_report_issue_body_refresh_records_live_issue_update():
     review_path = (
         REPO_ROOT
