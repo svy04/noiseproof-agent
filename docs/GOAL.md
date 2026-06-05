@@ -19292,6 +19292,45 @@ Next recommended evidence gate:
 external review issue body ops dashboard anchor browser smoke refresh v0 if updating the live public issue body is useful, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 528 - External Review Issue Body Ops Dashboard Anchor Browser Smoke Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the owner-authored issue #1 body update that points reviewers to the ops dashboard anchor browser smoke proof
+```
+
+Implemented:
+
+```text
+external review issue body ops dashboard anchor browser smoke refresh v0
+https://github.com/svy04/noiseproof-agent/issues/1
+docs/review/ops-dashboard-anchor-browser-smoke.md
+docs/review/external-reviewer-ops-dashboard-anchor-browser-smoke-request-refresh.md
+docs/review/external-review-issue-body-ops-dashboard-anchor-browser-smoke-refresh.md
+starts_with_request: true
+first_codepoint: 35
+has_ops_dashboard_anchor_browser_proof: true
+has_ops_dashboard_anchor_browser_request_refresh: true
+has_ops_dashboard_anchor_browser_issue_body_refresh: true
+has_browser_anchor_count: true
+has_browser_get_anchor_count: true
+has_browser_post_anchor_count_zero: true
+has_post_only_draft_preview_anchor_count_zero: true
+has_post_only_draft_preview_cue_visible: true
+comment_count: 1
+```
+
+Phase 528 is owner-authored issue body routing only. It adds no endpoint, no route behavior change, no runtime workflow semantics, no schema or migration, no hosted deployment evidence, no automatic failure-case creation, no background automation, no complete workflow failure causality, no external reviewer feedback, no LLM calls, no embeddings, no customer validation, no Braincrew acceptance, no design quality claim, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state ops dashboard anchor browser smoke issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

@@ -2624,6 +2624,70 @@ def test_external_review_issue_body_ops_dashboard_anchor_get_runtime_refresh_rec
     assert issue_refresh_doc in portfolio
 
 
+def test_external_review_issue_body_ops_dashboard_anchor_browser_smoke_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-ops-dashboard-anchor-browser-smoke-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = "docs/review/ops-dashboard-anchor-browser-smoke.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-ops-dashboard-anchor-browser-smoke-request-refresh.md"
+    )
+    issue_refresh_doc = (
+        "docs/review/"
+        "external-review-issue-body-ops-dashboard-anchor-browser-smoke-refresh.md"
+    )
+
+    assert "External Review Issue Body Ops Dashboard Anchor Browser Smoke Refresh" in content
+    assert (
+        "external review issue body ops dashboard anchor browser smoke refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert issue_refresh_doc in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_ops_dashboard_anchor_browser_proof": true' in content
+    assert '"has_ops_dashboard_anchor_browser_request_refresh": true' in content
+    assert '"has_ops_dashboard_anchor_browser_issue_body_refresh": true' in content
+    assert '"has_browser_anchor_count": true' in content
+    assert '"has_browser_get_anchor_count": true' in content
+    assert '"has_browser_post_anchor_count_zero": true' in content
+    assert '"has_post_only_draft_preview_anchor_count_zero": true' in content
+    assert '"has_post_only_draft_preview_cue_visible": true' in content
+    assert '"comment_count": 1' in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body ops dashboard anchor browser smoke refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 528 - External Review Issue Body Ops Dashboard Anchor Browser Smoke Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body ops dashboard anchor browser smoke refresh v0"
+        in runbook
+    )
+    assert issue_refresh_doc in portfolio
+
+
 def test_external_feedback_current_state_ops_dashboard_anchor_get_runtime_issue_verification_keeps_feedback_pending():
     verification_path = (
         REPO_ROOT

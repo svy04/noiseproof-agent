@@ -120,6 +120,8 @@ Ops dashboard anchor browser smoke: `docs/review/ops-dashboard-anchor-browser-sm
 
 External reviewer ops dashboard anchor browser smoke request refresh: `docs/review/external-reviewer-ops-dashboard-anchor-browser-smoke-request-refresh.md` records that reviewer-facing repository paths now point to `docs/review/ops-dashboard-anchor-browser-smoke.md`. This is request-surface refresh only, not a live issue body edit, hosted deployment evidence, external reviewer feedback, customer validation, design quality evidence, or product-complete.
 
+External review issue body ops dashboard anchor browser smoke refresh: `docs/review/external-review-issue-body-ops-dashboard-anchor-browser-smoke-refresh.md` records the owner-authored issue #1 body update pointing reviewers to `docs/review/ops-dashboard-anchor-browser-smoke.md` and its request-refresh record. This is live issue routing only, not external reviewer feedback, hosted deployment evidence, customer validation, design quality evidence, or product-complete.
+
 External feedback current-state architecture issue verification: `docs/review/external-feedback-current-state-architecture-issue-verification.md` records the current issue #1 screen after the architecture current-state issue-body refresh. It observes `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`; it does not close external reviewer feedback v0.
 
 External review issue template link-map refresh: `docs/review/external-review-issue-template-link-map-refresh.md` records that `.github/ISSUE_TEMPLATE/external-review-feedback.md` now contains direct reviewer links. It is not external reviewer feedback itself.
@@ -439,6 +441,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | External feedback current-state ops dashboard anchor GET runtime issue verification | `docs/review/external-feedback-current-state-ops-dashboard-anchor-get-runtime-issue-verification.md` | current issue screen keeps external reviewer feedback pending |
 | Ops dashboard anchor browser smoke | `docs/review/ops-dashboard-anchor-browser-smoke.md` | local Playwright browser automation verified dashboard GET anchors and POST-only cue boundary |
 | External reviewer ops dashboard anchor browser smoke request refresh | `docs/review/external-reviewer-ops-dashboard-anchor-browser-smoke-request-refresh.md` | reviewer-facing repository paths now link the dashboard browser proof |
+| External review issue body ops dashboard anchor browser smoke refresh | `docs/review/external-review-issue-body-ops-dashboard-anchor-browser-smoke-refresh.md` | owner-authored issue body routing to the dashboard browser proof |
 | Failure-case workflow review queue fresh DB dashboard smoke verification | `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` | verified local |
 | Failure-case workflow review queue proof index | `docs/review/failure-case-workflow-review-queue-proof-index.md` | implemented v0 |
 | External-reader proof path | `docs/review/external-reader-proof-path.md` | implemented v0 |

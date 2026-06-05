@@ -75,5 +75,5 @@ It is not product-complete.
 ## Next Gate
 
 ```text
-external review issue body ops dashboard anchor browser smoke refresh v0 if updating the live public issue body is useful, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from docs/GOAL.md
+external feedback current-state ops dashboard anchor browser smoke issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from docs/GOAL.md
 ```
