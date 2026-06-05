@@ -114,6 +114,8 @@ External reviewer ops dashboard anchor GET runtime request refresh: `docs/review
 
 External review issue body ops dashboard anchor GET runtime refresh: `docs/review/external-review-issue-body-ops-dashboard-anchor-get-runtime-refresh.md` records the owner-authored issue #1 body update pointing reviewers to `docs/review/ops-dashboard-anchor-get-runtime-smoke.md` and its request-refresh record. This is live issue routing only, not external reviewer feedback, hosted deployment evidence, browser automation evidence, customer validation, or product-complete.
 
+External feedback current-state ops dashboard anchor GET runtime issue verification: `docs/review/external-feedback-current-state-ops-dashboard-anchor-get-runtime-issue-verification.md` records that current issue #1 still has only owner-authored feedback after the ops dashboard anchor GET runtime refresh, with `candidate_count=0`, `draft_count=0`, and external reviewer feedback pending. This is current-state issue verification only, not external reviewer feedback, hosted deployment evidence, customer validation, or product-complete.
+
 External feedback current-state architecture issue verification: `docs/review/external-feedback-current-state-architecture-issue-verification.md` records the current issue #1 screen after the architecture current-state issue-body refresh. It observes `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`; it does not close external reviewer feedback v0.
 
 External review issue template link-map refresh: `docs/review/external-review-issue-template-link-map-refresh.md` records that `.github/ISSUE_TEMPLATE/external-review-feedback.md` now contains direct reviewer links. It is not external reviewer feedback itself.
@@ -430,6 +432,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | Ops dashboard anchor GET runtime smoke | `docs/review/ops-dashboard-anchor-get-runtime-smoke.md` | local Docker DB plus live FastAPI verified every unique dashboard GET href returned 200 |
 | External reviewer ops dashboard anchor GET runtime request refresh | `docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md` | reviewer-facing repository paths now link the dashboard anchor runtime proof |
 | External review issue body ops dashboard anchor GET runtime refresh | `docs/review/external-review-issue-body-ops-dashboard-anchor-get-runtime-refresh.md` | owner-authored issue body routing to the dashboard anchor runtime proof |
+| External feedback current-state ops dashboard anchor GET runtime issue verification | `docs/review/external-feedback-current-state-ops-dashboard-anchor-get-runtime-issue-verification.md` | current issue screen keeps external reviewer feedback pending |
 | Failure-case workflow review queue fresh DB dashboard smoke verification | `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` | verified local |
 | Failure-case workflow review queue proof index | `docs/review/failure-case-workflow-review-queue-proof-index.md` | implemented v0 |
 | External-reader proof path | `docs/review/external-reader-proof-path.md` | implemented v0 |

@@ -2624,6 +2624,72 @@ def test_external_review_issue_body_ops_dashboard_anchor_get_runtime_refresh_rec
     assert issue_refresh_doc in portfolio
 
 
+def test_external_feedback_current_state_ops_dashboard_anchor_get_runtime_issue_verification_keeps_feedback_pending():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-ops-dashboard-anchor-get-runtime-issue-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    issue_body_refresh = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-ops-dashboard-anchor-get-runtime-refresh.md"
+    ).read_text(encoding="utf-8")
+
+    verification_doc = (
+        "docs/review/"
+        "external-feedback-current-state-ops-dashboard-anchor-get-runtime-issue-verification.md"
+    )
+
+    assert "External Feedback Current-state Ops Dashboard Anchor GET Runtime Issue Verification" in content
+    assert "external feedback current-state ops dashboard anchor GET runtime issue verification v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "docs/review/ops-dashboard-anchor-get-runtime-smoke.md" in content
+    assert (
+        "docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md"
+        in content
+    )
+    assert (
+        "docs/review/external-review-issue-body-ops-dashboard-anchor-get-runtime-refresh.md"
+        in content
+    )
+    assert '"candidate_count": 0' in content
+    assert '"draft_count": 0' in content
+    assert '"screened_comment_count": 1' in content
+    assert '"comment_count": 1' in content
+    assert "reason: self_authored_comment" in content
+    assert "external reviewer feedback remains pending" in content
+    assert "does_not_close_gate: true" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state ops dashboard anchor GET runtime issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 525 - External Feedback Current-state Ops Dashboard Anchor GET Runtime Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state ops dashboard anchor GET runtime issue verification v0"
+        in runbook
+    )
+    assert verification_doc in portfolio
+    assert (
+        "external feedback current-state ops dashboard anchor GET runtime issue verification v0"
+        in issue_body_refresh
+    )
+
+
 def test_failure_case_workflow_review_queue_fresh_db_dashboard_smoke_documents_runtime_html_proof():
     content = (
         REPO_ROOT
