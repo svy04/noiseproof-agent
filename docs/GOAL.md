@@ -20563,6 +20563,41 @@ Next recommended evidence gate:
 external feedback current-state persisted document failure candidate draft runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 563 - External Feedback Current-state Persisted Document Failure Candidate Draft Runtime Issue Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+screen the live public external review issue after the persisted document failure candidate draft runtime issue-body refresh and keep external reviewer feedback pending unless qualifying outside feedback exists
+```
+
+Implemented:
+
+```text
+external feedback current-state persisted document failure candidate draft runtime issue verification v0
+docs/review/external-feedback-current-state-persisted-document-failure-candidate-draft-runtime-issue-verification.md
+issue #1 updatedAt -> 2026-06-05T13:42:17Z
+comment_count -> 1
+screened_comment_count -> 1
+owner_comment_count -> 1
+candidate_count -> 0
+draft_count -> 0
+classification -> non_qualifying
+reason -> self_authored_comment
+status -> pending
+external reviewer feedback v0 gate remains pending
+```
+
+Phase 563 is a live issue screen after an owner-authored issue body edit. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not automatic failure-case creation, not automatic root-cause analysis, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

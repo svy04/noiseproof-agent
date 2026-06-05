@@ -23245,3 +23245,106 @@ def test_external_review_issue_body_persisted_document_failure_candidate_draft_r
         in runbook
     )
     assert issue_doc in portfolio
+
+
+def test_external_feedback_current_state_persisted_document_failure_candidate_draft_runtime_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-persisted-document-failure-candidate-draft-runtime-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    issue_body_refresh = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-persisted-document-failure-candidate-draft-runtime-refresh.md"
+    ).read_text(encoding="utf-8")
+
+    proof_doc = (
+        "docs/review/"
+        "persisted-document-failure-candidate-draft-preview-runtime-smoke.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-persisted-document-failure-candidate-draft-runtime-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-persisted-document-failure-candidate-draft-runtime-refresh.md"
+    )
+    verification_doc = (
+        "docs/review/"
+        "external-feedback-current-state-persisted-document-failure-candidate-draft-runtime-issue-verification.md"
+    )
+
+    assert (
+        "External Feedback Current-state Persisted Document Failure Candidate Draft Runtime Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state persisted document failure candidate draft runtime issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert '"updatedAt": "2026-06-05T13:42:17Z"' in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert (
+        '"has_persisted_document_failure_candidate_draft_runtime_proof": true'
+        in content
+    )
+    assert (
+        '"has_persisted_document_failure_candidate_draft_request_refresh": true'
+        in content
+    )
+    assert (
+        '"has_persisted_document_failure_candidate_draft_issue_body_record": true'
+        in content
+    )
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert '"screened_comment_count": 1' in content
+    assert '"owner_comment_count": 1' in content
+    assert '"candidate_count": 0' in content
+    assert '"draft_count": 0' in content
+    assert '"classification": "non_qualifying"' in content
+    assert '"reason": "self_authored_comment"' in content
+    assert '"status": "pending"' in content
+    assert "does_not_close_gate: true" in content
+    assert "external reviewer feedback v0 gate remains pending" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/failure-case-draft-preview -> 200" in content
+    assert "preview_only_not_persisted" in content
+    assert "failure_case_count_delta -> 0" in content
+    assert "not automatic failure-case creation" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state persisted document failure candidate draft runtime issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 563 - External Feedback Current-state Persisted Document Failure Candidate Draft Runtime Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state persisted document failure candidate draft runtime issue verification v0"
+        in runbook
+    )
+    assert verification_doc in portfolio
+    assert (
+        "external feedback current-state persisted document failure candidate draft runtime issue verification v0"
+        in issue_body_refresh
+    )
