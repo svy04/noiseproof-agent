@@ -17929,6 +17929,73 @@ def test_readme_latest_marker_persisted_document_failure_candidate_manual_handof
     assert review_doc in portfolio
 
 
+def test_readme_latest_marker_persisted_document_failure_candidate_manual_handoff_current_state_remote_verification_records_github_actions_success():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/readme-latest-marker-persisted-document-failure-candidate-manual-handoff-current-state-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "readme-latest-marker-persisted-document-failure-candidate-manual-handoff-current-state-remote-verification.md"
+    )
+
+    assert (
+        "README Latest-marker Persisted Document Failure Candidate Manual Handoff Current-state Remote Verification"
+        in content
+    )
+    assert (
+        "readme latest-marker persisted document failure candidate manual handoff current-state remote verification v0"
+        in content
+    )
+    assert "448f171512a7aaaf71686d04969b402ccf7c1fce" in content
+    assert "CI run 27021345997" in content
+    assert "External Feedback Screen run 27021346012" in content
+    assert "api-smoke -> success" in content
+    assert "screen -> success" in content
+    assert (
+        "docs/review/readme-latest-marker-persisted-document-failure-candidate-manual-handoff-current-state-refresh.md"
+        in content
+    )
+    assert (
+        "Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0"
+        in content
+    )
+    assert (
+        "Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only"
+        in content
+    )
+    assert "workflow screen only" in content
+    assert "not automatic failure-case creation" in content
+    assert "not a confirm endpoint" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not product-complete" in content
+    assert (
+        "README latest-marker persisted document failure candidate manual handoff current-state remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 570 - README Latest-marker Persisted Document Failure Candidate Manual Handoff Current-state Remote Verification v0"
+        in goal
+    )
+    assert (
+        "readme latest-marker persisted document failure candidate manual handoff current-state remote verification v0"
+        in runbook
+    )
+    assert review_doc in portfolio
+
+
 def test_readme_upload_handoff_claim_boundary_refresh_separates_explicit_handoff_from_preview_auto_persistence():
     review_path = (
         REPO_ROOT / "docs/review/readme-upload-handoff-claim-boundary-refresh.md"

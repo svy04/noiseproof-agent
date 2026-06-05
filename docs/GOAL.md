@@ -20816,6 +20816,38 @@ Next recommended evidence gate:
 remote verification for this README marker refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 570 - README Latest-marker Persisted Document Failure Candidate Manual Handoff Current-state Remote Verification v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+record remote GitHub Actions verification for the README persisted document failure candidate manual handoff latest-marker refresh
+```
+
+Implemented artifacts:
+
+```text
+readme latest-marker persisted document failure candidate manual handoff current-state remote verification v0
+docs/review/readme-latest-marker-persisted-document-failure-candidate-manual-handoff-current-state-remote-verification.md
+head_sha -> 448f171512a7aaaf71686d04969b402ccf7c1fce
+CI run 27021345997 -> api-smoke -> success
+External Feedback Screen run 27021346012 -> screen -> success
+```
+
+Boundary:
+
+```text
+Phase 570 is remote workflow verification for the README marker refresh only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not automatic failure-case creation, not a confirm endpoint, not automatic root-cause analysis, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
