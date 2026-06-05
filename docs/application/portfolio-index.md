@@ -419,6 +419,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | Failure-case workflow review queue runtime smoke verification | `docs/review/failure-case-workflow-review-queue-runtime-smoke-verification.md` | verified local |
 | Failure-case workflow review queue dashboard surfacing review | `docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md` | reviewed |
 | Failure-case workflow review queue dashboard surfacing | `GET /ops/dashboard`, `docs/review/failure-case-workflow-review-queue-dashboard-surfacing.md` | implemented v0 |
+| Workflow review queue dashboard draft-preview method boundary | `docs/review/workflow-review-queue-dashboard-draft-preview-method-boundary.md` | POST-only cue; no clickable GET-looking draft-preview link |
 | Failure-case workflow review queue fresh DB dashboard smoke verification | `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` | verified local |
 | Failure-case workflow review queue proof index | `docs/review/failure-case-workflow-review-queue-proof-index.md` | implemented v0 |
 | External-reader proof path | `docs/review/external-reader-proof-path.md` | implemented v0 |
@@ -467,6 +468,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | `docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md` | review-only selection for future plain dashboard queue section; no dashboard rendering yet |
 | `docs/review/failure-case-workflow-review-queue-dashboard-surfacing.md` | plain dashboard queue section for failed workflow parent review; no automatic failure-case creation |
 | `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` | local fresh migrated Docker DB dashboard evidence for the review queue section; pending 1, linked 1, draft preview visible, no automatic failure-case creation |
+| `docs/review/workflow-review-queue-dashboard-draft-preview-method-boundary.md` | current dashboard method-boundary proof that draft preview renders as a POST-only cue instead of a clickable GET-looking link |
 | `docs/review/failure-case-workflow-review-queue-proof-index.md` | reader path: read-model queue -> runtime smoke -> dashboard surfacing -> fresh DB dashboard proof; no automatic failure-case creation |
 | `docs/review/portfolio-site-proof-artifact-route-verification.md` | live portfolio route proof that the public NoiseProof proof surface references the current repo proof path and boundaries |
 | `docs/review/demo-transcript-capture.md` | self-authored route transcript for collection planning, deterministic workflow preview, lineage, and dashboard inspection |

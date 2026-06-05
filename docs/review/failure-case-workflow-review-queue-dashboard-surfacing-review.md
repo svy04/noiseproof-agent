@@ -57,7 +57,7 @@ It should show:
 - error type
 - review status: `needs_failure_case_review` or `failure_case_linked`
 - linked failure-case count
-- draft preview link to `POST /failure-cases/draft-preview`
+- draft preview POST cue for `POST /failure-cases/draft-preview`
 
 The section should reuse the existing queue builder rather than duplicate queue logic inside the HTML route.
 

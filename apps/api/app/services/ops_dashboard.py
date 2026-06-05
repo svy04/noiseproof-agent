@@ -191,7 +191,7 @@ def _failure_case_workflow_review_queue_section(queue: Any | None) -> str:
         f"<td>{_cell(item.error_type)}</td>"
         f"<td>{_cell(item.linked_failure_case_count)}</td>"
         f"<td>{_cell(', '.join(str(value) for value in item.linked_failure_case_ids))}</td>"
-        f"<td>{_link(item.draft_preview_path, 'draft preview')}</td>"
+        f"<td>{_post_only_cue(item.draft_preview_path, 'draft preview requires an explicit POST request')}</td>"
         "</tr>"
         for item in items[:10]
     )
@@ -259,6 +259,15 @@ def _workflow_failure_case_count_cell(
     if count == 0:
         return "0"
     return _link(f"/failure-cases?workflow_run_id={workflow_run_id}", count)
+
+
+def _post_only_cue(path: object, boundary: str) -> str:
+    if not path:
+        return '<span class="muted">n/a</span>'
+    return (
+        f"<code>POST {_cell(path)}</code><br>"
+        f'<span class="muted">{_cell(boundary)}</span>'
+    )
 
 
 def _retrieval_runs_table(rows: list[dict[str, Any]]) -> str:

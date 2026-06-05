@@ -3147,7 +3147,7 @@ pending_review_count
 linked_failure_case_count
 needs_failure_case_review
 failure_case_linked
-draft preview link
+draft preview POST cue
 route test proves dashboard rendering does not create failure_cases
 docs/review/failure-case-workflow-review-queue-dashboard-surfacing.md
 README dashboard marker
@@ -3181,7 +3181,7 @@ docs/review/failure-case-workflow-review-queue-dashboard-surfacing-review.md
 selected dashboard section: Failure-case Workflow Review Queue
 selected counts: pending_review_count, linked_failure_case_count
 selected row statuses: needs_failure_case_review, failure_case_linked
-selected draft preview link boundary
+selected draft preview POST cue boundary
 README review marker
 docs/application/portfolio-index.md link
 docs/runbook.md boundary note
@@ -18947,6 +18947,37 @@ has_external_feedback_boundary true
 ```
 
 Phase 517 records current-state issue verification only. It adds no runtime behavior, no schema or migration, no automatic failure detection, no background automation, no root-cause automation, no retry or repair behavior, no complete workflow failure causality, no hosted deployment evidence, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
+### Phase 518 - Workflow Review Queue Dashboard Draft-preview Method Boundary v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the operations dashboard honest about the POST-only failure-case draft-preview route by replacing the clickable GET-looking draft-preview link with a method-aware cue
+```
+
+Implemented:
+
+```text
+workflow review queue dashboard draft-preview method boundary v0
+docs/review/workflow-review-queue-dashboard-draft-preview-method-boundary.md
+GET /ops/dashboard
+POST /failure-cases/draft-preview
+draft preview requires an explicit POST request
+old clickable draft-preview anchor absent
+apps/api/app/services/ops_dashboard.py uses _post_only_cue
+apps/api/tests/test_routes.py verifies no clickable draft-preview GET link
+```
+
+Phase 518 is dashboard method-boundary hardening only. It adds no endpoint, no runtime workflow semantics, no schema or migration, no automatic failure-case creation, no background automation, no root-cause automation, no complete workflow failure causality, no hosted deployment evidence, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
 
 Next recommended evidence gate:
 

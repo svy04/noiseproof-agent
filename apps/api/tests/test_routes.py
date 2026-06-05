@@ -4497,7 +4497,9 @@ def test_ops_dashboard_surfaces_failure_case_workflow_review_queue_without_persi
     assert f'href="/workflow-runs/{pending_workflow["id"]}">' in response.text
     assert f'href="/workflow-runs/{linked_workflow["id"]}">' in response.text
     assert linked_failure["id"] in response.text
-    assert 'href="/failure-cases/draft-preview">draft preview</a>' in response.text
+    assert 'href="/failure-cases/draft-preview">draft preview</a>' not in response.text
+    assert "POST /failure-cases/draft-preview" in response.text
+    assert "draft preview requires an explicit POST request" in response.text
     assert "read_model_only_no_automatic_failure_case_creation" in response.text
     assert "does not create failure_cases" in response.text
     assert len(client.get("/failure-cases").json()) == 1

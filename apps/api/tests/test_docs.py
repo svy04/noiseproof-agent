@@ -2191,7 +2191,7 @@ def test_failure_case_workflow_review_queue_dashboard_surfacing_review_defers_re
     assert "linked_failure_case_count" in content
     assert "needs_failure_case_review" in content
     assert "failure_case_linked" in content
-    assert "draft preview link" in content
+    assert "draft preview POST cue" in content
     assert "Do not add dashboard rendering in this review gate" in content
     assert "not automatic failure-case creation" in content
     assert "not complete workflow failure causality" in content
@@ -2237,6 +2237,7 @@ def test_failure_case_workflow_review_queue_dashboard_surfacing_docs_mark_plain_
     assert "needs_failure_case_review" in content
     assert "failure_case_linked" in content
     assert "draft preview" in content
+    assert "POST /failure-cases/draft-preview" in content
     assert "render_ops_dashboard" in content
     assert "build_failure_case_workflow_review_queue" in content
     assert "does not create failure_cases" in content
@@ -2257,6 +2258,68 @@ def test_failure_case_workflow_review_queue_dashboard_surfacing_docs_mark_plain_
     )
     assert "failure-case workflow review queue dashboard surfacing" in architecture
     assert "Failure-case Workflow Review Queue v0" in api_readme
+
+
+def test_workflow_review_queue_dashboard_draft_preview_method_boundary_documents_post_only_cue():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "workflow-review-queue-dashboard-draft-preview-method-boundary.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    api_readme = (REPO_ROOT / "apps/api/README.md").read_text(encoding="utf-8")
+    dashboard_py = (
+        REPO_ROOT / "apps/api/app/services/ops_dashboard.py"
+    ).read_text(encoding="utf-8")
+    route_test = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Workflow Review Queue Dashboard Draft-preview Method Boundary"
+        in content
+    )
+    assert (
+        "workflow review queue dashboard draft-preview method boundary v0"
+        in content
+    )
+    assert "GET /ops/dashboard" in content
+    assert "POST /failure-cases/draft-preview" in content
+    assert "draft preview requires an explicit POST request" in content
+    assert 'href="/failure-cases/draft-preview">draft preview</a>' not in content
+    assert "not a clickable GET link" in content
+    assert "not automatic failure-case creation" in content
+    assert "not background automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "_post_only_cue" in dashboard_py
+    assert "_link(item.draft_preview_path, 'draft preview')" not in dashboard_py
+    assert "'href=\"/failure-cases/draft-preview\">draft preview</a>' not in response.text" in route_test
+    assert (
+        "Workflow review queue dashboard draft-preview method boundary v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 518 - Workflow Review Queue Dashboard Draft-preview Method Boundary v0"
+        in goal
+    )
+    assert (
+        "workflow review queue dashboard draft-preview method boundary v0" in runbook
+    )
+    assert (
+        "docs/review/workflow-review-queue-dashboard-draft-preview-method-boundary.md"
+        in portfolio
+    )
+    assert (
+        "draft preview now renders as a POST-only cue" in api_readme
+    )
 
 
 def test_failure_case_workflow_review_queue_fresh_db_dashboard_smoke_documents_runtime_html_proof():

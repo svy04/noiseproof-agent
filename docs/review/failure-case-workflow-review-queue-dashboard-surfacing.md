@@ -35,7 +35,7 @@ The dashboard now shows:
 - error type
 - linked failure-case count
 - linked failure-case ids
-- `draft preview` link to `/failure-cases/draft-preview`
+- `POST /failure-cases/draft-preview` cue with a reminder that draft preview requires an explicit POST request
 
 Implementation code:
 
@@ -67,7 +67,8 @@ needs_failure_case_review
 failure_case_linked
 workflow_execute_preview
 RuntimeError
-draft preview
+POST /failure-cases/draft-preview
+draft preview requires an explicit POST request
 read_model_only_no_automatic_failure_case_creation
 does not create failure_cases
 ```
@@ -89,7 +90,7 @@ It is:
 - not external reviewer feedback
 - not a polished dashboard UI
 
-The dashboard may point a human reviewer toward draft preview, but it does not confirm or persist any `failure_cases` row.
+The dashboard may point a human reviewer toward the draft-preview POST boundary, but it does not render that POST-only route as a clickable GET link, confirm the draft, or persist any `failure_cases` row.
 
 ## Next Gate
 
