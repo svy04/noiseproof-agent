@@ -22317,3 +22317,32 @@ self_authored_comment
 Boundary: remote workflow verification only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not Evidence Ledger generation, not Critic / Noise Gate behavior, not final report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 610 - README Latest Remote Verification Marker Table-candidate Refresh v0
+
+Status: implemented.
+
+Purpose: align the first-screen README latest remote verification marker with the current table-candidate proof route verification.
+
+Implemented artifacts:
+
+```text
+readme latest remote verification marker table-candidate refresh v0
+docs/review/readme-latest-remote-verification-marker-table-candidate-refresh.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Current marker:
+
+```text
+CI run `27040299642`
+External Feedback Screen run `27040299666`
+docs/review/readme-current-proof-route-table-candidate-refresh-remote-verification.md
+```
+
+Boundary: README marker clarity only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not runtime product proof, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

@@ -16,7 +16,7 @@ Latest proof routing now points reviewers to the uploaded PDF table-candidate do
 
 Latest external-feedback state: pending after PDF table-candidate downstream runtime issue verification. The current issue screen has `candidate_count=0`, `draft_count=0`, and only a self-authored issue comment.
 
-Latest remote verification state: the Compose service-name runbook refresh was remotely checked by CI run `27036444352` and External Feedback Screen run `27036444321`; this is workflow evidence only, not external feedback or runtime product proof.
+Latest remote verification state: the README table-candidate proof route refresh was remotely checked by CI run `27040299642` and External Feedback Screen run `27040299666`; see `docs/review/readme-current-proof-route-table-candidate-refresh-remote-verification.md`. This is workflow evidence only, not external feedback or runtime product proof.
 
 Latest issue readability state: issue #1 now starts with `## Request` after the owner-authored BOM removal refresh; this is request-surface hygiene only, not external feedback.
 
@@ -1157,3 +1157,5 @@ External feedback current-state PDF table-candidate downstream runtime issue ver
 README current proof route table-candidate refresh v0: implemented. Boundary: the first-screen README proof route now points to `docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md`, its remote verification, request refresh, issue-body refresh, and current-state issue verification; this is route clarity only, not a new runtime smoke, external reviewer feedback, hosted deployment evidence, robust PDF extraction, table extraction, or product-complete.
 
 README current proof route table-candidate refresh remote verification v0: implemented. Boundary: remote GitHub Actions runs `27040299642` (`CI`) and `27040299666` (`External Feedback Screen`) succeeded on head `94d6743743f18d1d4852defc2ea1da578b7e2654`; this is workflow evidence only, not external reviewer feedback, hosted deployment evidence, robust PDF extraction, table extraction, or product-complete.
+
+README latest remote verification marker table-candidate refresh v0: implemented. Boundary: the first-screen README latest remote verification marker now points to `docs/review/readme-current-proof-route-table-candidate-refresh-remote-verification.md`; this is marker clarity only, not external reviewer feedback, hosted deployment evidence, runtime product proof, robust PDF extraction, table extraction, or product-complete.

@@ -26321,6 +26321,64 @@ def test_readme_current_proof_route_table_candidate_refresh_remote_verification_
     )
 
 
+def test_readme_top_latest_remote_verification_state_points_to_table_candidate_route_verification():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/readme-latest-remote-verification-marker-table-candidate-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme_with_archive = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    fast_path = readme.split("## External Reviewer Fast Path", 1)[1].split(
+        "## What This Is", 1
+    )[0]
+
+    assert "readme latest remote verification marker table-candidate refresh v0" in content
+    assert "README table-candidate proof route refresh" in content
+    assert "CI run `27040299642`" in content
+    assert "External Feedback Screen run `27040299666`" in content
+    assert (
+        "docs/review/readme-current-proof-route-table-candidate-refresh-remote-verification.md"
+        in content
+    )
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest remote verification state: the README table-candidate proof route refresh was remotely checked by CI run `27040299642` and External Feedback Screen run `27040299666`"
+        in fast_path
+    )
+    assert (
+        "docs/review/readme-current-proof-route-table-candidate-refresh-remote-verification.md"
+        in fast_path
+    )
+    assert "workflow evidence only, not external feedback or runtime product proof" in fast_path
+    assert "Compose service-name runbook refresh was remotely checked" not in fast_path
+    assert (
+        "README latest remote verification marker table-candidate refresh v0: implemented"
+        in readme_with_archive
+    )
+    assert (
+        "Phase 610 - README Latest Remote Verification Marker Table-candidate Refresh v0"
+        in goal
+    )
+    assert (
+        "readme latest remote verification marker table-candidate refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/readme-latest-remote-verification-marker-table-candidate-refresh.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
