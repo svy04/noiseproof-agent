@@ -24,6 +24,8 @@ It does not replace the full proof path.
    - Related dashboard proof: `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md`.
    - Related direct stage links runtime proof: `docs/review/workflow-direct-stage-links-runtime-smoke.md`.
    - Direct stage links request refresh: `docs/review/external-reviewer-workflow-direct-stage-links-runtime-request-refresh.md`.
+   - Related stage event log runtime proof: `docs/review/workflow-stage-event-log-runtime-smoke.md`.
+   - Stage event log request refresh: `docs/review/external-reviewer-workflow-stage-event-log-runtime-request-refresh.md`.
 3. `docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md`
    - Local runtime proof that raw-file guard decisions surface in `/ops/summary` and `/ops/dashboard`.
 4. `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md`

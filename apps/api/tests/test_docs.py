@@ -1299,6 +1299,105 @@ def test_workflow_stage_event_log_runtime_smoke_records_live_db_and_http_evidenc
     assert "docs/review/workflow-stage-event-log-runtime-smoke.md" in portfolio
 
 
+def test_external_reviewer_workflow_stage_event_log_runtime_request_refresh_links_latest_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reviewer-workflow-stage-event-log-runtime-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    reviewer_brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    shortlist = (REPO_ROOT / "docs/review/external-reviewer-shortlist.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    proof_doc = "docs/review/workflow-stage-event-log-runtime-smoke.md"
+    design_doc = "docs/review/workflow-stage-event-log.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-stage-event-log-runtime-request-refresh.md"
+    )
+
+    assert "External Reviewer Workflow Stage Event Log Runtime Request Refresh" in content
+    assert (
+        "external reviewer workflow stage event log runtime request refresh v0"
+        in content
+    )
+    assert proof_doc in content
+    assert design_doc in content
+    assert request_doc in content
+    assert "POST /workflow-runs/execute-preview" in content
+    assert "GET /workflow-runs/{id}" in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert "detail_stage_event_count: 4" in content
+    assert "bundle_stage_event_count: 4" in content
+    assert "retrieval,evidence_ledger,noise_gate,report" in content
+    assert "local_workflow_stage_event_log_not_distributed_tracing" in content
+    assert "not a live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not autonomous workflow execution" in content
+    assert "not product-complete" in content
+
+    for surface in [
+        contributing,
+        issue_template,
+        readme,
+        goal,
+        runbook,
+        portfolio,
+        proof_path,
+        review_request,
+        reviewer_brief,
+        link_map,
+        shortlist,
+        app_review,
+    ]:
+        assert proof_doc in surface
+        assert request_doc in surface
+
+    assert (
+        "External reviewer workflow stage event log runtime request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 537 - External Reviewer Workflow Stage Event Log Runtime Request Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer workflow stage event log runtime request refresh v0"
+        in runbook
+    )
+
+
 def test_external_reviewer_workflow_direct_stage_links_runtime_request_refresh_links_latest_proof():
     review_path = (
         REPO_ROOT

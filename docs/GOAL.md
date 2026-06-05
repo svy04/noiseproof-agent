@@ -19637,6 +19637,48 @@ Next recommended evidence gate:
 external reviewer workflow stage event log runtime request refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 537 - External Reviewer Workflow Stage Event Log Runtime Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the workflow stage event log runtime smoke discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer workflow stage event log runtime request refresh v0
+docs/review/external-reviewer-workflow-stage-event-log-runtime-request-refresh.md
+docs/review/workflow-stage-event-log.md
+docs/review/workflow-stage-event-log-runtime-smoke.md
+CONTRIBUTING.md fast path
+.github/ISSUE_TEMPLATE/external-review-feedback.md fast links
+README.md implementation status
+docs/review/external-reader-proof-path.md
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+docs/runbook.md
+detail_stage_event_count: 4
+bundle_stage_event_count: 4
+stage_names: retrieval,evidence_ledger,noise_gate,report
+event_boundary: local_workflow_stage_event_log_not_distributed_tracing
+```
+
+Phase 537 is request-surface refresh only. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not distributed tracing, not OpenTelemetry, not hosted observability, not autonomous workflow execution, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external review issue body workflow stage event log runtime refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
