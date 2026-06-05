@@ -1,3 +1,5 @@
+from typing import Any
+
 from packages.ingestion.parsers.base import empty_content_failure
 from packages.ingestion.types import FailureCaseCandidate, ParseInput, ParseResult
 
@@ -15,8 +17,9 @@ class PdfParser:
         if payload.content_bytes:
             extracted = _extract_pdf_text(payload.content_bytes)
             if extracted is not None:
-                text, page_count = extracted
+                text, metadata, diagnostic_warnings = extracted
                 warnings = [PDF_TEXT_EXTRACTION_WARNING]
+                warnings.extend(diagnostic_warnings)
                 failure_case_candidate: FailureCaseCandidate | None = None
                 if not text:
                     warnings.append("PyMuPDF opened the PDF, but no digital text was extracted.")
@@ -35,7 +38,7 @@ class PdfParser:
                         "text_only_fallback": False,
                         "digital_pdf_text_extraction": True,
                         "extraction_engine": "PyMuPDF",
-                        "page_count": page_count,
+                        **metadata,
                     },
                     warnings=warnings,
                     failure_case_candidate=failure_case_candidate,
@@ -80,7 +83,7 @@ def _looks_binary(text: str) -> bool:
     return (control_count / max(len(text), 1)) > 0.05
 
 
-def _extract_pdf_text(content: bytes) -> tuple[str, int] | None:
+def _extract_pdf_text(content: bytes) -> tuple[str, dict[str, Any], list[str]] | None:
     try:
         import pymupdf
     except ImportError:
@@ -92,8 +95,41 @@ def _extract_pdf_text(content: bytes) -> tuple[str, int] | None:
         return None
 
     try:
-        page_text = [page.get_text() for page in document]
-        return "\n".join(text.strip() for text in page_text if text.strip()), document.page_count
+        page_text: list[str] = []
+        page_text_char_counts: list[int] = []
+        text_block_count = 0
+        image_block_count = 0
+        layout_block_diagnostics_available = True
+        warnings: list[str] = []
+
+        for page in document:
+            text = page.get_text().strip()
+            page_text.append(text)
+            page_text_char_counts.append(len(text))
+            try:
+                blocks = page.get_text("dict").get("blocks", [])
+            except Exception:
+                layout_block_diagnostics_available = False
+                continue
+            text_block_count += sum(1 for block in blocks if block.get("type") == 0)
+            image_block_count += sum(1 for block in blocks if block.get("type") == 1)
+
+        if not layout_block_diagnostics_available:
+            warnings.append("PyMuPDF layout block diagnostics were unavailable for at least one page.")
+
+        extracted_page_count = sum(1 for count in page_text_char_counts if count > 0)
+        metadata = {
+            "page_count": document.page_count,
+            "page_diagnostics_available": True,
+            "layout_block_diagnostics_available": layout_block_diagnostics_available,
+            "extraction_scope": "digital_text_page_diagnostics",
+            "page_text_char_counts": page_text_char_counts,
+            "extracted_page_count": extracted_page_count,
+            "empty_page_count": document.page_count - extracted_page_count,
+            "text_block_count": text_block_count,
+            "image_block_count": image_block_count,
+        }
+        return "\n".join(text for text in page_text if text), metadata, warnings
     except Exception:
         return None
     finally:

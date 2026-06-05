@@ -19748,6 +19748,41 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 540 - Uploaded PDF Page Diagnostics v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make uploaded digital PDF text extraction more inspectable by exposing page-level diagnostics before chunking and retrieval
+```
+
+Implemented:
+
+```text
+uploaded PDF page diagnostics v0
+packages/ingestion/parsers/pdf.py
+POST /documents/upload-preview metadata
+page_diagnostics_available: true
+layout_block_diagnostics_available: true
+extraction_scope: digital_text_page_diagnostics
+page_text_char_counts
+extracted_page_count
+empty_page_count
+text_block_count
+image_block_count
+docs/review/uploaded-pdf-page-diagnostics.md
+```
+
+Phase 540 is digital PDF page diagnostics only. It is not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not parsed text persistence, not retrieval quality evidence, not Evidence Ledger generation, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, robust PDF extraction only after OCR/table/layout fidelity are explicitly tested, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

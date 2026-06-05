@@ -3041,6 +3041,34 @@ def test_document_upload_preview_extracts_digital_pdf_text_without_robust_claim(
     assert client.get("/documents").json() == []
 
 
+def test_document_upload_preview_exposes_pdf_page_diagnostics_without_robust_claim():
+    client = make_client()
+    content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")
+
+    response = client.post(
+        "/documents/upload-preview",
+        files={"file": ("sample-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    metadata = body["metadata"]
+    assert body["parser"] == "pdf-pymupdf"
+    assert metadata["digital_pdf_text_extraction"] is True
+    assert metadata["robust_pdf_extraction"] is False
+    assert metadata["page_diagnostics_available"] is True
+    assert metadata["layout_block_diagnostics_available"] is True
+    assert metadata["extraction_scope"] == "digital_text_page_diagnostics"
+    assert metadata["page_count"] == 1
+    assert metadata["page_text_char_counts"] == [39]
+    assert metadata["extracted_page_count"] == 1
+    assert metadata["empty_page_count"] == 0
+    assert metadata["text_block_count"] == 1
+    assert metadata["image_block_count"] == 0
+    assert any("OCR" in warning for warning in body["warnings"])
+    assert client.get("/documents").json() == []
+
+
 def test_document_upload_chunk_preview_compares_uploaded_csv_without_persistence():
     client = make_client()
     content = b"date,segment,growth\n2026-05-28,enterprise,12\n2026-05-29,consumer,-3\n"

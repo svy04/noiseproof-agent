@@ -581,6 +581,8 @@ External feedback current-state architecture issue verification v0: implemented.
 
 Uploaded PDF text extraction v0: implemented. Boundary: `POST /documents/upload-preview` can extract digital PDF text with PyMuPDF for uploaded PDF bytes, while keeping `preview_only_not_persisted`; OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, and external reviewer feedback are not claimed.
 
+Uploaded PDF page diagnostics v0: implemented. Boundary: `POST /documents/upload-preview` now exposes PyMuPDF page diagnostics including `page_text_char_counts`, `empty_page_count`, `text_block_count`, and `image_block_count` for uploaded digital PDFs; this is not robust PDF extraction, OCR, table extraction, layout fidelity, hosted deployment evidence, or external reviewer feedback.
+
 Uploaded PDF downstream handoff v0: implemented. Boundary: `POST /documents/upload-chunk-preview`, `POST /documents/upload-chunks`, and `POST /documents/upload-retrieval-preview` reuse PyMuPDF digital text extraction for uploaded PDF bytes; OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, and external reviewer feedback are not claimed.
 
 Uploaded PDF downstream handoff runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence shows uploaded digital PDF bytes flow through PyMuPDF extraction into upload chunk preview, explicit upload-to-chunks persistence, listed chunk lookup, and upload retrieval preview; this is not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, or raw file storage.
