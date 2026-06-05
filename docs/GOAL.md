@@ -18463,6 +18463,47 @@ Next recommended evidence gate:
 external review issue body workflow failure-case persistence runtime refresh v0, external feedback current-state verification if the public issue is updated, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 506 - External Review Issue Body Workflow Failure-case Persistence Runtime Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the owner-authored issue #1 body edit that points reviewers to the workflow failure-case persistence handoff runtime smoke
+```
+
+Implemented:
+
+```text
+external review issue body workflow failure-case persistence runtime refresh v0
+docs/review/external-review-issue-body-workflow-failure-case-persistence-runtime-refresh.md
+issue #1 body points to docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md
+issue #1 body points to docs/review/external-reviewer-workflow-failure-case-persistence-runtime-request-refresh.md
+issue #1 body points to docs/review/external-review-issue-body-workflow-failure-case-persistence-runtime-refresh.md
+starts_with_request: true
+first_codepoint: 35
+has_workflow_failure_case_persistence_runtime_proof: true
+has_workflow_failure_case_persistence_request_refresh: true
+has_workflow_failure_case_persistence_issue_body_refresh: true
+has_persistence_boundary: true
+has_queue_status_failure_case_linked: true
+has_completed_workflow_409: true
+has_duplicate_409: true
+comment_count: 1
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 506 is owner-authored issue body routing only. It does not create external reviewer feedback, does not close external reviewer feedback v0, does not add runtime behavior, does not add schema or migration, does not run a new smoke, and does not prove hosted deployment, background automation, automatic root-cause classification, complete workflow failure causality, LLM-backed repair, customer validation, Braincrew acceptance, or product completeness.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state workflow failure-case persistence runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

@@ -15815,6 +15815,94 @@ def test_external_reviewer_workflow_failure_case_persistence_runtime_request_ref
     assert request_doc in runbook
 
 
+def test_external_review_issue_body_workflow_failure_case_persistence_runtime_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-review-issue-body-workflow-failure-case-persistence-runtime-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = (
+        "docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-failure-case-persistence-runtime-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-workflow-failure-case-persistence-runtime-refresh.md"
+    )
+
+    assert (
+        "External Review Issue Body Workflow Failure-case Persistence Runtime Refresh"
+        in content
+    )
+    assert (
+        "external review issue body workflow failure-case persistence runtime refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert (
+        '"has_workflow_failure_case_persistence_runtime_proof": true'
+        in content
+    )
+    assert (
+        '"has_workflow_failure_case_persistence_request_refresh": true'
+        in content
+    )
+    assert (
+        '"has_workflow_failure_case_persistence_issue_body_refresh": true'
+        in content
+    )
+    assert '"has_persistence_boundary": true' in content
+    assert '"has_queue_status_failure_case_linked": true' in content
+    assert '"has_completed_workflow_409": true' in content
+    assert '"has_duplicate_409": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert "POST /failure-cases/workflow-runs/{workflow_run_id}" in content
+    assert (
+        "persistence_boundary -> caller_triggered_workflow_failure_case_persistence"
+        in content
+    )
+    assert "queue_status_for_workflow -> failure_case_linked" in content
+    assert "completed_workflow_status_code -> 409" in content
+    assert "duplicate_status_code -> 409" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not background automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body workflow failure-case persistence runtime refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 506 - External Review Issue Body Workflow Failure-case Persistence Runtime Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body workflow failure-case persistence runtime refresh v0"
+        in runbook
+    )
+    assert issue_doc in portfolio
+
+
 def test_uploaded_raw_file_download_readiness_preview_documents_preflight_boundary():
     review_path = (
         REPO_ROOT / "docs/review/uploaded-raw-file-download-readiness-preview.md"
