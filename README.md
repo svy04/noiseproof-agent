@@ -102,19 +102,19 @@ Implementation status:
 
 Current status groups:
 
-- docs: briefs, architecture/ADRs, runbook, application/review artifacts
-- service: FastAPI health, ops/dashboard, metadata routes, PostgreSQL/migrations, CI
-- ingestion/RAG: profiling/parsers/chunks, lexical/semantic retrieval previews, collection planning
-- evidence/report: ledgers, gates, reports, traces, filters, workflow lineage/warnings
-- proof: DB/failure smokes, reviewer routes, feedback screening, Braincrew map
+- docs: briefs, ADRs, runbook, application/review artifacts
+- service: health, ops/dashboard, metadata routes, DB/migrations, CI
+- ingestion/RAG: profiles, parsers, chunks, retrieval previews, collection plans
+- evidence/report: ledgers, gates, reports, traces, filters, workflow warnings
+- proof: runtime smokes, reviewer routes, feedback screen, Braincrew map
 
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
 Latest workflow proof bundle runtime marker: Workflow proof bundle failure-case links runtime smoke v0: implemented.
 Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented.
 Latest product gate marker: Workflow stage event log v0: implemented.
-Latest reviewer-routing marker: PDF page diagnostics downstream runtime issue-body refresh v0.
-Latest external-feedback state: pending after PDF page diagnostics downstream issue verification; candidate_count=0; self-authored comment only.
+Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0.
+Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*` artifacts.
 
@@ -638,6 +638,8 @@ External reviewer persisted document failure candidate manual handoff runtime re
 External reviewer persisted document failure candidate manual handoff runtime issue-body refresh v0: implemented. Boundary: issue #1 now links `docs/review/persisted-document-failure-candidate-manual-handoff-runtime-smoke.md`, the request refresh, and the issue-body refresh record from `Latest Proof To Inspect`; this is an owner-authored issue body edit only, not external reviewer feedback, hosted deployment evidence, automatic failure-case creation, a confirm endpoint, robust PDF extraction, OCR, or product-complete.
 
 External feedback current-state persisted document failure candidate manual handoff runtime issue verification v0: implemented. Boundary: current issue #1 has the persisted document failure candidate manual handoff runtime proof, request refresh, and issue-body refresh links, but the only screened comment is owner-authored by `svy04`, with `candidate_count=0`, `draft_count=0`, and external reviewer feedback still pending.
+
+README latest-marker persisted document failure candidate manual handoff current-state refresh v0: implemented. Boundary: README top markers now point to the persisted document failure candidate manual handoff issue-body refresh and current-state issue verification; external reviewer feedback remains pending, and this is not automatic failure-case creation, a confirm endpoint, hosted deployment evidence, robust PDF extraction, or product-complete.
 
 Uploaded PDF downstream handoff v0: implemented. Boundary: `POST /documents/upload-chunk-preview`, `POST /documents/upload-chunks`, and `POST /documents/upload-retrieval-preview` reuse PyMuPDF digital text extraction for uploaded PDF bytes; OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, and external reviewer feedback are not claimed.
 

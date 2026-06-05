@@ -17646,7 +17646,7 @@ def test_readme_latest_marker_current_state_refresh_points_to_current_proof_boun
         in readme
     )
     assert (
-        "Latest external-feedback state: pending after PDF page diagnostics downstream issue verification; candidate_count=0; self-authored comment only"
+        "Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only"
         in readme
     )
     assert "Latest marker: Failure-case workflow review queue v0" not in readme
@@ -17692,11 +17692,11 @@ def test_readme_latest_marker_embedding_handoff_current_state_refresh_updates_fi
     assert "not live embedding generation proof" in content
     assert "not product-complete" in content
     assert (
-        "Latest reviewer-routing marker: PDF page diagnostics downstream runtime issue-body refresh v0"
+        "Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0"
         in readme
     )
     assert (
-        "Latest external-feedback state: pending after PDF page diagnostics downstream issue verification; candidate_count=0; self-authored comment only"
+        "Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only"
         in readme
     )
     assert latest_routing not in readme
@@ -17760,8 +17760,16 @@ def test_readme_latest_marker_pdf_downstream_current_state_refresh_updates_first
     assert "not hosted deployment evidence" in content
     assert "not robust PDF extraction" in content
     assert "not product-complete" in content
-    assert latest_routing in readme
-    assert latest_feedback in readme
+    assert (
+        "Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0"
+        in readme
+    )
+    assert (
+        "Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only"
+        in readme
+    )
+    assert latest_routing not in readme
+    assert latest_feedback not in readme
     assert (
         "Latest reviewer-routing marker: Embedding provider handoff alignment issue-body refresh v0"
         not in readme
@@ -17841,6 +17849,81 @@ def test_readme_latest_marker_pdf_downstream_current_state_remote_verification_r
     )
     assert (
         "readme latest-marker PDF downstream current-state remote verification v0"
+        in runbook
+    )
+    assert review_doc in portfolio
+
+
+def test_readme_latest_marker_persisted_document_failure_candidate_manual_handoff_current_state_refresh_updates_first_pass_markers():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/readme-latest-marker-persisted-document-failure-candidate-manual-handoff-current-state-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "readme-latest-marker-persisted-document-failure-candidate-manual-handoff-current-state-refresh.md"
+    )
+
+    latest_routing = (
+        "Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0"
+    )
+    latest_feedback = (
+        "Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only"
+    )
+
+    assert (
+        "README Latest-marker Persisted Document Failure Candidate Manual Handoff Current-state Refresh"
+        in content
+    )
+    assert (
+        "readme latest-marker persisted document failure candidate manual handoff current-state refresh v0"
+        in content
+    )
+    assert latest_routing in content
+    assert latest_feedback in content
+    assert (
+        "docs/review/external-review-issue-body-persisted-document-failure-candidate-manual-handoff-runtime-refresh.md"
+        in content
+    )
+    assert (
+        "docs/review/external-feedback-current-state-persisted-document-failure-candidate-manual-handoff-runtime-issue-verification.md"
+        in content
+    )
+    assert "failure_case_count_delta -> 1" in content
+    assert "human changes draft.fix_status from draft to open" in content
+    assert "external-feedback remains pending" in content
+    assert "not automatic failure-case creation" in content
+    assert "not a confirm endpoint" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not product-complete" in content
+    assert latest_routing in readme
+    assert latest_feedback in readme
+    assert (
+        "Latest reviewer-routing marker: PDF page diagnostics downstream runtime issue-body refresh v0"
+        not in readme
+    )
+    assert (
+        "README latest-marker persisted document failure candidate manual handoff current-state refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 569 - README Latest-marker Persisted Document Failure Candidate Manual Handoff Current-state Refresh v0"
+        in goal
+    )
+    assert (
+        "readme latest-marker persisted document failure candidate manual handoff current-state refresh v0"
         in runbook
     )
     assert review_doc in portfolio

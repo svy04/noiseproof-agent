@@ -20783,6 +20783,39 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 569 - README Latest-marker Persisted Document Failure Candidate Manual Handoff Current-state Refresh v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+align the README first-pass latest reviewer-routing and external-feedback markers with the persisted document failure candidate manual handoff runtime issue-body refresh and current-state issue verification
+```
+
+Implemented artifacts:
+
+```text
+readme latest-marker persisted document failure candidate manual handoff current-state refresh v0
+docs/review/readme-latest-marker-persisted-document-failure-candidate-manual-handoff-current-state-refresh.md
+Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0
+Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only
+docs/review/external-review-issue-body-persisted-document-failure-candidate-manual-handoff-runtime-refresh.md
+docs/review/external-feedback-current-state-persisted-document-failure-candidate-manual-handoff-runtime-issue-verification.md
+```
+
+Boundary:
+
+```text
+Phase 569 is README current-state alignment only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not automatic failure-case creation, not a confirm endpoint, not automatic root-cause analysis, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+remote verification for this README marker refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

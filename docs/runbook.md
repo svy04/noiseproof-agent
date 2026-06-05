@@ -10435,6 +10435,34 @@ not hosted deployment evidence
 not product-complete
 ```
 
+## README Latest-marker Persisted Document Failure Candidate Manual Handoff Current-state Refresh
+
+Phase marker: readme latest-marker persisted document failure candidate manual handoff current-state refresh v0.
+
+Review artifact:
+
+```text
+docs/review/readme-latest-marker-persisted-document-failure-candidate-manual-handoff-current-state-refresh.md
+```
+
+README top markers:
+
+```text
+Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0
+Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only
+```
+
+Boundary:
+
+```text
+README current-state alignment only
+external-feedback remains pending
+not automatic failure-case creation
+not a confirm endpoint
+not hosted deployment evidence
+not product-complete
+```
+
 ## Workflow Failure-case Persistence Handoff
 
 Phase marker: workflow failure-case persistence handoff v0.
