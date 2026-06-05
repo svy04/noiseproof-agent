@@ -1,8 +1,10 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import PlainTextResponse
 from uuid import UUID, uuid4
 
 from app.db import Repository, get_repository
 from app.schemas import ReportPreviewOut, ReportPreviewRequest, ReportStoredRecordOut
+from app.services.report_markdown import render_report_record_markdown
 from app.services.report_preview import preview_report
 from app.services.run_trace import run_with_trace
 
@@ -77,4 +79,18 @@ def create_report_preview(
             "gate_decision": result.gate.decision,
             "claim_count": len(result.report.claims) if result.report is not None else 0,
         },
+    )
+
+
+@router.get("/{report_record_id}/markdown", response_class=PlainTextResponse)
+def export_report_record_markdown(
+    report_record_id: UUID,
+    repository: Repository = Depends(get_repository),
+) -> PlainTextResponse:
+    record = repository.get_report_record(report_record_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Report record not found")
+    return PlainTextResponse(
+        render_report_record_markdown(record),
+        media_type="text/markdown",
     )

@@ -2,6 +2,8 @@
 
 ## Current Status
 
+Phase 572 adds persisted report markdown export v0: `GET /reports/{report_record_id}/markdown` renders an existing persisted `report_records` row as deterministic `text/markdown`, including claim, source ids, evidence spans, confidence, limitations, contradictions, next data needed, stage input manifest, warnings, and an explicit no-new-claims boundary. Unknown ids return `404` with `Report record not found`. This is a read/export surface only; it does not generate new claims, call an LLM, run retrieval, create Evidence Ledger rows, create new Report records, provide financial advice, or implement free-form reports. See `docs/review/persisted-report-markdown-export.md`.
+
 Phase 336 adds architecture current-state refresh v0: `docs/architecture.md` now separates implemented uploaded-file persistence, chunk/retrieval persistence, caller-provided embeddings, semantic retrieval persistence, and retrieval-run-linked Evidence Ledger / Noise Gate / Report handoffs from still-unproven robust PDF extraction, embedding generation, hosted deployment evidence, external reviewer feedback, endpoint malicious-detection runtime proof, and production semantic retrieval quality. See `docs/review/architecture-current-state-refresh.md`.
 
 Phase 337 adds external reviewer architecture current-state request refresh v0: `docs/review/external-review-request.md`, `docs/review/external-reviewer-link-map.md`, and `.github/ISSUE_TEMPLATE/external-review-feedback.md` now link to `docs/review/architecture-current-state-refresh.md`. This is request infrastructure only, not external reviewer feedback, hosted deployment evidence, or endpoint malicious-detection runtime proof.
@@ -1522,6 +1524,26 @@ Expected persisted response shape:
 ```
 
 Current report persistence is v0. It stores deterministic preview output only; it does not call an LLM or create a free-form final report.
+
+Export a persisted Report record as deterministic Markdown:
+
+```bash
+curl http://localhost:8000/reports/<report_record_id>/markdown
+```
+
+Expected Markdown markers:
+
+```text
+# Claim-bounded Report
+Report record id: <report_record_id>
+Status: generated
+Boundary: This markdown export is deterministic.
+Claim: Enterprise demand grew
+Sources: doc-demand
+Evidence: Enterprise demand grew 12% in 2026.
+```
+
+Unknown ids return `404` with `Report record not found`. This export reads an existing `report_records` row; it does not generate new claims, call an LLM, run retrieval, create Evidence Ledger rows, create Report records, provide financial advice, or implement free-form reports.
 Persisted evidence, gate, and report records include both `workflow_trace_id` and `agent_run_id`. The same `workflow_trace_id` is written to the matching `agent_runs.trace_json` entry for the persistence endpoint. This is local parent/child linkage, not full distributed tracing.
 Use `GET /traces/{workflow_trace_id}` to inspect records and agent-run traces that share that id.
 Use the persisted record list filters to narrow evidence, gate, and report records without adding search or ranking:

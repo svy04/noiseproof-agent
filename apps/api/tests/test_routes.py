@@ -411,6 +411,12 @@ class InMemoryRepository:
             rows = [row for row in rows if row["status"] == status]
         return rows
 
+    def get_report_record(self, report_record_id):
+        for row in self.report_records:
+            if str(row["id"]) == str(report_record_id):
+                return row
+        return None
+
     def lookup_trace_records(self, workflow_trace_id):
         trace_id = str(workflow_trace_id)
         return {
@@ -5400,6 +5406,63 @@ def test_report_records_can_be_persisted_and_listed():
         and trace["trace_json"].get("phase") == WORKFLOW_VERSION
         for trace in traces
     )
+
+
+def test_report_record_markdown_export_renders_stored_claim_boundaries():
+    client = make_client()
+
+    response = client.post(
+        "/reports",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "evidence_entries": [
+                {
+                    "claim": "Enterprise demand grew",
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "source_date": "2026-05-28",
+                    "evidence_span": "Enterprise demand grew 12% in 2026.",
+                    "confidence": "medium",
+                    "limitation": "Supported by one retrieved source.",
+                    "contradicting_source_ids": [],
+                    "status": "supported",
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "role": "direct_support",
+                }
+            ],
+            "draft_claims": [
+                "Enterprise demand grew, with the current evidence limited to one retrieved source."
+            ],
+        },
+    )
+    report_id = response.json()["id"]
+
+    exported = client.get(f"/reports/{report_id}/markdown")
+
+    assert exported.status_code == 200
+    assert exported.headers["content-type"].startswith("text/markdown")
+    assert "# Claim-bounded Report" in exported.text
+    assert f"Report record id: {report_id}" in exported.text
+    assert "Status: generated" in exported.text
+    assert "Question: Which segment had enterprise demand growth?" in exported.text
+    assert "Claim: Enterprise demand grew" in exported.text
+    assert "Sources: doc-demand" in exported.text
+    assert "Confidence: medium" in exported.text
+    assert "Evidence: Enterprise demand grew 12% in 2026." in exported.text
+    assert "Supported by one retrieved source." in exported.text
+    assert "Add an independent second source for claim" in exported.text
+    assert "This markdown export is deterministic" in exported.text
+    assert "does not generate new claims" in exported.text
+
+
+def test_report_record_markdown_export_returns_404_for_unknown_report():
+    client = make_client()
+    unknown_id = uuid4()
+
+    response = client.get(f"/reports/{unknown_id}/markdown")
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Report record not found"
 
 
 def test_ops_summary_and_dashboard_surface_persisted_report_records():

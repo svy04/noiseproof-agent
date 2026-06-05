@@ -23,6 +23,7 @@ Current status:
 - Persisted Evidence Ledger Records v0 exists for stored claim-level entries and operations counts.
 - Persisted Noise Gate Records v0 exists for stored pass / needs_revision / blocked gate decisions.
 - Persisted Report Preview Records v0 exists for stored generated / needs_revision / blocked report-shaped outputs.
+- Persisted Report Markdown Export v0 exists for deterministic reviewer-readable Markdown over existing persisted report records.
 - Record Linkage v0 exists with shared `workflow_trace_id` values across persisted evidence, gate, report records, and matching `agent_runs.trace_json`.
 - Trace-id Lookup v0 exists for direct inspection by `workflow_trace_id`.
 - Persisted Record Filtering v0 exists for read-only filtering of persisted evidence, gate, and report records.
@@ -320,10 +321,12 @@ Implemented Phase 14 boundary:
 
 - `POST /reports` persists deterministic report preview records
 - `GET /reports` lists stored report preview records
+- `GET /reports/{report_record_id}/markdown` exports one stored report record as deterministic Markdown
 - operations summary and dashboard count generated, blocked, and needs-revision report records
 - persisted Report records can link to parent `agent_runs` and workflow parents where created through traced/workflow paths
 - `POST /retrieval-runs/{retrieval_run_id}/report` creates a retrieval-run-linked Report after the linked Noise Gate exists
 - retrieval-run-linked Report records preserve the input Noise Gate id in `stage_input_manifest`; they are not free-form final answers
+- persisted Report markdown export reads existing records only; it creates no new claims, report records, Evidence Ledger rows, retrieval runs, or LLM output
 
 ### Run Log / Failure Case
 
@@ -554,6 +557,7 @@ GET  /noise-gates
 POST /reports/preview
 POST /reports
 GET  /reports
+GET  /reports/{report_record_id}/markdown
 GET  /traces/{workflow_trace_id}
 POST /agent-runs
 GET  /agent-runs

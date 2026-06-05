@@ -204,6 +204,7 @@ class Repository(Protocol):
         workflow_trace_id: UUID | None = None,
         status: str | None = None,
     ) -> Sequence[dict]: ...
+    def get_report_record(self, report_record_id: UUID) -> dict | None: ...
     def lookup_trace_records(self, workflow_trace_id: UUID) -> dict[str, Sequence[dict]]: ...
     def create_failure_case(self, payload: FailureCaseCreate) -> dict: ...
     def list_failure_cases(self) -> Sequence[dict]: ...
@@ -1313,6 +1314,17 @@ class PostgresRepository:
                 params,
             ).fetchall()
             return [dict(row) for row in rows]
+
+    def get_report_record(self, report_record_id: UUID) -> dict | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                SELECT * FROM report_records
+                WHERE id = %s
+                """,
+                (report_record_id,),
+            ).fetchone()
+            return dict(row) if row is not None else None
 
     def lookup_trace_records(self, workflow_trace_id: UUID) -> dict[str, Sequence[dict]]:
         with self._connect() as conn:

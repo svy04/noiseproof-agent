@@ -20880,6 +20880,40 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 572 - Persisted Report Markdown Export v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+render an existing persisted claim-bounded Report record as reviewer-readable Markdown without creating new claims or expanding report generation scope
+```
+
+Implemented artifacts:
+
+```text
+persisted report markdown export v0
+GET /reports/{report_record_id}/markdown
+apps/api/app/services/report_markdown.py
+Repository.get_report_record
+docs/review/persisted-report-markdown-export.md
+test_report_record_markdown_export_renders_stored_claim_boundaries
+test_report_record_markdown_export_returns_404_for_unknown_report
+```
+
+Boundary:
+
+```text
+Phase 572 is a deterministic read/export surface over existing persisted Report records only. It is not free-form report generation, not a new report-generation path, not an LLM call, not retrieval, not Evidence Ledger creation, not Noise Gate behavior, not Report record creation, not financial advice, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+remote verification for this product gate after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

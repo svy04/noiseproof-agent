@@ -1,0 +1,123 @@
+from collections.abc import Mapping, Sequence
+from typing import Any
+
+
+REPORT_MARKDOWN_BOUNDARY = (
+    "This markdown export is deterministic. It renders an existing persisted "
+    "report record and does not generate new claims, call an LLM, run retrieval, "
+    "create Evidence Ledger rows, or provide financial advice."
+)
+
+
+def render_report_record_markdown(record: Mapping[str, Any]) -> str:
+    lines = [
+        "# Claim-bounded Report",
+        "",
+        f"Report record id: {_value(record.get('id'))}",
+        f"Workflow trace id: {_value(record.get('workflow_trace_id'))}",
+        f"Status: {_value(record.get('status'))}",
+        f"Gate decision: {_value(record.get('gate_decision'))}",
+        f"Question: {_value(record.get('question'))}",
+        "",
+        f"Boundary: {REPORT_MARKDOWN_BOUNDARY}",
+        "",
+    ]
+
+    report = record.get("report")
+    if isinstance(report, Mapping):
+        lines.extend(_render_report(report))
+    else:
+        lines.extend(_render_no_report(record))
+
+    lines.extend(_render_stage_input_manifest(record.get("stage_input_manifest")))
+    lines.extend(_render_section("Warnings", record.get("warnings")))
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def _render_report(report: Mapping[str, Any]) -> list[str]:
+    lines = [
+        "## Summary",
+        "",
+        _value(report.get("summary")),
+        "",
+        "## Claims",
+        "",
+    ]
+    claims = report.get("claims") or []
+    if not claims:
+        lines.extend(["- None", ""])
+    for index, claim in enumerate(claims, start=1):
+        if not isinstance(claim, Mapping):
+            continue
+        lines.extend(
+            [
+                f"### Claim {index}",
+                "",
+                f"- Claim: {_value(claim.get('claim'))}",
+                f"- Sources: {_join_values(claim.get('source_ids'))}",
+                f"- Confidence: {_value(claim.get('confidence'))}",
+                f"- Evidence: {_join_values(claim.get('evidence_spans'))}",
+                f"- Limitations: {_join_values(claim.get('limitations'))}",
+                f"- Contradictions: {_join_values(claim.get('contradictions'))}",
+                "",
+            ]
+        )
+    lines.extend(_render_section("Limitations", report.get("limitations")))
+    lines.extend(_render_section("Contradictions", report.get("contradictions")))
+    lines.extend(_render_section("Next Data Needed", report.get("next_data_needed")))
+    return lines
+
+
+def _render_no_report(record: Mapping[str, Any]) -> list[str]:
+    lines = [
+        "## Report",
+        "",
+        "No generated report body is stored for this record.",
+        "",
+    ]
+    fallback = record.get("fallback_message")
+    if fallback:
+        lines.extend(["## Fallback Message", "", _value(fallback), ""])
+    lines.extend(_render_section("Required Revisions", record.get("required_revisions")))
+    return lines
+
+
+def _render_stage_input_manifest(value: Any) -> list[str]:
+    if not isinstance(value, Mapping) or not value:
+        return ["## Stage Input Manifest", "", "- None", ""]
+    lines = ["## Stage Input Manifest", ""]
+    for key in sorted(value):
+        item = value[key]
+        if isinstance(item, Sequence) and not isinstance(item, str):
+            lines.append(f"- {key}: {_join_values(item)}")
+        else:
+            lines.append(f"- {key}: {_value(item)}")
+    lines.append("")
+    return lines
+
+
+def _render_section(title: str, value: Any) -> list[str]:
+    lines = [f"## {title}", ""]
+    if not value:
+        lines.extend(["- None", ""])
+        return lines
+    if isinstance(value, Sequence) and not isinstance(value, str):
+        lines.extend(f"- {_value(item)}" for item in value)
+        lines.append("")
+        return lines
+    lines.extend([f"- {_value(value)}", ""])
+    return lines
+
+
+def _join_values(values: Any) -> str:
+    if not values:
+        return "None"
+    if isinstance(values, Sequence) and not isinstance(values, str):
+        return ", ".join(_value(value) for value in values) or "None"
+    return _value(values)
+
+
+def _value(value: Any) -> str:
+    if value is None:
+        return "None"
+    return str(value)

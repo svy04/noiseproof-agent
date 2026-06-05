@@ -20,7 +20,7 @@ Current implemented capability groups:
 
 - service skeleton, metadata persistence, PostgreSQL schema, migration runner, and CI
 - document profiling, parser boundaries, uploaded digital PDF text extraction, chunk strategy comparison, and lexical retrieval
-- deterministic local hash embedding preview, collection planning, Evidence Ledger, Noise Gate, and claim-bounded report previews
+- deterministic local hash embedding preview, collection planning, Evidence Ledger, Noise Gate, claim-bounded report previews, and persisted report markdown exports
 - persisted evidence/gate/report records, trace lookup, filters, workflow parents, and derived lineage
 - trace context header propagation, operations dashboard, failure-case persistence, manual workflow parent provenance, and proof-path documentation
 

@@ -14,6 +14,8 @@ Latest public proof route refresh: `docs/review/external-reviewer-live-proof-rou
 
 Demo surface: `docs/review/demo-transcript-capture.md` records a self-authored route walkthrough for collection planning, deterministic workflow preview, lineage, and dashboard inspection. It is not external reviewer feedback or hosted deployment evidence.
 
+Persisted report markdown export: `docs/review/persisted-report-markdown-export.md` records `GET /reports/{report_record_id}/markdown`, a deterministic read/export surface that renders an existing persisted Report record as reviewer-readable Markdown. It does not generate new claims, call an LLM, run retrieval, create Evidence Ledger rows, or implement free-form reports.
+
 Visual local proof surface: `docs/review/local-browser-screenshot-walkthrough.md` records a local browser screenshot of `GET /ops/dashboard` with workflow-run lineage links. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, and not production observability.
 
 Deterministic text embedding preview: `docs/review/deterministic-text-embedding-preview.md` records `POST /chunks/embedding-preview` for `local-hash-embedding-preview-v0`. It is preview-only, not persisted, not a semantic embedding model, not vector search quality evidence, and not external reviewer feedback.
@@ -446,6 +448,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | Noise Gate persistence | `POST /noise-gates`, `GET /noise-gates` | implemented v0 |
 | Report preview | `packages/ingestion/reports/report.py` | implemented |
 | Report preview persistence | `POST /reports`, `GET /reports` | implemented v0 |
+| Persisted report markdown export | `GET /reports/{report_record_id}/markdown`, `docs/review/persisted-report-markdown-export.md` | implemented v0 |
 | Record linkage | `workflow_trace_id` on persisted evidence/gate/report records and agent-run traces | implemented v0 |
 | Trace lookup | `GET /traces/{workflow_trace_id}` | implemented v0 |
 | Persisted record filters | `workflow_trace_id` / status filters on evidence, gate, and report lists | implemented v0 |
