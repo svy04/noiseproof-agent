@@ -10058,6 +10058,44 @@ not hosted deployment evidence
 actual live embedding model generation remains unproven
 ```
 
+## External Reviewer Embedding Provider Owner-runtime Smoke Handoff Alignment Request Refresh
+
+Phase marker: external reviewer embedding provider owner-runtime smoke handoff alignment request refresh v0.
+
+Review artifact:
+
+```text
+docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-handoff-alignment-request-refresh.md
+```
+
+Reviewer-facing handoff path:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-response-handoff-report.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment-ci-remote-verification.md
+```
+
+Key markers:
+
+```text
+--build-owner-runtime-smoke-report-from-response
+response_handoff_command
+response_handoff_commands
+workflow screen only
+```
+
+Boundary:
+
+```text
+request-surface refresh only
+not a live issue body edit
+not external reviewer feedback
+not live embedding generation proof
+not hosted deployment evidence
+actual live embedding model generation remains unproven
+```
+
 ## Embedding Model Live-provider Owner-runtime Smoke Packet Command-template Handoff Alignment
 
 Phase marker: embedding model live-provider owner-runtime smoke packet command-template handoff alignment v0.

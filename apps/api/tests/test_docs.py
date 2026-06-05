@@ -18590,6 +18590,106 @@ def test_embedding_model_live_provider_owner_runtime_smoke_packet_command_templa
     assert review_doc in portfolio
 
 
+def test_external_reviewer_embedding_provider_owner_runtime_smoke_handoff_alignment_request_refresh_links_handoff_path():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reviewer-embedding-provider-owner-runtime-smoke-handoff-alignment-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    reviewer_brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+
+    response_handoff_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-response-handoff-report.md"
+    )
+    command_alignment_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment.md"
+    )
+    ci_verification_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment-ci-remote-verification.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-embedding-provider-owner-runtime-smoke-handoff-alignment-request-refresh.md"
+    )
+
+    assert (
+        "External Reviewer Embedding Provider Owner-runtime Smoke Handoff Alignment Request Refresh"
+        in content
+    )
+    assert (
+        "external reviewer embedding provider owner-runtime smoke handoff alignment request refresh v0"
+        in content
+    )
+    assert response_handoff_doc in content
+    assert command_alignment_doc in content
+    assert ci_verification_doc in content
+    assert request_doc in content
+    assert "--build-owner-runtime-smoke-report-from-response" in content
+    assert "response_handoff_command" in content
+    assert "workflow screen only" in content
+    assert "not a live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not live embedding generation proof" in content
+    assert "not product-complete" in content
+
+    for surface in [
+        contributing,
+        issue_template,
+        readme,
+        goal,
+        runbook,
+        portfolio,
+        proof_path,
+        review_request,
+        reviewer_brief,
+        link_map,
+    ]:
+        assert response_handoff_doc in surface
+        assert command_alignment_doc in surface
+        assert ci_verification_doc in surface
+        assert request_doc in surface
+
+    assert (
+        "External reviewer embedding provider owner-runtime smoke handoff alignment request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 497 - External Reviewer Embedding Provider Owner-runtime Smoke Handoff Alignment Request Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer embedding provider owner-runtime smoke handoff alignment request refresh v0"
+        in runbook
+    )
+
+
 def test_external_reviewer_embedding_provider_owner_runtime_smoke_validator_request_refresh_links_validation_path():
     review_path = (
         REPO_ROOT

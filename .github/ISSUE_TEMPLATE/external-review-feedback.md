@@ -33,7 +33,11 @@ Fast links:
   - Validator: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md
   - Post-run validation command: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md
   - Validator request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-validator-request-refresh.md
-  - Boundary: no-secret/no-call owner-runtime smoke contract with `api_calls_attempted: false` and `openai_api_key_printed: false`; not live embedding generation proof, not hosted deployment evidence, not semantic retrieval quality evidence, and not external reviewer feedback.
+  - Response handoff: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-response-handoff-report.md
+  - Command-template handoff alignment: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment.md
+  - Handoff alignment CI remote verification: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment-ci-remote-verification.md
+  - Handoff request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-handoff-alignment-request-refresh.md
+  - Boundary: no-secret/no-call owner-runtime smoke contract with `api_calls_attempted: false` and `openai_api_key_printed: false`; response handoff command `--build-owner-runtime-smoke-report-from-response`; packet field `response_handoff_command`; not live embedding generation proof, not hosted deployment evidence, not semantic retrieval quality evidence, and not external reviewer feedback.
 - Local browser screenshot walkthrough: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/local-browser-screenshot-walkthrough.md
 - uploaded-file intake manifest proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-intake-manifest-runtime-smoke.md
   - Boundary: not raw file storage, not hosted deployment evidence, and not external reviewer feedback.

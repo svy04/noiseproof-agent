@@ -61,11 +61,15 @@ Latest embedding provider owner-runtime smoke packet:
 docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
 docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md
 docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-response-handoff-report.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment-ci-remote-verification.md
 docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md
 docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-validator-request-refresh.md
+docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-handoff-alignment-request-refresh.md
 ```
 
-This packet records `api_calls_attempted: false`, `openai_api_key_printed: false`, and owner-provided `OPENAI_API_KEY` kept outside the repository. The validator path uses `--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>` and expects `accepted_owner_runtime_smoke: true` plus `missing_or_failed_checks: []` only for a future owner-runtime smoke report. It is not live embedding generation proof, not hosted deployment evidence, not semantic retrieval quality evidence, not external reviewer feedback, and not product-complete.
+This packet records `api_calls_attempted: false`, `openai_api_key_printed: false`, and owner-provided `OPENAI_API_KEY` kept outside the repository. The validator path uses `--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>` and expects `accepted_owner_runtime_smoke: true` plus `missing_or_failed_checks: []` only for a future owner-runtime smoke report. The response handoff uses `--build-owner-runtime-smoke-report-from-response`, the packet exposes `response_handoff_command`, and the CI verification is workflow screen only. It is not live embedding generation proof, not hosted deployment evidence, not semantic retrieval quality evidence, not external reviewer feedback, and not product-complete.
 
 uploaded-file intake manifest proof:
 

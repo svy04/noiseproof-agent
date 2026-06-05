@@ -16,11 +16,19 @@ This artifact gives outside reviewers direct links to the shortest inspectable p
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md
 - Post-run validation command:
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md
+- Response handoff:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-response-handoff-report.md
+- Command-template handoff alignment:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment.md
+- Handoff alignment CI remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment-ci-remote-verification.md
 - Request refresh:
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md
 - Validator request refresh:
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-validator-request-refresh.md
-- Boundary: no-secret/no-call owner-runtime smoke contract with `api_calls_attempted: false` and `openai_api_key_printed: false`; validator command `--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>` expects `accepted_owner_runtime_smoke: true` and `missing_or_failed_checks: []` only after a future owner-runtime report exists; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not live embedding generation proof, not semantic retrieval quality evidence, and not product-complete.
+- Handoff request refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-handoff-alignment-request-refresh.md
+- Boundary: no-secret/no-call owner-runtime smoke contract with `api_calls_attempted: false` and `openai_api_key_printed: false`; validator command `--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>` expects `accepted_owner_runtime_smoke: true` and `missing_or_failed_checks: []` only after a future owner-runtime report exists; response handoff command `--build-owner-runtime-smoke-report-from-response`; packet field `response_handoff_command`; CI verification is workflow screen only; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not live embedding generation proof, not semantic retrieval quality evidence, and not product-complete.
 
 ## Latest Workflow Proof Bundle Runtime Proof
 
