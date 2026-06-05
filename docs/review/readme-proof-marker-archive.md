@@ -1485,6 +1485,14 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Body file was written as `utf8_no_bom_body_file`
 - Boundary: owner-authored request-surface hygiene only; not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete
 
+### Phase 579 - External Feedback Current-state Issue Body BOM Removal Issue Verification v0
+
+- External feedback current-state issue body BOM removal issue verification v0: implemented
+- `docs/review/external-feedback-current-state-issue-body-bom-removal-issue-verification.md`: added
+- Current issue #1 starts with codepoint `35`, has no leading BOM, and still exposes `GET /reports/{report_record_id}/markdown`
+- Screening result: `candidate_count=0`, `draft_count=0`, `reason=self_authored_comment`, `status=pending`
+- Boundary: current-state issue screen only; not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete
+
 ### Phase 362 - Failure-case Workflow Review Queue Proof Index v0
 
 - Failure-case workflow review queue proof index v0: implemented

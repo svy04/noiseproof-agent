@@ -21132,6 +21132,50 @@ Next recommended evidence gate:
 external feedback current-state verification after the issue-body readability repair, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 579 - External Feedback Current-state Issue Body BOM Removal Issue Verification v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+record the live issue state after the issue body BOM removal repair without claiming outside feedback
+```
+
+Implemented artifacts:
+
+```text
+external feedback current-state issue body BOM removal issue verification v0
+docs/review/external-feedback-current-state-issue-body-bom-removal-issue-verification.md
+https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt -> 2026-06-05T15:48:38Z
+first_codepoint -> 35
+has_leading_bom -> false
+starts_with_request -> true
+has_persisted_report_markdown_export_proof -> true
+has_markdown_route -> true
+comment_count -> 1
+screened_comment_count -> 1
+owner_comment_count -> 1
+candidate_count -> 0
+draft_count -> 0
+classification -> non_qualifying
+reason -> self_authored_comment
+status -> pending
+```
+
+Boundary:
+
+```text
+Phase 579 is a current-state issue screen only. It confirms that the public issue body starts cleanly after the BOM removal repair while still pointing reviewers to the persisted Report markdown export proof, and that the only public comment remains owner-authored and non-qualifying. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not free-form report generation, not a new report-generation path, not an LLM call, not retrieval, not Evidence Ledger creation, not Noise Gate behavior, not Report record creation, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+remote verification for this current-state issue screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

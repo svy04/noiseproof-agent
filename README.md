@@ -20,6 +20,8 @@ Latest remote verification state: the persisted Report markdown export issue ver
 
 Latest issue readability state: issue #1 now starts with `## Request` after the owner-authored BOM removal refresh; this is request-surface hygiene only, not external feedback.
 
+Latest issue-feedback state: pending after the issue body BOM removal current-state verification; the issue starts with codepoint `35`, has no leading BOM, and still has `candidate_count=0`.
+
 ## What This Is
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.

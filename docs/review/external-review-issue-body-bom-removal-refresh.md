@@ -44,6 +44,18 @@ $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 gh issue edit 1 --repo svy04/noiseproof-agent --body-file $tmp
 ```
 
+Follow-up current-state verification:
+
+```text
+external feedback current-state issue body BOM removal issue verification v0
+docs/review/external-feedback-current-state-issue-body-bom-removal-issue-verification.md
+first_codepoint: 35
+has_leading_bom: false
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment
+```
+
 ## Boundary
 
 This is an owner-authored issue body readability repair.

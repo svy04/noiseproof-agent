@@ -8559,6 +8559,81 @@ def test_external_review_issue_body_bom_removal_refresh_records_readability_repa
     assert "docs/review/external-review-issue-body-bom-removal-refresh.md" in portfolio
 
 
+def test_external_feedback_current_state_issue_body_bom_removal_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-issue-body-bom-removal-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    bom_refresh = (
+        REPO_ROOT / "docs/review/external-review-issue-body-bom-removal-refresh.md"
+    ).read_text(encoding="utf-8")
+
+    verification_doc = (
+        "docs/review/"
+        "external-feedback-current-state-issue-body-bom-removal-issue-verification.md"
+    )
+
+    assert (
+        "External Feedback Current-state Issue Body BOM Removal Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state issue body BOM removal issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "docs/review/external-review-issue-body-bom-removal-refresh.md" in content
+    assert '"updatedAt": "2026-06-05T15:48:38Z"' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_leading_bom": false' in content
+    assert '"starts_with_request": true' in content
+    assert '"has_persisted_report_markdown_export_proof": true' in content
+    assert '"has_markdown_route": true' in content
+    assert '"comment_count": 1' in content
+    assert '"screened_comment_count": 1' in content
+    assert '"owner_comment_count": 1' in content
+    assert '"candidate_count": 0' in content
+    assert '"draft_count": 0' in content
+    assert '"classification": "non_qualifying"' in content
+    assert '"reason": "self_authored_comment"' in content
+    assert '"status": "pending"' in content
+    assert "does_not_close_gate: true" in content
+    assert "external reviewer feedback v0 gate remains pending" in content
+    assert "persisted Report markdown export proof" in content
+    assert "GET /reports/{report_record_id}/markdown" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not Braincrew acceptance" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state issue body BOM removal issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 579 - External Feedback Current-state Issue Body BOM Removal Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state issue body BOM removal issue verification v0"
+        in runbook
+    )
+    assert verification_doc in portfolio
+    assert (
+        "external feedback current-state issue body BOM removal issue verification v0"
+        in bom_refresh
+    )
+
+
 def test_semantic_retrieval_quality_report_issue_body_refresh_records_live_issue_update():
     review_path = (
         REPO_ROOT
