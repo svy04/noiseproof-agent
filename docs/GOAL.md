@@ -21765,3 +21765,30 @@ local_workflow_stage_failure_event_auto_failure_case_local_v0
 Boundary: request-surface refresh only; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, not production background worker behavior, and not product-complete.
 
 Next gate: external review issue body workflow failure auto-created dashboard runtime refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 593 - External Reviewer Workflow Failure Auto-created Failure-case Dashboard Runtime Issue-body Refresh v0
+
+Status: implemented.
+
+Purpose: update the live owner-authored issue #1 body so the external review request points to the workflow failure auto-created failure-case dashboard runtime proof.
+
+Implemented artifacts:
+
+```text
+external review issue body workflow failure auto-created dashboard runtime refresh v0
+https://github.com/svy04/noiseproof-agent/issues/1
+docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md
+docs/review/external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md
+docs/review/external-review-issue-body-workflow-failure-auto-created-dashboard-runtime-refresh.md
+GET /ops/dashboard -> 200
+dashboard_contains_auto_created_failure_case_id
+dashboard_contains_workflow_parent_link
+dashboard_contains_review_queue_linked_count
+starts_with_request -> true
+first_codepoint -> 35
+comment_count -> 1
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, not production background worker behavior, and not product-complete.
+
+Next gate: external feedback current-state workflow failure auto-created dashboard runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

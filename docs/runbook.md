@@ -10913,6 +10913,49 @@ not production background worker behavior
 not product-complete
 ```
 
+## External Review Issue Body Workflow Failure Auto-created Dashboard Runtime Refresh
+
+Phase marker: external review issue body workflow failure auto-created dashboard runtime refresh v0.
+
+Review artifact:
+
+```text
+docs/review/external-review-issue-body-workflow-failure-auto-created-dashboard-runtime-refresh.md
+```
+
+Live issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+Observed issue markers:
+
+```text
+starts_with_request -> true
+first_codepoint -> 35
+has_workflow_failure_auto_created_dashboard_runtime_proof -> true
+has_workflow_failure_auto_created_dashboard_request_refresh -> true
+has_workflow_failure_auto_created_dashboard_issue_body_record -> true
+has_dashboard_auto_created_failure_case_id -> true
+has_dashboard_workflow_parent_link -> true
+has_dashboard_review_queue_linked_count -> true
+comment_count -> 1
+```
+
+Boundary:
+
+```text
+owner-authored issue body routing only
+not external reviewer feedback
+not hosted deployment evidence
+not retry behavior
+not root-cause automation
+not complete workflow failure causality
+not production background worker behavior
+not product-complete
+```
+
 ## External Review Issue Body Workflow Failure Auto-creation Runtime Refresh
 
 Phase marker: external review issue body workflow failure auto-creation runtime refresh v0.
