@@ -2690,6 +2690,49 @@ def test_external_feedback_current_state_ops_dashboard_anchor_get_runtime_issue_
     )
 
 
+def test_ops_dashboard_anchor_browser_smoke_records_browser_dom_evidence():
+    review_path = REPO_ROOT / "docs/review/ops-dashboard-anchor-browser-smoke.md"
+    screenshot_path = REPO_ROOT / "docs/review/media/ops-dashboard-anchor-browser-smoke.png"
+    assert review_path.is_file()
+    assert screenshot_path.is_file()
+    assert screenshot_path.stat().st_size > 10_000
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = "docs/review/ops-dashboard-anchor-browser-smoke.md"
+    screenshot_doc = "docs/review/media/ops-dashboard-anchor-browser-smoke.png"
+
+    assert "Ops Dashboard Anchor Browser Smoke" in content
+    assert "ops dashboard anchor browser smoke v0" in content
+    assert "GET /ops/dashboard" in content
+    assert "Playwright browser automation" in content
+    assert screenshot_doc in content
+    assert '"dashboard_status_code": 200' in content
+    assert '"browser_anchor_count": 27' in content
+    assert '"browser_get_anchor_count": 27' in content
+    assert '"browser_post_anchor_count": 0' in content
+    assert '"post_only_draft_preview_anchor_count": 0' in content
+    assert '"post_only_draft_preview_cue_visible": true' in content
+    assert '"all_browser_get_anchors_marked_get": true' in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not customer validation" in content
+    assert "not product-complete" in content
+    assert "Ops dashboard anchor browser smoke v0: implemented" in readme
+    assert (
+        "Phase 526 - Ops Dashboard Anchor Browser Smoke v0"
+        in goal
+    )
+    assert "ops dashboard anchor browser smoke v0" in runbook
+    assert review_doc in portfolio
+
+
 def test_failure_case_workflow_review_queue_fresh_db_dashboard_smoke_documents_runtime_html_proof():
     content = (
         REPO_ROOT

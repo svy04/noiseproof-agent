@@ -19216,6 +19216,41 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 526 - Ops Dashboard Anchor Browser Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record local Playwright browser automation evidence that GET /ops/dashboard renders GET-marked inspection anchors and keeps the POST-only draft-preview route as a method cue rather than a clickable anchor
+```
+
+Implemented:
+
+```text
+ops dashboard anchor browser smoke v0
+docs/review/ops-dashboard-anchor-browser-smoke.md
+docs/review/media/ops-dashboard-anchor-browser-smoke.png
+GET /ops/dashboard
+Playwright browser automation
+dashboard_status_code: 200
+browser_anchor_count: 27
+browser_get_anchor_count: 27
+browser_post_anchor_count: 0
+post_only_draft_preview_anchor_count: 0
+post_only_draft_preview_cue_visible: true
+all_browser_get_anchors_marked_get: true
+```
+
+Phase 526 records local browser automation evidence only. It adds no endpoint, no route behavior change, no runtime workflow semantics, no schema or migration, no hosted deployment evidence, no automatic failure-case creation, no background automation, no complete workflow failure causality, no external reviewer feedback, no LLM calls, no embeddings, no customer validation, no Braincrew acceptance, no design quality claim, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

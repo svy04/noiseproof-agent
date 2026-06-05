@@ -355,6 +355,8 @@ External review issue body ops dashboard anchor GET runtime refresh v0: implemen
 
 External feedback current-state ops dashboard anchor GET runtime issue verification v0: implemented. Boundary: current issue #1 has the ops dashboard anchor GET runtime proof, request refresh, and issue-body refresh links, but the only screened comment is owner-authored, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and external reviewer feedback remains pending. This is not external reviewer feedback, hosted deployment evidence, browser automation evidence, customer validation, or product-complete.
 
+Ops dashboard anchor browser smoke v0: implemented. Boundary: local Playwright browser automation verified `GET /ops/dashboard` rendered 27 clickable anchors, all 27 carried `data-method="GET"`, no `data-method="POST"` anchors existed, and `POST /failure-cases/draft-preview` remained a visible method cue rather than a clickable anchor. This is local browser automation evidence only, not hosted deployment evidence, external reviewer feedback, customer validation, design quality evidence, or product-complete.
+
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
 Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence only; not hosted deployment evidence, not external reviewer feedback, and not malware scanning.
