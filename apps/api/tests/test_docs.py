@@ -27211,6 +27211,70 @@ def test_retrieval_run_linked_evidence_ledger_semantic_source_provenance_runtime
     )
 
 
+def test_retrieval_run_linked_evidence_ledger_semantic_source_provenance_runtime_smoke_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-smoke-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Retrieval-run-linked Evidence Ledger Semantic Source Provenance Runtime Smoke Remote Verification"
+        in content
+    )
+    assert (
+        "retrieval-run-linked Evidence Ledger semantic source provenance runtime smoke remote verification v0"
+        in content
+    )
+    assert "27b8ab349604defe5543a43627df730fd72c6383" in content
+    assert "CI run 27045552652" in content
+    assert "External Feedback Screen run 27045552666" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27045552652" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27045552666" in content
+    assert "job_id -> 79830671110" in content
+    assert "Run API smoke tests -> success" in content
+    assert (
+        "docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-smoke.md"
+        in content
+    )
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Retrieval-run-linked Evidence Ledger semantic source provenance runtime smoke remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 626 - Retrieval-run-linked Evidence Ledger Semantic Source Provenance Runtime Smoke Remote Verification v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 625 - Retrieval-run-linked Evidence Ledger Semantic Source Provenance Runtime Smoke v0"
+    ) < goal.index(
+        "Phase 626 - Retrieval-run-linked Evidence Ledger Semantic Source Provenance Runtime Smoke Remote Verification v0"
+    )
+    assert (
+        "retrieval-run-linked Evidence Ledger semantic source provenance runtime smoke remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-smoke-remote-verification.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
