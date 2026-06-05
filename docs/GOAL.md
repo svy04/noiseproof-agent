@@ -23000,3 +23000,42 @@ does_not_close_gate: true
 Boundary: live issue current-state screen only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not final truth adjudication, not Noise Gate behavior, not report generation, and not product-complete.
 
 Next gate: remote verification for this current-state issue screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 629 - External Feedback Current-state Retrieval-run-linked Evidence Ledger Semantic Source Provenance Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the Phase 628 current-state issue-screen proof passed CI and External Feedback Screen after push.
+
+Implemented artifacts:
+
+```text
+external feedback current-state retrieval-run-linked Evidence Ledger semantic source provenance issue verification remote verification v0
+docs/review/external-feedback-current-state-retrieval-run-linked-evidence-ledger-semantic-source-provenance-issue-verification-remote-verification.md
+docs/review/external-feedback-current-state-retrieval-run-linked-evidence-ledger-semantic-source-provenance-issue-verification.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote verification:
+
+```text
+head_sha: af50f77563c270131eefd2ce75dbbf197c584b16
+CI run 27046055674: success
+External Feedback Screen run 27046055690: success
+CI job_id: 79832116940
+External Feedback Screen job_id: 79832116930
+Run API smoke tests: success
+Screen issue comments: success
+Draft manual acceptance records: success
+candidate_count=0
+draft_count=0
+reason=self_authored_comment
+status=pending
+```
+
+Boundary: remote workflow verification only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not final truth adjudication, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

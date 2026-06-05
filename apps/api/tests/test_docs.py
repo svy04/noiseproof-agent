@@ -27417,6 +27417,76 @@ def test_external_feedback_current_state_semantic_source_provenance_issue_verifi
     )
 
 
+def test_external_feedback_current_state_semantic_source_provenance_issue_verification_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-retrieval-run-linked-evidence-ledger-semantic-source-provenance-issue-verification-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state Retrieval-run-linked Evidence Ledger Semantic Source Provenance Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state retrieval-run-linked Evidence Ledger semantic source provenance issue verification remote verification v0"
+        in content
+    )
+    assert "af50f77563c270131eefd2ce75dbbf197c584b16" in content
+    assert "CI run 27046055674" in content
+    assert "External Feedback Screen run 27046055690" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27046055674" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27046055690" in content
+    assert "job_id -> 79832116940" in content
+    assert "job_id -> 79832116930" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-feedback-current-state-retrieval-run-linked-evidence-ledger-semantic-source-provenance-issue-verification.md"
+        in content
+    )
+    assert "external reviewer feedback v0 remains pending" in content
+    assert "candidate_count=0" in content
+    assert "draft_count=0" in content
+    assert "reason=self_authored_comment" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state retrieval-run-linked Evidence Ledger semantic source provenance issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 629 - External Feedback Current-state Retrieval-run-linked Evidence Ledger Semantic Source Provenance Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 628 - External Feedback Current-state Retrieval-run-linked Evidence Ledger Semantic Source Provenance Issue Verification v0"
+    ) < goal.index(
+        "Phase 629 - External Feedback Current-state Retrieval-run-linked Evidence Ledger Semantic Source Provenance Issue Verification Remote Verification v0"
+    )
+    assert (
+        "external feedback current-state retrieval-run-linked Evidence Ledger semantic source provenance issue verification remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-retrieval-run-linked-evidence-ledger-semantic-source-provenance-issue-verification-remote-verification.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
