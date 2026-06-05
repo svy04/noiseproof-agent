@@ -21864,3 +21864,25 @@ docker compose -p <project> exec -T db pg_isready -U noiseproof -d noiseproof
 Boundary: future smoke command guidance only; historical smoke docs may still mention old fixed container names; not a new runtime smoke, not hosted deployment evidence, not production orchestration, not database migration, not API behavior, not external reviewer feedback, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 597 - Compose Service-name Runbook Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that Phase 596 passed repository checks on `main`.
+
+Implemented artifacts:
+
+```text
+compose service-name runbook refresh remote verification v0
+docs/review/compose-service-name-runbook-refresh-remote-verification.md
+head_sha -> 876291ab45ad839b60ec997511bf15cdee4c8bac
+CI run 27036444352 -> success
+api-smoke job 79801555930 -> success
+External Feedback Screen run 27036444321 -> success
+screen job 79801556053 -> success
+```
+
+Boundary: remote workflow verification only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not production orchestration, not database migration, not API behavior, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

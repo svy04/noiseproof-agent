@@ -25614,3 +25614,36 @@ def test_compose_service_name_runbook_refresh_documents_future_smoke_pattern():
     )
     assert "Compose service-name runbook refresh v0: implemented" in readme
     assert "Phase 596 - Compose Service-name Runbook Refresh v0" in goal
+
+
+def test_compose_service_name_runbook_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/compose-service-name-runbook-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "compose service-name runbook refresh remote verification v0" in content
+    assert "876291ab45ad839b60ec997511bf15cdee4c8bac" in content
+    assert "CI run 27036444352" in content
+    assert "job_id: 79801555930" in content
+    assert "Run API smoke tests" in content
+    assert "External Feedback Screen run 27036444321" in content
+    assert "job_id: 79801556053" in content
+    assert "screen -> success" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Compose service-name runbook refresh remote verification v0: implemented"
+        in readme
+    )
+    assert "Phase 597 - Compose Service-name Runbook Refresh Remote Verification v0" in goal
+    assert "docs/review/compose-service-name-runbook-refresh-remote-verification.md" in portfolio
