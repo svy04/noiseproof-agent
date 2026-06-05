@@ -322,6 +322,8 @@ Workflow proof bundle failure-case links v0: implemented. Boundary: `GET /workfl
 
 Workflow proof bundle failure-case links runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified linked failure cases appear in `GET /workflow-runs/{id}` and `GET /workflow-runs/{id}/proof-bundle`, while `GET /failure-cases?workflow_run_id={id}` filters out an unrelated failure case. This is local runtime evidence only, not automatic failure detection, background automation, complete workflow failure causality, root-cause automation, hosted deployment evidence, external reviewer feedback, or product-complete.
 
+External reviewer workflow proof bundle failure-case links runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-proof-bundle-failure-case-links-runtime-smoke.md` and `docs/review/external-reviewer-workflow-proof-bundle-failure-case-links-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, automatic failure detection, background automation, complete workflow failure causality, or product-complete.
+
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
 Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence only; not hosted deployment evidence, not external reviewer feedback, and not malware scanning.

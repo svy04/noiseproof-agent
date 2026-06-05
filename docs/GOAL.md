@@ -18624,6 +18624,41 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 510 - External Reviewer Workflow Proof Bundle Failure-case Links Runtime Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the workflow proof bundle failure-case links runtime smoke discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer workflow proof bundle failure-case links runtime request refresh v0
+docs/review/external-reviewer-workflow-proof-bundle-failure-case-links-runtime-request-refresh.md
+docs/review/workflow-proof-bundle-failure-case-links-runtime-smoke.md linked from reviewer-facing paths
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+README.md
+docs/application/portfolio-index.md
+docs/review/external-reader-proof-path.md
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+docs/runbook.md
+```
+
+Phase 510 updates repository request surfaces only. It adds no live issue body edit, no runtime behavior, no schema or migration, no automatic failure detection, no background automation, no root-cause automation, no retry or repair behavior, no complete workflow failure causality, no hosted deployment evidence, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external review issue body workflow proof bundle failure-case links runtime refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

@@ -53,9 +53,11 @@ docs/review/workflow-proof-bundle-runtime-smoke.md
 docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md
 docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md
 docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md
+docs/review/workflow-proof-bundle-failure-case-links-runtime-smoke.md
+docs/review/external-reviewer-workflow-proof-bundle-failure-case-links-runtime-request-refresh.md
 ```
 
-Boundary: this proof records local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle`, including `health_status: ok`, `execute_preview_status_code: 201`, `proof_bundle_status_code: 200`, `metadata_only_proof_bundle_status_code: 200`, `bundle_boundary: read_model_only_existing_records_no_new_storage`, and `metadata_only_trace_is_null: true`. The dashboard runtime proof adds `GET /ops/dashboard`, `dashboard_contains_proof_bundle_link: true`, and linked proof bundle status `200`. The request refresh is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
+Boundary: this proof records local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle`, including `health_status: ok`, `execute_preview_status_code: 201`, `proof_bundle_status_code: 200`, `metadata_only_proof_bundle_status_code: 200`, `bundle_boundary: read_model_only_existing_records_no_new_storage`, and `metadata_only_trace_is_null: true`. The dashboard runtime proof adds `GET /ops/dashboard`, `dashboard_contains_proof_bundle_link: true`, and linked proof bundle status `200`. The failure-case links runtime proof adds `GET /workflow-runs/{id}`, `GET /failure-cases?workflow_run_id={id}`, `detail_failure_case_count: 1`, `bundle_failure_case_count: 1`, `filtered_failure_case_count: 1`, `unrelated_filtered_out: true`, and `proof_surface_has_failure_case_filter: true`. The request refresh is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not automatic failure detection, not background automation, not complete workflow failure causality, and not product-complete.
 
 Latest workflow failure-case persistence runtime proof:
 

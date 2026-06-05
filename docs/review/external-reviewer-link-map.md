@@ -40,7 +40,11 @@ This artifact gives outside reviewers direct links to the shortest inspectable p
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md
 - Dashboard request refresh:
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md
-- Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle` and dashboard navigation from `GET /ops/dashboard` to the `proof bundle` link; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
+- Failure-case links runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/workflow-proof-bundle-failure-case-links-runtime-smoke.md
+- Failure-case links request refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-proof-bundle-failure-case-links-runtime-request-refresh.md
+- Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle`, dashboard navigation from `GET /ops/dashboard` to the `proof bundle` link, and linked failure-case visibility through `GET /workflow-runs/{id}`, `GET /workflow-runs/{id}/proof-bundle`, and `GET /failure-cases?workflow_run_id={id}` with unrelated failure cases filtered out; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not automatic failure detection, not background automation, not complete workflow failure causality, and not product-complete.
 
 ## Latest Workflow Failure-case Persistence Runtime Proof
 

@@ -17018,6 +17018,99 @@ def test_external_reviewer_workflow_proof_bundle_dashboard_runtime_request_refre
     assert "external reviewer workflow proof bundle dashboard runtime request refresh v0" in runbook
 
 
+def test_external_reviewer_workflow_proof_bundle_failure_case_links_runtime_request_refresh_links_latest_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reviewer-workflow-proof-bundle-failure-case-links-runtime-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    reviewer_brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = "docs/review/workflow-proof-bundle-failure-case-links-runtime-smoke.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-proof-bundle-failure-case-links-runtime-request-refresh.md"
+    )
+
+    assert (
+        "External Reviewer Workflow Proof Bundle Failure-case Links Runtime Request Refresh"
+        in content
+    )
+    assert (
+        "external reviewer workflow proof bundle failure-case links runtime request refresh v0"
+        in content
+    )
+    assert proof_doc in content
+    assert request_doc in content
+    assert "GET /workflow-runs/{id}" in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert "GET /failure-cases?workflow_run_id={id}" in content
+    assert "detail_failure_case_count: 1" in content
+    assert "bundle_failure_case_count: 1" in content
+    assert "filtered_failure_case_count: 1" in content
+    assert "unrelated_filtered_out: true" in content
+    assert "proof_surface_has_failure_case_filter: true" in content
+    assert "not a live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure detection" in content
+    assert "not background automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not product-complete" in content
+
+    for surface in [
+        contributing,
+        issue_template,
+        readme,
+        goal,
+        runbook,
+        portfolio,
+        proof_path,
+        review_request,
+        reviewer_brief,
+        link_map,
+    ]:
+        assert proof_doc in surface
+        assert request_doc in surface
+
+    assert (
+        "External reviewer workflow proof bundle failure-case links runtime request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 510 - External Reviewer Workflow Proof Bundle Failure-case Links Runtime Request Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer workflow proof bundle failure-case links runtime request refresh v0"
+        in runbook
+    )
+
+
 def test_external_review_issue_body_workflow_proof_bundle_dashboard_runtime_refresh_records_live_issue_edit():
     refresh_path = (
         REPO_ROOT
