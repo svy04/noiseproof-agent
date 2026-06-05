@@ -12105,6 +12105,61 @@ def test_uploaded_pdf_page_diagnostics_is_documented_without_robust_claim():
     assert "PDF upload preview records page diagnostics" in api_readme
 
 
+def test_uploaded_pdf_page_diagnostics_runtime_smoke_records_live_http_evidence():
+    smoke_path = REPO_ROOT / "docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md"
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded PDF Page Diagnostics Runtime Smoke" in content
+    assert "uploaded PDF page diagnostics runtime smoke v0" in content
+    assert "Docker version" in content
+    assert "Docker Compose version" in content
+    assert "docker compose --profile api up -d --build api" in content
+    assert "POST /documents/upload-preview -> 200" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "digital_pdf_text_extraction -> true" in content
+    assert "robust_pdf_extraction -> false" in content
+    assert "page_diagnostics_available -> true" in content
+    assert "layout_block_diagnostics_available -> true" in content
+    assert "extraction_scope -> digital_text_page_diagnostics" in content
+    assert "page_text_char_counts -> [39]" in content
+    assert "extracted_page_count -> 1" in content
+    assert "empty_page_count -> 0" in content
+    assert "text_block_count -> 1" in content
+    assert "image_block_count -> 0" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not table extraction" in content
+    assert "not layout fidelity" in content
+    assert (
+        "Uploaded PDF page diagnostics runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 541 - Uploaded PDF Page Diagnostics Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded PDF page diagnostics runtime smoke v0" in runbook
+    assert "docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md" in portfolio
+    assert "uploaded PDF page diagnostics runtime proof exists" in application_ready
+    assert "uploaded PDF page diagnostics proof" in proof_path
+
+
 def test_uploaded_pdf_downstream_handoff_is_documented_without_robust_claim():
     review_path = REPO_ROOT / "docs/review/uploaded-pdf-downstream-handoff.md"
     assert review_path.is_file()

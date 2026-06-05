@@ -19783,6 +19783,45 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, robust PDF extraction only after OCR/table/layout fidelity are explicitly tested, or another source-first product gate selected from this file
 ```
 
+### Phase 541 - Uploaded PDF Page Diagnostics Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record local Docker/FastAPI HTTP proof that uploaded digital PDF page diagnostics are returned at runtime
+```
+
+Implemented:
+
+```text
+uploaded PDF page diagnostics runtime smoke v0
+docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md
+local Docker/FastAPI HTTP evidence
+POST /documents/upload-preview -> 200
+parser -> pdf-pymupdf
+digital_pdf_text_extraction -> true
+robust_pdf_extraction -> false
+page_diagnostics_available -> true
+layout_block_diagnostics_available -> true
+extraction_scope -> digital_text_page_diagnostics
+page_text_char_counts: [39]
+extracted_page_count: 1
+empty_page_count: 0
+text_block_count: 1
+image_block_count: 0
+document_count_delta: 0
+```
+
+Phase 541 is local runtime smoke evidence for digital PDF page diagnostics only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not parsed text persistence, not retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
