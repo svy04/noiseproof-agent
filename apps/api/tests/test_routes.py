@@ -5053,6 +5053,31 @@ def test_ops_summary_counts_semantic_retrieval_and_caller_provided_embeddings():
     assert "not semantic retrieval quality evidence" in notes
 
 
+def test_ops_dashboard_surfaces_semantic_retrieval_operational_counts():
+    client = make_client()
+    document, *_ = _create_semantic_fixture(client)
+
+    retrieval = client.post(
+        f"/documents/{document['id']}/semantic-retrieval-runs",
+        json={
+            "question": "Which chunk is closest to demand growth?",
+            "query_embedding": [1.0, 0.0],
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+            "limit": 2,
+        },
+    )
+    dashboard = client.get("/ops/dashboard")
+
+    assert retrieval.status_code == 201
+    assert dashboard.status_code == 200
+    assert "Retrieval Runs Recorded" in dashboard.text
+    assert "Semantic Retrieval Runs" in dashboard.text
+    assert "Chunk Embedding Rows" in dashboard.text
+    assert "Caller-provided Embeddings" in dashboard.text
+    assert "operational counts, not semantic retrieval quality evidence" in dashboard.text
+
+
 def test_ops_summary_and_dashboard_surface_raw_file_guard_counts():
     client = make_client()
 

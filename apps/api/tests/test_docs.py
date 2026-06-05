@@ -26599,6 +26599,48 @@ def test_ops_summary_semantic_retrieval_operational_counts_runtime_smoke_is_reco
     )
 
 
+def test_ops_dashboard_semantic_retrieval_operational_counts_are_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/ops-dashboard-semantic-retrieval-operational-counts.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme_with_archive = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ops dashboard semantic retrieval operational counts v0" in content
+    assert "Retrieval Runs Recorded" in content
+    assert "Semantic Retrieval Runs" in content
+    assert "Chunk Embedding Rows" in content
+    assert "Caller-provided Embeddings" in content
+    assert "operational counts, not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Ops dashboard semantic retrieval operational counts v0: implemented"
+        in readme_with_archive
+    )
+    assert "Phase 616 - Ops Dashboard Semantic Retrieval Operational Counts v0" in goal
+    assert goal.index(
+        "Phase 615 - Ops Summary Semantic Retrieval Operational Counts Runtime Smoke v0"
+    ) < goal.index(
+        "Phase 616 - Ops Dashboard Semantic Retrieval Operational Counts v0"
+    )
+    assert "ops dashboard semantic retrieval operational counts v0" in runbook
+    assert (
+        "docs/review/ops-dashboard-semantic-retrieval-operational-counts.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

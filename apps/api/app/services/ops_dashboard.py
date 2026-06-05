@@ -49,6 +49,10 @@ def render_ops_dashboard(
       {_metric("Documents", summary.document_count)}
       {_metric("Agent Runs", summary.agent_run_count)}
       {_metric("Failure Cases", summary.failure_case_count)}
+      {_metric("Retrieval Runs Recorded", summary.retrieval_run_count)}
+      {_metric("Semantic Retrieval Runs", summary.semantic_retrieval_run_count)}
+      {_metric("Chunk Embedding Rows", summary.chunk_embedding_count)}
+      {_metric("Caller-provided Embeddings", summary.caller_provided_embedding_count)}
       {_metric("Noise Gate Records", summary.noise_gate_record_count)}
       {_metric("Blocked Gates", summary.blocked_gate_count)}
       {_metric("Revision Gates", summary.revision_gate_count)}
@@ -119,6 +123,7 @@ def render_ops_dashboard(
       <li>Dashboard links are GET-only inspection routes.</li>
       <li>POST-only actions render as method cues, not anchors.</li>
       <li>Unsupported claim and contradiction counts come from persisted Evidence Ledger entries.</li>
+      <li>Semantic retrieval and caller-provided embedding metrics are operational counts, not semantic retrieval quality evidence.</li>
       <li>No-text PDF handoff counts are metadata-derived from document profile_json. This is metadata-derived from document profile_json and does not prove robust PDF extraction, OCR, table extraction, or layout fidelity.</li>
       <li>Persisted evidence, gate, and report records link back to their parent agent run through trace lookup.</li>
       <li>Embedding generation, semantic retrieval quality evidence, distributed tracing, and free-form final reports are still not implemented.</li>

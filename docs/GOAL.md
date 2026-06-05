@@ -22524,3 +22524,35 @@ note_has_quality_boundary -> true
 Boundary: local Docker/FastAPI runtime evidence for operational count surfacing only; not a new retrieval algorithm, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not free-form final report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 616 - Ops Dashboard Semantic Retrieval Operational Counts v0
+
+Status: implemented.
+
+Purpose: surface semantic retrieval operational counts from `/ops/summary` in the human-readable `/ops/dashboard`.
+
+Implemented artifacts:
+
+```text
+ops dashboard semantic retrieval operational counts v0
+docs/review/ops-dashboard-semantic-retrieval-operational-counts.md
+apps/api/app/services/ops_dashboard.py
+apps/api/tests/test_routes.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Dashboard metrics:
+
+```text
+Retrieval Runs Recorded
+Semantic Retrieval Runs
+Chunk Embedding Rows
+Caller-provided Embeddings
+```
+
+Boundary: dashboard inspectability only; not a new retrieval algorithm, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not free-form final report generation, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for dashboard semantic retrieval operational counts if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
