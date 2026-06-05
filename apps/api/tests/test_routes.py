@@ -1853,6 +1853,78 @@ def test_semantic_retrieval_run_persists_candidates_without_evidence_ledger():
     assert client.get("/evidence-ledgers").json() == []
 
 
+def test_semantic_retrieval_run_evidence_ledger_preserves_source_retrieval_provenance():
+    client = make_client()
+    document, demand_chunk, noise_chunk, _missing_chunk = _create_semantic_fixture(client)
+
+    retrieval_run = client.post(
+        f"/documents/{document['id']}/semantic-retrieval-runs",
+        json={
+            "question": "Which chunk is closest to demand growth?",
+            "query_embedding": [1.0, 0.0],
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+            "limit": 2,
+        },
+    ).json()
+
+    response = client.post(f"/retrieval-runs/{retrieval_run['id']}/evidence-ledger")
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["stored_entry_count"] == 2
+    assert any(
+        "Source retrieval run mode: semantic_persisted" in warning
+        for warning in body["warnings"]
+    )
+    assert any(
+        "Source query vector source: caller_provided_vector" in warning
+        for warning in body["warnings"]
+    )
+
+    entry = body["entries"][0]
+    assert entry["retrieval_run_id"] == retrieval_run["id"]
+    assert entry["metadata_json"]["source_retrieval_mode"] == "semantic_persisted"
+    assert entry["metadata_json"]["source_query_vector_source"] == (
+        "caller_provided_vector"
+    )
+    assert entry["metadata_json"]["source_is_semantic_retrieval_run"] is True
+    assert entry["metadata_json"]["source_retrieval_persistence_boundary"] == (
+        "semantic_retrieval_run_only_no_evidence_ledger"
+    )
+    assert entry["metadata_json"]["persistence_boundary"] == (
+        "retrieval_run_linked_evidence_ledger_no_llm_no_embeddings"
+    )
+    assert [item["source_id"] for item in body["entries"]] == [
+        demand_chunk["id"],
+        noise_chunk["id"],
+    ]
+
+    listed = client.get(f"/evidence-ledgers?retrieval_run_id={retrieval_run['id']}")
+    assert listed.status_code == 200
+    listed_entry = listed.json()[0]
+    assert listed_entry["metadata_json"]["source_retrieval_mode"] == (
+        "semantic_persisted"
+    )
+    assert listed_entry["metadata_json"]["source_query_vector_source"] == (
+        "caller_provided_vector"
+    )
+    assert listed_entry["metadata_json"]["source_is_semantic_retrieval_run"] is True
+
+    traces = client.get("/agent-runs").json()
+    trace = next(
+        row
+        for row in traces
+        if row["trace_json"].get("retrieval_run_id") == retrieval_run["id"]
+        and row["trace_json"].get("endpoint")
+        == "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger"
+    )
+    assert trace["trace_json"]["source_retrieval_mode"] == "semantic_persisted"
+    assert trace["trace_json"]["source_query_vector_source"] == "caller_provided_vector"
+    assert trace["trace_json"]["source_is_semantic_retrieval_run"] is True
+    assert trace["trace_json"]["handoff_performs_semantic_retrieval"] is False
+
+
 def test_semantic_retrieval_run_rejects_query_dimension_mismatch_without_persistence():
     client = make_client()
     document, *_ = _create_semantic_fixture(client)

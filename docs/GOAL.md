@@ -22812,3 +22812,37 @@ status=pending
 Boundary: remote workflow verification only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not a new retrieval algorithm, not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger generation, not Critic / Noise Gate behavior, not final report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 624 - Retrieval-run-linked Evidence Ledger Semantic Source Provenance v0
+
+Status: implemented.
+
+Purpose: preserve source retrieval provenance when a persisted semantic retrieval run is handed off into `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`.
+
+Implemented artifacts:
+
+```text
+retrieval-run-linked Evidence Ledger semantic source provenance v0
+docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance.md
+apps/api/app/services/retrieval_run_evidence.py
+apps/api/tests/test_routes.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Implemented behavior:
+
+```text
+Evidence Ledger response warnings include source retrieval mode and query vector source.
+Stored Evidence Ledger entry metadata includes source_retrieval_mode.
+Stored Evidence Ledger entry metadata includes source_query_vector_source.
+Stored Evidence Ledger entry metadata includes source_is_semantic_retrieval_run.
+Stored Evidence Ledger entry metadata includes source_retrieval_persistence_boundary.
+Agent-run trace_json includes handoff_performs_semantic_retrieval=false.
+```
+
+Boundary: route-level source-provenance preservation only; not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for retrieval-run-linked Evidence Ledger semantic source provenance if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

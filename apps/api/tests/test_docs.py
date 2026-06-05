@@ -27066,6 +27066,72 @@ def test_external_feedback_current_state_retrieval_run_semantic_provenance_issue
     )
 
 
+def test_retrieval_run_linked_evidence_ledger_semantic_source_provenance_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "retrieval-run-linked-evidence-ledger-semantic-source-provenance.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Retrieval-run-linked Evidence Ledger Semantic Source Provenance" in content
+    )
+    assert (
+        "retrieval-run-linked Evidence Ledger semantic source provenance v0"
+        in content
+    )
+    assert "POST /documents/{document_id}/semantic-retrieval-runs" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger" in content
+    assert "source_retrieval_mode" in content
+    assert "source_query_vector_source" in content
+    assert "source_is_semantic_retrieval_run" in content
+    assert "source_retrieval_persistence_boundary" in content
+    assert "handoff_performs_semantic_retrieval" in content
+    assert "semantic_persisted" in content
+    assert "caller_provided_vector" in content
+    assert "semantic_retrieval_run_only_no_evidence_ledger" in content
+    assert "retrieval_run_linked_evidence_ledger_no_llm_no_embeddings" in content
+    assert "tests/test_routes.py" in content
+    assert (
+        "test_semantic_retrieval_run_evidence_ledger_preserves_source_retrieval_provenance"
+        in content
+    )
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Retrieval-run-linked Evidence Ledger semantic source provenance v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 624 - Retrieval-run-linked Evidence Ledger Semantic Source Provenance v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0"
+    ) < goal.index(
+        "Phase 624 - Retrieval-run-linked Evidence Ledger Semantic Source Provenance v0"
+    )
+    assert (
+        "retrieval-run-linked Evidence Ledger semantic source provenance v0"
+        in runbook
+    )
+    assert (
+        "docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

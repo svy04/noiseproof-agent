@@ -12,6 +12,7 @@ from app.schemas import (
     EvidenceLedgerStoredEntryOut,
 )
 from app.services.evidence_ledger import preview_evidence_ledger
+from app.services.retrieval_run_provenance import enrich_retrieval_run_provenance
 from app.services.run_trace import run_with_trace
 
 
@@ -23,6 +24,7 @@ def persist_evidence_ledger_from_retrieval_run(
     if retrieval_run is None:
         raise HTTPException(status_code=404, detail="Retrieval run not found")
 
+    retrieval_run = enrich_retrieval_run_provenance(retrieval_run)
     workflow_trace_id = uuid4()
 
     def operation(agent_run_id: UUID) -> EvidenceLedgerPersistedOut:
@@ -64,12 +66,21 @@ def persist_evidence_ledger_from_retrieval_run(
             "retrieval_run_id": str(retrieval_run_id),
             "workflow_trace_id": str(workflow_trace_id),
             "source_table": (retrieval_run.get("metadata_json") or {}).get("source_table"),
+            "source_retrieval_mode": retrieval_run.get("retrieval_mode"),
+            "source_query_vector_source": retrieval_run.get("query_vector_source"),
+            "source_is_semantic_retrieval_run": retrieval_run.get(
+                "is_semantic_retrieval_run"
+            ),
+            "source_retrieval_persistence_boundary": retrieval_run.get(
+                "persistence_boundary"
+            ),
             "candidate_chunk_count": len(
                 (retrieval_run.get("metadata_json") or {}).get("candidate_chunk_ids") or []
             ),
             "no_llm": True,
             "no_embeddings": True,
             "no_semantic_retrieval": True,
+            "handoff_performs_semantic_retrieval": False,
         },
         operation=operation,
         trace_from_result=lambda result: {
@@ -87,11 +98,29 @@ def _candidates_from_retrieval_run(
     repository: Repository,
 ) -> tuple[list[str], list[EvidenceLedgerCandidateIn]]:
     metadata = dict(retrieval_run.get("metadata_json") or {})
+    source_retrieval_mode = retrieval_run.get("retrieval_mode") or metadata.get(
+        "retrieval_mode"
+    )
+    source_query_vector_source = retrieval_run.get(
+        "query_vector_source"
+    ) or metadata.get("query_vector_source")
+    source_persistence_boundary = retrieval_run.get(
+        "persistence_boundary"
+    ) or metadata.get("persistence_boundary")
+    source_is_semantic = bool(retrieval_run.get("is_semantic_retrieval_run"))
     warnings = [
         "Evidence Ledger entries were generated from a persisted retrieval_run over document_chunks.",
         "This handoff uses stored candidate_chunk_ids; it makes no LLM call, creates no embeddings, and does not perform semantic retrieval.",
         "This handoff does not judge final truth or provide financial advice.",
     ]
+    if source_retrieval_mode:
+        warnings.append(f"Source retrieval run mode: {source_retrieval_mode}.")
+    if source_query_vector_source:
+        warnings.append(f"Source query vector source: {source_query_vector_source}.")
+    if source_is_semantic:
+        warnings.append(
+            "Source retrieval run was semantic, but this Evidence Ledger handoff performs no new semantic retrieval."
+        )
     if metadata.get("source_table") != "document_chunks":
         warnings.append(
             "Retrieval run is not backed by document_chunks metadata; no source chunks were loaded."
@@ -144,6 +173,10 @@ def _candidates_from_retrieval_run(
                 "document_id": str(document_id),
                 "source_table": "document_chunks",
                 "retrieval_run_id": str(retrieval_run_id),
+                "source_retrieval_mode": source_retrieval_mode,
+                "source_query_vector_source": source_query_vector_source,
+                "source_is_semantic_retrieval_run": source_is_semantic,
+                "source_retrieval_persistence_boundary": source_persistence_boundary,
                 "source_provenance_boundary": (
                     "evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk"
                 ),
