@@ -26379,6 +26379,47 @@ def test_readme_top_latest_remote_verification_state_points_to_table_candidate_r
     )
 
 
+def test_docker_environment_readiness_current_state_is_recorded():
+    review_path = REPO_ROOT / "docs/review/docker-environment-readiness-current-state.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme_with_archive = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "docker environment readiness current-state v0" in content
+    assert "Docker version `29.4.3`" in content
+    assert "Docker Compose version `v5.1.3`" in content
+    assert "docker-desktop -> Running -> 2" in content
+    assert "docker compose config -> passed" in content
+    assert "noiseproof-phase611" in content
+    assert "POSTGRES_PORT=55440" in content
+    assert "pg_isready -> accepting connections" in content
+    assert "migration status -> pending migrations 0" in content
+    assert "GET /health -> 200" in content
+    assert "GET /ops/summary -> 200" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production orchestration" in content
+    assert "not product-complete" in content
+    assert (
+        "Docker environment readiness current-state v0: implemented"
+        in readme_with_archive
+    )
+    assert (
+        "Phase 611 - Docker Environment Readiness Current-state v0" in goal
+    )
+    assert goal.index(
+        "Phase 610 - README Latest Remote Verification Marker Table-candidate Refresh v0"
+    ) < goal.index("Phase 611 - Docker Environment Readiness Current-state v0")
+    assert "docker environment readiness current-state v0" in runbook
+    assert "docs/review/docker-environment-readiness-current-state.md" in portfolio
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

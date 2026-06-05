@@ -22346,3 +22346,39 @@ docs/review/readme-current-proof-route-table-candidate-refresh-remote-verificati
 Boundary: README marker clarity only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not runtime product proof, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 611 - Docker Environment Readiness Current-state v0
+
+Status: implemented.
+
+Purpose: verify that the local Docker environment is prepared for runtime proof work without expanding product scope.
+
+Implemented artifacts:
+
+```text
+docker environment readiness current-state v0
+docs/review/docker-environment-readiness-current-state.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Observed runtime state:
+
+```text
+Docker version `29.4.3`
+Docker Compose version `v5.1.3`
+docker-desktop -> Running -> 2
+docker compose config -> passed
+noiseproof-phase611
+POSTGRES_PORT=55440
+pg_isready -> accepting connections
+migration status -> pending migrations 0
+GET /health -> 200
+GET /ops/summary -> 200
+```
+
+Boundary: local Docker environment readiness only; not hosted deployment evidence, not production orchestration, not Kubernetes readiness, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not table extraction, not semantic retrieval quality evidence, not live OpenAI provider evidence, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
