@@ -16,6 +16,9 @@ REPORT_CONTRACT_PHASE_MARKER = (
 REPORT_SCHEMA_PHASE_MARKER = (
     "embedding model live-provider owner-runtime smoke report schema v0"
 )
+REPORT_ALIGNMENT_PHASE_MARKER = (
+    "embedding model live-provider owner-runtime smoke report contract alignment v0"
+)
 EXPECTED_REPORT_TOP_LEVEL_FIELDS = {
     "api_calls_attempted",
     "embedding_length",
@@ -268,6 +271,78 @@ def _owner_runtime_smoke_report_schema() -> dict[str, object]:
     }
 
 
+def _owner_runtime_smoke_report_contract_alignment() -> dict[str, object]:
+    accepted_report = _accepted_owner_runtime_smoke_report()
+    contract = _owner_runtime_smoke_report_contract()
+    schema = _owner_runtime_smoke_report_schema()["json_schema"]
+    validation = _validate_owner_runtime_smoke_report(accepted_report)
+
+    contract_fields = set(contract["required_top_level_fields"])
+    schema_required = set(schema["required"])
+    schema_properties = set(schema["properties"])
+    schema_constants = {
+        field: spec.get("const")
+        for field, spec in schema["properties"].items()
+        if isinstance(spec, Mapping)
+    }
+    checks = {
+        "contract_fields_match_validator_expected_fields": (
+            contract_fields == EXPECTED_REPORT_TOP_LEVEL_FIELDS
+        ),
+        "schema_required_fields_match_contract": schema_required == contract_fields,
+        "schema_properties_match_contract_constants": (
+            schema_properties == set(accepted_report)
+            and schema_constants == accepted_report
+        ),
+        "schema_additional_properties_closed": (
+            schema.get("additionalProperties") is False
+        ),
+        "accepted_report_passes_validator": (
+            validation.get("accepted_owner_runtime_smoke") is True
+            and validation.get("missing_or_failed_checks") == []
+        ),
+        "accepted_report_contains_no_forbidden_secret_fields": (
+            _find_forbidden_secret_fields(accepted_report) == []
+        ),
+        "forbidden_secret_fields_match_validator": (
+            set(contract["forbidden_secret_fields"]) == SECRET_FIELD_NAMES
+        ),
+    }
+    missing_or_failed_checks = [
+        name for name, passed in checks.items() if passed is not True
+    ]
+    aligned = not missing_or_failed_checks
+
+    return {
+        "phase_marker": REPORT_ALIGNMENT_PHASE_MARKER,
+        "alignment_status": "aligned" if aligned else "misaligned",
+        "missing_or_failed_checks": missing_or_failed_checks,
+        "checks": checks,
+        "accepted_report_field_count": len(accepted_report),
+        "schema_required_field_count": len(schema["required"]),
+        "validator_expected_field_count": len(EXPECTED_REPORT_TOP_LEVEL_FIELDS),
+        "api_calls_attempted": False,
+        "openai_api_key_printed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+        "non_claims": {
+            "live_embedding_generation_proof": False,
+            "validator_makes_provider_call": False,
+            "hosted_deployment_evidence": False,
+            "external_reviewer_feedback": False,
+            "semantic_retrieval_quality_evidence": False,
+            "product_complete": False,
+        },
+        "boundary": [
+            "schema/contract/validator alignment only",
+            "does not read or print OPENAI_API_KEY",
+            "does not call the OpenAI provider",
+            "does not persist embeddings",
+            "not live embedding generation proof",
+        ],
+    }
+
+
 def _accepted_owner_runtime_smoke_report() -> dict[str, object]:
     return {
         "route": "POST /chunks/embedding-model-preview",
@@ -414,6 +489,10 @@ def main(argv: Sequence[str] | None = None, env: Mapping[str, str] | None = None
     if args == ["--print-owner-runtime-smoke-report-schema"]:
         _print_json(_owner_runtime_smoke_report_schema())
         return 0
+    if args == ["--check-owner-runtime-smoke-report-contract-alignment"]:
+        report = _owner_runtime_smoke_report_contract_alignment()
+        _print_json(report)
+        return 0 if report["alignment_status"] == "aligned" else 5
     if len(args) == 2 and args[0] == "--validate-owner-runtime-smoke-report":
         report_path = Path(args[1])
         report = _validate_owner_runtime_smoke_report(

@@ -18197,6 +18197,59 @@ def test_embedding_model_live_provider_owner_runtime_smoke_report_schema_is_docu
     assert review_doc in portfolio
 
 
+def test_embedding_model_live_provider_owner_runtime_smoke_report_contract_alignment_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-report-contract-alignment.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-report-contract-alignment.md"
+    )
+
+    assert (
+        "Embedding Model Live-provider Owner-runtime Smoke Report Contract Alignment"
+        in content
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke report contract alignment v0"
+        in content
+    )
+    assert "--check-owner-runtime-smoke-report-contract-alignment" in content
+    assert "alignment_status: aligned" in content
+    assert "contract_fields_match_validator_expected_fields" in content
+    assert "schema_required_fields_match_contract" in content
+    assert "schema_properties_match_contract_constants" in content
+    assert "accepted_report_passes_validator" in content
+    assert "schema/contract/validator alignment only" in content
+    assert "not live embedding generation proof" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Embedding model live-provider owner-runtime smoke report contract alignment v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 490 - Embedding Model Live-provider Owner-runtime Smoke Report Contract Alignment v0"
+        in goal
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke report contract alignment v0"
+        in runbook
+    )
+    assert review_doc in portfolio
+
+
 def test_external_reviewer_embedding_provider_owner_runtime_smoke_validator_request_refresh_links_validation_path():
     review_path = (
         REPO_ROOT

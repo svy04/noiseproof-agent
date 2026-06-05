@@ -9785,3 +9785,45 @@ not hosted deployment evidence
 not product-complete
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Owner-runtime Smoke Report Contract Alignment
+
+Phase marker: embedding model live-provider owner-runtime smoke report contract alignment v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-report-contract-alignment.md
+```
+
+Command:
+
+```bash
+cd apps/api
+uv run python -m app.services.embedding_model_live_provider_harness --check-owner-runtime-smoke-report-contract-alignment
+```
+
+Alignment markers:
+
+```text
+alignment_status: aligned
+contract_fields_match_validator_expected_fields
+schema_required_fields_match_contract
+schema_properties_match_contract_constants
+accepted_report_passes_validator
+```
+
+Boundary:
+
+```text
+schema/contract/validator alignment only
+does not read OPENAI_API_KEY
+does not print OPENAI_API_KEY
+does not call the OpenAI provider
+does not persist embeddings
+not live embedding generation proof
+not external reviewer feedback
+not hosted deployment evidence
+not product-complete
+actual live embedding model generation remains unproven
+```

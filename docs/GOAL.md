@@ -17869,6 +17869,44 @@ Next recommended evidence gate:
 owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 490 - Embedding Model Live-provider Owner-runtime Smoke Report Contract Alignment v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+check that the accepted report contract, JSON Schema artifact, and authoritative Python validator still describe the same secret-free owner-runtime smoke metadata shape
+```
+
+Implemented:
+
+```text
+embedding model live-provider owner-runtime smoke report contract alignment v0
+apps/api/app/services/embedding_model_live_provider_harness.py --check-owner-runtime-smoke-report-contract-alignment
+alignment_status=aligned
+missing_or_failed_checks=[]
+contract_fields_match_validator_expected_fields
+schema_required_fields_match_contract
+schema_properties_match_contract_constants
+schema_additional_properties_closed
+accepted_report_passes_validator
+accepted_report_contains_no_forbidden_secret_fields
+forbidden_secret_fields_match_validator
+docs/review/embedding-model-live-provider-owner-runtime-smoke-report-contract-alignment.md
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 490 adds schema/contract/validator alignment metadata only. It adds no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven, and external reviewer feedback remains pending.
+
+Next recommended evidence gate:
+
+```text
+owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

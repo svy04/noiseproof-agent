@@ -295,6 +295,42 @@ def test_embedding_model_live_provider_harness_prints_owner_runtime_smoke_report
     assert "sk-" not in json.dumps(payload, sort_keys=True)
 
 
+def test_embedding_model_live_provider_harness_checks_report_contract_alignment_without_secret(
+    capsys,
+):
+    exit_code = main(
+        ["--check-owner-runtime-smoke-report-contract-alignment"],
+        env={},
+    )
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["phase_marker"] == (
+        "embedding model live-provider owner-runtime smoke report contract alignment v0"
+    )
+    assert payload["alignment_status"] == "aligned"
+    assert payload["missing_or_failed_checks"] == []
+    assert payload["checks"] == {
+        "contract_fields_match_validator_expected_fields": True,
+        "schema_required_fields_match_contract": True,
+        "schema_properties_match_contract_constants": True,
+        "schema_additional_properties_closed": True,
+        "accepted_report_passes_validator": True,
+        "accepted_report_contains_no_forbidden_secret_fields": True,
+        "forbidden_secret_fields_match_validator": True,
+    }
+    assert payload["accepted_report_field_count"] == 13
+    assert payload["schema_required_field_count"] == 13
+    assert payload["validator_expected_field_count"] == 13
+    assert payload["api_calls_attempted"] is False
+    assert payload["openai_api_key_printed"] is False
+    assert payload["secret_logged"] is False
+    assert payload["secret_committed_to_repo"] is False
+    assert payload["non_claims"]["live_embedding_generation_proof"] is False
+    assert payload["non_claims"]["validator_makes_provider_call"] is False
+    assert "sk-" not in json.dumps(payload, sort_keys=True)
+
+
 def test_embedding_model_live_provider_harness_rejects_unknown_command(capsys):
     exit_code = main(["--unknown"], env={})
 
