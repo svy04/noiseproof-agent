@@ -44,6 +44,8 @@ Embedding model live-provider route wiring review: `docs/review/embedding-model-
 
 Embedding model live-provider route wiring opt-in-disabled: `docs/review/embedding-model-live-provider-route-wiring-opt-in-disabled.md` records that the OpenAI provider adapter can be returned only after owner-runtime opt-in with `NOISEPROOF_ENABLE_OPENAI_PROVIDER=true`, `OPENAI_API_KEY`, non-CI runtime, and positive timeout. Default and CI runtime still make no live provider call, and actual live embedding generation remains unproven.
 
+Embedding model live-provider owner-runtime smoke packet: `docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md` records a no-secret/no-call packet for a future manual owner-runtime OpenAI embedding smoke. Current local discovery has no `OPENAI_API_KEY`, so live embedding generation proof remains pending.
+
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
 External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.

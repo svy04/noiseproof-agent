@@ -17514,3 +17514,53 @@ def test_embedding_model_live_provider_route_wiring_opt_in_disabled_is_documente
         "embedding model live-provider route wiring opt-in-disabled exists"
         in app_review
     )
+
+
+def test_embedding_model_live_provider_owner_runtime_smoke_packet_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    harness = (
+        REPO_ROOT / "apps/api/app/services/embedding_model_live_provider_harness.py"
+    ).read_text(encoding="utf-8")
+
+    assert "Embedding Model Live-provider Owner-runtime Smoke Packet" in content
+    assert "embedding model live-provider owner-runtime smoke packet v0" in content
+    assert "uv run python -m app.services.embedding_model_live_provider_harness" in content
+    assert "OPENAI_API_KEY is owner-provided and must not be printed" in content
+    assert "api_calls_attempted: false" in content
+    assert "openai_api_key_printed: false" in content
+    assert "live embedding generation proof remains pending" in content
+    assert "external reviewer feedback remains pending" in content
+    assert "PHASE_MARKER" in harness
+    assert "--print-owner-runtime-smoke-packet" in harness
+    assert (
+        "Embedding model live-provider owner-runtime smoke packet v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 475 - Embedding Model Live-provider Owner-runtime Smoke Packet v0"
+        in goal
+    )
+    assert "embedding model live-provider owner-runtime smoke packet v0" in runbook
+    assert (
+        "docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md"
+        in portfolio
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke packet exists"
+        in app_review
+    )

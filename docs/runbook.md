@@ -9157,3 +9157,65 @@ no live provider call in CI
 no default live provider call
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Owner-runtime Smoke Packet
+
+Phase marker: embedding model live-provider owner-runtime smoke packet v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
+```
+
+No-secret packet command:
+
+```bash
+cd apps/api
+uv run python -m app.services.embedding_model_live_provider_harness --print-owner-runtime-smoke-packet
+```
+
+Packet boundary:
+
+```text
+api_calls_attempted: false
+openai_api_key_printed: false
+secret_committed_to_repo: false
+secret_logged: false
+```
+
+Future owner-runtime environment:
+
+```text
+NOISEPROOF_ENABLE_OPENAI_PROVIDER=true
+OPENAI_API_KEY configured outside the repository
+CI=false
+```
+
+Future owner-runtime success criteria:
+
+```text
+http_status: 200
+embedding_status: owner_runtime_provider_generated
+embedding_length: 1536
+provider_response_dimension_check: passed
+usage_metadata_present: true
+secret_exposed: false
+persistence_boundary: preview_only_not_persisted
+```
+
+Current local observation:
+
+```text
+OPENAI_API_KEY_PRESENT=false
+NOISEPROOF_ENABLE_OPENAI_PROVIDER_PRESENT=false
+```
+
+Claim boundary:
+
+```text
+packet only
+no live OpenAI provider call
+live embedding generation proof remains pending
+external reviewer feedback remains pending
+```

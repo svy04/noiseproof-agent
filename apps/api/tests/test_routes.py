@@ -1322,6 +1322,61 @@ def test_embedding_model_preview_rejects_mocked_provider_dimension_mismatch():
     assert "sk-test-secret" not in response.text
 
 
+def test_embedding_model_preview_labels_openai_adapter_boundary_without_persistence():
+    class FakeOpenAIAdapter:
+        def create_embedding(self, *, text, model, dimension, encoding_format, api_key):
+            assert text == "Enterprise demand growth reached 12% in Q1."
+            assert model == "text-embedding-3-small"
+            assert dimension == 3
+            assert encoding_format == "float"
+            assert api_key == "sk-test-secret"
+            return {
+                "embedding": [0.1, 0.2, 0.3],
+                "model": model,
+                "usage": {"total_tokens": 8},
+                "provider_call_boundary": "openai_python_sdk_disabled_adapter",
+            }
+
+    client = make_client()
+    client.app.dependency_overrides[get_settings] = lambda: Settings(
+        openai_api_key="sk-test-secret",
+        embedding_model="text-embedding-3-small",
+        embedding_dimension=3,
+    )
+    client.app.dependency_overrides[get_embedding_provider_client] = (
+        lambda: FakeOpenAIAdapter()
+    )
+
+    response = client.post(
+        "/chunks/embedding-model-preview",
+        json={
+            "text": "Enterprise demand growth reached 12% in Q1.",
+            "embedding_dimension": 3,
+            "allow_provider_call": True,
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["embedding_status"] == "owner_runtime_provider_generated"
+    assert body["embedding"] == [0.1, 0.2, 0.3]
+    assert body["metadata_json"]["network_boundary"] == "owner_runtime_provider_call"
+    assert body["metadata_json"]["cost_boundary"] == (
+        "owner_runtime_provider_cost_possible"
+    )
+    assert body["metadata_json"]["provider_call_boundary"] == (
+        "openai_python_sdk_disabled_adapter"
+    )
+    assert body["metadata_json"]["provider_response_dimension_check"] == "passed"
+    assert body["metadata_json"]["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["metadata_json"]["secret_exposed"] is False
+    assert "sk-test-secret" not in response.text
+    assert any(
+        "owner-runtime OpenAI provider call" in warning for warning in body["warnings"]
+    )
+    assert any("not CI evidence" in warning for warning in body["warnings"])
+
+
 def test_semantic_retrieval_preview_ranks_caller_provided_vectors_without_persistence():
     client = make_client()
     document = client.post(

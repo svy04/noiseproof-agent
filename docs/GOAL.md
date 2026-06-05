@@ -17334,6 +17334,44 @@ Next recommended evidence gate:
 owner-runtime manual live embedding smoke review v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 475 - Embedding Model Live-provider Owner-runtime Smoke Packet v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+emit a no-secret no-call owner-runtime smoke packet for a future manual OpenAI embedding provider smoke
+```
+
+Implemented:
+
+```text
+embedding model live-provider owner-runtime smoke packet v0
+apps/api/app/services/embedding_model_live_provider_harness.py
+apps/api/tests/test_embedding_model_live_provider_harness.py
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
+OpenAI adapter boundary route label split
+owner_runtime_provider_generated response label for OpenAI SDK adapter boundary
+mocked_provider_generated response label retained for injected mocked provider
+api_calls_attempted=false packet field
+openai_api_key_printed=false packet field
+secret_committed_to_repo=false packet field
+secret_logged=false packet field
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+application-ready boundary refresh
+```
+
+Phase 475 adds a no-secret smoke packet and fixes the provider response label boundary for owner-runtime OpenAI adapter responses. It adds no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Current local secret discovery observed no `OPENAI_API_KEY`, so actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
