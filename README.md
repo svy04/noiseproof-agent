@@ -223,6 +223,12 @@ Workflow direct stage links v0: implemented. Boundary: deterministic workflow-cr
 
 Workflow direct stage links runtime smoke v0: implemented. Boundary: local Docker PostgreSQL applied `023_workflow_stage_links.sql`, and live FastAPI HTTP verified `POST /workflow-runs/execute-preview` plus `GET /workflow-runs/{id}/lineage` returned `direct_stage_link_count=3` with `direct_stage_link_table`. This is not hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, or product-complete.
 
+External reviewer workflow direct stage links runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-direct-stage-links-runtime-smoke.md` and `docs/review/external-reviewer-workflow-direct-stage-links-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, autonomous workflow execution, or product-complete.
+
+External review issue body workflow direct stage links runtime refresh v0: implemented. Boundary: issue #1 now points reviewers to `docs/review/workflow-direct-stage-links-runtime-smoke.md`, `docs/review/external-reviewer-workflow-direct-stage-links-runtime-request-refresh.md`, and `docs/review/external-review-issue-body-workflow-direct-stage-links-runtime-refresh.md`; this is owner-authored issue routing only, not external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, autonomous workflow execution, or product-complete.
+
+External feedback current-state workflow direct stage links runtime issue verification v0: implemented. Boundary: current issue #1 has the workflow direct stage links runtime proof, request refresh, and issue-body refresh links, but the only screened comment is owner-authored, `candidate_count=0`, `draft_count=0`, and external reviewer feedback remains pending.
+
 Deterministic text embedding preview v0: implemented. Boundary: local hash preview only; not actual embedding model generation, not persisted, and not vector search quality evidence.
 
 Trace context header propagation v0: implemented. Boundary: local `traceparent` response headers only; not distributed tracing, not OpenTelemetry, and not hosted observability.

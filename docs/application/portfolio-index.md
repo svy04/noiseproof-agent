@@ -328,6 +328,12 @@ Workflow direct stage links: `docs/review/workflow-direct-stage-links.md` record
 
 Workflow direct stage links runtime smoke: `docs/review/workflow-direct-stage-links-runtime-smoke.md` records local Docker PostgreSQL migration evidence plus live FastAPI HTTP evidence that `POST /workflow-runs/execute-preview` and `GET /workflow-runs/{id}/lineage` return `direct_stage_link_count=3`. This is local runtime evidence only, not hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, or product-complete.
 
+External reviewer workflow direct stage links runtime request refresh: `docs/review/external-reviewer-workflow-direct-stage-links-runtime-request-refresh.md` records that reviewer-facing repository paths now point to `docs/review/workflow-direct-stage-links-runtime-smoke.md`. This is request-surface refresh only, not a live issue body edit, hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, autonomous workflow execution, or product-complete.
+
+External review issue body workflow direct stage links runtime refresh: `docs/review/external-review-issue-body-workflow-direct-stage-links-runtime-refresh.md` records the owner-authored issue #1 body update that points reviewers to `docs/review/workflow-direct-stage-links-runtime-smoke.md` and its request refresh. This is issue routing only, not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, distributed tracing, hosted observability, autonomous workflow execution, or product-complete.
+
+External feedback current-state workflow direct stage links runtime issue verification: `docs/review/external-feedback-current-state-workflow-direct-stage-links-runtime-issue-verification.md` records that issue #1 currently points to the direct stage links proof path while the only screened comment remains self-authored with `candidate_count=0`. External reviewer feedback remains pending.
+
 Workflow proof bundle runtime smoke: `docs/review/workflow-proof-bundle-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle` after a deterministic workflow preview and for a metadata-only workflow row. It is not distributed tracing, not hosted observability, not hosted deployment evidence, and not external reviewer feedback.
 
 External reviewer workflow proof bundle request refresh: `docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md` points reviewer-facing repository paths to the workflow proof bundle runtime smoke. It is request infrastructure only, not a live public issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
@@ -402,6 +408,9 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | Workflow lineage read model | `GET /workflow-runs/{id}/lineage` | implemented v0 |
 | Workflow direct stage links | `docs/review/workflow-direct-stage-links.md` | direct local stage links for workflow-created records |
 | Workflow direct stage links runtime smoke | `docs/review/workflow-direct-stage-links-runtime-smoke.md` | local Docker DB and live HTTP proof for direct stage links |
+| External reviewer workflow direct stage links runtime request refresh | `docs/review/external-reviewer-workflow-direct-stage-links-runtime-request-refresh.md` | reviewer-facing request-surface refresh for direct stage links runtime proof |
+| External review issue body workflow direct stage links runtime refresh | `docs/review/external-review-issue-body-workflow-direct-stage-links-runtime-refresh.md` | owner-authored public issue routing for direct stage links runtime proof |
+| External feedback current-state workflow direct stage links runtime issue verification | `docs/review/external-feedback-current-state-workflow-direct-stage-links-runtime-issue-verification.md` | pending external feedback state after direct stage links issue refresh |
 | Workflow proof bundle read model | `GET /workflow-runs/{id}/proof-bundle` | implemented v0 |
 | Workflow lineage dashboard links | `GET /ops/dashboard` workflow row detail/lineage links | implemented v0 |
 | Workflow lineage missing-reference review | `docs/review/workflow-lineage-missing-reference-review.md` | reviewed |

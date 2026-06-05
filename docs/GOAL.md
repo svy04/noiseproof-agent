@@ -19447,6 +19447,122 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 532 - External Reviewer Workflow Direct Stage Links Runtime Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the workflow direct stage links runtime smoke discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer workflow direct stage links runtime request refresh v0
+docs/review/external-reviewer-workflow-direct-stage-links-runtime-request-refresh.md
+docs/review/workflow-direct-stage-links.md
+docs/review/workflow-direct-stage-links-runtime-smoke.md
+CONTRIBUTING.md fast path
+.github/ISSUE_TEMPLATE/external-review-feedback.md fast links
+README.md implementation status
+docs/review/external-reader-proof-path.md
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+docs/runbook.md
+direct_stage_link_count: 3
+link_types: evidence_to_report,evidence_to_noise_gate,noise_gate_to_report
+persistence_boundary: workflow_created_records_only_not_standalone_payload_lineage
+```
+
+Phase 532 is request-surface refresh only. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not distributed tracing, not hosted observability, not autonomous workflow execution, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external review issue body workflow direct stage links runtime refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
+### Phase 533 - External Review Issue Body Workflow Direct Stage Links Runtime Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the owner-authored issue #1 body update that points reviewers to the workflow direct stage links runtime smoke and request-refresh record
+```
+
+Implemented:
+
+```text
+external review issue body workflow direct stage links runtime refresh v0
+docs/review/external-review-issue-body-workflow-direct-stage-links-runtime-refresh.md
+issue #1 body links docs/review/workflow-direct-stage-links-runtime-smoke.md
+issue #1 body links docs/review/external-reviewer-workflow-direct-stage-links-runtime-request-refresh.md
+issue #1 body links docs/review/external-review-issue-body-workflow-direct-stage-links-runtime-refresh.md
+starts_with_request: true
+first_codepoint: 35
+has_workflow_direct_stage_links_runtime_proof: true
+has_workflow_direct_stage_links_request_refresh: true
+has_workflow_direct_stage_links_issue_body_refresh: true
+has_direct_stage_link_count: true
+has_evidence_to_report: true
+has_evidence_to_noise_gate: true
+has_noise_gate_to_report: true
+comment_count: 1
+```
+
+Phase 533 is owner-authored issue routing only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not distributed tracing, not hosted observability, not autonomous workflow execution, and not product-complete. Self-authored issue edits or comments do not close external reviewer feedback v0.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state workflow direct stage links runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
+### Phase 534 - External Feedback Current-state Workflow Direct Stage Links Runtime Issue Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the current public issue #1 state after the direct stage links issue-body refresh and keep external reviewer feedback v0 pending
+```
+
+Implemented:
+
+```text
+external feedback current-state workflow direct stage links runtime issue verification v0
+docs/review/external-feedback-current-state-workflow-direct-stage-links-runtime-issue-verification.md
+current issue #1 links docs/review/workflow-direct-stage-links-runtime-smoke.md
+current issue #1 links docs/review/external-reviewer-workflow-direct-stage-links-runtime-request-refresh.md
+current issue #1 links docs/review/external-review-issue-body-workflow-direct-stage-links-runtime-refresh.md
+starts_with_request: true
+first_codepoint: 35
+comment_count: 1
+screened_comment_count: 1
+candidate_count: 0
+draft_count: 0
+classification: non_qualifying
+reason: self_authored_comment
+status: pending
+```
+
+Phase 534 is current-state issue verification only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not distributed tracing, not hosted observability, not autonomous workflow execution, and not product-complete. The external reviewer feedback v0 gate remains pending.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
