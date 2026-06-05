@@ -20038,6 +20038,45 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, external reviewer PDF page diagnostics downstream runtime issue-body refresh v0 if the live issue should point to this proof, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 548 - External Review Issue Body PDF Page Diagnostics Downstream Runtime Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+route the uploaded PDF page diagnostics downstream runtime proof through the live public external review issue
+```
+
+Implemented:
+
+```text
+external reviewer PDF page diagnostics downstream runtime issue-body refresh v0
+docs/review/external-review-issue-body-pdf-page-diagnostics-downstream-runtime-refresh.md
+live issue #1 Latest Proof To Inspect now points to uploaded PDF page diagnostics downstream runtime proof
+docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md
+docs/review/external-reviewer-pdf-page-diagnostics-downstream-runtime-request-refresh.md
+POST /documents/upload-chunks -> 201
+POST /documents/{document_id}/retrieval-runs -> 201
+GET /retrieval-runs -> 200
+retrieval_candidate_page_text_char_counts -> [39]
+has_pdf_page_diagnostics_downstream_runtime_proof: true
+has_pdf_page_diagnostics_downstream_request_refresh: true
+has_pdf_page_diagnostics_downstream_issue_body_record: true
+starts_with_request: true
+first_codepoint: 35
+comment_count: 1
+updatedAt: 2026-06-05T11:49:28Z
+```
+
+Phase 548 is owner-authored issue body routing only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not full parsed text persistence, not semantic retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state PDF page diagnostics downstream runtime issue verification v0 to screen issue #1 after this owner-authored edit, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
