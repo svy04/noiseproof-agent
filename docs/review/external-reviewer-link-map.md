@@ -8,6 +8,14 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest Embedding Provider Owner-runtime Smoke Packet
+
+- Smoke packet:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
+- Request refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md
+- Boundary: no-secret/no-call owner-runtime smoke contract with `api_calls_attempted: false` and `openai_api_key_printed: false`; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not live embedding generation proof, not semantic retrieval quality evidence, and not product-complete.
+
 ## Latest Workflow Proof Bundle Runtime Proof
 
 - Runtime proof:

@@ -46,6 +46,10 @@ Embedding model live-provider route wiring opt-in-disabled: `docs/review/embeddi
 
 Embedding model live-provider owner-runtime smoke packet: `docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md` records a no-secret/no-call packet for a future manual owner-runtime OpenAI embedding smoke. Current local discovery has no `OPENAI_API_KEY`, so live embedding generation proof remains pending.
 
+External reviewer embedding provider owner-runtime smoke packet request refresh: `docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md` makes the packet discoverable from reviewer-facing repository paths. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not live embedding generation proof, and not product-complete.
+
+External review issue body embedding provider owner-runtime smoke packet refresh: `docs/review/external-review-issue-body-embedding-provider-owner-runtime-smoke-packet-refresh.md` records the owner-authored issue #1 body update pointing reviewers to the packet and request refresh. This is issue routing only, not external reviewer feedback, not hosted deployment evidence, not live embedding generation proof, and not product-complete.
+
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
 External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.

@@ -17372,6 +17372,77 @@ Next recommended evidence gate:
 owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 476 - External Reviewer Embedding Provider Owner-runtime Smoke Packet Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the embedding provider owner-runtime smoke packet discoverable from reviewer-facing repository paths without claiming live provider proof
+```
+
+Implemented:
+
+```text
+external reviewer embedding provider owner-runtime smoke packet request refresh v0
+docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md
+CONTRIBUTING.md link
+.github/ISSUE_TEMPLATE/external-review-feedback.md link
+README implementation marker
+docs/application/portfolio-index.md link
+docs/review/external-reader-proof-path.md link
+docs/review/external-review-request.md link
+docs/review/external-reviewer-brief.md link
+docs/review/external-reviewer-link-map.md link
+docs/runbook.md note
+```
+
+Phase 476 adds reviewer request-surface links only. It adds no live issue body edit, no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+external review issue body embedding provider owner-runtime smoke packet refresh v0, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
+### Phase 477 - External Review Issue Body Embedding Provider Owner-runtime Smoke Packet Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+update the live public external review issue body so reviewers can reach the embedding provider owner-runtime smoke packet from issue #1
+```
+
+Implemented:
+
+```text
+external review issue body embedding provider owner-runtime smoke packet refresh v0
+docs/review/external-review-issue-body-embedding-provider-owner-runtime-smoke-packet-refresh.md
+issue #1 body points to docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
+issue #1 body points to docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md
+issue #1 body points to docs/review/external-review-issue-body-embedding-provider-owner-runtime-smoke-packet-refresh.md
+issue #1 body starts with ## Request
+issue #1 first_codepoint=35
+issue #1 has api_calls_attempted: false
+issue #1 has openai_api_key_printed: false
+issue #1 has not live embedding generation proof boundary
+issue #1 has not external reviewer feedback boundary
+README implementation marker
+docs/application/portfolio-index.md link
+docs/runbook.md note
+```
+
+Phase 477 adds owner-authored issue routing only. It adds no outside reviewer feedback, no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state embedding provider owner-runtime smoke packet issue verification v0, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

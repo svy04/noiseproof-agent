@@ -247,6 +247,10 @@ Embedding model live-provider route wiring opt-in-disabled v0: implemented. Boun
 
 Embedding model live-provider owner-runtime smoke packet v0: implemented. Boundary: `app.services.embedding_model_live_provider_harness --print-owner-runtime-smoke-packet` emits a no-secret/no-call owner-runtime smoke contract; current local discovery has no `OPENAI_API_KEY`, so live embedding generation proof remains pending.
 
+External reviewer embedding provider owner-runtime smoke packet request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md` and `docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, live embedding generation proof, or product-complete.
+
+External review issue body embedding provider owner-runtime smoke packet refresh v0: implemented. Boundary: issue #1 body now points reviewers to `docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md`, `docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md`, and `docs/review/external-review-issue-body-embedding-provider-owner-runtime-smoke-packet-refresh.md`; this is owner-authored issue routing only, not external reviewer feedback, hosted deployment evidence, live embedding generation proof, or product-complete.
+
 README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.

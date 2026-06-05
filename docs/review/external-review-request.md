@@ -57,6 +57,15 @@ docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-re
 
 Boundary: this proof records local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle`, including `health_status: ok`, `execute_preview_status_code: 201`, `proof_bundle_status_code: 200`, `metadata_only_proof_bundle_status_code: 200`, `bundle_boundary: read_model_only_existing_records_no_new_storage`, and `metadata_only_trace_is_null: true`. The dashboard runtime proof adds `GET /ops/dashboard`, `dashboard_contains_proof_bundle_link: true`, and linked proof bundle status `200`. The request refresh is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
 
+Latest embedding provider owner-runtime smoke packet:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
+docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md
+```
+
+Boundary: this packet is a no-secret/no-call owner-runtime smoke contract with `api_calls_attempted: false` and `openai_api_key_printed: false`; it is not live embedding generation proof, not hosted deployment evidence, not semantic retrieval quality evidence, not external reviewer feedback, and not product-complete.
+
 Root review guide:
 
 ```text

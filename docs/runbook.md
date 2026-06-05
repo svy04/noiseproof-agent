@@ -9219,3 +9219,86 @@ no live OpenAI provider call
 live embedding generation proof remains pending
 external reviewer feedback remains pending
 ```
+
+## External Reviewer Embedding Provider Owner-runtime Smoke Packet Request Refresh
+
+Phase marker: external reviewer embedding provider owner-runtime smoke packet request refresh v0.
+
+Review artifact:
+
+```text
+docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md
+```
+
+Highlighted packet:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
+```
+
+Reviewer-facing surfaces updated:
+
+```text
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+README.md
+docs/GOAL.md
+docs/application/portfolio-index.md
+docs/review/external-reader-proof-path.md
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+docs/runbook.md
+```
+
+Boundary:
+
+```text
+not a live issue body edit
+not external reviewer feedback
+not hosted deployment evidence
+not live embedding generation proof
+not product-complete
+```
+
+## External Review Issue Body Embedding Provider Owner-runtime Smoke Packet Refresh
+
+Phase marker: external review issue body embedding provider owner-runtime smoke packet refresh v0.
+
+Review artifact:
+
+```text
+docs/review/external-review-issue-body-embedding-provider-owner-runtime-smoke-packet-refresh.md
+```
+
+Live issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+Observed state after issue body edit:
+
+```text
+starts_with_request: true
+first_codepoint: 35
+has_embedding_provider_owner_runtime_smoke_packet: true
+has_embedding_provider_request_refresh: true
+has_embedding_provider_issue_body_refresh: true
+has_api_calls_attempted_false: true
+has_openai_api_key_printed_false: true
+has_live_embedding_generation_boundary: true
+has_external_feedback_boundary: true
+comment_count: 1
+body_length: 4734
+```
+
+Boundary:
+
+```text
+owner-authored issue routing only
+not external reviewer feedback
+not hosted deployment evidence
+not live embedding generation proof
+not product-complete
+```

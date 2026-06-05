@@ -17564,3 +17564,155 @@ def test_embedding_model_live_provider_owner_runtime_smoke_packet_is_documented(
         "embedding model live-provider owner-runtime smoke packet exists"
         in app_review
     )
+
+
+def test_external_reviewer_embedding_provider_owner_runtime_smoke_packet_request_refresh_links_packet():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    reviewer_brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+
+    packet_doc = "docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md"
+    )
+
+    assert (
+        "External Reviewer Embedding Provider Owner-runtime Smoke Packet Request Refresh"
+        in content
+    )
+    assert (
+        "external reviewer embedding provider owner-runtime smoke packet request refresh v0"
+        in content
+    )
+    assert packet_doc in content
+    assert request_doc in content
+    assert "api_calls_attempted: false" in content
+    assert "openai_api_key_printed: false" in content
+    assert "not a live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not live embedding generation proof" in content
+    assert "not product-complete" in content
+
+    for surface in [
+        contributing,
+        issue_template,
+        readme,
+        goal,
+        runbook,
+        portfolio,
+        proof_path,
+        review_request,
+        reviewer_brief,
+        link_map,
+    ]:
+        assert packet_doc in surface
+        assert request_doc in surface
+
+    assert (
+        "External reviewer embedding provider owner-runtime smoke packet request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 476 - External Reviewer Embedding Provider Owner-runtime Smoke Packet Request Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer embedding provider owner-runtime smoke packet request refresh v0"
+        in runbook
+    )
+
+
+def test_external_review_issue_body_embedding_provider_owner_runtime_smoke_packet_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-embedding-provider-owner-runtime-smoke-packet-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    packet_doc = "docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-embedding-provider-owner-runtime-smoke-packet-refresh.md"
+    )
+
+    assert (
+        "External Review Issue Body Embedding Provider Owner-runtime Smoke Packet Refresh"
+        in content
+    )
+    assert (
+        "external review issue body embedding provider owner-runtime smoke packet refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert packet_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_embedding_provider_owner_runtime_smoke_packet": true' in content
+    assert '"has_embedding_provider_request_refresh": true' in content
+    assert '"has_embedding_provider_issue_body_refresh": true' in content
+    assert '"has_api_calls_attempted_false": true' in content
+    assert '"has_openai_api_key_printed_false": true' in content
+    assert '"has_live_embedding_generation_boundary": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert "api_calls_attempted: false" in content
+    assert "openai_api_key_printed: false" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not live embedding generation proof" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body embedding provider owner-runtime smoke packet refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 477 - External Review Issue Body Embedding Provider Owner-runtime Smoke Packet Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body embedding provider owner-runtime smoke packet refresh v0"
+        in runbook
+    )
+    assert issue_doc in portfolio
