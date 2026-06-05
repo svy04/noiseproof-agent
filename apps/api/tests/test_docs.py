@@ -12160,6 +12160,89 @@ def test_uploaded_pdf_page_diagnostics_runtime_smoke_records_live_http_evidence(
     assert "uploaded PDF page diagnostics proof" in proof_path
 
 
+def test_external_reviewer_pdf_page_diagnostics_runtime_request_refresh_routes_reviewers_to_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reviewer-pdf-page-diagnostics-runtime-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+
+    assert "External Reviewer PDF Page Diagnostics Runtime Request Refresh" in content
+    assert (
+        "external reviewer PDF page diagnostics runtime request refresh v0"
+        in content
+    )
+    assert "request infrastructure only" in content
+    assert "uploaded PDF page diagnostics proof" in content
+    assert "docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md" in content
+    assert "POST /documents/upload-preview" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "page_text_char_counts -> [39]" in content
+    assert "empty_page_count -> 0" in content
+    assert "text_block_count -> 1" in content
+    assert "image_block_count -> 0" in content
+    assert "document_count_delta -> 0" in content
+    assert "does not edit the live public issue body" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert (
+        "External reviewer PDF page diagnostics runtime request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 542 - External Reviewer PDF Page Diagnostics Runtime Request Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer PDF page diagnostics runtime request refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reviewer-pdf-page-diagnostics-runtime-request-refresh.md"
+        in portfolio
+    )
+    for reviewer_surface in [
+        proof_path,
+        request,
+        brief,
+        link_map,
+        issue_template,
+        contributing,
+    ]:
+        assert "uploaded PDF page diagnostics proof" in reviewer_surface
+        assert (
+            "docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md"
+            in reviewer_surface
+        )
+        assert "page_text_char_counts -> [39]" in reviewer_surface
+
+
 def test_uploaded_pdf_downstream_handoff_is_documented_without_robust_claim():
     review_path = REPO_ROOT / "docs/review/uploaded-pdf-downstream-handoff.md"
     assert review_path.is_file()

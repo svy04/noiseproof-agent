@@ -124,6 +124,16 @@ docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md
 
 This proof records `parser -> pdf-pymupdf` for uploaded digital PDF text flowing through upload preview, upload chunk preview, explicit upload-to-chunks persistence, listed chunk lookup, and upload retrieval preview. It is not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 
+uploaded PDF page diagnostics proof:
+
+```text
+docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md
+docs/review/external-reviewer-pdf-page-diagnostics-runtime-request-refresh.md
+page_text_char_counts -> [39]
+```
+
+This proof records preview-only page diagnostics from uploaded digital PDF text extraction with `empty_page_count -> 0`, `text_block_count -> 1`, `image_block_count -> 0`, and `document_count_delta -> 0`. It is not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
+
 uploaded PDF retrieval-run provenance runtime proof:
 
 ```text

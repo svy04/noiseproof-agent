@@ -214,6 +214,16 @@ docs/review/external-feedback-current-state-pdf-downstream-handoff-issue-verific
 
 This proof is uploaded digital PDF text only, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 
+uploaded PDF page diagnostics proof:
+
+```text
+docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md
+docs/review/external-reviewer-pdf-page-diagnostics-runtime-request-refresh.md
+page_text_char_counts -> [39]
+```
+
+This proof is preview-only uploaded digital PDF diagnostics with `empty_page_count -> 0`, `text_block_count -> 1`, `image_block_count -> 0`, and `document_count_delta -> 0`. It is not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
+
 uploaded-file chunk persistence proof:
 
 ```text

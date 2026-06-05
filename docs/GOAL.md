@@ -19822,6 +19822,38 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 542 - External Reviewer PDF Page Diagnostics Runtime Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the uploaded PDF page diagnostics runtime proof discoverable from reviewer-facing request surfaces
+```
+
+Implemented:
+
+```text
+external reviewer PDF page diagnostics runtime request refresh v0
+docs/review/external-reviewer-pdf-page-diagnostics-runtime-request-refresh.md
+docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md linked from reviewer request surfaces
+uploaded PDF page diagnostics proof
+page_text_char_counts -> [39]
+empty_page_count -> 0
+text_block_count -> 1
+image_block_count -> 0
+document_count_delta -> 0
+```
+
+Phase 542 is request infrastructure only. It does not edit the live public issue body. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not parsed text persistence, not retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, external reviewer PDF page diagnostics runtime issue-body refresh v0 if the live issue should point to this proof, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
