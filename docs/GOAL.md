@@ -18705,6 +18705,50 @@ Next recommended evidence gate:
 external feedback current-state workflow proof bundle failure-case links runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 512 - External Feedback Current-state Workflow Proof Bundle Failure-case Links Runtime Issue Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+verify the current public issue state after the workflow proof bundle failure-case links runtime issue body refresh and keep external reviewer feedback pending unless a qualifying outside comment exists
+```
+
+Implemented:
+
+```text
+external feedback current-state workflow proof bundle failure-case links runtime issue verification v0
+docs/review/external-feedback-current-state-workflow-proof-bundle-failure-case-links-runtime-issue-verification.md
+issue #1 still links docs/review/workflow-proof-bundle-failure-case-links-runtime-smoke.md
+issue #1 still links docs/review/external-reviewer-workflow-proof-bundle-failure-case-links-runtime-request-refresh.md
+issue #1 still links docs/review/external-review-issue-body-workflow-proof-bundle-failure-case-links-runtime-refresh.md
+observed updatedAt 2026-06-05T05:32:58Z
+starts_with_request true
+first_codepoint 35
+comment_count 1
+screened_comment_count 1
+candidate_count 0
+draft_count 0
+status pending
+```
+
+Current comment classification:
+
+```text
+classification non_qualifying
+reason self_authored_comment
+does_not_close_gate true
+```
+
+Phase 512 records current-state issue verification only. It adds no runtime behavior, no schema or migration, no automatic failure detection, no background automation, no root-cause automation, no retry or repair behavior, no complete workflow failure causality, no hosted deployment evidence, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim. External reviewer feedback remains pending.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
