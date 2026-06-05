@@ -17554,7 +17554,7 @@ def test_readme_latest_marker_current_state_refresh_points_to_current_proof_boun
         in readme
     )
     assert (
-        "Latest external-feedback state: pending after handoff issue verification; candidate_count=0; self-authored comment only"
+        "Latest external-feedback state: pending after PDF page diagnostics downstream issue verification; candidate_count=0; self-authored comment only"
         in readme
     )
     assert "Latest marker: Failure-case workflow review queue v0" not in readme
@@ -17599,8 +17599,16 @@ def test_readme_latest_marker_embedding_handoff_current_state_refresh_updates_fi
     assert "external-feedback remains pending" in content
     assert "not live embedding generation proof" in content
     assert "not product-complete" in content
-    assert latest_routing in readme
-    assert latest_feedback in readme
+    assert (
+        "Latest reviewer-routing marker: PDF page diagnostics downstream runtime issue-body refresh v0"
+        in readme
+    )
+    assert (
+        "Latest external-feedback state: pending after PDF page diagnostics downstream issue verification; candidate_count=0; self-authored comment only"
+        in readme
+    )
+    assert latest_routing not in readme
+    assert latest_feedback not in readme
     assert "Latest reviewer-routing marker: External review issue body readability refresh v0" not in readme
     assert (
         "README latest-marker embedding handoff current-state refresh v0: implemented"
@@ -17612,6 +17620,70 @@ def test_readme_latest_marker_embedding_handoff_current_state_refresh_updates_fi
     )
     assert (
         "readme latest-marker embedding handoff current-state refresh v0"
+        in runbook
+    )
+    assert review_doc in portfolio
+
+
+def test_readme_latest_marker_pdf_downstream_current_state_refresh_updates_first_pass_markers():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/readme-latest-marker-pdf-downstream-current-state-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/readme-latest-marker-pdf-downstream-current-state-refresh.md"
+    )
+
+    latest_routing = (
+        "Latest reviewer-routing marker: PDF page diagnostics downstream runtime issue-body refresh v0"
+    )
+    latest_feedback = (
+        "Latest external-feedback state: pending after PDF page diagnostics downstream issue verification; candidate_count=0; self-authored comment only"
+    )
+
+    assert "README Latest-marker PDF Downstream Current-state Refresh" in content
+    assert "readme latest-marker PDF downstream current-state refresh v0" in content
+    assert latest_routing in content
+    assert latest_feedback in content
+    assert (
+        "docs/review/external-review-issue-body-pdf-page-diagnostics-downstream-runtime-refresh.md"
+        in content
+    )
+    assert (
+        "docs/review/external-feedback-current-state-pdf-page-diagnostics-downstream-runtime-issue-verification.md"
+        in content
+    )
+    assert "external-feedback remains pending" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not product-complete" in content
+    assert latest_routing in readme
+    assert latest_feedback in readme
+    assert (
+        "Latest reviewer-routing marker: Embedding provider handoff alignment issue-body refresh v0"
+        not in readme
+    )
+    assert (
+        "README latest-marker PDF downstream current-state refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 550 - README Latest-marker PDF Downstream Current-state Refresh v0"
+        in goal
+    )
+    assert (
+        "readme latest-marker PDF downstream current-state refresh v0"
         in runbook
     )
     assert review_doc in portfolio

@@ -20116,6 +20116,35 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 550 - README Latest-marker PDF Downstream Current-state Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+align the README first-pass latest reviewer-routing and external-feedback markers with the PDF page diagnostics downstream runtime issue-body refresh and current-state issue verification
+```
+
+Implemented:
+
+```text
+readme latest-marker PDF downstream current-state refresh v0
+docs/review/readme-latest-marker-pdf-downstream-current-state-refresh.md
+Latest reviewer-routing marker: PDF page diagnostics downstream runtime issue-body refresh v0
+Latest external-feedback state: pending after PDF page diagnostics downstream issue verification; candidate_count=0; self-authored comment only
+docs/review/external-review-issue-body-pdf-page-diagnostics-downstream-runtime-refresh.md
+docs/review/external-feedback-current-state-pdf-page-diagnostics-downstream-runtime-issue-verification.md
+```
+
+Phase 550 is README current-state alignment only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not full parsed text persistence, not semantic retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, not live embedding generation proof, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

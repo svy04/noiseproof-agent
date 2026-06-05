@@ -113,8 +113,8 @@ Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runti
 Latest workflow proof bundle runtime marker: Workflow proof bundle failure-case links runtime smoke v0: implemented.
 Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented.
 Latest product gate marker: Workflow stage event log v0: implemented.
-Latest reviewer-routing marker: Embedding provider handoff alignment issue-body refresh v0.
-Latest external-feedback state: pending after handoff issue verification; candidate_count=0; self-authored comment only.
+Latest reviewer-routing marker: PDF page diagnostics downstream runtime issue-body refresh v0.
+Latest external-feedback state: pending after PDF page diagnostics downstream issue verification; candidate_count=0; self-authored comment only.
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*` artifacts.
 
@@ -600,6 +600,8 @@ External reviewer PDF page diagnostics downstream runtime request refresh v0: im
 External reviewer PDF page diagnostics downstream runtime issue-body refresh v0: implemented. Boundary: live issue #1 now points reviewers to `docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md` and `docs/review/external-reviewer-pdf-page-diagnostics-downstream-runtime-request-refresh.md`; this is an owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction, OCR, table extraction, layout fidelity, raw file storage, full parsed text persistence, Evidence Ledger generation, Noise Gate behavior, report generation, or product-complete.
 
 External feedback current-state PDF page diagnostics downstream runtime issue verification v0: implemented. Boundary: current issue #1 has the PDF page diagnostics downstream runtime proof, request refresh, and issue-body refresh links, but the only screened comment is owner-authored by `svy04`, `candidate_count=0`, `draft_count=0`, and external reviewer feedback remains pending.
+
+README latest-marker PDF downstream current-state refresh v0: implemented. Boundary: README top markers now point to the PDF page diagnostics downstream runtime issue-body refresh and downstream current-state issue verification; external reviewer feedback remains pending, and this is not hosted deployment evidence, robust PDF extraction, live embedding generation proof, or product-complete.
 
 Uploaded PDF downstream handoff v0: implemented. Boundary: `POST /documents/upload-chunk-preview`, `POST /documents/upload-chunks`, and `POST /documents/upload-retrieval-preview` reuse PyMuPDF digital text extraction for uploaded PDF bytes; OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, and external reviewer feedback are not claimed.
 
