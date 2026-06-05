@@ -493,6 +493,9 @@ class InMemoryRepository:
             "report_records": [
                 row for row in self.report_records if str(row.get("workflow_run_id")) == workflow_id
             ],
+            "failure_cases": [
+                row for row in self.failure_cases if str(row.get("workflow_run_id")) == workflow_id
+            ],
         }
 
     def update_workflow_run(
@@ -1048,6 +1051,63 @@ def test_failure_case_workflow_parent_handoff_persists_failure_case_and_updates_
     assert queue_item["workflow_run"]["id"] == workflow["id"]
     assert queue_item["review_status"] == "failure_case_linked"
     assert queue_item["linked_failure_case_ids"] == [body["failure_case"]["id"]]
+
+
+def test_workflow_proof_bundle_surfaces_linked_failure_cases_read_only():
+    client = make_client()
+    workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which failed workflow needs a visible failure case link?",
+            "status": "failed",
+            "error_message": "simulated report persistence failure",
+            "trace_json": {
+                "stage": "report_persistence",
+                "error_type": "RuntimeError",
+            },
+        },
+    ).json()
+
+    persisted = client.post(f"/failure-cases/workflow-runs/{workflow['id']}").json()
+    unrelated_workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which unrelated failure case should stay out of this proof bundle?",
+            "status": "failed",
+        },
+    ).json()
+    unrelated_failure = client.post(
+        "/failure-cases",
+        json={
+            "workflow_run_id": unrelated_workflow["id"],
+            "failure_type": "workflow_stage_error",
+            "description": "Unrelated failure case for filter proof.",
+            "fix_status": "open",
+        },
+    ).json()
+    detail = client.get(f"/workflow-runs/{workflow['id']}")
+    bundle = client.get(f"/workflow-runs/{workflow['id']}/proof-bundle")
+    filtered_failure_cases = client.get(f"/failure-cases?workflow_run_id={workflow['id']}")
+
+    assert detail.status_code == 200
+    assert bundle.status_code == 200
+    assert filtered_failure_cases.status_code == 200
+    detail_payload = detail.json()
+    bundle_payload = bundle.json()
+    assert detail_payload["failure_cases"][0]["id"] == persisted["failure_case"]["id"]
+    assert unrelated_failure["id"] != persisted["failure_case"]["id"]
+    assert detail_payload["failure_cases"][0]["workflow_run_id"] == workflow["id"]
+    assert detail_payload["summary"]["failure_case_count"] == 1
+    assert bundle_payload["detail"]["failure_cases"][0]["id"] == persisted["failure_case"]["id"]
+    assert bundle_payload["detail"]["summary"]["failure_case_count"] == 1
+    assert f"/failure-cases?workflow_run_id={workflow['id']}" in bundle_payload["proof_surfaces"]
+    assert [row["id"] for row in filtered_failure_cases.json()] == [
+        persisted["failure_case"]["id"]
+    ]
+    assert any(
+        "failure_cases are linked by workflow_run_id" in warning
+        for warning in bundle_payload["warnings"]
+    )
 
 
 def test_failure_case_workflow_parent_handoff_rejects_completed_workflow_and_duplicate_persistence():
@@ -3763,6 +3823,7 @@ def test_workflow_run_detail_returns_child_records_linked_to_workflow_parent():
         "evidence_ledger_entry_count": 1,
         "noise_gate_record_count": 1,
         "report_record_count": 1,
+        "failure_case_count": 0,
     }
     assert payload["retrieval_runs"][0]["workflow_run_id"] == workflow_run_id
     assert payload["evidence_ledger_entries"][0]["workflow_run_id"] == workflow_run_id
@@ -3861,6 +3922,7 @@ def test_workflow_run_proof_bundle_collects_existing_detail_lineage_and_trace_re
         "evidence_ledger_entry_count": 1,
         "noise_gate_record_count": 1,
         "report_record_count": 1,
+        "failure_case_count": 0,
     }
     assert payload["lineage"]["lineage_boundary"] == "derived_read_model_only"
     assert payload["lineage"]["summary"]["missing_reference_count"] == 0
@@ -3903,6 +3965,7 @@ def test_workflow_run_proof_bundle_handles_metadata_only_workflow_without_trace_
         "evidence_ledger_entry_count": 0,
         "noise_gate_record_count": 0,
         "report_record_count": 0,
+        "failure_case_count": 0,
     }
     assert payload["lineage"]["summary"]["missing_reference_count"] == 0
     assert payload["proof_surfaces"] == [

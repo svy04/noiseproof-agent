@@ -106,5 +106,15 @@ def workflow_failure_review_queue(
 
 
 @router.get("", response_model=list[FailureCaseOut])
-def list_failure_cases(repository: Repository = Depends(get_repository)) -> list[dict]:
-    return list(repository.list_failure_cases())
+def list_failure_cases(
+    workflow_run_id: UUID | None = None,
+    repository: Repository = Depends(get_repository),
+) -> list[dict]:
+    rows = list(repository.list_failure_cases())
+    if workflow_run_id is not None:
+        rows = [
+            row
+            for row in rows
+            if str(row.get("workflow_run_id")) == str(workflow_run_id)
+        ]
+    return rows

@@ -111,7 +111,7 @@ Current status groups:
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
 Latest workflow proof bundle runtime marker: Workflow proof bundle runtime smoke v0: implemented.
-Latest product gate marker: Workflow proof bundle read model v0: implemented.
+Latest product gate marker: Workflow proof bundle failure-case links v0: implemented.
 Latest reviewer-routing marker: Embedding provider handoff alignment issue-body refresh v0.
 Latest external-feedback state: pending after handoff issue verification; candidate_count=0; self-authored comment only.
 
@@ -313,6 +313,10 @@ External reviewer workflow failure-case persistence runtime request refresh v0: 
 External review issue body workflow failure-case persistence runtime refresh v0: implemented. Boundary: issue #1 now points reviewers to `docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md`, `docs/review/external-reviewer-workflow-failure-case-persistence-runtime-request-refresh.md`, and `docs/review/external-review-issue-body-workflow-failure-case-persistence-runtime-refresh.md`; this is owner-authored issue routing only, not external reviewer feedback, hosted deployment evidence, background automation, complete workflow failure causality, or product-complete.
 
 External feedback current-state workflow failure-case persistence runtime issue verification v0: implemented. Boundary: current issue #1 has the workflow failure-case persistence runtime proof, request refresh, and issue-body refresh links, but the only screened comment is owner-authored, `candidate_count=0`, `draft_count=0`, and external reviewer feedback remains pending.
+
+Workflow proof bundle read model v0: implemented. Boundary: `GET /workflow-runs/{id}/proof-bundle` collects existing workflow detail, derived lineage, and trace lookup surfaces without new storage, distributed tracing, hosted observability, external reviewer feedback, or product-complete claims.
+
+Workflow proof bundle failure-case links v0: implemented. Boundary: `GET /workflow-runs/{id}` and `GET /workflow-runs/{id}/proof-bundle` now surface linked `failure_cases` plus `failure_case_count`, and `GET /failure-cases?workflow_run_id={id}` filters failure cases by workflow parent. This is a read model only, not automatic failure detection, background automation, complete workflow failure causality, root-cause automation, hosted deployment evidence, external reviewer feedback, or product-complete.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 

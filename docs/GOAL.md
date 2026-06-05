@@ -18547,6 +18547,41 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 508 - Workflow Proof Bundle Failure-case Links v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+surface failure_cases linked by workflow_run_id inside the existing workflow detail and proof bundle read models
+```
+
+Implemented:
+
+```text
+workflow proof bundle failure-case links v0
+docs/review/workflow-proof-bundle-failure-case-links.md
+GET /workflow-runs/{id} includes failure_cases
+GET /workflow-runs/{id} summary includes failure_case_count
+GET /workflow-runs/{id}/proof-bundle includes detail.failure_cases
+GET /workflow-runs/{id}/proof-bundle proof_surfaces includes /failure-cases?workflow_run_id={id} when linked failure cases exist
+GET /failure-cases?workflow_run_id={id} filters failure cases by workflow parent
+lookup_workflow_run_records(workflow_run_id) includes failure_cases
+test_workflow_proof_bundle_surfaces_linked_failure_cases_read_only
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 508 extends existing read models only. It adds no automatic failure detection, no background automation, no root-cause automation, no retry or repair behavior, no complete workflow failure causality, no hosted deployment evidence, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

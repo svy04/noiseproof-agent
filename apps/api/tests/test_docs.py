@@ -16702,10 +16702,6 @@ def test_workflow_proof_bundle_read_model_documents_reviewer_read_model_boundary
     assert "no hosted deployment evidence" in content
     assert "no product-complete claim" in content
     assert "Workflow proof bundle read model v0: implemented" in readme
-    assert (
-        "Latest product gate marker: Workflow proof bundle read model v0: implemented."
-        in readme
-    )
     assert "Phase 448 - Workflow Proof Bundle Read Model v0" in goal
     assert "workflow proof bundle read model v0" in runbook
     assert "GET  /workflow-runs/{id}/proof-bundle" in architecture
@@ -16846,6 +16842,51 @@ def test_workflow_proof_bundle_dashboard_runtime_smoke_documents_live_link_evide
     assert "Phase 454 - Workflow Proof Bundle Dashboard Runtime Smoke v0" in goal
     assert "workflow proof bundle dashboard runtime smoke v0" in runbook
     assert "docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md" in portfolio
+
+
+def test_workflow_proof_bundle_failure_case_links_document_read_model_boundary():
+    review_path = REPO_ROOT / "docs/review/workflow-proof-bundle-failure-case-links.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    schemas_py = (REPO_ROOT / "apps/api/app/schemas.py").read_text(encoding="utf-8")
+    workflow_routes_py = (
+        REPO_ROOT / "apps/api/app/routes/workflow_runs.py"
+    ).read_text(encoding="utf-8")
+    failure_case_routes_py = (
+        REPO_ROOT / "apps/api/app/routes/failure_cases.py"
+    ).read_text(encoding="utf-8")
+    db_py = (REPO_ROOT / "apps/api/app/db.py").read_text(encoding="utf-8")
+
+    assert "Workflow Proof Bundle Failure-case Links" in content
+    assert "workflow proof bundle failure-case links v0" in content
+    assert "GET /workflow-runs/{id}" in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert "GET /failure-cases?workflow_run_id={id}" in content
+    assert "failure_cases" in content
+    assert "failure_case_count" in content
+    assert "workflow_run_id" in content
+    assert "read model only" in content
+    assert "not automatic failure detection" in content
+    assert "not background automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not root-cause automation" in content
+    assert "failure_cases: list[dict[str, Any]]" in schemas_py
+    assert "failure_case_count: int" in schemas_py
+    assert "failure_cases=children.get" in workflow_routes_py
+    assert 'f"/failure-cases?workflow_run_id={workflow_run_id}"' in workflow_routes_py
+    assert "workflow_run_id: UUID | None = None" in failure_case_routes_py
+    assert "WHERE workflow_run_id = %s" in db_py
+    assert "Workflow proof bundle failure-case links v0: implemented" in readme
+    assert "Phase 508 - Workflow Proof Bundle Failure-case Links v0" in goal
+    assert "workflow proof bundle failure-case links v0" in runbook
+    assert "docs/review/workflow-proof-bundle-failure-case-links.md" in portfolio
 
 
 def test_external_reviewer_workflow_proof_bundle_dashboard_runtime_request_refresh_links_latest_proof():

@@ -746,6 +746,7 @@ class WorkflowRunDetailSummaryOut(BaseModel):
     evidence_ledger_entry_count: int
     noise_gate_record_count: int
     report_record_count: int
+    failure_case_count: int
 
 
 class WorkflowRunDetailOut(BaseModel):
@@ -754,6 +755,7 @@ class WorkflowRunDetailOut(BaseModel):
     evidence_ledger_entries: list[EvidenceLedgerStoredEntryOut]
     noise_gate_records: list[NoiseGateStoredRecordOut]
     report_records: list[ReportStoredRecordOut]
+    failure_cases: list[dict[str, Any]]
     summary: WorkflowRunDetailSummaryOut
 
 

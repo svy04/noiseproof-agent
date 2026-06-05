@@ -88,6 +88,12 @@ def get_workflow_run_proof_bundle(
         proof_surfaces.append(f"/traces/{workflow_trace_id}")
     if trace_warning is not None:
         warnings.append(trace_warning)
+    if detail.summary.failure_case_count:
+        proof_surfaces.append(f"/failure-cases?workflow_run_id={workflow_run_id}")
+        warnings.append(
+            "Linked failure_cases are linked by workflow_run_id and surfaced read-only; "
+            "this is not automatic failure causality or background automation."
+        )
     return WorkflowProofBundleOut(
         workflow_run=WorkflowRunOut(**workflow_run),
         workflow_trace_id=workflow_trace_id,
@@ -122,11 +128,13 @@ def _build_workflow_detail(
         evidence_ledger_entries=children["evidence_ledger_entries"],
         noise_gate_records=children["noise_gate_records"],
         report_records=children["report_records"],
+        failure_cases=children.get("failure_cases", []),
         summary=WorkflowRunDetailSummaryOut(
             retrieval_run_count=len(children["retrieval_runs"]),
             evidence_ledger_entry_count=len(children["evidence_ledger_entries"]),
             noise_gate_record_count=len(children["noise_gate_records"]),
             report_record_count=len(children["report_records"]),
+            failure_case_count=len(children.get("failure_cases", [])),
         ),
     )
 

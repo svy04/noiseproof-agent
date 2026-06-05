@@ -849,11 +849,20 @@ class PostgresRepository:
                 """,
                 (workflow_run_id,),
             ).fetchall()
+            failure_cases = conn.execute(
+                """
+                SELECT * FROM failure_cases
+                WHERE workflow_run_id = %s
+                ORDER BY created_at DESC, id DESC
+                """,
+                (workflow_run_id,),
+            ).fetchall()
         return {
             "retrieval_runs": [dict(row) for row in retrieval_runs],
             "evidence_ledger_entries": [dict(row) for row in evidence_entries],
             "noise_gate_records": [dict(row) for row in noise_gate_records],
             "report_records": [dict(row) for row in report_records],
+            "failure_cases": [dict(row) for row in failure_cases],
         }
 
     def update_workflow_run(
