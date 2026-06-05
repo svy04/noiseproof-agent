@@ -21614,3 +21614,86 @@ NoiseProof Agent is application-ready only when:
 - Braincrew role map exists
 
 Until then, report progress as phased evidence, not product completion.
+
+### Phase 588 - External Reviewer Workflow Failure Auto-creation Runtime Request Refresh v0
+
+Status: implemented.
+
+Purpose: make the workflow failure auto-created failure-case runtime smoke discoverable from reviewer-facing repository paths before any new external feedback is claimed.
+
+Implemented artifacts:
+
+```text
+external reviewer workflow failure auto-creation runtime request refresh v0
+docs/review/external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md
+docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+README.md
+docs/application/braincrew-role-map.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+docs/review/external-reader-proof-path.md
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+docs/runbook.md
+failure_case_count_delta -> 1
+auto_failure_case_id
+auto_created_from_workflow_failure_local_v0
+local_workflow_stage_failure_event_auto_failure_case_local_v0
+```
+
+Boundary: request-surface refresh only; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, and not product-complete.
+
+Next gate: external review issue body workflow failure auto-creation runtime refresh v0.
+
+### Phase 589 - External Review Issue Body Workflow Failure Auto-creation Runtime Refresh v0
+
+Status: implemented.
+
+Purpose: update the live owner-authored issue #1 body so the external review request points to the workflow failure auto-created failure-case runtime proof.
+
+Implemented artifacts:
+
+```text
+external review issue body workflow failure auto-creation runtime refresh v0
+https://github.com/svy04/noiseproof-agent/issues/1
+docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md
+docs/review/external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md
+docs/review/external-review-issue-body-workflow-failure-auto-creation-runtime-refresh.md
+failure_case_count_delta -> 1
+auto_failure_case_id
+auto_created_from_workflow_failure_local_v0
+local_workflow_stage_failure_event_auto_failure_case_local_v0
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, and not product-complete.
+
+Next gate: external feedback current-state workflow failure auto-creation runtime issue verification v0.
+
+### Phase 590 - External Feedback Current-state Workflow Failure Auto-creation Runtime Issue Verification v0
+
+Status: implemented.
+
+Purpose: verify the current issue #1 screen after the workflow failure auto-creation runtime issue-body refresh and keep the external reviewer feedback gate pending when the only comment remains self-authored.
+
+Implemented artifacts:
+
+```text
+external feedback current-state workflow failure auto-creation runtime issue verification v0
+docs/review/external-feedback-current-state-workflow-failure-auto-creation-runtime-issue-verification.md
+docs/review/external-review-issue-body-workflow-failure-auto-creation-runtime-refresh.md
+docs/review/external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md
+docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md
+candidate_count -> 0
+draft_count -> 0
+status -> pending
+self_authored_comment
+external reviewer feedback v0 gate remains pending
+```
+
+Boundary: current-state issue verification only; not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, and not product-complete.
+
+Next gate: external reviewer feedback v0 or the next bounded product proof gate selected from the current repository state.

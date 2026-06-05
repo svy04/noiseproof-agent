@@ -930,3 +930,20 @@ Detailed proof history remains in `docs/review/external-reader-proof-path.md`, `
 Allowed claim: local, inspectable portfolio evidence exists for the current bounded workflow surfaces.
 
 Forbidden claim: this is not hosted deployment evidence, not a raw-file download/scanning system, not automatic failure-case creation beyond the local v0 workflow failure path, not complete workflow failure causality, not production RAG quality, and not a product-complete declaration.
+
+## Workflow Failure Auto-created Failure-case Runtime Routing
+
+Workflow failure auto failure-case creation runtime smoke: `docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence that a forced deterministic workflow failure returns `POST /workflow-runs/execute-preview -> 500` while preserving a workflow record, failed stage events, and one linked local v0 failure case. Observed markers include `failure_case_count_delta -> 1`, `detail_failure_case_count -> 1`, `bundle_detail_failure_case_count -> 1`, `filtered_failure_case_count -> 1`, `auto_failure_case_id`, `auto_created_from_workflow_failure_local_v0`, and `local_workflow_stage_failure_event_auto_failure_case_local_v0`.
+
+External reviewer workflow failure auto-creation runtime request refresh: `docs/review/external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md` makes that runtime proof visible from reviewer-facing repository paths. It is request infrastructure only, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, and not product-complete.
+
+External review issue body workflow failure auto-creation runtime refresh: `docs/review/external-review-issue-body-workflow-failure-auto-creation-runtime-refresh.md` records the owner-authored issue #1 update routing reviewers to the workflow failure auto-created failure-case runtime proof and request refresh. It is issue routing only, not external reviewer feedback.
+
+External feedback current-state workflow failure auto-creation runtime issue verification: `docs/review/external-feedback-current-state-workflow-failure-auto-creation-runtime-issue-verification.md` records that issue #1 still has only self-authored feedback after the issue-body refresh, with `candidate_count=0`, `draft_count=0`, and external reviewer feedback pending.
+
+| Artifact | Path | What it proves |
+|---|---|---|
+| Workflow failure auto-created failure-case runtime smoke | `docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md` | local v0 workflow failure path can auto-create one linked failure case under a forced failed Evidence Ledger stage |
+| External reviewer workflow failure auto-creation runtime request refresh | `docs/review/external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md` | reviewer-facing request-surface refresh for local v0 auto-created workflow failure-case proof |
+| External review issue body workflow failure auto-creation runtime refresh | `docs/review/external-review-issue-body-workflow-failure-auto-creation-runtime-refresh.md` | owner-authored issue #1 body now routes reviewers to the local v0 runtime proof |
+| External feedback current-state workflow failure auto-creation runtime issue verification | `docs/review/external-feedback-current-state-workflow-failure-auto-creation-runtime-issue-verification.md` | external reviewer feedback remains pending because the only screened comment is self-authored |

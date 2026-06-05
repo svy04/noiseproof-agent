@@ -10791,6 +10791,134 @@ not hosted observability
 not product-complete
 ```
 
+## External Reviewer Workflow Failure Auto-creation Runtime Request Refresh
+
+Phase marker: external reviewer workflow failure auto-creation runtime request refresh v0.
+
+Review artifact:
+
+```text
+docs/review/external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md
+```
+
+Highlighted proof:
+
+```text
+docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md
+POST /workflow-runs/execute-preview -> 500
+GET /workflow-runs/{id} -> 200
+GET /workflow-runs/{id}/proof-bundle -> 200
+GET /failure-cases?workflow_run_id={id} -> 200
+failure_case_count_delta -> 1
+detail_failure_case_count -> 1
+bundle_detail_failure_case_count -> 1
+filtered_failure_case_count -> 1
+auto_failure_case_id
+auto_created_from_workflow_failure_local_v0
+local_workflow_stage_failure_event_auto_failure_case_local_v0
+```
+
+Boundary:
+
+```text
+request-surface refresh only
+not a live issue body edit
+not external reviewer feedback
+not hosted deployment evidence
+not retry behavior
+not root-cause automation
+not complete workflow failure causality
+not product-complete
+```
+
+## External Review Issue Body Workflow Failure Auto-creation Runtime Refresh
+
+Phase marker: external review issue body workflow failure auto-creation runtime refresh v0.
+
+Review artifact:
+
+```text
+docs/review/external-review-issue-body-workflow-failure-auto-creation-runtime-refresh.md
+```
+
+Live issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+Observed issue markers:
+
+```text
+starts_with_request -> true
+first_codepoint -> 35
+has_workflow_failure_auto_creation_runtime_proof -> true
+has_workflow_failure_auto_creation_request_refresh -> true
+has_workflow_failure_auto_creation_issue_body_refresh -> true
+has_failure_case_count_delta -> true
+has_auto_failure_case_id -> true
+has_auto_created_boundary -> true
+has_external_feedback_boundary -> true
+comment_count -> 1
+```
+
+Boundary:
+
+```text
+owner-authored issue body routing only
+not external reviewer feedback
+not hosted deployment evidence
+not retry behavior
+not root-cause automation
+not complete workflow failure causality
+not product-complete
+```
+
+## External Feedback Current-state Workflow Failure Auto-creation Runtime Issue Verification
+
+Phase marker: external feedback current-state workflow failure auto-creation runtime issue verification v0.
+
+Review artifact:
+
+```text
+docs/review/external-feedback-current-state-workflow-failure-auto-creation-runtime-issue-verification.md
+```
+
+Current issue state:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+starts_with_request -> true
+first_codepoint -> 35
+has_workflow_failure_auto_creation_runtime_proof -> true
+has_workflow_failure_auto_creation_request_refresh -> true
+has_workflow_failure_auto_creation_issue_body_refresh -> true
+has_failure_case_count_delta -> true
+has_auto_failure_case_id -> true
+has_auto_created_boundary -> true
+has_external_feedback_boundary -> true
+comment_count -> 1
+screened_comment_count -> 1
+candidate_count -> 0
+draft_count -> 0
+classification -> non_qualifying
+reason -> self_authored_comment
+status -> pending
+```
+
+Boundary:
+
+```text
+current-state issue verification only
+external reviewer feedback v0 gate remains pending
+not external reviewer feedback
+not hosted deployment evidence
+not retry behavior
+not root-cause automation
+not complete workflow failure causality
+not product-complete
+```
+
 ## External Feedback Current-state Workflow Failed Stage Event Runtime Issue Verification
 
 Phase marker: external feedback current-state workflow failed stage event runtime issue verification v0.

@@ -42,43 +42,43 @@ It is a small service that shows how I define a messy customer-like data problem
 
 External-reader proof path (5-minute path): `docs/review/external-reader-proof-path.md`.
 
-Proof archive: `docs/review/readme-proof-marker-archive.md` source-level provenance; not product runtime evidence, not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
+Archive: `docs/review/readme-proof-marker-archive.md`; source-level provenance, not product runtime evidence, not hosted proof, not automatic failure-case creation, and not complete workflow failure causality.
 
-Runtime proof links below are local proof surfaces, not hosted deployment evidence.
+Local links; not hosted deployment evidence.
 
 Runtime proof summary:
 
 - Migration/API: migration runner and fresh migrated Docker DB checks exist for bounded service paths only.
-- Failure/provenance: failure-case persistence smoke; linked failure-case proof; failed workflow parent proof; historical failure-case workflow linkage review; human-confirmed draft payload; route-level smoke; draft.fix_status from draft to open; fresh migrated Docker DB handoff proof; workflow failure-to-draft smoke; workflow parent linkage fresh DB proof; dashboard manual workflow parent link; fresh DB dashboard Workflow Parent proof; workflow parent proof index; reader path; manual workflow parent linkage now exists; direct stage links smoke (`docs/review/workflow-direct-stage-links-runtime-smoke.md`); failed-stage smoke (`docs/review/workflow-failed-stage-event-runtime-smoke.md`); workflow failure-case persistence smoke (`docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md`).
-- Failure boundaries: preview_only_not_persisted; not fresh Docker DB evidence; not automatic failure-case persistence; not automatic failure detection; not automatic failure-case creation; not complete workflow failure causality; automatic failure-case creation remains unclaimed.
-- Upload path: raw upload quarantine metadata; upload intake manifest runtime smoke; upload intake manifest persistence runtime smoke; upload parsed document persistence runtime smoke; guarded raw file download endpoint runtime smoke; rate-limit/filename/download audit/approval-gate/readiness/raw-file guard smokes; approval input guard; approval audit metadata; not raw file storage; production auth, user identity, signed URLs, distributed limits, malware evidence, robust serving/PDF, hosted evidence unproven.
-- Retrieval/semantic: linked Evidence Ledger, Noise Gate, and Report runtime smokes; caller-provided chunk embedding endpoint; caller-provided semantic retrieval persistence; toy semantic retrieval quality report; no external feedback, LLM judgment, free-form final answer, embedding generation, vector search quality claim, benchmark result, or production semantic retrieval quality.
+- Failure/provenance: failure-case persistence smoke; linked failure-case proof; historical failure-case workflow linkage review; failed workflow parent proof; human-confirmed draft payload (`draft.fix_status from draft to open`); route-level smoke; fresh migrated Docker DB handoff proof; workflow failure-to-draft smoke; workflow parent linkage fresh DB proof; dashboard manual workflow parent link; fresh DB dashboard Workflow Parent proof; workflow parent proof index reader path; manual workflow parent linkage now exists; direct stage links smoke (`docs/review/workflow-direct-stage-links-runtime-smoke.md`); failed-stage smoke (`docs/review/workflow-failed-stage-event-runtime-smoke.md`); auto-created failure-case runtime smoke (`docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md`); auto-creation request refresh (`docs/review/external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md`); workflow failure-case persistence smoke (`docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md`).
+- Failure boundaries: preview_only_not_persisted; not fresh Docker DB evidence; not automatic failure-case persistence; automatic failure-case creation remains unclaimed beyond the local v0 workflow failure path; not automatic failure detection; not complete workflow failure causality; production/background failure-case automation remains unclaimed.
+- Upload: raw upload quarantine metadata; upload intake manifest runtime smoke; upload intake manifest persistence runtime smoke; upload parsed document persistence runtime smoke; guarded raw file download endpoint runtime smoke; approval input guard; approval audit metadata; not raw file storage; production auth, identity, signed URLs, distributed limits, malware evidence, robust PDF, and hosted evidence unproven.
+- Retrieval/semantic: linked Evidence Ledger/Noise Gate/Report smokes; caller-provided chunk embedding endpoint; caller-provided semantic retrieval persistence; toy semantic retrieval quality report; no external feedback, LLM, free-form answer, embedding generation, vector quality, benchmark, or production semantic quality.
 
 Detailed proof links:
 
-- `docs/review/failure-case-workflow-parent-linkage-proof-index.md`
-- `docs/review/uploaded-raw-file-storage-application-refresh.md`
-- `docs/review/uploaded-file-chunk-persistence-application-refresh.md`
-- `docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md`
-- `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md`
-- `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
-- `docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md`
-- `docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md`
-- `docs/review/external-reviewer-rate-limit-request-refresh.md`
-- `docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md`
-- `docs/review/uploaded-raw-file-download-audit-runtime-smoke.md`
-- `docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md`
-- `docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md`
-- `docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md`
-- `docs/review/uploaded-raw-file-download-readiness-runtime-smoke.md`
-- `docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md`
-- `docs/review/workflow-proof-bundle-read-model.md`
-- `docs/review/workflow-direct-stage-links-runtime-smoke.md`
-- `docs/review/workflow-failed-stage-event-runtime-smoke.md`
-- `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md`
-- `docs/review/retrieval-run-linked-report-runtime-smoke.md`
-- `docs/review/embedding-endpoint-runtime-smoke.md`
-- `docs/review/semantic-retrieval-persistence-runtime-smoke.md`
+- docs/review/failure-case-workflow-parent-linkage-proof-index.md
+- docs/review/uploaded-raw-file-storage-application-refresh.md
+- docs/review/uploaded-file-chunk-persistence-application-refresh.md
+- docs/review/uploaded-file-chunk-persistence-handoff-application-refresh.md
+- docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md
+- docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md
+- docs/review/uploaded-raw-file-download-endpoint-runtime-smoke.md
+- docs/review/uploaded-raw-file-download-rate-limit-runtime-smoke.md
+- docs/review/external-reviewer-rate-limit-request-refresh.md
+- docs/review/uploaded-raw-file-download-filename-safety-runtime-smoke.md
+- docs/review/uploaded-raw-file-download-audit-runtime-smoke.md
+- docs/review/uploaded-raw-file-download-approval-gate-behavior-runtime-smoke.md
+- docs/review/uploaded-raw-file-download-approval-input-guard-runtime-smoke.md
+- docs/review/uploaded-raw-file-download-approval-audit-metadata-runtime-smoke.md
+- docs/review/uploaded-raw-file-download-readiness-runtime-smoke.md
+- docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md
+- docs/review/workflow-proof-bundle-read-model.md
+- docs/review/workflow-direct-stage-links-runtime-smoke.md
+- docs/review/workflow-failed-stage-event-runtime-smoke.md
+- docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md
+- docs/review/retrieval-run-linked-report-runtime-smoke.md
+- docs/review/embedding-endpoint-runtime-smoke.md
+- docs/review/semantic-retrieval-persistence-runtime-smoke.md
 
 ## DeepDocurator Alignment
 

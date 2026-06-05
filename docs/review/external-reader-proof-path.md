@@ -127,6 +127,7 @@ Related provider packet: `docs/review/embedding-model-live-provider-owner-runtim
     - related direct stage links runtime smoke: `docs/review/workflow-direct-stage-links-runtime-smoke.md`; request refresh: `docs/review/external-reviewer-workflow-direct-stage-links-runtime-request-refresh.md`; records `direct_stage_link_count: 3` and link types `evidence_to_report`, `evidence_to_noise_gate`, and `noise_gate_to_report`; not distributed tracing, hosted observability, hosted deployment evidence, autonomous workflow execution, product-complete, or external reviewer feedback.
     - related stage event log runtime smoke: `docs/review/workflow-stage-event-log-runtime-smoke.md`; request refresh: `docs/review/external-reviewer-workflow-stage-event-log-runtime-request-refresh.md`; records `detail_stage_event_count: 4`, `bundle_stage_event_count: 4`, stage names `retrieval,evidence_ledger,noise_gate,report`, and boundary `local_workflow_stage_event_log_not_distributed_tracing`; not distributed tracing, hosted observability, hosted deployment evidence, autonomous workflow execution, product-complete, or external reviewer feedback.
     - related failed stage event runtime smoke: `docs/review/workflow-failed-stage-event-runtime-smoke.md`; request refresh: `docs/review/external-reviewer-workflow-failed-stage-event-runtime-request-refresh.md`; records `POST /workflow-runs/execute-preview -> 500`, `workflow_stage_event_count: 2`, `retrieval -> completed`, `evidence_ledger -> failed`, `failure_case_count_delta -> 0`, and `local_workflow_stage_failure_event_no_retry_no_auto_failure_case`; not retry behavior, automatic failure-case creation, hosted deployment evidence, distributed tracing, hosted observability, product-complete, or external reviewer feedback.
+    - related workflow failure auto-created failure-case runtime smoke: `docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md`; request refresh: `docs/review/external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md`; records `POST /workflow-runs/execute-preview -> 500`, `failure_case_count_delta -> 1`, `auto_failure_case_id`, `auto_created_from_workflow_failure_local_v0`, and `local_workflow_stage_failure_event_auto_failure_case_local_v0`; not retry behavior, root-cause automation, complete workflow failure causality, hosted deployment evidence, product-complete, or external reviewer feedback.
 44. `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md`
     - workflow proof bundle dashboard runtime smoke with local Docker PostgreSQL plus live FastAPI HTTP; `GET /ops/dashboard` includes the workflow `proof bundle` link and the linked `GET /workflow-runs/{id}/proof-bundle` route returns `200`; request refresh: `docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md`; not distributed tracing, hosted observability, hosted deployment evidence, live issue body edit, product-complete, or external reviewer feedback.
 45. `docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md`
@@ -407,10 +408,10 @@ NoiseProof Agent has robust PDF extraction, embedding generation, semantic retri
 
 ## Boundary
 
-This proof path adds no new runtime behavior, schema, migration, API endpoint, dashboard rendering, smoke execution, hosted deployment evidence, automatic failure detection, automatic failure-case creation, automatic persistence from workflow failures, complete workflow failure causality, LLM calls, embeddings, semantic retrieval quality evidence, autonomous workflow execution, or free-form final answer generation.
+This proof path adds no hosted deployment evidence, automatic failure detection, automatic failure-case creation beyond the local v0 workflow failure path, complete workflow failure causality, LLM calls, embeddings, semantic retrieval quality evidence, autonomous workflow execution, or free-form final answer generation.
 
 This is not hosted deployment evidence.
-This is not automatic failure-case creation.
+This is not automatic failure-case creation beyond the local v0 workflow failure path.
 This is not complete workflow failure causality.
 
 ## Next Gate

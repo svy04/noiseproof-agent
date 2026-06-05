@@ -1469,6 +1469,275 @@ def test_workflow_failure_auto_failure_case_creation_runtime_smoke_records_live_
     )
 
 
+def test_external_reviewer_workflow_failure_auto_creation_runtime_request_refresh_links_latest_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    role_map = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (
+        REPO_ROOT / "docs/review/external-review-request.md"
+    ).read_text(encoding="utf-8")
+    reviewer_brief = (
+        REPO_ROOT / "docs/review/external-reviewer-brief.md"
+    ).read_text(encoding="utf-8")
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    shortlist = (
+        REPO_ROOT / "docs/review/external-reviewer-shortlist.md"
+    ).read_text(encoding="utf-8")
+
+    proof_doc = (
+        "docs/review/"
+        "workflow-failure-auto-failure-case-creation-runtime-smoke.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md"
+    )
+
+    assert (
+        "External Reviewer Workflow Failure Auto-creation Runtime Request Refresh"
+        in content
+    )
+    assert (
+        "external reviewer workflow failure auto-creation runtime request refresh v0"
+        in content
+    )
+    assert proof_doc in content
+    assert request_doc in content
+    assert "failure_case_count_delta -> 1" in content
+    assert "auto_failure_case_id" in content
+    assert "auto_created_from_workflow_failure_local_v0" in content
+    assert "local_workflow_stage_failure_event_auto_failure_case_local_v0" in content
+    assert "not a live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not retry behavior" in content
+    assert "not root-cause automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not product-complete" in content
+    for surface in [
+        contributing,
+        issue_template,
+        readme,
+        goal,
+        runbook,
+        portfolio,
+        role_map,
+        app_review,
+        proof_path,
+        review_request,
+        reviewer_brief,
+        link_map,
+        shortlist,
+    ]:
+        assert proof_doc in surface
+    assert (
+        "External reviewer workflow failure auto-creation runtime request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 588 - External Reviewer Workflow Failure Auto-creation Runtime Request Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer workflow failure auto-creation runtime request refresh v0"
+        in runbook
+    )
+    assert request_doc in portfolio
+
+
+def test_external_review_issue_body_workflow_failure_auto_creation_runtime_refresh_records_live_issue_body_update():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-review-issue-body-workflow-failure-auto-creation-runtime-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    issue_verification = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-workflow-failure-auto-creation-runtime-issue-verification.md"
+    ).read_text(encoding="utf-8")
+
+    proof_doc = (
+        "docs/review/"
+        "workflow-failure-auto-failure-case-creation-runtime-smoke.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-workflow-failure-auto-creation-runtime-refresh.md"
+    )
+
+    assert (
+        "External Review Issue Body Workflow Failure Auto-creation Runtime Refresh"
+        in content
+    )
+    assert (
+        "external review issue body workflow failure auto-creation runtime refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_workflow_failure_auto_creation_runtime_proof": true' in content
+    assert '"has_workflow_failure_auto_creation_request_refresh": true' in content
+    assert '"has_workflow_failure_auto_creation_issue_body_refresh": true' in content
+    assert '"has_failure_case_count_delta": true' in content
+    assert '"has_auto_failure_case_id": true' in content
+    assert '"has_auto_created_boundary": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert "failure_case_count_delta -> 1" in content
+    assert "auto_failure_case_id" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not retry behavior" in content
+    assert "not root-cause automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body workflow failure auto-creation runtime refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 589 - External Review Issue Body Workflow Failure Auto-creation Runtime Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body workflow failure auto-creation runtime refresh v0"
+        in runbook
+    )
+    assert issue_doc in portfolio
+    assert (
+        "external review issue body workflow failure auto-creation runtime refresh v0"
+        in issue_verification
+    )
+
+
+def test_external_feedback_current_state_workflow_failure_auto_creation_runtime_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-workflow-failure-auto-creation-runtime-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = (
+        "docs/review/"
+        "workflow-failure-auto-failure-case-creation-runtime-smoke.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-workflow-failure-auto-creation-runtime-refresh.md"
+    )
+
+    assert (
+        "External Feedback Current-state Workflow Failure Auto-creation Runtime Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state workflow failure auto-creation runtime issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_workflow_failure_auto_creation_runtime_proof": true' in content
+    assert '"has_workflow_failure_auto_creation_request_refresh": true' in content
+    assert '"has_workflow_failure_auto_creation_issue_body_refresh": true' in content
+    assert '"has_failure_case_count_delta": true' in content
+    assert '"has_auto_failure_case_id": true' in content
+    assert '"has_auto_created_boundary": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert '"screened_comment_count": 1' in content
+    assert '"candidate_count": 0' in content
+    assert '"draft_count": 0' in content
+    assert '"status": "pending"' in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment" in content
+    assert "does_not_close_gate: true" in content
+    assert "external reviewer feedback v0 gate remains pending" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not retry behavior" in content
+    assert "not root-cause automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state workflow failure auto-creation runtime issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Latest external-feedback state: pending after workflow failure auto-creation runtime issue verification; candidate_count=0; self-authored comment only"
+        in readme
+    )
+    assert (
+        "Phase 590 - External Feedback Current-state Workflow Failure Auto-creation Runtime Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state workflow failure auto-creation runtime issue verification v0"
+        in runbook
+    )
+    assert review_path.name in portfolio
+
+
 def test_external_reviewer_workflow_failed_stage_event_runtime_request_refresh_links_latest_proof():
     review_path = (
         REPO_ROOT
