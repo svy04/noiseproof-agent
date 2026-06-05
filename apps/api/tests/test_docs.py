@@ -17689,6 +17689,71 @@ def test_readme_latest_marker_pdf_downstream_current_state_refresh_updates_first
     assert review_doc in portfolio
 
 
+def test_readme_latest_marker_pdf_downstream_current_state_remote_verification_records_github_actions_success():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "readme-latest-marker-pdf-downstream-current-state-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/readme-latest-marker-pdf-downstream-current-state-remote-verification.md"
+    )
+
+    assert (
+        "README Latest-marker PDF Downstream Current-state Remote Verification"
+        in content
+    )
+    assert (
+        "readme latest-marker PDF downstream current-state remote verification v0"
+        in content
+    )
+    assert "308d8e91f46f1f40bb2ef704c7792d12e4809a86" in content
+    assert "CI run 27013838611" in content
+    assert "External Feedback Screen run 27013838639" in content
+    assert "api-smoke -> success" in content
+    assert "screen -> success" in content
+    assert (
+        "docs/review/readme-latest-marker-pdf-downstream-current-state-refresh.md"
+        in content
+    )
+    assert (
+        "Latest reviewer-routing marker: PDF page diagnostics downstream runtime issue-body refresh v0"
+        in content
+    )
+    assert (
+        "Latest external-feedback state: pending after PDF page diagnostics downstream issue verification; candidate_count=0; self-authored comment only"
+        in content
+    )
+    assert "workflow screen only" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not product-complete" in content
+    assert (
+        "README latest-marker PDF downstream current-state remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 551 - README Latest-marker PDF Downstream Current-state Remote Verification v0"
+        in goal
+    )
+    assert (
+        "readme latest-marker PDF downstream current-state remote verification v0"
+        in runbook
+    )
+    assert review_doc in portfolio
+
+
 def test_readme_upload_handoff_claim_boundary_refresh_separates_explicit_handoff_from_preview_auto_persistence():
     review_path = (
         REPO_ROOT / "docs/review/readme-upload-handoff-claim-boundary-refresh.md"

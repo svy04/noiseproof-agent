@@ -603,6 +603,8 @@ External feedback current-state PDF page diagnostics downstream runtime issue ve
 
 README latest-marker PDF downstream current-state refresh v0: implemented. Boundary: README top markers now point to the PDF page diagnostics downstream runtime issue-body refresh and downstream current-state issue verification; external reviewer feedback remains pending, and this is not hosted deployment evidence, robust PDF extraction, live embedding generation proof, or product-complete.
 
+README latest-marker PDF downstream current-state remote verification v0: implemented. Boundary: remote GitHub Actions runs `27013838611` (`CI`) and `27013838639` (`External Feedback Screen`) succeeded on head `308d8e91f46f1f40bb2ef704c7792d12e4809a86`; the screen success is workflow evidence only, not external reviewer feedback, hosted deployment evidence, robust PDF extraction, live embedding generation proof, or product-complete.
+
 Uploaded PDF downstream handoff v0: implemented. Boundary: `POST /documents/upload-chunk-preview`, `POST /documents/upload-chunks`, and `POST /documents/upload-retrieval-preview` reuse PyMuPDF digital text extraction for uploaded PDF bytes; OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, and external reviewer feedback are not claimed.
 
 Uploaded PDF downstream handoff runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence shows uploaded digital PDF bytes flow through PyMuPDF extraction into upload chunk preview, explicit upload-to-chunks persistence, listed chunk lookup, and upload retrieval preview; this is not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, or raw file storage.
