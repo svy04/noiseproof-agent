@@ -26267,6 +26267,60 @@ def test_readme_top_latest_proof_route_points_to_table_candidate_downstream_proo
     )
 
 
+def test_readme_current_proof_route_table_candidate_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/readme-current-proof-route-table-candidate-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+
+    assert "readme current proof route table-candidate refresh remote verification v0" in content
+    assert "94d6743743f18d1d4852defc2ea1da578b7e2654" in content
+    assert "CI run 27040299642" in content
+    assert "api-smoke -> success" in content
+    assert "External Feedback Screen run 27040299666" in content
+    assert "screen -> success" in content
+    assert (
+        "docs/review/readme-current-proof-route-table-candidate-refresh.md"
+        in content
+    )
+    assert (
+        "docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md"
+        in content
+    )
+    assert "candidate_count=0" in content
+    assert "self_authored_comment" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not table extraction" in content
+    assert "not product-complete" in content
+    assert (
+        "README current proof route table-candidate refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 609 - README Current Proof Route Table-candidate Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "readme current proof route table-candidate refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/readme-current-proof-route-table-candidate-refresh-remote-verification.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

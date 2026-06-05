@@ -22283,3 +22283,37 @@ self_authored_comment
 Boundary: README route clarity only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity evidence, not Evidence Ledger generation, not Critic / Noise Gate behavior, not final report generation, and not product-complete.
 
 Next gate: README current proof route table-candidate remote verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 609 - README Current Proof Route Table-candidate Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that Phase 608 passed repository checks on `main`.
+
+Implemented artifacts:
+
+```text
+readme current proof route table-candidate refresh remote verification v0
+docs/review/readme-current-proof-route-table-candidate-refresh-remote-verification.md
+docs/review/readme-current-proof-route-table-candidate-refresh.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Observed remote runs:
+
+```text
+head_sha -> 94d6743743f18d1d4852defc2ea1da578b7e2654
+CI run 27040299642 -> success
+api-smoke -> success
+External Feedback Screen run 27040299666 -> success
+screen -> success
+candidate_count=0
+self_authored_comment
+```
+
+Boundary: remote workflow verification only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not Evidence Ledger generation, not Critic / Noise Gate behavior, not final report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
