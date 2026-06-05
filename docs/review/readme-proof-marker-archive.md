@@ -1493,6 +1493,14 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Screening result: `candidate_count=0`, `draft_count=0`, `reason=self_authored_comment`, `status=pending`
 - Boundary: current-state issue screen only; not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete
 
+### Phase 580 - External Feedback Current-state Issue Body BOM Removal Issue Verification Remote Verification v0
+
+- External feedback current-state issue body BOM removal issue verification remote verification v0: implemented
+- `docs/review/external-feedback-current-state-issue-body-bom-removal-issue-verification-remote-verification.md`: added
+- Remote CI run `27025500388`: success on head `db316bf07baa4d6058e4249e24ad4d8349d1459b`
+- External Feedback Screen run `27025500574`: success on the same head
+- Boundary: remote workflow evidence only; not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, free-form report generation, or product-complete
+
 ### Phase 362 - Failure-case Workflow Review Queue Proof Index v0
 
 - Failure-case workflow review queue proof index v0: implemented

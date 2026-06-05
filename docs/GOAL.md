@@ -21176,6 +21176,44 @@ Next recommended evidence gate:
 remote verification for this current-state issue screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 580 - External Feedback Current-state Issue Body BOM Removal Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+record remote GitHub Actions verification for the issue body BOM removal current-state issue screen
+```
+
+Implemented artifacts:
+
+```text
+external feedback current-state issue body BOM removal issue verification remote verification v0
+docs/review/external-feedback-current-state-issue-body-bom-removal-issue-verification-remote-verification.md
+docs/review/external-feedback-current-state-issue-body-bom-removal-issue-verification.md
+head_sha -> db316bf07baa4d6058e4249e24ad4d8349d1459b
+CI run 27025500388 -> api-smoke -> success
+External Feedback Screen run 27025500574 -> screen -> success
+first_codepoint=35
+has_leading_bom=false
+candidate_count=0
+draft_count=0
+self_authored_comment
+```
+
+Boundary:
+
+```text
+Phase 580 is remote workflow verification only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not free-form report generation, not a new report-generation path, not an LLM call, not retrieval, not Evidence Ledger creation, not Noise Gate behavior, not Report record creation, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

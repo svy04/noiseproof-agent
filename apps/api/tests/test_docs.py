@@ -8634,6 +8634,69 @@ def test_external_feedback_current_state_issue_body_bom_removal_issue_verificati
     )
 
 
+def test_external_feedback_current_state_issue_body_bom_removal_issue_verification_remote_verification_records_ci_success():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-issue-body-bom-removal-issue-verification-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    verification_doc = (
+        "docs/review/"
+        "external-feedback-current-state-issue-body-bom-removal-issue-verification.md"
+    )
+    remote_doc = (
+        "docs/review/"
+        "external-feedback-current-state-issue-body-bom-removal-issue-verification-remote-verification.md"
+    )
+
+    assert (
+        "External Feedback Current-state Issue Body BOM Removal Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state issue body BOM removal issue verification remote verification v0"
+        in content
+    )
+    assert verification_doc in content
+    assert "head_sha -> db316bf07baa4d6058e4249e24ad4d8349d1459b" in content
+    assert "CI run 27025500388" in content
+    assert "External Feedback Screen run 27025500574" in content
+    assert "api-smoke -> success" in content
+    assert "screen -> success" in content
+    assert "first_codepoint=35" in content
+    assert "has_leading_bom=false" in content
+    assert "candidate_count=0" in content
+    assert "draft_count=0" in content
+    assert "self_authored_comment" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not Braincrew acceptance" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state issue body BOM removal issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 580 - External Feedback Current-state Issue Body BOM Removal Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state issue body BOM removal issue verification remote verification v0"
+        in runbook
+    )
+    assert remote_doc in portfolio
+
+
 def test_semantic_retrieval_quality_report_issue_body_refresh_records_live_issue_update():
     review_path = (
         REPO_ROOT

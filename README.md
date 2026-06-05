@@ -22,6 +22,8 @@ Latest issue readability state: issue #1 now starts with `## Request` after the 
 
 Latest issue-feedback state: pending after the issue body BOM removal current-state verification; the issue starts with codepoint `35`, has no leading BOM, and still has `candidate_count=0`.
 
+Latest issue-feedback remote verification: CI run `27025500388` and External Feedback Screen run `27025500574` verified the BOM removal current-state issue screen on head `db316bf07baa4d6058e4249e24ad4d8349d1459b`; this is workflow evidence only, not external feedback.
+
 ## What This Is
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
