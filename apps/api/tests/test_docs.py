@@ -26641,6 +26641,52 @@ def test_ops_dashboard_semantic_retrieval_operational_counts_are_recorded():
     )
 
 
+def test_ops_dashboard_semantic_retrieval_operational_counts_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/ops-dashboard-semantic-retrieval-operational-counts-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme_with_archive = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ops dashboard semantic retrieval operational counts runtime smoke v0" in content
+    assert "noiseproof-phase617" in content
+    assert "POSTGRES_PORT=55443" in content
+    assert "GET /ops/dashboard -> 200" in content
+    assert "DASHBOARD_HAS_RETRIEVAL_RUNS_RECORDED=True" in content
+    assert "DASHBOARD_HAS_SEMANTIC_RETRIEVAL_RUNS=True" in content
+    assert "DASHBOARD_HAS_CALLER_PROVIDED_EMBEDDINGS=True" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Ops dashboard semantic retrieval operational counts runtime smoke v0: implemented"
+        in readme_with_archive
+    )
+    assert (
+        "Phase 617 - Ops Dashboard Semantic Retrieval Operational Counts Runtime Smoke v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 616 - Ops Dashboard Semantic Retrieval Operational Counts v0"
+    ) < goal.index(
+        "Phase 617 - Ops Dashboard Semantic Retrieval Operational Counts Runtime Smoke v0"
+    )
+    assert "ops dashboard semantic retrieval operational counts runtime smoke v0" in runbook
+    assert (
+        "docs/review/ops-dashboard-semantic-retrieval-operational-counts-runtime-smoke.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

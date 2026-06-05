@@ -22556,3 +22556,37 @@ Caller-provided Embeddings
 Boundary: dashboard inspectability only; not a new retrieval algorithm, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not free-form final report generation, and not product-complete.
 
 Next gate: local Docker/FastAPI runtime smoke for dashboard semantic retrieval operational counts if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 617 - Ops Dashboard Semantic Retrieval Operational Counts Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: verify the Phase 616 `/ops/dashboard` semantic retrieval operational count labels in a local Docker-backed FastAPI runtime.
+
+Implemented artifacts:
+
+```text
+ops dashboard semantic retrieval operational counts runtime smoke v0
+docs/review/ops-dashboard-semantic-retrieval-operational-counts-runtime-smoke.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Observed runtime state:
+
+```text
+noiseproof-phase617
+POSTGRES_PORT=55443
+Pending migrations: 0
+GET /ops/dashboard -> 200
+DASHBOARD_HAS_RETRIEVAL_RUNS_RECORDED=True
+DASHBOARD_HAS_SEMANTIC_RETRIEVAL_RUNS=True
+DASHBOARD_HAS_CALLER_PROVIDED_EMBEDDINGS=True
+DASHBOARD_HAS_QUALITY_BOUNDARY=True
+```
+
+Boundary: local Docker/FastAPI runtime evidence for dashboard visibility only; not a new retrieval algorithm, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not free-form final report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
