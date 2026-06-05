@@ -9700,3 +9700,46 @@ not hosted deployment evidence
 not product-complete
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Owner-runtime Smoke Report Contract
+
+Phase marker: embedding model live-provider owner-runtime smoke report contract v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-report-contract.md
+```
+
+Command:
+
+```bash
+cd apps/api
+uv run python -m app.services.embedding_model_live_provider_harness --print-owner-runtime-smoke-report-contract
+```
+
+Contract markers:
+
+```text
+contract_status: ready_for_owner_runtime_report
+accepted_report
+required_top_level_fields
+forbidden_secret_fields
+accepted_validator_output
+rejected_validator_output
+```
+
+Boundary:
+
+```text
+contract only
+does not read OPENAI_API_KEY
+does not print OPENAI_API_KEY
+does not call the OpenAI provider
+does not persist embeddings
+not live embedding generation proof
+not external reviewer feedback
+not hosted deployment evidence
+not product-complete
+actual live embedding model generation remains unproven
+```

@@ -10,6 +10,9 @@ from pathlib import Path
 PHASE_MARKER = "embedding model live-provider owner-runtime smoke packet v0"
 DISCOVERY_PHASE_MARKER = "embedding model live-provider owner-runtime input discovery v0"
 VALIDATOR_PHASE_MARKER = "embedding model live-provider owner-runtime smoke validator v0"
+REPORT_CONTRACT_PHASE_MARKER = (
+    "embedding model live-provider owner-runtime smoke report contract v0"
+)
 EXPECTED_REPORT_TOP_LEVEL_FIELDS = {
     "api_calls_attempted",
     "embedding_length",
@@ -180,6 +183,64 @@ def _discover_owner_runtime_input(env: Mapping[str, str]) -> dict:
     }
 
 
+def _owner_runtime_smoke_report_contract() -> dict[str, object]:
+    accepted_report = {
+        "route": "POST /chunks/embedding-model-preview",
+        "http_status": 200,
+        "embedding_status": "owner_runtime_provider_generated",
+        "embedding_model": "text-embedding-3-small",
+        "embedding_length": 1536,
+        "provider_response_dimension_check": "passed",
+        "usage_metadata_present": True,
+        "secret_exposed": False,
+        "persistence_boundary": "preview_only_not_persisted",
+        "api_calls_attempted": True,
+        "openai_api_key_printed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+    }
+    return {
+        "phase_marker": REPORT_CONTRACT_PHASE_MARKER,
+        "contract_status": "ready_for_owner_runtime_report",
+        "api_calls_attempted": False,
+        "openai_api_key_printed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+        "validator_command": (
+            "uv run python -m app.services.embedding_model_live_provider_harness "
+            "--validate-owner-runtime-smoke-report path/to/owner-runtime-smoke-report.json"
+        ),
+        "accepted_report": accepted_report,
+        "required_top_level_fields": sorted(accepted_report),
+        "forbidden_secret_fields": sorted(SECRET_FIELD_NAMES),
+        "accepted_validator_output": {
+            "validation_status": "accepted",
+            "accepted_owner_runtime_smoke": True,
+            "missing_or_failed_checks": [],
+        },
+        "rejected_validator_output": {
+            "validation_status": "rejected",
+            "accepted_owner_runtime_smoke": False,
+            "missing_or_failed_checks": "non-empty",
+        },
+        "non_claims": {
+            "live_embedding_generation_proof": False,
+            "hosted_deployment_evidence": False,
+            "semantic_retrieval_quality_evidence": False,
+            "external_reviewer_feedback": False,
+            "product_complete": False,
+        },
+        "boundary": [
+            "contract only",
+            "does not read or print OPENAI_API_KEY",
+            "does not call the OpenAI provider",
+            "does not persist embeddings",
+            "not live embedding generation proof",
+            "owner-provided runtime smoke remains pending",
+        ],
+    }
+
+
 def _validate_owner_runtime_smoke_report(
     report: Mapping[str, object], *, report_path: Path | None = None
 ) -> dict:
@@ -301,6 +362,9 @@ def main(argv: Sequence[str] | None = None, env: Mapping[str, str] | None = None
         return 0
     if args == ["--discover-owner-runtime-input"]:
         _print_json(_discover_owner_runtime_input(environment))
+        return 0
+    if args == ["--print-owner-runtime-smoke-report-contract"]:
+        _print_json(_owner_runtime_smoke_report_contract())
         return 0
     if len(args) == 2 and args[0] == "--validate-owner-runtime-smoke-report":
         report_path = Path(args[1])

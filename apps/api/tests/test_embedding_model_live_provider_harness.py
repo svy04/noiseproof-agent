@@ -182,6 +182,60 @@ def test_embedding_model_live_provider_harness_discovers_ready_owner_runtime_wit
     assert "sk-" not in output
 
 
+def test_embedding_model_live_provider_harness_prints_owner_runtime_smoke_report_contract_without_secret(
+    capsys,
+):
+    exit_code = main(["--print-owner-runtime-smoke-report-contract"], env={})
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["phase_marker"] == (
+        "embedding model live-provider owner-runtime smoke report contract v0"
+    )
+    assert payload["contract_status"] == "ready_for_owner_runtime_report"
+    assert payload["api_calls_attempted"] is False
+    assert payload["openai_api_key_printed"] is False
+    assert payload["secret_logged"] is False
+    assert payload["secret_committed_to_repo"] is False
+    assert payload["validator_command"] == (
+        "uv run python -m app.services.embedding_model_live_provider_harness "
+        "--validate-owner-runtime-smoke-report path/to/owner-runtime-smoke-report.json"
+    )
+    assert payload["accepted_report"] == {
+        "route": "POST /chunks/embedding-model-preview",
+        "http_status": 200,
+        "embedding_status": "owner_runtime_provider_generated",
+        "embedding_model": "text-embedding-3-small",
+        "embedding_length": 1536,
+        "provider_response_dimension_check": "passed",
+        "usage_metadata_present": True,
+        "secret_exposed": False,
+        "persistence_boundary": "preview_only_not_persisted",
+        "api_calls_attempted": True,
+        "openai_api_key_printed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+    }
+    assert payload["required_top_level_fields"] == sorted(
+        payload["accepted_report"].keys()
+    )
+    assert "openai_api_key" in payload["forbidden_secret_fields"]
+    assert "api_key" in payload["forbidden_secret_fields"]
+    assert payload["accepted_validator_output"] == {
+        "validation_status": "accepted",
+        "accepted_owner_runtime_smoke": True,
+        "missing_or_failed_checks": [],
+    }
+    assert payload["rejected_validator_output"] == {
+        "validation_status": "rejected",
+        "accepted_owner_runtime_smoke": False,
+        "missing_or_failed_checks": "non-empty",
+    }
+    assert payload["non_claims"]["live_embedding_generation_proof"] is False
+    assert payload["non_claims"]["external_reviewer_feedback"] is False
+    assert "sk-" not in json.dumps(payload, sort_keys=True)
+
+
 def test_embedding_model_live_provider_harness_rejects_unknown_command(capsys):
     exit_code = main(["--unknown"], env={})
 
