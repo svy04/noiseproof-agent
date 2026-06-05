@@ -71,6 +71,9 @@ Fast links:
 - uploaded PDF no-text failure candidate runtime proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md
   - Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-pdf-no-text-failure-candidate-runtime-request-refresh.md
   - Boundary: `pdf_no_extractable_text`, `chunk_handoff_no_chunks`, `chunk_count -> 0`, and `page_text_char_counts -> [0]` for a valid blank uploaded PDF; not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
+- persisted document failure candidate draft preview runtime proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/persisted-document-failure-candidate-draft-preview-runtime-smoke.md
+  - Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-persisted-document-failure-candidate-draft-runtime-request-refresh.md
+  - Boundary: `preview_only_not_persisted`, `failure_case_count_delta -> 0`, and persisted document profile_json handoff into a manual draft; not automatic failure-case creation, not hosted deployment evidence, and not external reviewer feedback.
 - uploaded PDF page diagnostics proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md
   - Boundary: `page_text_char_counts -> [39]`, `empty_page_count -> 0`, `text_block_count -> 1`, `image_block_count -> 0`, `document_count_delta -> 0`, not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
 - uploaded PDF page diagnostics downstream runtime proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md

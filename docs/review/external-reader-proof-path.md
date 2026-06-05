@@ -245,6 +245,15 @@ docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md
 
 This proof is explicit `POST /documents/upload-chunks`, not raw uploaded byte storage, not hosted deployment evidence, and not external reviewer feedback.
 
+persisted document failure candidate draft preview runtime proof:
+
+```text
+docs/review/persisted-document-failure-candidate-draft-preview-runtime-smoke.md
+docs/review/external-reviewer-persisted-document-failure-candidate-draft-runtime-request-refresh.md
+```
+
+This persisted document failure candidate draft preview runtime proof is explicit `POST /documents/upload-chunks` into `POST /documents/{document_id}/failure-case-draft-preview` with `preview_only_not_persisted`, `human_confirmation_required -> true`, `persisted_document_failure_case_candidate`, and `failure_case_count_delta -> 0`. The request refresh is request infrastructure only. It is not automatic failure-case creation, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction, not OCR, not table extraction, and not product-complete.
+
 uploaded-file retrieval persistence proof:
 
 ```text

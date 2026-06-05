@@ -167,6 +167,15 @@ docs/review/external-reviewer-pdf-no-text-failure-candidate-runtime-request-refr
 
 Boundary: this proof records local Docker/FastAPI HTTP evidence that `POST /documents/upload-chunks -> 201` returns `parser -> pdf-pymupdf`, `document_status -> chunk_handoff_no_chunks`, `chunk_count -> 0`, `failure_case_candidate.failure_type -> pdf_no_extractable_text`, and `page_text_char_counts -> [0]` for a valid blank uploaded PDF. It is request infrastructure only when surfaced here, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 
+persisted document failure candidate draft preview runtime proof:
+
+```text
+docs/review/persisted-document-failure-candidate-draft-preview-runtime-smoke.md
+docs/review/external-reviewer-persisted-document-failure-candidate-draft-runtime-request-refresh.md
+```
+
+Boundary: this proof records local Docker/FastAPI HTTP evidence that `POST /documents/{document_id}/failure-case-draft-preview -> 200` returns `preview_only_not_persisted`, `human_confirmation_required -> true`, `persisted_document_failure_case_candidate`, and `failure_case_count_delta -> 0` from persisted document `profile_json`. It is request infrastructure only when surfaced here, not automatic failure-case creation, not hosted deployment evidence, and not external reviewer feedback.
+
 uploaded PDF page diagnostics proof:
 
 ```text

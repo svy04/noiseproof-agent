@@ -128,6 +128,10 @@ https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewe
 15. uploaded PDF retrieval-run-linked Evidence Ledger provenance runtime proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance-runtime-smoke.md
    Boundary: `metadata_json.parser -> pdf-pymupdf`, `metadata_json.source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk`, not hosted deployment evidence, not robust PDF extraction, not Noise Gate behavior, not report generation, and not external reviewer feedback.
+15. persisted document failure candidate draft preview runtime proof:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/persisted-document-failure-candidate-draft-preview-runtime-smoke.md
+   Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-persisted-document-failure-candidate-draft-runtime-request-refresh.md
+   Boundary: `preview_only_not_persisted`, `failure_case_count_delta -> 0`, and persisted document `profile_json` handoff into a manual draft; not automatic failure-case creation, not hosted deployment evidence, and not external reviewer feedback.
 15. uploaded-file chunk persistence proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-chunk-persistence-runtime-smoke.md
    Boundary: not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.

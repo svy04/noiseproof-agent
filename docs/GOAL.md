@@ -20496,6 +20496,38 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 561 - External Reviewer Persisted Document Failure Candidate Draft Runtime Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the persisted document failure candidate draft preview runtime proof discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer persisted document failure candidate draft runtime request refresh v0
+docs/review/external-reviewer-persisted-document-failure-candidate-draft-runtime-request-refresh.md
+docs/review/persisted-document-failure-candidate-draft-preview-runtime-smoke.md
+preview_only_not_persisted
+human_confirmation_required -> true
+pdf_no_extractable_text
+persisted_document_failure_case_candidate
+metadata-derived from document profile_json
+failure_case_count_delta -> 0
+```
+
+Phase 561 is request infrastructure only. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not automatic failure-case creation, not automatic root-cause analysis, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external review issue body persisted document failure candidate draft runtime refresh v0 if this proof should be routed through the live public issue, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
