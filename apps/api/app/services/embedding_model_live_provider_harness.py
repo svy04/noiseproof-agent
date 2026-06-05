@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from collections.abc import Mapping, Sequence
 
 
 PHASE_MARKER = "embedding model live-provider owner-runtime smoke packet v0"
+DISCOVERY_PHASE_MARKER = "embedding model live-provider owner-runtime input discovery v0"
 
 
 def _owner_runtime_smoke_packet() -> dict:
@@ -86,15 +88,66 @@ def _owner_runtime_smoke_packet() -> dict:
     }
 
 
+def _env_flag_enabled(value: str | None) -> bool:
+    return (value or "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _discover_owner_runtime_input(env: Mapping[str, str]) -> dict:
+    api_key_present = bool((env.get("OPENAI_API_KEY") or "").strip())
+    opt_in_enabled = _env_flag_enabled(env.get("NOISEPROOF_ENABLE_OPENAI_PROVIDER"))
+    ci_runtime = _env_flag_enabled(env.get("CI"))
+
+    if not api_key_present:
+        status = "missing_openai_api_key"
+        next_action = (
+            "configure OPENAI_API_KEY outside the repository and set "
+            "NOISEPROOF_ENABLE_OPENAI_PROVIDER=true for owner-runtime smoke only"
+        )
+    elif ci_runtime:
+        status = "blocked_by_ci"
+        next_action = "rerun outside CI for owner-runtime smoke only"
+    elif not opt_in_enabled:
+        status = "opt_in_disabled"
+        next_action = "set NOISEPROOF_ENABLE_OPENAI_PROVIDER=true for owner-runtime smoke only"
+    else:
+        status = "ready_for_owner_runtime_smoke"
+        next_action = (
+            "run the manual owner-runtime smoke packet outside CI and write any "
+            "runtime report outside the repository"
+        )
+
+    return {
+        "phase_marker": DISCOVERY_PHASE_MARKER,
+        "owner_runtime_input_status": status,
+        "discoverable_input_sources": ["environment"],
+        "openai_api_key_present": api_key_present,
+        "openai_api_key_printed": False,
+        "opt_in_enabled": opt_in_enabled,
+        "ci_runtime": ci_runtime,
+        "api_calls_attempted": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+        "next_action": next_action,
+        "non_claims": {
+            "live_embedding_generation_proof": False,
+            "hosted_deployment_evidence": False,
+            "external_reviewer_feedback": False,
+        },
+    }
+
+
 def _print_json(payload: Mapping) -> None:
     print(json.dumps(payload, indent=2, sort_keys=True))
 
 
 def main(argv: Sequence[str] | None = None, env: Mapping[str, str] | None = None) -> int:
-    _ = env
+    environment = env if env is not None else os.environ
     args = list(argv if argv is not None else sys.argv[1:])
     if args == ["--print-owner-runtime-smoke-packet"]:
         _print_json(_owner_runtime_smoke_packet())
+        return 0
+    if args == ["--discover-owner-runtime-input"]:
+        _print_json(_discover_owner_runtime_input(environment))
         return 0
     _print_json({"error": "unsupported_command", "phase_marker": PHASE_MARKER})
     return 2

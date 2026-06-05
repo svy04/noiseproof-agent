@@ -17782,3 +17782,49 @@ def test_external_feedback_current_state_embedding_provider_owner_runtime_smoke_
         in runbook
     )
     assert current_state_doc in portfolio
+
+
+def test_embedding_model_live_provider_owner_runtime_input_discovery_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/embedding-model-live-provider-owner-runtime-input-discovery.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-input-discovery.md"
+    )
+
+    assert "Embedding Model Live-provider Owner-runtime Input Discovery" in content
+    assert (
+        "embedding model live-provider owner-runtime input discovery v0" in content
+    )
+    assert "--discover-owner-runtime-input" in content
+    assert "OPENAI_API_KEY_PRESENT=false" in content
+    assert "NOISEPROOF_ENABLE_OPENAI_PROVIDER_PRESENT=false" in content
+    assert "owner_runtime_input_status: missing_openai_api_key" in content
+    assert "api_calls_attempted: false" in content
+    assert "openai_api_key_printed: false" in content
+    assert "not live embedding generation proof" in content
+    assert "actual live embedding model generation remains unproven" in content
+    assert (
+        "Embedding model live-provider owner-runtime input discovery v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 479 - Embedding Model Live-provider Owner-runtime Input Discovery v0"
+        in goal
+    )
+    assert (
+        "embedding model live-provider owner-runtime input discovery v0" in runbook
+    )
+    assert review_doc in portfolio

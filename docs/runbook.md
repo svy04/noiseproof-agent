@@ -9339,3 +9339,39 @@ not hosted deployment evidence
 not live embedding generation proof
 external reviewer feedback v0 gate remains pending
 ```
+
+## Embedding Model Live-provider Owner-runtime Input Discovery
+
+Phase marker: embedding model live-provider owner-runtime input discovery v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-input-discovery.md
+```
+
+No-secret discovery command:
+
+```bash
+cd apps/api
+uv run python -m app.services.embedding_model_live_provider_harness --discover-owner-runtime-input
+```
+
+Current local observation:
+
+```text
+OPENAI_API_KEY_PRESENT=false
+NOISEPROOF_ENABLE_OPENAI_PROVIDER_PRESENT=false
+owner_runtime_input_status: missing_openai_api_key
+api_calls_attempted: false
+openai_api_key_printed: false
+```
+
+Boundary:
+
+```text
+owner-runtime input discovery only
+not live embedding generation proof
+actual live embedding model generation remains unproven
+external reviewer feedback remains pending
+```

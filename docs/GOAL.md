@@ -17482,6 +17482,41 @@ Next recommended evidence gate:
 owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 479 - Embedding Model Live-provider Owner-runtime Input Discovery v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make owner-runtime live embedding smoke prerequisites inspectable without printing secrets or attempting a provider call
+```
+
+Implemented:
+
+```text
+embedding model live-provider owner-runtime input discovery v0
+apps/api/app/services/embedding_model_live_provider_harness.py --discover-owner-runtime-input
+apps/api/tests/test_embedding_model_live_provider_harness.py discovery states
+docs/review/embedding-model-live-provider-owner-runtime-input-discovery.md
+OPENAI_API_KEY_PRESENT=false current observation
+NOISEPROOF_ENABLE_OPENAI_PROVIDER_PRESENT=false current observation
+owner_runtime_input_status=missing_openai_api_key current observation
+api_calls_attempted=false discovery field
+openai_api_key_printed=false discovery field
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 479 adds no-secret owner-runtime input discovery only. It adds no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
