@@ -9519,3 +9519,45 @@ packet refresh only
 not live embedding generation proof
 actual live embedding model generation remains unproven
 ```
+
+## External Reviewer Embedding Provider Owner-runtime Smoke Validator Request Refresh
+
+Phase marker: external reviewer embedding provider owner-runtime smoke validator request refresh v0.
+
+Review artifact:
+
+```text
+docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-validator-request-refresh.md
+```
+
+Reviewer-facing validation path:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md
+```
+
+Post-run validation command:
+
+```bash
+uv run python -m app.services.embedding_model_live_provider_harness --validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
+```
+
+Success criteria:
+
+```text
+accepted_owner_runtime_smoke: true
+missing_or_failed_checks: []
+```
+
+Boundary:
+
+```text
+request-surface refresh only
+not live embedding generation proof
+not external reviewer feedback
+not hosted deployment evidence
+not product-complete
+actual live embedding model generation remains unproven
+```

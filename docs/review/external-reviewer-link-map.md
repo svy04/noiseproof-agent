@@ -12,9 +12,15 @@ This artifact gives outside reviewers direct links to the shortest inspectable p
 
 - Smoke packet:
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
+- Validator:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md
+- Post-run validation command:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md
 - Request refresh:
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md
-- Boundary: no-secret/no-call owner-runtime smoke contract with `api_calls_attempted: false` and `openai_api_key_printed: false`; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not live embedding generation proof, not semantic retrieval quality evidence, and not product-complete.
+- Validator request refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-validator-request-refresh.md
+- Boundary: no-secret/no-call owner-runtime smoke contract with `api_calls_attempted: false` and `openai_api_key_printed: false`; validator command `--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>` expects `accepted_owner_runtime_smoke: true` and `missing_or_failed_checks: []` only after a future owner-runtime report exists; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not live embedding generation proof, not semantic retrieval quality evidence, and not product-complete.
 
 ## Latest Workflow Proof Bundle Runtime Proof
 

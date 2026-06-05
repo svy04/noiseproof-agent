@@ -17644,7 +17644,46 @@ Phase 483 refreshes the no-secret smoke packet only. It adds no live OpenAI prov
 Next recommended evidence gate:
 
 ```text
-owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+external reviewer embedding provider owner-runtime smoke validator request refresh v0, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
+### Phase 484 - External Reviewer Embedding Provider Owner-runtime Smoke Validator Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the embedding provider owner-runtime smoke validator and post-run validation command discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer embedding provider owner-runtime smoke validator request refresh v0
+docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-validator-request-refresh.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md reviewer-facing links
+docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md reviewer-facing links
+--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
+accepted_owner_runtime_smoke=true success criterion
+missing_or_failed_checks=[] success criterion
+CONTRIBUTING.md reviewer path refresh
+.github/ISSUE_TEMPLATE/external-review-feedback.md reviewer path refresh
+docs/review/external-reader-proof-path.md reviewer path refresh
+docs/review/external-review-request.md reviewer path refresh
+docs/review/external-reviewer-brief.md reviewer path refresh
+docs/review/external-reviewer-link-map.md reviewer path refresh
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 484 refreshes reviewer-facing request surfaces only. It adds no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+external review issue body embedding provider owner-runtime smoke validator refresh v0, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
 ## 6. Ordering Rules

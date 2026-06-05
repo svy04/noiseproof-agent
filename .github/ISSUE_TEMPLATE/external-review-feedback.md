@@ -30,6 +30,9 @@ Fast links:
   - Boundary: local Docker PostgreSQL plus live FastAPI HTTP proof that `GET /ops/dashboard` includes the workflow `proof bundle` link and the linked `GET /workflow-runs/{id}/proof-bundle` route returns `200`; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
 - embedding provider owner-runtime smoke packet: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
   - Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md
+  - Validator: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md
+  - Post-run validation command: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md
+  - Validator request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-validator-request-refresh.md
   - Boundary: no-secret/no-call owner-runtime smoke contract with `api_calls_attempted: false` and `openai_api_key_printed: false`; not live embedding generation proof, not hosted deployment evidence, not semantic retrieval quality evidence, and not external reviewer feedback.
 - Local browser screenshot walkthrough: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/local-browser-screenshot-walkthrough.md
 - uploaded-file intake manifest proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-intake-manifest-runtime-smoke.md

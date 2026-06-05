@@ -59,10 +59,13 @@ Latest embedding provider owner-runtime smoke packet:
 
 ```text
 docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md
 docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md
+docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-validator-request-refresh.md
 ```
 
-This packet records `api_calls_attempted: false`, `openai_api_key_printed: false`, and owner-provided `OPENAI_API_KEY` kept outside the repository. It is not live embedding generation proof, not hosted deployment evidence, not semantic retrieval quality evidence, not external reviewer feedback, and not product-complete.
+This packet records `api_calls_attempted: false`, `openai_api_key_printed: false`, and owner-provided `OPENAI_API_KEY` kept outside the repository. The validator path uses `--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>` and expects `accepted_owner_runtime_smoke: true` plus `missing_or_failed_checks: []` only for a future owner-runtime smoke report. It is not live embedding generation proof, not hosted deployment evidence, not semantic retrieval quality evidence, not external reviewer feedback, and not product-complete.
 
 uploaded-file intake manifest proof:
 
