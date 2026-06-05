@@ -22997,3 +22997,59 @@ def test_persisted_document_failure_candidate_draft_preview_records_preview_only
     )
     assert "persisted document failure candidate draft preview v0" in runbook
     assert review_doc in portfolio
+
+
+def test_persisted_document_failure_candidate_draft_preview_runtime_smoke_records_http_evidence():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/persisted-document-failure-candidate-draft-preview-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/persisted-document-failure-candidate-draft-preview-runtime-smoke.md"
+    )
+
+    assert "Persisted Document Failure Candidate Draft Preview Runtime Smoke" in content
+    assert "persisted document failure candidate draft preview runtime smoke v0" in content
+    assert "Docker version" in content
+    assert "Docker Compose version" in content
+    assert "Applied migrations" in content
+    assert "Pending migrations: 0" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/failure-case-draft-preview -> 200" in content
+    assert "GET /failure-cases -> 200" in content
+    assert "failure_case_count_delta -> 0" in content
+    assert "preview_only_not_persisted" in content
+    assert "human_confirmation_required -> true" in content
+    assert "pdf_no_extractable_text" in content
+    assert "chunk_handoff_no_chunks" in content
+    assert "persisted_document_failure_case_candidate" in content
+    assert "metadata-derived from document profile_json" in content
+    assert "not automatic failure-case creation" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Persisted document failure candidate draft preview runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 560 - Persisted Document Failure Candidate Draft Preview Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "persisted document failure candidate draft preview runtime smoke v0"
+        in runbook
+    )
+    assert review_doc in portfolio

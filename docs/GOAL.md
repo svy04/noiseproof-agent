@@ -20460,6 +20460,42 @@ Next recommended evidence gate:
 local Docker/FastAPI runtime smoke for persisted document failure candidate draft preview if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 560 - Persisted Document Failure Candidate Draft Preview Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+verify through local Docker/FastAPI HTTP that persisted document failure candidates can produce preview-only manual failure-case drafts without creating failure_cases
+```
+
+Implemented:
+
+```text
+persisted document failure candidate draft preview runtime smoke v0
+docs/review/persisted-document-failure-candidate-draft-preview-runtime-smoke.md
+GET /health -> 200
+POST /documents/upload-chunks -> 201
+POST /documents/{document_id}/failure-case-draft-preview -> 200
+GET /failure-cases -> 200
+preview_only_not_persisted
+human_confirmation_required -> true
+pdf_no_extractable_text
+chunk_handoff_no_chunks
+persisted_document_failure_case_candidate
+metadata-derived from document profile_json
+failure_case_count_delta -> 0
+```
+
+Phase 560 is local runtime evidence only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not automatic failure-case creation, not automatic root-cause analysis, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
