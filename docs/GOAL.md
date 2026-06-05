@@ -20598,6 +20598,41 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 564 - Persisted Document Failure Candidate Manual Handoff Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+prove a persisted document failure candidate can be manually confirmed and submitted through the existing failure-case persistence endpoint without adding automatic persistence
+```
+
+Implemented:
+
+```text
+persisted document failure candidate manual handoff smoke v0
+docs/review/persisted-document-failure-candidate-manual-handoff-smoke.md
+test_persisted_document_failure_candidate_can_be_manually_handed_to_failure_case_persistence
+POST /documents/upload-chunks
+POST /documents/{document_id}/failure-case-draft-preview
+preview_only_not_persisted
+human_confirmation_required: true
+human changes draft.fix_status from draft to open
+POST /failure-cases -> 201
+GET /failure-cases -> 200
+pdf_no_extractable_text
+chunk_handoff_no_chunks
+```
+
+Phase 564 is route-level smoke evidence only. It is not Docker runtime evidence, not hosted deployment evidence, not external reviewer feedback, not automatic failure-case creation, not a confirm endpoint, not automatic root-cause analysis, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+local Docker/FastAPI runtime smoke for persisted document failure candidate manual handoff if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

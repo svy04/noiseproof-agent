@@ -23348,3 +23348,57 @@ def test_external_feedback_current_state_persisted_document_failure_candidate_dr
         "external feedback current-state persisted document failure candidate draft runtime issue verification v0"
         in issue_body_refresh
     )
+
+
+def test_persisted_document_failure_candidate_manual_handoff_smoke_records_existing_path():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/persisted-document-failure-candidate-manual-handoff-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = "docs/review/persisted-document-failure-candidate-manual-handoff-smoke.md"
+
+    assert "Persisted Document Failure Candidate Manual Handoff Smoke" in content
+    assert "persisted document failure candidate manual handoff smoke v0" in content
+    assert (
+        "test_persisted_document_failure_candidate_can_be_manually_handed_to_failure_case_persistence"
+        in content
+    )
+    assert "POST /documents/upload-chunks" in content
+    assert "POST /documents/{document_id}/failure-case-draft-preview" in content
+    assert "POST /failure-cases -> 201" in content
+    assert "GET /failure-cases -> 200" in content
+    assert "preview_only_not_persisted" in content
+    assert "human_confirmation_required: true" in content
+    assert "human changes draft.fix_status from draft to open" in content
+    assert "pdf_no_extractable_text" in content
+    assert "chunk_handoff_no_chunks" in content
+    assert "manual handoff" in content
+    assert "not automatic failure-case creation" in content
+    assert "not a confirm endpoint" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not product-complete" in content
+    assert (
+        "Persisted document failure candidate manual handoff smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 564 - Persisted Document Failure Candidate Manual Handoff Smoke v0"
+        in goal
+    )
+    assert (
+        "persisted document failure candidate manual handoff smoke v0"
+        in runbook
+    )
+    assert review_doc in portfolio

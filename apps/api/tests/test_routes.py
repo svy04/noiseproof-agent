@@ -3374,6 +3374,55 @@ def test_persisted_no_text_pdf_document_failure_case_draft_preview_without_persi
     assert client.get("/failure-cases").json() == []
 
 
+def test_persisted_document_failure_candidate_can_be_manually_handed_to_failure_case_persistence():
+    client = make_client()
+    content = _blank_pdf_bytes()
+
+    upload = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Manual handoff blank PDF report",
+            "strategy": "fixed-window",
+            "max_characters": "80",
+            "overlap": "0",
+        },
+        files={"file": ("manual-handoff-blank.pdf", content, "application/pdf")},
+    )
+    document_id = upload.json()["document"]["id"]
+
+    preview = client.post(f"/documents/{document_id}/failure-case-draft-preview")
+    assert preview.status_code == 200
+    preview_body = preview.json()
+    assert preview_body["persistence_boundary"] == "preview_only_not_persisted"
+    assert preview_body["human_confirmation_required"] is True
+
+    human_confirmed_payload = {
+        **preview_body["draft"],
+        "fix_status": "open",
+        "next_action": (
+            "Inspect the persisted no-text PDF candidate and decide whether OCR, "
+            "source replacement, or manual extraction is needed."
+        ),
+    }
+
+    persisted = client.post("/failure-cases", json=human_confirmed_payload)
+
+    assert persisted.status_code == 201
+    row = persisted.json()
+    assert row["failure_type"] == "pdf_no_extractable_text"
+    assert row["fix_status"] == "open"
+    assert row["agent_run_id"] is None
+    assert row["workflow_run_id"] is None
+    assert "Manual handoff blank PDF report" in row["description"]
+    assert "scanned, image-only" in row["root_cause"]
+
+    listed = client.get("/failure-cases")
+    assert listed.status_code == 200
+    rows = listed.json()
+    assert len(rows) == 1
+    assert rows[0]["id"] == row["id"]
+
+
 def test_uploaded_pdf_chunk_retrieval_run_keeps_pdf_parser_provenance():
     client = make_client()
     content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")
