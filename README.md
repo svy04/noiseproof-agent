@@ -102,11 +102,11 @@ Implementation status:
 
 Current status groups:
 
-- docs: product brief, architecture, ADRs, runbook, application package, review artifacts
-- service: FastAPI health, ops dashboard, metadata routes, PostgreSQL schema, migration runner, CI
-- ingestion/RAG: profiling, parsers, chunk comparison, lexical/semantic retrieval previews, collection planning
-- evidence/report: Evidence Ledger, Noise Gate, reports, traces, filters, workflow parents, lineage, warning codes
-- proof: DB/failure smokes, reviewer path/request/brief/link-map/root-guide, feedback screening, Braincrew mapping
+- docs: briefs, architecture/ADRs, runbook, application/review artifacts
+- service: FastAPI health, ops/dashboard, metadata routes, PostgreSQL/migrations, CI
+- ingestion/RAG: profiling/parsers/chunks, lexical/semantic retrieval previews, collection planning
+- evidence/report: ledgers, gates, reports, traces, filters, workflow lineage/warnings
+- proof: DB/failure smokes, reviewer routes, feedback screening, Braincrew map
 
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
@@ -121,9 +121,10 @@ Still planned or explicitly unclaimed near the top:
 
 - web app and polished dashboard UI
 - raw upload quarantine storage exists; robust PDF extraction is unclaimed
-- automatic upload-preview-to-chunk wiring, actual embedding model generation, vector search quality evidence, LLM calls
+- explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`; implicit upload-preview auto-persistence remains intentionally unclaimed
+- actual embedding generation, vector quality evidence, LLM calls
 - hosted deployment evidence
-- production authorization and authenticated identity for stored raw uploads
+- production auth/identity for stored raw uploads
 - automatic failure-case creation from workflow failures
 - complete workflow failure causality
 - free-form final report generation
@@ -211,7 +212,7 @@ Not implemented yet:
 - robust PDF extraction
 - production authorization and download rate limiting for stored raw uploads
 - production malware scanning evidence for stored raw uploads
-- automatic upload-preview-to-chunk persistence wiring
+- implicit upload-preview auto-persistence; explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`
 - autonomous workflow execution endpoints
 - automatic failure-case persistence from workflow failures
 - embedding generation and vector search quality evidence beyond the deterministic local hash preview
@@ -298,6 +299,8 @@ External feedback current-state embedding provider owner-runtime smoke packet is
 README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
 
 README latest-marker embedding handoff current-state refresh v0: implemented. Boundary: README top markers now point to the embedding provider handoff alignment issue-body refresh and current-state issue verification; external reviewer feedback remains pending, and this is not live embedding generation proof or product-complete.
+
+README upload handoff claim-boundary refresh v0: implemented. Boundary: explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`; implicit upload-preview auto-persistence remains intentionally unclaimed. This is a public-claim cleanup only, not a new product runtime gate.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 

@@ -10234,3 +10234,31 @@ not live embedding generation proof
 not external reviewer feedback
 actual live embedding model generation remains unproven
 ```
+
+## README Upload Handoff Claim-boundary Refresh
+
+Phase marker: readme upload handoff claim-boundary refresh v0.
+
+Review artifact:
+
+```text
+docs/review/readme-upload-handoff-claim-boundary-refresh.md
+```
+
+README claim boundary:
+
+```text
+explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`
+implicit upload-preview auto-persistence remains intentionally unclaimed
+```
+
+Boundary:
+
+```text
+README cleanup only
+not a new product runtime gate
+not automatic upload-preview persistence
+not hosted deployment evidence
+not external reviewer feedback
+not product-complete
+```

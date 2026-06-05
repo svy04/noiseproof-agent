@@ -15566,6 +15566,52 @@ def test_readme_latest_marker_embedding_handoff_current_state_refresh_updates_fi
     assert review_doc in portfolio
 
 
+def test_readme_upload_handoff_claim_boundary_refresh_separates_explicit_handoff_from_preview_auto_persistence():
+    review_path = (
+        REPO_ROOT / "docs/review/readme-upload-handoff-claim-boundary-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    review_doc = "docs/review/readme-upload-handoff-claim-boundary-refresh.md"
+    explicit_claim = (
+        "explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`"
+    )
+    implicit_boundary = (
+        "implicit upload-preview auto-persistence remains intentionally unclaimed"
+    )
+
+    assert "README Upload Handoff Claim-boundary Refresh" in content
+    assert "readme upload handoff claim-boundary refresh v0" in content
+    assert explicit_claim in content
+    assert implicit_boundary in content
+    assert "not a new product runtime gate" in content
+    assert explicit_claim in readme
+    assert implicit_boundary in readme
+    assert "- automatic upload-preview-to-chunk persistence wiring" not in readme
+    assert (
+        "README upload handoff claim-boundary refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 501 - README Upload Handoff Claim-boundary Refresh v0" in goal
+    )
+    assert "readme upload handoff claim-boundary refresh v0" in runbook
+    assert review_doc in portfolio
+    assert explicit_claim in application_ready
+    assert implicit_boundary in application_ready
+
+
 def test_uploaded_raw_file_download_readiness_preview_documents_preflight_boundary():
     review_path = (
         REPO_ROOT / "docs/review/uploaded-raw-file-download-readiness-preview.md"

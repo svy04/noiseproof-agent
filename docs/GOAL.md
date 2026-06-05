@@ -18281,6 +18281,37 @@ Next recommended evidence gate:
 owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 501 - README Upload Handoff Claim-boundary Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+separate the implemented explicit upload-to-chunks handoff from the intentionally unclaimed implicit upload-preview auto-persistence boundary in the README first-pass surface
+```
+
+Implemented:
+
+```text
+readme upload handoff claim-boundary refresh v0
+docs/review/readme-upload-handoff-claim-boundary-refresh.md
+explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`
+implicit upload-preview auto-persistence remains intentionally unclaimed
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/review/application-ready-review.md boundary row refresh
+docs/runbook.md note
+```
+
+Phase 501 is a public-claim cleanup only. It adds no endpoint, no schema, no persistence behavior, no upload automation, no raw file storage, no full parsed text persistence, no embeddings, no retrieval expansion, no Evidence Ledger generation, no Noise Gate behavior, no report generation, no LLM calls, no hosted deployment evidence, no external reviewer feedback, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
