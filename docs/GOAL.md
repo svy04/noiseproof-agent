@@ -19854,6 +19854,44 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, external reviewer PDF page diagnostics runtime issue-body refresh v0 if the live issue should point to this proof, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 543 - External Reviewer PDF Page Diagnostics Runtime Issue-body Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+update the live public external review issue body so reviewers can reach the uploaded PDF page diagnostics runtime proof
+```
+
+Implemented:
+
+```text
+external reviewer PDF page diagnostics runtime issue-body refresh v0
+docs/review/external-review-issue-body-pdf-page-diagnostics-runtime-refresh.md
+https://github.com/svy04/noiseproof-agent/issues/1
+uploaded PDF page diagnostics proof
+docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md
+docs/review/external-reviewer-pdf-page-diagnostics-runtime-request-refresh.md
+POST /documents/upload-preview
+parser -> pdf-pymupdf
+page_text_char_counts -> [39]
+empty_page_count -> 0
+text_block_count -> 1
+image_block_count -> 0
+document_count_delta -> 0
+has_pdf_page_diagnostics_runtime_proof: true
+has_pdf_page_diagnostics_request_refresh: true
+```
+
+Phase 543 is an owner-authored issue body edit only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not parsed text persistence, not retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state PDF page diagnostics runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
