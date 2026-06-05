@@ -18020,6 +18020,47 @@ Next recommended evidence gate:
 owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 494 - Embedding Model Live-provider Owner-runtime Smoke Response Handoff Report v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+convert a future owner-runtime embedding route response capture into the strict metadata-only validator report shape without calling OpenAI or writing embedding vectors into the report
+```
+
+Implemented:
+
+```text
+embedding model live-provider owner-runtime smoke response handoff report v0
+apps/api/app/services/embedding_model_live_provider_harness.py --build-owner-runtime-smoke-report-from-response
+--output <runtime-report-path-outside-repo>
+response capture path must be outside repository
+output report path must be outside repository
+response_body
+http_status=200
+embedding_status=owner_runtime_provider_generated
+embedding_model=text-embedding-3-small
+embedding_length=1536
+provider_response_dimension_check=passed
+usage_metadata_present=true
+accepted_owner_runtime_smoke=true
+--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
+docs/review/embedding-model-live-provider-owner-runtime-smoke-response-handoff-report.md
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 494 adds response-to-report handoff code only. It adds no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. The handoff report intentionally excludes the embedding vector and `metadata_json`; actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+embedding model live-provider owner-runtime smoke packet command-template handoff alignment v0, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

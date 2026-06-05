@@ -18430,6 +18430,60 @@ def test_external_feedback_current_state_embedding_provider_report_alignment_iss
     assert review_doc in issue_body_refresh
 
 
+def test_embedding_model_live_provider_owner_runtime_smoke_response_handoff_report_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-response-handoff-report.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-response-handoff-report.md"
+    )
+
+    assert (
+        "Embedding Model Live-provider Owner-runtime Smoke Response Handoff Report"
+        in content
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke response handoff report v0"
+        in content
+    )
+    assert "--build-owner-runtime-smoke-report-from-response" in content
+    assert "--output <runtime-report-path-outside-repo>" in content
+    assert "response_body" in content
+    assert "http_status: 200" in content
+    assert "embedding_length: 1536" in content
+    assert "accepted_owner_runtime_smoke: true" in content
+    assert "--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>" in content
+    assert "response-to-report handoff only" in content
+    assert "not live embedding generation proof" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Embedding model live-provider owner-runtime smoke response handoff report v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 494 - Embedding Model Live-provider Owner-runtime Smoke Response Handoff Report v0"
+        in goal
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke response handoff report v0"
+        in runbook
+    )
+    assert review_doc in portfolio
+
+
 def test_external_reviewer_embedding_provider_owner_runtime_smoke_validator_request_refresh_links_validation_path():
     review_path = (
         REPO_ROOT

@@ -331,6 +331,126 @@ def test_embedding_model_live_provider_harness_checks_report_contract_alignment_
     assert "sk-" not in json.dumps(payload, sort_keys=True)
 
 
+def test_embedding_model_live_provider_harness_writes_validator_report_from_owner_runtime_response(
+    capsys, tmp_path
+):
+    response_path = tmp_path / "owner-runtime-embedding-response.json"
+    report_path = tmp_path / "owner-runtime-embedding-smoke-report.json"
+    response_path.write_text(
+        json.dumps(
+            {
+                "http_status": 200,
+                "response_body": {
+                    "provider": "openai",
+                    "embedding_model": "text-embedding-3-small",
+                    "embedding_dimension": 1536,
+                    "encoding_format": "float",
+                    "configured": True,
+                    "embedding_status": "owner_runtime_provider_generated",
+                    "embedding": [0.0] * 1536,
+                    "metadata_json": {
+                        "provider": "openai",
+                        "provider_model": "text-embedding-3-small",
+                        "provider_dimension": 1536,
+                        "network_boundary": "owner_runtime_provider_call",
+                        "cost_boundary": "owner_runtime_provider_cost_possible",
+                        "persistence_boundary": "preview_only_not_persisted",
+                        "provider_call_boundary": "openai_python_sdk_disabled_adapter",
+                        "provider_response_dimension_check": "passed",
+                        "usage": {"total_tokens": 8},
+                        "secret_exposed": False,
+                    },
+                    "warnings": [
+                        "Embedding vector came from an owner-runtime OpenAI provider call.",
+                        "Live provider calls are owner-runtime only and not CI evidence.",
+                    ],
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    exit_code = main(
+        [
+            "--build-owner-runtime-smoke-report-from-response",
+            str(response_path),
+            "--output",
+            str(report_path),
+        ]
+    )
+
+    assert exit_code == 0
+    assert capsys.readouterr().out == ""
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    assert report == {
+        "route": "POST /chunks/embedding-model-preview",
+        "http_status": 200,
+        "embedding_status": "owner_runtime_provider_generated",
+        "embedding_model": "text-embedding-3-small",
+        "embedding_length": 1536,
+        "provider_response_dimension_check": "passed",
+        "usage_metadata_present": True,
+        "secret_exposed": False,
+        "persistence_boundary": "preview_only_not_persisted",
+        "api_calls_attempted": True,
+        "openai_api_key_printed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+    }
+    assert "embedding" not in report
+    assert "metadata_json" not in report
+    assert "phase_marker" not in report
+    assert "sk-" not in json.dumps(report, sort_keys=True)
+
+    validate_exit_code = main(
+        ["--validate-owner-runtime-smoke-report", str(report_path)]
+    )
+
+    assert validate_exit_code == 0
+    validation = json.loads(capsys.readouterr().out)
+    assert validation["validation_status"] == "accepted"
+    assert validation["accepted_owner_runtime_smoke"] is True
+
+
+def test_embedding_model_live_provider_harness_rejects_response_handoff_output_path_inside_repository(
+    capsys, tmp_path
+):
+    response_path = tmp_path / "owner-runtime-embedding-response.json"
+    output_path = REPO_ROOT / ".tmp-owner-runtime-embedding-smoke-report.json"
+    response_path.write_text(
+        json.dumps({"http_status": 200, "response_body": {}}),
+        encoding="utf-8",
+    )
+    try:
+        exit_code = main(
+            [
+                "--build-owner-runtime-smoke-report-from-response",
+                str(response_path),
+                "--output",
+                str(output_path),
+            ]
+        )
+    finally:
+        output_path.unlink(missing_ok=True)
+
+    assert exit_code == 5
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["phase_marker"] == (
+        "embedding model live-provider owner-runtime smoke response handoff report v0"
+    )
+    assert payload["handoff_status"] == "output_path_rejected"
+    assert payload["accepted_owner_runtime_smoke"] is False
+    assert payload["api_calls_attempted"] is False
+    assert payload["output_path_boundary"] == {
+        "output_path_allowed": False,
+        "required_location": "outside_repository",
+    }
+    assert "output path must be outside repository" in payload[
+        "missing_or_failed_checks"
+    ]
+    assert output_path.exists() is False
+
+
 def test_embedding_model_live_provider_harness_rejects_unknown_command(capsys):
     exit_code = main(["--unknown"], env={})
 

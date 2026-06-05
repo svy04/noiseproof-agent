@@ -9960,3 +9960,55 @@ not hosted deployment evidence
 not product-complete
 external reviewer feedback remains pending
 ```
+
+## Embedding Model Live-provider Owner-runtime Smoke Response Handoff Report
+
+Phase marker: embedding model live-provider owner-runtime smoke response handoff report v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-response-handoff-report.md
+```
+
+Command:
+
+```bash
+cd apps/api
+uv run python -m app.services.embedding_model_live_provider_harness --build-owner-runtime-smoke-report-from-response <owner-runtime-response-json-outside-repo> --output <runtime-report-path-outside-repo>
+```
+
+Expected response capture fields:
+
+```text
+http_status: 200
+response_body
+embedding_status: owner_runtime_provider_generated
+embedding_model: text-embedding-3-small
+embedding_length: 1536
+provider_response_dimension_check: passed
+```
+
+Post-run validation:
+
+```bash
+uv run python -m app.services.embedding_model_live_provider_harness --validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
+```
+
+Expected validator marker:
+
+```text
+accepted_owner_runtime_smoke: true
+```
+
+Boundary:
+
+```text
+response-to-report handoff only
+does not call the OpenAI provider
+does not persist embeddings
+does not write embedding vectors into the validator report
+not live embedding generation proof
+not external reviewer feedback
+actual live embedding model generation remains unproven
+```

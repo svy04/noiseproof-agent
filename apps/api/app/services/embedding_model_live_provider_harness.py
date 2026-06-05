@@ -19,6 +19,9 @@ REPORT_SCHEMA_PHASE_MARKER = (
 REPORT_ALIGNMENT_PHASE_MARKER = (
     "embedding model live-provider owner-runtime smoke report contract alignment v0"
 )
+RESPONSE_HANDOFF_PHASE_MARKER = (
+    "embedding model live-provider owner-runtime smoke response handoff report v0"
+)
 EXPECTED_REPORT_TOP_LEVEL_FIELDS = {
     "api_calls_attempted",
     "embedding_length",
@@ -343,6 +346,107 @@ def _owner_runtime_smoke_report_contract_alignment() -> dict[str, object]:
     }
 
 
+def _owner_runtime_smoke_report_from_response_capture(
+    response_capture: Mapping[str, object],
+) -> dict[str, object]:
+    response_body = response_capture.get("response_body")
+    if not isinstance(response_body, Mapping):
+        response_body = {}
+    metadata = response_body.get("metadata_json")
+    if not isinstance(metadata, Mapping):
+        metadata = {}
+    embedding = response_body.get("embedding")
+    embedding_length = len(embedding) if isinstance(embedding, list) else None
+
+    return {
+        "route": "POST /chunks/embedding-model-preview",
+        "http_status": response_capture.get("http_status"),
+        "embedding_status": response_body.get("embedding_status"),
+        "embedding_model": response_body.get("embedding_model"),
+        "embedding_length": embedding_length,
+        "provider_response_dimension_check": metadata.get(
+            "provider_response_dimension_check"
+        ),
+        "usage_metadata_present": bool(metadata.get("usage")),
+        "secret_exposed": metadata.get("secret_exposed"),
+        "persistence_boundary": metadata.get("persistence_boundary"),
+        "api_calls_attempted": True,
+        "openai_api_key_printed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+    }
+
+
+def _owner_runtime_response_handoff_report(
+    *,
+    response_capture: Mapping[str, object],
+    response_path: Path,
+    output_path: Path,
+) -> dict[str, object]:
+    response_path_allowed = not _path_is_inside_repository(response_path)
+    output_path_allowed = not _path_is_inside_repository(output_path)
+    missing_or_failed_checks: list[str] = []
+    if not response_path_allowed:
+        missing_or_failed_checks.append("response path must be outside repository")
+    if not output_path_allowed:
+        missing_or_failed_checks.append("output path must be outside repository")
+
+    forbidden_secret_fields = _find_forbidden_secret_fields(response_capture)
+    for field_path in forbidden_secret_fields:
+        missing_or_failed_checks.append(f"forbidden secret field present: {field_path}")
+
+    handoff_report = _owner_runtime_smoke_report_from_response_capture(
+        response_capture
+    )
+    validation = _validate_owner_runtime_smoke_report(handoff_report)
+    missing_or_failed_checks.extend(validation["missing_or_failed_checks"])
+    accepted = not missing_or_failed_checks
+    if not output_path_allowed:
+        handoff_status = "output_path_rejected"
+    elif not response_path_allowed:
+        handoff_status = "response_path_rejected"
+    else:
+        handoff_status = "accepted" if accepted else "rejected"
+
+    return {
+        "phase_marker": RESPONSE_HANDOFF_PHASE_MARKER,
+        "handoff_status": handoff_status,
+        "accepted_owner_runtime_smoke": accepted,
+        "missing_or_failed_checks": missing_or_failed_checks,
+        "forbidden_secret_fields": forbidden_secret_fields,
+        "response_path_boundary": {
+            "response_path_allowed": response_path_allowed,
+            "required_location": "outside_repository",
+        },
+        "output_path_boundary": {
+            "output_path_allowed": output_path_allowed,
+            "required_location": "outside_repository",
+        },
+        "candidate_report": handoff_report if accepted else None,
+        "reported_embedding_status": handoff_report.get("embedding_status"),
+        "reported_embedding_length": handoff_report.get("embedding_length"),
+        "api_calls_attempted": False,
+        "openai_api_key_printed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+        "non_claims": {
+            "live_embedding_generation_proof": False,
+            "provider_call_made_by_handoff": False,
+            "hosted_deployment_evidence": False,
+            "external_reviewer_feedback": False,
+            "semantic_retrieval_quality_evidence": False,
+        },
+        "boundary": [
+            "response-to-report handoff only",
+            "does not read or print OPENAI_API_KEY",
+            "does not call the OpenAI provider",
+            "does not persist embeddings",
+            "writes validator report outside the repository only when accepted",
+            "not live embedding generation proof",
+        ],
+    }
+
+
 def _accepted_owner_runtime_smoke_report() -> dict[str, object]:
     return {
         "route": "POST /chunks/embedding-model-preview",
@@ -474,6 +578,14 @@ def _print_json(payload: Mapping) -> None:
     print(json.dumps(payload, indent=2, sort_keys=True))
 
 
+def _write_json(path: Path, payload: Mapping[str, object]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
 def main(argv: Sequence[str] | None = None, env: Mapping[str, str] | None = None) -> int:
     environment = env if env is not None else os.environ
     args = list(argv if argv is not None else sys.argv[1:])
@@ -493,6 +605,32 @@ def main(argv: Sequence[str] | None = None, env: Mapping[str, str] | None = None
         report = _owner_runtime_smoke_report_contract_alignment()
         _print_json(report)
         return 0 if report["alignment_status"] == "aligned" else 5
+    if (
+        len(args) == 4
+        and args[0] == "--build-owner-runtime-smoke-report-from-response"
+        and args[2] == "--output"
+    ):
+        response_path = Path(args[1])
+        output_path = Path(args[3])
+        response_capture = (
+            {}
+            if _path_is_inside_repository(response_path)
+            else _read_json_report(response_path)
+        )
+        handoff = _owner_runtime_response_handoff_report(
+            response_capture=response_capture,
+            response_path=response_path,
+            output_path=output_path,
+        )
+        if handoff["accepted_owner_runtime_smoke"] is True:
+            candidate = handoff["candidate_report"]
+            if isinstance(candidate, Mapping):
+                _write_json(output_path, candidate)
+                return 0
+        _print_json(
+            {key: value for key, value in handoff.items() if key != "candidate_report"}
+        )
+        return 5
     if len(args) == 2 and args[0] == "--validate-owner-runtime-smoke-report":
         report_path = Path(args[1])
         report = _validate_owner_runtime_smoke_report(
