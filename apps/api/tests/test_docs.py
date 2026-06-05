@@ -1173,7 +1173,7 @@ def test_workflow_direct_stage_links_docs_and_schema_are_inspectable():
     assert "REFERENCES report_records(id) ON DELETE CASCADE" in migration
     assert "Phase 530 - Workflow Direct Stage Links v0" in goal
     assert "Workflow direct stage links v0: implemented" in readme
-    assert "Latest product gate marker: Workflow direct stage links v0: implemented." in readme
+    assert "Latest product gate marker: Workflow stage event log v0: implemented." in readme
     assert "workflow direct stage links v0" in runbook
     assert "workflow direct stage links v0" in app_review
     assert "docs/review/workflow-direct-stage-links.md" in portfolio
@@ -1219,6 +1219,43 @@ def test_workflow_direct_stage_links_runtime_smoke_records_live_db_and_http_evid
     assert "workflow direct stage links runtime smoke v0" in runbook
     assert "workflow-direct-stage-links-runtime-smoke.md" in app_review
     assert "docs/review/workflow-direct-stage-links-runtime-smoke.md" in portfolio
+
+
+def test_workflow_stage_event_log_docs_and_schema_are_inspectable():
+    review = (
+        REPO_ROOT / "docs/review/workflow-stage-event-log.md"
+    ).read_text(encoding="utf-8")
+    migration = (
+        REPO_ROOT / "db/migrations/024_workflow_stage_events.sql"
+    ).read_text(encoding="utf-8")
+    init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    app_review = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Workflow Stage Event Log" in review
+    assert "workflow stage event log v0" in review
+    assert "workflow_stage_events" in review
+    assert "local_workflow_stage_event_log_not_distributed_tracing" in review
+    assert "not distributed tracing" in review
+    assert "GET /workflow-runs/{id}" in review
+    assert "GET /workflow-runs/{id}/proof-bundle" in review
+    assert "CREATE TABLE IF NOT EXISTS workflow_stage_events" in migration
+    assert "CREATE TABLE IF NOT EXISTS workflow_stage_events" in init_schema
+    assert "UNIQUE (workflow_run_id, stage_order, stage_name)" in migration
+    assert "workflow_stage_event_count" in review
+    assert "Phase 535 - Workflow Stage Event Log v0" in goal
+    assert "Workflow stage event log v0: implemented" in readme
+    assert "Latest product gate marker: Workflow stage event log v0: implemented." in readme
+    assert "workflow stage event log v0" in runbook
+    assert "workflow stage event log exists" in app_review
+    assert "docs/review/workflow-stage-event-log.md" in portfolio
 
 
 def test_external_reviewer_workflow_direct_stage_links_runtime_request_refresh_links_latest_proof():
@@ -18046,7 +18083,7 @@ def test_workflow_dashboard_failure_case_counts_document_read_model_boundary():
     assert "_workflow_failure_case_count_cell" in dashboard_py
     assert "test_ops_dashboard_surfaces_workflow_failure_case_counts_and_filter_links" in routes_test
     assert "Workflow dashboard failure-case counts v0: implemented" in readme
-    assert "Latest product gate marker: Workflow direct stage links v0: implemented." in readme
+    assert "Latest product gate marker: Workflow stage event log v0: implemented." in readme
     assert "Phase 513 - Workflow Dashboard Failure-case Counts v0" in goal
     assert "workflow dashboard failure-case counts v0" in runbook
     assert "docs/review/workflow-dashboard-failure-case-counts.md" in portfolio

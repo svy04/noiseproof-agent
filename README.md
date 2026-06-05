@@ -112,7 +112,7 @@ Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
 Latest workflow proof bundle runtime marker: Workflow proof bundle failure-case links runtime smoke v0: implemented.
 Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented.
-Latest product gate marker: Workflow direct stage links v0: implemented.
+Latest product gate marker: Workflow stage event log v0: implemented.
 Latest reviewer-routing marker: Embedding provider handoff alignment issue-body refresh v0.
 Latest external-feedback state: pending after handoff issue verification; candidate_count=0; self-authored comment only.
 
@@ -222,6 +222,8 @@ Not implemented yet:
 Workflow direct stage links v0: implemented. Boundary: deterministic workflow-created records now create direct local link rows in `noise_gate_evidence_links`, `report_evidence_links`, and `report_noise_gate_links`, surfaced through `GET /workflow-runs/{id}/lineage` as `direct_stage_links`. Standalone gate/report endpoints remain payload-only unless they create explicit links. This is not distributed tracing, hosted observability, autonomous workflow execution, external reviewer feedback, or product-complete.
 
 Workflow direct stage links runtime smoke v0: implemented. Boundary: local Docker PostgreSQL applied `023_workflow_stage_links.sql`, and live FastAPI HTTP verified `POST /workflow-runs/execute-preview` plus `GET /workflow-runs/{id}/lineage` returned `direct_stage_link_count=3` with `direct_stage_link_table`. This is not hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, or product-complete.
+
+Workflow stage event log v0: implemented. Boundary: deterministic `POST /workflow-runs/execute-preview` now records local stage event rows in `workflow_stage_events` for retrieval, Evidence Ledger, Noise Gate, and Report stages, surfaced through `GET /workflow-runs/{id}` and `GET /workflow-runs/{id}/proof-bundle` with `workflow_stage_event_count`. This is local workflow observability only, not distributed tracing, hosted observability, autonomous workflow execution, external reviewer feedback, or product-complete.
 
 External reviewer workflow direct stage links runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-direct-stage-links-runtime-smoke.md` and `docs/review/external-reviewer-workflow-direct-stage-links-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, autonomous workflow execution, or product-complete.
 

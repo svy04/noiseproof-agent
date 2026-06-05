@@ -48,6 +48,7 @@ class InMemoryRepository:
         self.retrieval_runs = []
         self.workflow_runs = []
         self.workflow_stage_links = []
+        self.workflow_stage_events = []
         self.uploaded_file_intake_manifests = []
         self.uploaded_raw_files = []
         self.raw_file_scan_results = []
@@ -502,6 +503,9 @@ class InMemoryRepository:
             "direct_stage_links": [
                 row for row in self.workflow_stage_links if str(row["workflow_run_id"]) == workflow_id
             ],
+            "stage_events": [
+                row for row in self.workflow_stage_events if str(row["workflow_run_id"]) == workflow_id
+            ],
         }
 
     def create_workflow_stage_links(self, links):
@@ -519,6 +523,27 @@ class InMemoryRepository:
         return [
             row for row in self.workflow_stage_links if str(row["workflow_run_id"]) == workflow_id
         ]
+
+    def create_workflow_stage_events(self, events):
+        created = []
+        for event in events:
+            row = event.model_dump()
+            row["id"] = uuid4()
+            row["created_at"] = datetime.now(timezone.utc)
+            self.workflow_stage_events.append(row)
+            created.append(row)
+        return created
+
+    def list_workflow_stage_events(self, workflow_run_id):
+        workflow_id = str(workflow_run_id)
+        return sorted(
+            [
+                row
+                for row in self.workflow_stage_events
+                if str(row["workflow_run_id"]) == workflow_id
+            ],
+            key=lambda row: (row["stage_order"], row["created_at"], str(row["id"])),
+        )
 
     def update_workflow_run(
         self,
@@ -3846,6 +3871,7 @@ def test_workflow_run_detail_returns_child_records_linked_to_workflow_parent():
         "noise_gate_record_count": 1,
         "report_record_count": 1,
         "failure_case_count": 0,
+        "workflow_stage_event_count": 4,
     }
     assert payload["retrieval_runs"][0]["workflow_run_id"] == workflow_run_id
     assert payload["evidence_ledger_entries"][0]["workflow_run_id"] == workflow_run_id
@@ -3982,6 +4008,66 @@ def test_workflow_lineage_exposes_direct_stage_links_for_workflow_created_record
     )
 
 
+def test_workflow_run_detail_includes_local_stage_event_log_for_execute_preview():
+    client = make_client()
+
+    response = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which source supports demand growth?",
+            "sources": [
+                    {
+                        "source_id": "memo-1",
+                        "source_type": "memo",
+                        "content": "Demand growth was 12 percent in 2026.",
+                        "metadata_json": {"source_date": "2026-05-01"},
+                    }
+            ],
+        },
+    )
+
+    assert response.status_code == 201
+    workflow_run_id = response.json()["workflow_run"]["id"]
+
+    detail = client.get(f"/workflow-runs/{workflow_run_id}")
+    bundle = client.get(f"/workflow-runs/{workflow_run_id}/proof-bundle")
+
+    assert detail.status_code == 200
+    assert bundle.status_code == 200
+    detail_body = detail.json()
+    stage_events = detail_body["stage_events"]
+    assert detail_body["summary"]["workflow_stage_event_count"] == 4
+    assert [event["stage_order"] for event in stage_events] == [1, 2, 3, 4]
+    assert [event["stage_name"] for event in stage_events] == [
+        "retrieval",
+        "evidence_ledger",
+        "noise_gate",
+        "report",
+    ]
+    assert {event["stage_status"] for event in stage_events} == {"completed"}
+    assert all(event["latency_ms"] >= 0 for event in stage_events)
+    assert all(event["ended_at"] is not None for event in stage_events)
+    assert all(
+        event["event_boundary"] == "local_workflow_stage_event_log_not_distributed_tracing"
+        for event in stage_events
+    )
+    assert stage_events[0]["input_summary_json"]["strategy"] == "fixed-window"
+    assert stage_events[0]["output_summary_json"]["retrieval_result_count"] >= 1
+    assert stage_events[1]["output_summary_json"]["stored_entry_count"] >= 1
+    assert stage_events[2]["output_summary_json"]["decision"] in {
+        "pass",
+        "needs_revision",
+        "blocked",
+    }
+    assert stage_events[3]["output_summary_json"]["report_status"] in {
+        "generated",
+        "blocked",
+        "needs_revision",
+    }
+    assert bundle.json()["detail"]["summary"]["workflow_stage_event_count"] == 4
+    assert bundle.json()["detail"]["stage_events"][0]["stage_name"] == "retrieval"
+
+
 def test_workflow_run_proof_bundle_collects_existing_detail_lineage_and_trace_records():
     client = make_client()
     execution = client.post(
@@ -4016,6 +4102,7 @@ def test_workflow_run_proof_bundle_collects_existing_detail_lineage_and_trace_re
         "noise_gate_record_count": 1,
         "report_record_count": 1,
         "failure_case_count": 0,
+        "workflow_stage_event_count": 4,
     }
     assert payload["lineage"]["lineage_boundary"] == (
         "derived_read_model_with_direct_workflow_stage_links"
@@ -4062,6 +4149,7 @@ def test_workflow_run_proof_bundle_handles_metadata_only_workflow_without_trace_
         "noise_gate_record_count": 0,
         "report_record_count": 0,
         "failure_case_count": 0,
+        "workflow_stage_event_count": 0,
     }
     assert payload["lineage"]["summary"]["missing_reference_count"] == 0
     assert payload["lineage"]["summary"]["direct_stage_link_count"] == 0

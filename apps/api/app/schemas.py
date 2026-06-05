@@ -760,12 +760,32 @@ class WorkflowRunOut(WorkflowRunCreate):
     created_at: datetime
 
 
+class WorkflowStageEventCreate(BaseModel):
+    workflow_run_id: UUID
+    workflow_trace_id: UUID
+    stage_name: str = Field(..., min_length=1)
+    stage_order: int
+    stage_status: str = "completed"
+    started_at: datetime
+    ended_at: datetime | None = None
+    latency_ms: int | None = None
+    input_summary_json: dict[str, Any] = Field(default_factory=dict)
+    output_summary_json: dict[str, Any] = Field(default_factory=dict)
+    event_boundary: str = "local_workflow_stage_event_log_not_distributed_tracing"
+
+
+class WorkflowStageEventOut(WorkflowStageEventCreate):
+    id: UUID
+    created_at: datetime
+
+
 class WorkflowRunDetailSummaryOut(BaseModel):
     retrieval_run_count: int
     evidence_ledger_entry_count: int
     noise_gate_record_count: int
     report_record_count: int
     failure_case_count: int
+    workflow_stage_event_count: int = 0
 
 
 class WorkflowRunDetailOut(BaseModel):
@@ -775,6 +795,7 @@ class WorkflowRunDetailOut(BaseModel):
     noise_gate_records: list[NoiseGateStoredRecordOut]
     report_records: list[ReportStoredRecordOut]
     failure_cases: list[dict[str, Any]]
+    stage_events: list[WorkflowStageEventOut] = Field(default_factory=list)
     summary: WorkflowRunDetailSummaryOut
 
 

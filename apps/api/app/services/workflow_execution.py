@@ -1,4 +1,5 @@
 import time
+from datetime import datetime, timezone
 from uuid import uuid4
 
 from app.db import Repository
@@ -12,6 +13,7 @@ from app.schemas import (
     NoiseGateStoredRecordOut,
     ReportPreviewRequest,
     ReportStoredRecordOut,
+    WorkflowStageEventCreate,
     WorkflowStageLinkCreate,
     WorkflowRunCreate,
     WorkflowRunExecutePreviewOut,
@@ -46,7 +48,29 @@ def execute_workflow_preview(
 
     try:
         workflow_run_id = workflow_run["id"]
+        retrieval_started_at, retrieval_started_perf = _stage_started()
         retrieval = run_retrieval(payload, repository, workflow_run_id=workflow_run_id)
+        repository.create_workflow_stage_events(
+            [
+                _workflow_stage_event(
+                    workflow_run_id=workflow_run_id,
+                    workflow_trace_id=workflow_trace_id,
+                    stage_name="retrieval",
+                    stage_order=1,
+                    started_at=retrieval_started_at,
+                    started_perf=retrieval_started_perf,
+                    input_summary_json={
+                        "source_count": len(payload.sources),
+                        "strategy": payload.strategy,
+                    },
+                    output_summary_json={
+                        "retrieval_run_id": str(retrieval.id),
+                        "retrieval_result_count": len(retrieval.results),
+                    },
+                )
+            ]
+        )
+        evidence_started_at, evidence_started_perf = _stage_started()
         evidence_preview = preview_evidence_ledger(
             EvidenceLedgerPreviewRequest(
                 question=payload.question,
@@ -62,6 +86,28 @@ def execute_workflow_preview(
             workflow_trace_id=workflow_trace_id,
             agent_run_id=None,
             workflow_run_id=workflow_run_id,
+        )
+        repository.create_workflow_stage_events(
+            [
+                _workflow_stage_event(
+                    workflow_run_id=workflow_run_id,
+                    workflow_trace_id=workflow_trace_id,
+                    stage_name="evidence_ledger",
+                    stage_order=2,
+                    started_at=evidence_started_at,
+                    started_perf=evidence_started_perf,
+                    input_summary_json={
+                        "retrieval_run_id": str(retrieval.id),
+                        "retrieval_result_count": len(retrieval.results),
+                    },
+                    output_summary_json={
+                        "stored_entry_count": len(evidence_rows),
+                        "evidence_statuses": sorted(
+                            {str(entry["status"]) for entry in evidence_rows}
+                        ),
+                    },
+                )
+            ]
         )
         evidence = EvidenceLedgerPersistedOut(
             question=evidence_preview.question,
@@ -84,6 +130,7 @@ def execute_workflow_preview(
         draft_claims = payload.draft_claims or [
             entry.claim for entry in downstream_evidence_entries if entry.status == "supported"
         ]
+        gate_started_at, gate_started_perf = _stage_started()
         gate_preview = preview_noise_gate(
             NoiseGatePreviewRequest(
                 question=payload.question,
@@ -102,12 +149,33 @@ def execute_workflow_preview(
                 stage_input_manifest=gate_stage_input_manifest,
             )
         )
+        repository.create_workflow_stage_events(
+            [
+                _workflow_stage_event(
+                    workflow_run_id=workflow_run_id,
+                    workflow_trace_id=workflow_trace_id,
+                    stage_name="noise_gate",
+                    stage_order=3,
+                    started_at=gate_started_at,
+                    started_perf=gate_started_perf,
+                    input_summary_json={
+                        "stored_entry_count": len(evidence_rows),
+                        "draft_claim_count": len(draft_claims),
+                    },
+                    output_summary_json={
+                        "noise_gate_record_id": str(gate.id),
+                        "decision": gate.decision,
+                    },
+                )
+            ]
+        )
         report_stage_input_manifest = {
             "input_evidence_ledger_entry_ids": evidence_entry_ids,
             "input_noise_gate_record_id": str(gate.id),
             "source": "workflow_execution_preview",
         }
 
+        report_started_at, report_started_perf = _stage_started()
         report_preview = preview_report(
             ReportPreviewRequest(
                 question=payload.question,
@@ -125,6 +193,26 @@ def execute_workflow_preview(
                 workflow_run_id=workflow_run_id,
                 stage_input_manifest=report_stage_input_manifest,
             )
+        )
+        repository.create_workflow_stage_events(
+            [
+                _workflow_stage_event(
+                    workflow_run_id=workflow_run_id,
+                    workflow_trace_id=workflow_trace_id,
+                    stage_name="report",
+                    stage_order=4,
+                    started_at=report_started_at,
+                    started_perf=report_started_perf,
+                    input_summary_json={
+                        "noise_gate_record_id": str(gate.id),
+                        "draft_claim_count": len(draft_claims),
+                    },
+                    output_summary_json={
+                        "report_record_id": str(report.id),
+                        "report_status": report.status,
+                    },
+                )
+            ]
         )
         repository.create_workflow_stage_links(
             _workflow_stage_links(
@@ -184,6 +272,35 @@ def execute_workflow_preview(
 
 def _latency_ms(started_at: float) -> int:
     return max(0, round((time.perf_counter() - started_at) * 1000))
+
+
+def _stage_started() -> tuple[datetime, float]:
+    return datetime.now(timezone.utc), time.perf_counter()
+
+
+def _workflow_stage_event(
+    *,
+    workflow_run_id,
+    workflow_trace_id,
+    stage_name: str,
+    stage_order: int,
+    started_at: datetime,
+    started_perf: float,
+    input_summary_json: dict,
+    output_summary_json: dict,
+) -> WorkflowStageEventCreate:
+    return WorkflowStageEventCreate(
+        workflow_run_id=workflow_run_id,
+        workflow_trace_id=workflow_trace_id,
+        stage_name=stage_name,
+        stage_order=stage_order,
+        stage_status="completed",
+        started_at=started_at,
+        ended_at=datetime.now(timezone.utc),
+        latency_ms=_latency_ms(started_perf),
+        input_summary_json=input_summary_json,
+        output_summary_json=output_summary_json,
+    )
 
 
 def _workflow_stage_links(

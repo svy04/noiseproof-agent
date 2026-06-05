@@ -18,6 +18,7 @@ from app.schemas import (
     WorkflowRunExecutePreviewOut,
     WorkflowRunExecutePreviewRequest,
     WorkflowRunOut,
+    WorkflowStageEventOut,
     WorkflowStageLinkOut,
     TraceLookupOut,
     TraceLookupSummaryOut,
@@ -130,12 +131,17 @@ def _build_workflow_detail(
         noise_gate_records=children["noise_gate_records"],
         report_records=children["report_records"],
         failure_cases=children.get("failure_cases", []),
+        stage_events=[
+            WorkflowStageEventOut(**row)
+            for row in children.get("stage_events", [])
+        ],
         summary=WorkflowRunDetailSummaryOut(
             retrieval_run_count=len(children["retrieval_runs"]),
             evidence_ledger_entry_count=len(children["evidence_ledger_entries"]),
             noise_gate_record_count=len(children["noise_gate_records"]),
             report_record_count=len(children["report_records"]),
             failure_case_count=len(children.get("failure_cases", [])),
+            workflow_stage_event_count=len(children.get("stage_events", [])),
         ),
     )
 

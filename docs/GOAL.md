@@ -19563,6 +19563,42 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 535 - Workflow Stage Event Log v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make deterministic workflow preview stage execution inspectable through local event rows without claiming distributed tracing
+```
+
+Implemented:
+
+```text
+workflow stage event log v0
+docs/review/workflow-stage-event-log.md
+db/migrations/024_workflow_stage_events.sql
+db/init/001_schema.sql
+workflow_stage_events
+WorkflowStageEventCreate
+WorkflowStageEventOut
+WorkflowRunDetailOut.stage_events
+WorkflowRunDetailSummaryOut.workflow_stage_event_count
+POST /workflow-runs/execute-preview records retrieval/evidence_ledger/noise_gate/report stage events
+GET /workflow-runs/{id} exposes stage_events
+GET /workflow-runs/{id}/proof-bundle exposes stage_events through detail
+event_boundary: local_workflow_stage_event_log_not_distributed_tracing
+```
+
+Phase 535 is local deterministic workflow stage event logging only. It is not distributed tracing, not OpenTelemetry, not hosted observability, not autonomous workflow execution, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, workflow stage event log runtime smoke v0 if Docker/API verification is desired, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

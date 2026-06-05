@@ -579,7 +579,7 @@ GET  /retrieval-runs/{id}
 
 Current endpoints include uploaded file preview/parsing handoffs, parsed document metadata persistence, chunk persistence, retrieval persistence, raw upload quarantine storage, raw file scan/approval/download audit metadata, uploaded raw file download readiness preview, uploaded raw file guard ops summary, caller-provided embeddings, caller-provided semantic retrieval persistence, and retrieval-run-linked Evidence Ledger / Noise Gate / Report handoffs.
 
-Current endpoints still do not perform robust PDF extraction, generate embeddings, persist collection plans, create direct evidence -> gate -> report foreign-key lineage, invoke an LLM, search external sources, create autonomous free-form agents, create free-form final answers, prove production raw-file authorization, prove authenticated user identity, prove hosted deployment, or provide distributed tracing. The current workflow parent proves common workflow membership, not direct stage-level causality between persisted Evidence Ledger rows, Noise Gate records, and Report records.
+Current endpoints still do not perform robust PDF extraction, generate embeddings, persist collection plans, invoke an LLM, search external sources, create autonomous free-form agents, create free-form final answers, prove production raw-file authorization, prove authenticated user identity, prove hosted deployment, or provide distributed tracing. The current workflow parent has local deterministic child links, direct stage link rows, and local `workflow_stage_events` for inspection, but these are not distributed tracing, hosted observability, autonomous workflow execution, or product-complete evidence.
 
 ## Agent Workflow
 
@@ -591,7 +591,7 @@ Planned explicit workflow:
 4. Critic Agent blocks unsupported claims and surfaces contradictions.
 5. Report Agent produces a claim-bounded report.
 
-Each stage must log input and output. Current runtime evidence includes traced operations, workflow parent rows, child record links, stage input manifests, and a derived lineage read model. This is still deterministic preview/workflow metadata, not autonomous multi-agent orchestration, hosted observability, or distributed tracing.
+Each stage must log input and output. Current runtime evidence includes traced operations, workflow parent rows, child record links, stage input manifests, a derived lineage read model, direct local stage links, and local `workflow_stage_events` exposed through workflow detail/proof-bundle responses. This is still deterministic preview/workflow metadata, not autonomous multi-agent orchestration, hosted observability, or distributed tracing.
 
 ## Evaluation Surface
 

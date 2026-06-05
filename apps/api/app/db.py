@@ -24,6 +24,7 @@ from app.schemas import (
     UploadedFileIntakeManifestCreate,
     UploadedRawFileCreate,
     WorkflowStageLinkCreate,
+    WorkflowStageEventCreate,
     WorkflowRunCreate,
 )
 from app.settings import Settings, get_settings
@@ -153,6 +154,11 @@ class Repository(Protocol):
         links: list[WorkflowStageLinkCreate],
     ) -> Sequence[dict]: ...
     def list_workflow_stage_links(self, workflow_run_id: UUID) -> Sequence[dict]: ...
+    def create_workflow_stage_events(
+        self,
+        events: list[WorkflowStageEventCreate],
+    ) -> Sequence[dict]: ...
+    def list_workflow_stage_events(self, workflow_run_id: UUID) -> Sequence[dict]: ...
     def create_evidence_ledger_entries(
         self,
         question: str,
@@ -864,6 +870,7 @@ class PostgresRepository:
                 (workflow_run_id,),
             ).fetchall()
             stage_links = self._list_workflow_stage_links(conn, workflow_run_id)
+            stage_events = self._list_workflow_stage_events(conn, workflow_run_id)
         return {
             "retrieval_runs": [dict(row) for row in retrieval_runs],
             "evidence_ledger_entries": [dict(row) for row in evidence_entries],
@@ -871,6 +878,7 @@ class PostgresRepository:
             "report_records": [dict(row) for row in report_records],
             "failure_cases": [dict(row) for row in failure_cases],
             "direct_stage_links": stage_links,
+            "stage_events": stage_events,
         }
 
     def create_workflow_stage_links(
@@ -976,6 +984,66 @@ class PostgresRepository:
     def list_workflow_stage_links(self, workflow_run_id: UUID) -> Sequence[dict]:
         with self._connect() as conn:
             return self._list_workflow_stage_links(conn, workflow_run_id)
+
+    def create_workflow_stage_events(
+        self,
+        events: list[WorkflowStageEventCreate],
+    ) -> Sequence[dict]:
+        if not events:
+            return []
+        with self._connect() as conn:
+            created = []
+            for event in events:
+                row = conn.execute(
+                    """
+                    INSERT INTO workflow_stage_events (
+                      workflow_run_id, workflow_trace_id, stage_name,
+                      stage_order, stage_status, started_at, ended_at,
+                      latency_ms, input_summary_json, output_summary_json,
+                      event_boundary
+                    )
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    ON CONFLICT (workflow_run_id, stage_order, stage_name) DO UPDATE
+                    SET stage_status = EXCLUDED.stage_status,
+                        ended_at = EXCLUDED.ended_at,
+                        latency_ms = EXCLUDED.latency_ms,
+                        input_summary_json = EXCLUDED.input_summary_json,
+                        output_summary_json = EXCLUDED.output_summary_json,
+                        event_boundary = EXCLUDED.event_boundary
+                    RETURNING *
+                    """,
+                    (
+                        event.workflow_run_id,
+                        event.workflow_trace_id,
+                        event.stage_name,
+                        event.stage_order,
+                        event.stage_status,
+                        event.started_at,
+                        event.ended_at,
+                        event.latency_ms,
+                        Jsonb(event.input_summary_json),
+                        Jsonb(event.output_summary_json),
+                        event.event_boundary,
+                    ),
+                ).fetchone()
+                created.append(dict(row))
+            conn.commit()
+            return created
+
+    def list_workflow_stage_events(self, workflow_run_id: UUID) -> Sequence[dict]:
+        with self._connect() as conn:
+            return self._list_workflow_stage_events(conn, workflow_run_id)
+
+    def _list_workflow_stage_events(self, conn, workflow_run_id: UUID) -> list[dict]:
+        rows = conn.execute(
+            """
+            SELECT * FROM workflow_stage_events
+            WHERE workflow_run_id = %s
+            ORDER BY stage_order ASC, created_at ASC, id ASC
+            """,
+            (workflow_run_id,),
+        ).fetchall()
+        return [dict(row) for row in rows]
 
     def _list_workflow_stage_links(self, conn, workflow_run_id: UUID) -> list[dict]:
         rows = conn.execute(
