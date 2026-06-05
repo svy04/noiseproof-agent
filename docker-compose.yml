@@ -1,7 +1,6 @@
 services:
   db:
     image: pgvector/pgvector:pg16
-    container_name: noiseproof-agent-db
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-noiseproof}
@@ -20,7 +19,6 @@ services:
 
   clamav:
     image: clamav/clamav:stable
-    container_name: noiseproof-agent-clamav
     restart: unless-stopped
     profiles:
       - scanner
@@ -39,7 +37,6 @@ services:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
-    container_name: noiseproof-agent-api
     restart: unless-stopped
     profiles:
       - api

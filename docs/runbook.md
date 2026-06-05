@@ -11001,6 +11001,47 @@ not production background worker behavior
 not product-complete
 ```
 
+## Compose Project Isolation
+
+Phase marker: compose project isolation v0.
+
+Review artifact:
+
+```text
+docs/review/compose-project-isolation.md
+```
+
+Runtime smoke:
+
+```text
+docker compose -p noiseproof-phase595 config
+POSTGRES_PORT=55439 docker compose -p noiseproof-phase595 up -d db
+docker compose -p noiseproof-phase595 ps
+docker compose -p noiseproof-phase595 exec -T db pg_isready -U noiseproof -d noiseproof
+docker compose -p noiseproof-phase595 down -v
+```
+
+Observed:
+
+```text
+container_name removed from docker-compose.yml
+container -> noiseproof-phase595-db-1
+pg_isready -> /var/run/postgresql:5432 - accepting connections
+phase595_cleanup -> done
+```
+
+Boundary:
+
+```text
+local Compose project isolation only
+not hosted deployment evidence
+not production orchestration
+not Kubernetes readiness
+not a database migration
+not API behavior
+not product-complete
+```
+
 ## External Review Issue Body Workflow Failure Auto-creation Runtime Refresh
 
 Phase marker: external review issue body workflow failure auto-creation runtime refresh v0.

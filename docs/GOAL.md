@@ -21817,3 +21817,27 @@ external reviewer feedback v0 gate remains pending
 Boundary: current-state issue verification only; not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, not production background worker behavior, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 595 - Compose Project Isolation v0
+
+Status: implemented.
+
+Purpose: remove fixed Compose `container_name` declarations so local runtime smokes can use isolated project names without colliding with an already-running default DB container.
+
+Implemented artifacts:
+
+```text
+compose project isolation v0
+docker-compose.yml
+docs/review/compose-project-isolation.md
+container_name removed from db, clamav, api
+docker compose -p noiseproof-phase595 config
+POSTGRES_PORT=55439 docker compose -p noiseproof-phase595 up -d db
+noiseproof-phase595-db-1
+pg_isready -> accepting connections
+docker compose -p noiseproof-phase595 down -v
+```
+
+Boundary: local Compose project isolation only; not hosted deployment evidence, not production orchestration, not Kubernetes readiness, not a database migration, not API behavior, not external reviewer feedback, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

@@ -25548,3 +25548,36 @@ def test_external_feedback_current_state_workflow_failure_auto_created_dashboard
         "external feedback current-state workflow failure auto-created dashboard runtime issue verification v0"
         in issue_body_refresh
     )
+
+
+def test_compose_project_isolation_removes_fixed_container_names_and_documents_runtime_proof():
+    compose = (REPO_ROOT / "docker-compose.yml").read_text(encoding="utf-8")
+    review_path = REPO_ROOT / "docs/review/compose-project-isolation.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "container_name:" not in compose
+    assert "Compose Project Isolation" in content
+    assert "compose project isolation v0" in content
+    assert "https://docs.docker.com/reference/compose-file/services/#container_name" in content
+    assert "https://docs.docker.com/compose/how-tos/project-name/" in content
+    assert "Compose uses a project name to isolate environments" in content
+    assert "fixed container_name collision" in content
+    assert "docker compose -p noiseproof-phase595 config" in content
+    assert "POSTGRES_PORT=55439 docker compose -p noiseproof-phase595 up -d db" in content
+    assert "noiseproof-phase595-db-1" in content
+    assert "docker compose -p noiseproof-phase595 down -v" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production orchestration" in content
+    assert "not a database migration" in content
+    assert "Compose project isolation v0: implemented" in readme
+    assert "Phase 595 - Compose Project Isolation v0" in goal
+    assert "compose project isolation v0" in runbook
+    assert "Compose project isolation" in application_ready

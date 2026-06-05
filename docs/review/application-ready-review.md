@@ -24,7 +24,8 @@ Forbidden claim: this is not hosted deployment evidence, not automatic failure-c
 
 | Application-ready criterion | Status | Evidence | Boundary |
 |---|---|---|---|
-| local Docker Compose stack runs | Pass | `docker compose ps` shows healthy `noiseproof-agent-db` | local only |
+| local Docker Compose stack runs | Pass | `docker compose ps` has local DB evidence; Compose project isolation now creates project-scoped names such as `noiseproof-phase595-db-1` | local only; not hosted deployment evidence |
+| Compose project isolation | Pass | `docs/review/compose-project-isolation.md`; `container_name` removed from `docker-compose.yml`; `POSTGRES_PORT=55439 docker compose -p noiseproof-phase595 up -d db` created `noiseproof-phase595-db-1` | local Compose isolation only; not production orchestration, hosted deployment evidence, or Kubernetes readiness |
 | PDF, CSV, URL/HTML, markdown memo inputs supported | Partial | parser adapter stubs, JSON text-only PDF fallback, and uploaded PDF text extraction v0 | OCR, table extraction, layout fidelity, and robust PDF extraction are not claimed |
 | uploaded PDF downstream handoff runtime proof exists | Pass | `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md` | local runtime evidence only; digital PDF text only; not OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, or hosted deployment evidence |
 | uploaded PDF retrieval-run provenance runtime proof exists | Pass | `docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md` | local runtime evidence only; preserves parser provenance into retrieval-run candidate metadata; not OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, Evidence Ledger generation, or hosted deployment evidence |
