@@ -18096,6 +18096,41 @@ Next recommended evidence gate:
 owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 496 - Embedding Model Live-provider Owner-runtime Smoke Packet Command-template Handoff Alignment CI Remote Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record remote GitHub Actions evidence that the Phase 495 packet command-template handoff alignment passed on main
+```
+
+Implemented:
+
+```text
+embedding model live-provider owner-runtime smoke packet command-template handoff alignment ci remote verification v0
+remote CI run 26992724568
+head_sha=fb271d1e59dfde93cb805440554952dc44a43fa4
+job=api-smoke
+job_conclusion=success
+Run API smoke tests
+External Feedback Screen run 26992724578
+workflow screen only
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment-ci-remote-verification.md
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 496 records remote CI evidence only. It adds no runtime behavior, no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
