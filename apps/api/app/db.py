@@ -1449,6 +1449,18 @@ class PostgresRepository:
                   (SELECT count(*) FROM agent_runs) AS agent_run_count,
                   (SELECT count(*) FROM failure_cases) AS failure_case_count,
                   (SELECT count(*) FROM retrieval_runs) AS retrieval_run_count,
+                  (
+                    SELECT count(*)
+                    FROM retrieval_runs
+                    WHERE strategy = 'semantic-cosine'
+                       OR metadata_json ->> 'retrieval_mode' = 'semantic_persisted'
+                  ) AS semantic_retrieval_run_count,
+                  (SELECT count(*) FROM chunk_embeddings) AS chunk_embedding_count,
+                  (
+                    SELECT count(*)
+                    FROM chunk_embeddings
+                    WHERE metadata_json ->> 'embedding_source' = 'caller_provided_vector'
+                  ) AS caller_provided_embedding_count,
                   (SELECT count(*) FROM noise_gate_records) AS noise_gate_record_count,
                   (SELECT count(*) FROM report_records) AS report_record_count,
                   (
@@ -1546,6 +1558,10 @@ class PostgresRepository:
             document_count=row["document_count"],
             agent_run_count=row["agent_run_count"],
             failure_case_count=row["failure_case_count"],
+            retrieval_run_count=row["retrieval_run_count"],
+            semantic_retrieval_run_count=row["semantic_retrieval_run_count"],
+            chunk_embedding_count=row["chunk_embedding_count"],
+            caller_provided_embedding_count=row["caller_provided_embedding_count"],
             noise_gate_record_count=row["noise_gate_record_count"],
             blocked_gate_count=row["blocked_gate_count"],
             revision_gate_count=row["revision_gate_count"],
@@ -1573,6 +1589,7 @@ class PostgresRepository:
             average_latency_ms=row["average_latency_ms"],
             notes=[
                 f"Retrieval runs recorded: {row['retrieval_run_count']}. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
+                f"Semantic retrieval runs recorded: {row['semantic_retrieval_run_count']}; caller-provided embedding row(s): {row['caller_provided_embedding_count']}. These are operational counts, not semantic retrieval quality evidence.",
                 f"No-text PDF failure candidates: {row['pdf_no_text_failure_candidate_count']}. This is metadata-derived from document profile_json, not robust PDF extraction.",
                 f"Raw file guard records: {row['uploaded_raw_file_count']} upload(s), {row['raw_file_scan_result_count']} scan result(s), {row['raw_file_download_approval_count']} approval row(s), {row['raw_file_download_event_count']} download event(s).",
                 "Caller-provided vector semantic retrieval preview/run paths are implemented; they do not generate embeddings, call an LLM, or prove semantic retrieval quality.",

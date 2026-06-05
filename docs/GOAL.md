@@ -22445,3 +22445,47 @@ NOTE_CHECK_NO_EMBEDDING_GENERATION=True
 Boundary: local Docker/FastAPI runtime evidence for the `/ops/summary` wording correction only; not a new retrieval feature, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not free-form final report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 614 - Ops Summary Semantic Retrieval Operational Counts v0
+
+Status: implemented.
+
+Purpose: expose implemented caller-provided vector semantic retrieval paths as operational counts in `/ops/summary`.
+
+Implemented artifacts:
+
+```text
+ops summary semantic retrieval operational counts v0
+docs/review/ops-summary-semantic-retrieval-operational-counts.md
+apps/api/app/schemas.py
+apps/api/app/db.py
+apps/api/tests/test_routes.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Added fields:
+
+```text
+retrieval_run_count
+semantic_retrieval_run_count
+chunk_embedding_count
+caller_provided_embedding_count
+```
+
+Route-level verification:
+
+```text
+retrieval_run_count -> 1
+semantic_retrieval_run_count -> 1
+chunk_embedding_count -> 2
+caller_provided_embedding_count -> 2
+Semantic retrieval runs recorded: 1
+caller-provided embedding row(s): 2
+```
+
+Boundary: operations summary count surface only; not a new retrieval algorithm, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not free-form final report generation, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for these operational counts if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

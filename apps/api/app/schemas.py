@@ -924,6 +924,10 @@ class OpsSummaryOut(BaseModel):
     document_count: int
     agent_run_count: int
     failure_case_count: int
+    retrieval_run_count: int = 0
+    semantic_retrieval_run_count: int = 0
+    chunk_embedding_count: int = 0
+    caller_provided_embedding_count: int = 0
     noise_gate_record_count: int = 0
     blocked_gate_count: int = 0
     revision_gate_count: int = 0

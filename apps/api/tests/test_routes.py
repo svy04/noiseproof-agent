@@ -577,6 +577,19 @@ class InMemoryRepository:
             document_count=len(self.documents),
             agent_run_count=len(self.agent_runs),
             failure_case_count=len(self.failure_cases),
+            retrieval_run_count=len(self.retrieval_runs),
+            semantic_retrieval_run_count=sum(
+                row["strategy"] == "semantic-cosine"
+                or (row.get("metadata_json") or {}).get("retrieval_mode")
+                == "semantic_persisted"
+                for row in self.retrieval_runs
+            ),
+            chunk_embedding_count=len(self.chunk_embeddings),
+            caller_provided_embedding_count=sum(
+                (row.get("metadata_json") or {}).get("embedding_source")
+                == "caller_provided_vector"
+                for row in self.chunk_embeddings
+            ),
             noise_gate_record_count=len(self.noise_gate_records),
             blocked_gate_count=sum(
                 row["decision"] == "blocked" for row in self.noise_gate_records
@@ -641,6 +654,7 @@ class InMemoryRepository:
             average_latency_ms=None,
             notes=[
                 "test repository",
+                f"Semantic retrieval runs recorded: {sum(row['strategy'] == 'semantic-cosine' or (row.get('metadata_json') or {}).get('retrieval_mode') == 'semantic_persisted' for row in self.retrieval_runs)}; caller-provided embedding row(s): {sum((row.get('metadata_json') or {}).get('embedding_source') == 'caller_provided_vector' for row in self.chunk_embeddings)}. These are operational counts, not semantic retrieval quality evidence.",
                 f"No-text PDF failure candidates: {sum(row.get('source_type') == 'pdf' and row.get('profile_json', {}).get('failure_case_candidate', {}).get('failure_type') == 'pdf_no_extractable_text' for row in self.documents)}.",
                 f"Raw file guard records: {len(self.uploaded_raw_files)} upload(s), {len(self.raw_file_scan_results)} scan result(s), {len(self.raw_file_download_approvals)} approval row(s), {len(self.raw_file_download_events)} download event(s).",
                 "Caller-provided vector semantic retrieval preview/run paths are implemented; they do not generate embeddings, call an LLM, or prove semantic retrieval quality.",
@@ -5008,6 +5022,35 @@ def test_ops_summary_boundary_note_separates_caller_provided_semantic_retrieval(
         "Embeddings, semantic retrieval, distributed tracing, and final report generation beyond deterministic previews are still not implemented."
         not in notes
     )
+
+
+def test_ops_summary_counts_semantic_retrieval_and_caller_provided_embeddings():
+    client = make_client()
+    document, *_ = _create_semantic_fixture(client)
+
+    retrieval = client.post(
+        f"/documents/{document['id']}/semantic-retrieval-runs",
+        json={
+            "question": "Which chunk is closest to demand growth?",
+            "query_embedding": [1.0, 0.0],
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+            "limit": 2,
+        },
+    )
+    summary = client.get("/ops/summary")
+
+    assert retrieval.status_code == 201
+    assert summary.status_code == 200
+    body = summary.json()
+    assert body["retrieval_run_count"] == 1
+    assert body["semantic_retrieval_run_count"] == 1
+    assert body["chunk_embedding_count"] == 2
+    assert body["caller_provided_embedding_count"] == 2
+    notes = " ".join(body["notes"])
+    assert "Semantic retrieval runs recorded: 1" in notes
+    assert "caller-provided embedding row(s): 2" in notes
+    assert "not semantic retrieval quality evidence" in notes
 
 
 def test_ops_summary_and_dashboard_surface_raw_file_guard_counts():
