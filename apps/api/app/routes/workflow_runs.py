@@ -18,6 +18,7 @@ from app.schemas import (
     WorkflowRunExecutePreviewOut,
     WorkflowRunExecutePreviewRequest,
     WorkflowRunOut,
+    WorkflowStageLinkOut,
     TraceLookupOut,
     TraceLookupSummaryOut,
 )
@@ -187,6 +188,9 @@ def _build_workflow_lineage(
     evidence_rows = list(children["evidence_ledger_entries"])
     gate_rows = list(children["noise_gate_records"])
     report_rows = list(children["report_records"])
+    direct_stage_links = [
+        WorkflowStageLinkOut(**row) for row in children.get("direct_stage_links", [])
+    ]
     evidence_by_id = {str(row["id"]): row for row in evidence_rows}
     gate_by_id = {str(row["id"]): row for row in gate_rows}
 
@@ -237,13 +241,16 @@ def _build_workflow_lineage(
         )
 
     warnings = [
-        "Workflow lineage read model is a derived read model over existing workflow child records and stage_input_manifest values.",
-        "It adds no storage, foreign-key links, join tables, distributed tracing, LLM calls, or free-form final answer generation.",
+        "Workflow lineage remains a derived read model over stage_input_manifest values and direct workflow stage link rows for workflow-created records.",
+        "Standalone gate/report endpoints remain payload-only unless they create explicit stage links.",
+        "It adds no distributed tracing, LLM calls, or free-form final answer generation.",
     ]
     if missing_reference_count:
         warnings.append("One or more stage_input_manifest references could not be resolved.")
     warnings.extend(_unique_warnings(manifest_shape_warnings))
     warning_codes = ["derived_read_model_boundary", "local_workflow_scope"]
+    if direct_stage_links:
+        warning_codes.append("direct_stage_link_table")
     if missing_reference_count:
         warning_codes.append("missing_manifest_reference")
     if manifest_shape_warnings:
@@ -251,10 +258,15 @@ def _build_workflow_lineage(
 
     return WorkflowLineageOut(
         workflow_run=WorkflowRunOut(**workflow_run),
-        lineage_boundary="derived_read_model_only",
+        lineage_boundary=(
+            "derived_read_model_with_direct_workflow_stage_links"
+            if direct_stage_links
+            else "derived_read_model_only"
+        ),
         evidence_ledger_entries=[EvidenceLedgerStoredEntryOut(**row) for row in evidence_rows],
         noise_gate_lineage=gate_lineage,
         report_lineage=report_lineage,
+        direct_stage_links=direct_stage_links,
         summary=WorkflowLineageSummaryOut(
             evidence_ledger_entry_count=len(evidence_rows),
             noise_gate_record_count=len(gate_rows),
@@ -262,6 +274,7 @@ def _build_workflow_lineage(
             gate_input_evidence_reference_count=gate_input_reference_count,
             report_input_evidence_reference_count=report_input_evidence_reference_count,
             report_input_gate_reference_count=report_input_gate_reference_count,
+            direct_stage_link_count=len(direct_stage_links),
             missing_reference_count=missing_reference_count,
         ),
         warnings=warnings,

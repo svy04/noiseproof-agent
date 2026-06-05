@@ -694,6 +694,25 @@ class ReportStoredRecordOut(ReportPreviewOut):
     created_at: datetime
 
 
+class WorkflowStageLinkCreate(BaseModel):
+    workflow_run_id: UUID
+    workflow_trace_id: UUID
+    link_type: str
+    from_table: str
+    from_id: UUID
+    to_table: str
+    to_id: UUID
+    source_manifest_field: str
+    persistence_boundary: str = (
+        "workflow_created_records_only_not_standalone_payload_lineage"
+    )
+
+
+class WorkflowStageLinkOut(WorkflowStageLinkCreate):
+    id: UUID
+    created_at: datetime
+
+
 class WorkflowRunExecutePreviewRequest(RetrievalRunRequest):
     draft_claims: list[str] = Field(default_factory=list)
 
@@ -783,6 +802,7 @@ class WorkflowLineageSummaryOut(BaseModel):
     gate_input_evidence_reference_count: int
     report_input_evidence_reference_count: int
     report_input_gate_reference_count: int
+    direct_stage_link_count: int
     missing_reference_count: int
 
 
@@ -792,6 +812,7 @@ class WorkflowLineageOut(BaseModel):
     evidence_ledger_entries: list[EvidenceLedgerStoredEntryOut]
     noise_gate_lineage: list[WorkflowNoiseGateLineageOut]
     report_lineage: list[WorkflowReportLineageOut]
+    direct_stage_links: list[WorkflowStageLinkOut]
     summary: WorkflowLineageSummaryOut
     warnings: list[str]
     warning_codes: list[str]

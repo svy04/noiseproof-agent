@@ -23,6 +23,7 @@ from app.schemas import (
     RetrievalRunCreate,
     UploadedFileIntakeManifestCreate,
     UploadedRawFileCreate,
+    WorkflowStageLinkCreate,
     WorkflowRunCreate,
 )
 from app.settings import Settings, get_settings
@@ -147,6 +148,11 @@ class Repository(Protocol):
     def list_workflow_runs(self) -> Sequence[dict]: ...
     def get_workflow_run(self, workflow_run_id: UUID) -> dict | None: ...
     def lookup_workflow_run_records(self, workflow_run_id: UUID) -> dict[str, Sequence[dict]]: ...
+    def create_workflow_stage_links(
+        self,
+        links: list[WorkflowStageLinkCreate],
+    ) -> Sequence[dict]: ...
+    def list_workflow_stage_links(self, workflow_run_id: UUID) -> Sequence[dict]: ...
     def create_evidence_ledger_entries(
         self,
         question: str,
@@ -857,13 +863,160 @@ class PostgresRepository:
                 """,
                 (workflow_run_id,),
             ).fetchall()
+            stage_links = self._list_workflow_stage_links(conn, workflow_run_id)
         return {
             "retrieval_runs": [dict(row) for row in retrieval_runs],
             "evidence_ledger_entries": [dict(row) for row in evidence_entries],
             "noise_gate_records": [dict(row) for row in noise_gate_records],
             "report_records": [dict(row) for row in report_records],
             "failure_cases": [dict(row) for row in failure_cases],
+            "direct_stage_links": stage_links,
         }
+
+    def create_workflow_stage_links(
+        self,
+        links: list[WorkflowStageLinkCreate],
+    ) -> Sequence[dict]:
+        if not links:
+            return []
+        with self._connect() as conn:
+            created = []
+            for link in links:
+                if link.link_type == "evidence_to_noise_gate":
+                    row = conn.execute(
+                        """
+                        INSERT INTO noise_gate_evidence_links (
+                          workflow_run_id, workflow_trace_id,
+                          noise_gate_record_id, evidence_ledger_entry_id,
+                          source_manifest_field, persistence_boundary
+                        )
+                        VALUES (%s, %s, %s, %s, %s, %s)
+                        ON CONFLICT (noise_gate_record_id, evidence_ledger_entry_id) DO NOTHING
+                        RETURNING
+                          id, workflow_run_id, workflow_trace_id,
+                          'evidence_to_noise_gate' AS link_type,
+                          'evidence_ledger_entries' AS from_table,
+                          evidence_ledger_entry_id AS from_id,
+                          'noise_gate_records' AS to_table,
+                          noise_gate_record_id AS to_id,
+                          source_manifest_field, persistence_boundary, created_at
+                        """,
+                        (
+                            link.workflow_run_id,
+                            link.workflow_trace_id,
+                            link.to_id,
+                            link.from_id,
+                            link.source_manifest_field,
+                            link.persistence_boundary,
+                        ),
+                    ).fetchone()
+                elif link.link_type == "evidence_to_report":
+                    row = conn.execute(
+                        """
+                        INSERT INTO report_evidence_links (
+                          workflow_run_id, workflow_trace_id,
+                          report_record_id, evidence_ledger_entry_id,
+                          source_manifest_field, persistence_boundary
+                        )
+                        VALUES (%s, %s, %s, %s, %s, %s)
+                        ON CONFLICT (report_record_id, evidence_ledger_entry_id) DO NOTHING
+                        RETURNING
+                          id, workflow_run_id, workflow_trace_id,
+                          'evidence_to_report' AS link_type,
+                          'evidence_ledger_entries' AS from_table,
+                          evidence_ledger_entry_id AS from_id,
+                          'report_records' AS to_table,
+                          report_record_id AS to_id,
+                          source_manifest_field, persistence_boundary, created_at
+                        """,
+                        (
+                            link.workflow_run_id,
+                            link.workflow_trace_id,
+                            link.to_id,
+                            link.from_id,
+                            link.source_manifest_field,
+                            link.persistence_boundary,
+                        ),
+                    ).fetchone()
+                elif link.link_type == "noise_gate_to_report":
+                    row = conn.execute(
+                        """
+                        INSERT INTO report_noise_gate_links (
+                          workflow_run_id, workflow_trace_id,
+                          report_record_id, noise_gate_record_id,
+                          source_manifest_field, persistence_boundary
+                        )
+                        VALUES (%s, %s, %s, %s, %s, %s)
+                        ON CONFLICT (report_record_id, noise_gate_record_id) DO NOTHING
+                        RETURNING
+                          id, workflow_run_id, workflow_trace_id,
+                          'noise_gate_to_report' AS link_type,
+                          'noise_gate_records' AS from_table,
+                          noise_gate_record_id AS from_id,
+                          'report_records' AS to_table,
+                          report_record_id AS to_id,
+                          source_manifest_field, persistence_boundary, created_at
+                        """,
+                        (
+                            link.workflow_run_id,
+                            link.workflow_trace_id,
+                            link.to_id,
+                            link.from_id,
+                            link.source_manifest_field,
+                            link.persistence_boundary,
+                        ),
+                    ).fetchone()
+                else:
+                    raise ValueError(f"Unsupported workflow stage link type: {link.link_type}")
+                if row is not None:
+                    created.append(dict(row))
+            conn.commit()
+            return created
+
+    def list_workflow_stage_links(self, workflow_run_id: UUID) -> Sequence[dict]:
+        with self._connect() as conn:
+            return self._list_workflow_stage_links(conn, workflow_run_id)
+
+    def _list_workflow_stage_links(self, conn, workflow_run_id: UUID) -> list[dict]:
+        rows = conn.execute(
+            """
+            SELECT
+              id, workflow_run_id, workflow_trace_id,
+              'evidence_to_noise_gate' AS link_type,
+              'evidence_ledger_entries' AS from_table,
+              evidence_ledger_entry_id AS from_id,
+              'noise_gate_records' AS to_table,
+              noise_gate_record_id AS to_id,
+              source_manifest_field, persistence_boundary, created_at
+            FROM noise_gate_evidence_links
+            WHERE workflow_run_id = %s
+            UNION ALL
+            SELECT
+              id, workflow_run_id, workflow_trace_id,
+              'evidence_to_report' AS link_type,
+              'evidence_ledger_entries' AS from_table,
+              evidence_ledger_entry_id AS from_id,
+              'report_records' AS to_table,
+              report_record_id AS to_id,
+              source_manifest_field, persistence_boundary, created_at
+            FROM report_evidence_links
+            WHERE workflow_run_id = %s
+            UNION ALL
+            SELECT
+              id, workflow_run_id, workflow_trace_id,
+              'noise_gate_to_report' AS link_type,
+              'noise_gate_records' AS from_table,
+              noise_gate_record_id AS from_id,
+              'report_records' AS to_table,
+              report_record_id AS to_id,
+              source_manifest_field, persistence_boundary, created_at
+            FROM report_noise_gate_links
+            WHERE workflow_run_id = %s
+            ORDER BY created_at ASC, id ASC
+            """,
+            (workflow_run_id, workflow_run_id, workflow_run_id),
+        ).fetchall()
+        return [dict(row) for row in rows]
 
     def update_workflow_run(
         self,

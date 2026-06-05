@@ -262,6 +262,10 @@ Phase 528 adds external review issue body ops dashboard anchor browser smoke ref
 
 Phase 529 adds external feedback current-state ops dashboard anchor browser smoke issue verification v0: `docs/review/external-feedback-current-state-ops-dashboard-anchor-browser-smoke-issue-verification.md` records the live issue #1 state after the browser proof issue-body refresh. Observed `starts_with_request=true`, `first_codepoint=35`, `has_ops_dashboard_anchor_browser_proof=true`, `has_ops_dashboard_anchor_browser_request_refresh=true`, `has_ops_dashboard_anchor_browser_issue_body_refresh=true`, `comment_count=1`, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, `classification=non_qualifying`, and `reason=self_authored_comment`. External reviewer feedback remains pending. This is current-state issue verification only, not external reviewer feedback, hosted deployment evidence, customer validation, design quality evidence, or product-complete.
 
+Phase 530 adds workflow direct stage links v0: `db/migrations/023_workflow_stage_links.sql` creates `noise_gate_evidence_links`, `report_evidence_links`, and `report_noise_gate_links`; `POST /workflow-runs/execute-preview` records direct local stage links for workflow-created Evidence Ledger, Noise Gate, and Report records; `GET /workflow-runs/{id}/lineage` exposes them as `direct_stage_links` with `summary.direct_stage_link_count`. Boundary: workflow-created records only, standalone gate/report endpoints remain payload-only unless they create explicit stage links, not distributed tracing, not hosted observability, not autonomous workflow execution, and not product-complete. See `docs/review/workflow-direct-stage-links.md`.
+
+Phase 531 adds workflow direct stage links runtime smoke v0: `docs/review/workflow-direct-stage-links-runtime-smoke.md` records local Docker PostgreSQL migration evidence for `023_workflow_stage_links.sql` and live FastAPI HTTP evidence that `POST /workflow-runs/execute-preview` followed by `GET /workflow-runs/{id}/lineage` returns `direct_stage_link_count=3`, link types `evidence_to_report`, `evidence_to_noise_gate`, and `noise_gate_to_report`, plus `direct_stage_link_table`. This is local runtime evidence only, not hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, or product-complete.
+
 Phase 361 adds failure-case workflow review queue fresh-db dashboard smoke verification v0: `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` records local fresh migrated Docker DB dashboard evidence for `GET /ops/dashboard` with `pending_review_count: 1`, `linked_failure_case_count: 1`, `needs_failure_case_review`, `failure_case_linked`, `dashboard_contains_draft_preview: true`, and `dashboard_did_not_create_failure_cases: true`. This is local runtime smoke evidence only; it is not hosted deployment evidence, external reviewer feedback, automatic failure-case creation, or complete workflow failure causality.
 
 Phase 364 adds external review issue body workflow review queue proof index refresh v0: `docs/review/external-review-issue-body-workflow-review-queue-proof-index-refresh.md` records that GitHub issue #1 now links to the workflow review queue proof index and fresh DB dashboard smoke proof. Observed state: `has_workflow_review_queue_proof_index_link: true`, `has_workflow_review_queue_fresh_db_dashboard_smoke_link: true`, `comment_count: 1`, `candidate_count: 0`, and `self_authored_comment`. This is an owner-authored request-surface edit only and does not close external reviewer feedback v0.
@@ -499,11 +503,15 @@ Implemented:
 - `stage_input_manifest` on deterministic workflow Report records
 - Direct Cross-stage Link Schema Review v0
 - `docs/review/direct-cross-stage-link-schema-review.md`
-- direct evidence -> gate -> report foreign-key links and join tables remain unimplemented
+- Workflow Direct Stage Links v0
+- `db/migrations/023_workflow_stage_links.sql`
+- `noise_gate_evidence_links`, `report_evidence_links`, and `report_noise_gate_links`
+- `GET /workflow-runs/{id}/lineage` now exposes `direct_stage_links`
+- direct local stage links are recorded for workflow-created records only
+- standalone gate/report endpoints remain payload-only unless they create explicit stage links
 - Workflow Lineage Read Model v0
 - `GET /workflow-runs/{id}/lineage`
-- derived read model over existing workflow child records and `stage_input_manifest`
-- no migrations, columns, direct foreign keys, or join tables added
+- derived read model over existing workflow child records, `stage_input_manifest`, and direct workflow stage link rows
 - Workflow Lineage Dashboard Links v0
 - `GET /ops/dashboard` workflow rows expose detail and lineage links
 - workflow lineage links point to `GET /workflow-runs/{id}/lineage`
@@ -535,7 +543,8 @@ Implemented:
   - `invalid_manifest_shape`
 - those codes are not persisted dashboard analytics
 - `docs/review/direct-evidence-gate-report-cross-link-review.md`
-- direct evidence -> gate -> report foreign-key links remain unimplemented
+- workflow direct stage links now exist for workflow-created records only
+- standalone gate/report endpoints remain payload-only unless they create explicit stage links
 - Operations Dashboard v0
 - `GET /ops/dashboard`
 - Evaluation/Application Package v0
@@ -7142,7 +7151,7 @@ docs/review/direct-evidence-gate-report-cross-link-review.md
 
 ## Boundary
 
-Do not claim persisted chunks, embeddings, DB persistence for collection plans, direct evidence -> gate -> report cross-links, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, created by a deterministic execution-preview endpoint, and inspected through `GET /workflow-runs/{id}`. That preview runs retrieval -> evidence -> gate -> report deterministically, Phase 29 attaches those child records to nullable `workflow_run_id` fields while still carrying `workflow_trace_id`, and Phase 30 exposes those child records from the parent workflow detail response. Phase 31 records `stage_input_manifest` on deterministic workflow-created Noise Gate and Report rows so persisted upstream ids are visible, Phase 31.5 keeps direct evidence -> gate -> report foreign-key links and join tables deferred, and Phase 32 exposes `GET /workflow-runs/{id}/lineage` as a derived read model over existing records rather than new lineage storage. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
+Do not claim persisted chunks, embeddings, DB persistence for collection plans, distributed tracing, hosted observability, or free-form answer generation exists until those stages are implemented and verified with examples. `workflow_runs` can be created, listed, viewed on the dashboard, created by a deterministic execution-preview endpoint, and inspected through `GET /workflow-runs/{id}`. That preview runs retrieval -> evidence -> gate -> report deterministically, Phase 29 attaches those child records to nullable `workflow_run_id` fields while still carrying `workflow_trace_id`, and Phase 30 exposes those child records from the parent workflow detail response. Phase 31 records `stage_input_manifest` on deterministic workflow-created Noise Gate and Report rows so persisted upstream ids are visible, Phase 32 exposes `GET /workflow-runs/{id}/lineage`, and Phase 530 records direct local stage links for workflow-created records in `noise_gate_evidence_links`, `report_evidence_links`, and `report_noise_gate_links`. Standalone gate/report endpoints remain payload-only unless they create explicit stage links. The current dashboard is a plain operations view over existing metadata, not a polished product UI. Direct `agent_run_id` child-record linkage exists for persisted Evidence Ledger, Noise Gate, and Report records, but it remains local service provenance rather than distributed tracing.
 ## Retrieval-run-linked Evidence Ledger Endpoint
 
 Phase 202 adds a bounded handoff from persisted retrieval runs to persisted Evidence Ledger rows. Phase 203 records the local Docker DB plus live FastAPI HTTP smoke for that handoff.

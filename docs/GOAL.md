@@ -19378,6 +19378,75 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 530 - Workflow Direct Stage Links v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record direct local stage links for deterministic workflow-created Evidence Ledger, Noise Gate, and Report records
+```
+
+Implemented:
+
+```text
+workflow direct stage links v0
+db/migrations/023_workflow_stage_links.sql
+noise_gate_evidence_links
+report_evidence_links
+report_noise_gate_links
+POST /workflow-runs/execute-preview creates workflow stage links
+GET /workflow-runs/{id}/lineage direct_stage_links
+summary.direct_stage_link_count
+warning_codes: direct_stage_link_table
+docs/review/workflow-direct-stage-links.md
+workflow_created_records_only_not_standalone_payload_lineage
+```
+
+Phase 530 is local deterministic workflow lineage only. It applies to workflow-created records. Standalone gate/report endpoints remain payload-only unless they create explicit stage links. It adds no distributed tracing, no hosted observability, no autonomous workflow execution, no LLM calls, no embeddings, no semantic retrieval expansion, no hosted deployment evidence, no external reviewer feedback, no customer validation, no Braincrew acceptance, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+workflow direct stage links runtime smoke v0 if Docker is available, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
+### Phase 531 - Workflow Direct Stage Links Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record local Docker PostgreSQL plus live FastAPI HTTP evidence for workflow direct stage links
+```
+
+Implemented:
+
+```text
+workflow direct stage links runtime smoke v0
+docs/review/workflow-direct-stage-links-runtime-smoke.md
+Docker PostgreSQL db_health=healthy
+applied 023_workflow_stage_links.sql
+Pending migrations: 0
+POST /workflow-runs/execute-preview
+GET /workflow-runs/{id}/lineage
+lineage_boundary: derived_read_model_with_direct_workflow_stage_links
+direct_stage_link_count: 3
+link_types: evidence_to_report,evidence_to_noise_gate,noise_gate_to_report
+warning_codes: derived_read_model_boundary,local_workflow_scope,direct_stage_link_table
+persistence_boundaries: workflow_created_records_only_not_standalone_payload_lineage
+```
+
+Phase 531 is local Docker PostgreSQL plus live FastAPI HTTP evidence only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not distributed tracing, not hosted observability, not autonomous workflow execution, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

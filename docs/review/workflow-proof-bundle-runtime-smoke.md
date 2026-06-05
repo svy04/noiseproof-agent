@@ -108,7 +108,7 @@ It is:
 - not distributed tracing
 - not hosted observability
 - not a new lineage storage model
-- not direct Evidence Ledger -> Noise Gate -> Report foreign-key lineage
+- direct Evidence Ledger -> Noise Gate -> Report stage links are now represented by Phase 530 workflow-created link tables; this older smoke remains bounded to proof-bundle runtime behavior
 - not semantic retrieval quality evidence
 - not embedding generation
 - not LLM output

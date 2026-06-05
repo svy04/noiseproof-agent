@@ -47,6 +47,7 @@ class InMemoryRepository:
         self.report_records = []
         self.retrieval_runs = []
         self.workflow_runs = []
+        self.workflow_stage_links = []
         self.uploaded_file_intake_manifests = []
         self.uploaded_raw_files = []
         self.raw_file_scan_results = []
@@ -498,7 +499,26 @@ class InMemoryRepository:
             "failure_cases": [
                 row for row in self.failure_cases if str(row.get("workflow_run_id")) == workflow_id
             ],
+            "direct_stage_links": [
+                row for row in self.workflow_stage_links if str(row["workflow_run_id"]) == workflow_id
+            ],
         }
+
+    def create_workflow_stage_links(self, links):
+        created = []
+        for link in links:
+            row = link.model_dump()
+            row["id"] = uuid4()
+            row["created_at"] = datetime.now(timezone.utc)
+            self.workflow_stage_links.append(row)
+            created.append(row)
+        return created
+
+    def list_workflow_stage_links(self, workflow_run_id):
+        workflow_id = str(workflow_run_id)
+        return [
+            row for row in self.workflow_stage_links if str(row["workflow_run_id"]) == workflow_id
+        ]
 
     def update_workflow_run(
         self,
@@ -3865,7 +3885,9 @@ def test_workflow_run_lineage_read_model_resolves_manifest_inputs_without_new_st
     evidence_entry_ids = [entry["id"] for entry in payload["evidence_ledger_entries"]]
     gate_id = payload["noise_gate_lineage"][0]["record"]["id"]
     assert payload["workflow_run"]["id"] == workflow_run_id
-    assert payload["lineage_boundary"] == "derived_read_model_only"
+    assert payload["lineage_boundary"] == (
+        "derived_read_model_with_direct_workflow_stage_links"
+    )
     assert payload["summary"] == {
         "evidence_ledger_entry_count": 1,
         "noise_gate_record_count": 1,
@@ -3873,6 +3895,7 @@ def test_workflow_run_lineage_read_model_resolves_manifest_inputs_without_new_st
         "gate_input_evidence_reference_count": 1,
         "report_input_evidence_reference_count": 1,
         "report_input_gate_reference_count": 1,
+        "direct_stage_link_count": 3,
         "missing_reference_count": 0,
     }
     assert payload["noise_gate_lineage"][0]["input_evidence_entry_ids"] == evidence_entry_ids
@@ -3888,7 +3911,75 @@ def test_workflow_run_lineage_read_model_resolves_manifest_inputs_without_new_st
     assert payload["warning_codes"] == [
         "derived_read_model_boundary",
         "local_workflow_scope",
+        "direct_stage_link_table",
     ]
+
+
+def test_workflow_lineage_exposes_direct_stage_links_for_workflow_created_records():
+    client = make_client()
+    execution = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    ).json()
+    workflow_run_id = execution["workflow_run"]["id"]
+
+    response = client.get(f"/workflow-runs/{workflow_run_id}/lineage")
+
+    assert response.status_code == 200
+    payload = response.json()
+    evidence_id = payload["evidence_ledger_entries"][0]["id"]
+    gate_id = payload["noise_gate_lineage"][0]["record"]["id"]
+    report_id = payload["report_lineage"][0]["record"]["id"]
+    links = payload["direct_stage_links"]
+    assert payload["lineage_boundary"] == (
+        "derived_read_model_with_direct_workflow_stage_links"
+    )
+    assert payload["summary"]["direct_stage_link_count"] == 3
+    assert {
+        (link["link_type"], link["from_table"], link["from_id"], link["to_table"], link["to_id"])
+        for link in links
+    } == {
+        (
+            "evidence_to_noise_gate",
+            "evidence_ledger_entries",
+            evidence_id,
+            "noise_gate_records",
+            gate_id,
+        ),
+        (
+            "evidence_to_report",
+            "evidence_ledger_entries",
+            evidence_id,
+            "report_records",
+            report_id,
+        ),
+        (
+            "noise_gate_to_report",
+            "noise_gate_records",
+            gate_id,
+            "report_records",
+            report_id,
+        ),
+    }
+    assert {link["workflow_run_id"] for link in links} == {workflow_run_id}
+    assert {
+        link["persistence_boundary"] for link in links
+    } == {"workflow_created_records_only_not_standalone_payload_lineage"}
+    assert "direct_stage_link_table" in payload["warning_codes"]
+    assert any(
+        "Standalone gate/report endpoints remain payload-only" in warning
+        for warning in payload["warnings"]
+    )
 
 
 def test_workflow_run_proof_bundle_collects_existing_detail_lineage_and_trace_records():
@@ -3926,8 +4017,11 @@ def test_workflow_run_proof_bundle_collects_existing_detail_lineage_and_trace_re
         "report_record_count": 1,
         "failure_case_count": 0,
     }
-    assert payload["lineage"]["lineage_boundary"] == "derived_read_model_only"
+    assert payload["lineage"]["lineage_boundary"] == (
+        "derived_read_model_with_direct_workflow_stage_links"
+    )
     assert payload["lineage"]["summary"]["missing_reference_count"] == 0
+    assert payload["lineage"]["summary"]["direct_stage_link_count"] == 3
     assert payload["trace"]["workflow_trace_id"] == workflow_trace_id
     assert payload["trace"]["summary"] == {
         "agent_run_count": 0,
@@ -3970,6 +4064,7 @@ def test_workflow_run_proof_bundle_handles_metadata_only_workflow_without_trace_
         "failure_case_count": 0,
     }
     assert payload["lineage"]["summary"]["missing_reference_count"] == 0
+    assert payload["lineage"]["summary"]["direct_stage_link_count"] == 0
     assert payload["proof_surfaces"] == [
         f"/workflow-runs/{workflow['id']}",
         f"/workflow-runs/{workflow['id']}/lineage",
@@ -4009,8 +4104,11 @@ def test_workflow_run_lineage_reports_missing_manifest_references_without_mutati
 
     assert response.status_code == 200
     payload = response.json()
-    assert payload["lineage_boundary"] == "derived_read_model_only"
+    assert payload["lineage_boundary"] == (
+        "derived_read_model_with_direct_workflow_stage_links"
+    )
     assert payload["summary"]["missing_reference_count"] == 3
+    assert payload["summary"]["direct_stage_link_count"] == 3
     assert payload["summary"]["evidence_ledger_entry_count"] == 1
     assert payload["summary"]["gate_input_evidence_reference_count"] == 1
     assert payload["summary"]["report_input_evidence_reference_count"] == 1

@@ -1113,7 +1113,7 @@ def test_phase31_goal_and_application_review_document_manifest_boundary():
     assert "stage_input_manifest JSONB on report_records" in goal
     assert "Direct cross-stage link schema review v0" in goal
     assert "Workflow Stage Input Manifest v0" in review
-    assert "JSON manifest only, not direct FK or join-table lineage" in review
+    assert "workflow-created records only; standalone gate/report endpoints remain payload-only" in review
 
 
 def test_direct_cross_stage_link_schema_review_defers_schema_and_points_to_read_model():
@@ -1130,6 +1130,95 @@ def test_direct_cross_stage_link_schema_review_defers_schema_and_points_to_read_
     assert "JSON manifest is enough for local deterministic stage input provenance" in content
     assert "not enough for strict relational lineage" in content
     assert "Workflow lineage read model v0" in content
+    assert "Phase 530 Follow-up" in content
+    assert "workflow direct stage links v0" in content
+    assert "workflow-created records only" in content
+
+
+def test_workflow_direct_stage_links_docs_and_schema_are_inspectable():
+    review = (
+        REPO_ROOT / "docs/review/workflow-direct-stage-links.md"
+    ).read_text(encoding="utf-8")
+    migration = (
+        REPO_ROOT / "db/migrations/023_workflow_stage_links.sql"
+    ).read_text(encoding="utf-8")
+    init_schema = (REPO_ROOT / "db/init/001_schema.sql").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    app_review = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Workflow Direct Stage Links" in review
+    assert "workflow direct stage links v0" in review
+    assert "noise_gate_evidence_links" in review
+    assert "report_evidence_links" in review
+    assert "report_noise_gate_links" in review
+    assert "direct_stage_links" in review
+    assert "workflow_created_records_only_not_standalone_payload_lineage" in review
+    assert "Standalone gate/report endpoints remain payload-only" in review
+    for table_name in [
+        "noise_gate_evidence_links",
+        "report_evidence_links",
+        "report_noise_gate_links",
+    ]:
+        assert f"CREATE TABLE IF NOT EXISTS {table_name}" in migration
+        assert f"CREATE TABLE IF NOT EXISTS {table_name}" in init_schema
+    assert "REFERENCES evidence_ledger_entries(id) ON DELETE CASCADE" in migration
+    assert "REFERENCES noise_gate_records(id) ON DELETE CASCADE" in migration
+    assert "REFERENCES report_records(id) ON DELETE CASCADE" in migration
+    assert "Phase 530 - Workflow Direct Stage Links v0" in goal
+    assert "Workflow direct stage links v0: implemented" in readme
+    assert "Latest product gate marker: Workflow direct stage links v0: implemented." in readme
+    assert "workflow direct stage links v0" in runbook
+    assert "workflow direct stage links v0" in app_review
+    assert "docs/review/workflow-direct-stage-links.md" in portfolio
+
+
+def test_workflow_direct_stage_links_runtime_smoke_records_live_db_and_http_evidence():
+    smoke = (
+        REPO_ROOT / "docs/review/workflow-direct-stage-links-runtime-smoke.md"
+    )
+    assert smoke.is_file()
+
+    content = smoke.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    app_review = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Workflow Direct Stage Links Runtime Smoke" in content
+    assert "workflow direct stage links runtime smoke v0" in content
+    assert "Docker PostgreSQL" in content
+    assert "db_health=healthy" in content
+    assert "applied 023_workflow_stage_links.sql" in content
+    assert "Pending migrations: 0" in content
+    assert "POST /workflow-runs/execute-preview" in content
+    assert "GET /workflow-runs/{id}/lineage" in content
+    assert '"lineage_boundary":  "derived_read_model_with_direct_workflow_stage_links"' in content
+    assert '"direct_stage_link_count":  3' in content
+    assert "evidence_to_report" in content
+    assert "evidence_to_noise_gate" in content
+    assert "noise_gate_to_report" in content
+    assert "direct_stage_link_table" in content
+    assert "workflow_created_records_only_not_standalone_payload_lineage" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert "Workflow direct stage links runtime smoke v0: implemented" in readme
+    assert "Phase 531 - Workflow Direct Stage Links Runtime Smoke v0" in goal
+    assert "workflow direct stage links runtime smoke v0" in runbook
+    assert "workflow-direct-stage-links-runtime-smoke.md" in app_review
+    assert "docs/review/workflow-direct-stage-links-runtime-smoke.md" in portfolio
 
 
 def test_phase32_docs_mark_lineage_read_model_without_storage_claims():
@@ -17690,7 +17779,7 @@ def test_workflow_dashboard_failure_case_counts_document_read_model_boundary():
     assert "_workflow_failure_case_count_cell" in dashboard_py
     assert "test_ops_dashboard_surfaces_workflow_failure_case_counts_and_filter_links" in routes_test
     assert "Workflow dashboard failure-case counts v0: implemented" in readme
-    assert "Latest product gate marker: Workflow dashboard failure-case counts v0: implemented." in readme
+    assert "Latest product gate marker: Workflow direct stage links v0: implemented." in readme
     assert "Phase 513 - Workflow Dashboard Failure-case Counts v0" in goal
     assert "workflow dashboard failure-case counts v0" in runbook
     assert "docs/review/workflow-dashboard-failure-case-counts.md" in portfolio

@@ -60,7 +60,7 @@ This gate adds:
 - no schema
 - no migration
 - no new lineage storage
-- no direct Evidence Ledger -> Noise Gate -> Report foreign-key links
+- direct Evidence Ledger -> Noise Gate -> Report stage links are now represented by Phase 530 workflow-created link tables, while this dashboard-link gate remains navigation only
 - no distributed tracing
 - no hosted observability
 - no LLM calls

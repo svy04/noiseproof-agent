@@ -79,7 +79,7 @@ It is not hosted observability.
 
 It is not new lineage storage.
 
-It is not direct Evidence Ledger -> Noise Gate -> Report foreign-key lineage.
+Direct Evidence Ledger -> Noise Gate -> Report stage links are now represented by Phase 530 workflow-created link tables; this request refresh remains bounded to reviewer routing.
 
 It is not semantic retrieval quality evidence.
 

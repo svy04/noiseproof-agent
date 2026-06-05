@@ -154,3 +154,16 @@ The endpoint resolves manifest references against existing workflow child record
 Phase 33 added dashboard links from workflow rows to both the workflow detail endpoint and the derived lineage endpoint.
 
 This improves discoverability only. Direct evidence -> gate -> report foreign-key links and join tables remain unimplemented.
+
+## Follow-up status after Phase 530
+
+Phase 530 implemented workflow direct stage links v0 for deterministic workflow-created records:
+
+```text
+noise_gate_evidence_links
+report_evidence_links
+report_noise_gate_links
+GET /workflow-runs/{id}/lineage direct_stage_links
+```
+
+Standalone gate/report endpoints remain payload-only unless they create explicit stage links. This is local workflow lineage only, not distributed tracing, hosted observability, autonomous workflow execution, or product-complete evidence.

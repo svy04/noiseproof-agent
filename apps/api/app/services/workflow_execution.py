@@ -12,6 +12,7 @@ from app.schemas import (
     NoiseGateStoredRecordOut,
     ReportPreviewRequest,
     ReportStoredRecordOut,
+    WorkflowStageLinkCreate,
     WorkflowRunCreate,
     WorkflowRunExecutePreviewOut,
     WorkflowRunExecutePreviewRequest,
@@ -125,6 +126,15 @@ def execute_workflow_preview(
                 stage_input_manifest=report_stage_input_manifest,
             )
         )
+        repository.create_workflow_stage_links(
+            _workflow_stage_links(
+                workflow_run_id=workflow_run_id,
+                workflow_trace_id=workflow_trace_id,
+                evidence_entry_ids=evidence_entry_ids,
+                gate_id=gate.id,
+                report_id=report.id,
+            )
+        )
     except Exception as exc:
         workflow_run = repository.update_workflow_run(
             workflow_run["id"],
@@ -174,6 +184,63 @@ def execute_workflow_preview(
 
 def _latency_ms(started_at: float) -> int:
     return max(0, round((time.perf_counter() - started_at) * 1000))
+
+
+def _workflow_stage_links(
+    *,
+    workflow_run_id,
+    workflow_trace_id,
+    evidence_entry_ids: list[str],
+    gate_id,
+    report_id,
+) -> list[WorkflowStageLinkCreate]:
+    links: list[WorkflowStageLinkCreate] = []
+    for evidence_id in evidence_entry_ids:
+        links.append(
+            WorkflowStageLinkCreate(
+                workflow_run_id=workflow_run_id,
+                workflow_trace_id=workflow_trace_id,
+                link_type="evidence_to_noise_gate",
+                from_table="evidence_ledger_entries",
+                from_id=evidence_id,
+                to_table="noise_gate_records",
+                to_id=gate_id,
+                source_manifest_field=(
+                    "noise_gate_records.stage_input_manifest."
+                    "input_evidence_ledger_entry_ids"
+                ),
+            )
+        )
+        links.append(
+            WorkflowStageLinkCreate(
+                workflow_run_id=workflow_run_id,
+                workflow_trace_id=workflow_trace_id,
+                link_type="evidence_to_report",
+                from_table="evidence_ledger_entries",
+                from_id=evidence_id,
+                to_table="report_records",
+                to_id=report_id,
+                source_manifest_field=(
+                    "report_records.stage_input_manifest."
+                    "input_evidence_ledger_entry_ids"
+                ),
+            )
+        )
+    links.append(
+        WorkflowStageLinkCreate(
+            workflow_run_id=workflow_run_id,
+            workflow_trace_id=workflow_trace_id,
+            link_type="noise_gate_to_report",
+            from_table="noise_gate_records",
+            from_id=gate_id,
+            to_table="report_records",
+            to_id=report_id,
+            source_manifest_field=(
+                "report_records.stage_input_manifest.input_noise_gate_record_id"
+            ),
+        )
+    )
+    return links
 
 
 def _stored_entry_to_preview_entry(entry: EvidenceLedgerStoredEntryOut) -> EvidenceLedgerEntryOut:

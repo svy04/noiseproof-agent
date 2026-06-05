@@ -150,3 +150,24 @@ GET /workflow-runs/{id}/lineage
 ```
 
 This is a navigation improvement only. It does not add dashboard polish, new lineage storage, direct evidence -> gate -> report foreign-key links, or join tables.
+
+## Phase 530 Follow-up
+
+Phase 530 implemented workflow direct stage links v0:
+
+```text
+noise_gate_evidence_links
+report_evidence_links
+report_noise_gate_links
+GET /workflow-runs/{id}/lineage direct_stage_links
+```
+
+This changes the current state for deterministic workflow-created records only.
+
+The new honest claim is:
+
+```text
+NoiseProof records direct local stage-link rows for workflow-created Evidence Ledger, Noise Gate, and Report records. Standalone gate/report endpoints remain payload-only unless they create explicit stage links.
+```
+
+This still does not claim distributed tracing, hosted observability, autonomous workflow execution, LLM-backed report generation, external reviewer feedback, or product-complete readiness.

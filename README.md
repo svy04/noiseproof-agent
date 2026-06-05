@@ -112,7 +112,7 @@ Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
 Latest workflow proof bundle runtime marker: Workflow proof bundle failure-case links runtime smoke v0: implemented.
 Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented.
-Latest product gate marker: Workflow dashboard failure-case counts v0: implemented.
+Latest product gate marker: Workflow direct stage links v0: implemented.
 Latest reviewer-routing marker: Embedding provider handoff alignment issue-body refresh v0.
 Latest external-feedback state: pending after handoff issue verification; candidate_count=0; self-authored comment only.
 
@@ -218,6 +218,10 @@ Not implemented yet:
 - background failure-case automation from workflow failures; caller-triggered handoff exists through `POST /failure-cases/workflow-runs/{workflow_run_id}`
 - embedding generation and vector search quality evidence beyond the deterministic local hash preview
 - full distributed tracing or hosted observability
+
+Workflow direct stage links v0: implemented. Boundary: deterministic workflow-created records now create direct local link rows in `noise_gate_evidence_links`, `report_evidence_links`, and `report_noise_gate_links`, surfaced through `GET /workflow-runs/{id}/lineage` as `direct_stage_links`. Standalone gate/report endpoints remain payload-only unless they create explicit links. This is not distributed tracing, hosted observability, autonomous workflow execution, external reviewer feedback, or product-complete.
+
+Workflow direct stage links runtime smoke v0: implemented. Boundary: local Docker PostgreSQL applied `023_workflow_stage_links.sql`, and live FastAPI HTTP verified `POST /workflow-runs/execute-preview` plus `GET /workflow-runs/{id}/lineage` returned `direct_stage_link_count=3` with `direct_stage_link_table`. This is not hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, or product-complete.
 
 Deterministic text embedding preview v0: implemented. Boundary: local hash preview only; not actual embedding model generation, not persisted, and not vector search quality evidence.
 

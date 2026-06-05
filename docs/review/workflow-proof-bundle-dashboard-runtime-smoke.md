@@ -97,7 +97,7 @@ It is:
 - not schema work
 - not migration work
 - not new lineage storage
-- not direct Evidence Ledger -> Noise Gate -> Report foreign-key lineage
+- direct Evidence Ledger -> Noise Gate -> Report stage links are now represented by Phase 530 workflow-created link tables; this dashboard smoke remains bounded to dashboard navigation behavior
 - not distributed tracing
 - not hosted observability
 - not LLM output

@@ -59,7 +59,7 @@ This gate adds:
 - no database table
 - no migration
 - no new persisted lineage fact
-- no direct Evidence Ledger -> Noise Gate -> Report foreign-key links
+- direct Evidence Ledger -> Noise Gate -> Report stage links are now represented by Phase 530 workflow-created link tables, while this older proof-bundle read model remains a convenience surface over existing records
 - no distributed tracing
 - no hosted observability
 - no LLM calls

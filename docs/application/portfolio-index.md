@@ -324,6 +324,10 @@ Proof-marker archive: `docs/review/readme-proof-marker-archive.md` preserves leg
 
 Workflow proof bundle read model: `docs/review/workflow-proof-bundle-read-model.md` records `GET /workflow-runs/{id}/proof-bundle`, a convenience read model over existing workflow detail, lineage, and trace lookup surfaces. It is not new lineage storage, not distributed tracing, not hosted observability, and not external reviewer feedback.
 
+Workflow direct stage links: `docs/review/workflow-direct-stage-links.md` records `noise_gate_evidence_links`, `report_evidence_links`, and `report_noise_gate_links` plus `GET /workflow-runs/{id}/lineage` `direct_stage_links`. This is local deterministic workflow lineage for workflow-created records only, not distributed tracing, hosted observability, autonomous workflow execution, external reviewer feedback, or product-complete.
+
+Workflow direct stage links runtime smoke: `docs/review/workflow-direct-stage-links-runtime-smoke.md` records local Docker PostgreSQL migration evidence plus live FastAPI HTTP evidence that `POST /workflow-runs/execute-preview` and `GET /workflow-runs/{id}/lineage` return `direct_stage_link_count=3`. This is local runtime evidence only, not hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, or product-complete.
+
 Workflow proof bundle runtime smoke: `docs/review/workflow-proof-bundle-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle` after a deterministic workflow preview and for a metadata-only workflow row. It is not distributed tracing, not hosted observability, not hosted deployment evidence, and not external reviewer feedback.
 
 External reviewer workflow proof bundle request refresh: `docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md` points reviewer-facing repository paths to the workflow proof bundle runtime smoke. It is request infrastructure only, not a live public issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
@@ -396,6 +400,8 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | Workflow stage input manifest | `stage_input_manifest` on workflow-created Noise Gate and Report records | implemented v0 |
 | Direct cross-stage link schema review | `docs/review/direct-cross-stage-link-schema-review.md` | reviewed |
 | Workflow lineage read model | `GET /workflow-runs/{id}/lineage` | implemented v0 |
+| Workflow direct stage links | `docs/review/workflow-direct-stage-links.md` | direct local stage links for workflow-created records |
+| Workflow direct stage links runtime smoke | `docs/review/workflow-direct-stage-links-runtime-smoke.md` | local Docker DB and live HTTP proof for direct stage links |
 | Workflow proof bundle read model | `GET /workflow-runs/{id}/proof-bundle` | implemented v0 |
 | Workflow lineage dashboard links | `GET /ops/dashboard` workflow row detail/lineage links | implemented v0 |
 | Workflow lineage missing-reference review | `docs/review/workflow-lineage-missing-reference-review.md` | reviewed |
