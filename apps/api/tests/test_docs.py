@@ -13693,6 +13693,84 @@ def test_external_reviewer_table_candidate_downstream_request_refresh_routes_rev
         assert "not external reviewer feedback" in reviewer_surface
 
 
+def test_external_review_issue_body_pdf_table_candidate_downstream_runtime_refresh_records_live_issue_routing():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-review-issue-body-pdf-table-candidate-downstream-runtime-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Review Issue Body PDF Table-candidate Downstream Runtime Refresh"
+        in content
+    )
+    assert (
+        "external review issue body PDF table-candidate downstream runtime refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "owner-authored issue body routing only" in content
+    assert "uploaded PDF table-candidate downstream runtime proof" in content
+    assert (
+        "docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md"
+        in content
+    )
+    assert (
+        "docs/review/uploaded-pdf-table-candidate-downstream-provenance-remote-verification.md"
+        in content
+    )
+    assert (
+        "docs/review/external-reviewer-pdf-table-candidate-downstream-runtime-request-refresh.md"
+        in content
+    )
+    assert (
+        "docs/review/external-review-issue-body-pdf-table-candidate-downstream-runtime-refresh.md"
+        in content
+    )
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/retrieval-runs -> 201" in content
+    assert "GET /retrieval-runs -> 200" in content
+    assert "document_profile_table_candidate_count -> 1" in content
+    assert "chunk_metadata_table_candidate_count -> 1" in content
+    assert "retrieval_metadata_table_candidate_count -> 1" in content
+    assert "retrieval_candidate_table_candidate_count -> 1" in content
+    assert "has_pdf_table_candidate_downstream_runtime_proof: true" in content
+    assert "has_pdf_table_candidate_downstream_remote_verification: true" in content
+    assert "has_pdf_table_candidate_downstream_request_refresh: true" in content
+    assert "has_pdf_table_candidate_downstream_issue_body_record: true" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not table extraction" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body PDF table-candidate downstream runtime refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 605 - External Review Issue Body PDF Table-candidate Downstream Runtime Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body PDF table-candidate downstream runtime refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-review-issue-body-pdf-table-candidate-downstream-runtime-refresh.md"
+        in portfolio
+    )
+
+
 def test_uploaded_pdf_page_diagnostics_runtime_smoke_records_live_http_evidence():
     smoke_path = REPO_ROOT / "docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md"
     assert smoke_path.is_file()

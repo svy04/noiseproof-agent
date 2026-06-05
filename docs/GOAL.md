@@ -22124,3 +22124,45 @@ retrieval_candidate_table_candidate_count -> 1
 Boundary: request infrastructure only; not a live public issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity, not raw file storage, not full parsed text persistence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, issue-body refresh if this proof should be routed through the live public issue body, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 605 - External Review Issue Body PDF Table-candidate Downstream Runtime Refresh v0
+
+Status: implemented.
+
+Purpose: route the uploaded PDF table-candidate downstream runtime proof through the live public external review issue body while keeping the edit self-authored and non-qualifying for external reviewer feedback.
+
+Implemented artifacts:
+
+```text
+external review issue body PDF table-candidate downstream runtime refresh v0
+docs/review/external-review-issue-body-pdf-table-candidate-downstream-runtime-refresh.md
+docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md
+docs/review/uploaded-pdf-table-candidate-downstream-provenance-remote-verification.md
+docs/review/external-reviewer-pdf-table-candidate-downstream-runtime-request-refresh.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+GitHub issue #1 owner-authored body edit
+```
+
+Observed issue body state after refresh:
+
+```text
+updatedAt: 2026-06-05T20:48:53Z
+url: https://github.com/svy04/noiseproof-agent/issues/1
+starts_with_request: true
+first_codepoint: 35
+body_length: 7534
+comment_count: 1
+has_pdf_table_candidate_downstream_runtime_proof: true
+has_pdf_table_candidate_downstream_remote_verification: true
+has_pdf_table_candidate_downstream_request_refresh: true
+has_pdf_table_candidate_downstream_issue_body_record: true
+has_retrieval_candidate_table_count: true
+has_external_feedback_boundary: true
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity, not raw file storage, not full parsed text persistence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next gate: external feedback current-state PDF table-candidate downstream runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
