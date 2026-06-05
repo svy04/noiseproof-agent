@@ -23156,3 +23156,92 @@ def test_external_reviewer_persisted_document_failure_candidate_draft_runtime_re
         assert "preview_only_not_persisted" in reviewer_surface
         assert "failure_case_count_delta -> 0" in reviewer_surface
         assert "not automatic failure-case creation" in reviewer_surface
+
+
+def test_external_review_issue_body_persisted_document_failure_candidate_draft_runtime_refresh_records_live_routing():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-persisted-document-failure-candidate-draft-runtime-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = (
+        "docs/review/"
+        "persisted-document-failure-candidate-draft-preview-runtime-smoke.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-persisted-document-failure-candidate-draft-runtime-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-persisted-document-failure-candidate-draft-runtime-refresh.md"
+    )
+
+    assert (
+        "External Review Issue Body Persisted Document Failure Candidate Draft Runtime Refresh"
+        in content
+    )
+    assert (
+        "external reviewer persisted document failure candidate draft runtime issue-body refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert "updatedAt:" in content
+    assert "comment_count: 1" in content
+    assert "starts_with_request: true" in content
+    assert "first_codepoint: 35" in content
+    assert (
+        "has_persisted_document_failure_candidate_draft_runtime_proof: true"
+        in content
+    )
+    assert (
+        "has_persisted_document_failure_candidate_draft_request_refresh: true"
+        in content
+    )
+    assert (
+        "has_persisted_document_failure_candidate_draft_issue_body_record: true"
+        in content
+    )
+    assert "has_external_feedback_boundary: true" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/failure-case-draft-preview -> 200" in content
+    assert "GET /failure-cases -> 200" in content
+    assert "preview_only_not_persisted" in content
+    assert "human_confirmation_required -> true" in content
+    assert "pdf_no_extractable_text" in content
+    assert "chunk_handoff_no_chunks" in content
+    assert "persisted_document_failure_case_candidate" in content
+    assert "metadata-derived from document profile_json" in content
+    assert "failure_case_count_delta -> 0" in content
+    assert "owner-authored issue body edit" in content
+    assert "not automatic failure-case creation" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not product-complete" in content
+    assert (
+        "External reviewer persisted document failure candidate draft runtime issue-body refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 562 - External Reviewer Persisted Document Failure Candidate Draft Runtime Issue-body Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer persisted document failure candidate draft runtime issue-body refresh v0"
+        in runbook
+    )
+    assert issue_doc in portfolio
