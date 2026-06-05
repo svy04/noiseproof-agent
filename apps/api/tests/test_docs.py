@@ -26740,6 +26740,59 @@ def test_retrieval_run_semantic_provenance_inspectability_is_recorded():
     )
 
 
+def test_retrieval_run_semantic_provenance_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/retrieval-run-semantic-provenance-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme_with_archive = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "retrieval run semantic provenance runtime smoke v0" in content
+    assert "noiseproof-phase619" in content
+    assert "POSTGRES_PORT=55444" in content
+    assert "GET /retrieval-runs -> 200" in content
+    assert "GET /ops/dashboard -> 200" in content
+    assert "RETRIEVAL_RUN_HAS_IS_SEMANTIC=True" in content
+    assert "RETRIEVAL_RUN_RETRIEVAL_MODE=semantic_persisted" in content
+    assert "RETRIEVAL_RUN_QUERY_VECTOR_SOURCE=caller_provided_vector" in content
+    assert (
+        "RETRIEVAL_RUN_PERSISTENCE_BOUNDARY=semantic_retrieval_run_only_no_evidence_ledger"
+        in content
+    )
+    assert "DASHBOARD_HAS_RETRIEVAL_MODE=True" in content
+    assert "DASHBOARD_HAS_QUERY_VECTOR_SOURCE=True" in content
+    assert "DASHBOARD_HAS_PERSISTENCE_BOUNDARY=True" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Retrieval run semantic provenance runtime smoke v0: implemented"
+        in readme_with_archive
+    )
+    assert (
+        "Phase 619 - Retrieval Run Semantic Provenance Runtime Smoke v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 618 - Retrieval Run Semantic Provenance Inspectability v0"
+    ) < goal.index(
+        "Phase 619 - Retrieval Run Semantic Provenance Runtime Smoke v0"
+    )
+    assert "retrieval run semantic provenance runtime smoke v0" in runbook
+    assert (
+        "docs/review/retrieval-run-semantic-provenance-runtime-smoke.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

@@ -22628,3 +22628,41 @@ GET /ops/dashboard -> Persistence Boundary
 Boundary: read-surface inspectability only; not a new retrieval algorithm, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not Evidence Ledger generation, not free-form final report generation, and not product-complete.
 
 Next gate: local Docker/FastAPI runtime smoke for retrieval run semantic provenance inspectability if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 619 - Retrieval Run Semantic Provenance Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: verify the Phase 618 retrieval-run semantic provenance read fields in a local Docker-backed PostgreSQL plus live FastAPI HTTP runtime.
+
+Implemented artifacts:
+
+```text
+retrieval run semantic provenance runtime smoke v0
+docs/review/retrieval-run-semantic-provenance-runtime-smoke.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Observed runtime state:
+
+```text
+noiseproof-phase619
+POSTGRES_PORT=55444
+Pending migrations: 0
+GET /retrieval-runs -> 200
+GET /ops/dashboard -> 200
+RETRIEVAL_RUN_HAS_IS_SEMANTIC=True
+RETRIEVAL_RUN_RETRIEVAL_MODE=semantic_persisted
+RETRIEVAL_RUN_QUERY_VECTOR_SOURCE=caller_provided_vector
+RETRIEVAL_RUN_PERSISTENCE_BOUNDARY=semantic_retrieval_run_only_no_evidence_ledger
+DASHBOARD_HAS_RETRIEVAL_MODE=True
+DASHBOARD_HAS_QUERY_VECTOR_SOURCE=True
+DASHBOARD_HAS_PERSISTENCE_BOUNDARY=True
+```
+
+Boundary: local Docker/FastAPI runtime evidence for read-surface inspectability only; not a new retrieval algorithm, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not Evidence Ledger generation, not free-form final report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
