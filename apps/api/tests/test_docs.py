@@ -25677,3 +25677,36 @@ def test_readme_top_latest_proof_route_points_to_current_dashboard_proof():
     assert "persisted Report markdown export proof" not in fast_path
     assert "README current proof route refresh v0: implemented" in readme
     assert "Phase 598 - README Current Proof Route Refresh v0" in goal
+
+
+def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/readme-current-proof-route-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "readme current proof route refresh remote verification v0" in content
+    assert "a715258f044bd9ef3992e513e7e54ab82bfaadf0" in content
+    assert "CI run 27036879179" in content
+    assert "job_id: 79803002422" in content
+    assert "Run API smoke tests" in content
+    assert "External Feedback Screen run 27036879137" in content
+    assert "job_id: 79803002489" in content
+    assert "screen -> success" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "README current proof route refresh remote verification v0: implemented"
+        in readme
+    )
+    assert "Phase 599 - README Current Proof Route Refresh Remote Verification v0" in goal
+    assert "docs/review/readme-current-proof-route-refresh-remote-verification.md" in portfolio

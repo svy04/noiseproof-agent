@@ -21908,3 +21908,25 @@ docs/review/external-review-issue-body-workflow-failure-auto-created-dashboard-r
 Boundary: README route clarity only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 599 - README Current Proof Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that Phase 598 passed repository checks on `main`.
+
+Implemented artifacts:
+
+```text
+readme current proof route refresh remote verification v0
+docs/review/readme-current-proof-route-refresh-remote-verification.md
+head_sha -> a715258f044bd9ef3992e513e7e54ab82bfaadf0
+CI run 27036879179 -> success
+api-smoke job 79803002422 -> success
+External Feedback Screen run 27036879137 -> success
+screen job 79803002489 -> success
+```
+
+Boundary: remote workflow verification only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not a live issue body edit, not retry behavior, not root-cause automation, not complete workflow failure causality, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
