@@ -19679,6 +19679,40 @@ Next recommended evidence gate:
 external review issue body workflow stage event log runtime refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 538 - External Review Issue Body Workflow Stage Event Log Runtime Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the owner-authored issue #1 body update that points reviewers to the workflow stage event log runtime smoke and request-refresh record
+```
+
+Implemented:
+
+```text
+external review issue body workflow stage event log runtime refresh v0
+docs/review/external-review-issue-body-workflow-stage-event-log-runtime-refresh.md
+issue #1 body links docs/review/workflow-stage-event-log-runtime-smoke.md
+issue #1 body links docs/review/external-reviewer-workflow-stage-event-log-runtime-request-refresh.md
+issue #1 body links docs/review/external-review-issue-body-workflow-stage-event-log-runtime-refresh.md
+starts_with_request: true
+first_codepoint: 35
+detail_stage_event_count: 4
+bundle_stage_event_count: 4
+stage_names: retrieval,evidence_ledger,noise_gate,report
+comment_count: 1
+```
+
+Phase 538 is owner-authored issue routing only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not distributed tracing, not OpenTelemetry, not hosted observability, not autonomous workflow execution, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state workflow stage event log runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
