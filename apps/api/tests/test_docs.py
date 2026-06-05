@@ -18304,6 +18304,64 @@ def test_embedding_model_live_provider_owner_runtime_smoke_report_contract_align
     assert review_doc in portfolio
 
 
+def test_external_review_issue_body_embedding_provider_report_alignment_refresh_records_live_issue_edit():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-review-issue-body-embedding-provider-report-alignment-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "external-review-issue-body-embedding-provider-report-alignment-refresh.md"
+    )
+
+    assert "External Review Issue Body Embedding Provider Report Alignment Refresh" in content
+    assert (
+        "external review issue body embedding provider report alignment refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_embedding_provider_report_contract": true' in content
+    assert '"has_embedding_provider_report_schema": true' in content
+    assert '"has_embedding_provider_report_contract_alignment": true' in content
+    assert (
+        '"has_embedding_provider_report_contract_alignment_ci_remote_verification": true'
+        in content
+    )
+    assert (
+        "docs/review/embedding-model-live-provider-owner-runtime-smoke-report-contract-alignment-ci-remote-verification.md"
+        in content
+    )
+    assert "owner-authored issue body routing only" in content
+    assert "not external reviewer feedback" in content
+    assert "not live embedding generation proof" in content
+    assert (
+        "External review issue body embedding provider report alignment refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 492 - External Review Issue Body Embedding Provider Report Alignment Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body embedding provider report alignment refresh v0"
+        in runbook
+    )
+    assert review_doc in portfolio
+
+
 def test_external_reviewer_embedding_provider_owner_runtime_smoke_validator_request_refresh_links_validation_path():
     review_path = (
         REPO_ROOT

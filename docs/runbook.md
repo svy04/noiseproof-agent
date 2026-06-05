@@ -9877,3 +9877,42 @@ not hosted deployment evidence
 not product-complete
 actual live embedding model generation remains unproven
 ```
+
+## External Review Issue Body Embedding Provider Report Alignment Refresh
+
+Phase marker: external review issue body embedding provider report alignment refresh v0.
+
+Review artifact:
+
+```text
+docs/review/external-review-issue-body-embedding-provider-report-alignment-refresh.md
+```
+
+Issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt: 2026-06-05T02:30:13Z
+```
+
+Observed body checks:
+
+```text
+starts_with_request: true
+first_codepoint: 35
+has_embedding_provider_report_contract: true
+has_embedding_provider_report_schema: true
+has_embedding_provider_report_contract_alignment: true
+has_embedding_provider_report_contract_alignment_ci_remote_verification: true
+```
+
+Boundary:
+
+```text
+owner-authored issue body routing only
+not external reviewer feedback
+not live embedding generation proof
+not hosted deployment evidence
+not product-complete
+external reviewer feedback remains pending
+```

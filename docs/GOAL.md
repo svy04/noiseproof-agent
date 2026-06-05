@@ -17944,6 +17944,41 @@ Next recommended evidence gate:
 owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 492 - External Review Issue Body Embedding Provider Report Alignment Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+update the live public external review issue body so reviewers can reach the embedding provider report contract, report schema, alignment check, and CI remote verification artifacts
+```
+
+Implemented:
+
+```text
+external review issue body embedding provider report alignment refresh v0
+docs/review/external-review-issue-body-embedding-provider-report-alignment-refresh.md
+issue #1 points to docs/review/embedding-model-live-provider-owner-runtime-smoke-report-contract.md
+issue #1 points to docs/review/embedding-model-live-provider-owner-runtime-smoke-report-schema.md
+issue #1 points to docs/review/embedding-model-live-provider-owner-runtime-smoke-report-contract-alignment.md
+issue #1 points to docs/review/embedding-model-live-provider-owner-runtime-smoke-report-contract-alignment-ci-remote-verification.md
+updatedAt=2026-06-05T02:30:13Z
+starts_with_request=true
+first_codepoint=35
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 492 is owner-authored issue body routing only. It adds no runtime behavior, no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven, and external reviewer feedback remains pending.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state embedding provider report alignment issue verification v0, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
