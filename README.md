@@ -112,8 +112,8 @@ Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
 Latest workflow proof bundle runtime marker: Workflow proof bundle runtime smoke v0: implemented.
 Latest product gate marker: Workflow proof bundle read model v0: implemented.
-Latest reviewer-routing marker: External review issue body readability refresh v0.
-Latest external-feedback state: pending; only self-authored issue comment is present.
+Latest reviewer-routing marker: Embedding provider handoff alignment issue-body refresh v0.
+Latest external-feedback state: pending after handoff issue verification; candidate_count=0; self-authored comment only.
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*` artifacts.
 
@@ -296,6 +296,8 @@ External review issue body embedding provider owner-runtime smoke packet refresh
 External feedback current-state embedding provider owner-runtime smoke packet issue verification v0: implemented. Boundary: issue #1 current state has `candidate_count=0`, `draft_count=0`, and only `self_authored_comment`; external reviewer feedback remains pending.
 
 README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
+
+README latest-marker embedding handoff current-state refresh v0: implemented. Boundary: README top markers now point to the embedding provider handoff alignment issue-body refresh and current-state issue verification; external reviewer feedback remains pending, and this is not live embedding generation proof or product-complete.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 

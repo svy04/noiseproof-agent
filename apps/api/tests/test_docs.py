@@ -15503,7 +15503,7 @@ def test_readme_latest_marker_current_state_refresh_points_to_current_proof_boun
         in readme
     )
     assert (
-        "Latest external-feedback state: pending; only self-authored issue comment is present"
+        "Latest external-feedback state: pending after handoff issue verification; candidate_count=0; self-authored comment only"
         in readme
     )
     assert "Latest marker: Failure-case workflow review queue v0" not in readme
@@ -15513,6 +15513,57 @@ def test_readme_latest_marker_current_state_refresh_points_to_current_proof_boun
     )
     assert "readme latest-marker current-state refresh v0" in runbook
     assert "docs/review/readme-latest-marker-current-state-refresh.md" in portfolio
+
+
+def test_readme_latest_marker_embedding_handoff_current_state_refresh_updates_first_pass_markers():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/readme-latest-marker-embedding-handoff-current-state-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/readme-latest-marker-embedding-handoff-current-state-refresh.md"
+    )
+
+    latest_routing = (
+        "Latest reviewer-routing marker: Embedding provider handoff alignment issue-body refresh v0"
+    )
+    latest_feedback = (
+        "Latest external-feedback state: pending after handoff issue verification; candidate_count=0; self-authored comment only"
+    )
+
+    assert "README Latest-marker Embedding Handoff Current-state Refresh" in content
+    assert "readme latest-marker embedding handoff current-state refresh v0" in content
+    assert latest_routing in content
+    assert latest_feedback in content
+    assert "external-feedback remains pending" in content
+    assert "not live embedding generation proof" in content
+    assert "not product-complete" in content
+    assert latest_routing in readme
+    assert latest_feedback in readme
+    assert "Latest reviewer-routing marker: External review issue body readability refresh v0" not in readme
+    assert (
+        "README latest-marker embedding handoff current-state refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 500 - README Latest-marker Embedding Handoff Current-state Refresh v0"
+        in goal
+    )
+    assert (
+        "readme latest-marker embedding handoff current-state refresh v0"
+        in runbook
+    )
+    assert review_doc in portfolio
 
 
 def test_uploaded_raw_file_download_readiness_preview_documents_preflight_boundary():
