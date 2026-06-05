@@ -17979,3 +17979,60 @@ def test_embedding_model_live_provider_owner_runtime_smoke_validator_is_document
         "embedding model live-provider owner-runtime smoke validator v0" in runbook
     )
     assert review_doc in portfolio
+
+
+def test_embedding_model_live_provider_owner_runtime_smoke_post_run_validation_command_refresh_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md"
+    )
+    packet_path = (
+        REPO_ROOT
+        / "docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    packet = packet_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md"
+    )
+    validator_command = (
+        "--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>"
+    )
+
+    assert (
+        "Embedding Model Live-provider Owner-runtime Smoke Post-run Validation Command"
+        in content
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke post-run validation command v0"
+        in content
+    )
+    assert validator_command in content
+    assert validator_command in packet
+    assert "accepted_owner_runtime_smoke: true" in content
+    assert "missing_or_failed_checks: []" in content
+    assert "not live embedding generation proof" in content
+    assert (
+        "Embedding model live-provider owner-runtime smoke post-run validation command v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 483 - Embedding Model Live-provider Owner-runtime Smoke Post-run Validation Command v0"
+        in goal
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke post-run validation command v0"
+        in runbook
+    )
+    assert review_doc in portfolio

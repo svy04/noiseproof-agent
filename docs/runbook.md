@@ -9482,3 +9482,40 @@ report path must remain outside the repository
 not live embedding generation proof by itself
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Owner-runtime Smoke Post-run Validation Command
+
+Phase marker: embedding model live-provider owner-runtime smoke post-run validation command v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md
+```
+
+Updated packet artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
+```
+
+Post-run validation command:
+
+```bash
+uv run python -m app.services.embedding_model_live_provider_harness --validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
+```
+
+Success criteria:
+
+```text
+accepted_owner_runtime_smoke: true
+missing_or_failed_checks: []
+```
+
+Boundary:
+
+```text
+packet refresh only
+not live embedding generation proof
+actual live embedding model generation remains unproven
+```

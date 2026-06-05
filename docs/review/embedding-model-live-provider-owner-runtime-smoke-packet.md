@@ -59,6 +59,20 @@ secret_exposed: false
 persistence_boundary: preview_only_not_persisted
 ```
 
+Post-run validation command for a future outside-repo runtime report:
+
+```bash
+uv run python -m app.services.embedding_model_live_provider_harness --validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
+```
+
+Post-run validation success criteria:
+
+```text
+validation_status: accepted
+accepted_owner_runtime_smoke: true
+missing_or_failed_checks: []
+```
+
 Failure states:
 
 ```text

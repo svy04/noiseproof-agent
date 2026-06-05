@@ -17615,6 +17615,38 @@ Next recommended evidence gate:
 owner-runtime smoke packet post-run validation command refresh v0, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 483 - Embedding Model Live-provider Owner-runtime Smoke Post-run Validation Command v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the no-secret owner-runtime smoke packet point to the metadata-only validator command and success criteria
+```
+
+Implemented:
+
+```text
+embedding model live-provider owner-runtime smoke post-run validation command v0
+docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md
+docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md post-run validator command refresh
+--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
+accepted_owner_runtime_smoke=true success criterion
+missing_or_failed_checks=[] success criterion
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 483 refreshes the no-secret smoke packet only. It adds no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

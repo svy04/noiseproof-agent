@@ -87,6 +87,15 @@ def _owner_runtime_smoke_packet() -> dict:
             "secret_exposed": False,
             "persistence_boundary": "preview_only_not_persisted",
         },
+        "post_run_validation_command": (
+            "uv run python -m app.services.embedding_model_live_provider_harness "
+            "--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>"
+        ),
+        "post_run_validation_success_criteria": {
+            "validation_status": "accepted",
+            "accepted_owner_runtime_smoke": True,
+            "missing_or_failed_checks": [],
+        },
         "failure_states": [
             "missing_openai_api_key",
             "opt_in_disabled",
