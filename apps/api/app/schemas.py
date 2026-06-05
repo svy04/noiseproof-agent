@@ -931,6 +931,8 @@ class OpsSummaryOut(BaseModel):
     generated_report_count: int = 0
     blocked_report_count: int = 0
     revision_report_count: int = 0
+    chunk_handoff_no_chunks_count: int = 0
+    pdf_no_text_failure_candidate_count: int = 0
     uploaded_raw_file_count: int = 0
     raw_file_scan_result_count: int = 0
     raw_file_clean_scan_count: int = 0

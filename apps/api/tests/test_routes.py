@@ -588,6 +588,17 @@ class InMemoryRepository:
             revision_report_count=sum(
                 row["status"] == "needs_revision" for row in self.report_records
             ),
+            chunk_handoff_no_chunks_count=sum(
+                row["status"] == "chunk_handoff_no_chunks" for row in self.documents
+            ),
+            pdf_no_text_failure_candidate_count=sum(
+                row.get("source_type") == "pdf"
+                and row.get("profile_json", {})
+                .get("failure_case_candidate", {})
+                .get("failure_type")
+                == "pdf_no_extractable_text"
+                for row in self.documents
+            ),
             uploaded_raw_file_count=len(self.uploaded_raw_files),
             raw_file_scan_result_count=len(self.raw_file_scan_results),
             raw_file_clean_scan_count=sum(
@@ -624,6 +635,7 @@ class InMemoryRepository:
             average_latency_ms=None,
             notes=[
                 "test repository",
+                f"No-text PDF failure candidates: {sum(row.get('source_type') == 'pdf' and row.get('profile_json', {}).get('failure_case_candidate', {}).get('failure_type') == 'pdf_no_extractable_text' for row in self.documents)}.",
                 f"Raw file guard records: {len(self.uploaded_raw_files)} upload(s), {len(self.raw_file_scan_results)} scan result(s), {len(self.raw_file_download_approvals)} approval row(s), {len(self.raw_file_download_events)} download event(s).",
             ],
         )
@@ -3286,6 +3298,39 @@ def test_document_upload_chunks_preserves_no_text_pdf_failure_candidate():
     assert profile_json["robust_pdf_extraction"] is False
     assert any("no digital text was extracted" in warning for warning in body["warnings"])
     assert any("No chunk strategy produced chunks" in warning for warning in body["warnings"])
+
+
+def test_ops_summary_and_dashboard_surface_no_text_pdf_failure_candidate_counts():
+    client = make_client()
+    content = _blank_pdf_bytes()
+
+    upload = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Blank PDF report",
+            "strategy": "fixed-window",
+            "max_characters": "80",
+            "overlap": "0",
+        },
+        files={"file": ("blank-report.pdf", content, "application/pdf")},
+    )
+
+    assert upload.status_code == 201
+
+    summary = client.get("/ops/summary").json()
+    assert summary["document_count"] == 1
+    assert summary["chunk_handoff_no_chunks_count"] == 1
+    assert summary["pdf_no_text_failure_candidate_count"] == 1
+    assert any(
+        "No-text PDF failure candidates: 1" in note for note in summary["notes"]
+    )
+
+    dashboard = client.get("/ops/dashboard")
+
+    assert dashboard.status_code == 200
+    assert "No-text PDF Handoffs" in dashboard.text
+    assert "PDF No-text Failure Candidates" in dashboard.text
+    assert "This is metadata-derived from document profile_json" in dashboard.text
 
 
 def test_uploaded_pdf_chunk_retrieval_run_keeps_pdf_parser_provenance():

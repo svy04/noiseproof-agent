@@ -56,6 +56,8 @@ def render_ops_dashboard(
       {_metric("Generated Reports", summary.generated_report_count)}
       {_metric("Blocked Reports", summary.blocked_report_count)}
       {_metric("Revision Reports", summary.revision_report_count)}
+      {_metric("No-text PDF Handoffs", summary.chunk_handoff_no_chunks_count)}
+      {_metric("PDF No-text Failure Candidates", summary.pdf_no_text_failure_candidate_count)}
       {_metric("Uploaded Raw Files", summary.uploaded_raw_file_count)}
       {_metric("Raw File Scan Results", summary.raw_file_scan_result_count)}
       {_metric("Raw File Clean Scans", summary.raw_file_clean_scan_count)}
@@ -117,6 +119,7 @@ def render_ops_dashboard(
       <li>Dashboard links are GET-only inspection routes.</li>
       <li>POST-only actions render as method cues, not anchors.</li>
       <li>Unsupported claim and contradiction counts come from persisted Evidence Ledger entries.</li>
+      <li>No-text PDF handoff counts are metadata-derived from document profile_json. This is metadata-derived from document profile_json and does not prove robust PDF extraction, OCR, table extraction, or layout fidelity.</li>
       <li>Persisted evidence, gate, and report records link back to their parent agent run through trace lookup.</li>
       <li>Embedding generation, semantic retrieval quality evidence, distributed tracing, and free-form final reports are still not implemented.</li>
       <li>Visual polish is intentionally deferred until failure behavior is more complete.</li>
