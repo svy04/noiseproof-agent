@@ -26420,6 +26420,46 @@ def test_docker_environment_readiness_current_state_is_recorded():
     assert "docs/review/docker-environment-readiness-current-state.md" in portfolio
 
 
+def test_ops_summary_semantic_retrieval_boundary_note_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/ops-summary-semantic-retrieval-boundary-note-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme_with_archive = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ops summary semantic retrieval boundary note refresh v0" in content
+    assert "Caller-provided vector semantic retrieval preview/run paths are implemented" in content
+    assert (
+        "No embedding generation, hosted semantic retrieval quality evidence, distributed tracing, or free-form final report generation is claimed."
+        in content
+    )
+    assert "not live OpenAI provider evidence" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Ops summary semantic retrieval boundary note refresh v0: implemented"
+        in readme_with_archive
+    )
+    assert "Phase 612 - Ops Summary Semantic Retrieval Boundary Note Refresh v0" in goal
+    assert goal.index(
+        "Phase 611 - Docker Environment Readiness Current-state v0"
+    ) < goal.index("Phase 612 - Ops Summary Semantic Retrieval Boundary Note Refresh v0")
+    assert "ops summary semantic retrieval boundary note refresh v0" in runbook
+    assert (
+        "docs/review/ops-summary-semantic-retrieval-boundary-note-refresh.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

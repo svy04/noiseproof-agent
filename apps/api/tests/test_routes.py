@@ -643,6 +643,8 @@ class InMemoryRepository:
                 "test repository",
                 f"No-text PDF failure candidates: {sum(row.get('source_type') == 'pdf' and row.get('profile_json', {}).get('failure_case_candidate', {}).get('failure_type') == 'pdf_no_extractable_text' for row in self.documents)}.",
                 f"Raw file guard records: {len(self.uploaded_raw_files)} upload(s), {len(self.raw_file_scan_results)} scan result(s), {len(self.raw_file_download_approvals)} approval row(s), {len(self.raw_file_download_events)} download event(s).",
+                "Caller-provided vector semantic retrieval preview/run paths are implemented; they do not generate embeddings, call an LLM, or prove semantic retrieval quality.",
+                "No embedding generation, hosted semantic retrieval quality evidence, distributed tracing, or free-form final report generation is claimed.",
             ],
         )
 
@@ -4987,6 +4989,25 @@ def test_ops_summary_placeholder_counts_registered_records():
     assert response.json()["failure_case_count"] == 1
     assert response.json()["unsupported_claim_count"] == 0
     assert response.json()["contradiction_count"] == 0
+
+
+def test_ops_summary_boundary_note_separates_caller_provided_semantic_retrieval():
+    client = make_client()
+
+    response = client.get("/ops/summary")
+
+    assert response.status_code == 200
+    notes = " ".join(response.json()["notes"])
+    assert "Caller-provided vector semantic retrieval preview/run paths are implemented" in notes
+    assert (
+        "No embedding generation, hosted semantic retrieval quality evidence, "
+        "distributed tracing, or free-form final report generation is claimed."
+        in notes
+    )
+    assert (
+        "Embeddings, semantic retrieval, distributed tracing, and final report generation beyond deterministic previews are still not implemented."
+        not in notes
+    )
 
 
 def test_ops_summary_and_dashboard_surface_raw_file_guard_counts():

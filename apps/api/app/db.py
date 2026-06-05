@@ -1575,7 +1575,8 @@ class PostgresRepository:
                 f"Retrieval runs recorded: {row['retrieval_run_count']}. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
                 f"No-text PDF failure candidates: {row['pdf_no_text_failure_candidate_count']}. This is metadata-derived from document profile_json, not robust PDF extraction.",
                 f"Raw file guard records: {row['uploaded_raw_file_count']} upload(s), {row['raw_file_scan_result_count']} scan result(s), {row['raw_file_download_approval_count']} approval row(s), {row['raw_file_download_event_count']} download event(s).",
-                "Embeddings, semantic retrieval, distributed tracing, and final report generation beyond deterministic previews are still not implemented.",
+                "Caller-provided vector semantic retrieval preview/run paths are implemented; they do not generate embeddings, call an LLM, or prove semantic retrieval quality.",
+                "No embedding generation, hosted semantic retrieval quality evidence, distributed tracing, or free-form final report generation is claimed.",
             ],
         )
 

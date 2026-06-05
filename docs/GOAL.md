@@ -22382,3 +22382,33 @@ GET /ops/summary -> 200
 Boundary: local Docker environment readiness only; not hosted deployment evidence, not production orchestration, not Kubernetes readiness, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not table extraction, not semantic retrieval quality evidence, not live OpenAI provider evidence, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 612 - Ops Summary Semantic Retrieval Boundary Note Refresh v0
+
+Status: implemented.
+
+Purpose: correct `/ops/summary` wording so it no longer groups implemented caller-provided vector semantic retrieval preview/run paths with still-unproven capabilities.
+
+Implemented artifacts:
+
+```text
+ops summary semantic retrieval boundary note refresh v0
+docs/review/ops-summary-semantic-retrieval-boundary-note-refresh.md
+apps/api/app/db.py
+apps/api/tests/test_routes.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Updated note:
+
+```text
+Caller-provided vector semantic retrieval preview/run paths are implemented; they do not generate embeddings, call an LLM, or prove semantic retrieval quality.
+No embedding generation, hosted semantic retrieval quality evidence, distributed tracing, or free-form final report generation is claimed.
+```
+
+Boundary: response wording and claim-boundary correction only; not a new retrieval feature, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not free-form final report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
