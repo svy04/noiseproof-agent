@@ -17996,6 +17996,78 @@ def test_readme_latest_marker_persisted_document_failure_candidate_manual_handof
     assert review_doc in portfolio
 
 
+def test_application_ready_persisted_document_failure_candidate_manual_handoff_refresh_surfaces_latest_failure_handoff_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/application-ready-persisted-document-failure-candidate-manual-handoff-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    review_doc = (
+        "docs/review/"
+        "application-ready-persisted-document-failure-candidate-manual-handoff-refresh.md"
+    )
+    runtime_doc = (
+        "docs/review/"
+        "persisted-document-failure-candidate-manual-handoff-runtime-smoke.md"
+    )
+    current_state_doc = (
+        "docs/review/"
+        "external-feedback-current-state-persisted-document-failure-candidate-manual-handoff-runtime-issue-verification.md"
+    )
+
+    assert (
+        "Application-ready Persisted Document Failure Candidate Manual Handoff Refresh"
+        in content
+    )
+    assert (
+        "application-ready persisted document failure candidate manual handoff refresh v0"
+        in content
+    )
+    assert runtime_doc in content
+    assert current_state_doc in content
+    assert "failure_case_count_delta=1" in content
+    assert "human changes draft.fix_status from draft to open" in content
+    assert "not automatic failure-case creation" in content
+    assert "not a confirm endpoint" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not product-complete" in content
+    assert (
+        "persisted document failure candidate manual handoff runtime works"
+        in app_ready
+    )
+    assert runtime_doc in app_ready
+    assert current_state_doc in app_ready
+    assert "document-derived failure-case draft/manual handoff" in app_ready
+    assert "not automatic failure-case creation" in app_ready
+    assert "not a confirm endpoint" in app_ready
+    assert (
+        "Application-ready persisted document failure candidate manual handoff refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 571 - Application-ready Persisted Document Failure Candidate Manual Handoff Refresh v0"
+        in goal
+    )
+    assert (
+        "application-ready persisted document failure candidate manual handoff refresh v0"
+        in runbook
+    )
+    assert review_doc in portfolio
+
+
 def test_readme_upload_handoff_claim_boundary_refresh_separates_explicit_handoff_from_preview_auto_persistence():
     review_path = (
         REPO_ROOT / "docs/review/readme-upload-handoff-claim-boundary-refresh.md"

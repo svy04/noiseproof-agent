@@ -866,6 +866,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | `docs/review/external-feedback-current-state-persisted-document-failure-candidate-manual-handoff-runtime-issue-verification.md` | live issue current-state screen showing the persisted document failure candidate manual handoff proof is routed while external reviewer feedback remains pending |
 | `docs/review/readme-latest-marker-persisted-document-failure-candidate-manual-handoff-current-state-refresh.md` | README first-pass latest-marker refresh pointing to the persisted document failure candidate manual handoff issue-body and pending-feedback current-state proof |
 | `docs/review/readme-latest-marker-persisted-document-failure-candidate-manual-handoff-current-state-remote-verification.md` | remote CI and External Feedback Screen success after README manual handoff marker refresh; workflow evidence only, not external reviewer feedback |
+| `docs/review/application-ready-persisted-document-failure-candidate-manual-handoff-refresh.md` | application-ready checklist refresh for persisted document failure candidate manual handoff proof; documentation only |
 
 ## What Not To Claim
 

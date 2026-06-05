@@ -10462,6 +10462,33 @@ not hosted deployment evidence
 not product-complete
 ```
 
+## Application-ready Persisted Document Failure Candidate Manual Handoff Refresh
+
+Phase marker: application-ready persisted document failure candidate manual handoff refresh v0.
+
+Review artifact:
+
+```text
+docs/review/application-ready-persisted-document-failure-candidate-manual-handoff-refresh.md
+```
+
+Linked proof:
+
+```text
+docs/review/persisted-document-failure-candidate-manual-handoff-runtime-smoke.md
+docs/review/external-feedback-current-state-persisted-document-failure-candidate-manual-handoff-runtime-issue-verification.md
+```
+
+Boundary:
+
+```text
+application-facing documentation only
+not automatic failure-case creation
+not a confirm endpoint
+not hosted deployment evidence
+not product-complete
+```
+
 ## README Latest-marker Persisted Document Failure Candidate Manual Handoff Current-state Refresh
 
 Phase marker: readme latest-marker persisted document failure candidate manual handoff current-state refresh v0.

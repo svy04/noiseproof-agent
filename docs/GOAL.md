@@ -20848,6 +20848,38 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 571 - Application-ready Persisted Document Failure Candidate Manual Handoff Refresh v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+surface the persisted document failure candidate manual handoff runtime proof in the application-ready checklist without claiming automation or product completion
+```
+
+Implemented artifacts:
+
+```text
+application-ready persisted document failure candidate manual handoff refresh v0
+docs/review/application-ready-persisted-document-failure-candidate-manual-handoff-refresh.md
+docs/review/application-ready-review.md now includes persisted document failure candidate manual handoff runtime works
+docs/review/persisted-document-failure-candidate-manual-handoff-runtime-smoke.md
+docs/review/external-feedback-current-state-persisted-document-failure-candidate-manual-handoff-runtime-issue-verification.md
+```
+
+Boundary:
+
+```text
+Phase 571 is application-facing documentation only. It is not runtime behavior, not a new endpoint, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not automatic failure-case creation, not a confirm endpoint, not automatic root-cause analysis, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
