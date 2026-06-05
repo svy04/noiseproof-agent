@@ -118,6 +118,8 @@ External feedback current-state ops dashboard anchor GET runtime issue verificat
 
 Ops dashboard anchor browser smoke: `docs/review/ops-dashboard-anchor-browser-smoke.md` records local Playwright browser automation evidence for `GET /ops/dashboard`, including `browser_anchor_count=27`, `browser_get_anchor_count=27`, `browser_post_anchor_count=0`, and `post_only_draft_preview_anchor_count=0`. This is local browser automation evidence only, not hosted deployment evidence, external reviewer feedback, customer validation, design quality evidence, or product-complete.
 
+External reviewer ops dashboard anchor browser smoke request refresh: `docs/review/external-reviewer-ops-dashboard-anchor-browser-smoke-request-refresh.md` records that reviewer-facing repository paths now point to `docs/review/ops-dashboard-anchor-browser-smoke.md`. This is request-surface refresh only, not a live issue body edit, hosted deployment evidence, external reviewer feedback, customer validation, design quality evidence, or product-complete.
+
 External feedback current-state architecture issue verification: `docs/review/external-feedback-current-state-architecture-issue-verification.md` records the current issue #1 screen after the architecture current-state issue-body refresh. It observes `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`; it does not close external reviewer feedback v0.
 
 External review issue template link-map refresh: `docs/review/external-review-issue-template-link-map-refresh.md` records that `.github/ISSUE_TEMPLATE/external-review-feedback.md` now contains direct reviewer links. It is not external reviewer feedback itself.
@@ -436,6 +438,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | External review issue body ops dashboard anchor GET runtime refresh | `docs/review/external-review-issue-body-ops-dashboard-anchor-get-runtime-refresh.md` | owner-authored issue body routing to the dashboard anchor runtime proof |
 | External feedback current-state ops dashboard anchor GET runtime issue verification | `docs/review/external-feedback-current-state-ops-dashboard-anchor-get-runtime-issue-verification.md` | current issue screen keeps external reviewer feedback pending |
 | Ops dashboard anchor browser smoke | `docs/review/ops-dashboard-anchor-browser-smoke.md` | local Playwright browser automation verified dashboard GET anchors and POST-only cue boundary |
+| External reviewer ops dashboard anchor browser smoke request refresh | `docs/review/external-reviewer-ops-dashboard-anchor-browser-smoke-request-refresh.md` | reviewer-facing repository paths now link the dashboard browser proof |
 | Failure-case workflow review queue fresh DB dashboard smoke verification | `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` | verified local |
 | Failure-case workflow review queue proof index | `docs/review/failure-case-workflow-review-queue-proof-index.md` | implemented v0 |
 | External-reader proof path | `docs/review/external-reader-proof-path.md` | implemented v0 |
@@ -490,6 +493,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | `docs/review/ops-dashboard-anchor-get-smoke.md` | current dashboard smoke proof that clickable dashboard GET anchors resolve as GET 200 inspection routes |
 | `docs/review/ops-dashboard-anchor-get-runtime-smoke.md` | current local runtime proof that dashboard GET anchors resolve against fresh Docker DB plus live FastAPI HTTP |
 | `docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md` | current reviewer-facing request refresh for dashboard GET anchor runtime proof |
+| `docs/review/external-reviewer-ops-dashboard-anchor-browser-smoke-request-refresh.md` | current reviewer-facing request refresh for dashboard browser automation proof |
 | `docs/review/external-review-issue-body-ops-dashboard-anchor-get-runtime-refresh.md` | current owner-authored issue body routing proof for dashboard GET anchor runtime evidence |
 | `docs/review/failure-case-workflow-review-queue-proof-index.md` | reader path: read-model queue -> runtime smoke -> dashboard surfacing -> fresh DB dashboard proof; no automatic failure-case creation |
 | `docs/review/portfolio-site-proof-artifact-route-verification.md` | live portfolio route proof that the public NoiseProof proof surface references the current repo proof path and boundaries |
