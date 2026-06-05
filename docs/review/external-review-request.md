@@ -46,6 +46,17 @@ Direct reviewer link map:
 docs/review/external-reviewer-link-map.md
 ```
 
+Latest persisted Report markdown export proof:
+
+```text
+docs/review/persisted-report-markdown-export.md
+GET /reports/{report_record_id}/markdown
+docs/review/persisted-report-markdown-export-remote-verification.md
+docs/review/external-reviewer-persisted-report-markdown-export-request-refresh.md
+```
+
+Boundary: this proof renders existing persisted `report_records` rows as deterministic `text/markdown`; it is not free-form report generation, not a new report-generation path, not an LLM call, not retrieval, not Evidence Ledger creation, not Noise Gate behavior, not Report record creation, not financial advice, not hosted deployment evidence, and not external reviewer feedback.
+
 Latest workflow proof bundle runtime proof:
 
 ```text

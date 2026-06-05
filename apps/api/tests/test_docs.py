@@ -8254,6 +8254,109 @@ def test_external_reviewer_report_handoff_issue_body_refresh_records_live_issue_
     )
 
 
+def test_external_reviewer_persisted_report_markdown_export_request_refresh_routes_reviewers():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-persisted-report-markdown-export-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+
+    assert "External Reviewer Persisted Report Markdown Export Request Refresh" in content
+    assert "external reviewer persisted report markdown export request refresh v0" in content
+    assert "request infrastructure only" in content
+    assert "persisted Report markdown export proof" in content
+    assert "docs/review/persisted-report-markdown-export.md" in content
+    assert "docs/review/persisted-report-markdown-export-remote-verification.md" in content
+    assert "GET /reports/{report_record_id}/markdown" in content
+    assert "27022884406" in content
+    assert "27022884394" in content
+    assert "not external reviewer feedback" in content
+    assert "does not edit the live public issue body" in content
+    assert (
+        "External reviewer persisted Report markdown export request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 574 - External Reviewer Persisted Report Markdown Export Request Refresh v0"
+        in goal
+    )
+    assert "external reviewer persisted report markdown export request refresh v0" in runbook
+    assert (
+        "docs/review/external-reviewer-persisted-report-markdown-export-request-refresh.md"
+        in portfolio
+    )
+    for reviewer_surface in [proof_path, request, brief, link_map, issue_template, contributing]:
+        assert "persisted Report markdown export proof" in reviewer_surface
+        assert "docs/review/persisted-report-markdown-export.md" in reviewer_surface
+        assert "GET /reports/{report_record_id}/markdown" in reviewer_surface
+
+
+def test_external_review_issue_body_persisted_report_markdown_export_refresh_records_live_issue_update():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-persisted-report-markdown-export-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body Persisted Report Markdown Export Refresh" in content
+    assert "external review issue body persisted report markdown export refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "persisted Report markdown export proof" in content
+    assert "docs/review/persisted-report-markdown-export.md" in content
+    assert "docs/review/persisted-report-markdown-export-remote-verification.md" in content
+    assert "GET /reports/{report_record_id}/markdown" in content
+    assert "27022884406" in content
+    assert "27022884394" in content
+    assert "owner-authored issue edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert (
+        "External review issue body persisted Report markdown export refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 575 - External Review Issue Body Persisted Report Markdown Export Refresh v0"
+        in goal
+    )
+    assert "external review issue body persisted report markdown export refresh v0" in runbook
+    assert (
+        "docs/review/external-review-issue-body-persisted-report-markdown-export-refresh.md"
+        in portfolio
+    )
+
+
 def test_semantic_retrieval_quality_report_issue_body_refresh_records_live_issue_update():
     review_path = (
         REPO_ROOT

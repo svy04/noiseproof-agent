@@ -14,6 +14,16 @@ For a shorter first pass, start with:
 docs/review/external-reviewer-shortlist.md
 ```
 
+Latest persisted Report markdown export proof:
+
+```text
+docs/review/persisted-report-markdown-export.md
+GET /reports/{report_record_id}/markdown
+docs/review/persisted-report-markdown-export-remote-verification.md
+```
+
+Boundary: this proof is a deterministic read/export surface over existing persisted `report_records` rows. It is not free-form report generation, not a new report-generation path, not an LLM call, not retrieval, not Evidence Ledger creation, not Noise Gate behavior, not Report record creation, not financial advice, not hosted deployment evidence, and not external reviewer feedback.
+
 Read in this order:
 
 1. `README.md`
@@ -69,11 +79,14 @@ Read in this order:
     - retrieval-run-linked Noise Gate proof with explicit `POST /retrieval-runs/{retrieval_run_id}/noise-gate` after linked ledger rows.
 23. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
     - retrieval-run-linked Report proof with explicit `POST /retrieval-runs/{retrieval_run_id}/report`, `pre_report_status: 409`, and `input_noise_gate_record_id`.
-24. `docs/review/embedding-endpoint-runtime-smoke.md`
+24. `docs/review/persisted-report-markdown-export.md`
+    - persisted Report markdown export proof with explicit `GET /reports/{report_record_id}/markdown`; renders existing persisted report records as deterministic markdown and keeps the no-new-claims boundary.
+    - related remote verification: `docs/review/persisted-report-markdown-export-remote-verification.md`.
+25. `docs/review/embedding-endpoint-runtime-smoke.md`
     - caller-provided chunk embedding endpoint proof with explicit `POST /chunks/{chunk_id}/embeddings`, `GET /chunks/{chunk_id}/embeddings`, and generated-claim rejection `400`.
-25. `docs/review/semantic-retrieval-persistence-runtime-smoke.md`
+26. `docs/review/semantic-retrieval-persistence-runtime-smoke.md`
     - caller-provided semantic retrieval persistence proof with explicit `POST /documents/{document_id}/semantic-retrieval-runs`, `GET /retrieval-runs`, dimension mismatch `400`, and unchanged Evidence Ledger counts.
-26. `docs/evaluation/semantic-retrieval-quality-report.md`
+27. `docs/evaluation/semantic-retrieval-quality-report.md`
     - toy semantic retrieval quality report with visible misses and disagreement; not vector search quality evidence.
 Related provider packet: `docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md`
     - embedding provider owner-runtime smoke packet with `api_calls_attempted: false`, `openai_api_key_printed: false`, and owner-provided `OPENAI_API_KEY` kept outside the repository; validator: `docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md`; post-run validation command: `docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md`; response handoff: `docs/review/embedding-model-live-provider-owner-runtime-smoke-response-handoff-report.md`; command-template handoff alignment: `docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment.md`; handoff alignment CI remote verification: `docs/review/embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment-ci-remote-verification.md`; request refresh: `docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md`; validator request refresh: `docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-validator-request-refresh.md`; handoff request refresh: `docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-handoff-alignment-request-refresh.md`; not live embedding generation proof, not hosted deployment evidence, not semantic retrieval quality evidence, and not external reviewer feedback.

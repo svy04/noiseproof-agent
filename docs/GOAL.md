@@ -20946,6 +20946,75 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 574 - External Reviewer Persisted Report Markdown Export Request Refresh v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+route external reviewers to the persisted Report markdown export proof without expanding product claims
+```
+
+Implemented artifacts:
+
+```text
+external reviewer persisted report markdown export request refresh v0
+docs/review/external-reviewer-persisted-report-markdown-export-request-refresh.md
+docs/review/persisted-report-markdown-export.md
+docs/review/persisted-report-markdown-export-remote-verification.md
+GET /reports/{report_record_id}/markdown
+CI run 27022884406 -> api-smoke -> success
+External Feedback Screen run 27022884394 -> screen -> success
+```
+
+Boundary:
+
+```text
+Phase 574 is reviewer request-surface refresh only. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not free-form report generation, not a new report-generation path, not an LLM call, not retrieval, not Evidence Ledger creation, not Noise Gate behavior, not Report record creation, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+live issue body routing refresh for this proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
+### Phase 575 - External Review Issue Body Persisted Report Markdown Export Refresh v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+update the live public issue body so reviewers can reach the persisted Report markdown export proof
+```
+
+Implemented artifacts:
+
+```text
+external review issue body persisted report markdown export refresh v0
+docs/review/external-review-issue-body-persisted-report-markdown-export-refresh.md
+https://github.com/svy04/noiseproof-agent/issues/1
+persisted Report markdown export proof body marker
+docs/review/persisted-report-markdown-export.md
+docs/review/persisted-report-markdown-export-remote-verification.md
+GET /reports/{report_record_id}/markdown
+owner-authored issue edit
+```
+
+Boundary:
+
+```text
+Phase 575 is owner-authored issue routing only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not free-form report generation, not a new report-generation path, not an LLM call, not retrieval, not Evidence Ledger creation, not Noise Gate behavior, not Report record creation, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state verification after the issue-body refresh, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

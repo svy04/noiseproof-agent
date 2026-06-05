@@ -1446,6 +1446,21 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/persisted-report-markdown-export-remote-verification.md`: added
 - Boundary: remote workflow evidence only; External Feedback Screen success is not external reviewer feedback, not hosted deployment evidence, not free-form report generation, not financial advice, and not product-complete
 
+### Phase 574 - External Reviewer Persisted Report Markdown Export Request Refresh v0
+
+- External reviewer persisted Report markdown export request refresh v0: implemented
+- `docs/review/external-reviewer-persisted-report-markdown-export-request-refresh.md`: added
+- Reviewer-facing request surfaces now route to `docs/review/persisted-report-markdown-export.md`
+- Route marker: `GET /reports/{report_record_id}/markdown`
+- Boundary: request infrastructure only; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not free-form report generation, and not product-complete
+
+### Phase 575 - External Review Issue Body Persisted Report Markdown Export Refresh v0
+
+- External review issue body persisted Report markdown export refresh v0: implemented
+- `docs/review/external-review-issue-body-persisted-report-markdown-export-refresh.md`: added
+- Issue #1 now routes reviewers to the persisted Report markdown export proof
+- Boundary: owner-authored issue edit only; not external reviewer feedback, not hosted deployment evidence, not free-form report generation, and not product-complete
+
 ### Phase 362 - Failure-case Workflow Review Queue Proof Index v0
 
 - Failure-case workflow review queue proof index v0: implemented

@@ -12,6 +12,8 @@ That file is the 5-minute repository-native path for reviewing what this project
 
 Boundary: this fast path is not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
 
+Latest proof routing now points reviewers to the persisted Report markdown export proof at `docs/review/persisted-report-markdown-export.md`, including `GET /reports/{report_record_id}/markdown` and `docs/review/persisted-report-markdown-export-remote-verification.md`. This is reviewer routing only; it is not external reviewer feedback, hosted deployment evidence, free-form report generation, or product-complete.
+
 ## What This Is
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.

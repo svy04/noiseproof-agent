@@ -44,6 +44,17 @@ Read only these:
 21. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
 22. `docs/review/external-feedback-intake-criteria.md`
 
+Latest persisted Report markdown export proof:
+
+```text
+docs/review/persisted-report-markdown-export.md
+GET /reports/{report_record_id}/markdown
+docs/review/persisted-report-markdown-export-remote-verification.md
+docs/review/external-reviewer-persisted-report-markdown-export-request-refresh.md
+```
+
+This proof renders existing persisted `report_records` rows as deterministic markdown with claim, source ids, evidence spans, confidence, limitations, contradictions, next data needed, stage input manifest, and warnings. It is not free-form report generation, not a new report-generation path, not an LLM call, not retrieval, not Evidence Ledger creation, not Noise Gate behavior, not Report record creation, not financial advice, not hosted deployment evidence, and not external reviewer feedback.
+
 Latest workflow proof bundle runtime proof:
 
 ```text

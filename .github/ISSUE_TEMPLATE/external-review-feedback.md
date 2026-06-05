@@ -22,6 +22,11 @@ Fast links:
 - README: https://github.com/svy04/noiseproof-agent/blob/main/README.md
 - External-reader proof path: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path.md
 - Portfolio index: https://github.com/svy04/noiseproof-agent/blob/main/docs/application/portfolio-index.md
+- persisted Report markdown export proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/persisted-report-markdown-export.md
+  - Route: `GET /reports/{report_record_id}/markdown`
+  - Remote verification: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/persisted-report-markdown-export-remote-verification.md
+  - Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-persisted-report-markdown-export-request-refresh.md
+  - Boundary: deterministic markdown export over existing persisted Report records only; not free-form report generation, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 - workflow proof bundle runtime smoke: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/workflow-proof-bundle-runtime-smoke.md
   - Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-proof-bundle-request-refresh.md
   - Boundary: local Docker PostgreSQL plus live FastAPI HTTP proof for `GET /workflow-runs/{id}/proof-bundle`; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.

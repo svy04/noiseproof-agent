@@ -8,6 +8,20 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest Persisted Report Markdown Export Proof
+
+- persisted Report markdown export proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/persisted-report-markdown-export.md
+- Route:
+  `GET /reports/{report_record_id}/markdown`
+- Remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/persisted-report-markdown-export-remote-verification.md
+- Request refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-persisted-report-markdown-export-request-refresh.md
+- Issue-body refresh record:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-review-issue-body-persisted-report-markdown-export-refresh.md
+- Boundary: deterministic markdown export over existing persisted Report records only; not free-form report generation, not a new report-generation path, not an LLM call, not retrieval, not Evidence Ledger creation, not Noise Gate behavior, not Report record creation, not financial advice, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 ## Latest Embedding Provider Owner-runtime Smoke Packet
 
 - Smoke packet:

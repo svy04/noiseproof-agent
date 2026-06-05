@@ -18,6 +18,10 @@ Persisted report markdown export: `docs/review/persisted-report-markdown-export.
 
 Persisted report markdown export remote verification: `docs/review/persisted-report-markdown-export-remote-verification.md` records remote GitHub Actions success for the persisted report markdown export commit: CI run `27022884406` and External Feedback Screen run `27022884394` both succeeded on head `b477ec855ed922119391d81ea0cac9f9213c38f3`. The screen success is workflow evidence only, not external reviewer feedback.
 
+External reviewer persisted Report markdown export request refresh: `docs/review/external-reviewer-persisted-report-markdown-export-request-refresh.md` points reviewer-facing request surfaces to `docs/review/persisted-report-markdown-export.md`, `GET /reports/{report_record_id}/markdown`, and the remote verification artifact. It is request infrastructure only, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
+
+External review issue body persisted Report markdown export refresh: `docs/review/external-review-issue-body-persisted-report-markdown-export-refresh.md` records the owner-authored issue #1 body update routing reviewers to the persisted Report markdown export proof. It is not external reviewer feedback, not hosted deployment evidence, not free-form report generation, and not product-complete.
+
 Visual local proof surface: `docs/review/local-browser-screenshot-walkthrough.md` records a local browser screenshot of `GET /ops/dashboard` with workflow-run lineage links. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, and not production observability.
 
 Deterministic text embedding preview: `docs/review/deterministic-text-embedding-preview.md` records `POST /chunks/embedding-preview` for `local-hash-embedding-preview-v0`. It is preview-only, not persisted, not a semantic embedding model, not vector search quality evidence, and not external reviewer feedback.
