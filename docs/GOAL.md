@@ -22212,3 +22212,38 @@ does_not_close_gate: true
 Boundary: live issue current-state screen only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, not table-content extraction, not layout fidelity evidence, not raw file storage, not full parsed text persistence, not semantic retrieval quality evidence, not Evidence Ledger generation, not Critic / Noise Gate behavior, not final report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 607 - External Feedback Current-state PDF Table-candidate Downstream Runtime Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that Phase 606 passed repository checks on `main`.
+
+Implemented artifacts:
+
+```text
+external feedback current-state PDF table-candidate downstream runtime issue verification remote verification v0
+docs/review/external-feedback-current-state-pdf-table-candidate-downstream-runtime-issue-verification-remote-verification.md
+docs/review/external-feedback-current-state-pdf-table-candidate-downstream-runtime-issue-verification.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Observed remote runs:
+
+```text
+head_sha -> 49eed2ac1013a9043c3865f580c4350bb132a4d7
+CI run 27039725653 -> success
+api-smoke -> success
+External Feedback Screen run 27039725630 -> success
+screen -> success
+candidate_count=0
+draft_count=0
+self_authored_comment
+```
+
+Boundary: remote workflow verification only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity evidence, not raw file storage, not full parsed text persistence, not semantic retrieval quality evidence, not Evidence Ledger generation, not Critic / Noise Gate behavior, not final report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

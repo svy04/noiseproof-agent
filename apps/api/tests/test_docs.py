@@ -13845,6 +13845,70 @@ def test_external_feedback_current_state_pdf_table_candidate_downstream_runtime_
     )
 
 
+def test_external_feedback_current_state_pdf_table_candidate_downstream_runtime_issue_verification_remote_verification_records_ci_success():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-pdf-table-candidate-downstream-runtime-issue-verification-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    verification_doc = (
+        "docs/review/"
+        "external-feedback-current-state-pdf-table-candidate-downstream-runtime-issue-verification.md"
+    )
+    remote_doc = (
+        "docs/review/"
+        "external-feedback-current-state-pdf-table-candidate-downstream-runtime-issue-verification-remote-verification.md"
+    )
+
+    assert (
+        "External Feedback Current-state PDF Table-candidate Downstream Runtime Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state PDF table-candidate downstream runtime issue verification remote verification v0"
+        in content
+    )
+    assert verification_doc in content
+    assert "head_sha -> 49eed2ac1013a9043c3865f580c4350bb132a4d7" in content
+    assert "CI run 27039725653" in content
+    assert "External Feedback Screen run 27039725630" in content
+    assert "api-smoke -> success" in content
+    assert "screen -> success" in content
+    assert "candidate_count=0" in content
+    assert "draft_count=0" in content
+    assert "self_authored_comment" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not Braincrew acceptance" in content
+    assert "not robust PDF extraction" in content
+    assert "not table extraction" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state PDF table-candidate downstream runtime issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 607 - External Feedback Current-state PDF Table-candidate Downstream Runtime Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state PDF table-candidate downstream runtime issue verification remote verification v0"
+        in runbook
+    )
+    assert remote_doc in portfolio
+
+
 def test_uploaded_pdf_page_diagnostics_runtime_smoke_records_live_http_evidence():
     smoke_path = REPO_ROOT / "docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md"
     assert smoke_path.is_file()
