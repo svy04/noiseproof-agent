@@ -107,5 +107,7 @@ Self-authored issue edits or comments do not close the external reviewer feedbac
 ## Next Gate
 
 ```text
-external feedback current-state workflow stage event log runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from docs/GOAL.md
+external feedback current-state workflow stage event log runtime issue verification v0
+docs/review/external-feedback-current-state-workflow-stage-event-log-runtime-issue-verification.md
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from docs/GOAL.md
 ```

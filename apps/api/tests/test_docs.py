@@ -1645,6 +1645,100 @@ def test_external_review_issue_body_workflow_stage_event_log_runtime_refresh_rec
     assert issue_doc in portfolio
 
 
+def test_external_feedback_current_state_workflow_stage_event_log_runtime_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-workflow-stage-event-log-runtime-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    issue_body_refresh = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-review-issue-body-workflow-stage-event-log-runtime-refresh.md"
+    ).read_text(encoding="utf-8")
+
+    proof_doc = "docs/review/workflow-stage-event-log-runtime-smoke.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-stage-event-log-runtime-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-workflow-stage-event-log-runtime-refresh.md"
+    )
+    verification_doc = (
+        "docs/review/"
+        "external-feedback-current-state-workflow-stage-event-log-runtime-issue-verification.md"
+    )
+
+    assert (
+        "External Feedback Current-state Workflow Stage Event Log Runtime Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state workflow stage event log runtime issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert '"updatedAt": "2026-06-05T10:19:52Z"' in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_workflow_stage_event_log_runtime_proof": true' in content
+    assert '"has_workflow_stage_event_log_request_refresh": true' in content
+    assert '"has_workflow_stage_event_log_issue_body_refresh": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert '"screened_comment_count": 1' in content
+    assert '"candidate_count": 0' in content
+    assert '"draft_count": 0' in content
+    assert '"status": "pending"' in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment" in content
+    assert "does_not_close_gate: true" in content
+    assert "POST /workflow-runs/execute-preview" in content
+    assert "GET /workflow-runs/{id}" in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert "detail_stage_event_count: 4" in content
+    assert "bundle_stage_event_count: 4" in content
+    assert "stage_names: retrieval,evidence_ledger,noise_gate,report" in content
+    assert "local_workflow_stage_event_log_not_distributed_tracing" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not autonomous workflow execution" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state workflow stage event log runtime issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 539 - External Feedback Current-state Workflow Stage Event Log Runtime Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state workflow stage event log runtime issue verification v0"
+        in runbook
+    )
+    assert verification_doc in portfolio
+    assert (
+        "external feedback current-state workflow stage event log runtime issue verification v0"
+        in issue_body_refresh
+    )
+
+
 def test_external_feedback_current_state_workflow_direct_stage_links_runtime_issue_verification_keeps_gate_pending():
     review_path = (
         REPO_ROOT
