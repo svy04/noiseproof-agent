@@ -9827,3 +9827,53 @@ not hosted deployment evidence
 not product-complete
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Owner-runtime Smoke Report Contract Alignment CI Remote Verification
+
+Phase marker: embedding model live-provider owner-runtime smoke report contract alignment ci remote verification v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-report-contract-alignment-ci-remote-verification.md
+```
+
+Observed CI run:
+
+```text
+run_id: 26991391227
+workflow_name: CI
+head_sha: 4dd79f75099989dd155a3dce71000e1b72e7c870
+job_name: api-smoke
+job_id: 79652102152
+conclusion: success
+```
+
+Relevant successful step:
+
+```text
+Run API smoke tests
+```
+
+Related workflow:
+
+```text
+related_external_feedback_screen_run_id: 26991391234
+related_external_feedback_screen_conclusion: success
+related_external_feedback_screen_boundary: workflow screen success only, not external reviewer feedback
+```
+
+Boundary:
+
+```text
+remote CI verification only
+does not read OPENAI_API_KEY
+does not print OPENAI_API_KEY
+does not call the OpenAI provider
+does not persist embeddings
+not live embedding generation proof
+not external reviewer feedback
+not hosted deployment evidence
+not product-complete
+actual live embedding model generation remains unproven
+```

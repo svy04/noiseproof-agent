@@ -18250,6 +18250,60 @@ def test_embedding_model_live_provider_owner_runtime_smoke_report_contract_align
     assert review_doc in portfolio
 
 
+def test_embedding_model_live_provider_owner_runtime_smoke_report_contract_alignment_ci_remote_verification_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-report-contract-alignment-ci-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-report-contract-alignment-ci-remote-verification.md"
+    )
+
+    assert (
+        "Embedding Model Live-provider Owner-runtime Smoke Report Contract Alignment CI Remote Verification"
+        in content
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke report contract alignment ci remote verification v0"
+        in content
+    )
+    assert "run_id: 26991391227" in content
+    assert "workflow_name: CI" in content
+    assert "head_sha: 4dd79f75099989dd155a3dce71000e1b72e7c870" in content
+    assert "job_name: api-smoke" in content
+    assert "job_id: 79652102152" in content
+    assert "conclusion: success" in content
+    assert "Run API smoke tests" in content
+    assert "related_external_feedback_screen_run_id: 26991391234" in content
+    assert "not live embedding generation proof" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Embedding model live-provider owner-runtime smoke report contract alignment ci remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 491 - Embedding Model Live-provider Owner-runtime Smoke Report Contract Alignment CI Remote Verification v0"
+        in goal
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke report contract alignment ci remote verification v0"
+        in runbook
+    )
+    assert review_doc in portfolio
+
+
 def test_external_reviewer_embedding_provider_owner_runtime_smoke_validator_request_refresh_links_validation_path():
     review_path = (
         REPO_ROOT
