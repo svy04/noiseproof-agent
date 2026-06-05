@@ -22057,3 +22057,33 @@ parsed_text_storage -> false
 Boundary: this is local runtime evidence only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity, not raw file storage, not full parsed text persistence, not retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 603 - Uploaded PDF Table-candidate Downstream Provenance Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that Phase 602 passed repository checks on `main`.
+
+Implemented artifacts:
+
+```text
+uploaded PDF table-candidate downstream provenance remote verification v0
+docs/review/uploaded-pdf-table-candidate-downstream-provenance-remote-verification.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Observed remote runs:
+
+```text
+head_sha -> adf8b7a6a714e119cbaa2db88f77fa89665f3b56
+CI run 27038450094 -> success
+api-smoke job 79808272562 -> success
+External Feedback Screen run 27038450101 -> success
+```
+
+Boundary: remote workflow verification only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity, not raw file storage, not full parsed text persistence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

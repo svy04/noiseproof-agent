@@ -13548,6 +13548,54 @@ def test_uploaded_pdf_table_candidate_downstream_provenance_runtime_smoke_record
     )
 
 
+def test_uploaded_pdf_table_candidate_downstream_remote_verification_records_ci_success():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-table-candidate-downstream-provenance-remote-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Uploaded PDF Table-candidate Downstream Provenance Remote Verification"
+        in content
+    )
+    assert (
+        "uploaded PDF table-candidate downstream provenance remote verification v0"
+        in content
+    )
+    assert "head_sha -> adf8b7a6a714e119cbaa2db88f77fa89665f3b56" in content
+    assert "CI run 27038450094 -> success" in content
+    assert "api-smoke job 79808272562 -> success" in content
+    assert "External Feedback Screen run 27038450101 -> success" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Uploaded PDF table-candidate downstream provenance remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 603 - Uploaded PDF Table-candidate Downstream Provenance Remote Verification v0"
+        in goal
+    )
+    assert (
+        "uploaded PDF table-candidate downstream provenance remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-pdf-table-candidate-downstream-provenance-remote-verification.md"
+        in portfolio
+    )
+
+
 def test_uploaded_pdf_page_diagnostics_runtime_smoke_records_live_http_evidence():
     smoke_path = REPO_ROOT / "docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md"
     assert smoke_path.is_file()
