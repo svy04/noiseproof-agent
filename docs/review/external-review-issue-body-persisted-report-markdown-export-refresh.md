@@ -57,6 +57,16 @@ has_remote_ci_run: true
 has_external_feedback_screen_run: true
 ```
 
+Follow-up current-state verification:
+
+```text
+external feedback current-state persisted Report markdown export issue verification v0
+docs/review/external-feedback-current-state-persisted-report-markdown-export-issue-verification.md
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment
+```
+
 ## Boundary
 
 This is an owner-authored issue edit.

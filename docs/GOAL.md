@@ -21015,6 +21015,51 @@ Next recommended evidence gate:
 external feedback current-state verification after the issue-body refresh, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 576 - External Feedback Current-state Persisted Report Markdown Export Issue Verification v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+record the live issue state after the persisted Report markdown export issue-body refresh without claiming outside feedback
+```
+
+Implemented artifacts:
+
+```text
+external feedback current-state persisted Report markdown export issue verification v0
+docs/review/external-feedback-current-state-persisted-report-markdown-export-issue-verification.md
+https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt -> 2026-06-05T15:26:34Z
+has_persisted_report_markdown_export_proof -> true
+has_persisted_report_markdown_export_request_refresh -> true
+has_persisted_report_markdown_export_issue_body_record -> true
+has_markdown_route -> true
+has_remote_ci_run -> true
+has_external_feedback_screen_run -> true
+comment_count -> 1
+screened_comment_count -> 1
+owner_comment_count -> 1
+candidate_count -> 0
+draft_count -> 0
+classification -> non_qualifying
+reason -> self_authored_comment
+status -> pending
+```
+
+Boundary:
+
+```text
+Phase 576 is a current-state issue screen only. It confirms that the public issue body points reviewers to the persisted Report markdown export proof while the only public comment remains owner-authored and non-qualifying. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not free-form report generation, not a new report-generation path, not an LLM call, not retrieval, not Evidence Ledger creation, not Noise Gate behavior, not Report record creation, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

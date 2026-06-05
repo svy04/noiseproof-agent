@@ -1461,6 +1461,14 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Issue #1 now routes reviewers to the persisted Report markdown export proof
 - Boundary: owner-authored issue edit only; not external reviewer feedback, not hosted deployment evidence, not free-form report generation, and not product-complete
 
+### Phase 576 - External Feedback Current-state Persisted Report Markdown Export Issue Verification v0
+
+- External feedback current-state persisted Report markdown export issue verification v0: implemented
+- `docs/review/external-feedback-current-state-persisted-report-markdown-export-issue-verification.md`: added
+- Current issue #1 still exposes `docs/review/persisted-report-markdown-export.md` and `GET /reports/{report_record_id}/markdown`
+- Screening result: `candidate_count=0`, `draft_count=0`, `reason=self_authored_comment`, `status=pending`
+- Boundary: current-state issue screen only; not external reviewer feedback, not hosted deployment evidence, not free-form report generation, and not product-complete
+
 ### Phase 362 - Failure-case Workflow Review Queue Proof Index v0
 
 - Failure-case workflow review queue proof index v0: implemented

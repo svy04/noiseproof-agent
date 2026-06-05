@@ -14,6 +14,8 @@ Boundary: this fast path is not hosted deployment evidence, not automatic failur
 
 Latest proof routing now points reviewers to the persisted Report markdown export proof at `docs/review/persisted-report-markdown-export.md`, including `GET /reports/{report_record_id}/markdown` and `docs/review/persisted-report-markdown-export-remote-verification.md`. This is reviewer routing only; it is not external reviewer feedback, hosted deployment evidence, free-form report generation, or product-complete.
 
+Latest external-feedback state: pending after persisted Report markdown export issue verification. The current issue screen has `candidate_count=0`, `draft_count=0`, and only a self-authored issue comment.
+
 ## What This Is
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.
