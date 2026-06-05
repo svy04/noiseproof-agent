@@ -68,6 +68,9 @@ Fast links:
   - Boundary: document metadata/profile only, not raw file storage, not parsed text persistence, not hosted deployment evidence, and not external reviewer feedback.
 - uploaded PDF downstream handoff proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md
   - Boundary: `parser -> pdf-pymupdf`, digital PDF text only, not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
+- uploaded PDF no-text failure candidate runtime proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md
+  - Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-pdf-no-text-failure-candidate-runtime-request-refresh.md
+  - Boundary: `pdf_no_extractable_text`, `chunk_handoff_no_chunks`, `chunk_count -> 0`, and `page_text_char_counts -> [0]` for a valid blank uploaded PDF; not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
 - uploaded PDF page diagnostics proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md
   - Boundary: `page_text_char_counts -> [39]`, `empty_page_count -> 0`, `text_block_count -> 1`, `image_block_count -> 0`, `document_count_delta -> 0`, not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
 - uploaded PDF page diagnostics downstream runtime proof: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md

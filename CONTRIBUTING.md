@@ -37,6 +37,7 @@ Shortest path first: `docs/review/external-reviewer-shortlist.md`
    - uploaded-file parsed document persistence proof; not raw file storage, not parsed text persistence, not hosted deployment evidence, and not external reviewer feedback.
 9. `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md`
    - uploaded PDF downstream handoff proof with `parser -> pdf-pymupdf`; digital PDF text only, not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
+   - uploaded PDF no-text failure candidate runtime proof: `docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md`; request refresh: `docs/review/external-reviewer-pdf-no-text-failure-candidate-runtime-request-refresh.md`; records `pdf_no_extractable_text`, `chunk_handoff_no_chunks`, `chunk_count -> 0`, and `page_text_char_counts -> [0]` for a valid blank uploaded PDF; not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
 10. `docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md`
    - uploaded PDF page diagnostics proof with `page_text_char_counts -> [39]`, `empty_page_count -> 0`, `text_block_count -> 1`, `image_block_count -> 0`, and `document_count_delta -> 0`; not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
 11. `docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md`

@@ -112,16 +112,20 @@ https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewe
 10. uploaded PDF downstream handoff proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md
    Boundary: `parser -> pdf-pymupdf`, digital PDF text only, not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
-11. uploaded PDF page diagnostics proof:
+11. uploaded PDF no-text failure candidate runtime proof:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md
+   Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-pdf-no-text-failure-candidate-runtime-request-refresh.md
+   Boundary: `pdf_no_extractable_text`, `chunk_handoff_no_chunks`, `chunk_count -> 0`, and `page_text_char_counts -> [0]` for a valid blank uploaded PDF; not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
+12. uploaded PDF page diagnostics proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md
    Boundary: `page_text_char_counts -> [39]`, `empty_page_count -> 0`, `text_block_count -> 1`, `image_block_count -> 0`, `document_count_delta -> 0`, not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
-12. uploaded PDF page diagnostics downstream runtime proof:
+13. uploaded PDF page diagnostics downstream runtime proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md
    Boundary: `retrieval_candidate_page_text_char_counts -> [39]`, document/chunk/retrieval metadata provenance only, not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
-13. uploaded PDF retrieval-run provenance runtime proof:
+14. uploaded PDF retrieval-run provenance runtime proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md
    Boundary: `candidate_parsers -> pdf-pymupdf`, `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`, not hosted deployment evidence, not robust PDF extraction, not Evidence Ledger generation, and not external reviewer feedback.
-14. uploaded PDF retrieval-run-linked Evidence Ledger provenance runtime proof:
+15. uploaded PDF retrieval-run-linked Evidence Ledger provenance runtime proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance-runtime-smoke.md
    Boundary: `metadata_json.parser -> pdf-pymupdf`, `metadata_json.source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk`, not hosted deployment evidence, not robust PDF extraction, not Noise Gate behavior, not report generation, and not external reviewer feedback.
 15. uploaded-file chunk persistence proof:

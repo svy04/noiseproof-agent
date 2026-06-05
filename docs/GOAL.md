@@ -20250,6 +20250,43 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer request refresh for uploaded PDF no-text failure candidate runtime smoke v0 if reviewer routing is useful, or another source-first product gate selected from this file
 ```
 
+### Phase 554 - External Reviewer PDF No-text Failure Candidate Runtime Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+route the uploaded PDF no-text failure candidate runtime smoke into the standard external reviewer request surfaces
+```
+
+Implemented:
+
+```text
+external reviewer PDF no-text failure candidate runtime request refresh v0
+docs/review/external-reviewer-pdf-no-text-failure-candidate-runtime-request-refresh.md
+docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md
+POST /documents/upload-chunks -> 201
+parser -> pdf-pymupdf
+document_status -> chunk_handoff_no_chunks
+chunk_count -> 0
+failure_case_candidate.failure_type -> pdf_no_extractable_text
+page_text_char_counts -> [0]
+empty_page_count -> 1
+extracted_page_count -> 0
+robust_pdf_extraction -> false
+raw_file_storage -> false
+parsed_text_storage -> false
+```
+
+Phase 554 is request infrastructure only. It is not a live issue body edit, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not full parsed text persistence, not semantic retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, live issue-body refresh for uploaded PDF no-text failure candidate runtime smoke v0 if public issue routing is needed, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

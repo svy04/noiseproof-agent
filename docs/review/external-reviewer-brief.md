@@ -124,6 +124,15 @@ docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md
 
 This proof records `parser -> pdf-pymupdf` for uploaded digital PDF text flowing through upload preview, upload chunk preview, explicit upload-to-chunks persistence, listed chunk lookup, and upload retrieval preview. It is not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 
+uploaded PDF no-text failure candidate runtime proof:
+
+```text
+docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md
+docs/review/external-reviewer-pdf-no-text-failure-candidate-runtime-request-refresh.md
+```
+
+This proof records local Docker/FastAPI HTTP evidence that a valid blank uploaded PDF reaches `POST /documents/upload-chunks -> 201` with `parser -> pdf-pymupdf`, `document_status -> chunk_handoff_no_chunks`, `chunk_count -> 0`, `failure_case_candidate.failure_type -> pdf_no_extractable_text`, `page_text_char_counts -> [0]`, and `robust_pdf_extraction -> false`. It is request infrastructure only when surfaced here, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
+
 uploaded PDF page diagnostics proof:
 
 ```text
