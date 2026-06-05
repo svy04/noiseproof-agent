@@ -4,10 +4,35 @@ import json
 import os
 import sys
 from collections.abc import Mapping, Sequence
+from pathlib import Path
 
 
 PHASE_MARKER = "embedding model live-provider owner-runtime smoke packet v0"
 DISCOVERY_PHASE_MARKER = "embedding model live-provider owner-runtime input discovery v0"
+VALIDATOR_PHASE_MARKER = "embedding model live-provider owner-runtime smoke validator v0"
+EXPECTED_REPORT_TOP_LEVEL_FIELDS = {
+    "api_calls_attempted",
+    "embedding_length",
+    "embedding_model",
+    "embedding_status",
+    "http_status",
+    "openai_api_key_printed",
+    "persistence_boundary",
+    "provider_response_dimension_check",
+    "route",
+    "secret_committed_to_repo",
+    "secret_exposed",
+    "secret_logged",
+    "usage_metadata_present",
+}
+SECRET_FIELD_NAMES = {
+    "api_key",
+    "authorization",
+    "openai_api_key",
+    "provider_secret",
+    "secret",
+    "token",
+}
 
 
 def _owner_runtime_smoke_packet() -> dict:
@@ -136,6 +161,115 @@ def _discover_owner_runtime_input(env: Mapping[str, str]) -> dict:
     }
 
 
+def _validate_owner_runtime_smoke_report(
+    report: Mapping[str, object], *, report_path: Path | None = None
+) -> dict:
+    missing_or_failed_checks: list[str] = []
+    forbidden_secret_fields = _find_forbidden_secret_fields(report)
+    for field_path in forbidden_secret_fields:
+        missing_or_failed_checks.append(f"forbidden secret field present: {field_path}")
+
+    unexpected_fields = sorted(
+        str(key) for key in report if str(key) not in EXPECTED_REPORT_TOP_LEVEL_FIELDS
+    )
+    for field_path in unexpected_fields:
+        missing_or_failed_checks.append(f"unexpected field present: {field_path}")
+
+    report_path_allowed = (
+        report_path is None or not _path_is_inside_repository(report_path)
+    )
+    if not report_path_allowed:
+        missing_or_failed_checks.append("report path must be outside repository")
+
+    expected_values = {
+        "route": "POST /chunks/embedding-model-preview",
+        "http_status": 200,
+        "embedding_status": "owner_runtime_provider_generated",
+        "embedding_model": "text-embedding-3-small",
+        "embedding_length": 1536,
+        "provider_response_dimension_check": "passed",
+        "usage_metadata_present": True,
+        "secret_exposed": False,
+        "persistence_boundary": "preview_only_not_persisted",
+        "api_calls_attempted": True,
+        "openai_api_key_printed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+    }
+    for field, expected_value in expected_values.items():
+        if report.get(field) != expected_value:
+            formatted = str(expected_value).lower()
+            missing_or_failed_checks.append(f"{field} must be {formatted}")
+
+    accepted = not missing_or_failed_checks
+    return {
+        "phase_marker": VALIDATOR_PHASE_MARKER,
+        "validation_status": "accepted" if accepted else "rejected",
+        "accepted_owner_runtime_smoke": accepted,
+        "missing_or_failed_checks": missing_or_failed_checks,
+        "forbidden_secret_fields": forbidden_secret_fields,
+        "unexpected_fields": unexpected_fields,
+        "report_path_boundary": {
+            "report_path_allowed": report_path_allowed,
+            "required_location": "outside_repository",
+        },
+        "reported_embedding_status": report.get("embedding_status"),
+        "reported_embedding_length": report.get("embedding_length"),
+        "api_calls_attempted": False,
+        "openai_api_key_printed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+        "non_claims": {
+            "validator_makes_provider_call": False,
+            "hosted_deployment_evidence": False,
+            "external_reviewer_feedback": False,
+            "semantic_retrieval_quality_evidence": False,
+        },
+        "boundary": [
+            "validates owner-provided runtime smoke metadata only",
+            "does not read or print OPENAI_API_KEY",
+            "does not call the OpenAI provider",
+            "report path must remain outside the repository",
+            "not hosted deployment evidence",
+        ],
+    }
+
+
+def _find_forbidden_secret_fields(value: object, *, prefix: str = "") -> list[str]:
+    if isinstance(value, Mapping):
+        found: list[str] = []
+        for key, child_value in value.items():
+            key_text = str(key)
+            field_path = f"{prefix}.{key_text}" if prefix else key_text
+            if key_text.lower() in SECRET_FIELD_NAMES:
+                found.append(field_path)
+            found.extend(_find_forbidden_secret_fields(child_value, prefix=field_path))
+        return sorted(found)
+    if isinstance(value, list):
+        found = []
+        for index, child_value in enumerate(value):
+            field_path = f"{prefix}[{index}]" if prefix else f"[{index}]"
+            found.extend(_find_forbidden_secret_fields(child_value, prefix=field_path))
+        return sorted(found)
+    return []
+
+
+def _path_is_inside_repository(path: Path) -> bool:
+    repo_root = Path(__file__).resolve().parents[4]
+    try:
+        path.resolve().relative_to(repo_root)
+    except ValueError:
+        return False
+    return True
+
+
+def _read_json_report(path: Path) -> dict[str, object]:
+    payload = json.loads(path.read_text(encoding="utf-8-sig"))
+    if not isinstance(payload, dict):
+        raise ValueError("owner runtime smoke report must be a JSON object")
+    return payload
+
+
 def _print_json(payload: Mapping) -> None:
     print(json.dumps(payload, indent=2, sort_keys=True))
 
@@ -149,6 +283,14 @@ def main(argv: Sequence[str] | None = None, env: Mapping[str, str] | None = None
     if args == ["--discover-owner-runtime-input"]:
         _print_json(_discover_owner_runtime_input(environment))
         return 0
+    if len(args) == 2 and args[0] == "--validate-owner-runtime-smoke-report":
+        report_path = Path(args[1])
+        report = _validate_owner_runtime_smoke_report(
+            _read_json_report(report_path),
+            report_path=report_path,
+        )
+        _print_json(report)
+        return 0 if report["accepted_owner_runtime_smoke"] is True else 5
     _print_json({"error": "unsupported_command", "phase_marker": PHASE_MARKER})
     return 2
 

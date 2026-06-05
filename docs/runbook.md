@@ -9446,3 +9446,39 @@ remote CI missing-input guard evidence only
 not live embedding generation proof
 actual live embedding model generation remains unproven
 ```
+
+## Embedding Model Live-provider Owner-runtime Smoke Validator
+
+Phase marker: embedding model live-provider owner-runtime smoke validator v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md
+```
+
+Validator command:
+
+```bash
+uv run python -m app.services.embedding_model_live_provider_harness --validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>
+```
+
+Accepted report markers:
+
+```text
+embedding_status: owner_runtime_provider_generated
+embedding_length: 1536
+provider_response_dimension_check: passed
+openai_api_key_printed: false
+accepted_owner_runtime_smoke: true
+missing_or_failed_checks: []
+```
+
+Boundary:
+
+```text
+metadata validator only
+report path must remain outside the repository
+not live embedding generation proof by itself
+actual live embedding model generation remains unproven
+```

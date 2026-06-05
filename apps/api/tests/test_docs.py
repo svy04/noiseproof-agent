@@ -17934,3 +17934,48 @@ def test_embedding_model_live_provider_owner_runtime_input_discovery_ci_remote_v
         in runbook
     )
     assert review_doc in portfolio
+
+
+def test_embedding_model_live_provider_owner_runtime_smoke_validator_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-validator.md"
+    )
+
+    assert "Embedding Model Live-provider Owner-runtime Smoke Validator" in content
+    assert "embedding model live-provider owner-runtime smoke validator v0" in content
+    assert "--validate-owner-runtime-smoke-report" in content
+    assert "accepted_owner_runtime_smoke: true" in content
+    assert "missing_or_failed_checks: []" in content
+    assert "embedding_status: owner_runtime_provider_generated" in content
+    assert "embedding_length: 1536" in content
+    assert "provider_response_dimension_check: passed" in content
+    assert "openai_api_key_printed: false" in content
+    assert "report path must remain outside the repository" in content
+    assert "not live embedding generation proof by itself" in content
+    assert (
+        "Embedding model live-provider owner-runtime smoke validator v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 482 - Embedding Model Live-provider Owner-runtime Smoke Validator v0"
+        in goal
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke validator v0" in runbook
+    )
+    assert review_doc in portfolio
