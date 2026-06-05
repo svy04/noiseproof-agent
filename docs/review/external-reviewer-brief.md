@@ -142,6 +142,15 @@ docs/review/external-reviewer-persisted-document-failure-candidate-draft-runtime
 
 This proof records local Docker/FastAPI HTTP evidence that a persisted document no-text failure candidate can become a preview-only manual failure-case draft with `preview_only_not_persisted`, `human_confirmation_required -> true`, `persisted_document_failure_case_candidate`, and `failure_case_count_delta -> 0`. It is request infrastructure only when surfaced here, not automatic failure-case creation, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction, not OCR, and not product-complete.
 
+persisted document failure candidate manual handoff runtime proof:
+
+```text
+docs/review/persisted-document-failure-candidate-manual-handoff-runtime-smoke.md
+docs/review/external-reviewer-persisted-document-failure-candidate-manual-handoff-runtime-request-refresh.md
+```
+
+This proof records local Docker/FastAPI HTTP evidence that a persisted document failure candidate can be manually confirmed and persisted with `POST /failure-cases -> 201`, `failure_case_count_delta -> 1`, and human changes `draft.fix_status` from `draft` to `open`. It is request infrastructure only when surfaced here, not automatic failure-case creation, not a confirm endpoint, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction, not OCR, and not product-complete.
+
 uploaded PDF page diagnostics proof:
 
 ```text

@@ -23460,3 +23460,107 @@ def test_persisted_document_failure_candidate_manual_handoff_runtime_smoke_recor
         in runbook
     )
     assert review_doc in portfolio
+
+
+def test_external_reviewer_persisted_document_failure_candidate_manual_handoff_runtime_request_refresh_routes_latest_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-persisted-document-failure-candidate-manual-handoff-runtime-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    shortlist = (REPO_ROOT / "docs/review/external-reviewer-shortlist.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+
+    proof_doc = (
+        "docs/review/"
+        "persisted-document-failure-candidate-manual-handoff-runtime-smoke.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-persisted-document-failure-candidate-manual-handoff-runtime-request-refresh.md"
+    )
+
+    assert (
+        "External Reviewer Persisted Document Failure Candidate Manual Handoff Runtime Request Refresh"
+        in content
+    )
+    assert (
+        "external reviewer persisted document failure candidate manual handoff runtime request refresh v0"
+        in content
+    )
+    assert "request infrastructure only" in content
+    assert "persisted document failure candidate manual handoff runtime proof" in content
+    assert proof_doc in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/failure-case-draft-preview -> 200" in content
+    assert "POST /failure-cases -> 201" in content
+    assert "GET /failure-cases -> 200" in content
+    assert "failure_case_count_delta -> 1" in content
+    assert "preview_only_not_persisted" in content
+    assert "human_confirmation_required -> true" in content
+    assert "human changes draft.fix_status from draft to open" in content
+    assert "pdf_no_extractable_text" in content
+    assert "chunk_handoff_no_chunks" in content
+    assert "does not edit the live public issue body" in content
+    assert "not automatic failure-case creation" in content
+    assert "not a confirm endpoint" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not product-complete" in content
+    assert (
+        "External reviewer persisted document failure candidate manual handoff runtime request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 566 - External Reviewer Persisted Document Failure Candidate Manual Handoff Runtime Request Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer persisted document failure candidate manual handoff runtime request refresh v0"
+        in runbook
+    )
+    assert request_doc in portfolio
+    for reviewer_surface in [
+        proof_path,
+        shortlist,
+        request,
+        brief,
+        link_map,
+        issue_template,
+        contributing,
+    ]:
+        assert (
+            "persisted document failure candidate manual handoff runtime proof"
+            in reviewer_surface
+        )
+        assert proof_doc in reviewer_surface
+        assert "failure_case_count_delta -> 1" in reviewer_surface
+        assert "not automatic failure-case creation" in reviewer_surface
+        assert "not a confirm endpoint" in reviewer_surface

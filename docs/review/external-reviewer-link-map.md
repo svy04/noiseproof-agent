@@ -132,6 +132,10 @@ https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewe
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/persisted-document-failure-candidate-draft-preview-runtime-smoke.md
    Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-persisted-document-failure-candidate-draft-runtime-request-refresh.md
    Boundary: `preview_only_not_persisted`, `failure_case_count_delta -> 0`, and persisted document `profile_json` handoff into a manual draft; not automatic failure-case creation, not hosted deployment evidence, and not external reviewer feedback.
+15. persisted document failure candidate manual handoff runtime proof:
+   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/persisted-document-failure-candidate-manual-handoff-runtime-smoke.md
+   Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-persisted-document-failure-candidate-manual-handoff-runtime-request-refresh.md
+   Boundary: `failure_case_count_delta -> 1` after human confirmation changes `draft.fix_status` from `draft` to `open`; not automatic failure-case creation, not a confirm endpoint, not hosted deployment evidence, and not external reviewer feedback.
 15. uploaded-file chunk persistence proof:
    https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-file-chunk-persistence-runtime-smoke.md
    Boundary: not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.

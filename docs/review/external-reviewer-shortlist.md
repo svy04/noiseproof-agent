@@ -28,6 +28,7 @@ It does not replace the full proof path.
    - Stage event log request refresh: `docs/review/external-reviewer-workflow-stage-event-log-runtime-request-refresh.md`.
    - Related uploaded PDF no-text failure candidate runtime proof: `docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md`; request refresh: `docs/review/external-reviewer-pdf-no-text-failure-candidate-runtime-request-refresh.md`; records `pdf_no_extractable_text`, `chunk_handoff_no_chunks`, and `not robust PDF extraction`.
    - Related persisted document failure candidate draft preview runtime proof: `docs/review/persisted-document-failure-candidate-draft-preview-runtime-smoke.md`; request refresh: `docs/review/external-reviewer-persisted-document-failure-candidate-draft-runtime-request-refresh.md`; records `preview_only_not_persisted`, `failure_case_count_delta -> 0`, and `not automatic failure-case creation`.
+   - Related persisted document failure candidate manual handoff runtime proof: `docs/review/persisted-document-failure-candidate-manual-handoff-runtime-smoke.md`; request refresh: `docs/review/external-reviewer-persisted-document-failure-candidate-manual-handoff-runtime-request-refresh.md`; records `failure_case_count_delta -> 1`, human confirmation, and `not a confirm endpoint`.
 3. `docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md`
    - Local runtime proof that raw-file guard decisions surface in `/ops/summary` and `/ops/dashboard`.
 4. `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md`

@@ -254,6 +254,15 @@ docs/review/external-reviewer-persisted-document-failure-candidate-draft-runtime
 
 This persisted document failure candidate draft preview runtime proof is explicit `POST /documents/upload-chunks` into `POST /documents/{document_id}/failure-case-draft-preview` with `preview_only_not_persisted`, `human_confirmation_required -> true`, `persisted_document_failure_case_candidate`, and `failure_case_count_delta -> 0`. The request refresh is request infrastructure only. It is not automatic failure-case creation, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction, not OCR, not table extraction, and not product-complete.
 
+persisted document failure candidate manual handoff runtime proof:
+
+```text
+docs/review/persisted-document-failure-candidate-manual-handoff-runtime-smoke.md
+docs/review/external-reviewer-persisted-document-failure-candidate-manual-handoff-runtime-request-refresh.md
+```
+
+This persisted document failure candidate manual handoff runtime proof is explicit `POST /documents/upload-chunks` into `POST /documents/{document_id}/failure-case-draft-preview`, human changes `draft.fix_status` from `draft` to `open`, `POST /failure-cases -> 201`, and `GET /failure-cases -> 200` with `failure_case_count_delta -> 1`. The request refresh is request infrastructure only. It is not automatic failure-case creation, not a confirm endpoint, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction, not OCR, and not product-complete.
+
 uploaded-file retrieval persistence proof:
 
 ```text

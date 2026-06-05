@@ -20669,6 +20669,40 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 566 - External Reviewer Persisted Document Failure Candidate Manual Handoff Runtime Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the persisted document failure candidate manual handoff runtime proof discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer persisted document failure candidate manual handoff runtime request refresh v0
+docs/review/external-reviewer-persisted-document-failure-candidate-manual-handoff-runtime-request-refresh.md
+docs/review/persisted-document-failure-candidate-manual-handoff-runtime-smoke.md
+POST /documents/upload-chunks -> 201
+POST /documents/{document_id}/failure-case-draft-preview -> 200
+POST /failure-cases -> 201
+GET /failure-cases -> 200
+preview_only_not_persisted
+human_confirmation_required -> true
+human changes draft.fix_status from draft to open
+failure_case_count_delta -> 1
+```
+
+Phase 566 is request infrastructure only. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not automatic failure-case creation, not a confirm endpoint, not automatic root-cause analysis, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external review issue body persisted document failure candidate manual handoff runtime refresh v0 if this proof should be routed through the live public issue, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

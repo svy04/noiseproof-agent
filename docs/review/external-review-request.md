@@ -176,6 +176,15 @@ docs/review/external-reviewer-persisted-document-failure-candidate-draft-runtime
 
 Boundary: this proof records local Docker/FastAPI HTTP evidence that `POST /documents/{document_id}/failure-case-draft-preview -> 200` returns `preview_only_not_persisted`, `human_confirmation_required -> true`, `persisted_document_failure_case_candidate`, and `failure_case_count_delta -> 0` from persisted document `profile_json`. It is request infrastructure only when surfaced here, not automatic failure-case creation, not hosted deployment evidence, and not external reviewer feedback.
 
+persisted document failure candidate manual handoff runtime proof:
+
+```text
+docs/review/persisted-document-failure-candidate-manual-handoff-runtime-smoke.md
+docs/review/external-reviewer-persisted-document-failure-candidate-manual-handoff-runtime-request-refresh.md
+```
+
+Boundary: this proof records local Docker/FastAPI HTTP evidence that `POST /failure-cases -> 201` persists a human-confirmed draft after `POST /documents/{document_id}/failure-case-draft-preview -> 200`, with `preview_only_not_persisted`, `human_confirmation_required -> true`, `failure_case_count_delta -> 1`, and human changes `draft.fix_status` from `draft` to `open`. It is request infrastructure only when surfaced here, not automatic failure-case creation, not a confirm endpoint, not hosted deployment evidence, and not external reviewer feedback.
+
 uploaded PDF page diagnostics proof:
 
 ```text
