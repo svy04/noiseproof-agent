@@ -361,6 +361,8 @@ External reviewer ops dashboard anchor browser smoke request refresh v0: impleme
 
 External review issue body ops dashboard anchor browser smoke refresh v0: implemented. Boundary: issue #1 now points reviewers to `docs/review/ops-dashboard-anchor-browser-smoke.md`, `docs/review/external-reviewer-ops-dashboard-anchor-browser-smoke-request-refresh.md`, and `docs/review/external-review-issue-body-ops-dashboard-anchor-browser-smoke-refresh.md`; observed `starts_with_request=true`, `first_codepoint=35`, and `comment_count=1`. This is owner-authored issue routing only, not external reviewer feedback, hosted deployment evidence, customer validation, design quality evidence, or product-complete.
 
+External feedback current-state ops dashboard anchor browser smoke issue verification v0: implemented. Boundary: current issue #1 has the ops dashboard anchor browser smoke proof, request refresh, and issue-body refresh links, but the only screened comment is owner-authored, `screened_comment_count=1`, `candidate_count=0`, `draft_count=0`, and external reviewer feedback remains pending. This is not external reviewer feedback, hosted deployment evidence, customer validation, design quality evidence, or product-complete.
+
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
 Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence only; not hosted deployment evidence, not external reviewer feedback, and not malware scanning.

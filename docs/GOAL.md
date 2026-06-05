@@ -19331,6 +19331,53 @@ Next recommended evidence gate:
 external feedback current-state ops dashboard anchor browser smoke issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 529 - External Feedback Current-state Ops Dashboard Anchor Browser Smoke Issue Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the current public issue #1 state after the ops dashboard anchor browser smoke issue-body refresh and keep external reviewer feedback pending
+```
+
+Implemented:
+
+```text
+external feedback current-state ops dashboard anchor browser smoke issue verification v0
+https://github.com/svy04/noiseproof-agent/issues/1
+docs/review/ops-dashboard-anchor-browser-smoke.md
+docs/review/external-reviewer-ops-dashboard-anchor-browser-smoke-request-refresh.md
+docs/review/external-review-issue-body-ops-dashboard-anchor-browser-smoke-refresh.md
+docs/review/external-feedback-current-state-ops-dashboard-anchor-browser-smoke-issue-verification.md
+starts_with_request: true
+first_codepoint: 35
+has_ops_dashboard_anchor_browser_proof: true
+has_ops_dashboard_anchor_browser_request_refresh: true
+has_ops_dashboard_anchor_browser_issue_body_refresh: true
+has_browser_anchor_count: true
+has_browser_get_anchor_count: true
+has_browser_post_anchor_count_zero: true
+has_post_only_draft_preview_anchor_count_zero: true
+has_post_only_draft_preview_cue_visible: true
+comment_count: 1
+screened_comment_count: 1
+candidate_count: 0
+draft_count: 0
+classification: non_qualifying
+reason: self_authored_comment
+does_not_close_gate: true
+external reviewer feedback remains pending
+```
+
+Phase 529 is current-state issue verification only. It adds no endpoint, no route behavior change, no runtime workflow semantics, no schema or migration, no hosted deployment evidence, no automatic failure-case creation, no background automation, no complete workflow failure causality, no external reviewer feedback, no LLM calls, no embeddings, no customer validation, no Braincrew acceptance, no design quality claim, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
