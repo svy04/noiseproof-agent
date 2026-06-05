@@ -251,6 +251,8 @@ External reviewer embedding provider owner-runtime smoke packet request refresh 
 
 External review issue body embedding provider owner-runtime smoke packet refresh v0: implemented. Boundary: issue #1 body now points reviewers to `docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md`, `docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md`, and `docs/review/external-review-issue-body-embedding-provider-owner-runtime-smoke-packet-refresh.md`; this is owner-authored issue routing only, not external reviewer feedback, hosted deployment evidence, live embedding generation proof, or product-complete.
 
+External feedback current-state embedding provider owner-runtime smoke packet issue verification v0: implemented. Boundary: issue #1 current state has `candidate_count=0`, `draft_count=0`, and only `self_authored_comment`; external reviewer feedback remains pending.
+
 README latest-marker current-state refresh v0: implemented. Boundary: top markers now point to the current ClamAV proof-boundary, runtime proof, reviewer-routing, and external-feedback pending state.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.

@@ -50,6 +50,8 @@ External reviewer embedding provider owner-runtime smoke packet request refresh:
 
 External review issue body embedding provider owner-runtime smoke packet refresh: `docs/review/external-review-issue-body-embedding-provider-owner-runtime-smoke-packet-refresh.md` records the owner-authored issue #1 body update pointing reviewers to the packet and request refresh. This is issue routing only, not external reviewer feedback, not hosted deployment evidence, not live embedding generation proof, and not product-complete.
 
+External feedback current-state embedding provider owner-runtime smoke packet issue verification: `docs/review/external-feedback-current-state-embedding-provider-owner-runtime-smoke-packet-issue-verification.md` records that issue #1 still has `candidate_count=0`, `draft_count=0`, and only a self-authored comment after the packet issue-body refresh. External reviewer feedback remains pending.
+
 External review request surface: `docs/review/external-review-request.md` prepares a structured request for outside critique and points reviewers to `.github/ISSUE_TEMPLATE/external-review-feedback.md` and `https://github.com/svy04/noiseproof-agent/issues/1`. It is not external reviewer feedback itself.
 
 External feedback intake surface: `docs/review/external-feedback-intake-criteria.md` defines which public comments can qualify as external reviewer feedback. It is not feedback itself.
