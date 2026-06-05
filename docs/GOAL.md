@@ -21886,3 +21886,25 @@ screen job 79801556053 -> success
 Boundary: remote workflow verification only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not production orchestration, not database migration, not API behavior, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 598 - README Current Proof Route Refresh v0
+
+Status: implemented.
+
+Purpose: align the README first-screen latest proof route with the current issue #1 reviewer route and the workflow failure auto-created dashboard runtime proof.
+
+Implemented artifacts:
+
+```text
+readme current proof route refresh v0
+docs/review/readme-current-proof-route-refresh.md
+README.md
+apps/api/tests/test_docs.py
+docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md
+docs/review/external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md
+docs/review/external-review-issue-body-workflow-failure-auto-created-dashboard-runtime-refresh.md
+```
+
+Boundary: README route clarity only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

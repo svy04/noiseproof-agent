@@ -25647,3 +25647,33 @@ def test_compose_service_name_runbook_refresh_remote_verification_is_recorded():
     )
     assert "Phase 597 - Compose Service-name Runbook Refresh Remote Verification v0" in goal
     assert "docs/review/compose-service-name-runbook-refresh-remote-verification.md" in portfolio
+
+
+def test_readme_top_latest_proof_route_points_to_current_dashboard_proof():
+    review_path = REPO_ROOT / "docs/review/readme-current-proof-route-refresh.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+    fast_path = readme.split("## External Reviewer Fast Path", 1)[1].split(
+        "## What This Is", 1
+    )[0]
+
+    assert "readme current proof route refresh v0" in content
+    assert "workflow failure auto-created dashboard runtime proof" in content
+    assert "docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest proof routing now points reviewers to the workflow failure auto-created dashboard runtime proof"
+        in fast_path
+    )
+    assert "docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md" in fast_path
+    assert "docs/review/external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md" in fast_path
+    assert "docs/review/external-review-issue-body-workflow-failure-auto-created-dashboard-runtime-refresh.md" in fast_path
+    assert "persisted Report markdown export proof" not in fast_path
+    assert "README current proof route refresh v0: implemented" in readme
+    assert "Phase 598 - README Current Proof Route Refresh v0" in goal

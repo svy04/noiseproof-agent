@@ -12,11 +12,11 @@ That file is the 5-minute repository-native path for reviewing what this project
 
 Boundary: this fast path is not hosted deployment evidence, not automatic failure-case creation beyond the local v0 workflow failure path, and not complete workflow failure causality.
 
-Latest proof routing now points reviewers to the persisted Report markdown export proof at `docs/review/persisted-report-markdown-export.md`, including `GET /reports/{report_record_id}/markdown` and `docs/review/persisted-report-markdown-export-remote-verification.md`. This is reviewer routing only; it is not external reviewer feedback, hosted deployment evidence, free-form report generation, or product-complete.
+Latest proof routing now points reviewers to the workflow failure auto-created dashboard runtime proof at `docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md`, plus `docs/review/external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md` and `docs/review/external-review-issue-body-workflow-failure-auto-created-dashboard-runtime-refresh.md`. This is reviewer routing only; it is not external reviewer feedback, hosted deployment evidence, retry behavior, root-cause automation, complete workflow failure causality, or product-complete.
 
-Latest external-feedback state: pending after persisted Report markdown export issue verification. The current issue screen has `candidate_count=0`, `draft_count=0`, and only a self-authored issue comment.
+Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification. The current issue screen has `candidate_count=0`, `draft_count=0`, and only a self-authored issue comment.
 
-Latest remote verification state: the persisted Report markdown export issue verification is remotely checked by CI run `27024339169` and External Feedback Screen run `27024339136`; this is workflow evidence only, not external feedback.
+Latest remote verification state: the Compose service-name runbook refresh was remotely checked by CI run `27036444352` and External Feedback Screen run `27036444321`; this is workflow evidence only, not external feedback or runtime product proof.
 
 Latest issue readability state: issue #1 now starts with `## Request` after the owner-authored BOM removal refresh; this is request-surface hygiene only, not external feedback.
 
@@ -268,6 +268,8 @@ Compose project isolation v0: implemented. Boundary: `docker-compose.yml` no lon
 Compose service-name runbook refresh v0: implemented. Boundary: future runtime smoke guidance now tells new smokes to use Compose project names plus service commands such as `docker compose -p <project> ps db`, `docker compose -p <project> ps -q db`, and `docker compose -p <project> exec -T db pg_isready -U noiseproof -d noiseproof`; historical proof docs may still mention old fixed container names because they record prior observations. This is not a new runtime smoke, hosted deployment evidence, production orchestration, or product-complete.
 
 Compose service-name runbook refresh remote verification v0: implemented. Boundary: GitHub Actions verified the Phase 596 documentation gate on head `876291ab45ad839b60ec997511bf15cdee4c8bac` with CI run `27036444352` and External Feedback Screen run `27036444321` both successful. This is remote workflow verification only, not a new runtime smoke, external reviewer feedback, hosted deployment evidence, or product-complete.
+
+README current proof route refresh v0: implemented. Boundary: the first-screen README proof route now points to `docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md`, its reviewer request refresh, and its issue-body refresh record. This is route clarity only, not a new runtime smoke, external reviewer feedback, hosted deployment evidence, retry behavior, root-cause automation, complete workflow failure causality, or product-complete.
 
 External reviewer workflow failure auto-creation runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md` and `docs/review/external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, retry behavior, root-cause automation, complete workflow failure causality, or product-complete.
 
