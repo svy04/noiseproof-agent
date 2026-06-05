@@ -1469,6 +1469,14 @@ This hidden source archive preserves earlier README proof markers while the rend
 - Screening result: `candidate_count=0`, `draft_count=0`, `reason=self_authored_comment`, `status=pending`
 - Boundary: current-state issue screen only; not external reviewer feedback, not hosted deployment evidence, not free-form report generation, and not product-complete
 
+### Phase 577 - External Feedback Current-state Persisted Report Markdown Export Issue Verification Remote Verification v0
+
+- External feedback current-state persisted Report markdown export issue verification remote verification v0: implemented
+- `docs/review/external-feedback-current-state-persisted-report-markdown-export-issue-verification-remote-verification.md`: added
+- Remote CI run `27024339169`: success on head `57b6bd9eadce2b9b21d6ec2a3471210f5ad46403`
+- External Feedback Screen run `27024339136`: success on the same head
+- Boundary: remote workflow evidence only; not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, free-form report generation, or product-complete
+
 ### Phase 362 - Failure-case Workflow Review Queue Proof Index v0
 
 - Failure-case workflow review queue proof index v0: implemented

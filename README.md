@@ -16,6 +16,8 @@ Latest proof routing now points reviewers to the persisted Report markdown expor
 
 Latest external-feedback state: pending after persisted Report markdown export issue verification. The current issue screen has `candidate_count=0`, `draft_count=0`, and only a self-authored issue comment.
 
+Latest remote verification state: the persisted Report markdown export issue verification is remotely checked by CI run `27024339169` and External Feedback Screen run `27024339136`; this is workflow evidence only, not external feedback.
+
 ## What This Is
 
 NoiseProof Agent is a planned RAG/agent service for market intelligence work where the input data is inconsistent, noisy, and difficult to trust.

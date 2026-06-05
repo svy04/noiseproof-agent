@@ -21060,6 +21060,42 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 577 - External Feedback Current-state Persisted Report Markdown Export Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+record remote GitHub Actions verification for the persisted Report markdown export issue-verification gate
+```
+
+Implemented artifacts:
+
+```text
+external feedback current-state persisted Report markdown export issue verification remote verification v0
+docs/review/external-feedback-current-state-persisted-report-markdown-export-issue-verification-remote-verification.md
+docs/review/external-feedback-current-state-persisted-report-markdown-export-issue-verification.md
+head_sha -> 57b6bd9eadce2b9b21d6ec2a3471210f5ad46403
+CI run 27024339169 -> api-smoke -> success
+External Feedback Screen run 27024339136 -> screen -> success
+candidate_count=0
+draft_count=0
+self_authored_comment
+```
+
+Boundary:
+
+```text
+Phase 577 is remote workflow verification only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not free-form report generation, not a new report-generation path, not an LLM call, not retrieval, not Evidence Ledger creation, not Noise Gate behavior, not Report record creation, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
