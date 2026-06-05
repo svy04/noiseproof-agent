@@ -777,6 +777,25 @@ def _blank_pdf_bytes() -> bytes:
     return bytes(output)
 
 
+def _table_pdf_bytes() -> bytes:
+    import pymupdf
+
+    document = pymupdf.open()
+    page = document.new_page(width=300, height=200)
+    x0, y0, x1, y1 = 40, 40, 260, 120
+    for x in [x0, (x0 + x1) / 2, x1]:
+        page.draw_line((x, y0), (x, y1), color=(0, 0, 0), width=1)
+    for y in [y0, (y0 + y1) / 2, y1]:
+        page.draw_line((x0, y), (x1, y), color=(0, 0, 0), width=1)
+    page.insert_text((50, 65), "Segment")
+    page.insert_text((160, 65), "Growth")
+    page.insert_text((50, 105), "Enterprise")
+    page.insert_text((160, 105), "12%")
+    content = document.tobytes()
+    document.close()
+    return content
+
+
 def test_safe_download_filename_blocks_path_control_chars_and_overlong_names():
     raw_file_id = uuid4()
     unsafe_name = (
@@ -3114,6 +3133,36 @@ def test_document_upload_preview_exposes_pdf_page_diagnostics_without_robust_cla
     assert metadata["text_block_count"] == 1
     assert metadata["image_block_count"] == 0
     assert any("OCR" in warning for warning in body["warnings"])
+    assert client.get("/documents").json() == []
+
+
+def test_document_upload_preview_exposes_pdf_table_candidate_diagnostics_without_table_extraction_claim():
+    client = make_client()
+    content = _table_pdf_bytes()
+
+    response = client.post(
+        "/documents/upload-preview",
+        files={"file": ("table-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    metadata = body["metadata"]
+    assert body["parser"] == "pdf-pymupdf"
+    assert "Segment" in body["text"]
+    assert "Enterprise" in body["text"]
+    assert metadata["digital_pdf_text_extraction"] is True
+    assert metadata["robust_pdf_extraction"] is False
+    assert metadata["table_candidate_diagnostics_available"] is True
+    assert metadata["table_candidate_count"] == 1
+    assert metadata["table_candidate_page_counts"] == [1]
+    assert metadata["table_candidate_shapes"] == [
+        {"page_index": 0, "row_count": 2, "col_count": 2, "cell_count": 4}
+    ]
+    assert metadata["table_extraction_performed"] is False
+    assert any("table candidate diagnostics" in warning for warning in body["warnings"])
+    assert any("does not extract table contents" in warning for warning in body["warnings"])
+    assert any("table extraction" in warning for warning in body["warnings"])
     assert client.get("/documents").json() == []
 
 

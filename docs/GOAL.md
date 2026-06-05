@@ -21930,3 +21930,38 @@ screen job 79803002489 -> success
 Boundary: remote workflow verification only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not a live issue body edit, not retry behavior, not root-cause automation, not complete workflow failure causality, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 600 - Uploaded PDF Table-candidate Diagnostics v0
+
+Status: implemented.
+
+Purpose: add table-candidate diagnostics to the uploaded digital PDF preview path without claiming table extraction, OCR, layout fidelity, or robust PDF extraction.
+
+Implemented artifacts:
+
+```text
+uploaded PDF table-candidate diagnostics v0
+packages/ingestion/parsers/pdf.py
+apps/api/app/routes/documents.py
+apps/api/app/services/document_chunk_retrieval.py
+docs/review/uploaded-pdf-table-candidate-diagnostics.md
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+```
+
+Implemented behavior:
+
+```text
+POST /documents/upload-preview
+parser -> pdf-pymupdf
+table_candidate_diagnostics_available -> true for the table fixture
+table_candidate_count -> 1 for the table fixture
+table_candidate_page_counts -> [1]
+table_candidate_shapes -> [{"page_index": 0, "row_count": 2, "col_count": 2, "cell_count": 4}]
+table_extraction_performed -> false
+warning -> PyMuPDF table candidate diagnostics found potential tables but does not extract table contents.
+```
+
+Boundary: this is route-level table-candidate diagnostics only. It is not table extraction, does not extract table contents, is not OCR, not layout fidelity, not robust PDF extraction, not raw file storage, not parsed text persistence, not retrieval quality evidence, not Evidence Ledger generation, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for uploaded PDF table-candidate diagnostics if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

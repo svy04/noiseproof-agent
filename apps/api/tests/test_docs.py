@@ -13384,6 +13384,48 @@ def test_uploaded_pdf_page_diagnostics_is_documented_without_robust_claim():
     assert "PDF upload preview records page diagnostics" in api_readme
 
 
+def test_uploaded_pdf_table_candidate_diagnostics_is_documented_without_table_extraction_claim():
+    review_path = REPO_ROOT / "docs/review/uploaded-pdf-table-candidate-diagnostics.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded PDF Table-candidate Diagnostics" in content
+    assert "uploaded PDF table-candidate diagnostics v0" in content
+    assert "POST /documents/upload-preview" in content
+    assert "PyMuPDF" in content
+    assert "find_tables" in content
+    assert "table_candidate_diagnostics_available" in content
+    assert "table_candidate_count" in content
+    assert "table_candidate_page_counts" in content
+    assert "table_candidate_shapes" in content
+    assert "table_extraction_performed: false" in content
+    assert "does not extract table contents" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not table extraction" in content
+    assert "not layout fidelity" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Uploaded PDF table-candidate diagnostics v0: implemented"
+        in readme
+    )
+    assert "Phase 600 - Uploaded PDF Table-candidate Diagnostics v0" in goal
+    assert "uploaded PDF table-candidate diagnostics v0" in runbook
+    assert "docs/review/uploaded-pdf-table-candidate-diagnostics.md" in portfolio
+    assert "uploaded PDF table-candidate diagnostics route proof exists" in application_ready
+
+
 def test_uploaded_pdf_page_diagnostics_runtime_smoke_records_live_http_evidence():
     smoke_path = REPO_ROOT / "docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md"
     assert smoke_path.is_file()

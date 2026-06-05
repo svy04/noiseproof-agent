@@ -7,6 +7,12 @@ PDF_FALLBACK_WARNING = "PDF parser is currently a text-only fallback; robust PDF
 PDF_TEXT_EXTRACTION_WARNING = (
     "PDF text extraction uses PyMuPDF for digital text only; OCR, table extraction, and layout fidelity are not claimed."
 )
+PDF_TABLE_CANDIDATE_WARNING = (
+    "PyMuPDF table candidate diagnostics found potential tables but does not extract table contents."
+)
+PDF_TABLE_DIAGNOSTIC_UNAVAILABLE_WARNING = (
+    "PyMuPDF table candidate diagnostics were unavailable for at least one page."
+)
 
 
 class PdfParser:
@@ -100,9 +106,13 @@ def _extract_pdf_text(content: bytes) -> tuple[str, dict[str, Any], list[str]] |
         text_block_count = 0
         image_block_count = 0
         layout_block_diagnostics_available = True
+        table_candidate_diagnostics_available = True
+        table_candidate_count = 0
+        table_candidate_page_counts: list[int] = []
+        table_candidate_shapes: list[dict[str, int]] = []
         warnings: list[str] = []
 
-        for page in document:
+        for page_index, page in enumerate(document):
             text = page.get_text().strip()
             page_text.append(text)
             page_text_char_counts.append(len(text))
@@ -113,9 +123,34 @@ def _extract_pdf_text(content: bytes) -> tuple[str, dict[str, Any], list[str]] |
                 continue
             text_block_count += sum(1 for block in blocks if block.get("type") == 0)
             image_block_count += sum(1 for block in blocks if block.get("type") == 1)
+            try:
+                finder = page.find_tables()
+                tables = list(getattr(finder, "tables", []) or [])
+            except Exception:
+                table_candidate_diagnostics_available = False
+                table_candidate_page_counts.append(0)
+                continue
+
+            table_candidate_page_counts.append(len(tables))
+            table_candidate_count += len(tables)
+            for table in tables:
+                row_count = _non_negative_int(getattr(table, "row_count", 0))
+                col_count = _non_negative_int(getattr(table, "col_count", 0))
+                table_candidate_shapes.append(
+                    {
+                        "page_index": page_index,
+                        "row_count": row_count,
+                        "col_count": col_count,
+                        "cell_count": row_count * col_count,
+                    }
+                )
 
         if not layout_block_diagnostics_available:
             warnings.append("PyMuPDF layout block diagnostics were unavailable for at least one page.")
+        if not table_candidate_diagnostics_available:
+            warnings.append(PDF_TABLE_DIAGNOSTIC_UNAVAILABLE_WARNING)
+        if table_candidate_count > 0:
+            warnings.append(PDF_TABLE_CANDIDATE_WARNING)
 
         extracted_page_count = sum(1 for count in page_text_char_counts if count > 0)
         metadata = {
@@ -128,9 +163,22 @@ def _extract_pdf_text(content: bytes) -> tuple[str, dict[str, Any], list[str]] |
             "empty_page_count": document.page_count - extracted_page_count,
             "text_block_count": text_block_count,
             "image_block_count": image_block_count,
+            "table_candidate_diagnostics_available": table_candidate_diagnostics_available,
+            "table_candidate_count": table_candidate_count,
+            "table_candidate_page_counts": table_candidate_page_counts,
+            "table_candidate_shapes": table_candidate_shapes,
+            "table_extraction_performed": False,
         }
         return "\n".join(text for text in page_text if text), metadata, warnings
     except Exception:
         return None
     finally:
         document.close()
+
+
+def _non_negative_int(value: object) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return max(value, 0)
+    return 0

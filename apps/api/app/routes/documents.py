@@ -121,6 +121,11 @@ PDF_PAGE_DIAGNOSTIC_METADATA_KEYS = (
     "empty_page_count",
     "text_block_count",
     "image_block_count",
+    "table_candidate_diagnostics_available",
+    "table_candidate_count",
+    "table_candidate_page_counts",
+    "table_candidate_shapes",
+    "table_extraction_performed",
 )
 SOURCE_TYPE_EXTENSIONS = {
     "csv": {".csv"},
