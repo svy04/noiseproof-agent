@@ -22776,3 +22776,39 @@ does_not_close_gate: true
 Boundary: live issue current-state screen only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not a new retrieval algorithm, not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger generation, not Critic / Noise Gate behavior, not final report generation, and not product-complete.
 
 Next gate: remote verification for this current-state issue screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the Phase 622 issue current-state verification proof passed CI and External Feedback Screen after push.
+
+Implemented artifacts:
+
+```text
+external feedback current-state retrieval run semantic provenance issue verification remote verification v0
+docs/review/external-feedback-current-state-retrieval-run-semantic-provenance-issue-verification-remote-verification.md
+docs/review/external-feedback-current-state-retrieval-run-semantic-provenance-issue-verification.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote verification:
+
+```text
+head_sha: 4e58ebe228cd3d4e9d0573e393cfdd0ef04d0dc1
+CI run 27044739630: success
+External Feedback Screen run 27044739628: success
+CI job_id: 79828248905
+External Feedback Screen job_id: 79828248885
+candidate_count=0
+draft_count=0
+reason=self_authored_comment
+status=pending
+```
+
+Boundary: remote workflow verification only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not a new retrieval algorithm, not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger generation, not Critic / Noise Gate behavior, not final report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

@@ -16,7 +16,7 @@ Latest proof routing now points reviewers to the retrieval run semantic provenan
 
 Latest external-feedback state: pending after PDF table-candidate downstream runtime issue verification. The current issue screen has `candidate_count=0`, `draft_count=0`, and only a self-authored issue comment.
 
-Latest remote verification state: the README table-candidate proof route refresh was remotely checked by CI run `27040299642` and External Feedback Screen run `27040299666`; see `docs/review/readme-current-proof-route-table-candidate-refresh-remote-verification.md`. This is workflow evidence only, not external feedback or runtime product proof.
+Latest remote verification state: the retrieval run semantic provenance issue-screen proof was remotely checked by CI run `27044739630` and External Feedback Screen run `27044739628`; see `docs/review/external-feedback-current-state-retrieval-run-semantic-provenance-issue-verification-remote-verification.md`. This is workflow evidence only, not external feedback, not hosted deployment evidence, and not runtime product proof.
 
 Latest issue readability state: issue #1 now starts with `## Request` after the owner-authored BOM removal refresh; this is request-surface hygiene only, not external feedback.
 
@@ -241,6 +241,8 @@ Retrieval run semantic provenance runtime smoke remote verification v0: implemen
 External review issue body retrieval run semantic provenance runtime refresh v0: implemented. Boundary: issue #1 now points reviewers to `docs/review/retrieval-run-semantic-provenance-runtime-smoke.md`, `docs/review/retrieval-run-semantic-provenance-runtime-smoke-remote-verification.md`, and `docs/review/external-review-issue-body-retrieval-run-semantic-provenance-runtime-refresh.md`; this is owner-authored issue body routing only, not external reviewer feedback, hosted deployment evidence, semantic retrieval quality evidence, embedding generation, or product-complete.
 
 External feedback current-state retrieval run semantic provenance issue verification v0: implemented. Boundary: issue #1 still has only owner-authored feedback after the retrieval run semantic provenance issue-body refresh, with `candidate_count=0`, `draft_count=0`, `reason=self_authored_comment`, and `status=pending`; this is current-state issue screening only, not external reviewer feedback, hosted deployment evidence, semantic retrieval quality evidence, embedding generation, or product-complete.
+
+External feedback current-state retrieval run semantic provenance issue verification remote verification v0: implemented. Boundary: CI run `27044739630` and External Feedback Screen run `27044739628` succeeded on head `4e58ebe228cd3d4e9d0573e393cfdd0ef04d0dc1`; external reviewer feedback v0 remains pending with `candidate_count=0`, `draft_count=0`, and `reason=self_authored_comment`. This is remote workflow verification only, not external reviewer feedback, hosted deployment evidence, semantic retrieval quality evidence, embedding generation, or product-complete.
 
 Workflow direct stage links v0: implemented. Boundary: deterministic workflow-created records now create direct local link rows in `noise_gate_evidence_links`, `report_evidence_links`, and `report_noise_gate_links`, surfaced through `GET /workflow-runs/{id}/lineage` as `direct_stage_links`. Standalone gate/report endpoints remain payload-only unless they create explicit links. This is not distributed tracing, hosted observability, autonomous workflow execution, external reviewer feedback, or product-complete.
 

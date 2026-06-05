@@ -120,6 +120,9 @@ def test_application_ready_report_handoff_checklist_refresh_surfaces_linked_gate
     portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
         encoding="utf-8"
     )
+    fast_path = readme.split("## External Reviewer Fast Path", 1)[1].split(
+        "## What This Is", 1
+    )[0]
 
     assert "Application-ready Report Handoff Checklist Refresh" in content
     assert "application-ready report handoff checklist refresh v0" in content
@@ -26289,7 +26292,7 @@ def test_readme_current_proof_route_table_candidate_refresh_remote_verification_
     )
 
 
-def test_readme_top_latest_remote_verification_state_points_to_table_candidate_route_verification():
+def test_readme_top_latest_remote_verification_state_preserves_table_candidate_route_verification_record():
     review_path = (
         REPO_ROOT
         / "docs/review/readme-latest-remote-verification-marker-table-candidate-refresh.md"
@@ -26321,13 +26324,20 @@ def test_readme_top_latest_remote_verification_state_points_to_table_candidate_r
     assert "not product-complete" in content
     assert (
         "Latest remote verification state: the README table-candidate proof route refresh was remotely checked by CI run `27040299642` and External Feedback Screen run `27040299666`"
+        not in fast_path
+    )
+    assert (
+        "Latest remote verification state: the retrieval run semantic provenance issue-screen proof was remotely checked by CI run `27044739630` and External Feedback Screen run `27044739628`"
         in fast_path
     )
     assert (
-        "docs/review/readme-current-proof-route-table-candidate-refresh-remote-verification.md"
+        "docs/review/external-feedback-current-state-retrieval-run-semantic-provenance-issue-verification-remote-verification.md"
         in fast_path
     )
-    assert "workflow evidence only, not external feedback or runtime product proof" in fast_path
+    assert (
+        "workflow evidence only, not external feedback, not hosted deployment evidence, and not runtime product proof"
+        in fast_path
+    )
     assert "Compose service-name runbook refresh was remotely checked" not in fast_path
     assert (
         "README latest remote verification marker table-candidate refresh v0: implemented"
@@ -26973,6 +26983,85 @@ def test_external_feedback_current_state_retrieval_run_semantic_provenance_issue
     )
     assert (
         "docs/review/external-feedback-current-state-retrieval-run-semantic-provenance-issue-verification.md"
+        in portfolio
+    )
+
+
+def test_external_feedback_current_state_retrieval_run_semantic_provenance_issue_verification_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-retrieval-run-semantic-provenance-issue-verification-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    fast_path = readme.split("## External Reviewer Fast Path", 1)[1].split(
+        "## What This Is", 1
+    )[0]
+
+    assert (
+        "External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state retrieval run semantic provenance issue verification remote verification v0"
+        in content
+    )
+    assert "4e58ebe228cd3d4e9d0573e393cfdd0ef04d0dc1" in content
+    assert "CI run 27044739630" in content
+    assert "External Feedback Screen run 27044739628" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27044739630" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27044739628" in content
+    assert (
+        "docs/review/external-feedback-current-state-retrieval-run-semantic-provenance-issue-verification.md"
+        in content
+    )
+    assert (
+        "external reviewer feedback v0 gate remains pending after remote workflow success"
+        in content
+    )
+    assert "candidate_count=0" in content
+    assert "draft_count=0" in content
+    assert "self_authored_comment" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state retrieval run semantic provenance issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Latest remote verification state: the retrieval run semantic provenance issue-screen proof was remotely checked by CI run `27044739630` and External Feedback Screen run `27044739628`"
+        in fast_path
+    )
+    assert (
+        "docs/review/external-feedback-current-state-retrieval-run-semantic-provenance-issue-verification-remote-verification.md"
+        in fast_path
+    )
+    assert (
+        "Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 622 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification v0"
+    ) < goal.index(
+        "Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0"
+    )
+    assert (
+        "external feedback current-state retrieval run semantic provenance issue verification remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-retrieval-run-semantic-provenance-issue-verification-remote-verification.md"
         in portfolio
     )
 
