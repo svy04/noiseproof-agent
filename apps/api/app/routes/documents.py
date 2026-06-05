@@ -22,6 +22,7 @@ from app.schemas import (
     DocumentProfileOut,
     DocumentProfileRequest,
     DocumentRetrievalRunRequest,
+    FailureCaseDraftPreviewOut,
     ParsePreviewOut,
     ParsePreviewRequest,
     RawFileDownloadApprovalCreate,
@@ -52,6 +53,7 @@ from app.schemas import (
 from app.settings import Settings, get_settings
 from app.services.chunk_preview import preview_chunks
 from app.services.document_chunk_retrieval import run_document_chunk_retrieval
+from app.services.document_failure_case_draft import preview_document_failure_case_draft
 from app.services.document_profiler import profile_document
 from app.services.parse_preview import preview_parse
 from app.services.raw_file_scan_execution import (
@@ -649,6 +651,30 @@ def create_document(
 @router.get("", response_model=list[DocumentOut])
 def list_documents(repository: Repository = Depends(get_repository)) -> list[dict]:
     return list(repository.list_documents())
+
+
+@router.post(
+    "/{document_id}/failure-case-draft-preview",
+    response_model=FailureCaseDraftPreviewOut,
+)
+def document_failure_case_draft_preview(
+    document_id: UUID,
+    repository: Repository = Depends(get_repository),
+) -> FailureCaseDraftPreviewOut:
+    document = next(
+        (
+            row
+            for row in repository.list_documents()
+            if str(row.get("id")) == str(document_id)
+        ),
+        None,
+    )
+    if document is None:
+        raise HTTPException(status_code=404, detail="document not found")
+    try:
+        return preview_document_failure_case_draft(document=document)
+    except ValueError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
 
 
 @router.post("/{document_id}/chunks", response_model=DocumentChunkOut, status_code=201)

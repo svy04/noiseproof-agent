@@ -3333,6 +3333,47 @@ def test_ops_summary_and_dashboard_surface_no_text_pdf_failure_candidate_counts(
     assert "This is metadata-derived from document profile_json" in dashboard.text
 
 
+def test_persisted_no_text_pdf_document_failure_case_draft_preview_without_persistence():
+    client = make_client()
+    content = _blank_pdf_bytes()
+
+    upload = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Blank PDF report",
+            "strategy": "fixed-window",
+            "max_characters": "80",
+            "overlap": "0",
+        },
+        files={"file": ("blank-report.pdf", content, "application/pdf")},
+    )
+    document_id = upload.json()["document"]["id"]
+
+    response = client.post(f"/documents/{document_id}/failure-case-draft-preview")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["human_confirmation_required"] is True
+    assert body["draft"]["failure_type"] == "pdf_no_extractable_text"
+    assert body["draft"]["fix_status"] == "draft"
+    assert body["draft"]["agent_run_id"] is None
+    assert body["draft"]["workflow_run_id"] is None
+    assert "Blank PDF report" in body["draft"]["description"]
+    assert "scanned, image-only" in body["draft"]["root_cause"]
+    assert body["source_summary"]["document_id"] == document_id
+    assert body["source_summary"]["document_status"] == "chunk_handoff_no_chunks"
+    assert body["source_summary"]["source_type"] == "pdf"
+    assert body["source_summary"]["failure_type"] == "pdf_no_extractable_text"
+    assert body["source_summary"]["stage"] == "persisted_document_failure_case_candidate"
+    assert any("does not create failure_cases" in warning for warning in body["warnings"])
+    assert any(
+        "metadata-derived from document profile_json" in warning
+        for warning in body["warnings"]
+    )
+    assert client.get("/failure-cases").json() == []
+
+
 def test_uploaded_pdf_chunk_retrieval_run_keeps_pdf_parser_provenance():
     client = make_client()
     content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")

@@ -20429,6 +20429,37 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 559 - Persisted Document Failure Candidate Draft Preview v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+allow an operator to preview a failure-case draft from persisted document profile_json failure candidates without automatic persistence
+```
+
+Implemented:
+
+```text
+persisted document failure candidate draft preview v0
+docs/review/persisted-document-failure-candidate-draft-preview.md
+POST /documents/{document_id}/failure-case-draft-preview
+preview_only_not_persisted
+human_confirmation_required -> true
+pdf_no_extractable_text
+chunk_handoff_no_chunks
+persisted_document_failure_case_candidate
+```
+
+Phase 559 is preview-only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not automatic failure-case creation, not automatic root-cause analysis, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+local Docker/FastAPI runtime smoke for persisted document failure candidate draft preview if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
