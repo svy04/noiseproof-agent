@@ -27132,6 +27132,85 @@ def test_retrieval_run_linked_evidence_ledger_semantic_source_provenance_is_reco
     )
 
 
+def test_retrieval_run_linked_evidence_ledger_semantic_source_provenance_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Retrieval-run-linked Evidence Ledger Semantic Source Provenance Runtime Smoke"
+        in content
+    )
+    assert (
+        "retrieval-run-linked Evidence Ledger semantic source provenance runtime smoke v0"
+        in content
+    )
+    assert "compose project -> noiseproof-phase625" in content
+    assert "POSTGRES_PORT=55445" in content
+    assert "API port -> 8016" in content
+    assert "Pending migrations: 0" in content
+    assert "GET_HEALTH_STATUS=ok" in content
+    assert "POST_SEMANTIC_RETRIEVAL_RUN_RESULT_COUNT=2" in content
+    assert "POST_LEDGER_STORED_ENTRY_COUNT=2" in content
+    assert "LEDGER_WARNING_HAS_SOURCE_MODE=True" in content
+    assert "LEDGER_WARNING_HAS_QUERY_VECTOR_SOURCE=True" in content
+    assert "ENTRY_SOURCE_RETRIEVAL_MODE=semantic_persisted" in content
+    assert "ENTRY_SOURCE_QUERY_VECTOR_SOURCE=caller_provided_vector" in content
+    assert "ENTRY_SOURCE_IS_SEMANTIC=True" in content
+    assert (
+        "ENTRY_SOURCE_RETRIEVAL_PERSISTENCE_BOUNDARY=semantic_retrieval_run_only_no_evidence_ledger"
+        in content
+    )
+    assert (
+        "ENTRY_PERSISTENCE_BOUNDARY=retrieval_run_linked_evidence_ledger_no_llm_no_embeddings"
+        in content
+    )
+    assert "TRACE_SOURCE_RETRIEVAL_MODE=semantic_persisted" in content
+    assert "TRACE_SOURCE_QUERY_VECTOR_SOURCE=caller_provided_vector" in content
+    assert "TRACE_HANDOFF_PERFORMS_SEMANTIC_RETRIEVAL=False" in content
+    assert "TRACE_NO_EMBEDDINGS=True" in content
+    assert "TRACE_NO_LLM=True" in content
+    assert "docker compose -p noiseproof-phase625 down -v -> completed" in content
+    assert "API_STOPPED=True" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Retrieval-run-linked Evidence Ledger semantic source provenance runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 625 - Retrieval-run-linked Evidence Ledger Semantic Source Provenance Runtime Smoke v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 624 - Retrieval-run-linked Evidence Ledger Semantic Source Provenance v0"
+    ) < goal.index(
+        "Phase 625 - Retrieval-run-linked Evidence Ledger Semantic Source Provenance Runtime Smoke v0"
+    )
+    assert (
+        "retrieval-run-linked Evidence Ledger semantic source provenance runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-smoke.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

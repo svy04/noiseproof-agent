@@ -22846,3 +22846,46 @@ Agent-run trace_json includes handoff_performs_semantic_retrieval=false.
 Boundary: route-level source-provenance preservation only; not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Next gate: local Docker/FastAPI runtime smoke for retrieval-run-linked Evidence Ledger semantic source provenance if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 625 - Retrieval-run-linked Evidence Ledger Semantic Source Provenance Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: verify the Phase 624 semantic source-provenance handoff against a local Docker-backed PostgreSQL database and live FastAPI HTTP server.
+
+Implemented artifacts:
+
+```text
+retrieval-run-linked Evidence Ledger semantic source provenance runtime smoke v0
+docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-smoke.md
+docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Runtime evidence:
+
+```text
+compose project: noiseproof-phase625
+POSTGRES_PORT: 55445
+API port: 8016
+Pending migrations: 0
+GET_HEALTH_STATUS=ok
+POST_SEMANTIC_RETRIEVAL_RUN_RESULT_COUNT=2
+POST_LEDGER_STORED_ENTRY_COUNT=2
+LEDGER_WARNING_HAS_SOURCE_MODE=True
+LEDGER_WARNING_HAS_QUERY_VECTOR_SOURCE=True
+ENTRY_SOURCE_RETRIEVAL_MODE=semantic_persisted
+ENTRY_SOURCE_QUERY_VECTOR_SOURCE=caller_provided_vector
+ENTRY_SOURCE_IS_SEMANTIC=True
+TRACE_HANDOFF_PERFORMS_SEMANTIC_RETRIEVAL=False
+TRACE_NO_EMBEDDINGS=True
+TRACE_NO_LLM=True
+cleanup: completed
+```
+
+Boundary: local Docker/FastAPI runtime source-provenance evidence only; not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: remote verification for this runtime-smoke proof after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
