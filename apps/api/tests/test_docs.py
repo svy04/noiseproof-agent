@@ -4512,6 +4512,38 @@ def test_readme_detailed_implementation_status_compression_replaces_lower_phase_
     assert "README detailed implementation-status compression v0: implemented" in readme
 
 
+def test_persisted_report_markdown_export_remote_verification_is_documented():
+    remote = (
+        REPO_ROOT / "docs/review/persisted-report-markdown-export-remote-verification.md"
+    )
+    assert remote.is_file()
+
+    content = remote.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Persisted Report Markdown Export Remote Verification" in content
+    assert "persisted report markdown export remote verification v0" in content
+    assert "b477ec855ed922119391d81ea0cac9f9213c38f3" in content
+    assert "27022884406" in content
+    assert "27022884394" in content
+    assert "api-smoke -> success" in content
+    assert "screen -> success" in content
+    assert "The External Feedback Screen success is a workflow screen only." in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not free-form report generation" in content
+    assert "not product-complete" in content
+    assert "Phase 573 - Persisted Report Markdown Export Remote Verification v0" in goal
+    assert "persisted report markdown export remote verification v0" in runbook
+    assert "docs/review/persisted-report-markdown-export-remote-verification.md" in portfolio
+    assert "Persisted report markdown export remote verification v0: implemented" in readme
+
+
 def test_readme_proof_marker_archive_review_selects_archive_extraction_gate():
     content = (REPO_ROOT / "docs/review/readme-proof-marker-archive-review.md").read_text(
         encoding="utf-8"

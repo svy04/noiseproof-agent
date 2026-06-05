@@ -1430,6 +1430,22 @@ This hidden source archive preserves earlier README proof markers while the rend
 - `docs/review/semantic-retrieval-quality-report-ci-remote-issue-body-refresh.md`: added
 - Boundary: owner-authored request-surface refresh only; not vector search quality evidence, not benchmark result, not model comparison, not hosted deployment evidence, not external reviewer feedback, and does not close external reviewer feedback v0
 
+### Phase 572 - Persisted Report Markdown Export v0
+
+- Persisted report markdown export v0: implemented
+- `GET /reports/{report_record_id}/markdown`: added
+- `apps/api/app/services/report_markdown.py`: added
+- `docs/review/persisted-report-markdown-export.md`: added
+- Boundary: deterministic read/export over existing persisted Report records only; not free-form report generation, not an LLM call, not retrieval, not Evidence Ledger creation, not financial advice, and not product-complete
+
+### Phase 573 - Persisted Report Markdown Export Remote Verification v0
+
+- Persisted report markdown export remote verification v0: implemented
+- Remote CI run `27022884406`: success on head `b477ec855ed922119391d81ea0cac9f9213c38f3`
+- External Feedback Screen run `27022884394`: success on the same head
+- `docs/review/persisted-report-markdown-export-remote-verification.md`: added
+- Boundary: remote workflow evidence only; External Feedback Screen success is not external reviewer feedback, not hosted deployment evidence, not free-form report generation, not financial advice, and not product-complete
+
 ### Phase 362 - Failure-case Workflow Review Queue Proof Index v0
 
 - Failure-case workflow review queue proof index v0: implemented

@@ -16,6 +16,8 @@ Demo surface: `docs/review/demo-transcript-capture.md` records a self-authored r
 
 Persisted report markdown export: `docs/review/persisted-report-markdown-export.md` records `GET /reports/{report_record_id}/markdown`, a deterministic read/export surface that renders an existing persisted Report record as reviewer-readable Markdown. It does not generate new claims, call an LLM, run retrieval, create Evidence Ledger rows, or implement free-form reports.
 
+Persisted report markdown export remote verification: `docs/review/persisted-report-markdown-export-remote-verification.md` records remote GitHub Actions success for the persisted report markdown export commit: CI run `27022884406` and External Feedback Screen run `27022884394` both succeeded on head `b477ec855ed922119391d81ea0cac9f9213c38f3`. The screen success is workflow evidence only, not external reviewer feedback.
+
 Visual local proof surface: `docs/review/local-browser-screenshot-walkthrough.md` records a local browser screenshot of `GET /ops/dashboard` with workflow-run lineage links. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, and not production observability.
 
 Deterministic text embedding preview: `docs/review/deterministic-text-embedding-preview.md` records `POST /chunks/embedding-preview` for `local-hash-embedding-preview-v0`. It is preview-only, not persisted, not a semantic embedding model, not vector search quality evidence, and not external reviewer feedback.
