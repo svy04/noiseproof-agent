@@ -109,6 +109,16 @@ ALLOWED_RAW_FILE_EXTENSIONS = {
     ".pdf",
     ".txt",
 }
+PDF_PAGE_DIAGNOSTIC_METADATA_KEYS = (
+    "page_diagnostics_available",
+    "layout_block_diagnostics_available",
+    "extraction_scope",
+    "page_text_char_counts",
+    "extracted_page_count",
+    "empty_page_count",
+    "text_block_count",
+    "image_block_count",
+)
 SOURCE_TYPE_EXTENSIONS = {
     "csv": {".csv"},
     "html": {".html", ".htm"},
@@ -174,6 +184,15 @@ def _metadata_datetime(value: object) -> object:
     if isinstance(value, datetime):
         return value.isoformat().replace("+00:00", "Z")
     return value
+
+
+def _pdf_page_diagnostic_metadata(metadata: dict | None) -> dict:
+    source = metadata or {}
+    return {
+        key: source[key]
+        for key in PDF_PAGE_DIAGNOSTIC_METADATA_KEYS
+        if key in source
+    }
 
 
 def _download_rate_limit_client_host(request: Request) -> str:
@@ -1480,6 +1499,11 @@ async def upload_document_chunks(
                     "chunk_metrics": selected_strategy.metrics if selected_strategy else {},
                     "chunk_warnings": selected_strategy.warnings if selected_strategy else [],
                     "parse_warnings": warnings,
+                    **(
+                        _pdf_page_diagnostic_metadata(preview.metadata)
+                        if preview.source_type == "pdf"
+                        else {}
+                    ),
                     "upload": {
                         "filename": preview.filename,
                         "content_type": preview.content_type,
@@ -1514,6 +1538,7 @@ async def upload_document_chunks(
                             preview.parser == "pdf-pymupdf"
                         ),
                         "robust_pdf_extraction": False,
+                        **_pdf_page_diagnostic_metadata(preview.metadata),
                     }
                 )
             persisted_chunks.append(

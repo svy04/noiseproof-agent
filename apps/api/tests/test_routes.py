@@ -3269,6 +3269,67 @@ def test_uploaded_pdf_chunk_retrieval_run_keeps_pdf_parser_provenance():
     assert body["results"][0]["metadata"]["robust_pdf_extraction"] is False
 
 
+def test_uploaded_pdf_page_diagnostics_flow_into_chunk_and_retrieval_provenance():
+    client = make_client()
+    content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")
+
+    upload = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Uploaded PDF report",
+            "strategy": "fixed-window",
+            "max_characters": "80",
+            "overlap": "0",
+        },
+        files={"file": ("sample-report.pdf", content, "application/pdf")},
+    ).json()
+
+    document_profile = upload["document"]["profile_json"]
+    chunk_metadata = upload["chunks"][0]["metadata_json"]
+
+    assert document_profile["page_diagnostics_available"] is True
+    assert document_profile["layout_block_diagnostics_available"] is True
+    assert document_profile["extraction_scope"] == "digital_text_page_diagnostics"
+    assert document_profile["page_text_char_counts"] == [39]
+    assert document_profile["extracted_page_count"] == 1
+    assert document_profile["empty_page_count"] == 0
+    assert document_profile["text_block_count"] == 1
+    assert document_profile["image_block_count"] == 0
+
+    assert chunk_metadata["page_diagnostics_available"] is True
+    assert chunk_metadata["layout_block_diagnostics_available"] is True
+    assert chunk_metadata["extraction_scope"] == "digital_text_page_diagnostics"
+    assert chunk_metadata["page_text_char_counts"] == [39]
+    assert chunk_metadata["extracted_page_count"] == 1
+    assert chunk_metadata["empty_page_count"] == 0
+    assert chunk_metadata["text_block_count"] == 1
+    assert chunk_metadata["image_block_count"] == 0
+
+    retrieval = client.post(
+        f"/documents/{upload['document']['id']}/retrieval-runs",
+        json={
+            "question": "Which evidence supports Enterprise PDF demand in 2026?",
+            "strategy": "fixed-window",
+            "top_k": 1,
+        },
+    )
+
+    assert retrieval.status_code == 201
+    body = retrieval.json()
+    assert body["metadata_json"]["page_diagnostics_available"] is True
+    assert body["metadata_json"]["layout_block_diagnostics_available"] is True
+    assert body["metadata_json"]["extraction_scope"] == "digital_text_page_diagnostics"
+    assert body["metadata_json"]["page_text_char_counts"] == [39]
+    assert body["metadata_json"]["extracted_page_count"] == 1
+    assert body["metadata_json"]["empty_page_count"] == 0
+    assert body["metadata_json"]["text_block_count"] == 1
+    assert body["metadata_json"]["image_block_count"] == 0
+    assert body["results"][0]["metadata"]["page_text_char_counts"] == [39]
+    assert body["results"][0]["metadata"]["empty_page_count"] == 0
+    assert body["results"][0]["metadata"]["text_block_count"] == 1
+    assert body["results"][0]["metadata"]["image_block_count"] == 0
+
+
 def test_uploaded_pdf_retrieval_run_evidence_ledger_preserves_source_provenance():
     client = make_client()
     content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")

@@ -19927,6 +19927,44 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 545 - Uploaded PDF Page Diagnostics Downstream Provenance v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+preserve uploaded PDF page diagnostics through explicit upload chunk persistence and document retrieval-run candidate provenance
+```
+
+Implemented:
+
+```text
+uploaded PDF page diagnostics downstream provenance v0
+docs/review/uploaded-pdf-page-diagnostics-downstream-provenance.md
+POST /documents/upload-chunks document.profile_json metadata
+POST /documents/upload-chunks document_chunks.metadata_json
+POST /documents/{document_id}/retrieval-runs retrieval_runs.metadata_json
+retrieval candidate metadata
+page_diagnostics_available
+layout_block_diagnostics_available
+extraction_scope
+page_text_char_counts
+extracted_page_count
+empty_page_count
+text_block_count
+image_block_count
+retrieval_run_candidate_chunk_metadata_only
+```
+
+Phase 545 is route-level implementation proof. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not full parsed text persistence, not semantic retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+uploaded PDF page diagnostics downstream provenance runtime smoke v0 if local Docker/FastAPI proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

@@ -133,7 +133,7 @@ Phase 3 implements a small parse-preview boundary, not full production parsing:
 - markdown parser returns text plus heading, link, and bullet metadata
 - CSV parser returns text plus row, column, header, and inconsistent-row metadata
 - HTML/URL parser strips tags into visible text and records link metadata
-- PDF upload-preview can extract digital text with PyMuPDF from uploaded PDF bytes. PDF upload-preview records page diagnostics including `page_text_char_counts`, `empty_page_count`, `text_block_count`, and `image_block_count`; PDF upload chunk and retrieval handoffs reuse PyMuPDF digital text extraction for `POST /documents/upload-chunk-preview`, `POST /documents/upload-chunks`, and `POST /documents/upload-retrieval-preview`; JSON parse-preview still supports text-only fallback for already-extracted text. OCR, table extraction, layout fidelity, and robust PDF extraction are not claimed
+- PDF upload-preview can extract digital text with PyMuPDF from uploaded PDF bytes. PDF upload-preview records page diagnostics including `page_text_char_counts`, `empty_page_count`, `text_block_count`, and `image_block_count`; PDF upload chunk and retrieval handoffs reuse PyMuPDF digital text extraction for `POST /documents/upload-chunk-preview`, `POST /documents/upload-chunks`, and `POST /documents/upload-retrieval-preview`; PDF upload-chunks preserves page diagnostics in document/chunk metadata and document retrieval-run candidate provenance; JSON parse-preview still supports text-only fallback for already-extracted text. OCR, table extraction, layout fidelity, and robust PDF extraction are not claimed
 - unknown source types return a structured warning and failure-case candidate
 
 The parser output can feed Document Profiler v0. Parse-preview does not save records to the database.
@@ -172,7 +172,7 @@ Current persistence boundary:
 - `POST /documents/upload-chunks` can explicitly hand off uploaded content into a document row plus `document_chunks` rows.
 - `POST /documents/upload-chunk-preview` remains preview-only and does not create documents or chunks.
 
-Chunk persistence stores derived chunk text only. It stores no raw uploaded bytes and no full parsed text. PDF-derived upload chunks preserve minimal parser provenance (`parser`, `digital_pdf_text_extraction`, and `robust_pdf_extraction`) so persisted document retrieval runs can summarize candidate provenance without claiming robust PDF extraction. Retrieval persistence is a separate explicit handoff surface, and embeddings are a separate caller-provided chunk embedding surface.
+Chunk persistence stores derived chunk text only. It stores no raw uploaded bytes and no full parsed text. PDF-derived upload chunks preserve minimal parser provenance (`parser`, `digital_pdf_text_extraction`, and `robust_pdf_extraction`) plus page diagnostics (`page_text_char_counts`, `empty_page_count`, `text_block_count`, and `image_block_count`) so persisted document retrieval runs can summarize candidate provenance without claiming robust PDF extraction. Retrieval persistence is a separate explicit handoff surface, and embeddings are a separate caller-provided chunk embedding surface.
 
 Research scope note:
 

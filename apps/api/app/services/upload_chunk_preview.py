@@ -38,6 +38,7 @@ def preview_uploaded_chunks(
         persistence_boundary="preview_only_not_persisted",
         source_type=parsed.source_type,
         parser=parsed.parser,
+        metadata=parsed.metadata,
         profile=profile,
         parse_warnings=warnings + parsed.warnings,
         failure_case_candidate=(

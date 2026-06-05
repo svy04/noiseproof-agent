@@ -53,6 +53,7 @@ Read in this order:
 17. `docs/review/uploaded-pdf-downstream-handoff-runtime-smoke.md`
     - uploaded PDF downstream handoff proof with `parser -> pdf-pymupdf`, `digital_pdf_text_extraction -> true`, upload chunk preview, explicit upload-to-chunks persistence, listed chunk lookup, and upload retrieval preview.
     - related uploaded PDF page diagnostics proof: `docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md` records `page_text_char_counts -> [39]`, `empty_page_count -> 0`, `text_block_count -> 1`, `image_block_count -> 0`, and `document_count_delta -> 0`.
+    - related downstream page diagnostics provenance: `docs/review/uploaded-pdf-page-diagnostics-downstream-provenance.md` records page diagnostics flowing into explicit upload chunk metadata and document retrieval-run candidate metadata.
 18. `docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md`
     - uploaded PDF retrieval-run provenance runtime proof with `POST /documents/upload-chunks`, `POST /documents/{document_id}/retrieval-runs`, `candidate_parsers -> pdf-pymupdf`, and `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`.
 19. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`

@@ -395,6 +395,7 @@ class UploadChunkPreviewOut(ChunkPreviewOut):
     content_type: str | None = None
     byte_count: int
     persistence_boundary: str
+    metadata: dict[str, Any] = Field(default_factory=dict)
 
 
 class UploadChunkPersistenceOut(BaseModel):

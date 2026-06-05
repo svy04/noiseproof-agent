@@ -12361,6 +12361,62 @@ def test_external_feedback_current_state_pdf_page_diagnostics_runtime_issue_veri
     )
 
 
+def test_uploaded_pdf_page_diagnostics_downstream_provenance_is_documented_without_robust_claim():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-page-diagnostics-downstream-provenance.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    architecture = (REPO_ROOT / "docs/architecture.md").read_text(encoding="utf-8")
+    api_readme = (REPO_ROOT / "apps/api/README.md").read_text(encoding="utf-8")
+
+    assert "Uploaded PDF Page Diagnostics Downstream Provenance" in content
+    assert "uploaded PDF page diagnostics downstream provenance v0" in content
+    assert "POST /documents/upload-chunks" in content
+    assert "POST /documents/{document_id}/retrieval-runs" in content
+    assert "page_diagnostics_available" in content
+    assert "layout_block_diagnostics_available" in content
+    assert "page_text_char_counts" in content
+    assert "empty_page_count" in content
+    assert "text_block_count" in content
+    assert "image_block_count" in content
+    assert "retrieval_run_candidate_chunk_metadata_only" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not table extraction" in content
+    assert "not layout fidelity" in content
+    assert (
+        "Uploaded PDF page diagnostics downstream provenance v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 545 - Uploaded PDF Page Diagnostics Downstream Provenance v0"
+        in goal
+    )
+    assert "uploaded PDF page diagnostics downstream provenance v0" in runbook
+    assert (
+        "docs/review/uploaded-pdf-page-diagnostics-downstream-provenance.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/uploaded-pdf-page-diagnostics-downstream-provenance.md"
+        in proof_path
+    )
+    assert "PDF upload-chunks preserves page diagnostics" in architecture
+    assert "PDF upload chunks preserve page diagnostics" in api_readme
+
+
 def test_uploaded_pdf_downstream_handoff_is_documented_without_robust_claim():
     review_path = REPO_ROOT / "docs/review/uploaded-pdf-downstream-handoff.md"
     assert review_path.is_file()

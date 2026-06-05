@@ -13,6 +13,18 @@ from app.schemas import (
 )
 
 
+PDF_PAGE_DIAGNOSTIC_METADATA_KEYS = (
+    "page_diagnostics_available",
+    "layout_block_diagnostics_available",
+    "extraction_scope",
+    "page_text_char_counts",
+    "extracted_page_count",
+    "empty_page_count",
+    "text_block_count",
+    "image_block_count",
+)
+
+
 def run_document_chunk_retrieval(
     document_id: UUID,
     payload: DocumentRetrievalRunRequest,
@@ -180,4 +192,17 @@ def _candidate_provenance(candidates: list[RetrievalCandidate]) -> dict[str, obj
         provenance["robust_pdf_extraction"] = any(
             value is True for value in robust_pdf_values
         )
+        provenance.update(_first_pdf_page_diagnostics(candidates))
     return provenance
+
+
+def _first_pdf_page_diagnostics(
+    candidates: list[RetrievalCandidate],
+) -> dict[str, object]:
+    diagnostics: dict[str, object] = {}
+    for key in PDF_PAGE_DIAGNOSTIC_METADATA_KEYS:
+        for candidate in candidates:
+            if key in candidate.metadata:
+                diagnostics[key] = candidate.metadata[key]
+                break
+    return diagnostics
