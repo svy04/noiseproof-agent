@@ -19111,6 +19111,39 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 523 - External Reviewer Ops Dashboard Anchor GET Runtime Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+point reviewer-facing repository surfaces to the ops dashboard anchor GET runtime smoke proof
+```
+
+Implemented:
+
+```text
+external reviewer ops dashboard anchor GET runtime request refresh v0
+docs/review/ops-dashboard-anchor-get-runtime-smoke.md
+docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+docs/review/external-reader-proof-path.md
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+```
+
+Phase 523 is request-surface refresh only. It adds no live issue body edit, no endpoint, no route behavior change, no runtime workflow semantics, no schema or migration, no browser automation evidence, no hosted deployment evidence, no automatic failure-case creation, no background automation, no root-cause automation, no complete workflow failure causality, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external review issue body ops dashboard anchor GET runtime refresh v0 if updating the live public issue body is useful, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

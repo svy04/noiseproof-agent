@@ -349,6 +349,8 @@ Ops dashboard anchor GET smoke v0: implemented. Boundary: local FastAPI test-cli
 
 Ops dashboard anchor GET runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence verified `GET /ops/dashboard` exposed 38 clickable `data-method="GET"` anchors, 25 unique hrefs, and each unique href returned GET 200; POST-only draft preview remained non-clickable. This is not hosted deployment evidence, browser automation evidence, external reviewer feedback, or product-complete.
 
+External reviewer ops dashboard anchor GET runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now point to `docs/review/ops-dashboard-anchor-get-runtime-smoke.md` and `docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md`; this is request-surface refresh only, not a live issue body edit, hosted deployment evidence, browser automation evidence, external reviewer feedback, or product-complete.
+
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
 Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence only; not hosted deployment evidence, not external reviewer feedback, and not malware scanning.

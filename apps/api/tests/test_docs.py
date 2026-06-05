@@ -2480,6 +2480,92 @@ def test_ops_dashboard_anchor_get_runtime_smoke_documents_fresh_db_evidence():
     assert "docs/review/ops-dashboard-anchor-get-runtime-smoke.md" in portfolio
 
 
+def test_external_reviewer_ops_dashboard_anchor_get_runtime_request_refresh_links_latest_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    reviewer_brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    shortlist = (
+        REPO_ROOT / "docs/review/external-reviewer-shortlist.md"
+    ).read_text(encoding="utf-8")
+
+    proof_doc = "docs/review/ops-dashboard-anchor-get-runtime-smoke.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md"
+    )
+
+    assert "External Reviewer Ops Dashboard Anchor GET Runtime Request Refresh" in content
+    assert "external reviewer ops dashboard anchor GET runtime request refresh v0" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert "GET /ops/dashboard" in content
+    assert 'data-method="GET"' in content
+    assert "extracted_anchor_count: 38" in content
+    assert "unique_anchor_count: 25" in content
+    assert "all_extracted_dashboard_get_anchors_returned_200: true" in content
+    assert "post_only_draft_preview_was_not_clickable: true" in content
+    assert "not a live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not browser automation evidence" in content
+    assert "not product-complete" in content
+
+    for surface in [
+        contributing,
+        issue_template,
+        readme,
+        goal,
+        runbook,
+        portfolio,
+        proof_path,
+        review_request,
+        reviewer_brief,
+        link_map,
+        shortlist,
+    ]:
+        assert proof_doc in surface
+        assert request_doc in surface
+
+    assert (
+        "External reviewer ops dashboard anchor GET runtime request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 523 - External Reviewer Ops Dashboard Anchor GET Runtime Request Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer ops dashboard anchor GET runtime request refresh v0"
+        in runbook
+    )
+
+
 def test_failure_case_workflow_review_queue_fresh_db_dashboard_smoke_documents_runtime_html_proof():
     content = (
         REPO_ROOT

@@ -110,6 +110,8 @@ External review issue body root-guide verification: `docs/review/external-review
 
 External review issue body link-map verification: `docs/review/external-review-issue-body-link-map-verification.md` records that issue #1 currently contains direct reviewer links and has `comment_count: 1` with only owner-authored request/status context. It is not external reviewer feedback itself.
 
+External reviewer ops dashboard anchor GET runtime request refresh: `docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md` records that reviewer-facing repository paths now point to `docs/review/ops-dashboard-anchor-get-runtime-smoke.md`. This is request-surface refresh only, not a live issue body edit, hosted deployment evidence, browser automation evidence, external reviewer feedback, or product-complete.
+
 External feedback current-state architecture issue verification: `docs/review/external-feedback-current-state-architecture-issue-verification.md` records the current issue #1 screen after the architecture current-state issue-body refresh. It observes `comment_count: 1`, `screened_comment_count: 1`, `candidate_count: 0`, `draft_count: 0`, and `self_authored_comment`; it does not close external reviewer feedback v0.
 
 External review issue template link-map refresh: `docs/review/external-review-issue-template-link-map-refresh.md` records that `.github/ISSUE_TEMPLATE/external-review-feedback.md` now contains direct reviewer links. It is not external reviewer feedback itself.
@@ -424,6 +426,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | Ops dashboard anchor method metadata | `docs/review/ops-dashboard-anchor-method-metadata.md` | every clickable dashboard anchor carries GET method metadata |
 | Ops dashboard anchor GET smoke | `docs/review/ops-dashboard-anchor-get-smoke.md` | every clickable dashboard GET anchor resolves as a GET 200 inspection route in the FastAPI test client |
 | Ops dashboard anchor GET runtime smoke | `docs/review/ops-dashboard-anchor-get-runtime-smoke.md` | local Docker DB plus live FastAPI verified every unique dashboard GET href returned 200 |
+| External reviewer ops dashboard anchor GET runtime request refresh | `docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md` | reviewer-facing repository paths now link the dashboard anchor runtime proof |
 | Failure-case workflow review queue fresh DB dashboard smoke verification | `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` | verified local |
 | Failure-case workflow review queue proof index | `docs/review/failure-case-workflow-review-queue-proof-index.md` | implemented v0 |
 | External-reader proof path | `docs/review/external-reader-proof-path.md` | implemented v0 |
@@ -477,6 +480,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | `docs/review/ops-dashboard-anchor-method-metadata.md` | current dashboard method-boundary proof that clickable dashboard anchors carry machine-readable GET metadata |
 | `docs/review/ops-dashboard-anchor-get-smoke.md` | current dashboard smoke proof that clickable dashboard GET anchors resolve as GET 200 inspection routes |
 | `docs/review/ops-dashboard-anchor-get-runtime-smoke.md` | current local runtime proof that dashboard GET anchors resolve against fresh Docker DB plus live FastAPI HTTP |
+| `docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md` | current reviewer-facing request refresh for dashboard GET anchor runtime proof |
 | `docs/review/failure-case-workflow-review-queue-proof-index.md` | reader path: read-model queue -> runtime smoke -> dashboard surfacing -> fresh DB dashboard proof; no automatic failure-case creation |
 | `docs/review/portfolio-site-proof-artifact-route-verification.md` | live portfolio route proof that the public NoiseProof proof surface references the current repo proof path and boundaries |
 | `docs/review/demo-transcript-capture.md` | self-authored route transcript for collection planning, deterministic workflow preview, lineage, and dashboard inspection |

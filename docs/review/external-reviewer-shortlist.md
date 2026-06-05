@@ -16,8 +16,10 @@ It does not replace the full proof path.
 
 1. `README.md`
    - Scope, non-goals, implementation status, and the current proof boundaries.
-2. `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md`
-   - Local Docker PostgreSQL plus live FastAPI HTTP proof that `GET /ops/dashboard` links to the workflow `proof bundle` read model and the linked route returns `200`.
+2. `docs/review/ops-dashboard-anchor-get-runtime-smoke.md`
+   - Local Docker PostgreSQL plus live FastAPI HTTP proof that `GET /ops/dashboard` exposes clickable `data-method="GET"` inspection anchors and every unique dashboard href returns GET 200.
+   - Request refresh: `docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md`.
+   - Related dashboard proof: `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md`.
 3. `docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md`
    - Local runtime proof that raw-file guard decisions surface in `/ops/summary` and `/ops/dashboard`.
 4. `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md`
