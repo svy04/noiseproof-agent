@@ -15687,6 +15687,45 @@ def test_workflow_failure_case_persistence_handoff_documents_caller_triggered_bo
     assert boundary in application_ready
 
 
+def test_workflow_failure_case_persistence_runtime_smoke_documents_live_http_evidence():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    review_doc = (
+        "docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md"
+    )
+    phase_marker = "workflow failure-case persistence handoff runtime smoke v0"
+
+    assert "Workflow Failure-case Persistence Handoff Runtime Smoke" in content
+    assert phase_marker in content
+    assert "local Docker PostgreSQL plus live FastAPI HTTP" in content
+    assert "POST /failure-cases/workflow-runs/{workflow_run_id} -> 201" in content
+    assert "queue_status_for_workflow -> failure_case_linked" in content
+    assert "completed_workflow_status_code -> 409" in content
+    assert "duplicate_status_code -> 409" in content
+    assert "not hosted deployment evidence" in content
+    assert "not background automation" in content
+    assert "Workflow failure-case persistence handoff runtime smoke v0: implemented" in readme
+    assert "Phase 504 - Workflow Failure-case Persistence Handoff Runtime Smoke v0" in goal
+    assert phase_marker in runbook
+    assert review_doc in portfolio
+    assert review_doc in application_ready
+
+
 def test_uploaded_raw_file_download_readiness_preview_documents_preflight_boundary():
     review_path = (
         REPO_ROOT / "docs/review/uploaded-raw-file-download-readiness-preview.md"

@@ -10344,3 +10344,39 @@ not complete workflow failure causality
 not LLM-backed repair
 not product-complete
 ```
+
+## Workflow Failure-case Persistence Handoff Runtime Smoke
+
+Phase marker: workflow failure-case persistence handoff runtime smoke v0.
+
+Review artifact:
+
+```text
+docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md
+```
+
+Observed local runtime path:
+
+```text
+Docker PostgreSQL healthy on localhost:55432
+FastAPI live on 127.0.0.1:8044
+GET /health -> 200
+POST /workflow-runs -> 201
+POST /failure-cases/workflow-runs/{workflow_run_id} -> 201
+GET /failure-cases -> 200
+GET /failure-cases/workflow-review-queue -> 200
+queue_status_for_workflow -> failure_case_linked
+completed_workflow_status_code -> 409
+duplicate_status_code -> 409
+```
+
+Boundary:
+
+```text
+local Docker plus live HTTP evidence only
+not hosted deployment evidence
+not external reviewer feedback
+not background automation
+not complete workflow failure causality
+not product-complete
+```
