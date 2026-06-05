@@ -12523,6 +12523,58 @@ def test_uploaded_pdf_no_text_failure_candidate_handoff_is_documented_without_ro
     )
 
 
+def test_uploaded_pdf_no_text_failure_candidate_runtime_smoke_records_live_http_evidence():
+    smoke_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md"
+    )
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded PDF No-text Failure Candidate Runtime Smoke" in content
+    assert "uploaded PDF no-text failure candidate runtime smoke v0" in content
+    assert "Docker version" in content
+    assert "Docker Compose version" in content
+    assert "docker compose --profile api up -d --build api" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "document_status -> chunk_handoff_no_chunks" in content
+    assert "chunk_count -> 0" in content
+    assert "failure_case_candidate.failure_type -> pdf_no_extractable_text" in content
+    assert "page_text_char_counts -> [0]" in content
+    assert "empty_page_count -> 1" in content
+    assert "extracted_page_count -> 0" in content
+    assert "robust_pdf_extraction -> false" in content
+    assert "raw_file_storage -> false" in content
+    assert "parsed_text_storage -> false" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not table extraction" in content
+    assert (
+        "Uploaded PDF no-text failure candidate runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 553 - Uploaded PDF No-text Failure Candidate Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded PDF no-text failure candidate runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md"
+        in portfolio
+    )
+
+
 def test_external_reviewer_pdf_page_diagnostics_downstream_runtime_request_refresh_routes_reviewers_to_proof():
     review_path = (
         REPO_ROOT
