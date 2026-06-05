@@ -17833,6 +17833,39 @@ Phase 488 adds report-contract metadata only. It adds no live OpenAI provider ca
 Next recommended evidence gate:
 
 ```text
+embedding model live-provider owner-runtime smoke report schema v0, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
+### Phase 489 - Embedding Model Live-provider Owner-runtime Smoke Report Schema v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+expose a strict draft 2020-12 JSON Schema for the same secret-free owner-runtime OpenAI embedding smoke report metadata contract
+```
+
+Implemented:
+
+```text
+embedding model live-provider owner-runtime smoke report schema v0
+apps/api/app/services/embedding_model_live_provider_harness.py --print-owner-runtime-smoke-report-schema
+schema_status=ready_for_owner_runtime_report
+additionalProperties=false
+required
+properties
+docs/review/embedding-model-live-provider-owner-runtime-smoke-report-schema.md
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 489 adds report-schema metadata only. It adds no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven, and external reviewer feedback remains pending.
+
+Next recommended evidence gate:
+
+```text
 owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 

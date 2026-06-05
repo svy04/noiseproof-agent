@@ -236,6 +236,65 @@ def test_embedding_model_live_provider_harness_prints_owner_runtime_smoke_report
     assert "sk-" not in json.dumps(payload, sort_keys=True)
 
 
+def test_embedding_model_live_provider_harness_prints_owner_runtime_smoke_report_schema_without_secret(
+    capsys,
+):
+    exit_code = main(["--print-owner-runtime-smoke-report-schema"], env={})
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["phase_marker"] == (
+        "embedding model live-provider owner-runtime smoke report schema v0"
+    )
+    assert payload["schema_status"] == "ready_for_owner_runtime_report"
+    schema = payload["json_schema"]
+    assert schema["$schema"] == "https://json-schema.org/draft/2020-12/schema"
+    assert schema["title"] == "NoiseProof embedding owner runtime smoke report"
+    assert schema["type"] == "object"
+    assert schema["additionalProperties"] is False
+    assert schema["required"] == sorted(
+        [
+            "route",
+            "http_status",
+            "embedding_status",
+            "embedding_model",
+            "embedding_length",
+            "provider_response_dimension_check",
+            "usage_metadata_present",
+            "secret_exposed",
+            "persistence_boundary",
+            "api_calls_attempted",
+            "openai_api_key_printed",
+            "secret_logged",
+            "secret_committed_to_repo",
+        ]
+    )
+    properties = schema["properties"]
+    assert properties["route"] == {"const": "POST /chunks/embedding-model-preview"}
+    assert properties["http_status"] == {"const": 200}
+    assert properties["embedding_status"] == {
+        "const": "owner_runtime_provider_generated"
+    }
+    assert properties["embedding_model"] == {"const": "text-embedding-3-small"}
+    assert properties["embedding_length"] == {"const": 1536}
+    assert properties["provider_response_dimension_check"] == {"const": "passed"}
+    assert properties["usage_metadata_present"] == {"const": True}
+    assert properties["secret_exposed"] == {"const": False}
+    assert properties["persistence_boundary"] == {
+        "const": "preview_only_not_persisted"
+    }
+    assert properties["api_calls_attempted"] == {"const": True}
+    assert properties["openai_api_key_printed"] == {"const": False}
+    assert properties["secret_logged"] == {"const": False}
+    assert properties["secret_committed_to_repo"] == {"const": False}
+    assert payload["api_calls_attempted"] is False
+    assert payload["openai_api_key_printed"] is False
+    assert payload["secret_logged"] is False
+    assert payload["secret_committed_to_repo"] is False
+    assert payload["non_claims"]["live_embedding_generation_proof"] is False
+    assert "sk-" not in json.dumps(payload, sort_keys=True)
+
+
 def test_embedding_model_live_provider_harness_rejects_unknown_command(capsys):
     exit_code = main(["--unknown"], env={})
 

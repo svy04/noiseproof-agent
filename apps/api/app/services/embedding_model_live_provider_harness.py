@@ -13,6 +13,9 @@ VALIDATOR_PHASE_MARKER = "embedding model live-provider owner-runtime smoke vali
 REPORT_CONTRACT_PHASE_MARKER = (
     "embedding model live-provider owner-runtime smoke report contract v0"
 )
+REPORT_SCHEMA_PHASE_MARKER = (
+    "embedding model live-provider owner-runtime smoke report schema v0"
+)
 EXPECTED_REPORT_TOP_LEVEL_FIELDS = {
     "api_calls_attempted",
     "embedding_length",
@@ -184,21 +187,7 @@ def _discover_owner_runtime_input(env: Mapping[str, str]) -> dict:
 
 
 def _owner_runtime_smoke_report_contract() -> dict[str, object]:
-    accepted_report = {
-        "route": "POST /chunks/embedding-model-preview",
-        "http_status": 200,
-        "embedding_status": "owner_runtime_provider_generated",
-        "embedding_model": "text-embedding-3-small",
-        "embedding_length": 1536,
-        "provider_response_dimension_check": "passed",
-        "usage_metadata_present": True,
-        "secret_exposed": False,
-        "persistence_boundary": "preview_only_not_persisted",
-        "api_calls_attempted": True,
-        "openai_api_key_printed": False,
-        "secret_logged": False,
-        "secret_committed_to_repo": False,
-    }
+    accepted_report = _accepted_owner_runtime_smoke_report()
     return {
         "phase_marker": REPORT_CONTRACT_PHASE_MARKER,
         "contract_status": "ready_for_owner_runtime_report",
@@ -238,6 +227,62 @@ def _owner_runtime_smoke_report_contract() -> dict[str, object]:
             "not live embedding generation proof",
             "owner-provided runtime smoke remains pending",
         ],
+    }
+
+
+def _owner_runtime_smoke_report_schema() -> dict[str, object]:
+    accepted_report = _accepted_owner_runtime_smoke_report()
+    properties = {
+        field: {"const": value} for field, value in accepted_report.items()
+    }
+    return {
+        "phase_marker": REPORT_SCHEMA_PHASE_MARKER,
+        "schema_status": "ready_for_owner_runtime_report",
+        "api_calls_attempted": False,
+        "openai_api_key_printed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+        "json_schema": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "title": "NoiseProof embedding owner runtime smoke report",
+            "type": "object",
+            "additionalProperties": False,
+            "required": sorted(accepted_report),
+            "properties": properties,
+        },
+        "non_claims": {
+            "live_embedding_generation_proof": False,
+            "hosted_deployment_evidence": False,
+            "semantic_retrieval_quality_evidence": False,
+            "external_reviewer_feedback": False,
+            "product_complete": False,
+        },
+        "boundary": [
+            "schema only",
+            "does not read or print OPENAI_API_KEY",
+            "does not call the OpenAI provider",
+            "does not persist embeddings",
+            "not live embedding generation proof",
+            "owner-provided runtime smoke remains pending",
+        ],
+    }
+
+
+def _accepted_owner_runtime_smoke_report() -> dict[str, object]:
+    return {
+        "route": "POST /chunks/embedding-model-preview",
+        "http_status": 200,
+        "embedding_status": "owner_runtime_provider_generated",
+        "embedding_model": "text-embedding-3-small",
+        "embedding_length": 1536,
+        "provider_response_dimension_check": "passed",
+        "usage_metadata_present": True,
+        "secret_exposed": False,
+        "persistence_boundary": "preview_only_not_persisted",
+        "api_calls_attempted": True,
+        "openai_api_key_printed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
     }
 
 
@@ -365,6 +410,9 @@ def main(argv: Sequence[str] | None = None, env: Mapping[str, str] | None = None
         return 0
     if args == ["--print-owner-runtime-smoke-report-contract"]:
         _print_json(_owner_runtime_smoke_report_contract())
+        return 0
+    if args == ["--print-owner-runtime-smoke-report-schema"]:
+        _print_json(_owner_runtime_smoke_report_schema())
         return 0
     if len(args) == 2 and args[0] == "--validate-owner-runtime-smoke-report":
         report_path = Path(args[1])

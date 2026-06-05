@@ -60,6 +60,8 @@ Embedding model live-provider owner-runtime smoke post-run validation cross-shel
 
 Embedding model live-provider owner-runtime smoke report contract: `docs/review/embedding-model-live-provider-owner-runtime-smoke-report-contract.md` records the exact secret-free metadata shape a future owner-runtime OpenAI embedding smoke report must satisfy before the validator can accept it. This is contract metadata only, not live embedding generation proof.
 
+Embedding model live-provider owner-runtime smoke report schema: `docs/review/embedding-model-live-provider-owner-runtime-smoke-report-schema.md` records a strict draft 2020-12 JSON Schema for the same owner-runtime report metadata shape. This is schema metadata only, not live embedding generation proof.
+
 External reviewer embedding provider owner-runtime smoke packet request refresh: `docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md` makes the packet discoverable from reviewer-facing repository paths. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not live embedding generation proof, and not product-complete.
 
 External reviewer embedding provider owner-runtime smoke validator request refresh: `docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-validator-request-refresh.md` makes `docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md` and `docs/review/embedding-model-live-provider-owner-runtime-smoke-post-run-validation-command.md` discoverable from reviewer-facing repository paths. This is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not live embedding generation proof, and not product-complete.

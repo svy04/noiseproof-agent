@@ -18148,6 +18148,55 @@ def test_embedding_model_live_provider_owner_runtime_smoke_report_contract_is_do
     assert review_doc in portfolio
 
 
+def test_embedding_model_live_provider_owner_runtime_smoke_report_schema_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-report-schema.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-report-schema.md"
+    )
+
+    assert "Embedding Model Live-provider Owner-runtime Smoke Report Schema" in content
+    assert (
+        "embedding model live-provider owner-runtime smoke report schema v0"
+        in content
+    )
+    assert "--print-owner-runtime-smoke-report-schema" in content
+    assert "schema_status: ready_for_owner_runtime_report" in content
+    assert "additionalProperties: false" in content
+    assert "required" in content
+    assert "properties" in content
+    assert "owner_runtime_provider_generated" in content
+    assert "not live embedding generation proof" in content
+    assert "not external reviewer feedback" in content
+    assert (
+        "Embedding model live-provider owner-runtime smoke report schema v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 489 - Embedding Model Live-provider Owner-runtime Smoke Report Schema v0"
+        in goal
+    )
+    assert (
+        "embedding model live-provider owner-runtime smoke report schema v0"
+        in runbook
+    )
+    assert review_doc in portfolio
+
+
 def test_external_reviewer_embedding_provider_owner_runtime_smoke_validator_request_refresh_links_validation_path():
     review_path = (
         REPO_ROOT
