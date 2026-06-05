@@ -18348,6 +18348,41 @@ Next recommended evidence gate:
 owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 503 - Workflow Failure-case Persistence Handoff v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+persist one failure case from an existing failed, blocked, or needs-revision workflow parent when the caller explicitly requests that handoff
+```
+
+Implemented:
+
+```text
+workflow failure-case persistence handoff v0
+POST /failure-cases/workflow-runs/{workflow_run_id}
+FailureCaseWorkflowPersistenceOut
+caller_triggered_workflow_failure_case_persistence
+duplicate workflow_run_id guard
+completed workflow rejection with 409
+linked workflow_run_id on persisted failure_cases row
+docs/review/workflow-failure-case-persistence-handoff.md
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/review/application-ready-review.md boundary row refresh
+docs/runbook.md note
+```
+
+Phase 503 adds a caller-triggered deterministic persistence handoff only. It is not background automation, not automatic root-cause classification, not complete workflow failure causality, not workflow retry logic, not workflow child-record mutation, not hosted deployment evidence, not external reviewer feedback, not LLM-backed repair, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+runtime smoke for workflow failure-case persistence handoff v0, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

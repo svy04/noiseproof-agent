@@ -10303,3 +10303,44 @@ not authenticated user identity
 not hosted deployment evidence
 not product-complete
 ```
+
+## Workflow Failure-case Persistence Handoff
+
+Phase marker: workflow failure-case persistence handoff v0.
+
+Review artifact:
+
+```text
+docs/review/workflow-failure-case-persistence-handoff.md
+```
+
+Endpoint:
+
+```text
+POST /failure-cases/workflow-runs/{workflow_run_id}
+```
+
+Expected persistence boundary:
+
+```text
+caller_triggered_workflow_failure_case_persistence
+```
+
+Expected behavior:
+
+```text
+failed / blocked / needs_revision workflow_run -> one linked failure_cases row
+completed workflow_run -> 409
+duplicate linked failure case -> 409
+```
+
+Boundary:
+
+```text
+caller-triggered handoff only
+not background automation
+not root-cause automation
+not complete workflow failure causality
+not LLM-backed repair
+not product-complete
+```

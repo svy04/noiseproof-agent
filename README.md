@@ -121,12 +121,12 @@ Still planned or explicitly unclaimed near the top:
 
 - web app and polished dashboard UI
 - raw upload quarantine storage exists; robust PDF extraction is unclaimed
-- explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`; implicit upload-preview auto-persistence remains intentionally unclaimed
+- explicit upload-to-chunks handoff exists; implicit preview auto-persistence unclaimed
 - actual embedding generation, vector quality evidence, LLM calls
 - hosted deployment evidence
 - local token download guard exists; production auth/identity unclaimed
-- automatic failure-case creation from workflow failures
-- complete workflow failure causality
+- caller-triggered failure-case handoff exists; background automation unclaimed
+- complete failure causality
 - free-form final report generation
 
 ## Implementation Status
@@ -214,7 +214,7 @@ Not implemented yet:
 - production malware scanning evidence for stored raw uploads
 - implicit upload-preview auto-persistence; explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`
 - autonomous workflow execution endpoints
-- automatic failure-case persistence from workflow failures
+- background failure-case automation from workflow failures; caller-triggered handoff exists through `POST /failure-cases/workflow-runs/{workflow_run_id}`
 - embedding generation and vector search quality evidence beyond the deterministic local hash preview
 - full distributed tracing or hosted observability
 
@@ -303,6 +303,8 @@ README latest-marker embedding handoff current-state refresh v0: implemented. Bo
 README upload handoff claim-boundary refresh v0: implemented. Boundary: explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`; implicit upload-preview auto-persistence remains intentionally unclaimed. This is a public-claim cleanup only, not a new product runtime gate.
 
 Raw file download operator-token guard v0: implemented. Boundary: when `NOISEPROOF_RAW_FILE_DOWNLOAD_OPERATOR_TOKEN` is configured, `GET /documents/upload-raw-files/{raw_file_id}/download` requires `X-NoiseProof-Operator-Token` before scan, approval, and rate-limit gates; authorization boundary is `local_v0_operator_token_header_not_production`, not production authorization or authenticated user identity.
+
+Workflow failure-case persistence handoff v0: implemented. Boundary: `POST /failure-cases/workflow-runs/{workflow_run_id}` can create one persisted failure case from an existing failed/blocked/needs-revision workflow parent with `caller_triggered_workflow_failure_case_persistence`; this is not background automation, root-cause automation, complete workflow failure causality, or an LLM-backed repair loop.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 

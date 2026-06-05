@@ -810,6 +810,13 @@ class FailureCaseOut(FailureCaseCreate):
     created_at: datetime
 
 
+class FailureCaseWorkflowPersistenceOut(BaseModel):
+    failure_case: FailureCaseOut
+    source_summary: dict[str, Any]
+    persistence_boundary: str
+    warnings: list[str]
+
+
 class FailureCaseDraftPreviewRequest(BaseModel):
     workflow_run_id: UUID | None = None
     agent_run_id: UUID | None = None

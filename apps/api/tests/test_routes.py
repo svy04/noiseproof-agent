@@ -1008,6 +1008,88 @@ def test_failure_case_workflow_review_queue_surfaces_unlinked_failed_workflows_w
     assert len(client.get("/failure-cases").json()) == 1
 
 
+def test_failure_case_workflow_parent_handoff_persists_failure_case_and_updates_review_queue():
+    client = make_client()
+    workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which failed workflow should become a failure case?",
+            "status": "failed",
+            "error_message": "simulated evidence persistence failure",
+            "trace_json": {
+                "stage": "evidence_ledger_persistence",
+                "error_type": "RuntimeError",
+            },
+        },
+    ).json()
+
+    persisted = client.post(f"/failure-cases/workflow-runs/{workflow['id']}")
+    listed = client.get("/failure-cases")
+    queue = client.get("/failure-cases/workflow-review-queue")
+
+    assert persisted.status_code == 201
+    body = persisted.json()
+    assert body["persistence_boundary"] == (
+        "caller_triggered_workflow_failure_case_persistence"
+    )
+    assert body["failure_case"]["workflow_run_id"] == workflow["id"]
+    assert body["failure_case"]["failure_type"] == "workflow_stage_error"
+    assert body["failure_case"]["fix_status"] == "open"
+    assert "evidence_ledger_persistence" in body["failure_case"]["description"]
+    assert body["source_summary"]["workflow_run_id"] == workflow["id"]
+    assert body["source_summary"]["workflow_status"] == "failed"
+    assert body["source_summary"]["stage"] == "evidence_ledger_persistence"
+    assert any("caller-triggered" in warning for warning in body["warnings"])
+    assert any("not background automation" in warning for warning in body["warnings"])
+    assert listed.status_code == 200
+    assert len(listed.json()) == 1
+    assert listed.json()[0]["workflow_run_id"] == workflow["id"]
+    queue_item = queue.json()["items"][0]
+    assert queue_item["workflow_run"]["id"] == workflow["id"]
+    assert queue_item["review_status"] == "failure_case_linked"
+    assert queue_item["linked_failure_case_ids"] == [body["failure_case"]["id"]]
+
+
+def test_failure_case_workflow_parent_handoff_rejects_completed_workflow_and_duplicate_persistence():
+    client = make_client()
+    completed_workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which completed workflow should not create a failure case?",
+            "status": "completed",
+        },
+    ).json()
+    failed_workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which failed workflow should only create one failure case?",
+            "status": "failed",
+            "error_message": "simulated report persistence failure",
+            "trace_json": {
+                "stage": "report_persistence",
+                "error_type": "RuntimeError",
+            },
+        },
+    ).json()
+
+    completed_response = client.post(
+        f"/failure-cases/workflow-runs/{completed_workflow['id']}"
+    )
+    first = client.post(f"/failure-cases/workflow-runs/{failed_workflow['id']}")
+    duplicate = client.post(f"/failure-cases/workflow-runs/{failed_workflow['id']}")
+
+    assert completed_response.status_code == 409
+    assert completed_response.json()["detail"] == (
+        "workflow status is not reviewable for failure-case persistence"
+    )
+    assert first.status_code == 201
+    assert duplicate.status_code == 409
+    assert duplicate.json()["detail"] == (
+        "failure case already exists for workflow_run_id"
+    )
+    assert len(client.get("/failure-cases").json()) == 1
+
+
 def test_document_chunk_persistence_endpoint_roundtrip_explicit_document_scope():
     client = make_client()
     document = client.post(

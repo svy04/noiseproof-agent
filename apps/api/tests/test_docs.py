@@ -15650,6 +15650,43 @@ def test_raw_file_download_operator_token_guard_documents_opt_in_boundary():
     assert boundary in application_ready
 
 
+def test_workflow_failure_case_persistence_handoff_documents_caller_triggered_boundary():
+    review_path = (
+        REPO_ROOT / "docs/review/workflow-failure-case-persistence-handoff.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    review_doc = "docs/review/workflow-failure-case-persistence-handoff.md"
+    endpoint = "POST /failure-cases/workflow-runs/{workflow_run_id}"
+    boundary = "caller_triggered_workflow_failure_case_persistence"
+    phase_marker = "workflow failure-case persistence handoff v0"
+
+    assert "Workflow Failure-case Persistence Handoff" in content
+    assert phase_marker in content
+    assert endpoint in content
+    assert boundary in content
+    assert "not background automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "Workflow failure-case persistence handoff v0: implemented" in readme
+    assert endpoint in readme
+    assert "Phase 503 - Workflow Failure-case Persistence Handoff v0" in goal
+    assert phase_marker in runbook
+    assert review_doc in portfolio
+    assert endpoint in application_ready
+    assert boundary in application_ready
+
+
 def test_uploaded_raw_file_download_readiness_preview_documents_preflight_boundary():
     review_path = (
         REPO_ROOT / "docs/review/uploaded-raw-file-download-readiness-preview.md"
