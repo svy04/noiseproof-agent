@@ -16981,6 +16981,55 @@ def test_workflow_dashboard_failure_case_counts_document_read_model_boundary():
     assert "docs/review/workflow-dashboard-failure-case-counts.md" in portfolio
 
 
+def test_workflow_dashboard_failure_case_counts_runtime_smoke_documents_live_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/workflow-dashboard-failure-case-counts-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Workflow Dashboard Failure-case Counts Runtime Smoke" in content
+    assert "workflow dashboard failure-case counts runtime smoke v0" in content
+    assert "local Docker PostgreSQL plus live FastAPI HTTP" in content
+    assert "docker compose -p noiseproof-phase514 up -d db" in content
+    assert "GET /health -> 200" in content
+    assert "POST /workflow-runs -> 201" in content
+    assert "POST /failure-cases/workflow-runs/{workflow_run_id} -> 201" in content
+    assert "GET /ops/dashboard -> 200" in content
+    assert "dashboard_contains_linked_failure_cases_header: true" in content
+    assert "dashboard_contains_linked_failure_case_filter: true" in content
+    assert "dashboard_omits_unlinked_failure_case_filter: true" in content
+    assert "not automatic failure detection" in content
+    assert "not background automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not root-cause automation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Workflow dashboard failure-case counts runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented."
+        in readme
+    )
+    assert "Phase 514 - Workflow Dashboard Failure-case Counts Runtime Smoke v0" in goal
+    assert "workflow dashboard failure-case counts runtime smoke v0" in runbook
+    assert (
+        "docs/review/workflow-dashboard-failure-case-counts-runtime-smoke.md"
+        in portfolio
+    )
+
+
 def test_external_reviewer_workflow_proof_bundle_dashboard_runtime_request_refresh_links_latest_proof():
     review_path = (
         REPO_ROOT

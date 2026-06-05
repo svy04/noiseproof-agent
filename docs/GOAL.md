@@ -18783,6 +18783,47 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, a local Docker runtime smoke for workflow dashboard failure-case counts if useful, or another source-first product gate selected from this file
 ```
 
+### Phase 514 - Workflow Dashboard Failure-case Counts Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+verify the workflow dashboard failure-case counts read model against local Docker PostgreSQL plus live FastAPI HTTP
+```
+
+Implemented:
+
+```text
+workflow dashboard failure-case counts runtime smoke v0
+docs/review/workflow-dashboard-failure-case-counts-runtime-smoke.md
+local Docker PostgreSQL healthy on port 55434
+FastAPI live on 127.0.0.1:8100
+GET /health -> 200
+POST /workflow-runs -> 201
+POST /workflow-runs -> 201
+POST /failure-cases/workflow-runs/{workflow_run_id} -> 201
+GET /ops/dashboard -> 200
+dashboard_contains_linked_failure_cases_header: true
+dashboard_contains_read_only_boundary: true
+dashboard_contains_linked_failure_case_filter: true
+dashboard_omits_unlinked_failure_case_filter: true
+dashboard_contains_review_queue_linked_count: true
+test_workflow_dashboard_failure_case_counts_runtime_smoke_documents_live_proof
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 514 records local runtime evidence only. It adds no new endpoint, no schema or migration, no automatic failure detection, no background automation, no root-cause automation, no retry or repair behavior, no complete workflow failure causality, no hosted deployment evidence, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer request refresh for workflow dashboard failure-case counts runtime smoke v0 if useful, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

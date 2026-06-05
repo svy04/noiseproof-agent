@@ -111,23 +111,24 @@ Current status groups:
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
 Latest workflow proof bundle runtime marker: Workflow proof bundle failure-case links runtime smoke v0: implemented.
+Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented.
 Latest product gate marker: Workflow dashboard failure-case counts v0: implemented.
 Latest reviewer-routing marker: Embedding provider handoff alignment issue-body refresh v0.
 Latest external-feedback state: pending after handoff issue verification; candidate_count=0; self-authored comment only.
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*` artifacts.
 
-Still planned or explicitly unclaimed near the top:
+Still planned/unclaimed near the top:
 
-- web app and polished dashboard UI
-- raw upload quarantine storage exists; robust PDF extraction is unclaimed
-- explicit upload-to-chunks handoff exists; implicit preview auto-persistence unclaimed
-- actual embedding generation, vector quality evidence, LLM calls
+- web app/polished dashboard UI
+- raw upload storage exists; robust PDF extraction unclaimed
+- explicit upload-to-chunks exists; preview auto-persistence unclaimed
+- embedding generation, vector quality evidence, LLM calls
 - hosted deployment evidence
-- local token download guard exists; production auth/identity unclaimed
-- caller-triggered failure-case handoff exists; background automation unclaimed
+- local token guard exists; production auth/identity unclaimed
+- caller-triggered failure-case handoff exists; no background automation
 - complete failure causality
-- free-form final report generation
+- free-form reports
 
 ## Implementation Status
 
@@ -329,6 +330,8 @@ External review issue body workflow proof bundle failure-case links runtime refr
 External feedback current-state workflow proof bundle failure-case links runtime issue verification v0: implemented. Boundary: current issue #1 has the workflow proof bundle failure-case links runtime proof, request refresh, and issue-body refresh links, but the only screened comment is owner-authored, `candidate_count=0`, `draft_count=0`, and external reviewer feedback remains pending.
 
 Workflow dashboard failure-case counts v0: implemented. Boundary: `GET /ops/dashboard` workflow rows now show linked failure-case counts and link nonzero counts to `GET /failure-cases?workflow_run_id={id}`. This is a dashboard read model only, not automatic failure detection, background automation, complete workflow failure causality, root-cause automation, hosted deployment evidence, external reviewer feedback, or product-complete.
+
+Workflow dashboard failure-case counts runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified `GET /ops/dashboard` includes the `Linked Failure Cases` workflow column, links a workflow with one linked failure case to `GET /failure-cases?workflow_run_id={id}`, and omits that filter link for an unlinked failed workflow. This is local runtime evidence only, not automatic failure detection, background automation, complete workflow failure causality, root-cause automation, hosted deployment evidence, external reviewer feedback, or product-complete.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
