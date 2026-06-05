@@ -17111,6 +17111,94 @@ def test_external_reviewer_workflow_proof_bundle_failure_case_links_runtime_requ
     )
 
 
+def test_external_review_issue_body_workflow_proof_bundle_failure_case_links_runtime_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-review-issue-body-workflow-proof-bundle-failure-case-links-runtime-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = "docs/review/workflow-proof-bundle-failure-case-links-runtime-smoke.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-proof-bundle-failure-case-links-runtime-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-workflow-proof-bundle-failure-case-links-runtime-refresh.md"
+    )
+
+    assert (
+        "External Review Issue Body Workflow Proof Bundle Failure-case Links Runtime Refresh"
+        in content
+    )
+    assert (
+        "external review issue body workflow proof bundle failure-case links runtime refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert (
+        '"has_workflow_proof_bundle_failure_case_links_runtime_proof": true'
+        in content
+    )
+    assert (
+        '"has_workflow_proof_bundle_failure_case_links_request_refresh": true'
+        in content
+    )
+    assert (
+        '"has_workflow_proof_bundle_failure_case_links_issue_body_refresh": true'
+        in content
+    )
+    assert '"has_detail_failure_case_count": true' in content
+    assert '"has_bundle_failure_case_count": true' in content
+    assert '"has_filtered_failure_case_count": true' in content
+    assert '"has_unrelated_filtered_out": true' in content
+    assert '"has_proof_surface_has_failure_case_filter": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert "GET /workflow-runs/{id}" in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert "GET /failure-cases?workflow_run_id={id}" in content
+    assert "detail_failure_case_count -> 1" in content
+    assert "bundle_failure_case_count -> 1" in content
+    assert "filtered_failure_case_count -> 1" in content
+    assert "unrelated_filtered_out -> true" in content
+    assert "proof_surface_has_failure_case_filter -> true" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure detection" in content
+    assert "not background automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body workflow proof bundle failure-case links runtime refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 511 - External Review Issue Body Workflow Proof Bundle Failure-case Links Runtime Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body workflow proof bundle failure-case links runtime refresh v0"
+        in runbook
+    )
+    assert issue_doc in portfolio
+
+
 def test_external_review_issue_body_workflow_proof_bundle_dashboard_runtime_refresh_records_live_issue_edit():
     refresh_path = (
         REPO_ROOT
