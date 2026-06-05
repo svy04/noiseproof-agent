@@ -78,9 +78,11 @@ docs/review/workflow-failed-stage-event-runtime-smoke.md
 docs/review/external-reviewer-workflow-failed-stage-event-runtime-request-refresh.md
 docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md
 docs/review/external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md
+docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md
+docs/review/external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md
 ```
 
-This proof records `GET /workflow-runs/{id}/proof-bundle`, dashboard navigation, linked failure-case visibility, direct stage links, stage event rows, failed-stage event inspection, and the local v0 workflow failure auto-creation runtime path. The latest auto-creation proof records `POST /workflow-runs/execute-preview -> 500`, `failure_case_count_delta -> 1`, `auto_failure_case_id`, `auto_created_from_workflow_failure_local_v0`, and `local_workflow_stage_failure_event_auto_failure_case_local_v0`. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not retry behavior, not root-cause automation, not distributed tracing, not hosted observability, not autonomous workflow execution, not automatic failure detection, not background automation, not complete workflow failure causality, and not product-complete.
+This proof records `GET /workflow-runs/{id}/proof-bundle`, dashboard navigation, linked failure-case visibility, direct stage links, stage event rows, failed-stage event inspection, and the local v0 workflow failure auto-creation runtime path. The latest auto-creation proof records `POST /workflow-runs/execute-preview -> 500`, `failure_case_count_delta -> 1`, `auto_failure_case_id`, `auto_created_from_workflow_failure_local_v0`, and `local_workflow_stage_failure_event_auto_failure_case_local_v0`. The workflow failure auto-created failure-case dashboard runtime proof records `GET /ops/dashboard -> 200`, `dashboard_contains_auto_created_failure_case_id`, `dashboard_contains_workflow_parent_link`, and `dashboard_contains_review_queue_linked_count`. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not retry behavior, not root-cause automation, not distributed tracing, not hosted observability, not autonomous workflow execution, not automatic failure detection, not background automation, not complete workflow failure causality, and not product-complete.
 
 Latest workflow failure-case persistence runtime proof:
 

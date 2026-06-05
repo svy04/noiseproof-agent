@@ -25269,3 +25269,87 @@ def test_external_feedback_current_state_persisted_document_failure_candidate_ma
         "external feedback current-state persisted document failure candidate manual handoff runtime issue verification v0"
         in issue_body_refresh
     )
+
+
+def test_external_reviewer_workflow_failure_auto_created_dashboard_runtime_request_refresh_routes_latest_dashboard_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = (
+        "docs/review/"
+        "workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md"
+    )
+
+    assert (
+        "External Reviewer Workflow Failure Auto-created Failure-case Dashboard Runtime Request Refresh"
+        in content
+    )
+    assert (
+        "external reviewer workflow failure auto-created failure-case dashboard runtime request refresh v0"
+        in content
+    )
+    assert proof_doc in content
+    assert request_doc in content
+    assert "GET /ops/dashboard -> 200" in content
+    assert "failure_case_count_delta -> 1" in content
+    assert "dashboard_contains_auto_created_failure_case_id -> true" in content
+    assert "dashboard_contains_workflow_parent_link -> true" in content
+    assert "dashboard_contains_review_queue_linked_count -> true" in content
+    assert "auto_created_from_workflow_failure_local_v0" in content
+    assert "local_workflow_stage_failure_event_auto_failure_case_local_v0" in content
+    assert "does not edit the live public GitHub issue body" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not retry behavior" in content
+    assert "not root-cause automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External reviewer workflow failure auto-created failure-case dashboard runtime request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 592 - External Reviewer Workflow Failure Auto-created Failure-case Dashboard Runtime Request Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer workflow failure auto-created failure-case dashboard runtime request refresh v0"
+        in runbook
+    )
+    assert request_doc in portfolio
+
+    reviewer_surfaces = [
+        REPO_ROOT / "CONTRIBUTING.md",
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md",
+        REPO_ROOT / "docs/review/external-reader-proof-path.md",
+        REPO_ROOT / "docs/review/external-review-request.md",
+        REPO_ROOT / "docs/review/external-reviewer-brief.md",
+        REPO_ROOT / "docs/review/external-reviewer-link-map.md",
+        REPO_ROOT / "docs/review/external-reviewer-shortlist.md",
+    ]
+    for surface in reviewer_surfaces:
+        surface_content = surface.read_text(encoding="utf-8")
+        assert (
+            "workflow failure auto-created failure-case dashboard runtime proof"
+            in surface_content
+        )
+        assert proof_doc in surface_content
+        assert request_doc in surface_content
+        assert "dashboard_contains_auto_created_failure_case_id" in surface_content
+        assert "not external reviewer feedback" in surface_content

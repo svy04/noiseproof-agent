@@ -21729,3 +21729,39 @@ dashboard_contains_review_queue_linked_count -> true
 Boundary: local Docker PostgreSQL plus live FastAPI HTTP dashboard read-model proof only; not retry behavior, not root-cause automation, not complete workflow failure causality, not production background worker behavior, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, request-surface refresh for this dashboard proof if it should be routed to reviewers, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 592 - External Reviewer Workflow Failure Auto-created Failure-case Dashboard Runtime Request Refresh v0
+
+Status: implemented.
+
+Purpose: make the workflow failure auto-created failure-case dashboard runtime smoke discoverable from reviewer-facing repository paths before any live issue body edit or external feedback claim.
+
+Implemented artifacts:
+
+```text
+external reviewer workflow failure auto-created failure-case dashboard runtime request refresh v0
+docs/review/external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md
+docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+README.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+docs/review/external-reader-proof-path.md
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+docs/runbook.md
+GET /ops/dashboard -> 200
+failure_case_count_delta -> 1
+dashboard_contains_auto_created_failure_case_id -> true
+dashboard_contains_workflow_parent_link -> true
+dashboard_contains_review_queue_linked_count -> true
+auto_created_from_workflow_failure_local_v0
+local_workflow_stage_failure_event_auto_failure_case_local_v0
+```
+
+Boundary: request-surface refresh only; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, not production background worker behavior, and not product-complete.
+
+Next gate: external review issue body workflow failure auto-created dashboard runtime refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

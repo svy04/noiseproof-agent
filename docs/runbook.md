@@ -10876,6 +10876,43 @@ not complete workflow failure causality
 not product-complete
 ```
 
+## External Reviewer Workflow Failure Auto-created Failure-case Dashboard Runtime Request Refresh
+
+Phase marker: external reviewer workflow failure auto-created failure-case dashboard runtime request refresh v0.
+
+Review artifact:
+
+```text
+docs/review/external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md
+```
+
+Highlighted proof:
+
+```text
+docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md
+GET /ops/dashboard -> 200
+failure_case_count_delta -> 1
+dashboard_contains_auto_created_failure_case_id -> true
+dashboard_contains_workflow_parent_link -> true
+dashboard_contains_review_queue_linked_count -> true
+auto_created_from_workflow_failure_local_v0
+local_workflow_stage_failure_event_auto_failure_case_local_v0
+```
+
+Boundary:
+
+```text
+request-surface refresh only
+not a live issue body edit
+not external reviewer feedback
+not hosted deployment evidence
+not retry behavior
+not root-cause automation
+not complete workflow failure causality
+not production background worker behavior
+not product-complete
+```
+
 ## External Review Issue Body Workflow Failure Auto-creation Runtime Refresh
 
 Phase marker: external review issue body workflow failure auto-creation runtime refresh v0.
