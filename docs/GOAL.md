@@ -22247,3 +22247,39 @@ self_authored_comment
 Boundary: remote workflow verification only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity evidence, not raw file storage, not full parsed text persistence, not semantic retrieval quality evidence, not Evidence Ledger generation, not Critic / Noise Gate behavior, not final report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 608 - README Current Proof Route Table-candidate Refresh v0
+
+Status: implemented.
+
+Purpose: align the first-screen README proof route with the current issue body and table-candidate downstream reviewer path.
+
+Implemented artifacts:
+
+```text
+readme current proof route table-candidate refresh v0
+docs/review/readme-current-proof-route-table-candidate-refresh.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Current route:
+
+```text
+uploaded PDF table-candidate downstream runtime proof
+docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md
+docs/review/uploaded-pdf-table-candidate-downstream-provenance-remote-verification.md
+docs/review/external-reviewer-pdf-table-candidate-downstream-runtime-request-refresh.md
+docs/review/external-review-issue-body-pdf-table-candidate-downstream-runtime-refresh.md
+docs/review/external-feedback-current-state-pdf-table-candidate-downstream-runtime-issue-verification.md
+docs/review/external-feedback-current-state-pdf-table-candidate-downstream-runtime-issue-verification-remote-verification.md
+retrieval_candidate_table_candidate_count -> 1
+candidate_count=0
+self_authored_comment
+```
+
+Boundary: README route clarity only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity evidence, not Evidence Ledger generation, not Critic / Noise Gate behavior, not final report generation, and not product-complete.
+
+Next gate: README current proof route table-candidate remote verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

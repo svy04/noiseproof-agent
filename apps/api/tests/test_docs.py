@@ -26174,34 +26174,97 @@ def test_compose_service_name_runbook_refresh_remote_verification_is_recorded():
     assert "docs/review/compose-service-name-runbook-refresh-remote-verification.md" in portfolio
 
 
-def test_readme_top_latest_proof_route_points_to_current_dashboard_proof():
-    review_path = REPO_ROOT / "docs/review/readme-current-proof-route-refresh.md"
+def test_readme_top_latest_proof_route_points_to_table_candidate_downstream_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/readme-current-proof-route-table-candidate-refresh.md"
+    )
     assert review_path.is_file()
 
     content = review_path.read_text(encoding="utf-8")
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
 
     fast_path = readme.split("## External Reviewer Fast Path", 1)[1].split(
         "## What This Is", 1
     )[0]
 
-    assert "readme current proof route refresh v0" in content
-    assert "workflow failure auto-created dashboard runtime proof" in content
-    assert "docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md" in content
+    assert "readme current proof route table-candidate refresh v0" in content
+    assert "uploaded PDF table-candidate downstream runtime proof" in content
+    assert (
+        "docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md"
+        in content
+    )
+    assert (
+        "docs/review/uploaded-pdf-table-candidate-downstream-provenance-remote-verification.md"
+        in content
+    )
+    assert (
+        "docs/review/external-reviewer-pdf-table-candidate-downstream-runtime-request-refresh.md"
+        in content
+    )
+    assert (
+        "docs/review/external-review-issue-body-pdf-table-candidate-downstream-runtime-refresh.md"
+        in content
+    )
+    assert (
+        "docs/review/external-feedback-current-state-pdf-table-candidate-downstream-runtime-issue-verification.md"
+        in content
+    )
+    assert (
+        "docs/review/external-feedback-current-state-pdf-table-candidate-downstream-runtime-issue-verification-remote-verification.md"
+        in content
+    )
+    assert "retrieval_candidate_table_candidate_count -> 1" in content
+    assert "candidate_count=0" in content
+    assert "self_authored_comment" in content
     assert "not external reviewer feedback" in content
     assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not table extraction" in content
     assert "not product-complete" in content
     assert (
-        "Latest proof routing now points reviewers to the workflow failure auto-created dashboard runtime proof"
+        "Latest proof routing now points reviewers to the uploaded PDF table-candidate downstream runtime proof"
         in fast_path
     )
-    assert "docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md" in fast_path
-    assert "docs/review/external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md" in fast_path
-    assert "docs/review/external-review-issue-body-workflow-failure-auto-created-dashboard-runtime-refresh.md" in fast_path
+    assert (
+        "docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md"
+        in fast_path
+    )
+    assert (
+        "docs/review/uploaded-pdf-table-candidate-downstream-provenance-remote-verification.md"
+        in fast_path
+    )
+    assert (
+        "docs/review/external-reviewer-pdf-table-candidate-downstream-runtime-request-refresh.md"
+        in fast_path
+    )
+    assert (
+        "docs/review/external-review-issue-body-pdf-table-candidate-downstream-runtime-refresh.md"
+        in fast_path
+    )
+    assert (
+        "Latest external-feedback state: pending after PDF table-candidate downstream runtime issue verification"
+        in fast_path
+    )
+    assert "candidate_count=0" in fast_path
+    assert "self-authored issue comment" in fast_path
     assert "persisted Report markdown export proof" not in fast_path
-    assert "README current proof route refresh v0: implemented" in readme
-    assert "Phase 598 - README Current Proof Route Refresh v0" in goal
+    assert (
+        "workflow failure auto-created dashboard runtime proof at `docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md`"
+        not in fast_path
+    )
+    assert "README current proof route table-candidate refresh v0: implemented" in readme
+    assert "Phase 608 - README Current Proof Route Table-candidate Refresh v0" in goal
+    assert "readme current proof route table-candidate refresh v0" in runbook
+    assert (
+        "docs/review/readme-current-proof-route-table-candidate-refresh.md"
+        in portfolio
+    )
 
 
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
