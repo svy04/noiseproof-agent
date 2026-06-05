@@ -21293,6 +21293,57 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 583 - External Reviewer Workflow Failed Stage Event Runtime Request Refresh v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+make the workflow failed stage event runtime smoke discoverable from reviewer-facing repository paths
+```
+
+Implemented artifacts:
+
+```text
+external reviewer workflow failed stage event runtime request refresh v0
+docs/review/external-reviewer-workflow-failed-stage-event-runtime-request-refresh.md
+docs/review/workflow-failed-stage-event.md
+docs/review/workflow-failed-stage-event-runtime-smoke.md
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+README.md
+docs/application/braincrew-role-map.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+docs/review/external-reader-proof-path.md
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+docs/runbook.md
+POST /workflow-runs/execute-preview -> 500
+GET /workflow-runs/{id} -> 200
+GET /workflow-runs/{id}/proof-bundle -> 200
+workflow_stage_event_count -> 2
+retrieval -> completed
+evidence_ledger -> failed
+failure_case_count_delta -> 0
+local_workflow_stage_failure_event_no_retry_no_auto_failure_case
+```
+
+Boundary:
+
+```text
+Phase 583 is request-surface refresh only. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not retry behavior, not automatic failure-case creation, not root-cause automation, not complete workflow failure causality, not distributed tracing, not hosted observability, not customer validation, not Braincrew acceptance, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+external review issue body workflow failed stage event runtime refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

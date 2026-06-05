@@ -1336,6 +1336,110 @@ def test_workflow_failed_stage_event_runtime_smoke_records_live_failure_evidence
     assert "workflow-failed-stage-event-runtime-smoke.md" in app_review
 
 
+def test_external_reviewer_workflow_failed_stage_event_runtime_request_refresh_links_latest_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reviewer-workflow-failed-stage-event-runtime-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    reviewer_brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    shortlist = (REPO_ROOT / "docs/review/external-reviewer-shortlist.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    proof_doc = "docs/review/workflow-failed-stage-event-runtime-smoke.md"
+    design_doc = "docs/review/workflow-failed-stage-event.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-failed-stage-event-runtime-request-refresh.md"
+    )
+
+    assert (
+        "External Reviewer Workflow Failed Stage Event Runtime Request Refresh"
+        in content
+    )
+    assert (
+        "external reviewer workflow failed stage event runtime request refresh v0"
+        in content
+    )
+    assert proof_doc in content
+    assert design_doc in content
+    assert request_doc in content
+    assert "POST /workflow-runs/execute-preview -> 500" in content
+    assert "GET /workflow-runs/{id} -> 200" in content
+    assert "GET /workflow-runs/{id}/proof-bundle -> 200" in content
+    assert "workflow_stage_event_count: 2" in content
+    assert "retrieval -> completed" in content
+    assert "evidence_ledger -> failed" in content
+    assert "failure_case_count_delta -> 0" in content
+    assert "local_workflow_stage_failure_event_no_retry_no_auto_failure_case" in content
+    assert "not a live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not retry behavior" in content
+    assert "not automatic failure-case creation" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not product-complete" in content
+
+    for surface in [
+        contributing,
+        issue_template,
+        readme,
+        goal,
+        runbook,
+        portfolio,
+        proof_path,
+        review_request,
+        reviewer_brief,
+        link_map,
+        shortlist,
+        app_review,
+    ]:
+        assert proof_doc in surface
+        assert request_doc in surface
+
+    assert (
+        "External reviewer workflow failed stage event runtime request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 583 - External Reviewer Workflow Failed Stage Event Runtime Request Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer workflow failed stage event runtime request refresh v0"
+        in runbook
+    )
+
+
 def test_external_reviewer_workflow_stage_event_log_runtime_request_refresh_links_latest_proof():
     review_path = (
         REPO_ROOT

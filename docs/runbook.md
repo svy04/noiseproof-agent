@@ -10747,3 +10747,42 @@ not root-cause automation
 not hosted deployment evidence
 not product-complete
 ```
+
+## External Reviewer Workflow Failed Stage Event Runtime Request Refresh
+
+Phase marker: external reviewer workflow failed stage event runtime request refresh v0.
+
+Review artifact:
+
+```text
+docs/review/external-reviewer-workflow-failed-stage-event-runtime-request-refresh.md
+```
+
+Highlighted proof:
+
+```text
+docs/review/workflow-failed-stage-event.md
+docs/review/workflow-failed-stage-event-runtime-smoke.md
+POST /workflow-runs/execute-preview -> 500
+GET /workflow-runs/{id} -> 200
+GET /workflow-runs/{id}/proof-bundle -> 200
+workflow_stage_event_count -> 2
+retrieval -> completed
+evidence_ledger -> failed
+failure_case_count_delta -> 0
+local_workflow_stage_failure_event_no_retry_no_auto_failure_case
+```
+
+Boundary:
+
+```text
+request-surface refresh only
+not a live issue body edit
+not external reviewer feedback
+not hosted deployment evidence
+not retry behavior
+not automatic failure-case creation
+not distributed tracing
+not hosted observability
+not product-complete
+```
