@@ -6,7 +6,7 @@ This page maps the repository into a reviewer-readable path.
 
 Fast path: `docs/review/external-reader-proof-path.md` is the 5-minute path for external readers. It starts with `README.md`, then points to this portfolio index, the failure-case workflow parent proof index, the failure-case workflow review queue proof index, the application-ready review, and the Braincrew role map.
 
-Boundary: this fast path is not hosted deployment evidence, not automatic failure-case creation, and not complete workflow failure causality.
+Boundary: this fast path is not hosted deployment evidence, not automatic failure-case creation beyond the local v0 workflow failure path, and not complete workflow failure causality.
 
 Public portfolio surface: `docs/review/portfolio-site-proof-artifact-route-verification.md` records that the live portfolio proof artifact points back to this repo without converting that route into NoiseProof hosted deployment evidence.
 
@@ -408,6 +408,8 @@ Workflow failed stage event runtime smoke: `docs/review/workflow-failed-stage-ev
 
 Workflow failure auto failure-case creation: `docs/review/workflow-failure-auto-failure-case-creation.md` records current route-level evidence that a deterministic failed workflow preview creates one linked local v0 failure case with `failure_case_count -> 1`, `failed_stage: evidence_ledger`, `workflow_stage_error`, `auto_failure_case_id`, `auto_created_from_workflow_failure_local_v0`, and `local_workflow_stage_failure_event_auto_failure_case_local_v0`. This is local route behavior only, not retry behavior, root-cause automation, complete workflow failure causality, Docker runtime smoke, hosted deployment evidence, external reviewer feedback, or product-complete.
 
+Workflow failure auto failure-case creation runtime smoke: `docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP evidence that the same local v0 path creates one linked failure case under an intentionally failing Evidence Ledger insert. It observed `failure_case_count_delta -> 1`, `auto_failure_case_id`, `detail_failure_case_count -> 1`, `bundle_detail_failure_case_count -> 1`, `filtered_failure_case_count -> 1`, `auto_created_from_workflow_failure_local_v0`, and `local_workflow_stage_failure_event_auto_failure_case_local_v0`. This is not retry behavior, root-cause automation, complete workflow failure causality, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 External reviewer workflow failed stage event runtime request refresh: `docs/review/external-reviewer-workflow-failed-stage-event-runtime-request-refresh.md` records that reviewer-facing repository paths now point to `docs/review/workflow-failed-stage-event-runtime-smoke.md`. This is request-surface refresh only, not a live issue body edit, hosted deployment evidence, external reviewer feedback, retry behavior, automatic failure-case creation, distributed tracing, hosted observability, or product-complete.
 
 External review issue body workflow failed stage event runtime refresh: `docs/review/external-review-issue-body-workflow-failed-stage-event-runtime-refresh.md` records the owner-authored issue #1 body update that points reviewers to `docs/review/workflow-failed-stage-event-runtime-smoke.md` and its request refresh. This is issue routing only, not external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, retry behavior, automatic failure-case creation, distributed tracing, hosted observability, or product-complete.
@@ -503,6 +505,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | Workflow stage event log runtime smoke | `docs/review/workflow-stage-event-log-runtime-smoke.md` | local Docker DB and live HTTP proof for stage event rows |
 | Workflow failed stage event runtime smoke | `docs/review/workflow-failed-stage-event-runtime-smoke.md` | local Docker DB and live HTTP proof for failed stage event inspection |
 | Workflow failure auto failure-case creation | `docs/review/workflow-failure-auto-failure-case-creation.md` | route-level proof that failed workflow previews create one linked local v0 failure case with trace provenance |
+| Workflow failure auto failure-case creation runtime smoke | `docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md` | local Docker DB and live HTTP proof for local v0 auto-created workflow failure cases |
 | External reviewer workflow stage event log runtime request refresh | `docs/review/external-reviewer-workflow-stage-event-log-runtime-request-refresh.md` | reviewer-facing request-surface refresh for stage event runtime proof |
 | External reviewer workflow failed stage event runtime request refresh | `docs/review/external-reviewer-workflow-failed-stage-event-runtime-request-refresh.md` | reviewer-facing request-surface refresh for failed stage event runtime proof |
 | External review issue body workflow failed stage event runtime refresh | `docs/review/external-review-issue-body-workflow-failed-stage-event-runtime-refresh.md` | owner-authored public issue routing for failed stage event runtime proof |
@@ -926,4 +929,4 @@ Detailed proof history remains in `docs/review/external-reader-proof-path.md`, `
 
 Allowed claim: local, inspectable portfolio evidence exists for the current bounded workflow surfaces.
 
-Forbidden claim: this is not hosted deployment evidence, not a raw-file download/scanning system, not automatic failure-case creation, not complete workflow failure causality, not production RAG quality, and not a product-complete declaration.
+Forbidden claim: this is not hosted deployment evidence, not a raw-file download/scanning system, not automatic failure-case creation beyond the local v0 workflow failure path, not complete workflow failure causality, not production RAG quality, and not a product-complete declaration.

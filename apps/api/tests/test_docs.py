@@ -1397,6 +1397,78 @@ def test_workflow_failure_auto_failure_case_creation_documents_current_route_beh
     )
 
 
+def test_workflow_failure_auto_failure_case_creation_runtime_smoke_records_live_http_evidence():
+    smoke_path = (
+        REPO_ROOT
+        / "docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md"
+    )
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Workflow Failure Auto Failure-case Creation Runtime Smoke" in content
+    assert "workflow failure auto failure-case creation runtime smoke v0" in content
+    assert "Docker PostgreSQL" in content
+    assert "live FastAPI HTTP" in content
+    assert "db_health=healthy" in content
+    assert "Applied migrations: 23" in content
+    assert "Pending migrations: 0" in content
+    assert "smoke-only CHECK constraint" in content
+    assert "smoke_fail_auto_failure_case" in content
+    assert "constraint removed after smoke" in content
+    assert "POST /workflow-runs/execute-preview -> 500" in content
+    assert "GET /workflow-runs/{id} -> 200" in content
+    assert "GET /workflow-runs/{id}/proof-bundle -> 200" in content
+    assert "GET /failure-cases?workflow_run_id={id} -> 200" in content
+    assert "workflow_run_id -> a81bd16b-9291-4049-94a2-f4d0bbbf0b2f" in content
+    assert "auto_failure_case_id -> 399aa3be-fa49-44b6-bfbb-d87700be0b1a" in content
+    assert "failure_case_id -> 399aa3be-fa49-44b6-bfbb-d87700be0b1a" in content
+    assert "failure_case_count_delta -> 1" in content
+    assert "detail_failure_case_count -> 1" in content
+    assert "bundle_detail_failure_case_count -> 1" in content
+    assert "filtered_failure_case_count -> 1" in content
+    assert "retrieval -> completed" in content
+    assert "evidence_ledger -> failed" in content
+    assert "local_workflow_stage_failure_event_auto_failure_case_local_v0" in content
+    assert "auto_created_from_workflow_failure_local_v0" in content
+    assert "not retry behavior" in content
+    assert "not root-cause automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Workflow failure auto failure-case creation runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Latest runtime proof marker: Workflow failure auto failure-case creation runtime smoke v0"
+        in readme
+    )
+    assert (
+        "Phase 587 - Workflow Failure Auto Failure-case Creation Runtime Smoke v0"
+        in goal
+    )
+    assert "workflow failure auto failure-case creation runtime smoke v0" in runbook
+    assert (
+        "docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md"
+        in portfolio
+    )
+    assert (
+        "docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md"
+        in app_review
+    )
+
+
 def test_external_reviewer_workflow_failed_stage_event_runtime_request_refresh_links_latest_proof():
     review_path = (
         REPO_ROOT
@@ -18499,7 +18571,7 @@ def test_readme_latest_marker_current_state_refresh_points_to_current_proof_boun
         in readme
     )
     assert (
-        "Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0"
+        "Latest runtime proof marker: Workflow failure auto failure-case creation runtime smoke v0"
         in readme
     )
     assert (

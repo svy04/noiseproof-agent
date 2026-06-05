@@ -21486,6 +21486,57 @@ Next recommended evidence gate:
 workflow failure auto failure-case creation runtime smoke v0 if Docker/API runtime proof is desired, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 587 - Workflow Failure Auto Failure-case Creation Runtime Smoke v0
+
+Status: implemented.
+
+This phase records local Docker PostgreSQL plus live FastAPI HTTP evidence for the local v0 workflow failure auto failure-case creation path.
+
+Implemented artifacts:
+
+```text
+workflow failure auto failure-case creation runtime smoke v0
+docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md
+POST /workflow-runs/execute-preview -> 500
+GET /workflow-runs/{id} -> 200
+GET /workflow-runs/{id}/proof-bundle -> 200
+GET /failure-cases?workflow_run_id={id} -> 200
+smoke_fail_auto_failure_case
+workflow_run_id -> a81bd16b-9291-4049-94a2-f4d0bbbf0b2f
+auto_failure_case_id -> 399aa3be-fa49-44b6-bfbb-d87700be0b1a
+failure_case_id -> 399aa3be-fa49-44b6-bfbb-d87700be0b1a
+failed_stage -> evidence_ledger
+retrieval -> completed
+evidence_ledger -> failed
+failure_case_count_delta -> 1
+detail_failure_case_count -> 1
+bundle_detail_failure_case_count -> 1
+filtered_failure_case_count -> 1
+auto_created_from_workflow_failure_local_v0
+local_workflow_stage_failure_event_auto_failure_case_local_v0
+```
+
+Boundary:
+
+```text
+local Docker PostgreSQL plus live FastAPI HTTP only
+not retry behavior
+not root-cause automation
+not complete workflow failure causality
+not production background worker behavior
+not distributed tracing
+not hosted observability
+not external reviewer feedback
+not hosted deployment evidence
+not product-complete
+```
+
+Next recommended gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
