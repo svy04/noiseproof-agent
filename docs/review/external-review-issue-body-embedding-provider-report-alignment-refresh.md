@@ -41,6 +41,12 @@ docs/review/embedding-model-live-provider-owner-runtime-smoke-report-contract-al
 docs/review/embedding-model-live-provider-owner-runtime-smoke-report-contract-alignment-ci-remote-verification.md
 ```
 
+Follow-up current-state verification:
+
+```text
+docs/review/external-feedback-current-state-embedding-provider-report-alignment-issue-verification.md
+```
+
 ## Boundary
 
 ```text
