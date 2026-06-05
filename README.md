@@ -347,6 +347,8 @@ Ops dashboard anchor method metadata v0: implemented. Boundary: clickable `GET /
 
 Ops dashboard anchor GET smoke v0: implemented. Boundary: local FastAPI test-client smoke verifies each clickable dashboard `data-method="GET"` anchor resolves as a GET 200 inspection route; POST-only actions remain non-clickable method cues. This is not browser automation evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
 
+Ops dashboard anchor GET runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence verified `GET /ops/dashboard` exposed 38 clickable `data-method="GET"` anchors, 25 unique hrefs, and each unique href returned GET 200; POST-only draft preview remained non-clickable. This is not hosted deployment evidence, browser automation evidence, external reviewer feedback, or product-complete.
+
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
 Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence only; not hosted deployment evidence, not external reviewer feedback, and not malware scanning.

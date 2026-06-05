@@ -143,3 +143,4 @@ Failure-case Workflow Review Queue Dashboard Surfacing v0 adds the same read mod
 Ops Dashboard GET-only Link Method Boundary v0 makes `GET /ops/dashboard` state: Dashboard links are GET-only inspection routes. POST-only actions render as method cues, not anchors.
 Ops Dashboard Anchor Method Metadata v0 makes every clickable dashboard anchor carry `data-method="GET"` while POST-only actions remain method cues, not anchors.
 Ops Dashboard Anchor GET Smoke v0 verifies with the FastAPI test client that every clickable `data-method="GET"` dashboard anchor resolves as a GET 200 inspection route.
+Ops Dashboard Anchor GET Runtime Smoke v0 records local Docker PostgreSQL plus live FastAPI HTTP evidence that `GET /ops/dashboard` exposed 38 clickable GET anchors, 25 unique hrefs, and each unique href returned GET 200.

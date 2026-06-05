@@ -423,6 +423,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | Ops dashboard GET-only link method boundary | `docs/review/ops-dashboard-get-only-link-method-boundary.md` | GET links only; POST-only actions render as method cues |
 | Ops dashboard anchor method metadata | `docs/review/ops-dashboard-anchor-method-metadata.md` | every clickable dashboard anchor carries GET method metadata |
 | Ops dashboard anchor GET smoke | `docs/review/ops-dashboard-anchor-get-smoke.md` | every clickable dashboard GET anchor resolves as a GET 200 inspection route in the FastAPI test client |
+| Ops dashboard anchor GET runtime smoke | `docs/review/ops-dashboard-anchor-get-runtime-smoke.md` | local Docker DB plus live FastAPI verified every unique dashboard GET href returned 200 |
 | Failure-case workflow review queue fresh DB dashboard smoke verification | `docs/review/failure-case-workflow-review-queue-fresh-db-dashboard-smoke-verification.md` | verified local |
 | Failure-case workflow review queue proof index | `docs/review/failure-case-workflow-review-queue-proof-index.md` | implemented v0 |
 | External-reader proof path | `docs/review/external-reader-proof-path.md` | implemented v0 |
@@ -475,6 +476,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | `docs/review/ops-dashboard-get-only-link-method-boundary.md` | current dashboard method-boundary proof that clickable dashboard links are GET-only inspection routes |
 | `docs/review/ops-dashboard-anchor-method-metadata.md` | current dashboard method-boundary proof that clickable dashboard anchors carry machine-readable GET metadata |
 | `docs/review/ops-dashboard-anchor-get-smoke.md` | current dashboard smoke proof that clickable dashboard GET anchors resolve as GET 200 inspection routes |
+| `docs/review/ops-dashboard-anchor-get-runtime-smoke.md` | current local runtime proof that dashboard GET anchors resolve against fresh Docker DB plus live FastAPI HTTP |
 | `docs/review/failure-case-workflow-review-queue-proof-index.md` | reader path: read-model queue -> runtime smoke -> dashboard surfacing -> fresh DB dashboard proof; no automatic failure-case creation |
 | `docs/review/portfolio-site-proof-artifact-route-verification.md` | live portfolio route proof that the public NoiseProof proof surface references the current repo proof path and boundaries |
 | `docs/review/demo-transcript-capture.md` | self-authored route transcript for collection planning, deterministic workflow preview, lineage, and dashboard inspection |

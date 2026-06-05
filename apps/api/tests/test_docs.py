@@ -2446,6 +2446,40 @@ def test_ops_dashboard_anchor_get_smoke_documents_resolvable_inspection_links():
     assert "docs/review/ops-dashboard-anchor-get-smoke.md" in portfolio
 
 
+def test_ops_dashboard_anchor_get_runtime_smoke_documents_fresh_db_evidence():
+    review_path = (
+        REPO_ROOT / "docs/review/ops-dashboard-anchor-get-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Ops Dashboard Anchor GET Runtime Smoke" in content
+    assert "ops dashboard anchor GET runtime smoke v0" in content
+    assert "local Docker PostgreSQL plus live FastAPI HTTP evidence" in content
+    assert "docker compose -p noiseproof-phase522 up -d db" in content
+    assert "uv run uvicorn app.main:app --host 127.0.0.1 --port 8101" in content
+    assert "GET /ops/dashboard" in content
+    assert 'data-method="GET"' in content
+    assert "all_extracted_dashboard_get_anchors_returned_200: true" in content
+    assert "post_only_draft_preview_was_not_clickable: true" in content
+    assert "not hosted deployment evidence" in content
+    assert "not browser automation evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Ops dashboard anchor GET runtime smoke v0: implemented" in readme
+    )
+    assert "Phase 522 - Ops Dashboard Anchor GET Runtime Smoke v0" in goal
+    assert "ops dashboard anchor GET runtime smoke v0" in runbook
+    assert "docs/review/ops-dashboard-anchor-get-runtime-smoke.md" in portfolio
+
+
 def test_failure_case_workflow_review_queue_fresh_db_dashboard_smoke_documents_runtime_html_proof():
     content = (
         REPO_ROOT

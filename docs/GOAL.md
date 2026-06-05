@@ -19077,6 +19077,40 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 522 - Ops Dashboard Anchor GET Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record fresh Docker DB plus live FastAPI HTTP evidence that dashboard GET anchors resolve as inspection routes
+```
+
+Implemented:
+
+```text
+ops dashboard anchor GET runtime smoke v0
+docs/review/ops-dashboard-anchor-get-runtime-smoke.md
+local Docker PostgreSQL plus live FastAPI HTTP evidence
+docker compose -p noiseproof-phase522 up -d db
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8101
+GET /ops/dashboard
+data-method="GET"
+extracted_anchor_count: 38
+unique_anchor_count: 25
+all_extracted_dashboard_get_anchors_returned_200: true
+post_only_draft_preview_was_not_clickable: true
+```
+
+Phase 522 records local runtime smoke evidence only. It adds no endpoint, no route behavior change, no runtime workflow semantics, no schema or migration, no browser automation evidence, no hosted deployment evidence, no automatic failure-case creation, no background automation, no root-cause automation, no complete workflow failure causality, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
