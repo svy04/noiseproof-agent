@@ -20703,6 +20703,41 @@ Next recommended evidence gate:
 external review issue body persisted document failure candidate manual handoff runtime refresh v0 if this proof should be routed through the live public issue, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 567 - External Reviewer Persisted Document Failure Candidate Manual Handoff Runtime Issue-body Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+route the persisted document failure candidate manual handoff runtime proof through the live public external review issue
+```
+
+Implemented:
+
+```text
+external reviewer persisted document failure candidate manual handoff runtime issue-body refresh v0
+docs/review/external-review-issue-body-persisted-document-failure-candidate-manual-handoff-runtime-refresh.md
+issue #1 updatedAt -> 2026-06-05T14:15:36Z
+comment_count -> 1
+starts_with_request -> true
+first_codepoint -> 35
+has_persisted_document_failure_candidate_manual_handoff_runtime_proof -> true
+has_persisted_document_failure_candidate_manual_handoff_request_refresh -> true
+has_persisted_document_failure_candidate_manual_handoff_issue_body_record -> true
+has_external_feedback_boundary -> true
+failure_case_count_delta -> 1
+human changes draft.fix_status from draft to open
+```
+
+Phase 567 is an owner-authored issue body edit only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not automatic failure-case creation, not a confirm endpoint, not automatic root-cause analysis, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state persisted document failure candidate manual handoff runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
