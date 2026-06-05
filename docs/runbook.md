@@ -10709,3 +10709,41 @@ not hosted observability
 not external reviewer feedback
 not product-complete
 ```
+
+## Workflow Failed Stage Event Runtime Smoke
+
+Phase marker: workflow failed stage event runtime smoke v0.
+
+Review artifact:
+
+```text
+docs/review/workflow-failed-stage-event-runtime-smoke.md
+```
+
+Covered local runtime smoke:
+
+```text
+Docker PostgreSQL -> noiseproof-agent-db
+db_health=healthy
+Pending migrations: 0
+smoke-only CHECK constraint -> smoke_fail_evidence_stage
+POST /workflow-runs/execute-preview -> 500
+GET /workflow-runs/{id} -> 200
+GET /workflow-runs/{id}/proof-bundle -> 200
+retrieval -> completed
+evidence_ledger -> failed
+workflow_stage_event_count -> 2
+failure_case_count_delta -> 0
+constraint removed after smoke
+```
+
+Boundary:
+
+```text
+local workflow failed-stage event runtime smoke only
+not automatic failure-case creation
+not retry behavior
+not root-cause automation
+not hosted deployment evidence
+not product-complete
+```

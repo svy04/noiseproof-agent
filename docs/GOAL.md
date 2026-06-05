@@ -21252,6 +21252,47 @@ Next recommended evidence gate:
 workflow failed stage event runtime smoke v0 if Docker/API verification is desired, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 582 - Workflow Failed Stage Event Runtime Smoke v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+record local Docker PostgreSQL plus live FastAPI HTTP evidence that a workflow preview failure leaves an inspectable failed stage event
+```
+
+Implemented artifacts:
+
+```text
+workflow failed stage event runtime smoke v0
+docs/review/workflow-failed-stage-event-runtime-smoke.md
+Docker PostgreSQL -> noiseproof-agent-db
+db_health=healthy
+Pending migrations: 0
+POST /workflow-runs/execute-preview -> 500
+GET /workflow-runs/{id} -> 200
+GET /workflow-runs/{id}/proof-bundle -> 200
+retrieval -> completed
+evidence_ledger -> failed
+workflow_stage_event_count -> 2
+failed_stage_boundary -> local_workflow_stage_failure_event_no_retry_no_auto_failure_case
+failure_case_count_delta -> 0
+smoke-only CHECK constraint removed after smoke
+```
+
+Boundary:
+
+```text
+Phase 582 is local runtime smoke evidence for failed workflow stage event inspection only. It is not automatic failure-case creation, not retry behavior, not root-cause automation, not complete workflow failure causality, not distributed tracing, not hosted observability, not external reviewer feedback, not hosted deployment evidence, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

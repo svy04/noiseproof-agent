@@ -1299,6 +1299,43 @@ def test_workflow_stage_event_log_runtime_smoke_records_live_db_and_http_evidenc
     assert "docs/review/workflow-stage-event-log-runtime-smoke.md" in portfolio
 
 
+def test_workflow_failed_stage_event_runtime_smoke_records_live_failure_evidence():
+    smoke = REPO_ROOT / "docs/review/workflow-failed-stage-event-runtime-smoke.md"
+    assert smoke.is_file()
+
+    content = smoke.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    app_review = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Workflow Failed Stage Event Runtime Smoke" in content
+    assert "workflow failed stage event runtime smoke v0" in content
+    assert "Docker PostgreSQL" in content
+    assert "db_health=healthy" in content
+    assert "Pending migrations: 0" in content
+    assert "POST /workflow-runs/execute-preview -> 500" in content
+    assert "GET /workflow-runs/{id} -> 200" in content
+    assert "retrieval -> completed" in content
+    assert "evidence_ledger -> failed" in content
+    assert '"workflow_stage_event_count": 2' in content
+    assert '"stage_status": "failed"' in content
+    assert "local_workflow_stage_failure_event_no_retry_no_auto_failure_case" in content
+    assert "smoke-only CHECK constraint" in content
+    assert "constraint removed after smoke" in content
+    assert "failure_case_count_delta -> 0" in content
+    assert "not automatic failure-case creation" in content
+    assert "not retry behavior" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert "Workflow failed stage event runtime smoke v0: implemented" in readme
+    assert "Phase 582 - Workflow Failed Stage Event Runtime Smoke v0" in goal
+    assert "workflow failed stage event runtime smoke v0" in runbook
+    assert "workflow-failed-stage-event-runtime-smoke.md" in app_review
+
+
 def test_external_reviewer_workflow_stage_event_log_runtime_request_refresh_links_latest_proof():
     review_path = (
         REPO_ROOT
