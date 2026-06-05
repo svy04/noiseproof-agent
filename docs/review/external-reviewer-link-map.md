@@ -44,7 +44,11 @@ This artifact gives outside reviewers direct links to the shortest inspectable p
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/workflow-proof-bundle-failure-case-links-runtime-smoke.md
 - Failure-case links request refresh:
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-proof-bundle-failure-case-links-runtime-request-refresh.md
-- Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle`, dashboard navigation from `GET /ops/dashboard` to the `proof bundle` link, and linked failure-case visibility through `GET /workflow-runs/{id}`, `GET /workflow-runs/{id}/proof-bundle`, and `GET /failure-cases?workflow_run_id={id}` with unrelated failure cases filtered out; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not automatic failure detection, not background automation, not complete workflow failure causality, and not product-complete.
+- Dashboard failure-case counts runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/workflow-dashboard-failure-case-counts-runtime-smoke.md
+- Dashboard failure-case counts request refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-dashboard-failure-case-counts-runtime-request-refresh.md
+- Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle`, dashboard navigation from `GET /ops/dashboard` to the `proof bundle` link, linked failure-case visibility through `GET /workflow-runs/{id}`, `GET /workflow-runs/{id}/proof-bundle`, and `GET /failure-cases?workflow_run_id={id}` with unrelated failure cases filtered out, plus dashboard failure-case count/filter links with `dashboard_contains_linked_failure_case_filter: true` and `dashboard_omits_unlinked_failure_case_filter: true`; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not automatic failure detection, not background automation, not complete workflow failure causality, and not product-complete.
 
 ## Latest Workflow Failure-case Persistence Runtime Proof
 

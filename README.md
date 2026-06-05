@@ -333,6 +333,8 @@ Workflow dashboard failure-case counts v0: implemented. Boundary: `GET /ops/dash
 
 Workflow dashboard failure-case counts runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified `GET /ops/dashboard` includes the `Linked Failure Cases` workflow column, links a workflow with one linked failure case to `GET /failure-cases?workflow_run_id={id}`, and omits that filter link for an unlinked failed workflow. This is local runtime evidence only, not automatic failure detection, background automation, complete workflow failure causality, root-cause automation, hosted deployment evidence, external reviewer feedback, or product-complete.
 
+External reviewer workflow dashboard failure-case counts runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-dashboard-failure-case-counts-runtime-smoke.md` and `docs/review/external-reviewer-workflow-dashboard-failure-case-counts-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, automatic failure detection, background automation, complete workflow failure causality, or product-complete.
+
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
 Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence only; not hosted deployment evidence, not external reviewer feedback, and not malware scanning.
