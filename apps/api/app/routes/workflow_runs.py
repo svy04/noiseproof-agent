@@ -94,7 +94,8 @@ def get_workflow_run_proof_bundle(
         proof_surfaces.append(f"/failure-cases?workflow_run_id={workflow_run_id}")
         warnings.append(
             "Linked failure_cases are linked by workflow_run_id and surfaced read-only; "
-            "this is not automatic failure causality or background automation."
+            "local v0 persistence is not retry behavior, root-cause automation, "
+            "or complete workflow failure causality."
         )
     return WorkflowProofBundleOut(
         workflow_run=WorkflowRunOut(**workflow_run),

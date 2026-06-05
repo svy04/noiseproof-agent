@@ -9,6 +9,7 @@ from app.schemas import (
     EvidenceLedgerPersistedOut,
     EvidenceLedgerPreviewRequest,
     EvidenceLedgerStoredEntryOut,
+    FailureCaseCreate,
     NoiseGatePreviewRequest,
     NoiseGateStoredRecordOut,
     ReportPreviewRequest,
@@ -269,6 +270,11 @@ def execute_workflow_preview(
             )
         )
     except Exception as exc:
+        failed_stage_name = (
+            active_stage_failure_context["stage_name"]
+            if active_stage_failure_context is not None
+            else "unknown_stage"
+        )
         if active_stage_failure_context is not None:
             try:
                 repository.create_workflow_stage_events(
@@ -297,7 +303,14 @@ def execute_workflow_preview(
             trace_json={
                 **initial_trace,
                 "error_type": exc.__class__.__name__,
+                "failed_stage": failed_stage_name,
             },
+        )
+        _auto_create_workflow_failure_case(
+            workflow_run=workflow_run,
+            repository=repository,
+            exc=exc,
+            failed_stage_name=failed_stage_name,
         )
         raise
 
@@ -393,10 +406,53 @@ def _failed_workflow_stage_event(
             "error_type": exc.__class__.__name__,
             "error_message": str(exc),
             "failed_stage_boundary": (
-                "local_workflow_stage_failure_event_no_retry_no_auto_failure_case"
+                "local_workflow_stage_failure_event_auto_failure_case_local_v0"
             ),
         },
     )
+
+
+def _auto_create_workflow_failure_case(
+    *,
+    workflow_run: dict,
+    repository: Repository,
+    exc: Exception,
+    failed_stage_name: str,
+) -> None:
+    try:
+        failure_case = repository.create_failure_case(
+            FailureCaseCreate(
+                workflow_run_id=workflow_run["id"],
+                agent_run_id=None,
+                failure_type="workflow_stage_error",
+                description=(
+                    "Auto-created from workflow stage failure at "
+                    f"{failed_stage_name} for question '{workflow_run['question']}'."
+                ),
+                root_cause=f"{exc.__class__.__name__}: {exc}",
+                fix_status="open",
+                next_action=(
+                    "Inspect the failed workflow stage event, confirm the failure "
+                    "case, and decide whether to retry, repair input data, or "
+                    "adjust the stage boundary."
+                ),
+            )
+        )
+        repository.update_workflow_run(
+            workflow_run["id"],
+            status=workflow_run.get("status", "failed"),
+            error_message=workflow_run.get("error_message"),
+            latency_ms=workflow_run.get("latency_ms") or 0,
+            trace_json={
+                **(workflow_run.get("trace_json") or {}),
+                "auto_failure_case_id": str(failure_case["id"]),
+                "failure_case_persistence_boundary": (
+                    "auto_created_from_workflow_failure_local_v0"
+                ),
+            },
+        )
+    except Exception:
+        pass
 
 
 def _workflow_stage_links(

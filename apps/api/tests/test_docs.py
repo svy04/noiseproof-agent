@@ -1173,7 +1173,10 @@ def test_workflow_direct_stage_links_docs_and_schema_are_inspectable():
     assert "REFERENCES report_records(id) ON DELETE CASCADE" in migration
     assert "Phase 530 - Workflow Direct Stage Links v0" in goal
     assert "Workflow direct stage links v0: implemented" in readme
-    assert "Latest product gate marker: Workflow failed stage event v0: implemented." in readme
+    assert (
+        "Latest product gate marker: Workflow failure auto failure-case creation v0: implemented."
+        in readme
+    )
     assert "workflow direct stage links v0" in runbook
     assert "workflow direct stage links v0" in app_review
     assert "docs/review/workflow-direct-stage-links.md" in portfolio
@@ -1252,7 +1255,10 @@ def test_workflow_stage_event_log_docs_and_schema_are_inspectable():
     assert "workflow_stage_event_count" in review
     assert "Phase 535 - Workflow Stage Event Log v0" in goal
     assert "Workflow stage event log v0: implemented" in readme
-    assert "Latest product gate marker: Workflow failed stage event v0: implemented." in readme
+    assert (
+        "Latest product gate marker: Workflow failure auto failure-case creation v0: implemented."
+        in readme
+    )
     assert "workflow stage event log v0" in runbook
     assert "workflow stage event log exists" in app_review
     assert "docs/review/workflow-stage-event-log.md" in portfolio
@@ -1334,6 +1340,61 @@ def test_workflow_failed_stage_event_runtime_smoke_records_live_failure_evidence
     assert "Phase 582 - Workflow Failed Stage Event Runtime Smoke v0" in goal
     assert "workflow failed stage event runtime smoke v0" in runbook
     assert "workflow-failed-stage-event-runtime-smoke.md" in app_review
+
+
+def test_workflow_failure_auto_failure_case_creation_documents_current_route_behavior():
+    review_path = (
+        REPO_ROOT / "docs/review/workflow-failure-auto-failure-case-creation.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    workflow_execution = (
+        REPO_ROOT / "apps/api/app/services/workflow_execution.py"
+    ).read_text(encoding="utf-8")
+    route_tests = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Workflow Failure Auto Failure-case Creation" in content
+    assert "workflow failure auto failure-case creation v0" in content
+    assert "test_workflow_execute_preview_auto_creates_failure_case_when_stage_errors" in content
+    assert "auto_created_from_workflow_failure_local_v0" in content
+    assert "auto_failure_case_id" in content
+    assert "local_workflow_stage_failure_event_auto_failure_case_local_v0" in content
+    assert "failed_stage: evidence_ledger" in content
+    assert "failure_case_count -> 1" in content
+    assert "failure_type: workflow_stage_error" in content
+    assert "fix_status: open" in content
+    assert "root_cause: RuntimeError: simulated evidence persistence failure" in content
+    assert "not retry behavior" in content
+    assert "not root-cause automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not Docker runtime smoke" in content
+    assert "not product-complete" in content
+    assert (
+        "Workflow failure auto failure-case creation v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 586 - Workflow Failure Auto Failure-case Creation v0"
+        in goal
+    )
+    assert "workflow failure auto failure-case creation v0" in runbook
+    assert "docs/review/workflow-failure-auto-failure-case-creation.md" in portfolio
+    assert "auto_created_from_workflow_failure_local_v0" in workflow_execution
+    assert (
+        "test_workflow_execute_preview_auto_creates_failure_case_when_stage_errors"
+        in route_tests
+    )
 
 
 def test_external_reviewer_workflow_failed_stage_event_runtime_request_refresh_links_latest_proof():
@@ -20273,7 +20334,10 @@ def test_workflow_dashboard_failure_case_counts_document_read_model_boundary():
     assert "_workflow_failure_case_count_cell" in dashboard_py
     assert "test_ops_dashboard_surfaces_workflow_failure_case_counts_and_filter_links" in routes_test
     assert "Workflow dashboard failure-case counts v0: implemented" in readme
-    assert "Latest product gate marker: Workflow failed stage event v0: implemented." in readme
+    assert (
+        "Latest product gate marker: Workflow failure auto failure-case creation v0: implemented."
+        in readme
+    )
     assert "Phase 513 - Workflow Dashboard Failure-case Counts v0" in goal
     assert "workflow dashboard failure-case counts v0" in runbook
     assert "docs/review/workflow-dashboard-failure-case-counts.md" in portfolio

@@ -4077,9 +4077,17 @@ def test_workflow_execute_preview_marks_parent_failed_when_stage_errors():
     assert workflow_run["ended_at"] is not None
     assert workflow_run["trace_json"]["stage"] == "workflow_execute_preview"
     assert workflow_run["trace_json"]["error_type"] == "RuntimeError"
+    assert workflow_run["trace_json"]["failed_stage"] == "evidence_ledger"
     assert len(repository.retrieval_runs) == 1
     assert repository.retrieval_runs[0]["workflow_run_id"] == workflow_run["id"]
-    assert repository.failure_cases == []
+    assert len(repository.failure_cases) == 1
+    assert repository.failure_cases[0]["workflow_run_id"] == workflow_run["id"]
+    assert workflow_run["trace_json"]["auto_failure_case_id"] == str(
+        repository.failure_cases[0]["id"]
+    )
+    assert workflow_run["trace_json"]["failure_case_persistence_boundary"] == (
+        "auto_created_from_workflow_failure_local_v0"
+    )
 
 
 def test_workflow_execute_preview_records_failed_stage_event_when_stage_errors():
@@ -4126,14 +4134,70 @@ def test_workflow_execute_preview_records_failed_stage_event_when_stage_errors()
         "error_type": "RuntimeError",
         "error_message": "simulated evidence persistence failure",
         "failed_stage_boundary": (
-            "local_workflow_stage_failure_event_no_retry_no_auto_failure_case"
+            "local_workflow_stage_failure_event_auto_failure_case_local_v0"
         ),
     }
     assert detail.json()["summary"]["workflow_stage_event_count"] == 2
-    assert repository.failure_cases == []
+    assert detail.json()["summary"]["failure_case_count"] == 1
 
 
-def test_failed_workflow_parent_can_feed_failure_case_draft_preview_without_persistence():
+def test_workflow_execute_preview_auto_creates_failure_case_when_stage_errors():
+    app = create_app()
+    repository = EvidencePersistenceFailureRepository()
+    app.dependency_overrides[get_repository] = lambda: repository
+    client = TestClient(app, raise_server_exceptions=False)
+
+    response = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    )
+
+    assert response.status_code == 500
+    workflow_run = repository.workflow_runs[0]
+    assert workflow_run["status"] == "failed"
+    assert len(repository.failure_cases) == 1
+    failure_case = repository.failure_cases[0]
+    assert failure_case["workflow_run_id"] == workflow_run["id"]
+    assert failure_case["agent_run_id"] is None
+    assert failure_case["failure_type"] == "workflow_stage_error"
+    assert failure_case["fix_status"] == "open"
+    assert failure_case["root_cause"] == (
+        "RuntimeError: simulated evidence persistence failure"
+    )
+    assert (
+        "Auto-created from workflow stage failure at evidence_ledger"
+        in failure_case["description"]
+    )
+    assert "Inspect the failed workflow stage event" in failure_case["next_action"]
+
+    detail = client.get(f"/workflow-runs/{workflow_run['id']}")
+
+    assert detail.status_code == 200
+    detail_payload = detail.json()
+    assert detail_payload["summary"]["failure_case_count"] == 1
+    assert detail_payload["failure_cases"][0]["id"] == str(failure_case["id"])
+    assert detail_payload["workflow_run"]["trace_json"]["auto_failure_case_id"] == str(
+        failure_case["id"]
+    )
+    assert detail_payload["workflow_run"]["trace_json"][
+        "failure_case_persistence_boundary"
+    ] == "auto_created_from_workflow_failure_local_v0"
+    assert detail_payload["stage_events"][1]["output_summary_json"][
+        "failed_stage_boundary"
+    ] == "local_workflow_stage_failure_event_auto_failure_case_local_v0"
+
+
+def test_failed_workflow_parent_can_feed_failure_case_draft_preview_without_extra_persistence():
     app = create_app()
     repository = EvidencePersistenceFailureRepository()
     app.dependency_overrides[get_repository] = lambda: repository
@@ -4158,7 +4222,8 @@ def test_failed_workflow_parent_can_feed_failure_case_draft_preview_without_pers
     assert len(repository.workflow_runs) == 1
     workflow_run = repository.workflow_runs[0]
     assert workflow_run["status"] == "failed"
-    assert repository.failure_cases == []
+    assert len(repository.failure_cases) == 1
+    auto_failure_case_id = repository.failure_cases[0]["id"]
 
     preview = client.post(
         "/failure-cases/draft-preview",
@@ -4185,8 +4250,9 @@ def test_failed_workflow_parent_can_feed_failure_case_draft_preview_without_pers
     assert payload["draft"]["root_cause"] == "RuntimeError: simulated evidence persistence failure"
     assert payload["draft"]["fix_status"] == "draft"
     assert any("does not create failure_cases" in warning for warning in payload["warnings"])
-    assert repository.failure_cases == []
-    assert client.get("/failure-cases").json() == []
+    assert len(repository.failure_cases) == 1
+    assert repository.failure_cases[0]["id"] == auto_failure_case_id
+    assert len(client.get("/failure-cases").json()) == 1
 
 
 def test_workflow_run_detail_returns_child_records_linked_to_workflow_parent():
@@ -4973,7 +5039,8 @@ def test_ops_dashboard_links_failure_cases_to_manual_workflow_parent():
         in response.text
     )
     assert "manual workflow parent link" in response.text
-    assert "not automatic failure-case creation" in response.text
+    assert "local v0 auto-created failure-case provenance" in response.text
+    assert "not retry behavior, root-cause automation" in response.text
 
 
 def test_ops_dashboard_surfaces_failure_case_workflow_review_queue_without_persistence():

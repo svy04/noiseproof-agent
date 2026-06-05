@@ -82,7 +82,7 @@ def render_ops_dashboard(
   </section>
   <section>
     <h2>Failure Cases</h2>
-    <p class="muted">Workflow parent links are manual workflow parent link provenance only, not automatic failure-case creation.</p>
+    <p class="muted">Workflow parent links include manual workflow parent link provenance and local v0 auto-created failure-case provenance; not retry behavior, root-cause automation, or complete workflow failure causality.</p>
     {_failure_cases_table(failure_cases)}
   </section>
   <section>

@@ -21442,6 +21442,50 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 586 - Workflow Failure Auto Failure-case Creation v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+create one linked local v0 failure case when deterministic workflow preview execution fails at a stage
+```
+
+Implemented artifacts:
+
+```text
+workflow failure auto failure-case creation v0
+docs/review/workflow-failure-auto-failure-case-creation.md
+apps/api/app/services/workflow_execution.py
+apps/api/app/routes/workflow_runs.py
+apps/api/app/services/ops_dashboard.py
+apps/api/tests/test_routes.py
+test_workflow_execute_preview_auto_creates_failure_case_when_stage_errors
+auto_created_from_workflow_failure_local_v0
+auto_failure_case_id
+local_workflow_stage_failure_event_auto_failure_case_local_v0
+POST /workflow-runs/execute-preview -> 500
+failed_stage -> evidence_ledger
+workflow_stage_event_count -> 2
+failure_case_count -> 1
+failure_type -> workflow_stage_error
+fix_status -> open
+root_cause -> RuntimeError: simulated evidence persistence failure
+```
+
+Boundary:
+
+```text
+Phase 586 is route-level local v0 failure-case persistence from deterministic workflow preview failure. It is not retry behavior, not root-cause automation, not complete workflow failure causality, not Docker runtime smoke, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not hosted observability, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+workflow failure auto failure-case creation runtime smoke v0 if Docker/API runtime proof is desired, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

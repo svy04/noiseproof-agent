@@ -122,9 +122,8 @@ Current status groups:
 
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
-Latest workflow proof bundle runtime marker: Workflow proof bundle failure-case links runtime smoke v0: implemented.
 Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented.
-Latest product gate marker: Workflow failed stage event v0: implemented.
+Latest product gate marker: Workflow failure auto failure-case creation v0: implemented.
 Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0.
 Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 
@@ -138,8 +137,7 @@ Still planned/unclaimed near the top:
 - embedding generation, vector quality evidence, LLM calls
 - hosted deployment evidence
 - local token guard exists; production auth/identity unclaimed
-- caller-triggered failure-case handoff exists; no background automation
-- complete causality; local failed-stage only
+- caller-triggered and local v0 workflow-failure auto failure-case creation exist; production background workers and complete causality remain unclaimed
 - free-form reports
 
 ## Implementation Status
@@ -227,7 +225,7 @@ Not implemented yet:
 - production malware scanning evidence for stored raw uploads
 - implicit upload-preview auto-persistence; explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`
 - autonomous workflow execution endpoints
-- background failure-case automation from workflow failures; caller-triggered handoff exists through `POST /failure-cases/workflow-runs/{workflow_run_id}`
+- production background failure-case workers, retry automation, and root-cause automation; local v0 workflow failure auto failure-case creation exists inside `POST /workflow-runs/execute-preview`
 - embedding generation and vector search quality evidence beyond the deterministic local hash preview
 - full distributed tracing or hosted observability
 
@@ -237,7 +235,7 @@ Workflow direct stage links runtime smoke v0: implemented. Boundary: local Docke
 
 Workflow stage event log v0: implemented. Boundary: deterministic `POST /workflow-runs/execute-preview` now records local stage event rows in `workflow_stage_events` for retrieval, Evidence Ledger, Noise Gate, and Report stages, surfaced through `GET /workflow-runs/{id}` and `GET /workflow-runs/{id}/proof-bundle` with `workflow_stage_event_count`. This is local workflow observability only, not distributed tracing, hosted observability, autonomous workflow execution, external reviewer feedback, or product-complete.
 
-Workflow failed stage event v0: implemented. Boundary: deterministic `POST /workflow-runs/execute-preview` failures now record the active failed stage in `workflow_stage_events` with `stage_status=failed`, `error_type`, `error_message`, and `failed_stage_boundary`. This improves local failure inspection only; it is not retry behavior, automatic failure-case creation, root-cause automation, hosted observability, external reviewer feedback, or product-complete.
+Workflow failed stage event v0: implemented. Boundary: deterministic `POST /workflow-runs/execute-preview` failures now record the active failed stage in `workflow_stage_events` with `stage_status=failed`, `error_type`, `error_message`, and `failed_stage_boundary`. This improves local failure inspection only; it is not retry behavior, root-cause automation, hosted observability, external reviewer feedback, or product-complete.
 
 Workflow stage event log runtime smoke v0: implemented. Boundary: local Docker PostgreSQL has `024_workflow_stage_events.sql` applied with `Pending migrations: 0`, and live FastAPI HTTP verified `POST /workflow-runs/execute-preview`, `GET /workflow-runs/{id}`, and `GET /workflow-runs/{id}/proof-bundle` returned `detail_stage_event_count=4` and `bundle_stage_event_count=4`. This is not hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, autonomous workflow execution, or product-complete.
 
@@ -248,6 +246,8 @@ External reviewer workflow failed stage event runtime request refresh v0: implem
 External review issue body workflow failed stage event runtime refresh v0: implemented. Boundary: issue #1 now points reviewers to `docs/review/workflow-failed-stage-event-runtime-smoke.md`, `docs/review/external-reviewer-workflow-failed-stage-event-runtime-request-refresh.md`, and `docs/review/external-review-issue-body-workflow-failed-stage-event-runtime-refresh.md`; this is owner-authored issue routing only, not external reviewer feedback, hosted deployment evidence, retry behavior, automatic failure-case creation, distributed tracing, hosted observability, or product-complete.
 
 External feedback current-state workflow failed stage event runtime issue verification v0: implemented. Boundary: current issue #1 points to the failed-stage runtime proof, request refresh, and issue-body refresh while screening still reports `candidate_count=0`, `draft_count=0`, `status=pending`, and `self_authored_comment`; this is not external reviewer feedback, hosted deployment evidence, retry behavior, automatic failure-case creation, or product-complete.
+
+Workflow failure auto failure-case creation v0: implemented. Boundary: route-level tests now verify a failed deterministic workflow preview auto-creates one linked local v0 failure case with `failure_case_count -> 1`, `failed_stage: evidence_ledger`, `workflow_stage_error`, `auto_failure_case_id`, `auto_created_from_workflow_failure_local_v0`, and `local_workflow_stage_failure_event_auto_failure_case_local_v0`; this is not retry behavior, root-cause automation, complete workflow failure causality, Docker runtime smoke, hosted deployment evidence, external reviewer feedback, or product-complete.
 
 External reviewer workflow stage event log runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-stage-event-log-runtime-smoke.md` and `docs/review/external-reviewer-workflow-stage-event-log-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, autonomous workflow execution, or product-complete.
 
