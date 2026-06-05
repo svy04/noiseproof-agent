@@ -465,6 +465,10 @@ class RetrievalCandidateOut(BaseModel):
 class RetrievalRunOut(RetrievalRunCreate):
     id: UUID
     created_at: datetime
+    is_semantic_retrieval_run: bool = False
+    retrieval_mode: str | None = None
+    query_vector_source: str | None = None
+    persistence_boundary: str | None = None
 
 
 class RetrievalRunResponse(RetrievalRunOut):

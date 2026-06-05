@@ -12,6 +12,7 @@ from app.schemas import (
     RetrievalRunResponse,
 )
 from app.services.retrieval_run import run_retrieval
+from app.services.retrieval_run_provenance import enrich_retrieval_run_provenance
 from app.services.retrieval_run_evidence import (
     persist_evidence_ledger_from_retrieval_run,
 )
@@ -33,7 +34,10 @@ def create_retrieval_run(
 
 @router.get("", response_model=list[RetrievalRunOut])
 def list_retrieval_runs(repository: Repository = Depends(get_repository)) -> list[dict]:
-    return list(repository.list_retrieval_runs())
+    return [
+        enrich_retrieval_run_provenance(row)
+        for row in repository.list_retrieval_runs()
+    ]
 
 
 @router.post(

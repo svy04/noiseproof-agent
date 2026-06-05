@@ -123,7 +123,7 @@ Current status groups:
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: Workflow failure auto failure-case creation runtime smoke v0.
 Latest workflow dashboard runtime marker: Workflow failure auto-created failure-case dashboard runtime smoke v0
-Latest product gate marker: Workflow failure auto failure-case creation v0: implemented.
+Latest product gate marker: Retrieval run semantic provenance inspectability v0: implemented.
 Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification; candidate_count=0; self-authored comment only.
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*`.
@@ -230,6 +230,7 @@ Not implemented yet:
 
 Historical latest-marker compatibility: Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented.
+Historical latest-marker compatibility: Latest product gate marker: Workflow failure auto failure-case creation v0: implemented.
 Historical latest-marker compatibility: Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0.
 Historical latest-marker compatibility: Latest external-feedback state: pending after workflow failure auto-creation runtime issue verification; candidate_count=0; self-authored comment only.
 

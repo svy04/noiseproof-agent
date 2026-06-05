@@ -2,6 +2,7 @@ from html import escape
 from typing import Any
 
 from app.schemas import OpsSummaryOut
+from app.services.retrieval_run_provenance import enrich_retrieval_run_provenance
 
 
 def render_ops_dashboard(
@@ -289,12 +290,16 @@ def _retrieval_runs_table(rows: list[dict[str, Any]]) -> str:
         f"<td>{_cell(row.get('status'))}</td>"
         f"<td>{_cell(row.get('question'))}</td>"
         f"<td>{_cell(row.get('strategy'))}</td>"
+        f"<td>{_cell(row.get('is_semantic_retrieval_run'))}</td>"
+        f"<td>{_cell(row.get('retrieval_mode'))}</td>"
+        f"<td>{_cell(row.get('query_vector_source'))}</td>"
+        f"<td>{_cell(row.get('persistence_boundary'))}</td>"
         f"<td>{_cell(row.get('result_count'))}</td>"
         f"<td>{_cell(row.get('missing_evidence_count'))}</td>"
         "</tr>"
-        for row in rows[:10]
+        for row in [enrich_retrieval_run_provenance(row) for row in rows[:10]]
     )
-    return f"<table><thead><tr><th>Created</th><th>Status</th><th>Question</th><th>Strategy</th><th>Results</th><th>Missing Evidence</th></tr></thead><tbody>{body}</tbody></table>"
+    return f"<table><thead><tr><th>Created</th><th>Status</th><th>Question</th><th>Strategy</th><th>Semantic</th><th>Retrieval Mode</th><th>Query Vector Source</th><th>Persistence Boundary</th><th>Results</th><th>Missing Evidence</th></tr></thead><tbody>{body}</tbody></table>"
 
 
 def _evidence_ledger_records_table(rows: list[dict[str, Any]]) -> str:

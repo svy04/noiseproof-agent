@@ -1839,6 +1839,12 @@ def test_semantic_retrieval_run_persists_candidates_without_evidence_ledger():
     assert listed.status_code == 200
     stored = listed.json()[0]
     assert stored["id"] == body["id"]
+    assert stored["is_semantic_retrieval_run"] is True
+    assert stored["retrieval_mode"] == "semantic_persisted"
+    assert stored["query_vector_source"] == "caller_provided_vector"
+    assert stored["persistence_boundary"] == (
+        "semantic_retrieval_run_only_no_evidence_ledger"
+    )
     assert stored["metadata_json"]["retrieval_mode"] == "semantic_persisted"
     assert stored["metadata_json"]["candidate_chunk_ids"] == [
         demand_chunk["id"],
@@ -5075,6 +5081,10 @@ def test_ops_dashboard_surfaces_semantic_retrieval_operational_counts():
     assert "Semantic Retrieval Runs" in dashboard.text
     assert "Chunk Embedding Rows" in dashboard.text
     assert "Caller-provided Embeddings" in dashboard.text
+    assert "Retrieval Mode" in dashboard.text
+    assert "semantic_persisted" in dashboard.text
+    assert "caller_provided_vector" in dashboard.text
+    assert "semantic_retrieval_run_only_no_evidence_ledger" in dashboard.text
     assert "operational counts, not semantic retrieval quality evidence" in dashboard.text
 
 

@@ -26687,6 +26687,59 @@ def test_ops_dashboard_semantic_retrieval_operational_counts_runtime_smoke_is_re
     )
 
 
+def test_retrieval_run_semantic_provenance_inspectability_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/retrieval-run-semantic-provenance-inspectability.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme_with_archive = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    routes_py = (REPO_ROOT / "apps/api/app/routes/retrieval_runs.py").read_text(
+        encoding="utf-8"
+    )
+    dashboard_py = (REPO_ROOT / "apps/api/app/services/ops_dashboard.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "retrieval run semantic provenance inspectability v0" in content
+    assert "is_semantic_retrieval_run" in content
+    assert "retrieval_mode" in content
+    assert "query_vector_source" in content
+    assert "persistence_boundary" in content
+    assert "GET /retrieval-runs" in content
+    assert "GET /ops/dashboard" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not product-complete" in content
+    assert "enrich_retrieval_run_provenance" in routes_py
+    assert "Retrieval Mode" in dashboard_py
+    assert (
+        "Retrieval run semantic provenance inspectability v0: implemented"
+        in readme_with_archive
+    )
+    assert (
+        "Phase 618 - Retrieval Run Semantic Provenance Inspectability v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 617 - Ops Dashboard Semantic Retrieval Operational Counts Runtime Smoke v0"
+    ) < goal.index(
+        "Phase 618 - Retrieval Run Semantic Provenance Inspectability v0"
+    )
+    assert "retrieval run semantic provenance inspectability v0" in runbook
+    assert (
+        "docs/review/retrieval-run-semantic-provenance-inspectability.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

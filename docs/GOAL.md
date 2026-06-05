@@ -22590,3 +22590,41 @@ DASHBOARD_HAS_QUALITY_BOUNDARY=True
 Boundary: local Docker/FastAPI runtime evidence for dashboard visibility only; not a new retrieval algorithm, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not free-form final report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 618 - Retrieval Run Semantic Provenance Inspectability v0
+
+Status: implemented.
+
+Purpose: expose persisted semantic retrieval run provenance in the existing `/retrieval-runs` list response and `/ops/dashboard` Retrieval Runs table.
+
+Implemented artifacts:
+
+```text
+retrieval run semantic provenance inspectability v0
+docs/review/retrieval-run-semantic-provenance-inspectability.md
+apps/api/app/services/retrieval_run_provenance.py
+apps/api/app/routes/retrieval_runs.py
+apps/api/app/services/ops_dashboard.py
+apps/api/app/schemas.py
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Implemented read fields:
+
+```text
+GET /retrieval-runs -> is_semantic_retrieval_run
+GET /retrieval-runs -> retrieval_mode
+GET /retrieval-runs -> query_vector_source
+GET /retrieval-runs -> persistence_boundary
+GET /ops/dashboard -> Retrieval Mode
+GET /ops/dashboard -> Query Vector Source
+GET /ops/dashboard -> Persistence Boundary
+```
+
+Boundary: read-surface inspectability only; not a new retrieval algorithm, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not Evidence Ledger generation, not free-form final report generation, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for retrieval run semantic provenance inspectability if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
