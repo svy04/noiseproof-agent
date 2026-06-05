@@ -1258,6 +1258,47 @@ def test_workflow_stage_event_log_docs_and_schema_are_inspectable():
     assert "docs/review/workflow-stage-event-log.md" in portfolio
 
 
+def test_workflow_stage_event_log_runtime_smoke_records_live_db_and_http_evidence():
+    smoke = (
+        REPO_ROOT / "docs/review/workflow-stage-event-log-runtime-smoke.md"
+    )
+    assert smoke.is_file()
+
+    content = smoke.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    app_review = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Workflow Stage Event Log Runtime Smoke" in content
+    assert "workflow stage event log runtime smoke v0" in content
+    assert "Docker PostgreSQL" in content
+    assert "db_health=healthy" in content
+    assert "applied 024_workflow_stage_events.sql" in content
+    assert "Pending migrations: 0" in content
+    assert "POST /workflow-runs/execute-preview" in content
+    assert "GET /workflow-runs/{id}" in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert '"detail_stage_event_count":  4' in content
+    assert '"bundle_stage_event_count":  4' in content
+    assert "retrieval,evidence_ledger,noise_gate,report" in content
+    assert "local_workflow_stage_event_log_not_distributed_tracing" in content
+    assert "not hosted deployment evidence" in content
+    assert "not distributed tracing" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert "Workflow stage event log runtime smoke v0: implemented" in readme
+    assert "Phase 536 - Workflow Stage Event Log Runtime Smoke v0" in goal
+    assert "workflow stage event log runtime smoke v0" in runbook
+    assert "workflow-stage-event-log-runtime-smoke.md" in app_review
+    assert "docs/review/workflow-stage-event-log-runtime-smoke.md" in portfolio
+
+
 def test_external_reviewer_workflow_direct_stage_links_runtime_request_refresh_links_latest_proof():
     review_path = (
         REPO_ROOT

@@ -52,6 +52,12 @@ local_workflow_stage_event_log_not_distributed_tracing
 
 This is not distributed tracing, not OpenTelemetry, not hosted observability, not an external telemetry export, not autonomous workflow execution, not LLM execution, and not product-complete.
 
+Runtime smoke:
+
+```text
+docs/review/workflow-stage-event-log-runtime-smoke.md
+```
+
 What this helps a reviewer inspect:
 
 - whether the deterministic workflow preview ran the expected stages in order

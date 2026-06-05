@@ -19599,6 +19599,44 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, workflow stage event log runtime smoke v0 if Docker/API verification is desired, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 536 - Workflow Stage Event Log Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record local Docker PostgreSQL plus live FastAPI HTTP evidence that workflow stage event rows are created and exposed from workflow detail and proof-bundle read models
+```
+
+Implemented:
+
+```text
+workflow stage event log runtime smoke v0
+docs/review/workflow-stage-event-log-runtime-smoke.md
+Docker PostgreSQL db_health=healthy
+Applied migrations: 23
+Pending migrations: 0
+applied 024_workflow_stage_events.sql
+POST /workflow-runs/execute-preview
+GET /workflow-runs/{id}
+GET /workflow-runs/{id}/proof-bundle
+detail_stage_event_count: 4
+bundle_stage_event_count: 4
+stage_names: retrieval,evidence_ledger,noise_gate,report
+stage_orders: 1,2,3,4
+stage_statuses: completed
+event_boundary: local_workflow_stage_event_log_not_distributed_tracing
+```
+
+Phase 536 is local Docker PostgreSQL plus live FastAPI HTTP evidence only. It is not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not distributed tracing, not OpenTelemetry, not hosted observability, not autonomous workflow execution, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer workflow stage event log runtime request refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
