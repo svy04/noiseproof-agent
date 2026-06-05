@@ -12637,6 +12637,74 @@ def test_external_review_issue_body_pdf_page_diagnostics_downstream_runtime_refr
     )
 
 
+def test_external_feedback_current_state_pdf_page_diagnostics_downstream_runtime_issue_verification_keeps_feedback_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-pdf-page-diagnostics-downstream-runtime-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state PDF Page Diagnostics Downstream Runtime Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state PDF page diagnostics downstream runtime issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert (
+        "docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md"
+        in content
+    )
+    assert (
+        "docs/review/external-reviewer-pdf-page-diagnostics-downstream-runtime-request-refresh.md"
+        in content
+    )
+    assert (
+        "docs/review/external-review-issue-body-pdf-page-diagnostics-downstream-runtime-refresh.md"
+        in content
+    )
+    assert "comment_count: 1" in content
+    assert "screened_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment" in content
+    assert "status: pending" in content
+    assert "retrieval_candidate_page_text_char_counts -> [39]" in content
+    assert "external reviewer feedback v0 gate remains pending" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not Evidence Ledger generation" in content
+    assert (
+        "External feedback current-state PDF page diagnostics downstream runtime issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 549 - External Feedback Current-state PDF Page Diagnostics Downstream Runtime Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state PDF page diagnostics downstream runtime issue verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-pdf-page-diagnostics-downstream-runtime-issue-verification.md"
+        in portfolio
+    )
+
+
 def test_uploaded_pdf_downstream_handoff_is_documented_without_robust_claim():
     review_path = REPO_ROOT / "docs/review/uploaded-pdf-downstream-handoff.md"
     assert review_path.is_file()
