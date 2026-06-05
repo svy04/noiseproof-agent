@@ -589,6 +589,8 @@ External reviewer PDF page diagnostics runtime request refresh v0: implemented. 
 
 External reviewer PDF page diagnostics runtime issue-body refresh v0: implemented. Boundary: live issue #1 now points reviewers to `docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md` and `docs/review/external-reviewer-pdf-page-diagnostics-runtime-request-refresh.md`; this is an owner-authored issue body edit only, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction, and not product-complete.
 
+External feedback current-state PDF page diagnostics runtime issue verification v0: implemented. Boundary: current issue #1 still has `comment_count=1`, `candidate_count=0`, `draft_count=0`, and only a self-authored non-qualifying comment after the PDF page diagnostics issue-body refresh; external reviewer feedback remains pending.
+
 Uploaded PDF downstream handoff v0: implemented. Boundary: `POST /documents/upload-chunk-preview`, `POST /documents/upload-chunks`, and `POST /documents/upload-retrieval-preview` reuse PyMuPDF digital text extraction for uploaded PDF bytes; OCR, table extraction, layout fidelity, robust PDF extraction, raw file storage, hosted deployment evidence, and external reviewer feedback are not claimed.
 
 Uploaded PDF downstream handoff runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence shows uploaded digital PDF bytes flow through PyMuPDF extraction into upload chunk preview, explicit upload-to-chunks persistence, listed chunk lookup, and upload retrieval preview; this is not hosted deployment evidence, external reviewer feedback, robust PDF extraction, OCR, table extraction, or raw file storage.
