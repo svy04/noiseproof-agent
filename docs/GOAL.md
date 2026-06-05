@@ -22412,3 +22412,36 @@ No embedding generation, hosted semantic retrieval quality evidence, distributed
 Boundary: response wording and claim-boundary correction only; not a new retrieval feature, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not free-form final report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 613 - Ops Summary Semantic Retrieval Boundary Note Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: verify the Phase 612 `/ops/summary` boundary note correction in a local Docker-backed FastAPI runtime.
+
+Implemented artifacts:
+
+```text
+ops summary semantic retrieval boundary note runtime smoke v0
+docs/review/ops-summary-semantic-retrieval-boundary-note-runtime-smoke.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Observed runtime state:
+
+```text
+noiseproof-phase613
+POSTGRES_PORT=55441
+Pending migrations: 0
+GET /health -> 200
+GET /ops/summary -> 200
+NOTE_CHECK_CALLER_PROVIDED=True
+NOTE_CHECK_NO_EMBEDDING_GENERATION=True
+```
+
+Boundary: local Docker/FastAPI runtime evidence for the `/ops/summary` wording correction only; not a new retrieval feature, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not free-form final report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
