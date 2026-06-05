@@ -20633,6 +20633,42 @@ Next recommended evidence gate:
 local Docker/FastAPI runtime smoke for persisted document failure candidate manual handoff if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 565 - Persisted Document Failure Candidate Manual Handoff Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+verify through local Docker/FastAPI HTTP that a persisted document failure candidate can be manually confirmed and persisted through the existing failure-case endpoint
+```
+
+Implemented:
+
+```text
+persisted document failure candidate manual handoff runtime smoke v0
+docs/review/persisted-document-failure-candidate-manual-handoff-runtime-smoke.md
+GET /health -> 200
+POST /documents/upload-chunks -> 201
+POST /documents/{document_id}/failure-case-draft-preview -> 200
+POST /failure-cases -> 201
+GET /failure-cases -> 200
+preview_only_not_persisted
+human_confirmation_required -> true
+human changes draft.fix_status from draft to open
+pdf_no_extractable_text
+chunk_handoff_no_chunks
+failure_case_count_delta -> 1
+```
+
+Phase 565 is local runtime evidence only. It is not hosted deployment evidence, not external reviewer feedback, not automatic failure-case creation, not a confirm endpoint, not automatic root-cause analysis, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
