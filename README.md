@@ -351,6 +351,8 @@ Ops dashboard anchor GET runtime smoke v0: implemented. Boundary: local Docker P
 
 External reviewer ops dashboard anchor GET runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now point to `docs/review/ops-dashboard-anchor-get-runtime-smoke.md` and `docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md`; this is request-surface refresh only, not a live issue body edit, hosted deployment evidence, browser automation evidence, external reviewer feedback, or product-complete.
 
+External review issue body ops dashboard anchor GET runtime refresh v0: implemented. Boundary: issue #1 now points reviewers to `docs/review/ops-dashboard-anchor-get-runtime-smoke.md`, `docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md`, and `docs/review/external-review-issue-body-ops-dashboard-anchor-get-runtime-refresh.md`; observed `starts_with_request=true`, `first_codepoint=35`, and `comment_count=1`. This is owner-authored issue routing only, not external reviewer feedback, hosted deployment evidence, browser automation evidence, customer validation, or product-complete.
+
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
 Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence only; not hosted deployment evidence, not external reviewer feedback, and not malware scanning.

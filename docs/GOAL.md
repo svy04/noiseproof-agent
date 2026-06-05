@@ -19144,6 +19144,41 @@ Next recommended evidence gate:
 external review issue body ops dashboard anchor GET runtime refresh v0 if updating the live public issue body is useful, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 524 - External Review Issue Body Ops Dashboard Anchor GET Runtime Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the owner-authored issue #1 body update that points reviewers to the ops dashboard anchor GET runtime proof
+```
+
+Implemented:
+
+```text
+external review issue body ops dashboard anchor GET runtime refresh v0
+https://github.com/svy04/noiseproof-agent/issues/1
+docs/review/ops-dashboard-anchor-get-runtime-smoke.md
+docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md
+docs/review/external-review-issue-body-ops-dashboard-anchor-get-runtime-refresh.md
+starts_with_request: true
+first_codepoint: 35
+has_ops_dashboard_anchor_get_runtime_proof: true
+has_ops_dashboard_anchor_get_request_refresh: true
+has_all_extracted_dashboard_get_anchors_returned_200: true
+has_post_only_draft_preview_not_clickable: true
+comment_count: 1
+```
+
+Phase 524 is owner-authored issue body routing only. It adds no endpoint, no route behavior change, no runtime workflow semantics, no schema or migration, no browser automation evidence, no hosted deployment evidence, no automatic failure-case creation, no background automation, no root-cause automation, no complete workflow failure causality, no external reviewer feedback, no LLM calls, no embeddings, no customer validation, no Braincrew acceptance, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state ops dashboard anchor GET runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
