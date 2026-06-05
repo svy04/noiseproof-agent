@@ -17881,3 +17881,56 @@ def test_embedding_model_live_provider_owner_runtime_input_discovery_ci_check_is
         in runbook
     )
     assert review_doc in portfolio
+
+
+def test_embedding_model_live_provider_owner_runtime_input_discovery_ci_remote_verification_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "embedding-model-live-provider-owner-runtime-input-discovery-ci-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-input-discovery-ci-remote-verification.md"
+    )
+    step_name = (
+        "Check embedding provider owner runtime input discovery missing state"
+    )
+
+    assert (
+        "Embedding Model Live-provider Owner-runtime Input Discovery CI Remote Verification"
+        in content
+    )
+    assert (
+        "embedding model live-provider owner-runtime input discovery ci remote verification v0"
+        in content
+    )
+    assert "26988305027" in content
+    assert "1b4e42b508c9357c58b45f1fed9a990fe542cdb1" in content
+    assert "api-smoke" in content
+    assert step_name in content
+    assert "conclusion: success" in content
+    assert "not live embedding generation proof" in content
+    assert (
+        "Embedding model live-provider owner-runtime input discovery ci remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 481 - Embedding Model Live-provider Owner-runtime Input Discovery CI Remote Verification v0"
+        in goal
+    )
+    assert (
+        "embedding model live-provider owner-runtime input discovery ci remote verification v0"
+        in runbook
+    )
+    assert review_doc in portfolio
