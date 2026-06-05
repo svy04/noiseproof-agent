@@ -20394,6 +20394,41 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, local Docker/FastAPI runtime smoke for no-text PDF ops dashboard counts if runtime proof is needed, or another source-first product gate selected from this file
 ```
 
+### Phase 558 - Uploaded PDF No-text Ops Summary Dashboard Runtime Smoke v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record local Docker/FastAPI HTTP evidence that uploaded PDF no-text ops counts work in runtime
+```
+
+Implemented:
+
+```text
+uploaded PDF no-text ops summary dashboard runtime smoke v0
+docs/review/uploaded-pdf-no-text-ops-summary-dashboard-runtime-smoke.md
+GET /health -> 200
+POST /documents/upload-chunks -> 201
+GET /ops/summary -> 200
+GET /ops/dashboard -> 200
+chunk_handoff_no_chunks_count -> 3
+pdf_no_text_failure_candidate_count -> 3
+summary_count_delta -> 1
+dashboard_contains_no_text_pdf_handoffs -> true
+dashboard_contains_pdf_no_text_failure_candidates -> true
+metadata-derived from document profile_json
+```
+
+Phase 558 is local runtime evidence only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not full parsed text persistence, not automatic failure-case creation, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

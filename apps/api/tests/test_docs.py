@@ -22898,3 +22898,57 @@ def test_uploaded_pdf_no_text_ops_summary_dashboard_records_metadata_count_surfa
     )
     assert "uploaded PDF no-text ops summary dashboard v0" in runbook
     assert review_doc in portfolio
+
+
+def test_uploaded_pdf_no_text_ops_summary_dashboard_runtime_smoke_records_live_http_evidence():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-no-text-ops-summary-dashboard-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/uploaded-pdf-no-text-ops-summary-dashboard-runtime-smoke.md"
+    )
+
+    assert "Uploaded PDF No-text Ops Summary Dashboard Runtime Smoke" in content
+    assert "uploaded PDF no-text ops summary dashboard runtime smoke v0" in content
+    assert "Docker version" in content
+    assert "Docker Compose version" in content
+    assert "docker compose --profile api up -d --build api" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "GET /ops/summary -> 200" in content
+    assert "GET /ops/dashboard -> 200" in content
+    assert "chunk_handoff_no_chunks_count ->" in content
+    assert "pdf_no_text_failure_candidate_count ->" in content
+    assert "summary_count_delta -> 1" in content
+    assert "dashboard_contains_no_text_pdf_handoffs -> true" in content
+    assert "dashboard_contains_pdf_no_text_failure_candidates -> true" in content
+    assert "metadata-derived from document profile_json" in content
+    assert "pdf_no_extractable_text" in content
+    assert "chunk_handoff_no_chunks" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not table extraction" in content
+    assert "not product-complete" in content
+    assert (
+        "Uploaded PDF no-text ops summary dashboard runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 558 - Uploaded PDF No-text Ops Summary Dashboard Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded PDF no-text ops summary dashboard runtime smoke v0" in runbook
+    assert review_doc in portfolio
