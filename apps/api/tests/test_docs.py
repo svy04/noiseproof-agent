@@ -22691,3 +22691,81 @@ def test_external_reviewer_pdf_no_text_failure_candidate_runtime_request_refresh
         assert "pdf_no_extractable_text" in reviewer_surface
         assert "chunk_handoff_no_chunks" in reviewer_surface
         assert "not robust PDF extraction" in reviewer_surface
+
+
+def test_external_review_issue_body_pdf_no_text_failure_candidate_runtime_refresh_records_live_issue_update():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-pdf-no-text-failure-candidate-runtime-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = "docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-pdf-no-text-failure-candidate-runtime-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-pdf-no-text-failure-candidate-runtime-refresh.md"
+    )
+
+    assert (
+        "External Review Issue Body PDF No-text Failure Candidate Runtime Refresh"
+        in content
+    )
+    assert (
+        "external reviewer PDF no-text failure candidate runtime issue-body refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert "updatedAt:" in content
+    assert "comment_count: 1" in content
+    assert "starts_with_request: true" in content
+    assert "first_codepoint: 35" in content
+    assert "has_pdf_no_text_failure_candidate_runtime_proof: true" in content
+    assert "has_pdf_no_text_failure_candidate_request_refresh: true" in content
+    assert "has_pdf_no_text_failure_candidate_issue_body_record: true" in content
+    assert "has_external_feedback_boundary: true" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "document_status -> chunk_handoff_no_chunks" in content
+    assert "chunk_count -> 0" in content
+    assert "failure_case_candidate.failure_type -> pdf_no_extractable_text" in content
+    assert "page_text_char_counts -> [0]" in content
+    assert "empty_page_count -> 1" in content
+    assert "extracted_page_count -> 0" in content
+    assert "robust_pdf_extraction -> false" in content
+    assert "raw_file_storage -> false" in content
+    assert "parsed_text_storage -> false" in content
+    assert "owner-authored issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not table extraction" in content
+    assert "not product-complete" in content
+    assert (
+        "External reviewer PDF no-text failure candidate runtime issue-body refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 555 - External Reviewer PDF No-text Failure Candidate Runtime Issue-body Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer PDF no-text failure candidate runtime issue-body refresh v0"
+        in runbook
+    )
+    assert issue_doc in portfolio

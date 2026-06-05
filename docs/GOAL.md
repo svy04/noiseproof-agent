@@ -20287,6 +20287,42 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, live issue-body refresh for uploaded PDF no-text failure candidate runtime smoke v0 if public issue routing is needed, or another source-first product gate selected from this file
 ```
 
+### Phase 555 - External Reviewer PDF No-text Failure Candidate Runtime Issue-body Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+route the uploaded PDF no-text failure candidate runtime smoke through the live public external review issue body
+```
+
+Implemented:
+
+```text
+external reviewer PDF no-text failure candidate runtime issue-body refresh v0
+https://github.com/svy04/noiseproof-agent/issues/1
+docs/review/external-review-issue-body-pdf-no-text-failure-candidate-runtime-refresh.md
+docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md
+docs/review/external-reviewer-pdf-no-text-failure-candidate-runtime-request-refresh.md
+updatedAt: 2026-06-05T12:45:27Z
+comment_count: 1
+starts_with_request: true
+first_codepoint: 35
+has_pdf_no_text_failure_candidate_runtime_proof: true
+has_pdf_no_text_failure_candidate_request_refresh: true
+has_pdf_no_text_failure_candidate_issue_body_record: true
+has_external_feedback_boundary: true
+```
+
+Phase 555 is an owner-authored issue body edit only. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not full parsed text persistence, not semantic retrieval quality evidence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state PDF no-text failure candidate runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
