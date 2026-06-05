@@ -10956,6 +10956,51 @@ not production background worker behavior
 not product-complete
 ```
 
+## External Feedback Current-state Workflow Failure Auto-created Dashboard Runtime Issue Verification
+
+Phase marker: external feedback current-state workflow failure auto-created dashboard runtime issue verification v0.
+
+Review artifact:
+
+```text
+docs/review/external-feedback-current-state-workflow-failure-auto-created-dashboard-runtime-issue-verification.md
+```
+
+Current issue state:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+starts_with_request -> true
+first_codepoint -> 35
+has_workflow_failure_auto_created_dashboard_runtime_proof -> true
+has_workflow_failure_auto_created_dashboard_request_refresh -> true
+has_workflow_failure_auto_created_dashboard_issue_body_record -> true
+has_dashboard_auto_created_failure_case_id -> true
+has_dashboard_workflow_parent_link -> true
+has_dashboard_review_queue_linked_count -> true
+comment_count -> 1
+screened_comment_count -> 1
+candidate_count -> 0
+draft_count -> 0
+classification -> non_qualifying
+reason -> self_authored_comment
+status -> pending
+```
+
+Boundary:
+
+```text
+current-state issue verification only
+external reviewer feedback v0 gate remains pending
+not external reviewer feedback
+not hosted deployment evidence
+not retry behavior
+not root-cause automation
+not complete workflow failure causality
+not production background worker behavior
+not product-complete
+```
+
 ## External Review Issue Body Workflow Failure Auto-creation Runtime Refresh
 
 Phase marker: external review issue body workflow failure auto-creation runtime refresh v0.

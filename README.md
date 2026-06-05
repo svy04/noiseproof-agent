@@ -124,7 +124,7 @@ Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: Workflow failure auto failure-case creation runtime smoke v0.
 Latest workflow dashboard runtime marker: Workflow failure auto-created failure-case dashboard runtime smoke v0
 Latest product gate marker: Workflow failure auto failure-case creation v0: implemented.
-Latest external-feedback state: pending after workflow failure auto-creation runtime issue verification; candidate_count=0; self-authored comment only.
+Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification; candidate_count=0; self-authored comment only.
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*`.
 
@@ -231,6 +231,7 @@ Not implemented yet:
 Historical latest-marker compatibility: Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented.
 Historical latest-marker compatibility: Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0.
+Historical latest-marker compatibility: Latest external-feedback state: pending after workflow failure auto-creation runtime issue verification; candidate_count=0; self-authored comment only.
 
 Workflow direct stage links v0: implemented. Boundary: deterministic workflow-created records now create direct local link rows in `noise_gate_evidence_links`, `report_evidence_links`, and `report_noise_gate_links`, surfaced through `GET /workflow-runs/{id}/lineage` as `direct_stage_links`. Standalone gate/report endpoints remain payload-only unless they create explicit links. This is not distributed tracing, hosted observability, autonomous workflow execution, external reviewer feedback, or product-complete.
 
@@ -259,6 +260,8 @@ Workflow failure auto-created failure-case dashboard runtime smoke v0: implement
 External reviewer workflow failure auto-created failure-case dashboard runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md` and `docs/review/external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, retry behavior, root-cause automation, complete workflow failure causality, production background worker behavior, or product-complete.
 
 External reviewer workflow failure auto-created failure-case dashboard runtime issue-body refresh v0: implemented. Boundary: issue #1 now points reviewers to `docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md`, `docs/review/external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md`, and `docs/review/external-review-issue-body-workflow-failure-auto-created-dashboard-runtime-refresh.md`; this is owner-authored issue body routing only, not external reviewer feedback, hosted deployment evidence, retry behavior, root-cause automation, complete workflow failure causality, production background worker behavior, or product-complete.
+
+External feedback current-state workflow failure auto-created dashboard runtime issue verification v0: implemented. Boundary: current issue #1 points to the workflow failure auto-created dashboard runtime proof, request refresh, and issue-body refresh while screening still reports `candidate_count=0`, `draft_count=0`, `status=pending`, and `self_authored_comment`; this is not external reviewer feedback, hosted deployment evidence, retry behavior, root-cause automation, complete workflow failure causality, production background worker behavior, or product-complete.
 
 External reviewer workflow failure auto-creation runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-failure-auto-failure-case-creation-runtime-smoke.md` and `docs/review/external-reviewer-workflow-failure-auto-creation-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, retry behavior, root-cause automation, complete workflow failure causality, or product-complete.
 

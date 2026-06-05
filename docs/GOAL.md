@@ -21792,3 +21792,28 @@ comment_count -> 1
 Boundary: owner-authored issue body routing only; not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, not production background worker behavior, and not product-complete.
 
 Next gate: external feedback current-state workflow failure auto-created dashboard runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 594 - External Feedback Current-state Workflow Failure Auto-created Dashboard Runtime Issue Verification v0
+
+Status: implemented.
+
+Purpose: verify the current issue #1 screen after the workflow failure auto-created dashboard runtime issue-body refresh and keep the external reviewer feedback gate pending when the only comment remains self-authored.
+
+Implemented artifacts:
+
+```text
+external feedback current-state workflow failure auto-created dashboard runtime issue verification v0
+docs/review/external-feedback-current-state-workflow-failure-auto-created-dashboard-runtime-issue-verification.md
+docs/review/external-review-issue-body-workflow-failure-auto-created-dashboard-runtime-refresh.md
+docs/review/external-reviewer-workflow-failure-auto-created-dashboard-runtime-request-refresh.md
+docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md
+candidate_count -> 0
+draft_count -> 0
+status -> pending
+self_authored_comment
+external reviewer feedback v0 gate remains pending
+```
+
+Boundary: current-state issue verification only; not external reviewer feedback, not hosted deployment evidence, not retry behavior, not root-cause automation, not complete workflow failure causality, not production background worker behavior, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

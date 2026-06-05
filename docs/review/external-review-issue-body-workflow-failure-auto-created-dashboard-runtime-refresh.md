@@ -80,3 +80,9 @@ Next verification gate:
 ```text
 external feedback current-state workflow failure auto-created dashboard runtime issue verification v0
 ```
+
+Current-state verification record:
+
+```text
+docs/review/external-feedback-current-state-workflow-failure-auto-created-dashboard-runtime-issue-verification.md
+```
