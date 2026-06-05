@@ -16937,6 +16937,50 @@ def test_workflow_proof_bundle_failure_case_links_runtime_smoke_documents_live_p
     )
 
 
+def test_workflow_dashboard_failure_case_counts_document_read_model_boundary():
+    review_path = REPO_ROOT / "docs/review/workflow-dashboard-failure-case-counts.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    dashboard_py = (REPO_ROOT / "apps/api/app/services/ops_dashboard.py").read_text(
+        encoding="utf-8"
+    )
+    routes_test = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Workflow Dashboard Failure-case Counts" in content
+    assert "workflow dashboard failure-case counts v0" in content
+    assert "GET /ops/dashboard" in content
+    assert "Linked Failure Cases" in content
+    assert "GET /failure-cases?workflow_run_id={id}" in content
+    assert "read-only links over existing records" in content
+    assert "not automatic failure detection" in content
+    assert "not background automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not root-cause automation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert "test_ops_dashboard_surfaces_workflow_failure_case_counts_and_filter_links" in content
+    assert "Linked Failure Cases" in dashboard_py
+    assert "Workflow failure-case counts are read-only links over existing records." in dashboard_py
+    assert "_failure_case_counts_by_workflow_id" in dashboard_py
+    assert "_workflow_failure_case_count_cell" in dashboard_py
+    assert "test_ops_dashboard_surfaces_workflow_failure_case_counts_and_filter_links" in routes_test
+    assert "Workflow dashboard failure-case counts v0: implemented" in readme
+    assert "Latest product gate marker: Workflow dashboard failure-case counts v0: implemented." in readme
+    assert "Phase 513 - Workflow Dashboard Failure-case Counts v0" in goal
+    assert "workflow dashboard failure-case counts v0" in runbook
+    assert "docs/review/workflow-dashboard-failure-case-counts.md" in portfolio
+
+
 def test_external_reviewer_workflow_proof_bundle_dashboard_runtime_request_refresh_links_latest_proof():
     review_path = (
         REPO_ROOT

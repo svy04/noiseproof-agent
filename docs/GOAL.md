@@ -18749,6 +18749,40 @@ Next recommended evidence gate:
 external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 513 - Workflow Dashboard Failure-case Counts v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+surface workflow-linked failure-case counts directly in the existing operations dashboard workflow rows
+```
+
+Implemented:
+
+```text
+workflow dashboard failure-case counts v0
+docs/review/workflow-dashboard-failure-case-counts.md
+GET /ops/dashboard Workflow Runs table includes Linked Failure Cases column
+nonzero linked failure-case counts link to /failure-cases?workflow_run_id={id}
+workflow rows with no linked failure case render plain 0 without a failure-case filter link
+dashboard boundary copy: Workflow failure-case counts are read-only links over existing records.
+test_ops_dashboard_surfaces_workflow_failure_case_counts_and_filter_links
+test_workflow_dashboard_failure_case_counts_document_read_model_boundary
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 513 records a dashboard read model over existing records only. It adds no runtime smoke, no schema or migration, no automatic failure detection, no background automation, no root-cause automation, no retry or repair behavior, no complete workflow failure causality, no hosted deployment evidence, no external reviewer feedback, no LLM calls, no embeddings, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, a local Docker runtime smoke for workflow dashboard failure-case counts if useful, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

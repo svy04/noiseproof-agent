@@ -111,7 +111,7 @@ Current status groups:
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: ClamAV API endpoint malicious-detection owner runtime smoke v0.
 Latest workflow proof bundle runtime marker: Workflow proof bundle failure-case links runtime smoke v0: implemented.
-Latest product gate marker: Workflow proof bundle failure-case links v0: implemented.
+Latest product gate marker: Workflow dashboard failure-case counts v0: implemented.
 Latest reviewer-routing marker: Embedding provider handoff alignment issue-body refresh v0.
 Latest external-feedback state: pending after handoff issue verification; candidate_count=0; self-authored comment only.
 
@@ -327,6 +327,8 @@ External reviewer workflow proof bundle failure-case links runtime request refre
 External review issue body workflow proof bundle failure-case links runtime refresh v0: implemented. Boundary: issue #1 now points reviewers to `docs/review/workflow-proof-bundle-failure-case-links-runtime-smoke.md`, `docs/review/external-reviewer-workflow-proof-bundle-failure-case-links-runtime-request-refresh.md`, and `docs/review/external-review-issue-body-workflow-proof-bundle-failure-case-links-runtime-refresh.md`; this is owner-authored issue routing only, not external reviewer feedback, hosted deployment evidence, automatic failure detection, background automation, complete workflow failure causality, or product-complete.
 
 External feedback current-state workflow proof bundle failure-case links runtime issue verification v0: implemented. Boundary: current issue #1 has the workflow proof bundle failure-case links runtime proof, request refresh, and issue-body refresh links, but the only screened comment is owner-authored, `candidate_count=0`, `draft_count=0`, and external reviewer feedback remains pending.
+
+Workflow dashboard failure-case counts v0: implemented. Boundary: `GET /ops/dashboard` workflow rows now show linked failure-case counts and link nonzero counts to `GET /failure-cases?workflow_run_id={id}`. This is a dashboard read model only, not automatic failure detection, background automation, complete workflow failure causality, root-cause automation, hosted deployment evidence, external reviewer feedback, or product-complete.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 

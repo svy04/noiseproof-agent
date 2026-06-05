@@ -91,7 +91,8 @@ def render_ops_dashboard(
     <h2>Workflow Runs</h2>
     <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 36 exposes structured warning codes for the derived lineage read model while keeping human-readable warnings.</p>
     <p class="muted">Lineage warning codes: <code>derived_read_model_boundary</code>, <code>local_workflow_scope</code>, <code>missing_manifest_reference</code>, <code>invalid_manifest_shape</code>. These are response-level taxonomy only, not persisted dashboard analytics.</p>
-    {_workflow_runs_table(workflow_runs)}
+    <p class="muted">Workflow failure-case counts are read-only links over existing records.</p>
+    {_workflow_runs_table(workflow_runs, failure_cases)}
   </section>
   <section>
     <h2>Retrieval Runs</h2>
@@ -212,12 +213,17 @@ def _workflow_review_queue_workflow_cell(item: Any) -> str:
     return f"{_link(f'/workflow-runs/{workflow_run_id}', workflow_run_id)}<br>{_cell(question)}"
 
 
-def _workflow_runs_table(rows: list[dict[str, Any]]) -> str:
+def _workflow_runs_table(
+    rows: list[dict[str, Any]],
+    failure_cases: list[dict[str, Any]],
+) -> str:
     if not rows:
         return '<p class="muted">No workflow run metadata recorded yet.</p>'
+    failure_case_counts = _failure_case_counts_by_workflow_id(failure_cases)
     body = "\n".join(
         "<tr>"
         f"<td>{_workflow_run_links_cell(row)}</td>"
+        f"<td>{_workflow_failure_case_count_cell(row, failure_case_counts)}</td>"
         f"<td>{_cell(row.get('created_at'))}</td>"
         f"<td>{_cell(row.get('status'))}</td>"
         f"<td>{_cell(row.get('question'))}</td>"
@@ -227,7 +233,32 @@ def _workflow_runs_table(rows: list[dict[str, Any]]) -> str:
         "</tr>"
         for row in rows[:10]
     )
-    return f"<table><thead><tr><th>Links</th><th>Created</th><th>Status</th><th>Question</th><th>Workflow Version</th><th>Latency ms</th><th>Trace Metadata</th></tr></thead><tbody>{body}</tbody></table>"
+    return f"<table><thead><tr><th>Links</th><th>Linked Failure Cases</th><th>Created</th><th>Status</th><th>Question</th><th>Workflow Version</th><th>Latency ms</th><th>Trace Metadata</th></tr></thead><tbody>{body}</tbody></table>"
+
+
+def _failure_case_counts_by_workflow_id(
+    failure_cases: list[dict[str, Any]],
+) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for failure_case in failure_cases:
+        workflow_run_id = failure_case.get("workflow_run_id")
+        if workflow_run_id:
+            key = str(workflow_run_id)
+            counts[key] = counts.get(key, 0) + 1
+    return counts
+
+
+def _workflow_failure_case_count_cell(
+    row: dict[str, Any],
+    failure_case_counts: dict[str, int],
+) -> str:
+    workflow_run_id = row.get("id")
+    if not workflow_run_id:
+        return "0"
+    count = failure_case_counts.get(str(workflow_run_id), 0)
+    if count == 0:
+        return "0"
+    return _link(f"/failure-cases?workflow_run_id={workflow_run_id}", count)
 
 
 def _retrieval_runs_table(rows: list[dict[str, Any]]) -> str:

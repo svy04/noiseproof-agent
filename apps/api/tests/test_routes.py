@@ -4204,6 +4204,40 @@ def test_ops_dashboard_links_workflow_runs_to_detail_lineage_and_proof_bundle_vi
     assert "derived lineage read model" in dashboard.text
 
 
+def test_ops_dashboard_surfaces_workflow_failure_case_counts_and_filter_links():
+    client = make_client()
+    linked_workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which failed workflow has a linked failure case?",
+            "status": "failed",
+            "error_message": "simulated report persistence failure",
+            "trace_json": {"stage": "report_persistence"},
+        },
+    ).json()
+    unlinked_workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which failed workflow still needs review?",
+            "status": "failed",
+            "trace_json": {"stage": "noise_gate"},
+        },
+    ).json()
+
+    handoff = client.post(f"/failure-cases/workflow-runs/{linked_workflow['id']}")
+    dashboard = client.get("/ops/dashboard")
+
+    assert handoff.status_code == 201
+    assert dashboard.status_code == 200
+    assert "Linked Failure Cases" in dashboard.text
+    assert (
+        f'href="/failure-cases?workflow_run_id={linked_workflow["id"]}">1</a>'
+        in dashboard.text
+    )
+    assert f'href="/failure-cases?workflow_run_id={unlinked_workflow["id"]}"' not in dashboard.text
+    assert "Workflow failure-case counts are read-only links over existing records." in dashboard.text
+
+
 def test_ops_dashboard_surfaces_lineage_warning_code_legend_without_persistence_claims():
     client = make_client()
 
