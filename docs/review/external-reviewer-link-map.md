@@ -42,6 +42,14 @@ This artifact gives outside reviewers direct links to the shortest inspectable p
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md
 - Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence for `GET /workflow-runs/{id}/proof-bundle` and dashboard navigation from `GET /ops/dashboard` to the `proof bundle` link; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
 
+## Latest Workflow Failure-case Persistence Runtime Proof
+
+- Runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md
+- Request refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-failure-case-persistence-runtime-request-refresh.md
+- Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence for caller-triggered `POST /failure-cases/workflow-runs/{workflow_run_id}`, review queue `failure_case_linked`, completed-workflow `409`, and duplicate `409`; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not background automation, not complete workflow failure causality, and not product-complete.
+
 ## Public Feedback Surface
 
 Leave feedback here:

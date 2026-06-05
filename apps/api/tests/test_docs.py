@@ -15726,6 +15726,95 @@ def test_workflow_failure_case_persistence_runtime_smoke_documents_live_http_evi
     assert review_doc in application_ready
 
 
+def test_external_reviewer_workflow_failure_case_persistence_runtime_request_refresh_links_runtime_proof():
+    request_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reviewer-workflow-failure-case-persistence-runtime-request-refresh.md"
+    )
+    assert request_path.is_file()
+
+    content = request_path.read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    braincrew = (REPO_ROOT / "docs/application/braincrew-role-map.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    review_request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    reviewer_brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = (
+        "docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-failure-case-persistence-runtime-request-refresh.md"
+    )
+
+    assert (
+        "External Reviewer Workflow Failure-case Persistence Runtime Request Refresh"
+        in content
+    )
+    assert (
+        "external reviewer workflow failure-case persistence runtime request refresh v0"
+        in content
+    )
+    assert proof_doc in content
+    assert request_doc in content
+    assert "POST /failure-cases/workflow-runs/{workflow_run_id}" in content
+    assert "queue_status_for_workflow -> failure_case_linked" in content
+    assert "completed_workflow_status_code -> 409" in content
+    assert "duplicate_status_code -> 409" in content
+    assert "not a live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not background automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not product-complete" in content
+
+    for surface in [
+        contributing,
+        issue_template,
+        readme,
+        goal,
+        runbook,
+        portfolio,
+        braincrew,
+        application_ready,
+        proof_path,
+        review_request,
+        reviewer_brief,
+        link_map,
+    ]:
+        assert proof_doc in surface
+
+    assert request_doc in portfolio
+    assert request_doc in readme
+    assert request_doc in goal
+    assert request_doc in runbook
+
+
 def test_uploaded_raw_file_download_readiness_preview_documents_preflight_boundary():
     review_path = (
         REPO_ROOT / "docs/review/uploaded-raw-file-download-readiness-preview.md"

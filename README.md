@@ -308,6 +308,8 @@ Workflow failure-case persistence handoff v0: implemented. Boundary: `POST /fail
 
 Workflow failure-case persistence handoff runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence shows failed workflow parent -> `POST /failure-cases/workflow-runs/{workflow_run_id}` -> persisted linked failure case -> review queue `failure_case_linked`; completed workflows and duplicate handoffs return `409`. This is not hosted deployment evidence, external reviewer feedback, background automation, or complete workflow failure causality.
 
+External reviewer workflow failure-case persistence runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md` and `docs/review/external-reviewer-workflow-failure-case-persistence-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, background automation, complete workflow failure causality, or product-complete.
+
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 
 Uploaded raw file storage runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence only; not hosted deployment evidence, not external reviewer feedback, and not malware scanning.

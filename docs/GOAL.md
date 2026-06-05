@@ -18426,6 +18426,43 @@ Next recommended evidence gate:
 external reviewer request refresh for workflow failure-case persistence runtime smoke v0, external feedback current-state verification if the public issue is updated, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 505 - External Reviewer Workflow Failure-case Persistence Runtime Request Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the workflow failure-case persistence handoff runtime smoke discoverable from reviewer-facing repository paths
+```
+
+Implemented:
+
+```text
+external reviewer workflow failure-case persistence runtime request refresh v0
+docs/review/external-reviewer-workflow-failure-case-persistence-runtime-request-refresh.md
+docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md linked from reviewer-facing paths
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+README.md
+docs/application/braincrew-role-map.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+docs/review/external-reader-proof-path.md
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+docs/runbook.md
+```
+
+Phase 505 is request-surface refresh only. It does not edit the live public GitHub issue body, does not add runtime behavior, does not add schema or migration, does not run a new smoke, does not create external reviewer feedback, and does not prove hosted deployment, background automation, automatic root-cause classification, complete workflow failure causality, LLM-backed repair, customer validation, Braincrew acceptance, or product completeness.
+
+Next recommended evidence gate:
+
+```text
+external review issue body workflow failure-case persistence runtime refresh v0, external feedback current-state verification if the public issue is updated, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

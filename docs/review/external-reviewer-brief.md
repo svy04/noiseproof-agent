@@ -55,6 +55,15 @@ docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-re
 
 This proof records `GET /workflow-runs/{id}/proof-bundle`, `health_status: ok`, `execute_preview_status_code: 201`, `proof_bundle_status_code: 200`, `metadata_only_proof_bundle_status_code: 200`, `bundle_boundary: read_model_only_existing_records_no_new_storage`, and `metadata_only_trace_is_null: true`. The dashboard runtime proof also records `GET /ops/dashboard`, `dashboard_contains_proof_bundle_link: true`, and linked proof bundle status `200`. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
 
+Latest workflow failure-case persistence runtime proof:
+
+```text
+docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md
+docs/review/external-reviewer-workflow-failure-case-persistence-runtime-request-refresh.md
+```
+
+This proof records caller-triggered `POST /failure-cases/workflow-runs/{workflow_run_id}`, `persistence_boundary -> caller_triggered_workflow_failure_case_persistence`, `queue_status_for_workflow -> failure_case_linked`, `completed_workflow_status_code -> 409`, and `duplicate_status_code -> 409`. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not background automation, not complete workflow failure causality, and not product-complete.
+
 Latest embedding provider owner-runtime smoke packet:
 
 ```text

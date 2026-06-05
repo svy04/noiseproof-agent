@@ -28,6 +28,9 @@ Fast links:
 - workflow proof bundle dashboard runtime smoke: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md
   - Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md
   - Boundary: local Docker PostgreSQL plus live FastAPI HTTP proof that `GET /ops/dashboard` includes the workflow `proof bundle` link and the linked `GET /workflow-runs/{id}/proof-bundle` route returns `200`; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not new lineage storage, and not product-complete.
+- workflow failure-case persistence handoff runtime smoke: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/workflow-failure-case-persistence-handoff-runtime-smoke.md
+  - Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-failure-case-persistence-runtime-request-refresh.md
+  - Boundary: local Docker PostgreSQL plus live FastAPI HTTP proof for caller-triggered `POST /failure-cases/workflow-runs/{workflow_run_id}`, review queue `failure_case_linked`, completed-workflow `409`, and duplicate `409`; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not background automation, and not complete workflow failure causality.
 - embedding provider owner-runtime smoke packet: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-packet.md
   - Request refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-packet-request-refresh.md
   - Validator: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/embedding-model-live-provider-owner-runtime-smoke-validator.md
