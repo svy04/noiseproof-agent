@@ -17381,6 +17381,88 @@ def test_external_review_issue_body_workflow_proof_bundle_failure_case_links_run
     assert issue_doc in portfolio
 
 
+def test_external_review_issue_body_workflow_dashboard_failure_case_counts_runtime_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-review-issue-body-workflow-dashboard-failure-case-counts-runtime-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    proof_doc = "docs/review/workflow-dashboard-failure-case-counts-runtime-smoke.md"
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-workflow-dashboard-failure-case-counts-runtime-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-workflow-dashboard-failure-case-counts-runtime-refresh.md"
+    )
+
+    assert (
+        "External Review Issue Body Workflow Dashboard Failure-case Counts Runtime Refresh"
+        in content
+    )
+    assert (
+        "external review issue body workflow dashboard failure-case counts runtime refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert proof_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert (
+        '"has_workflow_dashboard_failure_case_counts_runtime_proof": true'
+        in content
+    )
+    assert (
+        '"has_workflow_dashboard_failure_case_counts_request_refresh": true'
+        in content
+    )
+    assert (
+        '"has_workflow_dashboard_failure_case_counts_issue_body_refresh": true'
+        in content
+    )
+    assert '"has_dashboard_contains_linked_failure_cases_header": true' in content
+    assert '"has_dashboard_contains_linked_failure_case_filter": true' in content
+    assert '"has_dashboard_omits_unlinked_failure_case_filter": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert "GET /ops/dashboard" in content
+    assert "dashboard_contains_linked_failure_cases_header -> true" in content
+    assert "dashboard_contains_linked_failure_case_filter -> true" in content
+    assert "dashboard_omits_unlinked_failure_case_filter -> true" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure detection" in content
+    assert "not background automation" in content
+    assert "not complete workflow failure causality" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body workflow dashboard failure-case counts runtime refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 516 - External Review Issue Body Workflow Dashboard Failure-case Counts Runtime Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body workflow dashboard failure-case counts runtime refresh v0"
+        in runbook
+    )
+    assert issue_doc in portfolio
+
+
 def test_external_feedback_current_state_workflow_proof_bundle_failure_case_links_runtime_issue_verification_keeps_gate_pending():
     review_path = (
         REPO_ROOT
