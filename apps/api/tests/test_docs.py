@@ -26189,10 +26189,6 @@ def test_readme_top_latest_proof_route_points_to_table_candidate_downstream_proo
         encoding="utf-8"
     )
 
-    fast_path = readme.split("## External Reviewer Fast Path", 1)[1].split(
-        "## What This Is", 1
-    )[0]
-
     assert "readme current proof route table-candidate refresh v0" in content
     assert "uploaded PDF table-candidate downstream runtime proof" in content
     assert (
@@ -26227,37 +26223,6 @@ def test_readme_top_latest_proof_route_points_to_table_candidate_downstream_proo
     assert "not robust PDF extraction" in content
     assert "not table extraction" in content
     assert "not product-complete" in content
-    assert (
-        "Latest proof routing now points reviewers to the uploaded PDF table-candidate downstream runtime proof"
-        in fast_path
-    )
-    assert (
-        "docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md"
-        in fast_path
-    )
-    assert (
-        "docs/review/uploaded-pdf-table-candidate-downstream-provenance-remote-verification.md"
-        in fast_path
-    )
-    assert (
-        "docs/review/external-reviewer-pdf-table-candidate-downstream-runtime-request-refresh.md"
-        in fast_path
-    )
-    assert (
-        "docs/review/external-review-issue-body-pdf-table-candidate-downstream-runtime-refresh.md"
-        in fast_path
-    )
-    assert (
-        "Latest external-feedback state: pending after PDF table-candidate downstream runtime issue verification"
-        in fast_path
-    )
-    assert "candidate_count=0" in fast_path
-    assert "self-authored issue comment" in fast_path
-    assert "persisted Report markdown export proof" not in fast_path
-    assert (
-        "workflow failure auto-created dashboard runtime proof at `docs/review/workflow-failure-auto-created-failure-case-dashboard-runtime-smoke.md`"
-        not in fast_path
-    )
     assert "README current proof route table-candidate refresh v0: implemented" in readme
     assert "Phase 608 - README Current Proof Route Table-candidate Refresh v0" in goal
     assert "readme current proof route table-candidate refresh v0" in runbook
@@ -26276,6 +26241,9 @@ def test_readme_current_proof_route_table_candidate_refresh_remote_verification_
 
     content = review_path.read_text(encoding="utf-8")
     readme = readme_with_proof_marker_archive()
+    fast_path = readme.split("## External Reviewer Fast Path", 1)[1].split(
+        "## What This Is", 1
+    )[0]
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
     portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
         encoding="utf-8"
@@ -26838,6 +26806,173 @@ def test_retrieval_run_semantic_provenance_runtime_smoke_remote_verification_is_
     )
     assert (
         "docs/review/retrieval-run-semantic-provenance-runtime-smoke-remote-verification.md"
+        in portfolio
+    )
+
+
+def test_external_review_issue_body_retrieval_run_semantic_provenance_runtime_refresh_records_live_issue_routing():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-review-issue-body-retrieval-run-semantic-provenance-runtime-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    fast_path = readme.split("## External Reviewer Fast Path", 1)[1].split(
+        "## What This Is", 1
+    )[0]
+
+    assert (
+        "External Review Issue Body Retrieval Run Semantic Provenance Runtime Refresh"
+        in content
+    )
+    assert (
+        "external review issue body retrieval run semantic provenance runtime refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "owner-authored issue body routing only" in content
+    assert "retrieval run semantic provenance runtime proof" in content
+    assert "docs/review/retrieval-run-semantic-provenance-runtime-smoke.md" in content
+    assert (
+        "docs/review/retrieval-run-semantic-provenance-runtime-smoke-remote-verification.md"
+        in content
+    )
+    assert (
+        "docs/review/external-review-issue-body-retrieval-run-semantic-provenance-runtime-refresh.md"
+        in content
+    )
+    assert "GET /retrieval-runs -> 200" in content
+    assert "GET /ops/dashboard -> 200" in content
+    assert "RETRIEVAL_RUN_HAS_IS_SEMANTIC=True" in content
+    assert "RETRIEVAL_RUN_RETRIEVAL_MODE=semantic_persisted" in content
+    assert "RETRIEVAL_RUN_QUERY_VECTOR_SOURCE=caller_provided_vector" in content
+    assert (
+        "RETRIEVAL_RUN_PERSISTENCE_BOUNDARY=semantic_retrieval_run_only_no_evidence_ledger"
+        in content
+    )
+    assert "DASHBOARD_HAS_RETRIEVAL_MODE=True" in content
+    assert "has_retrieval_run_semantic_provenance_runtime_proof: true" in content
+    assert "has_retrieval_run_semantic_provenance_remote_verification: true" in content
+    assert "has_retrieval_run_semantic_provenance_issue_body_record: true" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body retrieval run semantic provenance runtime refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Latest proof routing now points reviewers to the retrieval run semantic provenance runtime proof"
+        in fast_path
+    )
+    assert "docs/review/retrieval-run-semantic-provenance-runtime-smoke.md" in fast_path
+    assert (
+        "docs/review/retrieval-run-semantic-provenance-runtime-smoke-remote-verification.md"
+        in fast_path
+    )
+    assert (
+        "docs/review/external-review-issue-body-retrieval-run-semantic-provenance-runtime-refresh.md"
+        in fast_path
+    )
+    assert "not semantic retrieval quality evidence" in fast_path
+    assert "not product-complete" in fast_path
+    assert (
+        "Phase 621 - External Review Issue Body Retrieval Run Semantic Provenance Runtime Refresh v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 620 - Retrieval Run Semantic Provenance Runtime Smoke Remote Verification v0"
+    ) < goal.index(
+        "Phase 621 - External Review Issue Body Retrieval Run Semantic Provenance Runtime Refresh v0"
+    )
+    assert (
+        "external review issue body retrieval run semantic provenance runtime refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-review-issue-body-retrieval-run-semantic-provenance-runtime-refresh.md"
+        in portfolio
+    )
+
+
+def test_external_feedback_current_state_retrieval_run_semantic_provenance_issue_verification_keeps_feedback_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-retrieval-run-semantic-provenance-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state retrieval run semantic provenance issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "docs/review/retrieval-run-semantic-provenance-runtime-smoke.md" in content
+    assert (
+        "docs/review/retrieval-run-semantic-provenance-runtime-smoke-remote-verification.md"
+        in content
+    )
+    assert (
+        "docs/review/external-review-issue-body-retrieval-run-semantic-provenance-runtime-refresh.md"
+        in content
+    )
+    assert "comment_count: 1" in content
+    assert "screened_comment_count: 1" in content
+    assert "owner_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment" in content
+    assert "status: pending" in content
+    assert "does_not_close_gate: true" in content
+    assert "external reviewer feedback v0 gate remains pending" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state retrieval run semantic provenance issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 622 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 621 - External Review Issue Body Retrieval Run Semantic Provenance Runtime Refresh v0"
+    ) < goal.index(
+        "Phase 622 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification v0"
+    )
+    assert (
+        "external feedback current-state retrieval run semantic provenance issue verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-retrieval-run-semantic-provenance-issue-verification.md"
         in portfolio
     )
 
