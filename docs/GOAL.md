@@ -22489,3 +22489,38 @@ caller-provided embedding row(s): 2
 Boundary: operations summary count surface only; not a new retrieval algorithm, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not free-form final report generation, and not product-complete.
 
 Next gate: local Docker/FastAPI runtime smoke for these operational counts if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 615 - Ops Summary Semantic Retrieval Operational Counts Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: verify the Phase 614 `/ops/summary` semantic retrieval operational counts in a local Docker-backed FastAPI runtime.
+
+Implemented artifacts:
+
+```text
+ops summary semantic retrieval operational counts runtime smoke v0
+docs/review/ops-summary-semantic-retrieval-operational-counts-runtime-smoke.md
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Observed runtime state:
+
+```text
+noiseproof-phase615
+POSTGRES_PORT=55442
+Pending migrations: 0
+GET /ops/summary -> 200
+semantic_retrieval_run_count -> 1
+chunk_embedding_count -> 2
+caller_provided_embedding_count -> 2
+note_has_operational_count -> true
+note_has_quality_boundary -> true
+```
+
+Boundary: local Docker/FastAPI runtime evidence for operational count surfacing only; not a new retrieval algorithm, not embedding generation, not live OpenAI provider evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not free-form final report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

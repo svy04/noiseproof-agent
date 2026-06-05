@@ -26552,6 +26552,53 @@ def test_ops_summary_semantic_retrieval_operational_counts_are_recorded():
     )
 
 
+def test_ops_summary_semantic_retrieval_operational_counts_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/ops-summary-semantic-retrieval-operational-counts-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme_with_archive = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "ops summary semantic retrieval operational counts runtime smoke v0" in content
+    assert "noiseproof-phase615" in content
+    assert "POSTGRES_PORT=55442" in content
+    assert "GET /ops/summary -> 200" in content
+    assert "semantic_retrieval_run_count -> 1" in content
+    assert "chunk_embedding_count -> 2" in content
+    assert "caller_provided_embedding_count -> 2" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Ops summary semantic retrieval operational counts runtime smoke v0: implemented"
+        in readme_with_archive
+    )
+    assert (
+        "Phase 615 - Ops Summary Semantic Retrieval Operational Counts Runtime Smoke v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 614 - Ops Summary Semantic Retrieval Operational Counts v0"
+    ) < goal.index(
+        "Phase 615 - Ops Summary Semantic Retrieval Operational Counts Runtime Smoke v0"
+    )
+    assert "ops summary semantic retrieval operational counts runtime smoke v0" in runbook
+    assert (
+        "docs/review/ops-summary-semantic-retrieval-operational-counts-runtime-smoke.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
