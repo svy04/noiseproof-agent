@@ -863,6 +863,7 @@ External feedback current-state shortlist issue verification: `docs/review/exter
 | `docs/review/external-review-issue-body-architecture-current-state-refresh.md` | owner-authored issue #1 body update pointing reviewers to the architecture current-state refresh; not external reviewer feedback, hosted deployment evidence, or endpoint malicious-detection proof |
 | `docs/review/failure-case-workflow-parent-linkage-stale-claim-cleanup.md` | current-facing cleanup for stale manual-linkage deferred wording |
 | `docs/review/readme-proof-marker-archive.md` | source-level provenance for legacy README proof markers; not product runtime evidence |
+| `docs/review/external-feedback-current-state-persisted-document-failure-candidate-manual-handoff-runtime-issue-verification.md` | live issue current-state screen showing the persisted document failure candidate manual handoff proof is routed while external reviewer feedback remains pending |
 
 ## What Not To Claim
 

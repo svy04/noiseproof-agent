@@ -20738,6 +20738,51 @@ Next recommended evidence gate:
 external feedback current-state persisted document failure candidate manual handoff runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 568 - External Feedback Current-state Persisted Document Failure Candidate Manual Handoff Runtime Issue Verification v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+screen the live public external review issue after the persisted document failure candidate manual handoff runtime issue-body refresh and keep external reviewer feedback pending unless qualifying outside feedback exists
+```
+
+Implemented artifacts:
+
+```text
+external feedback current-state persisted document failure candidate manual handoff runtime issue verification v0
+docs/review/external-feedback-current-state-persisted-document-failure-candidate-manual-handoff-runtime-issue-verification.md
+issue #1 updatedAt -> 2026-06-05T14:15:36Z
+comment_count -> 1
+screened_comment_count -> 1
+owner_comment_count -> 1
+candidate_count -> 0
+draft_count -> 0
+classification -> non_qualifying
+reason -> self_authored_comment
+status -> pending
+does_not_close_gate -> true
+has_persisted_document_failure_candidate_manual_handoff_runtime_proof -> true
+has_persisted_document_failure_candidate_manual_handoff_request_refresh -> true
+has_persisted_document_failure_candidate_manual_handoff_issue_body_record -> true
+has_failure_case_count_delta_1 -> true
+has_human_fix_status_boundary -> true
+has_confirm_endpoint_boundary -> true
+```
+
+Boundary:
+
+```text
+Phase 568 is a live issue screen after an owner-authored issue body edit. It is not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not automatic failure-case creation, not a confirm endpoint, not automatic root-cause analysis, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

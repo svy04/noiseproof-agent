@@ -10511,3 +10511,33 @@ not background automation
 not complete workflow failure causality
 not product-complete
 ```
+
+## External Feedback Current-state Persisted Document Failure Candidate Manual Handoff Runtime Issue Verification
+
+Phase marker: external feedback current-state persisted document failure candidate manual handoff runtime issue verification v0.
+
+Review artifact:
+
+```text
+docs/review/external-feedback-current-state-persisted-document-failure-candidate-manual-handoff-runtime-issue-verification.md
+```
+
+Screening commands:
+
+```powershell
+gh issue view 1 --repo svy04/noiseproof-agent --json number,title,state,body,comments,updatedAt,url,labels
+uv run python -m packages.review.external_feedback_cli --input <captured-issue-json> --repository-owner svy04
+uv run python -m packages.review.external_feedback_acceptance_cli --input <screening-json>
+```
+
+Current boundary:
+
+```text
+candidate_count=0
+draft_count=0
+self_authored_comment
+external reviewer feedback remains pending
+not external reviewer feedback
+not hosted deployment evidence
+not product-complete
+```
