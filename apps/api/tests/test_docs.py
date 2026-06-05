@@ -17828,3 +17828,56 @@ def test_embedding_model_live_provider_owner_runtime_input_discovery_is_document
         "embedding model live-provider owner-runtime input discovery v0" in runbook
     )
     assert review_doc in portfolio
+
+
+def test_embedding_model_live_provider_owner_runtime_input_discovery_ci_check_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "embedding-model-live-provider-owner-runtime-input-discovery-ci-check.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    ci = (REPO_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    review_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-input-discovery-ci-check.md"
+    )
+    step_name = (
+        "Check embedding provider owner runtime input discovery missing state"
+    )
+
+    assert "Embedding Model Live-provider Owner-runtime Input Discovery CI Check" in content
+    assert (
+        "embedding model live-provider owner-runtime input discovery ci check v0"
+        in content
+    )
+    assert step_name in content
+    assert step_name in ci
+    assert "--discover-owner-runtime-input" in content
+    assert "--discover-owner-runtime-input" in ci
+    assert 'payload["owner_runtime_input_status"] == "missing_openai_api_key"' in ci
+    assert 'payload["api_calls_attempted"] is False' in ci
+    assert 'payload["openai_api_key_printed"] is False' in ci
+    assert "not live embedding generation proof" in content
+    assert (
+        "Embedding model live-provider owner-runtime input discovery ci check v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 480 - Embedding Model Live-provider Owner-runtime Input Discovery CI Check v0"
+        in goal
+    )
+    assert (
+        "embedding model live-provider owner-runtime input discovery ci check v0"
+        in runbook
+    )
+    assert review_doc in portfolio

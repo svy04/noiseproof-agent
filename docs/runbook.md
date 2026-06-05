@@ -9375,3 +9375,43 @@ not live embedding generation proof
 actual live embedding model generation remains unproven
 external reviewer feedback remains pending
 ```
+
+## Embedding Model Live-provider Owner-runtime Input Discovery CI Check
+
+Phase marker: embedding model live-provider owner-runtime input discovery ci check v0.
+
+Review artifact:
+
+```text
+docs/review/embedding-model-live-provider-owner-runtime-input-discovery-ci-check.md
+```
+
+CI step:
+
+```text
+Check embedding provider owner runtime input discovery missing state
+```
+
+CI command:
+
+```bash
+uv run python -m app.services.embedding_model_live_provider_harness --discover-owner-runtime-input
+```
+
+Expected CI guard values:
+
+```text
+owner_runtime_input_status: missing_openai_api_key
+api_calls_attempted: false
+openai_api_key_printed: false
+secret_logged: false
+secret_committed_to_repo: false
+```
+
+Boundary:
+
+```text
+CI missing-input guard only
+not live embedding generation proof
+actual live embedding model generation remains unproven
+```

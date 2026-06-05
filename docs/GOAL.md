@@ -17517,6 +17517,39 @@ Next recommended evidence gate:
 owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 480 - Embedding Model Live-provider Owner-runtime Input Discovery CI Check v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+keep the owner-runtime embedding provider input discovery missing-key guard inspectable in CI without configuring secrets or calling a provider
+```
+
+Implemented:
+
+```text
+embedding model live-provider owner-runtime input discovery ci check v0
+.github/workflows/ci.yml step: Check embedding provider owner runtime input discovery missing state
+--discover-owner-runtime-input CI command
+owner_runtime_input_status=missing_openai_api_key assertion
+api_calls_attempted=false assertion
+openai_api_key_printed=false assertion
+docs/review/embedding-model-live-provider-owner-runtime-input-discovery-ci-check.md
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/runbook.md note
+```
+
+Phase 480 adds a CI missing-input guard only. It adds no live OpenAI provider call, no committed or printed OpenAI key, no API cost in tests, no automatic persistence, no retrieval expansion, no Evidence Ledger generation, no semantic retrieval quality evidence, no hosted deployment evidence, no external reviewer feedback, no customer validation, no autonomous/LLM-backed agents, no polished web app, and no product-complete claim. Actual live embedding model generation remains unproven.
+
+Next recommended evidence gate:
+
+```text
+owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.
