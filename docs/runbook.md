@@ -9613,3 +9613,55 @@ not hosted deployment evidence
 not product-complete
 actual live embedding model generation remains unproven
 ```
+
+## External Feedback Current-state Embedding Provider Owner-runtime Smoke Validator Issue Verification
+
+Phase marker: external feedback current-state embedding provider owner-runtime smoke validator issue verification v0.
+
+Review artifact:
+
+```text
+docs/review/external-feedback-current-state-embedding-provider-owner-runtime-smoke-validator-issue-verification.md
+```
+
+Related issue-body refresh:
+
+```text
+docs/review/external-review-issue-body-embedding-provider-owner-runtime-smoke-validator-refresh.md
+```
+
+Observed issue state:
+
+```text
+updatedAt: 2026-06-05T01:27:45Z
+starts_with_request: true
+first_codepoint: 35
+has_embedding_provider_owner_runtime_smoke_validator: true
+has_embedding_provider_owner_runtime_smoke_post_run_validation: true
+has_embedding_provider_validator_request_refresh: true
+has_embedding_provider_validator_issue_body_refresh: true
+comment_count: 1
+screened_comment_count: 1
+candidate_count: 0
+draft_count: 0
+status: pending
+```
+
+Comment screening:
+
+```text
+classification: non_qualifying
+reason: self_authored_comment
+does_not_close_gate: true
+```
+
+Boundary:
+
+```text
+current-state issue verification only
+not live embedding generation proof
+not external reviewer feedback
+not hosted deployment evidence
+not product-complete
+external reviewer feedback v0 gate remains pending
+```

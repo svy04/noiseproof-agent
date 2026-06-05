@@ -18220,3 +18220,74 @@ def test_external_review_issue_body_embedding_provider_owner_runtime_smoke_valid
         in runbook
     )
     assert issue_doc in portfolio
+
+
+def test_external_feedback_current_state_embedding_provider_owner_runtime_smoke_validator_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-embedding-provider-owner-runtime-smoke-validator-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-embedding-provider-owner-runtime-smoke-validator-refresh.md"
+    )
+    current_state_doc = (
+        "docs/review/"
+        "external-feedback-current-state-embedding-provider-owner-runtime-smoke-validator-issue-verification.md"
+    )
+
+    assert (
+        "External Feedback Current-state Embedding Provider Owner-runtime Smoke Validator Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state embedding provider owner-runtime smoke validator issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert issue_doc in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_embedding_provider_owner_runtime_smoke_validator": true' in content
+    assert (
+        '"has_embedding_provider_owner_runtime_smoke_post_run_validation": true'
+        in content
+    )
+    assert '"has_embedding_provider_validator_request_refresh": true' in content
+    assert '"has_embedding_provider_validator_issue_body_refresh": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert '"screened_comment_count": 1' in content
+    assert '"candidate_count": 0' in content
+    assert '"draft_count": 0' in content
+    assert '"status": "pending"' in content
+    assert "self_authored_comment" in content
+    assert "does_not_close_gate: true" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not live embedding generation proof" in content
+    assert "external reviewer feedback v0 gate remains pending" in content
+    assert (
+        "External feedback current-state embedding provider owner-runtime smoke validator issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 486 - External Feedback Current-state Embedding Provider Owner-runtime Smoke Validator Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state embedding provider owner-runtime smoke validator issue verification v0"
+        in runbook
+    )
+    assert current_state_doc in portfolio
