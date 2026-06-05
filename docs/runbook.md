@@ -11266,3 +11266,5 @@ not production orchestration
 not database migration
 not product-complete
 ```
+
+Phase 604 adds external reviewer PDF table-candidate downstream runtime request refresh v0: `docs/review/external-reviewer-pdf-table-candidate-downstream-runtime-request-refresh.md` routes reviewer-facing request surfaces to the uploaded PDF table-candidate downstream runtime proof at `docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md` and remote verification at `docs/review/uploaded-pdf-table-candidate-downstream-provenance-remote-verification.md`. It preserves `retrieval_candidate_table_candidate_count -> 1` as the inspectable marker. This is request infrastructure only; it does not edit the live public issue body and is not external reviewer feedback, hosted deployment evidence, robust PDF extraction, table extraction, or product-complete.

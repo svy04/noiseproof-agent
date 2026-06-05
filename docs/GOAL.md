@@ -22087,3 +22087,40 @@ External Feedback Screen run 27038450101 -> success
 Boundary: remote workflow verification only; not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity, not raw file storage, not full parsed text persistence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 604 - External Reviewer PDF Table-candidate Downstream Runtime Request Refresh v0
+
+Status: implemented.
+
+Purpose: route the uploaded PDF table-candidate downstream runtime proof and its remote verification through reviewer-facing request surfaces without changing runtime behavior or claiming external feedback.
+
+Implemented artifacts:
+
+```text
+external reviewer PDF table-candidate downstream runtime request refresh v0
+docs/review/external-reviewer-pdf-table-candidate-downstream-runtime-request-refresh.md
+docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md
+docs/review/uploaded-pdf-table-candidate-downstream-provenance-remote-verification.md
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+docs/review/external-review-request.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+docs/application/portfolio-index.md
+README.md
+docs/runbook.md
+apps/api/tests/test_docs.py
+```
+
+Inspectable marker:
+
+```text
+uploaded PDF table-candidate downstream runtime proof
+retrieval_candidate_table_candidate_count -> 1
+```
+
+Boundary: request infrastructure only; not a live public issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction, not OCR, not table extraction, does not extract table contents, not layout fidelity, not raw file storage, not full parsed text persistence, not Evidence Ledger generation, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, issue-body refresh if this proof should be routed through the live public issue body, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

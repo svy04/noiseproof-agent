@@ -149,3 +149,16 @@ Fast links:
 ## Optional next action
 
 <!-- What one follow-up artifact would most improve the reviewer path? -->
+
+## Latest Table-candidate Downstream Proof Routing
+
+uploaded PDF table-candidate downstream runtime proof:
+
+```text
+docs/review/uploaded-pdf-table-candidate-downstream-provenance-runtime-smoke.md
+docs/review/uploaded-pdf-table-candidate-downstream-provenance-remote-verification.md
+docs/review/external-reviewer-pdf-table-candidate-downstream-runtime-request-refresh.md
+retrieval_candidate_table_candidate_count -> 1
+```
+
+Boundary: request routing only; not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction, not table extraction, and not product-complete.
