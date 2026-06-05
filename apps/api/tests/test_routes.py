@@ -729,6 +729,36 @@ def _minimal_pdf_bytes(text: str) -> bytes:
     return bytes(output)
 
 
+def _blank_pdf_bytes() -> bytes:
+    objects = [
+        b"<< /Type /Catalog /Pages 2 0 R >>",
+        b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+        (
+            b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] "
+            b"/Resources << >> >>"
+        ),
+    ]
+    output = bytearray(b"%PDF-1.4\n")
+    offsets = [0]
+    for index, body in enumerate(objects, start=1):
+        offsets.append(len(output))
+        output.extend(f"{index} 0 obj\n".encode("ascii"))
+        output.extend(body)
+        output.extend(b"\nendobj\n")
+    xref_offset = len(output)
+    output.extend(f"xref\n0 {len(objects) + 1}\n".encode("ascii"))
+    output.extend(b"0000000000 65535 f \n")
+    for offset in offsets[1:]:
+        output.extend(f"{offset:010d} 00000 n \n".encode("ascii"))
+    output.extend(
+        (
+            f"trailer\n<< /Size {len(objects) + 1} /Root 1 0 R >>\n"
+            f"startxref\n{xref_offset}\n%%EOF\n"
+        ).encode("ascii")
+    )
+    return bytes(output)
+
+
 def test_safe_download_filename_blocks_path_control_chars_and_overlong_names():
     raw_file_id = uuid4()
     unsafe_name = (
@@ -3220,6 +3250,42 @@ def test_document_upload_chunks_persists_chunks_from_uploaded_pdf_text_extractio
     )
     assert any("OCR" in warning for warning in body["warnings"])
     assert not any("replacement" in warning for warning in body["warnings"])
+
+
+def test_document_upload_chunks_preserves_no_text_pdf_failure_candidate():
+    client = make_client()
+    content = _blank_pdf_bytes()
+
+    response = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Blank PDF report",
+            "strategy": "fixed-window",
+            "max_characters": "80",
+            "overlap": "0",
+        },
+        files={"file": ("blank-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    profile_json = body["document"]["profile_json"]
+
+    assert body["source_type"] == "pdf"
+    assert body["parser"] == "pdf-pymupdf"
+    assert body["chunks"] == []
+    assert body["document"]["status"] == "chunk_handoff_no_chunks"
+    assert profile_json["chunk_count"] == 0
+    assert profile_json["failure_case_candidate"]["failure_type"] == (
+        "pdf_no_extractable_text"
+    )
+    assert "scanned, image-only" in profile_json["failure_case_candidate"]["root_cause"]
+    assert profile_json["page_text_char_counts"] == [0]
+    assert profile_json["empty_page_count"] == 1
+    assert profile_json["extracted_page_count"] == 0
+    assert profile_json["robust_pdf_extraction"] is False
+    assert any("no digital text was extracted" in warning for warning in body["warnings"])
+    assert any("No chunk strategy produced chunks" in warning for warning in body["warnings"])
 
 
 def test_uploaded_pdf_chunk_retrieval_run_keeps_pdf_parser_provenance():

@@ -110,6 +110,7 @@ ALLOWED_RAW_FILE_EXTENSIONS = {
     ".txt",
 }
 PDF_PAGE_DIAGNOSTIC_METADATA_KEYS = (
+    "robust_pdf_extraction",
     "page_diagnostics_available",
     "layout_block_diagnostics_available",
     "extraction_scope",
@@ -1499,6 +1500,11 @@ async def upload_document_chunks(
                     "chunk_metrics": selected_strategy.metrics if selected_strategy else {},
                     "chunk_warnings": selected_strategy.warnings if selected_strategy else [],
                     "parse_warnings": warnings,
+                    "failure_case_candidate": (
+                        preview.failure_case_candidate.model_dump()
+                        if preview.failure_case_candidate is not None
+                        else None
+                    ),
                     **(
                         _pdf_page_diagnostic_metadata(preview.metadata)
                         if preview.source_type == "pdf"

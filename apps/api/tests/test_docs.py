@@ -12483,6 +12483,46 @@ def test_uploaded_pdf_page_diagnostics_downstream_provenance_runtime_smoke_recor
     )
 
 
+def test_uploaded_pdf_no_text_failure_candidate_handoff_is_documented_without_robust_claim():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-no-text-failure-candidate-handoff.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded PDF No-text Failure Candidate Handoff" in content
+    assert "uploaded PDF no-text failure candidate handoff v0" in content
+    assert "POST /documents/upload-chunks" in content
+    assert "pdf_no_extractable_text" in content
+    assert "chunk_handoff_no_chunks" in content
+    assert "failure_case_candidate" in content
+    assert "page_text_char_counts -> [0]" in content
+    assert "empty_page_count -> 1" in content
+    assert "extracted_page_count -> 0" in content
+    assert "robust_pdf_extraction -> false" in content
+    assert "not robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not table extraction" in content
+    assert "not layout fidelity" in content
+    assert "Uploaded PDF no-text failure candidate handoff v0: implemented" in readme
+    assert (
+        "Phase 552 - Uploaded PDF No-text Failure Candidate Handoff v0" in goal
+    )
+    assert "uploaded PDF no-text failure candidate handoff v0" in runbook
+    assert (
+        "docs/review/uploaded-pdf-no-text-failure-candidate-handoff.md"
+        in portfolio
+    )
+
+
 def test_external_reviewer_pdf_page_diagnostics_downstream_runtime_request_refresh_routes_reviewers_to_proof():
     review_path = (
         REPO_ROOT
