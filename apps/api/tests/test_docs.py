@@ -18690,6 +18690,90 @@ def test_external_reviewer_embedding_provider_owner_runtime_smoke_handoff_alignm
     )
 
 
+def test_external_review_issue_body_embedding_provider_owner_runtime_smoke_handoff_alignment_refresh_records_live_issue_edit():
+    refresh_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-review-issue-body-embedding-provider-owner-runtime-smoke-handoff-alignment-refresh.md"
+    )
+    assert refresh_path.is_file()
+
+    content = refresh_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    response_handoff_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-response-handoff-report.md"
+    )
+    command_alignment_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment.md"
+    )
+    ci_verification_doc = (
+        "docs/review/"
+        "embedding-model-live-provider-owner-runtime-smoke-packet-command-template-handoff-alignment-ci-remote-verification.md"
+    )
+    request_doc = (
+        "docs/review/"
+        "external-reviewer-embedding-provider-owner-runtime-smoke-handoff-alignment-request-refresh.md"
+    )
+    issue_doc = (
+        "docs/review/"
+        "external-review-issue-body-embedding-provider-owner-runtime-smoke-handoff-alignment-refresh.md"
+    )
+
+    assert (
+        "External Review Issue Body Embedding Provider Owner-runtime Smoke Handoff Alignment Refresh"
+        in content
+    )
+    assert (
+        "external review issue body embedding provider owner-runtime smoke handoff alignment refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert response_handoff_doc in content
+    assert command_alignment_doc in content
+    assert ci_verification_doc in content
+    assert request_doc in content
+    assert issue_doc in content
+    assert "--build-owner-runtime-smoke-report-from-response" in content
+    assert "response_handoff_command" in content
+    assert "workflow screen only" in content
+    assert '"starts_with_request": true' in content
+    assert '"first_codepoint": 35' in content
+    assert '"has_embedding_provider_response_handoff": true' in content
+    assert '"has_embedding_provider_command_template_handoff_alignment": true' in content
+    assert '"has_embedding_provider_handoff_alignment_ci_remote_verification": true' in content
+    assert '"has_embedding_provider_handoff_alignment_request_refresh": true' in content
+    assert '"has_build_owner_runtime_smoke_report_from_response_command": true' in content
+    assert '"has_response_handoff_command_marker": true' in content
+    assert '"has_external_feedback_boundary": true' in content
+    assert '"comment_count": 1' in content
+    assert "owner-authored issue body routing only" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not live embedding generation proof" in content
+    assert "not product-complete" in content
+    assert (
+        "External review issue body embedding provider owner-runtime smoke handoff alignment refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 498 - External Review Issue Body Embedding Provider Owner-runtime Smoke Handoff Alignment Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body embedding provider owner-runtime smoke handoff alignment refresh v0"
+        in runbook
+    )
+    assert issue_doc in portfolio
+
+
 def test_external_reviewer_embedding_provider_owner_runtime_smoke_validator_request_refresh_links_validation_path():
     review_path = (
         REPO_ROOT
