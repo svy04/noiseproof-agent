@@ -21344,6 +21344,52 @@ Next recommended evidence gate:
 external review issue body workflow failed stage event runtime refresh v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
 ```
 
+### Phase 584 - External Review Issue Body Workflow Failed Stage Event Runtime Refresh v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+record the owner-authored live issue #1 body update that points reviewers to the workflow failed stage event runtime smoke and request-refresh record
+```
+
+Implemented artifacts:
+
+```text
+external review issue body workflow failed stage event runtime refresh v0
+docs/review/external-review-issue-body-workflow-failed-stage-event-runtime-refresh.md
+https://github.com/svy04/noiseproof-agent/issues/1
+docs/review/workflow-failed-stage-event-runtime-smoke.md
+docs/review/external-reviewer-workflow-failed-stage-event-runtime-request-refresh.md
+starts_with_request -> true
+first_codepoint -> 35
+has_workflow_failed_stage_event_runtime_proof -> true
+has_workflow_failed_stage_event_request_refresh -> true
+has_workflow_failed_stage_event_issue_body_refresh -> true
+has_execute_preview_500 -> true
+has_workflow_stage_event_count -> true
+has_retrieval_completed -> true
+has_evidence_ledger_failed -> true
+has_failure_case_count_delta -> true
+has_failed_stage_boundary -> true
+has_external_feedback_boundary -> true
+comment_count -> 1
+body_length -> 6299
+```
+
+Boundary:
+
+```text
+Phase 584 is an owner-authored issue body routing update only. It is not external reviewer feedback, not hosted deployment evidence, not retry behavior, not automatic failure-case creation, not root-cause automation, not complete workflow failure causality, not distributed tracing, not hosted observability, not customer validation, not Braincrew acceptance, not financial advice, and not product-complete.
+```
+
+Next recommended evidence gate:
+
+```text
+external feedback current-state workflow failed stage event runtime issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

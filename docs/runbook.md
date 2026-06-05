@@ -10786,3 +10786,49 @@ not distributed tracing
 not hosted observability
 not product-complete
 ```
+
+## External Review Issue Body Workflow Failed Stage Event Runtime Refresh
+
+Phase marker: external review issue body workflow failed stage event runtime refresh v0.
+
+Review artifact:
+
+```text
+docs/review/external-review-issue-body-workflow-failed-stage-event-runtime-refresh.md
+```
+
+Live issue:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+```
+
+Observed issue markers:
+
+```text
+starts_with_request -> true
+first_codepoint -> 35
+has_workflow_failed_stage_event_runtime_proof -> true
+has_workflow_failed_stage_event_request_refresh -> true
+has_workflow_failed_stage_event_issue_body_refresh -> true
+has_execute_preview_500 -> true
+has_workflow_stage_event_count -> true
+has_retrieval_completed -> true
+has_evidence_ledger_failed -> true
+has_failure_case_count_delta -> true
+has_failed_stage_boundary -> true
+comment_count -> 1
+```
+
+Boundary:
+
+```text
+owner-authored issue body routing only
+not external reviewer feedback
+not hosted deployment evidence
+not retry behavior
+not automatic failure-case creation
+not distributed tracing
+not hosted observability
+not product-complete
+```
