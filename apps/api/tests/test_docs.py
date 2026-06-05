@@ -15612,6 +15612,44 @@ def test_readme_upload_handoff_claim_boundary_refresh_separates_explicit_handoff
     assert implicit_boundary in application_ready
 
 
+def test_raw_file_download_operator_token_guard_documents_opt_in_boundary():
+    review_path = (
+        REPO_ROOT / "docs/review/raw-file-download-operator-token-guard.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    env_example = (REPO_ROOT / ".env.example").read_text(encoding="utf-8")
+
+    review_doc = "docs/review/raw-file-download-operator-token-guard.md"
+    phase_marker = "raw file download operator-token guard v0"
+    boundary = "local_v0_operator_token_header_not_production"
+    env_name = "NOISEPROOF_RAW_FILE_DOWNLOAD_OPERATOR_TOKEN"
+
+    assert "Raw File Download Operator-token Guard" in content
+    assert phase_marker in content
+    assert boundary in content
+    assert env_name in content
+    assert "not production authorization" in content
+    assert "not authenticated user identity" in content
+    assert "Raw file download operator-token guard v0: implemented" in readme
+    assert boundary in readme
+    assert env_name in env_example
+    assert "Phase 502 - Raw File Download Operator-token Guard v0" in goal
+    assert phase_marker in runbook
+    assert review_doc in portfolio
+    assert boundary in application_ready
+
+
 def test_uploaded_raw_file_download_readiness_preview_documents_preflight_boundary():
     review_path = (
         REPO_ROOT / "docs/review/uploaded-raw-file-download-readiness-preview.md"

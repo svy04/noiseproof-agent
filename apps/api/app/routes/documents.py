@@ -2,11 +2,12 @@ import re
 from collections import deque
 from datetime import UTC, datetime
 from hashlib import sha256
+from secrets import compare_digest
 from time import monotonic
 from urllib.parse import unquote
 from uuid import UUID, uuid4
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
+from fastapi import APIRouter, Depends, File, Form, Header, HTTPException, Request, UploadFile
 from fastapi.responses import Response
 
 from app.db import Repository, get_repository
@@ -84,7 +85,11 @@ DOWNLOAD_WITH_APPROVAL_BOUNDARY = (
     "scan_first_latest_clean_result_and_active_approval_required"
 )
 DOWNLOAD_RATE_LIMIT_DETAIL = "raw file download rate limit exceeded"
+DOWNLOAD_OPERATOR_TOKEN_DETAIL = "operator token required before raw file download"
 DOWNLOAD_AUTHORIZATION_BOUNDARY = "local_v0_no_auth_not_production"
+DOWNLOAD_OPERATOR_TOKEN_AUTHORIZATION_BOUNDARY = (
+    "local_v0_operator_token_header_not_production"
+)
 DOWNLOAD_RATE_LIMIT_BOUNDARY = "local_v0_in_memory_fixed_window_not_production"
 DOWNLOAD_RATE_LIMIT_ATTEMPTS = 5
 DOWNLOAD_RATE_LIMIT_WINDOW_SECONDS = 60.0
@@ -189,6 +194,25 @@ def _consume_download_attempt(raw_file_id: UUID, request: Request) -> bool:
     return True
 
 
+def _raw_file_download_authorization_boundary(settings: Settings) -> str:
+    if settings.raw_file_download_operator_token:
+        return DOWNLOAD_OPERATOR_TOKEN_AUTHORIZATION_BOUNDARY
+    return DOWNLOAD_AUTHORIZATION_BOUNDARY
+
+
+def _operator_token_allows_download(
+    *,
+    settings: Settings,
+    operator_token: str | None,
+) -> bool:
+    configured_token = settings.raw_file_download_operator_token
+    if not configured_token:
+        return True
+    if operator_token is None:
+        return False
+    return compare_digest(operator_token, configured_token)
+
+
 def _record_raw_file_download_event(
     *,
     repository: Repository,
@@ -197,6 +221,7 @@ def _record_raw_file_download_event(
     download_result: str,
     blocked_reason: str | None,
     http_status_code: int,
+    authorization_boundary: str = DOWNLOAD_AUTHORIZATION_BOUNDARY,
     metadata_json: dict | None = None,
 ) -> dict:
     payload = RawFileDownloadEventCreate(
@@ -207,7 +232,7 @@ def _record_raw_file_download_event(
         download_result=download_result,
         blocked_reason=blocked_reason,
         http_status_code=http_status_code,
-        authorization_boundary=DOWNLOAD_AUTHORIZATION_BOUNDARY,
+        authorization_boundary=authorization_boundary,
         rate_limit_boundary=DOWNLOAD_RATE_LIMIT_BOUNDARY,
         filename_boundary=DOWNLOAD_FILENAME_BOUNDARY,
         client_host_boundary="local_request_client_host_not_identity",
@@ -235,6 +260,7 @@ def _build_raw_file_download_readiness(
     raw_file_id: UUID,
     repository: Repository,
     now: datetime,
+    authorization_boundary: str = DOWNLOAD_AUTHORIZATION_BOUNDARY,
 ) -> dict | None:
     raw_file = repository.get_uploaded_raw_file_for_scan(raw_file_id)
     if raw_file is None:
@@ -296,7 +322,7 @@ def _build_raw_file_download_readiness(
             "raw_bytes_returned": False,
             "rate_limit_consumed": False,
             "readiness_boundary": DOWNLOAD_READINESS_BOUNDARY,
-            "authorization_boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
+            "authorization_boundary": authorization_boundary,
             "rate_limit_boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
             "checks": checks,
         }
@@ -338,7 +364,7 @@ def _build_raw_file_download_readiness(
             "raw_bytes_returned": False,
             "rate_limit_consumed": False,
             "readiness_boundary": DOWNLOAD_READINESS_BOUNDARY,
-            "authorization_boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
+            "authorization_boundary": authorization_boundary,
             "rate_limit_boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
             "checks": checks,
         }
@@ -389,7 +415,7 @@ def _build_raw_file_download_readiness(
             "raw_bytes_returned": False,
             "rate_limit_consumed": False,
             "readiness_boundary": DOWNLOAD_READINESS_BOUNDARY,
-            "authorization_boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
+            "authorization_boundary": authorization_boundary,
             "rate_limit_boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
             "checks": checks,
         }
@@ -414,7 +440,7 @@ def _build_raw_file_download_readiness(
         "raw_bytes_returned": False,
         "rate_limit_consumed": False,
         "readiness_boundary": DOWNLOAD_READINESS_BOUNDARY,
-        "authorization_boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
+        "authorization_boundary": authorization_boundary,
         "rate_limit_boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
         "checks": checks,
     }
@@ -1066,11 +1092,13 @@ def list_upload_raw_file_download_approvals(
 def get_upload_raw_file_download_readiness(
     raw_file_id: UUID,
     repository: Repository = Depends(get_repository),
+    settings: Settings = Depends(get_settings),
 ) -> dict:
     readiness = _build_raw_file_download_readiness(
         raw_file_id=raw_file_id,
         repository=repository,
         now=datetime.now(UTC),
+        authorization_boundary=_raw_file_download_authorization_boundary(settings),
     )
     if readiness is None:
         raise HTTPException(
@@ -1085,12 +1113,44 @@ def download_upload_raw_file(
     raw_file_id: UUID,
     request: Request,
     repository: Repository = Depends(get_repository),
+    settings: Settings = Depends(get_settings),
+    operator_token: str | None = Header(
+        default=None,
+        alias="X-NoiseProof-Operator-Token",
+    ),
 ) -> Response:
     raw_file = repository.get_uploaded_raw_file_for_scan(raw_file_id)
     if raw_file is None:
         raise HTTPException(
             status_code=404,
             detail="uploaded raw file not found",
+        )
+    authorization_boundary = _raw_file_download_authorization_boundary(settings)
+    if not _operator_token_allows_download(
+        settings=settings,
+        operator_token=operator_token,
+    ):
+        _record_raw_file_download_event(
+            repository=repository,
+            raw_file_id=raw_file_id,
+            latest_scan_result=None,
+            download_result="blocked",
+            blocked_reason="operator_token_missing_or_invalid",
+            http_status_code=403,
+            authorization_boundary=authorization_boundary,
+            metadata_json={
+                "detail": DOWNLOAD_OPERATOR_TOKEN_DETAIL,
+                "token_present": operator_token is not None,
+                "operator_token_configured": True,
+                "rate_limit_consumed": False,
+            },
+        )
+        raise HTTPException(
+            status_code=403,
+            detail=DOWNLOAD_OPERATOR_TOKEN_DETAIL,
+            headers={
+                "X-NoiseProof-Authorization-Boundary": authorization_boundary,
+            },
         )
     if not _consume_download_attempt(raw_file_id, request):
         _record_raw_file_download_event(
@@ -1100,6 +1160,7 @@ def download_upload_raw_file(
             download_result="blocked",
             blocked_reason="rate_limited",
             http_status_code=429,
+            authorization_boundary=authorization_boundary,
             metadata_json={
                 "detail": DOWNLOAD_RATE_LIMIT_DETAIL,
             },
@@ -1109,7 +1170,7 @@ def download_upload_raw_file(
             detail=DOWNLOAD_RATE_LIMIT_DETAIL,
             headers={
                 "X-NoiseProof-Download-Rate-Limit-Boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
-                "X-NoiseProof-Authorization-Boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
+                "X-NoiseProof-Authorization-Boundary": authorization_boundary,
             },
         )
 
@@ -1131,6 +1192,7 @@ def download_upload_raw_file(
                 "missing_clean_scan" if latest_result is None else "latest_scan_not_clean"
             ),
             http_status_code=409,
+            authorization_boundary=authorization_boundary,
             metadata_json={
                 "detail": DOWNLOAD_BLOCK_DETAIL,
                 "latest_scan_status": (
@@ -1151,6 +1213,7 @@ def download_upload_raw_file(
             download_result="blocked",
             blocked_reason="quarantine_status_blocked",
             http_status_code=409,
+            authorization_boundary=authorization_boundary,
             metadata_json={
                 "detail": "raw file quarantine status does not allow controlled download",
                 "quarantine_status": raw_file.get("quarantine_status"),
@@ -1187,6 +1250,7 @@ def download_upload_raw_file(
             download_result="blocked",
             blocked_reason=blocked_reason,
             http_status_code=409,
+            authorization_boundary=authorization_boundary,
             metadata_json={
                 "detail": DOWNLOAD_APPROVAL_BLOCK_DETAIL,
                 "latest_scan_status": latest_result.get("scan_status"),
@@ -1204,6 +1268,7 @@ def download_upload_raw_file(
         download_result="allowed",
         blocked_reason=None,
         http_status_code=200,
+        authorization_boundary=authorization_boundary,
         metadata_json={
             "content_disposition_filename": filename,
             "content_type": _content_type_for_download(raw_file.get("content_type")),
@@ -1228,7 +1293,7 @@ def download_upload_raw_file(
         "Content-Disposition": f'attachment; filename="{filename}"',
         "X-Content-Type-Options": "nosniff",
         "X-NoiseProof-Download-Boundary": DOWNLOAD_WITH_APPROVAL_BOUNDARY,
-        "X-NoiseProof-Authorization-Boundary": DOWNLOAD_AUTHORIZATION_BOUNDARY,
+        "X-NoiseProof-Authorization-Boundary": authorization_boundary,
         "X-NoiseProof-Download-Rate-Limit-Boundary": DOWNLOAD_RATE_LIMIT_BOUNDARY,
         "X-NoiseProof-Download-Filename-Boundary": DOWNLOAD_FILENAME_BOUNDARY,
     }

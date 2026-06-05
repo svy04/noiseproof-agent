@@ -11,6 +11,13 @@ class Settings(BaseSettings):
     max_raw_upload_bytes: int = 1_000_000
     noiseproof_scanner: str = "unavailable"
     raw_file_scanner_timeout_seconds: int = 30
+    raw_file_download_operator_token: str = Field(
+        default="",
+        validation_alias=AliasChoices(
+            "NOISEPROOF_RAW_FILE_DOWNLOAD_OPERATOR_TOKEN",
+            "raw_file_download_operator_token",
+        ),
+    )
     clamd_host: str = "clamav"
     clamd_port: int = 3310
     openai_api_key: str = ""

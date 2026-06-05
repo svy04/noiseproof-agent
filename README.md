@@ -124,7 +124,7 @@ Still planned or explicitly unclaimed near the top:
 - explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`; implicit upload-preview auto-persistence remains intentionally unclaimed
 - actual embedding generation, vector quality evidence, LLM calls
 - hosted deployment evidence
-- production auth/identity for stored raw uploads
+- local token download guard exists; production auth/identity unclaimed
 - automatic failure-case creation from workflow failures
 - complete workflow failure causality
 - free-form final report generation
@@ -210,7 +210,7 @@ For exhaustive phase history, use `docs/GOAL.md`.
 Not implemented yet:
 
 - robust PDF extraction
-- production authorization and download rate limiting for stored raw uploads
+- production authorization for stored raw uploads
 - production malware scanning evidence for stored raw uploads
 - implicit upload-preview auto-persistence; explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`
 - autonomous workflow execution endpoints
@@ -301,6 +301,8 @@ README latest-marker current-state refresh v0: implemented. Boundary: top marker
 README latest-marker embedding handoff current-state refresh v0: implemented. Boundary: README top markers now point to the embedding provider handoff alignment issue-body refresh and current-state issue verification; external reviewer feedback remains pending, and this is not live embedding generation proof or product-complete.
 
 README upload handoff claim-boundary refresh v0: implemented. Boundary: explicit uploaded-file-to-chunks handoff exists through `POST /documents/upload-chunks`; implicit upload-preview auto-persistence remains intentionally unclaimed. This is a public-claim cleanup only, not a new product runtime gate.
+
+Raw file download operator-token guard v0: implemented. Boundary: when `NOISEPROOF_RAW_FILE_DOWNLOAD_OPERATOR_TOKEN` is configured, `GET /documents/upload-raw-files/{raw_file_id}/download` requires `X-NoiseProof-Operator-Token` before scan, approval, and rate-limit gates; authorization boundary is `local_v0_operator_token_header_not_production`, not production authorization or authenticated user identity.
 
 Uploaded raw file storage v0: implemented. Boundary: quarantined PostgreSQL BYTEA storage with metadata-only responses; no download endpoint, no malware scanning, and no robust PDF extraction.
 

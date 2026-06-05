@@ -10262,3 +10262,44 @@ not hosted deployment evidence
 not external reviewer feedback
 not product-complete
 ```
+
+## Raw File Download Operator-token Guard
+
+Phase marker: raw file download operator-token guard v0.
+
+Review artifact:
+
+```text
+docs/review/raw-file-download-operator-token-guard.md
+```
+
+Opt-in environment variable:
+
+```text
+NOISEPROOF_RAW_FILE_DOWNLOAD_OPERATOR_TOKEN
+```
+
+Download request header:
+
+```text
+X-NoiseProof-Operator-Token
+```
+
+Expected missing-token response when the environment variable is configured:
+
+```text
+403
+operator token required before raw file download
+local_v0_operator_token_header_not_production
+```
+
+Boundary:
+
+```text
+local v0 operator-token guard only
+do not commit token values
+not production authorization
+not authenticated user identity
+not hosted deployment evidence
+not product-complete
+```

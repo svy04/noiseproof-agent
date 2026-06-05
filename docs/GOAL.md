@@ -18312,6 +18312,42 @@ Next recommended evidence gate:
 owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
 ```
 
+### Phase 502 - Raw File Download Operator-token Guard v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+add an opt-in local operator-token guard before raw-file download attempts proceed to scan, approval, and rate-limit gates
+```
+
+Implemented:
+
+```text
+raw file download operator-token guard v0
+docs/review/raw-file-download-operator-token-guard.md
+Settings.raw_file_download_operator_token
+NOISEPROOF_RAW_FILE_DOWNLOAD_OPERATOR_TOKEN
+X-NoiseProof-Operator-Token
+local_v0_operator_token_header_not_production
+403 operator token required before raw file download
+blocked download audit event with operator_token_missing_or_invalid
+README implementation marker
+docs/application/portfolio-index.md artifact link
+docs/review/application-ready-review.md boundary row refresh
+docs/runbook.md note
+.env.example opt-in marker
+```
+
+Phase 502 adds a local v0 opt-in operator-token guard only. It is not production authorization, not authenticated user identity, not role-based access control, not OAuth/OIDC, not signed URL support, not tenant isolation, not hosted deployment evidence, not external reviewer feedback, not production malware scanning evidence, and not product-complete. Default local no-auth behavior remains unchanged when the token is not configured.
+
+Next recommended evidence gate:
+
+```text
+owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from this file
+```
+
 ## 6. Ordering Rules
 
 Do not implement embeddings before profiler exists.

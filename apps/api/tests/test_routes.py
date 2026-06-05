@@ -2482,6 +2482,64 @@ def test_document_upload_raw_file_download_records_missing_scan_audit_event():
     )
 
 
+def test_document_upload_raw_file_download_requires_configured_operator_token_before_scan_gate():
+    client = make_client()
+    client.app.dependency_overrides[get_settings] = lambda: Settings(
+        raw_file_download_operator_token="local-secret"
+    )
+    content = b"ticker,revenue\nALPHA,120\n"
+    upload = client.post(
+        "/documents/upload-raw-files",
+        files={"file": ("sample.csv", content, "text/csv")},
+        data={"source_type": "csv"},
+    )
+    raw_file_id = upload.json()["id"]
+
+    missing_token = client.get(f"/documents/upload-raw-files/{raw_file_id}/download")
+    wrong_token = client.get(
+        f"/documents/upload-raw-files/{raw_file_id}/download",
+        headers={"X-NoiseProof-Operator-Token": "wrong-secret"},
+    )
+    correct_token_before_scan = client.get(
+        f"/documents/upload-raw-files/{raw_file_id}/download",
+        headers={"X-NoiseProof-Operator-Token": "local-secret"},
+    )
+    events = client.get(f"/documents/upload-raw-files/{raw_file_id}/download-events")
+
+    assert upload.status_code == 201
+    assert missing_token.status_code == 403
+    assert wrong_token.status_code == 403
+    assert missing_token.json() == {
+        "detail": "operator token required before raw file download"
+    }
+    assert wrong_token.json() == {
+        "detail": "operator token required before raw file download"
+    }
+    assert missing_token.headers["x-noiseproof-authorization-boundary"] == (
+        "local_v0_operator_token_header_not_production"
+    )
+    assert correct_token_before_scan.status_code == 409
+    assert "latest clean scan result required" in correct_token_before_scan.json()[
+        "detail"
+    ]
+    blocked_auth_events = [
+        event
+        for event in events.json()
+        if event["blocked_reason"] == "operator_token_missing_or_invalid"
+    ]
+    assert len(blocked_auth_events) == 2
+    assert all(event["http_status_code"] == 403 for event in blocked_auth_events)
+    assert all(
+        event["authorization_boundary"]
+        == "local_v0_operator_token_header_not_production"
+        for event in blocked_auth_events
+    )
+    assert all(
+        event["metadata_json"]["token_present"] in {False, True}
+        for event in blocked_auth_events
+    )
+
+
 def test_document_upload_raw_file_download_rate_limits_blocked_attempts_without_raw_bytes():
     client = make_client()
     content = b"ticker,revenue\nALPHA,120\n"
