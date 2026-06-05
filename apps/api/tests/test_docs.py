@@ -12483,6 +12483,94 @@ def test_uploaded_pdf_page_diagnostics_downstream_provenance_runtime_smoke_recor
     )
 
 
+def test_external_reviewer_pdf_page_diagnostics_downstream_runtime_request_refresh_routes_reviewers_to_proof():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reviewer-pdf-page-diagnostics-downstream-runtime-request-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    issue_template = (
+        REPO_ROOT / ".github/ISSUE_TEMPLATE/external-review-feedback.md"
+    ).read_text(encoding="utf-8")
+    contributing = (REPO_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+
+    assert (
+        "External Reviewer PDF Page Diagnostics Downstream Runtime Request Refresh"
+        in content
+    )
+    assert (
+        "external reviewer PDF page diagnostics downstream runtime request refresh v0"
+        in content
+    )
+    assert "request infrastructure only" in content
+    assert "uploaded PDF page diagnostics downstream runtime proof" in content
+    assert (
+        "docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md"
+        in content
+    )
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/retrieval-runs -> 201" in content
+    assert "document_profile_page_text_char_counts -> [39]" in content
+    assert "chunk_metadata_page_text_char_counts -> [39]" in content
+    assert "retrieval_metadata_page_text_char_counts -> [39]" in content
+    assert "retrieval_candidate_page_text_char_counts -> [39]" in content
+    assert "does not edit the live public issue body" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction" in content
+    assert (
+        "External reviewer PDF page diagnostics downstream runtime request refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 547 - External Reviewer PDF Page Diagnostics Downstream Runtime Request Refresh v0"
+        in goal
+    )
+    assert (
+        "external reviewer PDF page diagnostics downstream runtime request refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reviewer-pdf-page-diagnostics-downstream-runtime-request-refresh.md"
+        in portfolio
+    )
+    for reviewer_surface in [
+        proof_path,
+        request,
+        brief,
+        link_map,
+        issue_template,
+        contributing,
+    ]:
+        assert "uploaded PDF page diagnostics downstream runtime proof" in reviewer_surface
+        assert (
+            "docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md"
+            in reviewer_surface
+        )
+        assert "retrieval_candidate_page_text_char_counts -> [39]" in reviewer_surface
+
+
 def test_uploaded_pdf_downstream_handoff_is_documented_without_robust_claim():
     review_path = REPO_ROOT / "docs/review/uploaded-pdf-downstream-handoff.md"
     assert review_path.is_file()

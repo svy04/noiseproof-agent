@@ -39,13 +39,15 @@ Shortest path first: `docs/review/external-reviewer-shortlist.md`
    - uploaded PDF downstream handoff proof with `parser -> pdf-pymupdf`; digital PDF text only, not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
 10. `docs/review/uploaded-pdf-page-diagnostics-runtime-smoke.md`
    - uploaded PDF page diagnostics proof with `page_text_char_counts -> [39]`, `empty_page_count -> 0`, `text_block_count -> 1`, `image_block_count -> 0`, and `document_count_delta -> 0`; not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
-11. `docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md`
+11. `docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md`
+   - uploaded PDF page diagnostics downstream runtime proof with `retrieval_candidate_page_text_char_counts -> [39]`; document/chunk/retrieval metadata provenance only, not robust PDF extraction, not OCR, not table extraction, not hosted deployment evidence, and not external reviewer feedback.
+12. `docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md`
    - uploaded PDF retrieval-run provenance runtime proof with `candidate_parsers -> pdf-pymupdf` and `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`; not hosted deployment evidence, not robust PDF extraction, not Evidence Ledger generation, and not external reviewer feedback.
-12. `docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance-runtime-smoke.md`
+13. `docs/review/uploaded-pdf-retrieval-run-linked-evidence-ledger-provenance-runtime-smoke.md`
    - uploaded PDF retrieval-run-linked Evidence Ledger provenance runtime proof with `metadata_json.parser -> pdf-pymupdf` and `metadata_json.source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk`; not hosted deployment evidence, not robust PDF extraction, not Noise Gate behavior, not report generation, and not external reviewer feedback.
-13. `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`
+14. `docs/review/uploaded-file-chunk-persistence-runtime-smoke.md`
    - uploaded-file chunk persistence proof; not automatic persistence from upload preview, not hosted deployment evidence, and not external reviewer feedback.
-14. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
+15. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`
    - uploaded-file chunk handoff proof via `POST /documents/upload-chunks`; not raw uploaded byte storage, not hosted deployment evidence, and not external reviewer feedback.
 14. `docs/review/uploaded-file-retrieval-persistence-runtime-smoke.md`
    - uploaded-file retrieval persistence proof via `POST /documents/{document_id}/retrieval-runs`; not Evidence Ledger generation, not hosted deployment evidence, and not external reviewer feedback.

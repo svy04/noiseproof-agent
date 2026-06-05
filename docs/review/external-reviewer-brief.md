@@ -134,6 +134,16 @@ page_text_char_counts -> [39]
 
 This proof records preview-only page diagnostics from uploaded digital PDF text extraction with `empty_page_count -> 0`, `text_block_count -> 1`, `image_block_count -> 0`, and `document_count_delta -> 0`. It is not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
 
+uploaded PDF page diagnostics downstream runtime proof:
+
+```text
+docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md
+docs/review/external-reviewer-pdf-page-diagnostics-downstream-runtime-request-refresh.md
+retrieval_candidate_page_text_char_counts -> [39]
+```
+
+This proof records local Docker/FastAPI HTTP evidence for page diagnostics flowing through document profile metadata, chunk metadata, retrieval metadata, and retrieval candidate metadata. It is not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not raw file storage, not hosted deployment evidence, and not external reviewer feedback.
+
 uploaded PDF retrieval-run provenance runtime proof:
 
 ```text
