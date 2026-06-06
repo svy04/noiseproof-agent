@@ -1844,6 +1844,40 @@ Boundary: reviewer navigation only; not new runtime evidence, not a live issue b
 
 Next gate: remote verification for this request/brief refresh after push, outreach packet coverage-summary refresh, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 754 - External Reviewer Surfaces Upload PDF Quality Preview Coverage Summary Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record that the pushed Phase 752/753 reviewer-surface refresh passed the repository's remote workflows on `main`.
+
+Implemented artifacts:
+
+```text
+external reviewer surfaces upload PDF quality preview coverage summary refresh remote verification v0
+docs/review/external-reviewer-surfaces-upload-pdf-quality-preview-coverage-summary-refresh-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote workflow evidence:
+
+```text
+head_sha -> 6a31fe11cb799e7f37bf011c8e3fd2209c992701
+CI run `27069437823`: success
+External Feedback Screen run `27069437826`: success
+CI job_id -> 79895922745
+External Feedback Screen job_id -> 79895922803
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the reviewer-surface refresh itself, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: outreach packet coverage-summary refresh, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.

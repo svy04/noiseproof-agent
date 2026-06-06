@@ -34333,6 +34333,68 @@ def test_external_review_request_and_brief_surface_upload_pdf_quality_preview_co
     )
 
 
+def test_external_reviewer_surfaces_upload_pdf_quality_preview_coverage_summary_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-surfaces-upload-pdf-quality-preview-coverage-summary-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Reviewer Surfaces Upload PDF Quality Preview Coverage Summary Refresh Remote Verification"
+        in content
+    )
+    assert (
+        "external reviewer surfaces upload PDF quality preview coverage summary refresh remote verification v0"
+        in content
+    )
+    assert "6a31fe11cb799e7f37bf011c8e3fd2209c992701" in content
+    assert "CI run `27069437823`: success" in content
+    assert "External Feedback Screen run `27069437826`: success" in content
+    assert "CI job_id -> 79895922745" in content
+    assert "External Feedback Screen job_id -> 79895922803" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-coverage-summary-refresh.md"
+        in content
+    )
+    assert (
+        "docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-coverage-summary-refresh.md"
+        in content
+    )
+    assert "not the reviewer-surface refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External reviewer surfaces upload PDF quality preview coverage summary refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 754 - External Reviewer Surfaces Upload PDF Quality Preview Coverage Summary Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 754 adds external reviewer surfaces upload PDF quality preview coverage summary refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "external reviewer surfaces upload PDF quality preview coverage summary refresh remote verification"
+        in portfolio
+    )
+
+
 def test_external_reviewer_link_map_routes_upload_pdf_summary_reviewer_surfaces():
     review_path = (
         REPO_ROOT
