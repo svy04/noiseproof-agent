@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from uuid import UUID, uuid4
 
 from app.db import Repository, get_repository
@@ -7,6 +7,11 @@ from app.schemas import (
     EvidenceLedgerPreviewOut,
     EvidenceLedgerPreviewRequest,
     EvidenceLedgerStoredEntryOut,
+    FailureCaseDraftPreviewOut,
+)
+from app.services.evidence_quality_failure_case_draft import (
+    evidence_quality_risk_reasons,
+    preview_evidence_quality_failure_case_draft,
 )
 from app.services.evidence_ledger import preview_evidence_ledger
 from app.services.run_trace import run_with_trace
@@ -87,3 +92,31 @@ def create_evidence_ledger_preview(
             "blocked_count": result.summary.blocked_count,
         },
     )
+
+
+@router.post(
+    "/{entry_id}/failure-case-draft-preview",
+    response_model=FailureCaseDraftPreviewOut,
+)
+def create_evidence_quality_failure_case_draft_preview(
+    entry_id: UUID,
+    repository: Repository = Depends(get_repository),
+) -> FailureCaseDraftPreviewOut:
+    entry = next(
+        (
+            row
+            for row in repository.list_evidence_ledger_entries()
+            if str(row.get("id")) == str(entry_id)
+        ),
+        None,
+    )
+    if entry is None:
+        raise HTTPException(status_code=404, detail="evidence ledger entry not found")
+
+    if not evidence_quality_risk_reasons(entry):
+        raise HTTPException(
+            status_code=409,
+            detail="evidence ledger entry has no quality risk",
+        )
+
+    return preview_evidence_quality_failure_case_draft(entry)

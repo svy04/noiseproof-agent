@@ -22860,6 +22860,85 @@ Boundary: remote workflow verification only; not the reader-route refresh itself
 
 Next gate: external review issue-body refresh only if the public issue should point to this latest ops proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 694 - Evidence Quality Risk Failure-case Draft Preview v0
+
+Status: implemented.
+
+Purpose: add a preview-only manual handoff from persisted Evidence Ledger quality-risk rows to failure-case draft payloads without persisting failure cases or claiming truth adjudication.
+
+Implemented artifacts:
+
+```text
+evidence quality risk failure-case draft preview v0
+POST /evidence-ledgers/{entry_id}/failure-case-draft-preview
+apps/api/app/routes/evidence_ledgers.py
+apps/api/app/services/evidence_quality_failure_case_draft.py
+apps/api/tests/test_routes.py
+docs/review/evidence-quality-risk-failure-case-draft-preview.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+```
+
+Route markers:
+
+```text
+weak row -> 200 draft preview
+clean row -> 409 no quality risk
+missing row -> 404 not found
+persistence_boundary -> preview_only_not_persisted
+draft.failure_type -> evidence_quality_risk
+risk_reasons -> weakly_supported, low_confidence, missing_source_date
+failure_cases unchanged during preview
+```
+
+Boundary: preview-only manual handoff; not automatic failure-case creation, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not a Critic / Noise Gate decision, not an LLM call, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: local Docker runtime smoke for this preview route if fresh DB evidence is needed, route refresh if this proof should become reviewer-facing, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 695 - Evidence Quality Risk Failure-case Draft Preview Runtime Smoke v0
+
+Status: verified.
+
+Purpose: record local Docker PostgreSQL plus live FastAPI HTTP evidence that the Evidence Ledger quality-risk failure-case draft preview works against a fresh migrated database and preserves the preview-only no-persistence boundary.
+
+Implemented artifacts:
+
+```text
+evidence quality risk failure-case draft preview runtime smoke v0
+docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+apps/api/tests/test_docs.py
+```
+
+Runtime markers:
+
+```text
+Compose project: noiseproof-phase694
+POSTGRES_PORT: 55451
+FastAPI URL: http://127.0.0.1:8110
+Pending migrations: 0
+weak_ledger_status -> 201
+preview_status -> 200
+preview_persistence_boundary -> preview_only_not_persisted
+preview_failure_type -> evidence_quality_risk
+preview_risk_reasons -> weakly_supported, low_confidence, missing_source_date
+failure_case_count_delta -> 0
+clean_preview_status -> 409
+missing_preview_status -> 404
+docker compose -p noiseproof-phase694 down -v -> completed
+```
+
+Boundary: local runtime evidence only; not hosted deployment evidence, not automatic failure-case creation, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not a Critic / Noise Gate decision, not an LLM call, not external reviewer feedback, and not product-complete.
+
+Next gate: remote verification after push, route refresh if this proof should become reviewer-facing, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
 ### Phase 689 - Evidence Quality Risk Ops Surface v0
 
 Status: done.

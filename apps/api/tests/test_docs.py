@@ -31674,3 +31674,105 @@ def test_external_reader_proof_path_evidence_quality_risk_ops_route_refresh_remo
         "docs/review/external-reader-proof-path-evidence-quality-risk-ops-route-refresh-remote-verification.md"
         in portfolio
     )
+
+
+def test_evidence_quality_risk_failure_case_draft_preview_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/evidence-quality-risk-failure-case-draft-preview.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    assert "Evidence Quality Risk Failure-case Draft Preview" in content
+    assert "evidence quality risk failure-case draft preview v0" in content
+    assert "POST /evidence-ledgers/{entry_id}/failure-case-draft-preview" in content
+    assert "preview_only_not_persisted" in content
+    assert "weakly_supported" in content
+    assert "low_confidence" in content
+    assert "missing_source_date" in content
+    assert "not final truth adjudication" in content
+    assert "not automatic failure-case creation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not product-complete" in content
+
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Evidence quality risk failure-case draft preview v0: implemented" in readme
+    assert (
+        "Phase 694 - Evidence Quality Risk Failure-case Draft Preview v0"
+        in goal
+    )
+    assert (
+        "Phase 694 adds evidence quality risk failure-case draft preview v0"
+        in runbook
+    )
+    assert "Evidence quality risk failure-case draft preview" in portfolio
+    assert (
+        "Evidence Ledger quality risk rows can preview manual failure-case drafts"
+        in application_ready
+    )
+
+
+def test_evidence_quality_risk_failure_case_draft_preview_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    assert "Evidence Quality Risk Failure-case Draft Preview Runtime Smoke" in content
+    assert "evidence quality risk failure-case draft preview runtime smoke v0" in content
+    assert "Compose project: noiseproof-phase694" in content
+    assert "POSTGRES_PORT: 55451" in content
+    assert "FastAPI URL: http://127.0.0.1:8110" in content
+    assert "Pending migrations: 0" in content
+    assert "weak_ledger_status -> 201" in content
+    assert "preview_status -> 200" in content
+    assert "preview_persistence_boundary -> preview_only_not_persisted" in content
+    assert "preview_failure_type -> evidence_quality_risk" in content
+    assert "failure_case_count_delta -> 0" in content
+    assert "clean_preview_status -> 409" in content
+    assert "missing_preview_status -> 404" in content
+    assert "docker compose -p noiseproof-phase694 down -v -> completed" in content
+    assert "local runtime evidence only" in content
+    assert "not hosted deployment evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not product-complete" in content
+
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "Evidence quality risk failure-case draft preview runtime smoke v0: verified"
+        in readme
+    )
+    assert (
+        "Phase 695 - Evidence Quality Risk Failure-case Draft Preview Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "Phase 695 adds evidence quality risk failure-case draft preview runtime smoke v0"
+        in runbook
+    )
+    assert "Evidence quality risk failure-case draft preview runtime smoke" in portfolio
+    assert (
+        "docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke.md"
+        in application_ready
+    )

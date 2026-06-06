@@ -6211,6 +6211,92 @@ def test_ops_summary_and_dashboard_surface_evidence_quality_risks():
     assert 'href="/evidence-ledgers?status=weakly_supported"' in dashboard.text
 
 
+def test_evidence_quality_risk_row_can_preview_failure_case_draft_without_persistence():
+    client = make_client()
+
+    ledger = client.post(
+        "/evidence-ledgers",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "retrieval_results": [
+                {
+                    "source_id": "doc-weak",
+                    "source_type": "markdown",
+                    "chunk_strategy": "heading-aware",
+                    "chunk_index": 0,
+                    "text": "Enterprise demand showed some growth signals.",
+                    "score": 0.35,
+                    "matched_terms": ["enterprise", "demand"],
+                    "metadata": {},
+                }
+            ],
+        },
+    ).json()
+    entry_id = ledger["entries"][0]["id"]
+
+    before_failure_cases = client.get("/failure-cases").json()
+    response = client.post(f"/evidence-ledgers/{entry_id}/failure-case-draft-preview")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["human_confirmation_required"] is True
+    assert body["draft"]["failure_type"] == "evidence_quality_risk"
+    assert body["draft"]["fix_status"] == "draft"
+    assert body["draft"]["agent_run_id"] == ledger["entries"][0]["agent_run_id"]
+    assert body["source_summary"]["stage"] == "persisted_evidence_ledger_quality_risk"
+    assert body["source_summary"]["evidence_ledger_entry_id"] == entry_id
+    assert body["source_summary"]["status"] == "weakly_supported"
+    assert body["source_summary"]["confidence"] == "low"
+    assert body["source_summary"]["source_date"] is None
+    assert set(body["source_summary"]["risk_reasons"]) == {
+        "weakly_supported",
+        "low_confidence",
+        "missing_source_date",
+    }
+    assert any("Preview only" in warning for warning in body["warnings"])
+    assert any("not final truth adjudication" in warning for warning in body["warnings"])
+    assert client.get("/failure-cases").json() == before_failure_cases
+
+
+def test_evidence_quality_clean_row_does_not_preview_failure_case_draft():
+    client = make_client()
+
+    ledger = client.post(
+        "/evidence-ledgers",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "retrieval_results": [
+                {
+                    "source_id": "doc-supported",
+                    "source_type": "markdown",
+                    "chunk_strategy": "heading-aware",
+                    "chunk_index": 0,
+                    "text": "Enterprise demand grew 12% in 2026.",
+                    "score": 0.82,
+                    "matched_terms": ["enterprise", "demand", "growth"],
+                    "metadata": {"source_date": "2026-05-28"},
+                }
+            ],
+        },
+    ).json()
+    entry_id = ledger["entries"][0]["id"]
+
+    response = client.post(f"/evidence-ledgers/{entry_id}/failure-case-draft-preview")
+
+    assert response.status_code == 409
+    assert response.json()["detail"] == "evidence ledger entry has no quality risk"
+
+
+def test_evidence_quality_failure_case_draft_preview_missing_entry_returns_404():
+    client = make_client()
+
+    response = client.post(f"/evidence-ledgers/{uuid4()}/failure-case-draft-preview")
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "evidence ledger entry not found"
+
+
 def test_noise_gate_records_can_be_persisted_and_listed():
     client = make_client()
 
