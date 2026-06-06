@@ -23212,3 +23212,36 @@ report_handoff_performs_semantic_retrieval -> false
 Boundary: local Docker/FastAPI runtime source-provenance handoff evidence only; not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 635 - Retrieval-run-linked Gate/Report Semantic Source Provenance Runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the Phase 634 runtime-smoke proof passed CI and feedback-screen workflows on `main`.
+
+Implemented artifacts:
+
+```text
+retrieval-run-linked Gate/Report semantic source provenance runtime smoke remote verification v0
+docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 7e7995ff5657a8c970683ce6dd0afea1dd350c48
+CI run 27048811299: success
+External Feedback Screen run 27048811288: success
+CI job_id -> 79840166726
+External Feedback Screen job_id -> 79840166751
+Run API smoke tests -> success
+```
+
+Boundary: remote workflow verification only; not the local runtime smoke itself, not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
