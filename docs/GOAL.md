@@ -43,6 +43,35 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 773:
+
+```text
+latest_product_gate: upload PDF quality preview table adapter v0
+latest_product_artifact: docs/review/upload-pdf-quality-preview-table-adapter.md
+latest_api_surface: POST /documents/upload-pdf-quality-preview
+latest_response_marker: quality_table_adapter
+quality_table_adapter.table_extraction_engine: pymupdf-find_tables-extract
+quality_table_adapter.extracted_table_rows:
+  - [Segment, Growth]
+  - [Enterprise, 12%]
+quality_table_adapter.table_rows_extracted: 2
+quality_table_adapter.table_cell_count: 4
+quality_observation.table_extraction_performed: false
+quality_summary.table_extraction_performed: false
+default_pdf_parser_table_extraction_performed: still_false
+default_pdf_parser_integration: not_implemented
+robust_pdf_extraction: not_implemented
+table_extraction_evidence_for_arbitrary_market_pdfs: not_claimed
+latest_reviewer_route: upload PDF quality preview coverage summary proof chain plus Docker environment runtime proof
+latest_feedback_state_remote_verification: docs/review/external-feedback-current-state-docker-environment-issue-verification-remote-verification.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: preview-only adapter output; not default PdfParser table extraction; not robust PDF extraction evidence; not OCR implementation; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 772:
 
 ```text
@@ -2858,6 +2887,43 @@ default PdfParser output integration -> not implemented
 Boundary: adapter output only; not wired into default `PdfParser` output; not table extraction evidence for arbitrary market PDFs; not robust PDF extraction evidence; not OCR implementation; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: preview-only integration of the adapter into PDF quality output, or add a fixture whose expected table rows match the deterministic local table fixture and regenerate the quality report.
+
+### Phase 773 - Upload PDF Quality Preview Table Adapter v0
+
+Status: implemented.
+
+Purpose: expose the Phase 772 table adapter through `POST /documents/upload-pdf-quality-preview` as a separate preview-only response block without changing the default `PdfParser` observation boundary.
+
+Implemented artifacts:
+
+```text
+upload PDF quality preview table adapter v0
+docs/review/upload-pdf-quality-preview-table-adapter.md
+docs/review/upload-pdf-quality-preview-api.md
+apps/api/app/services/upload_pdf_quality_preview.py
+apps/api/app/schemas.py
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Response markers:
+
+```text
+quality_table_adapter
+quality_table_adapter.table_extraction_engine -> pymupdf-find_tables-extract
+quality_table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+quality_table_adapter.table_rows_extracted -> 2
+quality_table_adapter.table_cell_count -> 4
+quality_observation.table_extraction_performed -> false
+quality_summary.table_extraction_performed -> false
+```
+
+Boundary: preview-only adapter output; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not robust PDF extraction evidence; not OCR implementation; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for `quality_table_adapter`, or a quality fixture/report update that evaluates a matching deterministic table fixture.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

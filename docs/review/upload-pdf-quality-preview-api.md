@@ -37,6 +37,7 @@ persistence_boundary -> preview_only_not_persisted
 quality_boundary -> pdf_quality_observation_preview_only_no_robust_extraction_claim
 quality_observation
 quality_summary
+quality_table_adapter
 parser -> pdf-pymupdf
 robust_pdf_extraction -> false
 ```
@@ -46,6 +47,7 @@ Observed behavior:
 - born-digital PDF input returns `digital_pdf_text_extraction -> true` and extracted text inside `quality_observation`.
 - encrypted PDF input preserves `failure_case_candidate -> pdf_encrypted_requires_password`, `encrypted -> true`, and `password_required -> true`.
 - `quality_summary` exposes compact reviewer-facing fields such as `page_count`, `extracted_page_count`, `password_required`, `robust_pdf_extraction`, `table_extraction_performed`, and `reviewer_boundary -> summary_only_not_robust_pdf_extraction_evidence`.
+- `quality_table_adapter` exposes preview-only PyMuPDF `Page.find_tables()` / `Table.extract()` output such as `table_extraction_engine -> pymupdf-find_tables-extract`, `extracted_table_rows`, `table_rows_extracted`, and `table_cell_count`, while `quality_observation.table_extraction_performed` and `quality_summary.table_extraction_performed` remain `false`.
 - the preview endpoint records an agent-run trace like the other preview endpoints, but it does not create a `Document` row.
 
 ## Boundary
@@ -67,6 +69,8 @@ This is not robust PDF extraction implementation.
 This is not OCR implementation.
 
 This is not table extraction implementation.
+
+This is not default PdfParser table extraction.
 
 This is not hosted deployment evidence.
 

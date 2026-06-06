@@ -82,6 +82,7 @@ class UploadPdfQualityPreviewOut(BaseModel):
     parser: str
     quality_observation: dict[str, Any]
     quality_summary: dict[str, Any]
+    quality_table_adapter: dict[str, Any]
     quality_boundary: str
     warnings: list[str]
     failure_case_candidate: FailureCaseCandidateOut | None = None

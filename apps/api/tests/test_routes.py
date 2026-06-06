@@ -3572,6 +3572,48 @@ def test_document_upload_pdf_quality_preview_returns_observation_without_persist
     assert client.get("/documents").json() == []
 
 
+def test_document_upload_pdf_quality_preview_exposes_table_adapter_output_without_parser_overclaim():
+    client = make_client()
+    content = _table_pdf_bytes()
+
+    response = client.post(
+        "/documents/upload-pdf-quality-preview",
+        files={"file": ("table-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    observation = body["quality_observation"]
+    summary = body["quality_summary"]
+    table_adapter = body["quality_table_adapter"]
+
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["quality_boundary"] == (
+        "pdf_quality_observation_preview_only_no_robust_extraction_claim"
+    )
+    assert body["parser"] == "pdf-pymupdf"
+    assert observation["table_extraction_performed"] is False
+    assert observation["table_rows_extracted"] == 0
+    assert summary["table_extraction_performed"] is False
+    assert summary["robust_pdf_extraction"] is False
+
+    assert table_adapter["table_extraction_engine"] == "pymupdf-find_tables-extract"
+    assert table_adapter["table_extraction_performed"] is True
+    assert table_adapter["robust_pdf_extraction"] is False
+    assert table_adapter["tables"] == [
+        [["Segment", "Growth"], ["Enterprise", "12%"]]
+    ]
+    assert table_adapter["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert table_adapter["table_rows_extracted"] == 2
+    assert table_adapter["table_cell_count"] == 4
+    assert "adapter output only" in table_adapter["boundary"]
+    assert any("table adapter output only" in warning for warning in body["warnings"])
+    assert client.get("/documents").json() == []
+
+
 def test_document_upload_pdf_quality_preview_summarizes_partial_page_coverage_without_robust_claim():
     client = make_client()
     content = _partial_text_pdf_bytes()

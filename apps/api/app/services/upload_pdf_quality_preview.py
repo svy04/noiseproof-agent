@@ -5,6 +5,9 @@ from app.services.upload_preview import parse_uploaded_content
 from packages.ingestion.pdf_quality.observation import (
     pdf_parse_result_to_quality_observation,
 )
+from packages.ingestion.pdf_quality.table_adapter import (
+    extract_pdf_tables_with_pymupdf,
+)
 
 PDF_QUALITY_PREVIEW_BOUNDARY = (
     "pdf_quality_observation_preview_only_no_robust_extraction_claim"
@@ -35,9 +38,14 @@ def preview_uploaded_pdf_quality(
         )
     observation = pdf_parse_result_to_quality_observation(parsed)
     quality_summary = _quality_summary(observation)
+    quality_table_adapter = extract_pdf_tables_with_pymupdf(content)
     if quality_summary["extraction_status"] == "partial_text":
         warnings.append(
             "partial PDF text extraction: at least one page produced no digital text; this is not robust PDF extraction evidence."
+        )
+    if quality_table_adapter["table_extraction_performed"] is True:
+        warnings.append(
+            "PDF table adapter output only; this is not default parser table extraction, robust PDF extraction, or persistence evidence."
         )
 
     return UploadPdfQualityPreviewOut(
@@ -48,6 +56,7 @@ def preview_uploaded_pdf_quality(
         parser=parsed.parser,
         quality_observation=observation,
         quality_summary=quality_summary,
+        quality_table_adapter=quality_table_adapter,
         quality_boundary=PDF_QUALITY_PREVIEW_BOUNDARY,
         warnings=warnings + parsed.warnings + observation["warnings"],
         failure_case_candidate=(

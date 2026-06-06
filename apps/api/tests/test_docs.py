@@ -32752,6 +32752,43 @@ def test_pdf_table_extraction_adapter_v0_is_recorded():
     assert "PDF table extraction adapter" in portfolio
 
 
+def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
+    review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    api_doc = (REPO_ROOT / "docs/review/upload-pdf-quality-preview-api.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Upload PDF Quality Preview Table Adapter" in content
+    assert "Phase marker: upload PDF quality preview table adapter v0" in content
+    assert "POST /documents/upload-pdf-quality-preview" in content
+    assert "quality_table_adapter" in content
+    assert "pymupdf-find_tables-extract" in content
+    assert "adapter output only" in content
+    assert "quality_observation.table_extraction_performed -> false" in content
+    assert "quality_summary.table_extraction_performed -> false" in content
+    assert "not default PdfParser table extraction" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not OCR implementation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "quality_table_adapter" in api_doc
+    assert "Upload PDF quality preview table adapter v0: implemented" in readme
+    assert "Phase 773 - Upload PDF Quality Preview Table Adapter v0" in goal
+    assert "Phase 773 adds upload PDF quality preview table adapter v0" in runbook
+    assert "Upload PDF quality preview table adapter" in portfolio
+
+
 def test_pdf_extraction_quality_evaluator_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/pdf-extraction-quality-evaluator.md"
     assert review_path.is_file()
