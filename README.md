@@ -452,6 +452,7 @@ Recent runtime proof remote verification: PDF binary fixture smoke preview runti
 Recent reviewer route: External-reader proof path PDF binary fixture smoke preview route refresh v0: implemented.
 Recent reviewer route remote verification: External-reader proof path PDF binary fixture smoke preview route refresh remote verification v0: implemented.
 Latest external review issue routing: External review issue body PDF binary fixture smoke preview route refresh v0: implemented.
+Latest external feedback state: External feedback current-state PDF binary fixture smoke preview issue verification v0: implemented.
 
 Historical latest-marker compatibility: Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Historical latest-marker compatibility: Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification; candidate_count=0; self-authored comment only.

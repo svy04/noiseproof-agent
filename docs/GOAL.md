@@ -43,6 +43,29 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 788:
+
+```text
+latest_external_feedback_state_gate: external feedback current-state PDF binary fixture smoke preview issue verification v0
+latest_external_feedback_state_artifact: docs/review/external-feedback-current-state-pdf-binary-fixture-smoke-preview-issue-verification.md
+latest_issue_route_gate: external review issue body PDF binary fixture smoke preview route refresh v0
+latest_issue_route_artifact: docs/review/external-review-issue-body-pdf-binary-fixture-smoke-preview-route-refresh.md
+latest_issue_url: https://github.com/svy04/noiseproof-agent/issues/1
+latest_issue_updated_at: 2026-06-06T21:06:59Z
+latest_issue_comment_count: 1
+latest_issue_owner_comment_count: 1
+latest_issue_candidate_count: 0
+latest_issue_feedback_status: pending
+latest_issue_feedback_reason: self_authored_comment_only
+latest_pdf_preview: true
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+latest_api_surface: GET /documents/pdf-binary-fixture-smoke-preview
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: current-state issue screening only; not external reviewer feedback; not hosted deployment evidence; not new runtime evidence; not robust PDF extraction evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 787:
 
 ```text
@@ -3873,6 +3896,44 @@ agent_run_count=1
 Boundary: owner-authored issue body routing only; not external reviewer feedback; not new runtime evidence; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not hosted deployment evidence; not customer validation; not Braincrew acceptance; and not product-complete.
 
 Next gate: external feedback current-state PDF binary fixture smoke preview issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 788 - External Feedback Current-state PDF Binary Fixture Smoke Preview Issue Verification v0
+
+Status: implemented.
+
+Purpose: record the current live issue #1 feedback state after the PDF binary fixture smoke preview issue-body route refresh.
+
+Implemented artifacts:
+
+```text
+external feedback current-state PDF binary fixture smoke preview issue verification v0
+docs/review/external-feedback-current-state-pdf-binary-fixture-smoke-preview-issue-verification.md
+https://github.com/svy04/noiseproof-agent/issues/1
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Issue screening markers:
+
+```text
+updatedAt: 2026-06-06T21:06:59Z
+comment_count: 1
+screened_comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+classification: non_qualifying
+reason: self_authored_comment_only
+status: pending
+does_not_close_gate: true
+latest_pdf_preview: true
+```
+
+Boundary: current-state issue screening only; not external reviewer feedback; not hosted deployment evidence; not production readiness; not customer validation; not Braincrew acceptance; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; and not product-complete.
+
+Next gate: remote verification for this issue-state screen after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
