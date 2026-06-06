@@ -23039,3 +23039,34 @@ status=pending
 Boundary: remote workflow verification only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not final truth adjudication, not Noise Gate behavior, not report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 630 - README Latest-marker Semantic Source Provenance Current-state Refresh v0
+
+Status: implemented.
+
+Purpose: align the README External Reviewer Fast Path with the current retrieval-run-linked Evidence Ledger semantic source provenance proof chain.
+
+Implemented artifacts:
+
+```text
+readme latest-marker semantic source provenance current-state refresh v0
+docs/review/readme-latest-marker-semantic-source-provenance-current-state-refresh.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Updated README first-pass route:
+
+```text
+Latest proof routing -> retrieval-run-linked Evidence Ledger semantic source provenance proof chain
+Latest external-feedback state -> pending after retrieval-run-linked Evidence Ledger semantic source provenance issue verification
+Latest recorded remote verification -> CI run 27046055674 and External Feedback Screen run 27046055690
+Stale fast-path markers removed -> PDF table-candidate downstream runtime issue verification and retrieval run semantic provenance issue-screen run 27044739630
+```
+
+Boundary: README current-state alignment only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger quality evidence, not final truth adjudication, not Noise Gate behavior, not report generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
