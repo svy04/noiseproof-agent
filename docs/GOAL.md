@@ -43,6 +43,30 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 797:
+
+```text
+latest_runtime_proof_gate: Uploaded PDF table adapter metadata provenance runtime smoke v0
+latest_runtime_proof_artifact: docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md
+latest_runtime_environment: local Docker PostgreSQL plus live FastAPI HTTP
+latest_compose_project: noiseproof-phase797
+latest_postgres_port: 55459
+latest_api_port: 8120
+latest_api_surface: POST /documents/upload-chunks; POST /documents/{document_id}/retrieval-runs; GET /retrieval-runs
+document_profile_default_pdf_parser_table_adapter_metadata: true
+chunk_metadata_default_pdf_parser_table_adapter_metadata: true
+retrieval_metadata_default_pdf_parser_table_adapter_metadata: true
+retrieval_candidate_default_pdf_parser_table_adapter_metadata: true
+table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed_claim: remains_false_on_parser_metadata
+source_provenance_boundary: retrieval_run_candidate_chunk_metadata_only
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: local runtime smoke only; not hosted deployment evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger generation; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 796:
 
 ```text
@@ -4250,6 +4274,49 @@ screen -> success
 Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 797 - Uploaded PDF Table Adapter Metadata Provenance Runtime Smoke v0
+
+Status: verified.
+
+Purpose: record local Docker PostgreSQL plus live FastAPI HTTP evidence that the Phase 795 uploaded PDF table-adapter metadata provenance path works in a running service.
+
+Implemented artifacts:
+
+```text
+Uploaded PDF table adapter metadata provenance runtime smoke v0
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Observed runtime markers:
+
+```text
+noiseproof-phase797
+POSTGRES_PORT=55459
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8120
+Pending migrations: 0
+GET /health -> 200
+POST /documents/upload-chunks -> 201
+POST /documents/{document_id}/retrieval-runs -> 201
+GET /retrieval-runs -> 200
+document_profile_default_pdf_parser_table_adapter_metadata -> true
+chunk_metadata_default_pdf_parser_table_adapter_metadata -> true
+retrieval_metadata_default_pdf_parser_table_adapter_metadata -> true
+retrieval_candidate_default_pdf_parser_table_adapter_metadata -> true
+table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed remains false
+source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only
+all_required_markers_passed -> true
+```
+
+Boundary: local runtime smoke only; not hosted deployment evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger generation; not Noise Gate behavior; not final report generation; not external reviewer feedback; and not product-complete.
+
+Next gate: remote verification after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 796 - Uploaded PDF Table Adapter Metadata Provenance Remote Verification v0
 

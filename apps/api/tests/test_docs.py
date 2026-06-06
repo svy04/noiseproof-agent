@@ -33918,6 +33918,66 @@ def test_uploaded_pdf_table_adapter_metadata_provenance_remote_verification_v0_i
     )
 
 
+def test_uploaded_pdf_table_adapter_metadata_provenance_runtime_smoke_v0_is_recorded():
+    smoke_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md"
+    )
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded PDF Table Adapter Metadata Provenance Runtime Smoke" in content
+    assert "uploaded PDF table adapter metadata provenance runtime smoke v0" in content
+    assert "Docker version" in content
+    assert "Docker Compose version" in content
+    assert "noiseproof-phase797" in content
+    assert "POSTGRES_PORT=55459" in content
+    assert "uv run uvicorn app.main:app --host 127.0.0.1 --port 8120" in content
+    assert "Pending migrations: 0" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/retrieval-runs -> 201" in content
+    assert "GET /retrieval-runs -> 200" in content
+    assert "document_profile_default_pdf_parser_table_adapter_metadata -> true" in content
+    assert "chunk_metadata_default_pdf_parser_table_adapter_metadata -> true" in content
+    assert "retrieval_metadata_default_pdf_parser_table_adapter_metadata -> true" in content
+    assert "retrieval_candidate_default_pdf_parser_table_adapter_metadata -> true" in content
+    assert "table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]" in content
+    assert "table_extraction_performed remains false" in content
+    assert "source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only" in content
+    assert "all_required_markers_passed -> true" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not table extraction evidence for arbitrary market PDFs" in content
+    assert "not Evidence Ledger generation" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Uploaded PDF table adapter metadata provenance runtime smoke v0: verified"
+        in readme
+    )
+    assert (
+        "Phase 797 - Uploaded PDF Table Adapter Metadata Provenance Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "Phase 797 adds uploaded PDF table adapter metadata provenance runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "Uploaded PDF table adapter metadata provenance runtime smoke"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
