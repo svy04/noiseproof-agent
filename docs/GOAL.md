@@ -223,6 +223,29 @@ Boundary: local deterministic parser smoke only; not robust PDF extraction imple
 
 Next gate: committed local smoke report for digital-text parser observations, or table-candidate observation smoke while preserving the no-table-extraction claim.
 
+### Phase 708 - PDF Extraction Quality Table-candidate Observation Smoke v0
+
+Status: implemented.
+
+Purpose: connect actual `PdfParser` table-candidate diagnostics to the PDF quality observation surface while preserving `table_extraction_performed -> false` and `table_rows_extracted -> 0`.
+
+Implemented artifacts:
+
+```text
+PDF extraction quality table-candidate observation smoke v0
+packages/ingestion/pdf_quality/observation.py
+docs/review/pdf-extraction-quality-table-candidate-observation-smoke.md
+apps/api/tests/test_pdf_extraction_quality.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Boundary: local deterministic parser smoke only; not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not hosted deployment evidence, and not product-complete.
+
+Next gate: committed table-candidate observation report, or no-text PDF observation smoke that keeps failure candidates visible.
+
 Accepted state as of Phase 403:
 
 ```text

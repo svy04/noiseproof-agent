@@ -283,6 +283,43 @@ def test_pdf_quality_observation_smoke_uses_pymupdf_digital_text_without_robust_
     assert "not robust PDF extraction evidence" in result["boundary_notes"]
 
 
+def test_pdf_quality_observation_smoke_keeps_table_candidates_out_of_table_extraction():
+    parse_result = PdfParser().parse(
+        ParseInput(
+            source_type="pdf",
+            content_bytes=_table_pdf_bytes(),
+            filename="table-candidate-smoke.pdf",
+        )
+    )
+
+    observation = pdf_parse_result_to_quality_observation(parse_result)
+
+    assert observation["parser"] == "pdf-pymupdf"
+    assert observation["digital_pdf_text_extraction"] is True
+    assert observation["robust_pdf_extraction"] is False
+    assert observation["table_candidate_count"] > 0
+    assert observation["table_extraction_performed"] is False
+    assert observation["table_rows_extracted"] == 0
+    assert any(
+        "does not extract table contents" in warning
+        for warning in observation["warnings"]
+    )
+
+    fixture = load_pdf_extraction_quality_fixture(
+        REPO_ROOT / "examples/pdf-extraction-quality"
+    )
+    result = evaluate_pdf_extraction_quality(
+        fixture,
+        {"table_heavy_report": observation},
+    )
+
+    assert result["aggregate"]["observed_fixture_count"] == 1
+    assert result["aggregate"]["not_evaluated_fixture_count"] == 6
+    assert result["per_fixture"]["table_heavy_report"]["table_row_coverage"] == 0.0
+    assert result["per_fixture"]["table_heavy_report"]["warning_correctness"] == 1.0
+    assert "not table extraction evidence" in result["boundary_notes"]
+
+
 def _minimal_pdf_bytes(text: str) -> bytes:
     escaped_text = text.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
     content_stream = f"BT /F1 12 Tf 72 720 Td ({escaped_text}) Tj ET\n".encode("ascii")
@@ -317,3 +354,22 @@ def _minimal_pdf_bytes(text: str) -> bytes:
         ).encode("ascii")
     )
     return bytes(output)
+
+
+def _table_pdf_bytes() -> bytes:
+    import pymupdf
+
+    document = pymupdf.open()
+    page = document.new_page(width=300, height=200)
+    x0, y0, x1, y1 = 40, 40, 260, 120
+    for x in [x0, (x0 + x1) / 2, x1]:
+        page.draw_line((x, y0), (x, y1), color=(0, 0, 0), width=1)
+    for y in [y0, (y0 + y1) / 2, y1]:
+        page.draw_line((x0, y), (x1, y), color=(0, 0, 0), width=1)
+    page.insert_text((50, 65), "Segment")
+    page.insert_text((160, 65), "Growth")
+    page.insert_text((50, 105), "Enterprise")
+    page.insert_text((160, 105), "12%")
+    content = document.tobytes()
+    document.close()
+    return content
