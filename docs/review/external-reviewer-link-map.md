@@ -168,6 +168,34 @@ This artifact gives outside reviewers direct links to the shortest inspectable p
   `POST /documents/upload-pdf-quality-preview`, `quality_summary`, `summary_only_not_robust_pdf_extraction_evidence`, `digital_quality_summary_present=True`, `encrypted_quality_summary_present=True`, `digital_summary_robust_pdf_extraction=False`, `encrypted_summary_failure_case=pdf_encrypted_requires_password`, `document_count_delta=0`, `pdf_encrypted_requires_password`
 - Boundary: compact PDF quality summary proof routing only; not a live issue body edit, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not document persistence evidence for this preview route, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, not password bypass, and not product-complete.
 
+## Latest PDF Summary Reviewer Surfaces
+
+- Link-map refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-link-map-upload-pdf-summary-reviewer-surfaces-refresh.md
+- Link map source:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-link-map.md
+- Summary proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-summary.md
+- Summary runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md
+- Summary runtime remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md
+- Reviewer shortlist refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-summary-refresh.md
+- Reviewer request/brief refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-summary-refresh.md
+- Reviewer outreach refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-summary-refresh.md
+- GOAL overlay refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/goal-current-state-upload-pdf-summary-reviewer-surfaces-refresh.md
+- GOAL overlay remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/goal-current-state-upload-pdf-summary-reviewer-surfaces-refresh-remote-verification.md
+- Proof chain paths:
+  `docs/review/external-reviewer-link-map.md`, `docs/review/upload-pdf-quality-preview-summary.md`, `docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md`, `docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md`, `docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-summary-refresh.md`, `docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-summary-refresh.md`, `docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-summary-refresh.md`, `docs/review/goal-current-state-upload-pdf-summary-reviewer-surfaces-refresh.md`, `docs/review/goal-current-state-upload-pdf-summary-reviewer-surfaces-refresh-remote-verification.md`
+- Route markers:
+  `quality_summary`, `summary_only_not_robust_pdf_extraction_evidence`, `digital_quality_summary_present=True`, `encrypted_quality_summary_present=True`, `document_count_delta=0`, `pdf_encrypted_requires_password`
+- Boundary: external reviewer link-map navigation hygiene only; not a live issue body edit, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, not password bypass, and not product-complete.
+
 ## Focused Upload PDF Quality Preview Proof
 
 - API proof:

@@ -34169,3 +34169,73 @@ def test_external_reviewer_request_brief_upload_pdf_quality_preview_summary_refr
         "external reviewer request brief upload PDF quality preview summary refresh remote verification"
         in portfolio
     )
+
+
+def test_external_reviewer_link_map_routes_upload_pdf_summary_reviewer_surfaces():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-link-map-upload-pdf-summary-reviewer-surfaces-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    link_map = (
+        REPO_ROOT / "docs/review/external-reviewer-link-map.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh"
+        in content
+    )
+    assert (
+        "external reviewer link map upload PDF summary reviewer surfaces refresh v0"
+        in content
+    )
+
+    required_markers = [
+        "docs/review/external-reviewer-link-map.md",
+        "docs/review/upload-pdf-quality-preview-summary.md",
+        "docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md",
+        "docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md",
+        "docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-summary-refresh.md",
+        "docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-summary-refresh.md",
+        "docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-summary-refresh.md",
+        "docs/review/goal-current-state-upload-pdf-summary-reviewer-surfaces-refresh.md",
+        "docs/review/goal-current-state-upload-pdf-summary-reviewer-surfaces-refresh-remote-verification.md",
+        "quality_summary",
+        "summary_only_not_robust_pdf_extraction_evidence",
+        "digital_quality_summary_present=True",
+        "encrypted_quality_summary_present=True",
+        "document_count_delta=0",
+        "pdf_encrypted_requires_password",
+        "not robust PDF extraction evidence",
+        "not external reviewer feedback",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+        assert marker in link_map
+
+    assert (
+        "External reviewer link map upload PDF summary reviewer surfaces refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 739 adds external reviewer link map upload PDF summary reviewer surfaces refresh v0"
+        in runbook
+    )
+    assert (
+        "external reviewer link map upload PDF summary reviewer surfaces refresh"
+        in portfolio
+    )
