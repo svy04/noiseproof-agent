@@ -28,6 +28,29 @@ docs/review/external-reviewer-brief.md
 docs/review/external-reviewer-shortlist.md
 ```
 
+Latest uploaded PDF provenance runtime proof:
+
+```text
+Uploaded PDF table adapter metadata provenance runtime proof
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-outreach-packet.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh-remote-verification.md
+POST /documents/upload-chunks
+POST /documents/{document_id}/retrieval-runs
+GET /retrieval-runs
+default_pdf_parser_table_adapter_metadata
+table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed remains false
+source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only
+```
+
+Boundary: this is reviewer navigation to uploaded-PDF metadata provenance runtime proof. It is not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger generation, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
 Latest compact PDF boundary proof:
 
 ```text

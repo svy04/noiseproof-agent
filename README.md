@@ -465,6 +465,7 @@ Uploaded PDF table adapter metadata provenance runtime smoke v0: verified.
 Uploaded PDF table adapter metadata provenance runtime smoke remote verification v0: implemented.
 External-reader proof path uploaded PDF table adapter metadata provenance runtime route refresh v0: implemented.
 External-reader proof path uploaded PDF table adapter metadata provenance runtime route refresh remote verification v0: implemented.
+External reviewer request brief outreach uploaded PDF table adapter metadata provenance runtime refresh v0: implemented.
 
 Historical latest-marker compatibility: Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Historical latest-marker compatibility: Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification; candidate_count=0; self-authored comment only.

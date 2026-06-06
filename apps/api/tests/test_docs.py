@@ -34194,6 +34194,107 @@ def test_external_reader_uploaded_pdf_table_adapter_metadata_provenance_runtime_
     )
 
 
+def test_external_reviewer_request_brief_outreach_surface_uploaded_pdf_table_adapter_metadata_provenance_runtime_route():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-request-brief-outreach-uploaded-pdf-table-adapter-metadata-provenance-runtime-refresh.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    outreach = (
+        REPO_ROOT / "docs/review/external-reviewer-outreach-packet.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Reviewer Request Brief Outreach Uploaded PDF Table Adapter Metadata Provenance Runtime Refresh"
+        in content
+    )
+    assert (
+        "external reviewer request brief outreach uploaded PDF table adapter metadata provenance runtime refresh v0"
+        in content
+    )
+
+    required_markers = [
+        "Uploaded PDF table adapter metadata provenance runtime proof",
+        "docs/review/uploaded-pdf-table-adapter-metadata-provenance.md",
+        "docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md",
+        "docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md",
+        "docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md",
+        "docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh-remote-verification.md",
+        "POST /documents/upload-chunks",
+        "POST /documents/{document_id}/retrieval-runs",
+        "GET /retrieval-runs",
+        "default_pdf_parser_table_adapter_metadata",
+        "table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]",
+        "table_extraction_performed remains false",
+        "source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only",
+        "not robust PDF extraction evidence",
+        "not table extraction evidence for arbitrary market PDFs",
+        "not Evidence Ledger generation",
+        "not external reviewer feedback",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+        assert marker in request
+        assert marker in brief
+        assert marker in outreach
+
+    assert (
+        request.index("docs/review/uploaded-pdf-table-adapter-metadata-provenance.md")
+        < request.index("docs/review/upload-pdf-quality-preview-coverage-summary.md")
+    )
+    assert (
+        brief.index("docs/review/uploaded-pdf-table-adapter-metadata-provenance.md")
+        < brief.index("docs/review/upload-pdf-quality-preview-coverage-summary.md")
+    )
+    assert (
+        outreach.index("docs/review/uploaded-pdf-table-adapter-metadata-provenance.md")
+        < outreach.index("docs/review/upload-pdf-quality-preview-coverage-summary.md")
+    )
+
+    copy_messages = outreach.split("## Copy-paste outreach messages", 1)[1].split(
+        "## Qualification Boundary", 1
+    )[0]
+    assert "uploaded PDF table adapter metadata provenance runtime proof" in copy_messages
+    assert (
+        "docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md"
+        in copy_messages
+    )
+
+    assert (
+        "External reviewer request brief outreach uploaded PDF table adapter metadata provenance runtime refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 801 - External Reviewer Request Brief Outreach Uploaded PDF Table Adapter Metadata Provenance Runtime Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 801 adds external reviewer request brief outreach uploaded PDF table adapter metadata provenance runtime refresh v0"
+        in runbook
+    )
+    assert (
+        "external reviewer request brief outreach uploaded PDF table adapter metadata provenance runtime refresh"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

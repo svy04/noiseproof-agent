@@ -45,6 +45,27 @@ docs/review/external-feedback-intake-criteria.md
 Current compact proof to inspect:
 
 ```text
+Uploaded PDF table adapter metadata provenance runtime proof
+docs/review/external-reviewer-outreach-packet.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh-remote-verification.md
+POST /documents/upload-chunks
+POST /documents/{document_id}/retrieval-runs
+GET /retrieval-runs
+default_pdf_parser_table_adapter_metadata
+table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed remains false
+source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only
+```
+
+Boundary: this current proof route is not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger generation, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Predecessor compact proof to inspect:
+
+```text
 Upload PDF quality preview coverage summary proof
 docs/review/external-reviewer-outreach-packet.md
 docs/review/upload-pdf-quality-preview-coverage-summary.md
@@ -93,7 +114,7 @@ Hi, I am preparing NoiseProof Agent as a small portfolio project for Forward Dep
 
 It is not a trading bot and not a production RAG platform. The current proof path is intentionally bounded: local service surfaces, parser/chunk/retrieval previews, evidence/noise/report previews, workflow lineage, and failure-case provenance.
 
-The most compact current proof to inspect is the upload PDF quality preview coverage summary proof in docs/review/upload-pdf-quality-preview-coverage-summary.md.
+The most compact current proof to inspect is the uploaded PDF table adapter metadata provenance runtime proof in docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md. The predecessor compact boundary route remains the upload PDF quality preview coverage summary proof in docs/review/upload-pdf-quality-preview-coverage-summary.md.
 
 Could you spend 5 minutes on the reviewer brief and leave one concrete comment on issue #1?
 
@@ -116,7 +137,7 @@ Hi, I am looking for a technical review of NoiseProof Agent before I claim more 
 
 The project is currently a local, inspectable evidence-first market-intelligence service. It has deterministic previews for collection planning, parser/chunk/retrieval boundaries, Evidence Ledger / Noise Gate / report previews, workflow lineage, and failure-case provenance. It does not claim semantic retrieval quality, embeddings, robust PDF extraction, hosted deployment, or production RAG behavior.
 
-The most compact current proof to inspect is the upload PDF quality preview coverage summary proof in docs/review/upload-pdf-quality-preview-coverage-summary.md.
+The most compact current proof to inspect is the uploaded PDF table adapter metadata provenance runtime proof in docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md. The predecessor compact boundary route remains the upload PDF quality preview coverage summary proof in docs/review/upload-pdf-quality-preview-coverage-summary.md.
 
 Could you inspect the short proof path and leave one evidence-referenced comment on issue #1?
 
@@ -142,7 +163,7 @@ Hi, I am stress-testing the clarity of a portfolio project called NoiseProof Age
 
 The project tries to show one thing: before an AI system generates a confident market-intelligence answer, it should expose what evidence exists, what conflicts, what is missing, and what claims should be blocked.
 
-The most compact current proof to inspect is the upload PDF quality preview coverage summary proof in docs/review/upload-pdf-quality-preview-coverage-summary.md.
+The most compact current proof to inspect is the uploaded PDF table adapter metadata provenance runtime proof in docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md. The predecessor compact boundary route remains the upload PDF quality preview coverage summary proof in docs/review/upload-pdf-quality-preview-coverage-summary.md.
 
 Could you spend 5 minutes on the reviewer brief and leave one practical comment on issue #1?
 

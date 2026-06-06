@@ -43,6 +43,22 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 801:
+
+```text
+latest_reviewer_request_surface_gate: External reviewer request brief outreach uploaded PDF table adapter metadata provenance runtime refresh v0
+latest_reviewer_request_surface_artifact: docs/review/external-reviewer-request-brief-outreach-uploaded-pdf-table-adapter-metadata-provenance-runtime-refresh.md
+updated_reviewer_surfaces: docs/review/external-review-request.md; docs/review/external-reviewer-brief.md; docs/review/external-reviewer-outreach-packet.md
+current_proof_to_inspect: Uploaded PDF table adapter metadata provenance runtime proof
+current_runtime_proof_artifact: docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md
+current_route_refresh_artifact: docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: reviewer navigation only; not new runtime evidence; not hosted deployment evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger generation; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 800:
 
 ```text
@@ -4331,6 +4347,49 @@ screen -> success
 Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 801 - External Reviewer Request Brief Outreach Uploaded PDF Table Adapter Metadata Provenance Runtime Refresh v0
+
+Status: implemented.
+
+Purpose: route reviewer-request surfaces to the current uploaded-PDF table-adapter metadata provenance runtime proof chain without claiming that any reviewer has responded.
+
+Implemented artifacts:
+
+```text
+External reviewer request brief outreach uploaded PDF table adapter metadata provenance runtime refresh v0
+docs/review/external-reviewer-request-brief-outreach-uploaded-pdf-table-adapter-metadata-provenance-runtime-refresh.md
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/external-reviewer-outreach-packet.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Route markers:
+
+```text
+Uploaded PDF table adapter metadata provenance runtime proof
+docs/review/uploaded-pdf-table-adapter-metadata-provenance.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh-remote-verification.md
+POST /documents/upload-chunks
+POST /documents/{document_id}/retrieval-runs
+GET /retrieval-runs
+default_pdf_parser_table_adapter_metadata
+table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed remains false
+source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only
+```
+
+Boundary: reviewer navigation only; not new runtime evidence; not live issue body edit; not hosted deployment evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger generation; not external reviewer feedback; and not product-complete.
+
+Next gate: remote verification for this reviewer-request refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 800 - External-reader Proof Path Uploaded PDF Table Adapter Metadata Provenance Runtime Route Refresh Remote Verification v0
 
