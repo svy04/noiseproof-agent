@@ -62,11 +62,44 @@ reason: self_authored_comment
 external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
 live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
 robust_pdf_extraction: not_implemented
+robust_pdf_extraction_strategy_review: implemented
 hosted_deployment_evidence: not_implemented
 product_complete: false
 ```
 
 Use this snapshot for first-pass orientation, then inspect the phase records below when exact provenance is needed.
+
+### Phase 702 - Robust PDF Extraction Source-first Strategy Review v0
+
+Status: implemented.
+
+Purpose: record a source-first adapter ladder before any future robust PDF extraction work, using current code evidence and primary implementation references instead of overclaiming the current PyMuPDF digital-text parser.
+
+Implemented artifacts:
+
+```text
+robust PDF extraction source-first strategy review v0
+docs/review/robust-pdf-extraction-source-first-strategy-review.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Current code boundary:
+
+```text
+packages/ingestion/parsers/pdf.py
+parser: pdf-pymupdf
+digital_pdf_text_extraction: true
+robust_pdf_extraction: false
+table_extraction_performed: false
+```
+
+Boundary: strategy review only; not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not layout fidelity evidence, not hosted deployment evidence, and not product-complete.
+
+Next gate: PDF extraction quality fixture packet v0 or parser adapter interface review, not a robust extraction claim.
 
 Accepted state as of Phase 403:
 

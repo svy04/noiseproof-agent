@@ -32158,3 +32158,57 @@ def test_goal_current_state_snapshot_after_phase_700_is_recorded():
         in runbook
     )
     assert "GOAL current-state snapshot after Phase 700" in portfolio
+
+
+def test_robust_pdf_extraction_source_first_strategy_review_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/robust-pdf-extraction-source-first-strategy-review.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Robust PDF Extraction Source-first Strategy Review" in content
+    assert "robust PDF extraction source-first strategy review v0" in content
+    assert "packages/ingestion/parsers/pdf.py" in content
+    assert "parser: pdf-pymupdf" in content
+    assert "robust_pdf_extraction: false" in content
+    assert "digital_pdf_text_extraction: true" in content
+    assert "https://pymupdf.readthedocs.io/en/latest/recipes-text.html" in content
+    assert "https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables" in content
+    assert "https://github.com/jsvine/pdfplumber" in content
+    assert "https://ocrmypdf.readthedocs.io/en/latest/introduction.html" in content
+    assert "https://ocrmypdf.readthedocs.io/en/latest/cookbook.html" in content
+    assert "adapter ladder" in content
+    assert "Digital text adapter" in content
+    assert "Table extraction adapter" in content
+    assert "OCR adapter" in content
+    assert "Quality ledger" in content
+    assert "not robust PDF extraction implementation" in content
+    assert "not OCR implementation" in content
+    assert "not table extraction implementation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Robust PDF extraction source-first strategy review v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 702 - Robust PDF Extraction Source-first Strategy Review v0"
+        in goal
+    )
+    assert (
+        "Phase 702 adds robust PDF extraction source-first strategy review v0"
+        in runbook
+    )
+    assert (
+        "docs/review/robust-pdf-extraction-source-first-strategy-review.md"
+        in portfolio
+    )

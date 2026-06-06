@@ -38,6 +38,8 @@ Latest external-feedback current state: `docs/review/external-feedback-current-s
 
 GOAL current-state snapshot after Phase 700 v0: implemented. `docs/GOAL.md` now starts its accepted-state section with a compact Phase 700 orientation block naming the latest reviewer route, issue route, pending feedback state, missing `OPENAI_API_KEY`, unimplemented robust PDF extraction, unimplemented hosted deployment evidence, and `product_complete: false`. This is documentation navigation only, not new runtime evidence, not external reviewer feedback, and not product-complete.
 
+Robust PDF extraction source-first strategy review v0: implemented. `docs/review/robust-pdf-extraction-source-first-strategy-review.md` records the current `parser: pdf-pymupdf` boundary, `digital_pdf_text_extraction: true`, `robust_pdf_extraction: false`, `table_extraction_performed: false`, and a source-first adapter ladder for digital text, tables, OCR, and quality-ledger evaluation. This is strategy review only, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not hosted deployment evidence, and not product-complete.
+
 Historical predecessor compatibility: Latest proof routing now points reviewers to the workflow proof bundle markdown export runtime smoke at `docs/review/workflow-proof-bundle-markdown-export-runtime-smoke.md` was the Phase 667 route marker, not the current first route. It preserves the workflow proof bundle reviewer checklist dashboard runtime smoke at `docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md` and the report markdown local inspection paths proof chain as predecessor inspection proof. This is reviewer routing only; it is not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, and not product-complete.
 
 Focused recent intake proof: `docs/review/external-reader-proof-path-encrypted-pdf-handoff-ops-route-refresh.md` now routes reviewers to `docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops.md`, `docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-runtime-smoke.md`, and `docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-remote-verification.md`. It surfaces `pdf_encrypted_failure_candidate_count` / `PDF Encrypted Failure Candidates` as password-protected PDF failure metadata in operations views. External-reader proof path encrypted PDF handoff ops route refresh v0: implemented. This is focused route alignment only; it is not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction, not decryption, and not product-complete.
@@ -196,6 +198,7 @@ Still planned/unclaimed near the top:
 
 - polished web UI
 - robust PDF extraction
+- robust PDF extraction implementation; source-first strategy review exists at `docs/review/robust-pdf-extraction-source-first-strategy-review.md`
 - upload-preview auto-persistence
 - embedding generation, vector quality evidence, LLM calls
 - hosted deployment evidence
