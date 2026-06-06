@@ -23037,6 +23037,56 @@ def test_embedding_model_live_provider_error_boundary_is_documented():
     assert "embedding model live-provider error boundary exists" in app_review
 
 
+def test_embedding_model_live_provider_error_boundary_remote_verification_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "embedding-model-live-provider-error-boundary-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding Model Live-provider Error Boundary Remote Verification" in content
+    assert (
+        "embedding model live-provider error boundary remote verification v0"
+        in content
+    )
+    assert "44c7273496198cbd88f43bd5fa030306353dd4ef" in content
+    assert "CI run 27058899825: success" in content
+    assert "External Feedback Screen run 27058899830: success" in content
+    assert "CI job_id -> 79868161939" in content
+    assert "External Feedback Screen job_id -> 79868161929" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the local route behavior itself" in content
+    assert "not live embedding generation proof" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Embedding model live-provider error boundary remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 686 - Embedding Model Live-provider Error Boundary Remote Verification v0"
+        in goal
+    )
+    assert (
+        "embedding model live-provider error boundary remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/embedding-model-live-provider-error-boundary-remote-verification.md"
+        in portfolio
+    )
+
+
 def test_embedding_model_live_provider_owner_runtime_smoke_packet_is_documented():
     review_path = (
         REPO_ROOT
