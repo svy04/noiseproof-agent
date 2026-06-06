@@ -6229,6 +6229,64 @@ def test_goal_current_state_surfaces_latest_upload_pdf_summary_reviewer_surfaces
     )
 
 
+def test_goal_current_state_upload_pdf_summary_reviewer_surfaces_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/goal-current-state-upload-pdf-summary-reviewer-surfaces-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "GOAL Current-state Upload PDF Summary Reviewer Surfaces Refresh Remote Verification"
+        in content
+    )
+    assert (
+        "goal current-state upload PDF summary reviewer surfaces refresh remote verification v0"
+        in content
+    )
+    assert "2801d977e1fc24e8dfdda3af7b21e6bddff4f0ae" in content
+    assert "CI run `27067143685`" in content
+    assert "External Feedback Screen run `27067143684`" in content
+    assert "CI job_id -> 79889880751" in content
+    assert "External Feedback Screen job_id -> 79889880825" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/goal-current-state-upload-pdf-summary-reviewer-surfaces-refresh.md"
+        in content
+    )
+    assert "not the GOAL overlay refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "GOAL current-state upload PDF summary reviewer surfaces refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 738 - GOAL Current-state Upload PDF Summary Reviewer Surfaces Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 738 adds GOAL current-state upload PDF summary reviewer surfaces refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "goal current-state upload PDF summary reviewer surfaces refresh remote verification"
+        in portfolio
+    )
+
+
 def test_external_feedback_qualification_preview_screens_comments_without_closing_gate():
     preview_path = REPO_ROOT / "docs/review/external-feedback-qualification-preview.md"
     assert preview_path.is_file()
