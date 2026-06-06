@@ -29562,3 +29562,53 @@ def test_workflow_proof_bundle_reviewer_checklist_dashboard_discovery_is_recorde
         "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-discovery.md"
         in portfolio
     )
+
+
+def test_workflow_proof_bundle_reviewer_checklist_dashboard_discovery_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-discovery-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Workflow Proof Bundle Reviewer Checklist Dashboard Discovery Remote Verification"
+        in content
+    )
+    assert (
+        "workflow proof bundle reviewer checklist dashboard discovery remote verification v0"
+        in content
+    )
+    assert "44e2da1832fc642a29970bae226ec025d76e3953" in content
+    assert "CI run `27053931570`: success" in content
+    assert "External Feedback Screen run `27053931573`: success" in content
+    assert "Run API smoke tests" in content
+    assert "Screen issue comments" in content
+    assert "not the dashboard discovery itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Workflow proof bundle reviewer checklist dashboard discovery remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 658 - Workflow Proof Bundle Reviewer Checklist Dashboard Discovery Remote Verification v0"
+        in goal
+    )
+    assert (
+        "workflow proof bundle reviewer checklist dashboard discovery remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-discovery-remote-verification.md"
+        in portfolio
+    )

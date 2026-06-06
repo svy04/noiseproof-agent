@@ -24066,3 +24066,35 @@ GET /ops/dashboard states that proof bundle includes a read-only reviewer_checkl
 Boundary: dashboard discovery only; not new storage, not distributed tracing, not hosted observability, not retry behavior, not root-cause automation, not semantic retrieval quality evidence, not embedding generation, not LLM output, not external reviewer feedback, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 658 - Workflow Proof Bundle Reviewer Checklist Dashboard Discovery Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 657 dashboard-discovery gate passed CI and External Feedback Screen.
+
+Implemented artifacts:
+
+```text
+workflow proof bundle reviewer checklist dashboard discovery remote verification v0
+docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-discovery-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 44e2da1832fc642a29970bae226ec025d76e3953
+CI run 27053931570: success
+External Feedback Screen run 27053931573: success
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the dashboard discovery itself, not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not LLM output, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
