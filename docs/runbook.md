@@ -2,6 +2,8 @@
 
 ## Current Status
 
+Phase 1.5 runtime persistence verification is now recorded in `docs/review/runtime-persistence-verification.md`: local Docker PostgreSQL/pgvector plus current FastAPI source on port 8001 verified health, ops summary, document metadata persistence, agent-run metadata persistence, failure-case metadata persistence, and direct SQL lookup of the created ids. This is local runtime persistence evidence only, not hosted deployment evidence, external reviewer feedback, production readiness, or product-complete.
+
 Phase 572 adds persisted report markdown export v0: `GET /reports/{report_record_id}/markdown` renders an existing persisted `report_records` row as deterministic `text/markdown`, including claim, source ids, evidence spans, confidence, limitations, contradictions, next data needed, stage input manifest, warnings, and an explicit no-new-claims boundary. Unknown ids return `404` with `Report record not found`. This is a read/export surface only; it does not generate new claims, call an LLM, run retrieval, create Evidence Ledger rows, create new Report records, provide financial advice, or implement free-form reports. See `docs/review/persisted-report-markdown-export.md`.
 
 Phase 573 adds persisted report markdown export remote verification v0: `docs/review/persisted-report-markdown-export-remote-verification.md` records remote GitHub Actions success for head `b477ec855ed922119391d81ea0cac9f9213c38f3`, with CI run `27022884406` (`api-smoke -> success`) and External Feedback Screen run `27022884394` (`screen -> success`). This is remote workflow evidence only, not external reviewer feedback, hosted deployment evidence, free-form report generation, financial advice, or product-complete.

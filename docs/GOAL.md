@@ -5292,7 +5292,17 @@ Phase 153 - Uploaded File Failure-case Manual Handoff Smoke v0
 Phase 154 - Uploaded File Proof Path Index Refresh v0
 ```
 
-### Phase 1.5 - Runtime Persistence Verification
+### Phase 1.5 - Runtime Persistence Verification: verified
+
+Current local runtime evidence is recorded in:
+
+```text
+docs/review/runtime-persistence-verification.md
+```
+
+Verified on local Docker Desktop with `Docker version 29.4.3`, `Docker Compose version v5.1.3`, `pgvector/pgvector:pg16`, `POSTGRES_PORT=55432`, current FastAPI source on `127.0.0.1:8001`, `GET /health`, `GET /ops/summary`, `POST /documents`, `POST /agent-runs`, `POST /failure-cases`, and direct SQL lookup of the persisted ids.
+
+This is local runtime persistence evidence only, not hosted deployment evidence, fresh-database migration proof, production readiness, external reviewer feedback, or product-complete.
 
 If Docker is available, verify:
 

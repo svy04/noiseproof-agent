@@ -28,6 +28,8 @@ Historical predecessor remote verification compatibility: Latest recorded remote
 
 Latest repository push verification state: Phase 654 artifact commit `5dd5b246a6f562ca5fcc5377c24e7b25170461ce` passed CI run `27053207711` and External Feedback Screen run `27053207694`. This verifies the current pushed repository state, not external reviewer feedback, not hosted deployment evidence, and not product-complete behavior.
 
+Runtime persistence verification: done; see `docs/review/runtime-persistence-verification.md`. This is local Docker/FastAPI/PostgreSQL evidence only, not hosted deployment evidence or product-complete.
+
 Latest external-feedback state: pending after workflow markdown issue verification; candidate_count=0; draft_count=0; self-authored comment only.
 
 Latest external-feedback remote workflow check: Phase 671 current-state workflow markdown issue verification commit `ea58f7ecedb2d0f3a5e839d6ba2c62def3e1bee4` passed CI run `27056276600` and External Feedback Screen run `27056276610`. This is remote workflow evidence only, not external reviewer feedback, not hosted deployment evidence, and not product-complete behavior.

@@ -30494,3 +30494,38 @@ def test_external_feedback_current_state_workflow_markdown_issue_verification_re
         "docs/review/external-feedback-current-state-workflow-markdown-issue-verification-remote-verification.md"
         in portfolio
     )
+
+
+def test_phase15_runtime_persistence_verification_is_recorded_without_hosted_claim():
+    review_path = REPO_ROOT / "docs/review/runtime-persistence-verification.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Runtime Persistence Verification" in content
+    assert "Phase 1.5 runtime persistence verification" in content
+    assert "Docker version 29.4.3" in content
+    assert "Docker Compose version v5.1.3" in content
+    assert "pgvector/pgvector:pg16" in content
+    assert "POSTGRES_PORT=55432" in content
+    assert "GET /health -> 200" in content
+    assert "GET /ops/summary -> 200" in content
+    assert "POST /documents -> 201" in content
+    assert "POST /agent-runs -> 201" in content
+    assert "POST /failure-cases -> 201" in content
+    assert "8b5f6062-85a0-4fca-bc37-eb821025fa2f" in content
+    assert "dc453904-9321-490c-8119-0e6eef7cacb2" in content
+    assert "6af7c6ea-c1ec-4811-ba90-b18fc98dd17b" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert "Runtime persistence verification: done" in readme
+    assert "docs/review/runtime-persistence-verification.md" in readme
+    assert "Phase 1.5 - Runtime Persistence Verification: verified" in goal
+    assert "Phase 1.5 runtime persistence verification" in runbook
+    assert "docs/review/runtime-persistence-verification.md" in portfolio
