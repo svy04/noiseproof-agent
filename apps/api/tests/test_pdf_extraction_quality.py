@@ -224,6 +224,46 @@ def test_pdf_quality_fixture_scores_deterministic_table_adapter_observation():
     assert result["robust_pdf_extraction_claimed"] is False
 
 
+def test_pdf_binary_fixture_provenance_packet_validates_synthetic_pdf_files():
+    from packages.ingestion.pdf_quality.binary_fixture import (
+        load_pdf_binary_fixture_provenance,
+    )
+
+    packet = load_pdf_binary_fixture_provenance(
+        REPO_ROOT / "examples/pdf-extraction-quality/binary-fixtures"
+    )
+
+    assert packet["packet"] == "pdf_binary_fixture_provenance_packet_v0"
+    assert packet["robust_pdf_extraction_claimed"] is False
+    assert packet["binary_pdf_fixtures_included"] is True
+    assert packet["claim_boundary"] == (
+        "synthetic_binary_fixture_provenance_only_not_robust_pdf_extraction"
+    )
+    assert {item["fixture_id"] for item in packet["fixtures"]} == {
+        "binary_born_digital_text",
+        "binary_deterministic_table_adapter",
+    }
+
+    for item in packet["fixtures"]:
+        assert item["source_kind"] == "synthetic_generated"
+        assert item["redistribution_allowed"] is True
+        assert item["robust_pdf_extraction_claimed"] is False
+        assert item["sha256"]
+        assert item["size_bytes"] > 0
+        assert (REPO_ROOT / "examples/pdf-extraction-quality/binary-fixtures" / item["path"]).is_file()
+
+    table_item = next(
+        item
+        for item in packet["fixtures"]
+        if item["fixture_id"] == "binary_deterministic_table_adapter"
+    )
+    assert table_item["expected_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert "not robust PDF extraction evidence" in packet["boundary_notes"]
+
+
 def test_pdf_table_adapter_reports_no_table_as_structured_warning():
     adapter_result = extract_pdf_tables_with_pymupdf(
         _minimal_pdf_bytes("market memo without table")

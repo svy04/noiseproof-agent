@@ -43,6 +43,32 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 778:
+
+```text
+latest_product_gate: PDF binary fixture provenance packet v0
+latest_product_artifact: docs/review/pdf-binary-fixture-provenance-packet.md
+latest_binary_fixture_packet: examples/pdf-extraction-quality/binary-fixtures/provenance.json
+latest_binary_fixture_loader: packages/ingestion/pdf_quality/binary_fixture.py
+binary_pdf_fixtures_included: true
+binary_fixture_source_kind: synthetic_generated
+binary_fixture_ids:
+  - binary_born_digital_text
+  - binary_deterministic_table_adapter
+binary_fixture_sha256_validated: true
+binary_fixture_redistribution_allowed: true
+binary_fixture_claim_boundary: synthetic_binary_fixture_provenance_only_not_robust_pdf_extraction
+robust_pdf_extraction: not_implemented
+default_pdf_parser_table_extraction_performed: still_false
+table_extraction_evidence_for_arbitrary_market_pdfs: not_claimed
+external_data_redistribution: not_used
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: synthetic binary fixture provenance only; not robust PDF extraction evidence; not default PdfParser table extraction; not external data redistribution; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 777:
 
 ```text
@@ -3202,6 +3228,47 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the fixture/report update itself; not new runtime evidence; not binary PDF fixture evidence; not default `PdfParser` table extraction; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: external-reader proof path route refresh if the deterministic table adapter quality proof should become reviewer-facing, a future binary fixture gate with explicit provenance and redistribution boundaries, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 778 - PDF Binary Fixture Provenance Packet v0
+
+Status: implemented.
+
+Purpose: add synthetic binary PDF fixtures with explicit provenance, redistribution, SHA-256, and no-robust-extraction boundaries before any real-world binary fixture is introduced.
+
+Implemented artifacts:
+
+```text
+PDF binary fixture provenance packet v0
+docs/review/pdf-binary-fixture-provenance-packet.md
+examples/pdf-extraction-quality/binary-fixtures/provenance.json
+examples/pdf-extraction-quality/binary-fixtures/README.md
+examples/pdf-extraction-quality/binary-fixtures/generate_synthetic_fixtures.py
+examples/pdf-extraction-quality/binary-fixtures/born-digital-text.pdf
+examples/pdf-extraction-quality/binary-fixtures/deterministic-table-adapter.pdf
+packages/ingestion/pdf_quality/binary_fixture.py
+apps/api/tests/test_pdf_extraction_quality.py
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Packet markers:
+
+```text
+packet -> pdf_binary_fixture_provenance_packet_v0
+claim_boundary -> synthetic_binary_fixture_provenance_only_not_robust_pdf_extraction
+binary_pdf_fixtures_included -> true
+robust_pdf_extraction_claimed -> false
+binary_born_digital_text.sha256 -> 45a4b5b288a15a297690f2c002b82da45cdbae306bdfe579054bf4ceaf13530f
+binary_deterministic_table_adapter.sha256 -> f083e1bb3f421f46723cfc4ad8a3b96c97f0624d0e33d1ee978136f01a509354
+redistribution_allowed -> true
+```
+
+Boundary: synthetic binary fixture provenance only; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not external data redistribution; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: parser/adapter smoke over these binary fixtures, remote verification after push, external-reader route refresh if this packet should become reviewer-facing, or a future real-world binary fixture gate with explicit license and redistribution review.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

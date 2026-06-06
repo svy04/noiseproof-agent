@@ -1,0 +1,56 @@
+{
+  "packet": "pdf_binary_fixture_provenance_packet_v0",
+  "binary_pdf_fixtures_included": true,
+  "robust_pdf_extraction_claimed": false,
+  "claim_boundary": "synthetic_binary_fixture_provenance_only_not_robust_pdf_extraction",
+  "source_first_basis": [
+    "PyMuPDF synthetic PDF generation already used by local tests",
+    "in-repository synthetic fixtures avoid external redistribution ambiguity"
+  ],
+  "fixtures": [
+    {
+      "fixture_id": "binary_born_digital_text",
+      "path": "born-digital-text.pdf",
+      "source_kind": "synthetic_generated",
+      "generated_by": "examples/pdf-extraction-quality/binary-fixtures/generate_synthetic_fixtures.py",
+      "redistribution_allowed": true,
+      "license_note": "Synthetic in-repository fixture generated for NoiseProof tests.",
+      "sha256": "45a4b5b288a15a297690f2c002b82da45cdbae306bdfe579054bf4ceaf13530f",
+      "size_bytes": 871,
+      "expected_spans": [
+        "company revenue increased",
+        "source date visible"
+      ],
+      "expected_table_rows": [],
+      "robust_pdf_extraction_claimed": false
+    },
+    {
+      "fixture_id": "binary_deterministic_table_adapter",
+      "path": "deterministic-table-adapter.pdf",
+      "source_kind": "synthetic_generated",
+      "generated_by": "examples/pdf-extraction-quality/binary-fixtures/generate_synthetic_fixtures.py",
+      "redistribution_allowed": true,
+      "license_note": "Synthetic in-repository fixture generated for NoiseProof tests.",
+      "sha256": "f083e1bb3f421f46723cfc4ad8a3b96c97f0624d0e33d1ee978136f01a509354",
+      "size_bytes": 1872,
+      "expected_spans": [
+        "Segment Growth",
+        "Enterprise 12%"
+      ],
+      "expected_table_rows": [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"]
+      ],
+      "robust_pdf_extraction_claimed": false
+    }
+  ],
+  "boundary_notes": [
+    "not robust PDF extraction evidence",
+    "not OCR evidence",
+    "not default PdfParser table extraction",
+    "not table extraction evidence for arbitrary market PDFs",
+    "not external data redistribution",
+    "not hosted deployment evidence",
+    "not product-complete"
+  ]
+}

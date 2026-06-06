@@ -442,6 +442,7 @@ Recent remote verification: Upload PDF quality preview table adapter runtime smo
 Recent product gate: Upload PDF quality preview table adapter v0: implemented.
 Recent quality gate: PDF quality deterministic table adapter fixture v0: implemented.
 Recent quality gate remote verification: PDF quality deterministic table adapter fixture remote verification v0: implemented.
+Recent fixture gate: PDF binary fixture provenance packet v0: implemented.
 
 Historical latest-marker compatibility: Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Historical latest-marker compatibility: Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification; candidate_count=0; self-authored comment only.

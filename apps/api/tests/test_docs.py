@@ -32876,6 +32876,67 @@ def test_pdf_quality_deterministic_table_adapter_fixture_remote_verification_is_
     )
 
 
+def test_pdf_binary_fixture_provenance_packet_v0_is_recorded():
+    review_path = REPO_ROOT / "docs/review/pdf-binary-fixture-provenance-packet.md"
+    packet_path = (
+        REPO_ROOT / "examples/pdf-extraction-quality/binary-fixtures/provenance.json"
+    )
+    binary_readme_path = (
+        REPO_ROOT / "examples/pdf-extraction-quality/binary-fixtures/README.md"
+    )
+
+    assert review_path.is_file()
+    assert packet_path.is_file()
+    assert binary_readme_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    packet = json.loads(packet_path.read_text(encoding="utf-8"))
+    binary_readme = binary_readme_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "PDF Binary Fixture Provenance Packet" in content
+    assert "PDF binary fixture provenance packet v0" in content
+    assert "examples/pdf-extraction-quality/binary-fixtures/provenance.json" in content
+    assert "binary_born_digital_text" in content
+    assert "binary_deterministic_table_adapter" in content
+    assert packet["packet"] == "pdf_binary_fixture_provenance_packet_v0"
+    assert packet["binary_pdf_fixtures_included"] is True
+    assert packet["robust_pdf_extraction_claimed"] is False
+    assert packet["claim_boundary"] == (
+        "synthetic_binary_fixture_provenance_only_not_robust_pdf_extraction"
+    )
+    assert {item["fixture_id"] for item in packet["fixtures"]} == {
+        "binary_born_digital_text",
+        "binary_deterministic_table_adapter",
+    }
+    for item in packet["fixtures"]:
+        assert item["source_kind"] == "synthetic_generated"
+        assert item["redistribution_allowed"] is True
+        assert item["sha256"] in content
+        assert item["path"] in binary_readme
+        assert (
+            REPO_ROOT
+            / "examples/pdf-extraction-quality/binary-fixtures"
+            / item["path"]
+        ).is_file()
+
+    assert "synthetic binary fixture provenance only" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not external data redistribution" in content
+    assert "not default PdfParser table extraction" in content
+    assert "not product-complete" in content
+
+    assert "PDF binary fixture provenance packet v0: implemented" in readme
+    assert "Phase 778 - PDF Binary Fixture Provenance Packet v0" in goal
+    assert "Phase 778 adds PDF binary fixture provenance packet v0" in runbook
+    assert "PDF binary fixture provenance packet" in portfolio
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
