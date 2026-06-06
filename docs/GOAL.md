@@ -23276,3 +23276,36 @@ Latest recorded remote verification -> CI run 27048811299 and External Feedback 
 Boundary: external-reader route alignment only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
 
 Next gate: external review issue body Gate/Report semantic source provenance runtime refresh if public issue routing should match this repository route, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 637 - External-reader Proof Path Gate/Report Semantic Source Provenance Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the Phase 636 reader-route refresh passed CI and feedback-screen workflows on `main`.
+
+Implemented artifacts:
+
+```text
+external-reader proof path Gate/Report semantic source provenance route refresh remote verification v0
+docs/review/external-reader-proof-path-gate-report-semantic-source-provenance-route-refresh-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 1b5514d8943e8971e95766a758dd30133a809a88
+CI run 27049168693: success
+External Feedback Screen run 27049168679: success
+CI job_id -> 79841213266
+External Feedback Screen job_id -> 79841213221
+Run API smoke tests -> success
+```
+
+Boundary: remote workflow verification only; not the reader-route refresh itself, not a new runtime smoke, not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: external review issue body Gate/Report semantic source provenance runtime refresh if public issue routing should match the repository route, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
