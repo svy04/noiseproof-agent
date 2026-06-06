@@ -31,6 +31,30 @@ docs/review/external-reviewer-shortlist.md
 Latest compact PDF boundary proof:
 
 ```text
+Upload PDF quality preview coverage summary proof
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/upload-pdf-quality-preview-coverage-summary.md
+docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md
+docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md
+quality_summary.page_coverage_ratio
+quality_summary.extraction_status
+partial_page_coverage_ratio=0.5
+partial_extraction_status=partial_text
+partial_warning_present=True
+no_text_extraction_status=no_text
+encrypted_extraction_status=password_required
+summary_only_not_robust_pdf_extraction_evidence
+document_count_delta=0
+pdf_encrypted_requires_password
+```
+
+Boundary: this is compact reviewer navigation to a preview-only PDF quality coverage path. It is not robust PDF extraction evidence, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Predecessor compact PDF summary proof:
+
+```text
 Upload PDF quality preview summary proof
 docs/review/external-review-request.md
 docs/review/external-reviewer-brief.md

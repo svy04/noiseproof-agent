@@ -16,12 +16,18 @@ It does not replace the full proof path.
 
 1. `README.md`
    - Scope, non-goals, implementation status, and the current proof boundaries.
-2. Upload PDF quality preview summary proof
-   - `docs/review/upload-pdf-quality-preview-summary.md`
-   - Runtime proof: `docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md`.
-   - Runtime remote verification: `docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md`.
-   - Route refresh: `docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md`.
-   - Records `quality_summary`, `summary_only_not_robust_pdf_extraction_evidence`, `digital_quality_summary_present=True`, `encrypted_quality_summary_present=True`, `document_count_delta=0`, and `pdf_encrypted_requires_password`.
+2. Upload PDF quality preview coverage summary proof
+   - `docs/review/upload-pdf-quality-preview-coverage-summary.md`
+   - Runtime proof: `docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md`.
+   - Runtime remote verification: `docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md`.
+   - Route refresh: `docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md`.
+   - Predecessor summary proof: `docs/review/upload-pdf-quality-preview-summary.md`.
+   - Records `quality_summary.page_coverage_ratio`, `quality_summary.extraction_status`, `partial_page_coverage_ratio=0.5`, `partial_extraction_status=partial_text`, `partial_warning_present=True`, `no_text_extraction_status=no_text`, `encrypted_extraction_status=password_required`, `summary_only_not_robust_pdf_extraction_evidence`, `document_count_delta=0`, and `pdf_encrypted_requires_password`.
+   - Upload PDF quality preview summary proof
+   - Summary runtime proof: `docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md`.
+   - Summary runtime remote verification: `docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md`.
+   - Summary route refresh: `docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md`.
+   - Summary records `quality_summary`, `digital_quality_summary_present=True`, `encrypted_quality_summary_present=True`, `summary_only_not_robust_pdf_extraction_evidence`, `document_count_delta=0`, and `pdf_encrypted_requires_password`.
    - Boundary: not robust PDF extraction evidence, not OCR, not table extraction, not decryption evidence, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
 3. `docs/review/ops-dashboard-anchor-get-runtime-smoke.md`
    - Local Docker PostgreSQL plus live FastAPI HTTP proof that `GET /ops/dashboard` exposes clickable `data-method="GET"` inspection anchors and every unique dashboard href returns GET 200.

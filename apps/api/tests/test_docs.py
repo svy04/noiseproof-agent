@@ -34032,6 +34032,83 @@ def test_external_reviewer_shortlist_upload_pdf_quality_preview_summary_refresh_
     )
 
 
+def test_external_reviewer_shortlist_surfaces_upload_pdf_quality_preview_coverage_summary():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-coverage-summary-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    shortlist = (
+        REPO_ROOT / "docs/review/external-reviewer-shortlist.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Reviewer Shortlist Upload PDF Quality Preview Coverage Summary Refresh"
+        in content
+    )
+    assert (
+        "external reviewer shortlist upload PDF quality preview coverage summary refresh v0"
+        in content
+    )
+
+    required_markers = [
+        "Upload PDF quality preview coverage summary proof",
+        "docs/review/upload-pdf-quality-preview-coverage-summary.md",
+        "docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md",
+        "docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md",
+        "docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md",
+        "quality_summary.page_coverage_ratio",
+        "quality_summary.extraction_status",
+        "partial_page_coverage_ratio=0.5",
+        "partial_extraction_status=partial_text",
+        "partial_warning_present=True",
+        "no_text_extraction_status=no_text",
+        "encrypted_extraction_status=password_required",
+        "summary_only_not_robust_pdf_extraction_evidence",
+        "document_count_delta=0",
+        "pdf_encrypted_requires_password",
+        "not robust PDF extraction evidence",
+        "not external reviewer feedback",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+        assert marker in shortlist
+
+    shortlist_section = shortlist.split("## 90-second shortlist", 1)[1].split(
+        "Then use:", 1
+    )[0]
+    assert shortlist_section.index(
+        "docs/review/upload-pdf-quality-preview-coverage-summary.md"
+    ) < shortlist_section.index("docs/review/ops-dashboard-anchor-get-runtime-smoke.md")
+
+    assert (
+        "External reviewer shortlist upload PDF quality preview coverage summary refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 752 - External Reviewer Shortlist Upload PDF Quality Preview Coverage Summary Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 752 adds external reviewer shortlist upload PDF quality preview coverage summary refresh v0"
+        in runbook
+    )
+    assert (
+        "external reviewer shortlist upload PDF quality preview coverage summary refresh"
+        in portfolio
+    )
+
+
 def test_external_review_request_and_brief_surface_upload_pdf_quality_preview_summary():
     review_path = (
         REPO_ROOT
@@ -34167,6 +34244,91 @@ def test_external_reviewer_request_brief_upload_pdf_quality_preview_summary_refr
     )
     assert (
         "external reviewer request brief upload PDF quality preview summary refresh remote verification"
+        in portfolio
+    )
+
+
+def test_external_review_request_and_brief_surface_upload_pdf_quality_preview_coverage_summary():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-coverage-summary-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    request = (REPO_ROOT / "docs/review/external-review-request.md").read_text(
+        encoding="utf-8"
+    )
+    brief = (REPO_ROOT / "docs/review/external-reviewer-brief.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Reviewer Request Brief Upload PDF Quality Preview Coverage Summary Refresh"
+        in content
+    )
+    assert (
+        "external reviewer request brief upload PDF quality preview coverage summary refresh v0"
+        in content
+    )
+
+    required_markers = [
+        "Upload PDF quality preview coverage summary proof",
+        "docs/review/external-review-request.md",
+        "docs/review/external-reviewer-brief.md",
+        "docs/review/upload-pdf-quality-preview-coverage-summary.md",
+        "docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md",
+        "docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md",
+        "docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md",
+        "quality_summary.page_coverage_ratio",
+        "quality_summary.extraction_status",
+        "partial_page_coverage_ratio=0.5",
+        "partial_extraction_status=partial_text",
+        "partial_warning_present=True",
+        "no_text_extraction_status=no_text",
+        "encrypted_extraction_status=password_required",
+        "summary_only_not_robust_pdf_extraction_evidence",
+        "document_count_delta=0",
+        "pdf_encrypted_requires_password",
+        "not robust PDF extraction evidence",
+        "not external reviewer feedback",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+        assert marker in request
+        assert marker in brief
+
+    assert (
+        request.index("docs/review/upload-pdf-quality-preview-coverage-summary.md")
+        < request.index("docs/review/workflow-proof-bundle-runtime-smoke.md")
+    )
+    assert (
+        brief.index("docs/review/upload-pdf-quality-preview-coverage-summary.md")
+        < brief.index("docs/review/workflow-proof-bundle-runtime-smoke.md")
+    )
+
+    assert (
+        "External reviewer request brief upload PDF quality preview coverage summary refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 753 - External Reviewer Request Brief Upload PDF Quality Preview Coverage Summary Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 753 adds external reviewer request brief upload PDF quality preview coverage summary refresh v0"
+        in runbook
+    )
+    assert (
+        "external reviewer request brief upload PDF quality preview coverage summary refresh"
         in portfolio
     )
 
