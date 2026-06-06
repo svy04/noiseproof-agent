@@ -33372,6 +33372,72 @@ def test_external_reader_pdf_binary_fixture_smoke_preview_route_refresh_remote_v
     )
 
 
+def test_external_review_issue_body_pdf_binary_fixture_smoke_preview_route_refresh_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-pdf-binary-fixture-smoke-preview-route-refresh.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External Review Issue Body PDF Binary Fixture Smoke Preview Route Refresh" in content
+    assert (
+        "external review issue body PDF binary fixture smoke preview route refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt:" in content
+    assert "comment_count: 1" in content
+    assert "starts_with_request: true" in content
+    assert "first_codepoint: 35" in content
+    assert "has_leading_bom: false" in content
+
+    required_markers = [
+        "has_pdf_binary_fixture_smoke_preview_runtime_smoke: true",
+        "has_pdf_binary_fixture_smoke_preview_runtime_smoke_remote_verification: true",
+        "has_external_reader_pdf_binary_fixture_smoke_preview_route_refresh: true",
+        "has_external_reader_pdf_binary_fixture_smoke_preview_route_refresh_remote_verification: true",
+        "GET /documents/pdf-binary-fixture-smoke-preview",
+        "fixture_source_boundary=repo_synthetic_binary_fixtures_only_no_arbitrary_upload",
+        "persistence_boundary=preview_only_not_persisted",
+        "document_count_delta=0",
+        "agent_run_count=1",
+        "not external reviewer feedback",
+        "not new runtime evidence",
+        "not arbitrary uploaded-file behavior",
+        "not robust PDF extraction evidence",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+
+    assert (
+        "External review issue body PDF binary fixture smoke preview route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 787 - External Review Issue Body PDF Binary Fixture Smoke Preview Route Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 787 adds external review issue body PDF binary fixture smoke preview route refresh v0"
+        in runbook
+    )
+    assert (
+        "external review issue body PDF binary fixture smoke preview route refresh"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

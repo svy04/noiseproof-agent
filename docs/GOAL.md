@@ -43,6 +43,33 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 787:
+
+```text
+latest_issue_route_gate: external review issue body PDF binary fixture smoke preview route refresh v0
+latest_issue_route_artifact: docs/review/external-review-issue-body-pdf-binary-fixture-smoke-preview-route-refresh.md
+latest_issue_url: https://github.com/svy04/noiseproof-agent/issues/1
+latest_issue_updated_at: 2026-06-06T21:06:59Z
+latest_issue_comment_count: 1
+latest_issue_starts_with_request: true
+latest_issue_first_codepoint: 35
+latest_issue_has_leading_bom: false
+latest_reviewer_route_gate: external-reader proof path PDF binary fixture smoke preview route refresh v0
+latest_reviewer_route_remote_verification: external-reader proof path PDF binary fixture smoke preview route refresh remote verification v0
+latest_runtime_proof_gate: PDF binary fixture smoke preview runtime smoke v0
+latest_api_surface: GET /documents/pdf-binary-fixture-smoke-preview
+fixture_source_boundary: repo_synthetic_binary_fixtures_only_no_arbitrary_upload
+persistence_boundary: preview_only_not_persisted
+claim_boundary: binary_fixture_smoke_only_not_robust_pdf_extraction
+document_count_delta: 0
+agent_run_count: 1
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: owner-authored issue body routing only; not external reviewer feedback; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 786:
 
 ```text
@@ -3805,6 +3832,47 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the route refresh itself; not new runtime evidence; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, an issue-body route refresh if the public feedback issue should point to this runtime-preview proof path, or another source-first product gate selected from the current repository state.
+
+### Phase 787 - External Review Issue Body PDF Binary Fixture Smoke Preview Route Refresh v0
+
+Status: implemented.
+
+Purpose: record the owner-authored live issue #1 body update that points reviewers to the PDF binary fixture smoke preview runtime proof route.
+
+Implemented artifacts:
+
+```text
+external review issue body PDF binary fixture smoke preview route refresh v0
+docs/review/external-review-issue-body-pdf-binary-fixture-smoke-preview-route-refresh.md
+https://github.com/svy04/noiseproof-agent/issues/1
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Issue body markers:
+
+```text
+updatedAt: 2026-06-06T21:06:59Z
+comment_count: 1
+body_length: 5583
+starts_with_request: true
+first_codepoint: 35
+has_leading_bom: false
+has_pdf_binary_fixture_smoke_preview_runtime_smoke: true
+has_pdf_binary_fixture_smoke_preview_runtime_smoke_remote_verification: true
+has_external_reader_pdf_binary_fixture_smoke_preview_route_refresh: true
+has_external_reader_pdf_binary_fixture_smoke_preview_route_refresh_remote_verification: true
+GET /documents/pdf-binary-fixture-smoke-preview
+document_count_delta=0
+agent_run_count=1
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback; not new runtime evidence; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not hosted deployment evidence; not customer validation; not Braincrew acceptance; and not product-complete.
+
+Next gate: external feedback current-state PDF binary fixture smoke preview issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
