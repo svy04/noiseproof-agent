@@ -4342,6 +4342,83 @@ def test_uploaded_pdf_table_candidate_diagnostics_flow_into_chunk_and_retrieval_
     assert body["results"][0]["metadata"]["table_extraction_performed"] is False
 
 
+def test_uploaded_pdf_table_adapter_metadata_flows_into_chunk_and_retrieval_provenance():
+    client = make_client()
+    content = _table_pdf_bytes()
+
+    upload = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Uploaded table PDF report",
+            "strategy": "fixed-window",
+            "max_characters": "120",
+            "overlap": "0",
+        },
+        files={"file": ("table-report.pdf", content, "application/pdf")},
+    ).json()
+
+    document_profile = upload["document"]["profile_json"]
+    chunk_metadata = upload["chunks"][0]["metadata_json"]
+
+    assert document_profile["default_pdf_parser_table_adapter_metadata"] is True
+    assert document_profile["table_adapter_extraction_performed"] is True
+    assert document_profile["table_adapter_boundary"] == chunk_metadata[
+        "table_adapter_boundary"
+    ]
+    assert document_profile["table_adapter"]["table_extraction_engine"] == (
+        "pymupdf-find_tables-extract"
+    )
+    assert document_profile["table_adapter"]["robust_pdf_extraction"] is False
+    assert document_profile["table_adapter"]["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert document_profile["table_extraction_performed"] is False
+
+    assert chunk_metadata["default_pdf_parser_table_adapter_metadata"] is True
+    assert chunk_metadata["table_adapter_extraction_performed"] is True
+    assert chunk_metadata["table_adapter"]["table_extraction_engine"] == (
+        "pymupdf-find_tables-extract"
+    )
+    assert chunk_metadata["table_adapter"]["robust_pdf_extraction"] is False
+    assert chunk_metadata["table_adapter"]["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert chunk_metadata["table_extraction_performed"] is False
+
+    retrieval = client.post(
+        f"/documents/{upload['document']['id']}/retrieval-runs",
+        json={
+            "question": "Which evidence mentions Enterprise Growth?",
+            "strategy": "fixed-window",
+            "top_k": 1,
+        },
+    )
+
+    assert retrieval.status_code == 201
+    body = retrieval.json()
+    assert body["metadata_json"]["default_pdf_parser_table_adapter_metadata"] is True
+    assert body["metadata_json"]["table_adapter_extraction_performed"] is True
+    assert body["metadata_json"]["table_adapter"]["table_extraction_engine"] == (
+        "pymupdf-find_tables-extract"
+    )
+    assert body["metadata_json"]["table_adapter"]["robust_pdf_extraction"] is False
+    assert body["metadata_json"]["table_adapter"]["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert body["metadata_json"]["table_extraction_performed"] is False
+    assert body["metadata_json"]["source_provenance_boundary"] == (
+        "retrieval_run_candidate_chunk_metadata_only"
+    )
+    assert body["results"][0]["metadata"]["table_adapter"]["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert body["results"][0]["metadata"]["table_extraction_performed"] is False
+
+
 def test_uploaded_pdf_retrieval_run_evidence_ledger_preserves_source_provenance():
     client = make_client()
     content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")

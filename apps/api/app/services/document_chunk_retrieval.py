@@ -27,6 +27,10 @@ PDF_PAGE_DIAGNOSTIC_METADATA_KEYS = (
     "table_candidate_page_counts",
     "table_candidate_shapes",
     "table_extraction_performed",
+    "default_pdf_parser_table_adapter_metadata",
+    "table_adapter",
+    "table_adapter_boundary",
+    "table_adapter_extraction_performed",
 )
 
 
