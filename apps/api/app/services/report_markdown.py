@@ -23,7 +23,9 @@ def render_report_record_markdown(record: Mapping[str, Any]) -> str:
         "",
     ]
 
-    lines.extend(_render_source_retrieval_provenance(record.get("stage_input_manifest")))
+    manifest = record.get("stage_input_manifest")
+    lines.extend(_render_stage_input_links(manifest))
+    lines.extend(_render_source_retrieval_provenance(manifest))
 
     report = record.get("report")
     if isinstance(report, Mapping):
@@ -94,6 +96,37 @@ def _render_stage_input_manifest(value: Any) -> list[str]:
             lines.append(f"- {key}: {_join_values(item)}")
         else:
             lines.append(f"- {key}: {_value(item)}")
+    lines.append("")
+    return lines
+
+
+def _render_stage_input_links(value: Any) -> list[str]:
+    lines = ["## Stage Input Links", ""]
+    if not isinstance(value, Mapping) or not value:
+        lines.extend(["- None", ""])
+        return lines
+
+    rendered_any = False
+    retrieval_run_id = value.get("retrieval_run_id")
+    if retrieval_run_id:
+        lines.append(f"- Retrieval run id: {_value(retrieval_run_id)}")
+        rendered_any = True
+
+    evidence_entry_ids = value.get("input_evidence_ledger_entry_ids")
+    if isinstance(evidence_entry_ids, Sequence) and not isinstance(
+        evidence_entry_ids, str
+    ):
+        for entry_id in evidence_entry_ids:
+            lines.append(f"- Evidence Ledger entry id: {_value(entry_id)}")
+            rendered_any = True
+
+    noise_gate_record_id = value.get("input_noise_gate_record_id")
+    if noise_gate_record_id:
+        lines.append(f"- Noise Gate record id: {_value(noise_gate_record_id)}")
+        rendered_any = True
+
+    if not rendered_any:
+        lines.append("- None")
     lines.append("")
     return lines
 

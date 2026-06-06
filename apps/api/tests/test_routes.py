@@ -2000,6 +2000,14 @@ def test_semantic_retrieval_run_noise_gate_and_report_preserve_source_retrieval_
     )
     markdown_export = client.get(f"/reports/{report['id']}/markdown")
     assert markdown_export.status_code == 200
+    assert "## Stage Input Links" in markdown_export.text
+    assert f"- Retrieval run id: {retrieval_run['id']}" in markdown_export.text
+    for entry_id in report["stage_input_manifest"]["input_evidence_ledger_entry_ids"]:
+        assert f"- Evidence Ledger entry id: {entry_id}" in markdown_export.text
+    assert (
+        f"- Noise Gate record id: {gate['id']}"
+        in markdown_export.text
+    )
     assert "## Source Retrieval Provenance" in markdown_export.text
     assert "- Source retrieval mode: semantic_persisted" in markdown_export.text
     assert "- Source query vector source: caller_provided_vector" in markdown_export.text

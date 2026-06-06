@@ -119,7 +119,7 @@ Current status groups:
 Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Latest runtime proof marker: Report markdown source provenance export runtime smoke v0.
 Latest workflow dashboard runtime marker: Workflow failure auto-created failure-case dashboard runtime smoke v0
-Latest product gate marker: Report markdown source provenance export v0: implemented.
+Latest product gate marker: Report markdown stage input links v0: implemented.
 Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification; candidate_count=0; self-authored comment only.
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*`.
@@ -227,6 +227,7 @@ Not implemented yet:
 Historical latest-marker compatibility: Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest runtime proof marker: Workflow failure auto failure-case creation runtime smoke v0.
 Historical latest-marker compatibility: Latest workflow dashboard runtime marker: Workflow dashboard failure-case counts runtime smoke v0: implemented.
+Historical latest-marker compatibility: Latest product gate marker: Report markdown source provenance export v0: implemented.
 Historical latest-marker compatibility: Latest product gate marker: Retrieval run semantic provenance inspectability v0: implemented.
 Historical latest-marker compatibility: Latest product gate marker: Workflow failure auto failure-case creation v0: implemented.
 Historical latest-marker compatibility: Latest reviewer-routing marker: Persisted document failure candidate manual handoff runtime issue-body refresh v0.
@@ -281,6 +282,8 @@ Report markdown source provenance export v0: implemented. Boundary: `GET /report
 Report markdown source provenance export runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified `GET /reports/{report_record_id}/markdown -> HTTP/1.1 200 OK` returned `text/markdown; charset=utf-8` and rendered `## Source Retrieval Provenance`, `Source retrieval mode: semantic_persisted`, `Source query vector source: caller_provided_vector`, and `Handoff performs semantic retrieval: false` after a semantic persisted retrieval-run-linked Evidence Ledger, Noise Gate, and Report flow. This is local runtime read-surface evidence only, not hosted deployment evidence, semantic retrieval quality evidence, embedding generation, Evidence Ledger quality evidence, Noise Gate quality evidence, report quality evidence, external reviewer feedback, or product-complete.
 
 Report markdown source provenance export runtime smoke remote verification v0: implemented. Boundary: CI run `27050315671` and External Feedback Screen run `27050315683` succeeded on head `4e75c645e26f1c2a8cc433529b4a7e3f3f214cf2`; this is remote workflow verification only, not the local runtime smoke itself, hosted deployment evidence, semantic retrieval quality evidence, embedding generation, Evidence Ledger quality evidence, Noise Gate quality evidence, report quality evidence, external reviewer feedback, or product-complete.
+
+Report markdown stage input links v0: implemented. Boundary: `GET /reports/{report_record_id}/markdown` now renders `## Stage Input Links` from persisted Report `stage_input_manifest`, including retrieval run id, Evidence Ledger entry ids, and Noise Gate record id when present. This is deterministic markdown read-surface inspectability only, not new retrieval, Evidence Ledger creation, Noise Gate creation, report generation, an LLM call, embedding generation, semantic retrieval quality evidence, Evidence Ledger quality evidence, Noise Gate quality evidence, report quality evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
 
 Workflow direct stage links v0: implemented. Boundary: deterministic workflow-created records now create direct local link rows in `noise_gate_evidence_links`, `report_evidence_links`, and `report_noise_gate_links`, surfaced through `GET /workflow-runs/{id}/lineage` as `direct_stage_links`. Standalone gate/report endpoints remain payload-only unless they create explicit links. This is not distributed tracing, hosted observability, autonomous workflow execution, external reviewer feedback, or product-complete.
 

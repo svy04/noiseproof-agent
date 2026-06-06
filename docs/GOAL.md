@@ -23546,3 +23546,42 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the local Docker/FastAPI runtime smoke itself, not hosted deployment evidence, not external reviewer feedback, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not a new report-generation path, not free-form report generation, not an LLM call, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 644 - Report Markdown Stage Input Links v0
+
+Status: implemented.
+
+Purpose: render a human-readable `Stage Input Links` section in persisted report markdown exports so reviewers can inspect the local retrieval run, Evidence Ledger entry, and Noise Gate record ids without parsing the raw stage input manifest.
+
+Implemented artifacts:
+
+```text
+report markdown stage input links v0
+apps/api/app/services/report_markdown.py
+apps/api/tests/test_routes.py
+docs/review/report-markdown-stage-input-links.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Output markers:
+
+```text
+## Stage Input Links
+Retrieval run id
+Evidence Ledger entry id
+Noise Gate record id
+```
+
+TDD marker:
+
+```text
+RED: AssertionError: assert '## Stage Input Links' in markdown_export.text
+GREEN: apps/api/tests/test_routes.py::test_semantic_retrieval_run_noise_gate_and_report_preserve_source_retrieval_provenance
+```
+
+Boundary: deterministic markdown read-surface inspectability only; not new retrieval, not Evidence Ledger creation, not Noise Gate creation, not report generation, not an LLM call, not embedding generation, not semantic retrieval quality evidence, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for report markdown stage input links if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
