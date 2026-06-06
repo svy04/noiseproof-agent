@@ -29931,3 +29931,59 @@ def test_external_feedback_current_state_workflow_checklist_dashboard_runtime_is
         "docs/review/external-feedback-current-state-workflow-checklist-dashboard-runtime-issue-verification.md"
         in portfolio
     )
+
+
+def test_external_feedback_current_state_workflow_checklist_dashboard_runtime_issue_verification_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-workflow-checklist-dashboard-runtime-issue-verification-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state Workflow Checklist Dashboard Runtime Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state workflow checklist dashboard runtime issue verification remote verification v0"
+        in content
+    )
+    assert "b2228418563c153a81919e9896f720d44fd242a9" in content
+    assert "CI run 27054856839: success" in content
+    assert "External Feedback Screen run 27054856828: success" in content
+    assert "CI job_id -> 79857195632" in content
+    assert "External Feedback Screen job_id -> 79857195622" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-feedback-current-state-workflow-checklist-dashboard-runtime-issue-verification.md"
+        in content
+    )
+    assert "not the current-state issue screen itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state workflow checklist dashboard runtime issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 664 - External Feedback Current-state Workflow Checklist Dashboard Runtime Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state workflow checklist dashboard runtime issue verification remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-workflow-checklist-dashboard-runtime-issue-verification-remote-verification.md"
+        in portfolio
+    )

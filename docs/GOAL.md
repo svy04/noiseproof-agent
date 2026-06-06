@@ -22777,6 +22777,40 @@ Boundary: live issue current-state screen only; not external reviewer feedback, 
 
 Next gate: remote verification for this current-state issue screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 664 - External Feedback Current-state Workflow Checklist Dashboard Runtime Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 663 current-state workflow checklist dashboard runtime issue verification passed CI and External Feedback Screen.
+
+Implemented artifacts:
+
+```text
+external feedback current-state workflow checklist dashboard runtime issue verification remote verification v0
+docs/review/external-feedback-current-state-workflow-checklist-dashboard-runtime-issue-verification-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote verification markers:
+
+```text
+head_sha -> b2228418563c153a81919e9896f720d44fd242a9
+CI run 27054856839: success
+External Feedback Screen run 27054856828: success
+CI job_id -> 79857195632
+External Feedback Screen job_id -> 79857195622
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the current-state issue screen itself, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not LLM output, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
 ### Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0
 
 Status: implemented.
