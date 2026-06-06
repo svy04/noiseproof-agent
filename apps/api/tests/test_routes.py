@@ -26,6 +26,7 @@ from app.schemas import (
 from app.settings import Settings, get_settings
 from app.services.raw_file_scan_execution import get_scanner_adapter
 from app.services.embedding_model_preview import get_embedding_provider_client
+from app.services.openai_embedding_provider import EmbeddingProviderError
 from app.services.run_trace import run_with_trace
 from packages.ingestion.scanning import (
     ClamAvScannerAdapter,
@@ -1615,6 +1616,41 @@ def test_embedding_model_preview_rejects_mocked_provider_dimension_mismatch():
 
     assert response.status_code == 502
     assert "provider response dimension mismatch" in response.json()["detail"]
+    assert "sk-test-secret" not in response.text
+
+
+def test_embedding_model_preview_maps_provider_errors_without_secret_leak():
+    class FailingEmbeddingProvider:
+        def create_embedding(self, **_kwargs):
+            raise EmbeddingProviderError(
+                "provider_timeout",
+                "provider timeout while using sk-test-secret",
+            )
+
+    client = make_client()
+    client.app.dependency_overrides[get_settings] = lambda: Settings(
+        openai_api_key="sk-test-secret",
+        embedding_model="text-embedding-3-small",
+        embedding_dimension=3,
+    )
+    client.app.dependency_overrides[get_embedding_provider_client] = (
+        lambda: FailingEmbeddingProvider()
+    )
+
+    response = client.post(
+        "/chunks/embedding-model-preview",
+        json={
+            "text": "Enterprise demand growth reached 12% in Q1.",
+            "embedding_dimension": 3,
+            "allow_provider_call": True,
+        },
+    )
+
+    assert response.status_code == 502
+    body = response.json()
+    assert body["detail"]["error_type"] == "provider_timeout"
+    assert body["detail"]["provider_call_boundary"] == "owner_runtime_provider_error"
+    assert body["detail"]["secret_exposed"] is False
     assert "sk-test-secret" not in response.text
 
 

@@ -455,6 +455,8 @@ Embedding model live-provider route wiring review v0: implemented. Boundary: fut
 
 Embedding model live-provider route wiring opt-in-disabled v0: implemented. Boundary: `get_embedding_provider_client` now returns an `OpenAIEmbeddingProviderClient` only when `NOISEPROOF_ENABLE_OPENAI_PROVIDER=true`, `OPENAI_API_KEY` is configured, `CI` is not true, and timeout is positive; default and CI runtime still make no live provider call, and actual live embedding model generation remains unproven.
 
+Embedding model live-provider error boundary v0: implemented. Boundary: `POST /chunks/embedding-model-preview` now maps `EmbeddingProviderError` from the explicit provider-call branch into HTTP 502 metadata with `provider_call_boundary=owner_runtime_provider_error`, `secret_exposed=false`, and redacted provider error text. This is provider error metadata only, not live embedding generation proof, semantic retrieval quality evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Embedding model live-provider owner-runtime smoke packet v0: implemented. Boundary: `app.services.embedding_model_live_provider_harness --print-owner-runtime-smoke-packet` emits a no-secret/no-call owner-runtime smoke contract; current local discovery has no `OPENAI_API_KEY`, so live embedding generation proof remains pending.
 
 Embedding model live-provider owner-runtime input discovery v0: implemented. Boundary: `app.services.embedding_model_live_provider_harness --discover-owner-runtime-input` reports owner-runtime readiness booleans without printing secrets or calling the provider; current local status is `missing_openai_api_key`, and actual live embedding model generation remains unproven.

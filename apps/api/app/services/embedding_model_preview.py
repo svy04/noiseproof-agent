@@ -3,7 +3,10 @@ from __future__ import annotations
 from fastapi import Depends, HTTPException
 
 from app.schemas import EmbeddingModelPreviewOut, EmbeddingModelPreviewRequest
-from app.services.openai_embedding_provider import OpenAIEmbeddingProviderClient
+from app.services.openai_embedding_provider import (
+    EmbeddingProviderError,
+    OpenAIEmbeddingProviderClient,
+)
 from app.settings import Settings, get_settings
 
 SOURCE_REVIEW_PATH = "docs/review/embedding-provider-source-review.md"
@@ -49,13 +52,24 @@ def preview_embedding_model_provider(
             detail="live embedding provider client is not implemented for this phase.",
         )
     if payload.allow_provider_call and configured and provider_client is not None:
-        provider_response = provider_client.create_embedding(
-            text=payload.text,
-            model=model,
-            dimension=dimension,
-            encoding_format="float",
-            api_key=settings.openai_api_key,
-        )
+        try:
+            provider_response = provider_client.create_embedding(
+                text=payload.text,
+                model=model,
+                dimension=dimension,
+                encoding_format="float",
+                api_key=settings.openai_api_key,
+            )
+        except EmbeddingProviderError as exc:
+            raise HTTPException(
+                status_code=502,
+                detail={
+                    "error_type": exc.error_type,
+                    "message": str(exc).replace(settings.openai_api_key, "[redacted]"),
+                    "provider_call_boundary": "owner_runtime_provider_error",
+                    "secret_exposed": False,
+                },
+            ) from exc
         embedding = provider_response.get("embedding")
         if not isinstance(embedding, list) or len(embedding) != dimension:
             raise HTTPException(

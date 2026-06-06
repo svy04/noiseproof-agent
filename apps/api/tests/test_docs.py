@@ -22993,6 +22993,50 @@ def test_embedding_model_live_provider_route_wiring_opt_in_disabled_is_documente
     )
 
 
+def test_embedding_model_live_provider_error_boundary_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/embedding-model-live-provider-error-boundary.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+    service = (
+        REPO_ROOT / "apps/api/app/services/embedding_model_preview.py"
+    ).read_text(encoding="utf-8")
+    routes = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(encoding="utf-8")
+
+    assert "Embedding Model Live-provider Error Boundary" in content
+    assert "embedding model live-provider error boundary v0" in content
+    assert "EmbeddingProviderError" in service
+    assert "owner_runtime_provider_error" in service
+    assert "secret_exposed" in service
+    assert "test_embedding_model_preview_maps_provider_errors_without_secret_leak" in routes
+    assert "provider_timeout" in routes
+    assert "502" in content
+    assert "provider error metadata only" in content
+    assert "no secret leak" in content
+    assert "not live embedding generation proof" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "Embedding model live-provider error boundary v0: implemented" in readme
+    assert "Phase 685 - Embedding Model Live-provider Error Boundary v0" in goal
+    assert "embedding model live-provider error boundary v0" in runbook
+    assert (
+        "docs/review/embedding-model-live-provider-error-boundary.md"
+        in portfolio
+    )
+    assert "embedding model live-provider error boundary exists" in app_review
+
+
 def test_embedding_model_live_provider_owner_runtime_smoke_packet_is_documented():
     review_path = (
         REPO_ROOT

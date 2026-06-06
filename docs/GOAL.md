@@ -23591,6 +23591,43 @@ Boundary: current-state issue screening and route-commit remote workflow evidenc
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 685 - Embedding Model Live-provider Error Boundary v0
+
+Status: implemented.
+
+Purpose: make owner-runtime OpenAI embedding provider failures inspectable without leaking secrets or turning handled provider errors into unstructured server exceptions.
+
+Implemented artifacts:
+
+```text
+embedding model live-provider error boundary v0
+apps/api/app/services/embedding_model_preview.py
+apps/api/tests/test_routes.py
+docs/review/embedding-model-live-provider-error-boundary.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+apps/api/tests/test_docs.py
+```
+
+Implemented boundary:
+
+```text
+POST /chunks/embedding-model-preview
+allow_provider_call=true
+provider_client raises EmbeddingProviderError
+HTTP 502
+provider_call_boundary: owner_runtime_provider_error
+secret_exposed: false
+provider error text redacted
+```
+
+Boundary: provider error metadata only; not live embedding generation proof, not a CI live provider call, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not Evidence Ledger quality evidence, not report quality evidence, and not product-complete.
+
+Next gate: owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
 ### Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0
 
 Status: implemented.
