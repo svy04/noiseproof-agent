@@ -34585,3 +34585,61 @@ def test_upload_pdf_quality_preview_coverage_summary_runtime_smoke_is_recorded()
         in runbook
     )
     assert "Upload PDF quality preview coverage summary runtime smoke" in portfolio
+
+
+def test_upload_pdf_quality_preview_coverage_summary_runtime_smoke_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "Upload PDF Quality Preview Coverage Summary Runtime Smoke Remote Verification"
+        in content
+    )
+    assert (
+        "upload PDF quality preview coverage summary runtime smoke remote verification v0"
+        in content
+    )
+    assert "a2d71385edc2846f458192a243ed079fc78bbde0" in content
+    assert "CI run `27068524392`" in content
+    assert "External Feedback Screen run `27068524380`" in content
+    assert "CI job_id -> 79893489318" in content
+    assert "External Feedback Screen job_id -> 79893489281" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md"
+        in content
+    )
+    assert "not the local runtime smoke itself" in content
+    assert "not new runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Upload PDF quality preview coverage summary runtime smoke remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 746 - Upload PDF Quality Preview Coverage Summary Runtime Smoke Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 746 adds upload PDF quality preview coverage summary runtime smoke remote verification v0"
+        in runbook
+    )
+    assert (
+        "Upload PDF quality preview coverage summary runtime smoke remote verification"
+        in portfolio
+    )
