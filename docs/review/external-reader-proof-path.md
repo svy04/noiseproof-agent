@@ -26,6 +26,17 @@ docs/review/external-reader-proof-path-workflow-markdown-runtime-route-refresh.m
 
 Boundary: this current route points first-pass reviewers to the local runtime proof that `GET /ops/dashboard` exposes the `proof markdown` link and `GET /workflow-runs/{id}/proof-bundle/markdown` returns `200` with `text/markdown; charset=utf-8`. This route alignment is not new runtime evidence. It is not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
 
+Focused uploaded PDF encrypted handoff ops proof:
+
+```text
+docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops.md
+docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-runtime-smoke.md
+docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-remote-verification.md
+docs/review/external-reader-proof-path-encrypted-pdf-handoff-ops-route-refresh.md
+```
+
+Boundary: this focused route proves that password-protected uploaded PDFs can be preserved as explicit failure metadata through `POST /documents/upload-chunks` and surfaced as `pdf_encrypted_failure_candidate_count` / `PDF Encrypted Failure Candidates` in operations views. This route alignment is not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, not customer validation, not Braincrew acceptance, and not product-complete.
+
 Workflow proof bundle reviewer checklist dashboard runtime proof:
 
 ```text
@@ -123,6 +134,7 @@ Read in this order:
     - related downstream page diagnostics provenance: `docs/review/uploaded-pdf-page-diagnostics-downstream-provenance.md` records page diagnostics flowing into explicit upload chunk metadata and document retrieval-run candidate metadata.
     - related downstream page diagnostics runtime smoke: `docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md` records local Docker/FastAPI HTTP evidence for page diagnostics flowing through document, chunk, retrieval, and candidate metadata.
     - related uploaded PDF page diagnostics downstream runtime proof: `docs/review/uploaded-pdf-page-diagnostics-downstream-provenance-runtime-smoke.md` records `retrieval_candidate_page_text_char_counts -> [39]`.
+    - related uploaded PDF encrypted handoff ops proof: `docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops.md`, `docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-runtime-smoke.md`, and `docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-remote-verification.md` record `pdf_encrypted_failure_candidate_count`, `PDF Encrypted Failure Candidates`, and a password-required PDF failure-mode boundary; route refresh: `docs/review/external-reader-proof-path-encrypted-pdf-handoff-ops-route-refresh.md`; not robust PDF extraction, not decryption, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 18. `docs/review/uploaded-pdf-retrieval-run-provenance-runtime-smoke.md`
     - uploaded PDF retrieval-run provenance runtime proof with `POST /documents/upload-chunks`, `POST /documents/{document_id}/retrieval-runs`, `candidate_parsers -> pdf-pymupdf`, and `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`.
 19. `docs/review/uploaded-file-chunk-persistence-handoff-runtime-smoke.md`

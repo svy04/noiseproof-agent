@@ -100,6 +100,20 @@ This artifact gives outside reviewers direct links to the shortest inspectable p
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-workflow-failure-case-persistence-runtime-request-refresh.md
 - Boundary: local Docker PostgreSQL plus live FastAPI HTTP evidence for caller-triggered `POST /failure-cases/workflow-runs/{workflow_run_id}`, review queue `failure_case_linked`, completed-workflow `409`, and duplicate `409`; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not background automation, not complete workflow failure causality, and not product-complete.
 
+## Focused Uploaded PDF Encrypted Handoff Ops Proof
+
+- Handoff ops proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops.md
+- Runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-runtime-smoke.md
+- Remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-remote-verification.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-encrypted-pdf-handoff-ops-route-refresh.md
+- Route markers:
+  `pdf_encrypted_failure_candidate_count`, `PDF Encrypted Failure Candidates`
+- Boundary: password-protected PDF failure metadata and operations visibility only; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, and not product-complete.
+
 ## Public Feedback Surface
 
 Leave feedback here:
