@@ -34297,3 +34297,62 @@ def test_external_reviewer_link_map_upload_pdf_summary_reviewer_surfaces_refresh
         "external reviewer link map upload PDF summary reviewer surfaces refresh remote verification"
         in portfolio
     )
+
+
+def test_goal_current_state_upload_pdf_summary_link_map_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/goal-current-state-upload-pdf-summary-link-map-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "GOAL Current-state Upload PDF Summary Link Map Refresh" in content
+    assert "goal current-state upload PDF summary link map refresh v0" in content
+
+    required_markers = [
+        "Current navigation overlay as of Phase 740",
+        "latest_reviewer_route: upload PDF quality preview summary proof chain",
+        "latest_reviewer_link_map: docs/review/external-reviewer-link-map.md",
+        "docs/review/external-reviewer-link-map-upload-pdf-summary-reviewer-surfaces-refresh.md",
+        "docs/review/external-reviewer-link-map-upload-pdf-summary-reviewer-surfaces-refresh-remote-verification.md",
+        "docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-summary-refresh.md",
+        "docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-summary-refresh.md",
+        "docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-summary-refresh.md",
+        "quality_summary",
+        "summary_only_not_robust_pdf_extraction_evidence",
+        "candidate_count: 0",
+        "reason: self_authored_comment",
+        "external_reviewer_feedback_v0: pending_until_qualifying_outside_comment",
+        "live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured",
+        "robust_pdf_extraction: not_implemented",
+        "hosted_deployment_evidence: not_implemented",
+        "product_complete: false",
+        "not external reviewer feedback",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+        assert marker in goal
+
+    assert (
+        "GOAL current-state upload PDF summary link map refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 741 - GOAL Current-state Upload PDF Summary Link Map Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 741 adds GOAL current-state upload PDF summary link map refresh v0"
+        in runbook
+    )
+    assert "goal current-state upload PDF summary link map refresh" in portfolio

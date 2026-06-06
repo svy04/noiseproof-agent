@@ -206,6 +206,44 @@ product_complete: false
 boundary: not external reviewer feedback; not hosted deployment evidence; not product-complete
 ```
 
+Current navigation overlay as of Phase 740:
+
+```text
+latest_reviewer_route: upload PDF quality preview summary proof chain
+latest_route_artifacts:
+  - docs/review/upload-pdf-quality-preview-api.md
+  - docs/review/upload-pdf-quality-preview-summary.md
+  - docs/review/upload-pdf-quality-preview-summary-remote-verification.md
+  - docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md
+  - docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md
+  - docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md
+  - docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh-remote-verification.md
+latest_reviewer_link_map: docs/review/external-reviewer-link-map.md
+latest_reviewer_link_map_refresh:
+  - docs/review/external-reviewer-link-map-upload-pdf-summary-reviewer-surfaces-refresh.md
+latest_reviewer_link_map_remote_verification:
+  - docs/review/external-reviewer-link-map-upload-pdf-summary-reviewer-surfaces-refresh-remote-verification.md
+latest_reviewer_surfaces:
+  - docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-summary-refresh.md
+  - docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-summary-refresh.md
+  - docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-summary-refresh.md
+latest_live_issue_route: docs/review/external-review-issue-body-upload-pdf-quality-preview-summary-route-refresh.md
+latest_external_feedback_state: pending after upload PDF quality preview summary issue verification
+latest_feedback_state_artifact: docs/review/external-feedback-current-state-upload-pdf-quality-preview-summary-issue-verification.md
+quality_summary
+summary_only_not_robust_pdf_extraction_evidence
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+robust_pdf_extraction: not_implemented
+robust_pdf_extraction_strategy_review: implemented
+hosted_deployment_evidence: not_implemented
+product_complete: false
+boundary: not external reviewer feedback; not hosted deployment evidence; not product-complete
+```
+
 Use this snapshot for first-pass orientation, then inspect the phase records below when exact provenance is needed.
 
 ### Phase 702 - Robust PDF Extraction Source-first Strategy Review v0
@@ -1481,6 +1519,51 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the link-map refresh itself, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
+### Phase 741 - GOAL Current-state Upload PDF Summary Link Map Refresh v0
+
+Status: implemented.
+
+Purpose: refresh the first-pass `docs/GOAL.md` orientation so future agents see the latest upload PDF quality preview summary link-map route, link-map remote verification, reviewer-surface refreshes, and still-pending external feedback state before older overlays.
+
+Implemented artifacts:
+
+```text
+goal current-state upload PDF summary link map refresh v0
+docs/review/goal-current-state-upload-pdf-summary-link-map-refresh.md
+docs/GOAL.md
+apps/api/tests/test_docs.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Current-state markers:
+
+```text
+Current navigation overlay as of Phase 740
+latest_reviewer_route: upload PDF quality preview summary proof chain
+latest_reviewer_link_map: docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-link-map-upload-pdf-summary-reviewer-surfaces-refresh.md
+docs/review/external-reviewer-link-map-upload-pdf-summary-reviewer-surfaces-refresh-remote-verification.md
+docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-summary-refresh.md
+docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-summary-refresh.md
+docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-summary-refresh.md
+quality_summary
+summary_only_not_robust_pdf_extraction_evidence
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+robust_pdf_extraction: not_implemented
+hosted_deployment_evidence: not_implemented
+product_complete: false
+```
+
+Boundary: GOAL current-state navigation hygiene only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: remote verification for this GOAL overlay refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
 Accepted state as of Phase 403:
 
