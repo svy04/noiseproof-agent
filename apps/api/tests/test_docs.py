@@ -33003,3 +33003,63 @@ def test_external_review_issue_body_upload_pdf_quality_preview_route_refresh_is_
         "external review issue body upload PDF quality preview route refresh"
         in portfolio
     )
+
+
+def test_external_feedback_current_state_upload_pdf_quality_preview_issue_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-upload-pdf-quality-preview-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Feedback Current-state Upload PDF Quality Preview Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state upload PDF quality preview issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt: 2026-06-06T13:59:24Z" in content
+    assert "comment_count: 1" in content
+    assert "screened_comment_count: 1" in content
+    assert "owner_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment" in content
+    assert "status: pending" in content
+    assert "does_not_close_gate: true" in content
+    assert "has_upload_pdf_quality_preview_route: true" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not Braincrew acceptance" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External feedback current-state upload PDF quality preview issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 720 - External Feedback Current-state Upload PDF Quality Preview Issue Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 720 adds external feedback current-state upload PDF quality preview issue verification v0"
+        in runbook
+    )
+    assert (
+        "external feedback current-state upload PDF quality preview issue verification"
+        in portfolio
+    )
