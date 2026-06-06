@@ -33467,3 +33467,68 @@ def test_external_reader_path_upload_pdf_quality_preview_summary_route_remote_ve
         "External-reader proof path upload PDF quality preview summary route refresh remote verification"
         in portfolio
     )
+
+
+def test_external_review_issue_body_upload_pdf_quality_preview_summary_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-upload-pdf-quality-preview-summary-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Review Issue Body Upload PDF Quality Preview Summary Route Refresh"
+        in content
+    )
+    assert (
+        "external review issue body upload PDF quality preview summary route refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt:" in content
+    assert "comment_count: 1" in content
+    assert "starts_with_request: true" in content
+    assert "has_upload_pdf_quality_preview_summary: true" in content
+    assert "has_upload_pdf_quality_preview_summary_runtime_smoke: true" in content
+    assert (
+        "has_upload_pdf_quality_preview_summary_route_remote_verification: true"
+        in content
+    )
+    assert "has_upload_pdf_quality_preview_predecessor: true" in content
+    assert "old_upload_pdf_quality_latest_label_present: false" in content
+    assert "quality_summary" in content
+    assert "summary_only_not_robust_pdf_extraction_evidence" in content
+    assert "digital_quality_summary_present=True" in content
+    assert "encrypted_quality_summary_present=True" in content
+    assert "document_count_delta=0" in content
+    assert "pdf_encrypted_requires_password" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not decryption evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External review issue body upload PDF quality preview summary route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 728 - External Review Issue Body Upload PDF Quality Preview Summary Route Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 728 adds external review issue body upload PDF quality preview summary route refresh v0"
+        in runbook
+    )
+    assert (
+        "external review issue body upload PDF quality preview summary route refresh"
+        in portfolio
+    )
