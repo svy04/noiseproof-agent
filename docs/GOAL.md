@@ -101,6 +101,30 @@ Boundary: strategy review only; not robust PDF extraction implementation, not OC
 
 Next gate: PDF extraction quality fixture packet v0 or parser adapter interface review, not a robust extraction claim.
 
+### Phase 703 - PDF Extraction Quality Fixture Packet v0
+
+Status: implemented.
+
+Purpose: define fixture roles, expected behaviors, warning expectations, and quality metrics that future PDF extraction work must satisfy before any robust PDF extraction claim changes.
+
+Implemented artifacts:
+
+```text
+PDF extraction quality fixture packet v0
+docs/review/pdf-extraction-quality-fixture-packet.md
+examples/pdf-extraction-quality/README.md
+examples/pdf-extraction-quality/fixture-manifest.json
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Boundary: manifest-only fixture packet; not binary PDF fixture evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not hosted deployment evidence, and not product-complete.
+
+Next gate: deterministic PDF extraction quality evaluator over this manifest, still without claiming robust extraction.
+
 Accepted state as of Phase 403:
 
 ```text

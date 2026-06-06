@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 
@@ -32212,3 +32213,70 @@ def test_robust_pdf_extraction_source_first_strategy_review_is_recorded():
         "docs/review/robust-pdf-extraction-source-first-strategy-review.md"
         in portfolio
     )
+
+
+def test_pdf_extraction_quality_fixture_packet_is_recorded():
+    review_path = REPO_ROOT / "docs/review/pdf-extraction-quality-fixture-packet.md"
+    fixture_readme_path = REPO_ROOT / "examples/pdf-extraction-quality/README.md"
+    manifest_path = REPO_ROOT / "examples/pdf-extraction-quality/fixture-manifest.json"
+
+    assert review_path.is_file()
+    assert fixture_readme_path.is_file()
+    assert manifest_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    fixture_readme = fixture_readme_path.read_text(encoding="utf-8")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "PDF Extraction Quality Fixture Packet" in content
+    assert "PDF extraction quality fixture packet v0" in content
+    assert "examples/pdf-extraction-quality/fixture-manifest.json" in content
+    assert "examples/pdf-extraction-quality/fixture-manifest.json" in fixture_readme
+    assert manifest["packet"] == "pdf_extraction_quality_fixture_packet_v0"
+    assert manifest["binary_pdf_fixtures_included"] is False
+    assert manifest["robust_pdf_extraction_claimed"] is False
+    assert manifest["quality_gate_required_before_robust_claim"] is True
+
+    expected_fixtures = {
+        "born_digital_text",
+        "table_heavy_report",
+        "scanned_image_pdf",
+        "encrypted_pdf",
+        "image_heavy_pdf",
+        "multi_column_layout_pdf",
+        "no_extractable_text_pdf",
+    }
+    assert expected_fixtures == {item["id"] for item in manifest["fixtures"]}
+    for item in manifest["fixtures"]:
+        assert item["expected_behavior"]
+        assert item["expected_warnings"]
+        assert item["expected_spans"]
+
+    for metric in [
+        "page_coverage",
+        "character_coverage",
+        "expected_span_recall",
+        "table_row_coverage",
+        "ocr_page_coverage",
+        "warning_correctness",
+        "failure_case_candidate_correctness",
+    ]:
+        assert metric in manifest["quality_metrics"]
+        assert metric in content
+
+    assert "not robust PDF extraction implementation" in content
+    assert "not OCR implementation" in content
+    assert "not table extraction implementation" in content
+    assert "not binary PDF fixture evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert "PDF extraction quality fixture packet v0: implemented" in readme
+    assert "Phase 703 - PDF Extraction Quality Fixture Packet v0" in goal
+    assert "Phase 703 adds PDF extraction quality fixture packet v0" in runbook
+    assert "examples/pdf-extraction-quality/fixture-manifest.json" in portfolio

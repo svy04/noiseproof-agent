@@ -1,0 +1,73 @@
+{
+  "packet": "pdf_extraction_quality_fixture_packet_v0",
+  "binary_pdf_fixtures_included": false,
+  "robust_pdf_extraction_claimed": false,
+  "quality_gate_required_before_robust_claim": true,
+  "fixtures": [
+    {
+      "id": "born_digital_text",
+      "role": "baseline digital text extraction",
+      "source_shape": "born-digital PDF with embedded selectable text",
+      "expected_behavior": "extract embedded text without OCR and preserve page-level diagnostics",
+      "expected_warnings": ["robust PDF extraction is not claimed"],
+      "expected_spans": ["company revenue increased", "source date visible"]
+    },
+    {
+      "id": "table_heavy_report",
+      "role": "table detection and future table extraction boundary",
+      "source_shape": "market report with tabular financial or volume data",
+      "expected_behavior": "surface table candidates and keep table extraction separate from plain text extraction",
+      "expected_warnings": ["table candidate detection is not table extraction"],
+      "expected_spans": ["quarterly volume table", "region row label"]
+    },
+    {
+      "id": "scanned_image_pdf",
+      "role": "OCR opt-in boundary",
+      "source_shape": "image-only scanned PDF with no embedded selectable text",
+      "expected_behavior": "emit no-extractable-text failure candidate unless an explicit OCR adapter is enabled",
+      "expected_warnings": ["OCR is required before text coverage can be claimed"],
+      "expected_spans": ["no span expected without OCR"]
+    },
+    {
+      "id": "encrypted_pdf",
+      "role": "password and authorization boundary",
+      "source_shape": "encrypted PDF requiring a password",
+      "expected_behavior": "emit pdf_encrypted_requires_password failure candidate without attempting unauthorized extraction",
+      "expected_warnings": ["password required"],
+      "expected_spans": ["no span expected before authorized password"]
+    },
+    {
+      "id": "image_heavy_pdf",
+      "role": "mixed text and image diagnostics",
+      "source_shape": "PDF with embedded text plus charts or image blocks",
+      "expected_behavior": "extract digital text and record image block diagnostics without interpreting chart truth",
+      "expected_warnings": ["image/chart interpretation is not claimed"],
+      "expected_spans": ["caption text", "chart title text"]
+    },
+    {
+      "id": "multi_column_layout_pdf",
+      "role": "reading-order and layout fidelity boundary",
+      "source_shape": "multi-column report where raw extraction order may differ from reading order",
+      "expected_behavior": "extract text while warning that layout fidelity and reading order are not fully proven",
+      "expected_warnings": ["layout fidelity is not claimed"],
+      "expected_spans": ["left column claim", "right column limitation"]
+    },
+    {
+      "id": "no_extractable_text_pdf",
+      "role": "empty extraction failure candidate",
+      "source_shape": "PDF that opens but returns no useful text",
+      "expected_behavior": "emit pdf_no_extractable_text failure candidate and keep robust extraction false",
+      "expected_warnings": ["no digital text was extracted"],
+      "expected_spans": ["no span expected for empty extraction"]
+    }
+  ],
+  "quality_metrics": [
+    "page_coverage",
+    "character_coverage",
+    "expected_span_recall",
+    "table_row_coverage",
+    "ocr_page_coverage",
+    "warning_correctness",
+    "failure_case_candidate_correctness"
+  ]
+}
