@@ -31776,3 +31776,64 @@ def test_evidence_quality_risk_failure_case_draft_preview_runtime_smoke_is_recor
         "docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke.md"
         in application_ready
     )
+
+
+def test_evidence_quality_risk_failure_case_draft_preview_runtime_smoke_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    assert (
+        "Evidence Quality Risk Failure-case Draft Preview Runtime Smoke Remote Verification"
+        in content
+    )
+    assert (
+        "evidence quality risk failure-case draft preview runtime smoke remote verification v0"
+        in content
+    )
+    assert "7865ccfe608c4d2ceba714c9ded22c2eecc601b2" in content
+    assert "CI run 27060589358: success" in content
+    assert "External Feedback Screen run 27060589349: success" in content
+    assert "CI job_id -> 79872677192" in content
+    assert "External Feedback Screen job_id -> 79872677166" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "remote workflow verification only" in content
+    assert "not the local runtime smoke itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "Evidence quality risk failure-case draft preview runtime smoke remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 696 - Evidence Quality Risk Failure-case Draft Preview Runtime Smoke Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 696 adds evidence quality risk failure-case draft preview runtime smoke remote verification v0"
+        in runbook
+    )
+    assert (
+        "Evidence quality risk failure-case draft preview runtime smoke remote verification"
+        in portfolio
+    )
+    assert (
+        "docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke-remote-verification.md"
+        in application_ready
+    )

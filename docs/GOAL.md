@@ -22939,6 +22939,41 @@ Boundary: local runtime evidence only; not hosted deployment evidence, not autom
 
 Next gate: remote verification after push, route refresh if this proof should become reviewer-facing, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
+### Phase 696 - Evidence Quality Risk Failure-case Draft Preview Runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Evidence quality risk failure-case draft preview and runtime smoke proof passed CI and External Feedback Screen.
+
+Implemented artifacts:
+
+```text
+evidence quality risk failure-case draft preview runtime smoke remote verification v0
+docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+apps/api/tests/test_docs.py
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 7865ccfe608c4d2ceba714c9ded22c2eecc601b2
+CI run 27060589358: success
+CI job_id -> 79872677192
+External Feedback Screen run 27060589349: success
+External Feedback Screen job_id -> 79872677166
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the local runtime smoke itself, not hosted deployment evidence, not automatic failure-case creation, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not an LLM call, not external reviewer feedback, and not product-complete.
+
+Next gate: route refresh if this proof should become reviewer-facing, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
 ### Phase 689 - Evidence Quality Risk Ops Surface v0
 
 Status: done.
