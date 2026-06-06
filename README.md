@@ -28,7 +28,9 @@ Historical predecessor remote verification compatibility: Latest recorded remote
 
 Latest repository push verification state: Phase 654 artifact commit `5dd5b246a6f562ca5fcc5377c24e7b25170461ce` passed CI run `27053207711` and External Feedback Screen run `27053207694`. This verifies the current pushed repository state, not external reviewer feedback, not hosted deployment evidence, and not product-complete behavior.
 
-Latest external-feedback state: pending after workflow checklist dashboard runtime issue verification; candidate_count=0; draft_count=0; self-authored comment only.
+Latest external-feedback state: pending after workflow markdown issue verification; candidate_count=0; draft_count=0; self-authored comment only.
+
+Historical predecessor feedback compatibility: Latest external-feedback state: pending after workflow checklist dashboard runtime issue verification; candidate_count=0; draft_count=0; self-authored comment only.
 
 Historical predecessor feedback compatibility: Latest external-feedback state: pending after workflow checklist dashboard runtime issue-body refresh; candidate_count=0; draft_count=0; self-authored comment only.
 
@@ -261,6 +263,7 @@ Historical latest-marker compatibility: Workflow proof bundle markdown export ru
 Historical latest-marker compatibility: External-reader proof path workflow markdown runtime route refresh v0: implemented
 Historical latest-marker compatibility: External-reader proof path workflow markdown runtime route refresh remote verification v0: implemented
 Historical latest-marker compatibility: External review issue body workflow markdown runtime route refresh v0: implemented
+Historical latest-marker compatibility: External feedback current-state workflow markdown issue verification v0: implemented
 Historical latest-marker compatibility: Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown stage input links runtime smoke v0.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown source provenance export runtime smoke v0.
@@ -1021,6 +1024,8 @@ External-reader proof path workflow markdown runtime route refresh v0: implement
 External-reader proof path workflow markdown runtime route refresh remote verification v0: implemented. Boundary: pushed route-refresh commit `2c5fd10a990887cd6baeb288aa7c83918dc303ba` passed CI run `27055679959` and External Feedback Screen run `27055679968`; this is remote workflow verification only, not the reader-route refresh itself, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
 
 External review issue body workflow markdown runtime route refresh v0: implemented. Boundary: issue #1 now points `Latest Proof To Inspect` to `docs/review/workflow-proof-bundle-markdown-export-runtime-smoke.md`, the workflow markdown route refresh, and its remote verification; this is owner-authored issue routing only, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
+
+External feedback current-state workflow markdown issue verification v0: implemented. Boundary: issue #1 still has only owner-authored non-qualifying feedback after the workflow markdown issue-body refresh, with `candidate_count=0`, `draft_count=0`, `reason=self_authored_comment`, and `status=pending`; this is current-state issue screening only, not external reviewer feedback, hosted deployment evidence, or product-complete.
 
 External reviewer workflow proof bundle dashboard runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md` and `docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, new lineage storage, or product-complete.
 
