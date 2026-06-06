@@ -16,6 +16,35 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Uploaded PDF table adapter Evidence Ledger provenance runtime proof:
+
+```text
+docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance.md
+docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-smoke.md
+docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-route-refresh.md
+POST /documents/upload-chunks
+POST /documents/{document_id}/retrieval-runs
+POST /retrieval-runs/{retrieval_run_id}/evidence-ledger
+GET /evidence-ledgers?retrieval_run_id={retrieval_run_id}
+```
+
+Route markers:
+
+```text
+default_pdf_parser_table_adapter_metadata
+table_adapter.extracted_table_rows -> [['Segment', 'Growth'], ['Enterprise', '12%']]
+table_extraction_performed remains false
+source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk
+evidence_entry_default_pdf_parser_table_adapter_metadata -> True
+listed_entry_default_pdf_parser_table_adapter_metadata -> True
+warning_boundary_present -> True
+CI run `27076548950`
+External Feedback Screen run `27076548930`
+```
+
+Boundary: this route points reviewers to the uploaded-PDF table-adapter metadata provenance path from `POST /documents/upload-chunks` through persisted chunks, document-chunk retrieval, and persisted Evidence Ledger row metadata. It is route hygiene only, not new runtime evidence, not robust PDF extraction evidence, not default `PdfParser` table extraction, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 Uploaded PDF table adapter metadata provenance runtime proof:
 
 ```text

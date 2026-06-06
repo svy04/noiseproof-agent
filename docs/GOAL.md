@@ -43,6 +43,26 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 808:
+
+```text
+latest_reviewer_route_gate: External-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh v0
+latest_reviewer_route_artifact: docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-route-refresh.md
+latest_routed_product_artifact: docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance.md
+latest_routed_runtime_artifact: docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-smoke.md
+latest_routed_remote_artifact: docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-smoke-remote-verification.md
+latest_api_surface: POST /documents/upload-chunks; POST /documents/{document_id}/retrieval-runs; POST /retrieval-runs/{retrieval_run_id}/evidence-ledger; GET /evidence-ledgers?retrieval_run_id={retrieval_run_id}
+default_pdf_parser_table_adapter_metadata: visible_in_persisted_evidence_ledger_entry_metadata
+table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed_claim: remains_false_on_parser_metadata
+source_provenance_boundary: evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: reviewer route hygiene only; not new runtime evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger quality evidence; not final truth adjudication; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 807:
 
 ```text
@@ -27929,6 +27949,38 @@ Screen issue comments -> success
 ```
 
 Phase 807 adds uploaded PDF table adapter Evidence Ledger provenance runtime smoke remote verification v0. It is remote workflow verification only, not the local runtime smoke itself, not new runtime evidence, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, and not product-complete.
+
+### Phase 808 - External-reader Proof Path Uploaded PDF Table Adapter Evidence Ledger Provenance Runtime Route Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+make the uploaded PDF table-adapter Evidence Ledger provenance runtime proof chain discoverable from first-pass reviewer routes
+```
+
+Implemented:
+
+```text
+external-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh v0
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-route-refresh.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+POST /documents/upload-chunks
+POST /documents/{document_id}/retrieval-runs
+POST /retrieval-runs/{retrieval_run_id}/evidence-ledger
+GET /evidence-ledgers?retrieval_run_id={retrieval_run_id}
+default_pdf_parser_table_adapter_metadata
+table_adapter.extracted_table_rows -> [['Segment', 'Growth'], ['Enterprise', '12%']]
+table_extraction_performed remains false
+source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk
+CI run `27076548950`
+External Feedback Screen run `27076548930`
+```
+
+Phase 808 adds external-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh v0. It is reviewer route hygiene only, not new runtime evidence, not a live issue body edit, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 
