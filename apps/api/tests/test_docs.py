@@ -28748,6 +28748,75 @@ def test_report_markdown_stage_input_links_runtime_smoke_remote_verification_is_
     )
 
 
+def test_report_markdown_local_inspection_paths_are_recorded():
+    review_path = REPO_ROOT / "docs/review/report-markdown-local-inspection-paths.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    report_markdown_py = (
+        REPO_ROOT / "apps/api/app/services/report_markdown.py"
+    ).read_text(encoding="utf-8")
+    route_tests = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Report Markdown Local Inspection Paths" in content
+    assert "report markdown local inspection paths v0" in content
+    assert "GET /reports/{report_record_id}/markdown" in content
+    assert "## Local Inspection Paths" in content
+    assert "Current report markdown" in content
+    assert "Current report record" in content
+    assert "Current workflow trace" in content
+    assert "Retrieval runs" in content
+    assert "Evidence Ledger entries" in content
+    assert "Noise Gate records" in content
+    assert "_render_local_inspection_paths" in content
+    assert "_render_local_inspection_paths" in report_markdown_py
+    assert "Local Inspection Paths" in report_markdown_py
+    assert "/reports?workflow_trace_id=" in report_markdown_py
+    assert "/traces/" in report_markdown_py
+    assert "## Local Inspection Paths" in route_tests
+    assert "Current report markdown" in route_tests
+    assert "Evidence Ledger entries" in route_tests
+    assert "RED:" in content
+    assert "AssertionError" in content
+    assert "GREEN:" in content
+    assert "not new record creation" in content
+    assert "not new retrieval behavior" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not report quality evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest product gate marker: Report markdown local inspection paths v0: implemented."
+        in readme
+    )
+    assert (
+        "Historical latest-marker compatibility: Latest product gate marker: Report markdown stage input links v0: implemented."
+        in readme
+    )
+    assert "Report markdown local inspection paths v0: implemented" in readme
+    assert (
+        "Phase 647 - Report Markdown Local Inspection Paths v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 646 - Report Markdown Stage Input Links Runtime Smoke Remote Verification v0"
+    ) < goal.index(
+        "Phase 647 - Report Markdown Local Inspection Paths v0"
+    )
+    assert "report markdown local inspection paths v0" in runbook
+    assert "docs/review/report-markdown-local-inspection-paths.md" in portfolio
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

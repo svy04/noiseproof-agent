@@ -25,6 +25,7 @@ def render_report_record_markdown(record: Mapping[str, Any]) -> str:
 
     manifest = record.get("stage_input_manifest")
     lines.extend(_render_stage_input_links(manifest))
+    lines.extend(_render_local_inspection_paths(record, manifest))
     lines.extend(_render_source_retrieval_provenance(manifest))
 
     report = record.get("report")
@@ -126,6 +127,44 @@ def _render_stage_input_links(value: Any) -> list[str]:
         rendered_any = True
 
     if not rendered_any:
+        lines.append("- None")
+    lines.append("")
+    return lines
+
+
+def _render_local_inspection_paths(
+    record: Mapping[str, Any],
+    manifest: Any,
+) -> list[str]:
+    lines = ["## Local Inspection Paths", ""]
+    record_id = record.get("id")
+    if record_id:
+        lines.append(f"- Current report markdown: /reports/{_value(record_id)}/markdown")
+
+    workflow_trace_id = record.get("workflow_trace_id")
+    if workflow_trace_id:
+        trace_id = _value(workflow_trace_id)
+        lines.append(f"- Current report record: /reports?workflow_trace_id={trace_id}")
+        lines.append(f"- Current workflow trace: /traces/{trace_id}")
+
+    if isinstance(manifest, Mapping):
+        if manifest.get("retrieval_run_id"):
+            lines.append("- Retrieval runs: /retrieval-runs (match retrieval run id above)")
+        evidence_entry_ids = manifest.get("input_evidence_ledger_entry_ids")
+        if isinstance(evidence_entry_ids, Sequence) and not isinstance(
+            evidence_entry_ids, str
+        ):
+            lines.append(
+                "- Evidence Ledger entries: /evidence-ledgers "
+                "(match Evidence Ledger entry ids above)"
+            )
+        if manifest.get("input_noise_gate_record_id"):
+            lines.append(
+                "- Noise Gate records: /noise-gates "
+                "(match Noise Gate record id above)"
+            )
+
+    if len(lines) == 2:
         lines.append("- None")
     lines.append("")
     return lines

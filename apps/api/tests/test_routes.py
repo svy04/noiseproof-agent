@@ -2008,6 +2008,31 @@ def test_semantic_retrieval_run_noise_gate_and_report_preserve_source_retrieval_
         f"- Noise Gate record id: {gate['id']}"
         in markdown_export.text
     )
+    assert "## Local Inspection Paths" in markdown_export.text
+    assert (
+        f"- Current report markdown: /reports/{report['id']}/markdown"
+        in markdown_export.text
+    )
+    assert (
+        f"- Current report record: /reports?workflow_trace_id={report['workflow_trace_id']}"
+        in markdown_export.text
+    )
+    assert (
+        f"- Current workflow trace: /traces/{report['workflow_trace_id']}"
+        in markdown_export.text
+    )
+    assert (
+        "- Retrieval runs: /retrieval-runs (match retrieval run id above)"
+        in markdown_export.text
+    )
+    assert (
+        "- Evidence Ledger entries: /evidence-ledgers (match Evidence Ledger entry ids above)"
+        in markdown_export.text
+    )
+    assert (
+        "- Noise Gate records: /noise-gates (match Noise Gate record id above)"
+        in markdown_export.text
+    )
     assert "## Source Retrieval Provenance" in markdown_export.text
     assert "- Source retrieval mode: semantic_persisted" in markdown_export.text
     assert "- Source query vector source: caller_provided_vector" in markdown_export.text

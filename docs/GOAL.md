@@ -23663,3 +23663,46 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the local Docker/FastAPI runtime smoke itself, not hosted deployment evidence, not external reviewer feedback, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not new retrieval behavior, not Evidence Ledger creation logic, not Noise Gate creation logic, not report generation logic, not an LLM call, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 647 - Report Markdown Local Inspection Paths v0
+
+Status: implemented.
+
+Purpose: render deterministic local GET surfaces inside persisted report markdown exports so reviewers can follow a report record back to the current report export, report workflow-trace filter, trace lookup, and existing list surfaces for retrieval runs, Evidence Ledger entries, and Noise Gate records.
+
+Implemented artifacts:
+
+```text
+report markdown local inspection paths v0
+apps/api/app/services/report_markdown.py
+apps/api/tests/test_routes.py
+docs/review/report-markdown-local-inspection-paths.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Output markers:
+
+```text
+## Local Inspection Paths
+Current report markdown
+Current report record
+Current workflow trace
+Retrieval runs
+Evidence Ledger entries
+Noise Gate records
+```
+
+TDD marker:
+
+```text
+RED: AssertionError: assert '## Local Inspection Paths' in markdown_export.text
+GREEN: apps/api/tests/test_routes.py::test_semantic_retrieval_run_noise_gate_and_report_preserve_source_retrieval_provenance
+```
+
+Boundary: deterministic markdown read-surface inspectability only; not new record creation, not new retrieval behavior, not Evidence Ledger creation, not Noise Gate creation, not report generation, not an LLM call, not embedding generation, not semantic retrieval quality evidence, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for report markdown local inspection paths if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
