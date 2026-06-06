@@ -26331,7 +26331,7 @@ def test_readme_top_latest_remote_verification_state_preserves_table_candidate_r
         not in fast_path
     )
     assert (
-        "Latest recorded remote verification state: the current Gate/Report issue-screen proof was remotely checked by CI run `27049669832` and External Feedback Screen run `27049669830`"
+        "Latest recorded remote verification state: the report markdown source provenance export runtime-smoke proof was remotely checked by CI run `27050315671` and External Feedback Screen run `27050315683`"
         in fast_path
     )
     assert (
@@ -27056,7 +27056,7 @@ def test_external_feedback_current_state_retrieval_run_semantic_provenance_issue
         not in fast_path
     )
     assert (
-        "Latest recorded remote verification state: the current Gate/Report issue-screen proof was remotely checked by CI run `27049669832` and External Feedback Screen run `27049669830`"
+        "Latest recorded remote verification state: the report markdown source provenance export runtime-smoke proof was remotely checked by CI run `27050315671` and External Feedback Screen run `27050315683`"
         in fast_path
     )
     assert (
@@ -27559,7 +27559,7 @@ def test_readme_latest_marker_semantic_source_provenance_current_state_refresh_u
         in fast_path
     )
     assert (
-        "Latest recorded remote verification state: the current Gate/Report issue-screen proof was remotely checked by CI run `27049669832` and External Feedback Screen run `27049669830`"
+        "Latest recorded remote verification state: the report markdown source provenance export runtime-smoke proof was remotely checked by CI run `27050315671` and External Feedback Screen run `27050315683`"
         in fast_path
     )
     assert "PDF table-candidate downstream runtime issue verification" not in fast_path
@@ -27975,7 +27975,7 @@ def test_external_reader_proof_path_gate_report_semantic_source_provenance_route
         in readme
     )
     assert (
-        "Latest recorded remote verification state: the current Gate/Report issue-screen proof was remotely checked by CI run `27049669832` and External Feedback Screen run `27049669830`"
+        "Latest recorded remote verification state: the report markdown source provenance export runtime-smoke proof was remotely checked by CI run `27050315671` and External Feedback Screen run `27050315683`"
         in readme
     )
     assert (
@@ -28304,7 +28304,7 @@ def test_external_feedback_current_state_gate_report_semantic_source_provenance_
     assert "not report quality evidence" in content
     assert "not product-complete" in content
     assert (
-        "Latest recorded remote verification state: the current Gate/Report issue-screen proof was remotely checked by CI run `27049669832` and External Feedback Screen run `27049669830`"
+        "Latest recorded remote verification state: the report markdown source provenance export runtime-smoke proof was remotely checked by CI run `27050315671` and External Feedback Screen run `27050315683`"
         in readme
     )
     assert (
@@ -28464,6 +28464,83 @@ def test_report_markdown_source_provenance_export_runtime_smoke_is_recorded():
     assert "report markdown source provenance export runtime smoke v0" in runbook
     assert (
         "docs/review/report-markdown-source-provenance-export-runtime-smoke.md"
+        in portfolio
+    )
+
+
+def test_report_markdown_source_provenance_export_runtime_smoke_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/report-markdown-source-provenance-export-runtime-smoke-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Report Markdown Source Provenance Export Runtime Smoke Remote Verification"
+        in content
+    )
+    assert (
+        "report markdown source provenance export runtime smoke remote verification v0"
+        in content
+    )
+    assert "4e75c645e26f1c2a8cc433529b4a7e3f3f214cf2" in content
+    assert "CI run 27050315671" in content
+    assert "External Feedback Screen run 27050315683" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27050315671" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27050315683" in content
+    assert "CI job_id -> 79844453635" in content
+    assert "External Feedback Screen job_id -> 79844453670" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/report-markdown-source-provenance-export-runtime-smoke.md"
+        in content
+    )
+    assert "not the local Docker/FastAPI runtime smoke itself" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not report quality evidence" in content
+    assert "not a new report-generation path" in content
+    assert "not free-form report generation" in content
+    assert "not an LLM call" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest recorded remote verification state: the report markdown source provenance export runtime-smoke proof was remotely checked by CI run `27050315671` and External Feedback Screen run `27050315683`"
+        in readme
+    )
+    assert (
+        "Report markdown source provenance export runtime smoke remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 643 - Report Markdown Source Provenance Export Runtime Smoke Remote Verification v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 642 - Report Markdown Source Provenance Export Runtime Smoke v0"
+    ) < goal.index(
+        "Phase 643 - Report Markdown Source Provenance Export Runtime Smoke Remote Verification v0"
+    )
+    assert (
+        "report markdown source provenance export runtime smoke remote verification v0"
+        in runbook
+    )
+    assert "not Evidence Ledger quality evidence" in runbook
+    assert "not Noise Gate quality evidence" in runbook
+    assert (
+        "docs/review/report-markdown-source-provenance-export-runtime-smoke-remote-verification.md"
         in portfolio
     )
 

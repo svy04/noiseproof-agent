@@ -23512,3 +23512,37 @@ markdown_contains_handoff_false=True
 Boundary: local Docker/FastAPI runtime read-surface evidence only; not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not a new report-generation path, not free-form report generation, not an LLM call, not external reviewer feedback, and not product-complete.
 
 Next gate: remote verification for this runtime-smoke proof after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 643 - Report Markdown Source Provenance Export Runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the Phase 642 runtime-smoke proof passed CI and External Feedback Screen after push.
+
+Implemented artifacts:
+
+```text
+report markdown source provenance export runtime smoke remote verification v0
+docs/review/report-markdown-source-provenance-export-runtime-smoke-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 4e75c645e26f1c2a8cc433529b4a7e3f3f214cf2
+CI run 27050315671: success
+External Feedback Screen run 27050315683: success
+CI job_id -> 79844453635
+External Feedback Screen job_id -> 79844453670
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the local Docker/FastAPI runtime smoke itself, not hosted deployment evidence, not external reviewer feedback, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not a new report-generation path, not free-form report generation, not an LLM call, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
