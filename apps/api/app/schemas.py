@@ -102,6 +102,8 @@ class PdfBinaryFixtureSmokePreviewOut(BaseModel):
     warnings: list[str]
     persistence_boundary: str
     fixture_source_boundary: str
+    reviewer_summary: dict[str, Any]
+    response_contract: dict[str, Any]
 
 
 class UploadIntakeManifestPreviewOut(BaseModel):

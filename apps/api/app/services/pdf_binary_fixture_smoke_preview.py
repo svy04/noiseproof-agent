@@ -13,6 +13,8 @@ PDF_BINARY_FIXTURE_PREVIEW_SOURCE_BOUNDARY = (
 
 def preview_pdf_binary_fixture_smoke() -> PdfBinaryFixtureSmokePreviewOut:
     result = run_pdf_binary_fixture_smoke(PDF_BINARY_FIXTURE_DIR)
+    table_fixture = result["per_fixture"].get("binary_deterministic_table_adapter", {})
+    table_adapter = table_fixture.get("table_adapter", {})
     return PdfBinaryFixtureSmokePreviewOut(
         **result,
         warnings=[
@@ -22,4 +24,28 @@ def preview_pdf_binary_fixture_smoke() -> PdfBinaryFixtureSmokePreviewOut:
         ],
         persistence_boundary="preview_only_not_persisted",
         fixture_source_boundary=PDF_BINARY_FIXTURE_PREVIEW_SOURCE_BOUNDARY,
+        reviewer_summary={
+            "api_surface": "GET /documents/pdf-binary-fixture-smoke-preview",
+            "fixture_source_boundary": PDF_BINARY_FIXTURE_PREVIEW_SOURCE_BOUNDARY,
+            "persistence_boundary": "preview_only_not_persisted",
+            "claim_boundary": result["claim_boundary"],
+            "fixture_count": result["fixture_count"],
+            "passed_count": result["passed_count"],
+            "failed_count": result["failed_count"],
+            "document_count_delta": 0,
+            "table_adapter_rows": table_adapter.get("extracted_table_rows", []),
+        },
+        response_contract={
+            "contract": "pdf_binary_fixture_smoke_preview_response_contract_v0",
+            "truth_scope": "repo_synthetic_binary_fixture_smoke_only",
+            "not_claimed": [
+                "arbitrary_uploaded_file_behavior",
+                "document_persistence",
+                "robust_pdf_extraction",
+                "default_pdf_parser_table_extraction",
+                "hosted_deployment",
+                "external_reviewer_feedback",
+                "product_complete",
+            ],
+        },
     )

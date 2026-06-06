@@ -33557,6 +33557,51 @@ def test_external_feedback_current_state_pdf_binary_fixture_smoke_preview_issue_
     )
 
 
+def test_pdf_binary_fixture_smoke_preview_response_contract_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/pdf-binary-fixture-smoke-preview-response-contract.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "PDF Binary Fixture Smoke Preview Response Contract" in content
+    assert "PDF binary fixture smoke preview response contract v0" in content
+    assert "GET /documents/pdf-binary-fixture-smoke-preview" in content
+    assert "reviewer_summary" in content
+    assert "response_contract" in content
+    assert "pdf_binary_fixture_smoke_preview_response_contract_v0" in content
+    assert "truth_scope: repo_synthetic_binary_fixture_smoke_only" in content
+    assert "document_count_delta: 0" in content
+    assert "table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]" in content
+    assert "not arbitrary uploaded-file behavior" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "PDF binary fixture smoke preview response contract v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 790 - PDF Binary Fixture Smoke Preview Response Contract v0"
+        in goal
+    )
+    assert (
+        "Phase 790 adds PDF binary fixture smoke preview response contract v0"
+        in runbook
+    )
+    assert "PDF binary fixture smoke preview response contract" in portfolio
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

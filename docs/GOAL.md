@@ -43,6 +43,26 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 790:
+
+```text
+latest_product_gate: PDF binary fixture smoke preview response contract v0
+latest_product_artifact: docs/review/pdf-binary-fixture-smoke-preview-response-contract.md
+latest_api_surface: GET /documents/pdf-binary-fixture-smoke-preview
+added_response_fields: reviewer_summary, response_contract
+response_contract: pdf_binary_fixture_smoke_preview_response_contract_v0
+truth_scope: repo_synthetic_binary_fixture_smoke_only
+document_count_delta: 0
+table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]
+latest_external_feedback_state_gate: external feedback current-state PDF binary fixture smoke preview issue verification v0
+latest_issue_candidate_count: 0
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: response contract clarity only; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 789:
 
 ```text
@@ -3992,6 +4012,43 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the issue-state screen itself; not external reviewer feedback; not hosted deployment evidence; not production readiness; not customer validation; not Braincrew acceptance; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 790 - PDF Binary Fixture Smoke Preview Response Contract v0
+
+Status: implemented.
+
+Purpose: make `GET /documents/pdf-binary-fixture-smoke-preview` easier to inspect by adding compact response fields that summarize the proof boundary without requiring a reviewer to dig through nested fixture data first.
+
+Implemented artifacts:
+
+```text
+PDF binary fixture smoke preview response contract v0
+docs/review/pdf-binary-fixture-smoke-preview-response-contract.md
+apps/api/app/schemas.py
+apps/api/app/services/pdf_binary_fixture_smoke_preview.py
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Response markers:
+
+```text
+reviewer_summary
+response_contract
+pdf_binary_fixture_smoke_preview_response_contract_v0
+truth_scope: repo_synthetic_binary_fixture_smoke_only
+GET /documents/pdf-binary-fixture-smoke-preview
+document_count_delta: 0
+table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]
+```
+
+Boundary: response contract clarity only; not new runtime evidence; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for this response contract if runtime proof is needed, remote verification after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

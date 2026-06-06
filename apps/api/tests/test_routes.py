@@ -3754,6 +3754,40 @@ def test_document_pdf_binary_fixture_smoke_preview_exposes_synthetic_fixture_beh
     assert client.get("/documents").json() == []
 
 
+def test_document_pdf_binary_fixture_smoke_preview_returns_reviewer_summary_and_contract():
+    client = make_client()
+
+    response = client.get("/documents/pdf-binary-fixture-smoke-preview")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["reviewer_summary"] == {
+        "api_surface": "GET /documents/pdf-binary-fixture-smoke-preview",
+        "fixture_source_boundary": "repo_synthetic_binary_fixtures_only_no_arbitrary_upload",
+        "persistence_boundary": "preview_only_not_persisted",
+        "claim_boundary": "binary_fixture_smoke_only_not_robust_pdf_extraction",
+        "fixture_count": 2,
+        "passed_count": 2,
+        "failed_count": 0,
+        "document_count_delta": 0,
+        "table_adapter_rows": [["Segment", "Growth"], ["Enterprise", "12%"]],
+    }
+    assert body["response_contract"] == {
+        "contract": "pdf_binary_fixture_smoke_preview_response_contract_v0",
+        "truth_scope": "repo_synthetic_binary_fixture_smoke_only",
+        "not_claimed": [
+            "arbitrary_uploaded_file_behavior",
+            "document_persistence",
+            "robust_pdf_extraction",
+            "default_pdf_parser_table_extraction",
+            "hosted_deployment",
+            "external_reviewer_feedback",
+            "product_complete",
+        ],
+    }
+    assert client.get("/documents").json() == []
+
+
 def test_document_upload_chunk_preview_compares_uploaded_csv_without_persistence():
     client = make_client()
     content = b"date,segment,growth\n2026-05-28,enterprise,12\n2026-05-29,consumer,-3\n"
