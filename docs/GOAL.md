@@ -1045,6 +1045,40 @@ Boundary: current-state issue screening only; not external reviewer feedback, no
 
 Next gate: remote verification for this current-state document after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 730 - External Feedback Current-state Upload PDF Quality Preview Summary Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 729 current-state issue verification passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+external feedback current-state upload PDF quality preview summary issue verification remote verification v0
+docs/review/external-feedback-current-state-upload-pdf-quality-preview-summary-issue-verification-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 9fe8f866e3aab7a7cee25cc063112a4e91cb9b9d
+CI run 27065996346: success
+External Feedback Screen run 27065996337: success
+CI job_id -> 79886855760
+External Feedback Screen job_id -> 79886855750
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the current-state issue screen itself, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text
