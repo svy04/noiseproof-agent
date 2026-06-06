@@ -22974,6 +22974,59 @@ Boundary: remote workflow verification only; not the local runtime smoke itself,
 
 Next gate: route refresh if this proof should become reviewer-facing, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
+### Phase 700 - External Feedback Current-state Evidence Quality Draft Preview Issue Verification v0
+
+Status: implemented.
+
+Purpose: record the current-state external feedback screen after the owner-authored issue #1 Evidence quality draft preview route refresh, keeping external reviewer feedback pending until qualifying outside feedback exists.
+
+Implemented artifacts:
+
+```text
+external feedback current-state evidence quality draft preview issue verification v0
+docs/review/external-feedback-current-state-evidence-quality-draft-preview-issue-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Issue screen markers:
+
+```text
+issue_url: https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt: 2026-06-06T11:32:26Z
+status: pending
+candidate_count: 0
+draft_count: 0
+next_gate: external reviewer feedback v0
+does_not_close_gate: true
+screened_comment_count: 1
+owner_comment_count: 1
+reason: self_authored_comment
+first_codepoint: 35
+starts_with_request: true
+has_evidence_quality_draft_preview_route: true
+has_evidence_quality_draft_preview_route_remote_verification: true
+```
+
+Route commit remote verification:
+
+```text
+commit: bd9a4bb7ad9ffca2329022be9e1d18bec29dd85b
+CI run 27061213673: success
+External Feedback Screen run 27061213674: success
+CI job_id -> 79874272474
+External Feedback Screen job_id -> 79874272578
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: current-state issue screening and route-commit remote workflow evidence only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not automatic failure-case creation, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not embedding generation, not an LLM call, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from the current repository state.
+
 ### Phase 699 - External Review Issue Body Evidence Quality Draft Preview Route Refresh v0
 
 Status: implemented.
