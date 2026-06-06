@@ -14382,6 +14382,56 @@ def test_uploaded_pdf_no_text_failure_candidate_runtime_smoke_records_live_http_
     )
 
 
+def test_uploaded_pdf_encrypted_failure_candidate_is_documented_without_robust_claim():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-encrypted-failure-candidate.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    parser = (
+        REPO_ROOT / "packages/ingestion/parsers/pdf.py"
+    ).read_text(encoding="utf-8")
+
+    assert "Uploaded PDF Encrypted Failure Candidate" in content
+    assert "uploaded PDF encrypted failure candidate v0" in content
+    assert "POST /documents/upload-preview" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "encrypted -> true" in content
+    assert "password_required -> true" in content
+    assert "digital_pdf_text_extraction -> false" in content
+    assert "extraction_scope -> encrypted_pdf_password_required" in content
+    assert "failure_case_candidate.failure_type -> pdf_encrypted_requires_password" in content
+    assert "does not claim robust PDF extraction" in content
+    assert "not OCR" in content
+    assert "not table extraction" in content
+    assert "not decryption" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "pdf_encrypted_requires_password" in parser
+    assert "PDF is encrypted and requires a password" in parser
+    assert (
+        "Uploaded PDF encrypted failure candidate v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 672 - Uploaded PDF Encrypted Failure Candidate v0"
+        in goal
+    )
+    assert "uploaded PDF encrypted failure candidate v0" in runbook
+    assert (
+        "docs/review/uploaded-pdf-encrypted-failure-candidate.md"
+        in portfolio
+    )
+
+
 def test_external_reviewer_pdf_page_diagnostics_downstream_runtime_request_refresh_routes_reviewers_to_proof():
     review_path = (
         REPO_ROOT

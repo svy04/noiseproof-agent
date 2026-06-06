@@ -23081,6 +23081,43 @@ Boundary: remote workflow verification only; not the current-state issue screen 
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 672 - Uploaded PDF Encrypted Failure Candidate v0
+
+Status: implemented.
+
+Purpose: separate password-protected uploaded PDFs from generic no-text PDFs before downstream retrieval, Evidence Ledger, Noise Gate, or report stages can overread missing text.
+
+Implemented artifacts:
+
+```text
+uploaded PDF encrypted failure candidate v0
+packages/ingestion/parsers/pdf.py
+apps/api/tests/test_routes.py
+docs/review/uploaded-pdf-encrypted-failure-candidate.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Route-level markers:
+
+```text
+POST /documents/upload-preview
+parser -> pdf-pymupdf
+encrypted -> true
+password_required -> true
+digital_pdf_text_extraction -> false
+robust_pdf_extraction -> false
+extraction_scope -> encrypted_pdf_password_required
+failure_case_candidate.failure_type -> pdf_encrypted_requires_password
+```
+
+Boundary: uploaded PDF encrypted failure candidate only; not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for uploaded PDF encrypted failure candidate if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
 ### Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0
 
 Status: implemented.

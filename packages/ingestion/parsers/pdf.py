@@ -13,6 +13,9 @@ PDF_TABLE_CANDIDATE_WARNING = (
 PDF_TABLE_DIAGNOSTIC_UNAVAILABLE_WARNING = (
     "PyMuPDF table candidate diagnostics were unavailable for at least one page."
 )
+PDF_ENCRYPTED_WARNING = (
+    "PDF is encrypted and requires a password; text extraction was not performed."
+)
 
 
 class PdfParser:
@@ -23,11 +26,13 @@ class PdfParser:
         if payload.content_bytes:
             extracted = _extract_pdf_text(payload.content_bytes)
             if extracted is not None:
-                text, metadata, diagnostic_warnings = extracted
+                text, metadata, diagnostic_warnings, extracted_failure = extracted
                 warnings = [PDF_TEXT_EXTRACTION_WARNING]
                 warnings.extend(diagnostic_warnings)
-                failure_case_candidate: FailureCaseCandidate | None = None
-                if not text:
+                failure_case_candidate: FailureCaseCandidate | None = (
+                    extracted_failure
+                )
+                if not text and failure_case_candidate is None:
                     warnings.append("PyMuPDF opened the PDF, but no digital text was extracted.")
                     failure_case_candidate = FailureCaseCandidate(
                         failure_type="pdf_no_extractable_text",
@@ -89,7 +94,9 @@ def _looks_binary(text: str) -> bool:
     return (control_count / max(len(text), 1)) > 0.05
 
 
-def _extract_pdf_text(content: bytes) -> tuple[str, dict[str, Any], list[str]] | None:
+def _extract_pdf_text(
+    content: bytes,
+) -> tuple[str, dict[str, Any], list[str], FailureCaseCandidate | None] | None:
     try:
         import pymupdf
     except ImportError:
@@ -101,6 +108,37 @@ def _extract_pdf_text(content: bytes) -> tuple[str, dict[str, Any], list[str]] |
         return None
 
     try:
+        if getattr(document, "needs_pass", False):
+            return (
+                "",
+                {
+                    "page_count": document.page_count,
+                    "encrypted": True,
+                    "password_required": True,
+                    "digital_pdf_text_extraction": False,
+                    "page_diagnostics_available": False,
+                    "layout_block_diagnostics_available": False,
+                    "extraction_scope": "encrypted_pdf_password_required",
+                    "page_text_char_counts": [],
+                    "extracted_page_count": 0,
+                    "empty_page_count": document.page_count,
+                    "text_block_count": 0,
+                    "image_block_count": 0,
+                    "table_candidate_diagnostics_available": False,
+                    "table_candidate_count": 0,
+                    "table_candidate_page_counts": [],
+                    "table_candidate_shapes": [],
+                    "table_extraction_performed": False,
+                },
+                [PDF_ENCRYPTED_WARNING],
+                FailureCaseCandidate(
+                    failure_type="pdf_encrypted_requires_password",
+                    description="PDF text extraction could not proceed because the document is encrypted.",
+                    root_cause="The PDF requires a password before embedded digital text can be inspected.",
+                    next_action="Collect an authorized password or use a separate approved decryption step before claiming PDF text coverage.",
+                ),
+            )
+
         page_text: list[str] = []
         page_text_char_counts: list[int] = []
         text_block_count = 0
@@ -169,7 +207,7 @@ def _extract_pdf_text(content: bytes) -> tuple[str, dict[str, Any], list[str]] |
             "table_candidate_shapes": table_candidate_shapes,
             "table_extraction_performed": False,
         }
-        return "\n".join(text for text in page_text if text), metadata, warnings
+        return "\n".join(text for text in page_text if text), metadata, warnings, None
     except Exception:
         return None
     finally:

@@ -812,6 +812,21 @@ def _table_pdf_bytes() -> bytes:
     return content
 
 
+def _encrypted_pdf_bytes() -> bytes:
+    import pymupdf
+
+    document = pymupdf.open()
+    page = document.new_page(width=300, height=200)
+    page.insert_text((50, 80), "Encrypted market memo")
+    content = document.write(
+        encryption=pymupdf.PDF_ENCRYPT_AES_256,
+        owner_pw="owner-password",
+        user_pw="user-password",
+    )
+    document.close()
+    return bytes(content)
+
+
 def test_safe_download_filename_blocks_path_control_chars_and_overlong_names():
     raw_file_id = uuid4()
     unsafe_name = (
@@ -3403,6 +3418,36 @@ def test_document_upload_preview_exposes_pdf_table_candidate_diagnostics_without
     assert any("table candidate diagnostics" in warning for warning in body["warnings"])
     assert any("does not extract table contents" in warning for warning in body["warnings"])
     assert any("table extraction" in warning for warning in body["warnings"])
+    assert client.get("/documents").json() == []
+
+
+def test_document_upload_preview_surfaces_encrypted_pdf_failure_candidate_without_robust_claim():
+    client = make_client()
+    content = _encrypted_pdf_bytes()
+
+    response = client.post(
+        "/documents/upload-preview",
+        files={"file": ("encrypted-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    metadata = body["metadata"]
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["parser"] == "pdf-pymupdf"
+    assert body["source_type"] == "pdf"
+    assert body["text"] == ""
+    assert metadata["encrypted"] is True
+    assert metadata["password_required"] is True
+    assert metadata["digital_pdf_text_extraction"] is False
+    assert metadata["robust_pdf_extraction"] is False
+    assert metadata["extraction_scope"] == "encrypted_pdf_password_required"
+    assert body["failure_case_candidate"]["failure_type"] == (
+        "pdf_encrypted_requires_password"
+    )
+    assert "password" in body["failure_case_candidate"]["next_action"].lower()
+    assert any("requires a password" in warning for warning in body["warnings"])
+    assert any("does not claim robust PDF extraction" in warning for warning in body["warnings"])
     assert client.get("/documents").json() == []
 
 
