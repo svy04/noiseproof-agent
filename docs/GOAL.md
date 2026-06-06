@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 802:
+
+```text
+latest_issue_body_route_gate: External review issue body uploaded PDF table adapter metadata provenance runtime route refresh v0
+latest_issue_body_route_artifact: docs/review/external-review-issue-body-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md
+issue_url: https://github.com/svy04/noiseproof-agent/issues/1
+issue_updatedAt: 2026-06-06T22:45:17Z
+issue_starts_with_request: true
+issue_first_codepoint: 35
+issue_has_leading_bom: false
+issue_latest_proof_to_inspect: Uploaded PDF table adapter metadata provenance runtime proof
+old_pdf_binary_fixture_smoke_preview_latest_label_present: false
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: owner-authored issue body routing only; not external reviewer feedback; not new runtime evidence; not hosted deployment evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger generation; not product-complete
+```
+
 Current navigation overlay as of Phase 801:
 
 ```text
@@ -4347,6 +4366,47 @@ screen -> success
 Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 802 - External Review Issue Body Uploaded PDF Table Adapter Metadata Provenance Runtime Route Refresh v0
+
+Status: implemented.
+
+Purpose: record the owner-authored GitHub issue #1 body update that routes `Latest Proof To Inspect` to the uploaded PDF table-adapter metadata provenance runtime proof chain.
+
+Implemented artifacts:
+
+```text
+External review issue body uploaded PDF table adapter metadata provenance runtime route refresh v0
+docs/review/external-review-issue-body-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Observed issue markers:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt: 2026-06-06T22:45:17Z
+comment_count: 1
+starts_with_request: true
+first_codepoint: 35
+has_leading_bom: false
+has_uploaded_pdf_table_adapter_metadata_provenance: true
+has_uploaded_pdf_table_adapter_metadata_provenance_runtime_smoke: true
+has_external_reader_uploaded_pdf_table_adapter_metadata_provenance_runtime_route_refresh: true
+has_external_reader_uploaded_pdf_table_adapter_metadata_provenance_runtime_route_refresh_remote_verification: true
+old_pdf_binary_fixture_smoke_preview_latest_label_present: false
+POST /documents/upload-chunks
+POST /documents/{document_id}/retrieval-runs
+GET /retrieval-runs
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback; not new runtime evidence; not hosted deployment evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger generation; and not product-complete.
+
+Next gate: remote verification for this issue-body refresh after push, external feedback current-state verification for this issue route, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 801 - External Reviewer Request Brief Outreach Uploaded PDF Table Adapter Metadata Provenance Runtime Refresh v0
 
