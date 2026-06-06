@@ -29429,3 +29429,60 @@ def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     )
     assert "Phase 599 - README Current Proof Route Refresh Remote Verification v0" in goal
     assert "docs/review/readme-current-proof-route-refresh-remote-verification.md" in portfolio
+
+
+def test_readme_top_current_state_coherence_refresh_updates_first_pass_status():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/readme-top-current-state-coherence-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    raw_readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    fast_path = raw_readme.split("## External Reviewer Fast Path", 1)[1].split(
+        "## What This Is", 1
+    )[0]
+    status_summary = raw_readme.split("Implementation status:", 1)[1].split(
+        "## Implementation Status", 1
+    )[0]
+
+    assert "README Top Current-state Coherence Refresh" in content
+    assert "readme top current-state coherence refresh v0" in content
+    assert "5dd5b246a6f562ca5fcc5377c24e7b25170461ce" in content
+    assert "CI run 27053207711" in content
+    assert "External Feedback Screen run 27053207694" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest repository push verification state: Phase 654 artifact commit `5dd5b246a6f562ca5fcc5377c24e7b25170461ce` passed CI run `27053207711` and External Feedback Screen run `27053207694`."
+        in fast_path
+    )
+    assert (
+        "Latest external-feedback state: pending after report markdown local inspection issue verification; candidate_count=0; draft_count=0; self-authored comment only."
+        in fast_path
+    )
+    assert (
+        "Latest remote workflow check: Phase 654 artifact commit `5dd5b246a6f562ca5fcc5377c24e7b25170461ce` passed CI run `27053207711` and External Feedback Screen run `27053207694`."
+        in status_summary
+    )
+    assert "Latest status-coherence marker: README top current-state coherence refresh v0." in status_summary
+    assert (
+        "Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification"
+        not in status_summary
+    )
+    assert (
+        "README top current-state coherence refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 655 - README Top Current-state Coherence Refresh v0" in goal
+    )
+    assert "readme top current-state coherence refresh v0" in runbook
+    assert "docs/review/readme-top-current-state-coherence-refresh.md" in portfolio

@@ -23964,3 +23964,40 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the current-state issue screen itself, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 655 - README Top Current-state Coherence Refresh v0
+
+Status: implemented.
+
+Purpose: align the README first-pass surface with the latest pushed repository state after Phase 654 while preserving historical latest-marker compatibility below the top summary.
+
+Implemented artifacts:
+
+```text
+readme top current-state coherence refresh v0
+docs/review/readme-top-current-state-coherence-refresh.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Current-state markers:
+
+```text
+commit -> 5dd5b246a6f562ca5fcc5377c24e7b25170461ce
+CI run 27053207711: success
+External Feedback Screen run 27053207694: success
+CI job_id -> 79852489304
+External Feedback Screen job_id -> 79852489288
+Run API smoke tests -> success
+Screen issue comments -> success
+candidate_count=0
+draft_count=0
+self-authored comment only
+```
+
+Boundary: README current-state coherence only; not external reviewer feedback, not a new runtime smoke, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

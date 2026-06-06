@@ -14,9 +14,11 @@ Boundary: this fast path is not hosted deployment evidence, not automatic failur
 
 Latest proof routing now points reviewers to the report markdown local inspection paths proof at `docs/review/report-markdown-local-inspection-paths.md`, plus `docs/review/report-markdown-local-inspection-paths-runtime-smoke.md` and `docs/review/report-markdown-local-inspection-paths-runtime-smoke-remote-verification.md`. This is reviewer routing only; it is not external reviewer feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, and not product-complete.
 
-Latest external-feedback state: pending after report markdown local inspection issue verification. The current issue screen has `candidate_count=0`, `draft_count=0`, and only a self-authored issue comment.
-
 Latest recorded remote verification state: the report markdown local inspection issue verification was remotely checked by CI run `27052979808` and External Feedback Screen run `27052979809`; see `docs/review/external-feedback-current-state-report-markdown-local-inspection-issue-verification-remote-verification.md`. This is workflow evidence only, not external feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, and not runtime product proof.
+
+Latest repository push verification state: Phase 654 artifact commit `5dd5b246a6f562ca5fcc5377c24e7b25170461ce` passed CI run `27053207711` and External Feedback Screen run `27053207694`. This verifies the current pushed repository state, not external reviewer feedback, not hosted deployment evidence, and not product-complete behavior.
+
+Latest external-feedback state: pending after report markdown local inspection issue verification; candidate_count=0; draft_count=0; self-authored comment only.
 
 Issue screen baseline: issue #1 starts with `## Request`, first codepoint `35`, no leading BOM, `candidate_count=0`, and `draft_count=0`. The older BOM-removal workflow runs remain archived as request-surface hygiene, not the current proof route, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
 
@@ -28,9 +30,9 @@ Current implemented capability groups:
 
 - service skeleton, metadata persistence, PostgreSQL schema, migration runner, and CI
 - document profiling, parser boundaries, uploaded digital PDF text extraction, chunk strategy comparison, and lexical retrieval
-- deterministic local hash embedding preview, collection planning, Evidence Ledger, Noise Gate, claim-bounded report previews, and persisted report markdown exports
+- deterministic embedding preview, collection planning, Evidence Ledger, Noise Gate, and report markdown exports
 - persisted evidence/gate/report records, trace lookup, filters, workflow parents, and derived lineage
-- trace context header propagation, operations dashboard, failure-case persistence, failed-stage event logging, manual workflow parent provenance, and proof-path documentation
+- trace headers, ops dashboard, failure-case persistence, stage events, manual provenance, and proof paths
 
 Detailed phase history lives in `docs/GOAL.md`, `docs/application/portfolio-index.md`, and the phase-specific `docs/review/*` artifacts. This README now keeps the first-pass narrative focused on what the project currently demonstrates and what it still does not claim.
 The product thesis:
@@ -110,29 +112,31 @@ Implementation status:
 
 Current status groups:
 
-- docs: briefs, ADRs, runbook, application/review artifacts
-- service: health, ops/dashboard, metadata routes, DB/migrations, CI
-- ingestion/RAG: profiles, parsers, chunks, retrieval previews, collection plans
-- evidence/report: ledgers, gates, reports, traces, filters, workflow warnings
-- proof: runtime smokes, reviewer routes, feedback screen, Braincrew map
+- docs: briefs, ADRs, runbook, review artifacts
+- service: health, ops/dashboard, routes, migrations, CI
+- ingestion/RAG: profiles, parsers, chunks, retrieval, collection plans
+- evidence/report: ledgers, gates, reports, traces, filters
+- proof: runtime smokes, reviewer routes, feedback screen
 
-Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
+Latest proof routing marker: Report markdown local inspection paths proof route v0.
 Latest runtime proof marker: Report markdown local inspection paths runtime smoke v0.
-Latest workflow dashboard runtime marker: Workflow failure auto-created failure-case dashboard runtime smoke v0
+Latest workflow dashboard marker: failure-case workflow dashboard proofs summarized below.
 Latest product gate marker: Report markdown local inspection paths v0: implemented.
-Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification; candidate_count=0; self-authored comment only.
+Latest external-feedback state: pending after report markdown local inspection issue verification; candidate_count=0; draft_count=0; self-authored comment only.
+Latest remote workflow check: Phase 654 artifact commit `5dd5b246a6f562ca5fcc5377c24e7b25170461ce` passed CI run `27053207711` and External Feedback Screen run `27053207694`.
+Latest status-coherence marker: README top current-state coherence refresh v0.
 
 Detailed implementation history remains in the lower detailed Implementation Status section, `docs/GOAL.md`, and phase-specific `docs/review/*`.
 
 Still planned/unclaimed near the top:
 
-- web app/polished dashboard UI
-- raw upload storage exists; robust PDF extraction unclaimed
-- explicit upload-to-chunks exists; preview auto-persistence unclaimed
+- polished web UI
+- robust PDF extraction
+- upload-preview auto-persistence
 - embedding generation, vector quality evidence, LLM calls
 - hosted deployment evidence
 - local token guard exists; production auth/identity unclaimed
-- caller-triggered and local v0 workflow-failure auto failure-case creation exist; production background workers and complete causality remain unclaimed
+- production background workers and complete causality
 - free-form reports
 
 ## Implementation Status
@@ -224,6 +228,10 @@ Not implemented yet:
 - embedding generation and vector search quality evidence beyond the deterministic local hash preview
 - full distributed tracing or hosted observability
 
+Historical latest-marker compatibility: Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
+Historical latest-marker compatibility: Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification; candidate_count=0; self-authored comment only.
+Historical latest-marker compatibility: Latest workflow dashboard runtime marker: Workflow failure auto-created failure-case dashboard runtime smoke v0
+Historical latest-marker compatibility: README top current-state coherence refresh v0: implemented
 Historical latest-marker compatibility: Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown stage input links runtime smoke v0.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown source provenance export runtime smoke v0.
