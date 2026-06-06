@@ -27555,7 +27555,7 @@ def test_readme_latest_marker_semantic_source_provenance_current_state_refresh_u
         not in fast_path
     )
     assert (
-        "Latest external-feedback state: pending after retrieval-run-linked Evidence Ledger semantic source provenance issue verification"
+        "Latest external-feedback state: pending after retrieval-run-linked Gate/Report semantic source provenance issue verification"
         in fast_path
     )
     assert (
@@ -28157,6 +28157,99 @@ def test_external_review_issue_body_gate_report_semantic_source_provenance_runti
     )
     assert (
         "docs/review/external-review-issue-body-gate-report-semantic-source-provenance-runtime-refresh.md"
+        in portfolio
+    )
+
+
+def test_external_feedback_current_state_gate_report_semantic_source_provenance_issue_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-gate-report-semantic-source-provenance-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state Gate/Report Semantic Source Provenance Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state Gate/Report semantic source provenance issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt: 2026-06-06T01:55:45Z" in content
+    assert "comment_count: 1" in content
+    assert "screened_comment_count: 1" in content
+    assert "owner_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment" in content
+    assert "status: pending" in content
+    assert "does_not_close_gate: true" in content
+    assert "external reviewer feedback v0 gate remains pending" in content
+    assert (
+        "has_gate_report_semantic_source_provenance_proof: true"
+        in content
+    )
+    assert "has_gate_report_runtime_smoke: true" in content
+    assert "has_gate_report_remote_verification: true" in content
+    assert "has_gate_report_issue_body_record: true" in content
+    assert "has_noise_gate_quality_boundary: true" in content
+    assert "has_report_quality_boundary: true" in content
+    assert "old_evidence_ledger_latest_label_present: false" in content
+    assert (
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance.md"
+        in content
+    )
+    assert (
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke.md"
+        in content
+    )
+    assert (
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke-remote-verification.md"
+        in content
+    )
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not report quality evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest external-feedback state: pending after retrieval-run-linked Gate/Report semantic source provenance issue verification"
+        in readme
+    )
+    assert (
+        "External feedback current-state Gate/Report semantic source provenance issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 639 - External Feedback Current-state Gate/Report Semantic Source Provenance Issue Verification v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 638 - External Review Issue Body Gate/Report Semantic Source Provenance Runtime Refresh v0"
+    ) < goal.index(
+        "Phase 639 - External Feedback Current-state Gate/Report Semantic Source Provenance Issue Verification v0"
+    )
+    assert (
+        "external feedback current-state Gate/Report semantic source provenance issue verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-gate-report-semantic-source-provenance-issue-verification.md"
         in portfolio
     )
 
