@@ -24,7 +24,9 @@ Historical predecessor remote verification compatibility: Latest recorded remote
 
 Latest repository push verification state: Phase 654 artifact commit `5dd5b246a6f562ca5fcc5377c24e7b25170461ce` passed CI run `27053207711` and External Feedback Screen run `27053207694`. This verifies the current pushed repository state, not external reviewer feedback, not hosted deployment evidence, and not product-complete behavior.
 
-Latest external-feedback state: pending after workflow checklist dashboard runtime issue-body refresh; candidate_count=0; draft_count=0; self-authored comment only.
+Latest external-feedback state: pending after workflow checklist dashboard runtime issue verification; candidate_count=0; draft_count=0; self-authored comment only.
+
+Historical predecessor feedback compatibility: Latest external-feedback state: pending after workflow checklist dashboard runtime issue-body refresh; candidate_count=0; draft_count=0; self-authored comment only.
 
 Historical predecessor feedback compatibility: Latest external-feedback state: pending after workflow checklist dashboard runtime route refresh; candidate_count=0; draft_count=0; self-authored comment only.
 
@@ -248,6 +250,7 @@ Historical latest-marker compatibility: Workflow proof bundle reviewer checklist
 Historical latest-marker compatibility: Workflow proof bundle reviewer checklist dashboard runtime smoke v0: implemented
 Historical latest-marker compatibility: External-reader proof path workflow checklist dashboard runtime route refresh remote verification v0: implemented
 Historical latest-marker compatibility: External review issue body workflow checklist dashboard runtime route refresh v0: implemented
+Historical latest-marker compatibility: External feedback current-state workflow checklist dashboard runtime issue verification v0: implemented
 Historical latest-marker compatibility: Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown stage input links runtime smoke v0.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown source provenance export runtime smoke v0.
