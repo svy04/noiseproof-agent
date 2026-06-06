@@ -1500,6 +1500,13 @@ class PostgresRepository:
                       AND profile_json -> 'failure_case_candidate' ->> 'failure_type'
                         = 'pdf_no_extractable_text'
                   ) AS pdf_no_text_failure_candidate_count,
+                  (
+                    SELECT count(*)
+                    FROM documents
+                    WHERE source_type = 'pdf'
+                      AND profile_json -> 'failure_case_candidate' ->> 'failure_type'
+                        = 'pdf_encrypted_requires_password'
+                  ) AS pdf_encrypted_failure_candidate_count,
                   (SELECT count(*) FROM uploaded_raw_files)
                     AS uploaded_raw_file_count,
                   (SELECT count(*) FROM raw_file_scan_results)
@@ -1573,6 +1580,9 @@ class PostgresRepository:
             pdf_no_text_failure_candidate_count=row[
                 "pdf_no_text_failure_candidate_count"
             ],
+            pdf_encrypted_failure_candidate_count=row[
+                "pdf_encrypted_failure_candidate_count"
+            ],
             uploaded_raw_file_count=row["uploaded_raw_file_count"],
             raw_file_scan_result_count=row["raw_file_scan_result_count"],
             raw_file_clean_scan_count=row["raw_file_clean_scan_count"],
@@ -1591,6 +1601,7 @@ class PostgresRepository:
                 f"Retrieval runs recorded: {row['retrieval_run_count']}. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
                 f"Semantic retrieval runs recorded: {row['semantic_retrieval_run_count']}; caller-provided embedding row(s): {row['caller_provided_embedding_count']}. These are operational counts, not semantic retrieval quality evidence.",
                 f"No-text PDF failure candidates: {row['pdf_no_text_failure_candidate_count']}. This is metadata-derived from document profile_json, not robust PDF extraction.",
+                f"Encrypted PDF failure candidates: {row['pdf_encrypted_failure_candidate_count']}. This is metadata-derived from document profile_json, not robust PDF extraction and does not prove decryption.",
                 f"Raw file guard records: {row['uploaded_raw_file_count']} upload(s), {row['raw_file_scan_result_count']} scan result(s), {row['raw_file_download_approval_count']} approval row(s), {row['raw_file_download_event_count']} download event(s).",
                 "Caller-provided vector semantic retrieval preview/run paths are implemented; they do not generate embeddings, call an LLM, or prove semantic retrieval quality.",
                 "No embedding generation, hosted semantic retrieval quality evidence, distributed tracing, or free-form final report generation is claimed.",

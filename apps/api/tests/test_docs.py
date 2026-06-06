@@ -30579,3 +30579,102 @@ def test_uploaded_pdf_encrypted_failure_candidate_runtime_smoke_is_recorded():
         "docs/review/uploaded-pdf-encrypted-failure-candidate-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_uploaded_pdf_encrypted_failure_candidate_handoff_ops_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded PDF Encrypted Failure Candidate Handoff Ops" in content
+    assert "uploaded PDF encrypted failure candidate handoff ops v0" in content
+    assert "POST /documents/upload-chunks" in content
+    assert "pdf_encrypted_requires_password" in content
+    assert "encrypted -> true" in content
+    assert "password_required -> true" in content
+    assert "digital_pdf_text_extraction -> false" in content
+    assert "extraction_scope -> encrypted_pdf_password_required" in content
+    assert "pdf_encrypted_failure_candidate_count" in content
+    assert "PDF Encrypted Failure Candidates" in content
+    assert "not robust PDF extraction" in content
+    assert "not decryption" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert "Uploaded PDF encrypted failure candidate handoff ops v0" in readme
+    assert (
+        "docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops.md"
+        in readme
+    )
+    assert (
+        "Phase 674 - Uploaded PDF Encrypted Failure Candidate Handoff Ops v0"
+        in goal
+    )
+    assert "uploaded PDF encrypted failure candidate handoff ops v0" in runbook
+    assert (
+        "docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops.md"
+        in portfolio
+    )
+
+
+def test_uploaded_pdf_encrypted_handoff_ops_runtime_smoke_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "uploaded-pdf-encrypted-failure-candidate-handoff-ops-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Uploaded PDF Encrypted Failure Candidate Handoff Ops Runtime Smoke"
+        in content
+    )
+    assert (
+        "uploaded PDF encrypted failure candidate handoff ops runtime smoke v0"
+        in content
+    )
+    assert "runtime-encrypted-handoff-phase675.pdf" in content
+    assert "pre_pdf_encrypted_failure_candidate_count -> 0" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "upload_failure_type -> pdf_encrypted_requires_password" in content
+    assert "upload_encrypted -> True" in content
+    assert "upload_password_required -> True" in content
+    assert "post_pdf_encrypted_failure_candidate_count -> 1" in content
+    assert "dashboard -> PDF Encrypted Failure Candidates" in content
+    assert "does not prove decryption" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert "Uploaded PDF encrypted handoff ops runtime smoke v0" in readme
+    assert (
+        "docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-runtime-smoke.md"
+        in readme
+    )
+    assert (
+        "Phase 675 - Uploaded PDF Encrypted Failure Candidate Handoff Ops Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "uploaded PDF encrypted failure candidate handoff ops runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-runtime-smoke.md"
+        in portfolio
+    )

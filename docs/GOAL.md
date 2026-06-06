@@ -23165,6 +23165,82 @@ Boundary: local FastAPI runtime evidence only; not robust PDF extraction, not OC
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 674 - Uploaded PDF Encrypted Failure Candidate Handoff Ops v0
+
+Status: implemented.
+
+Purpose: preserve password-protected PDF failure metadata through the explicit chunk handoff path and surface it in operations metadata.
+
+Implemented artifacts:
+
+```text
+uploaded PDF encrypted failure candidate handoff ops v0
+apps/api/app/routes/documents.py
+apps/api/app/db.py
+apps/api/app/schemas.py
+apps/api/app/services/ops_dashboard.py
+apps/api/tests/test_routes.py
+docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Route and ops markers:
+
+```text
+POST /documents/upload-chunks
+failure_case_candidate.failure_type -> pdf_encrypted_requires_password
+encrypted -> true
+password_required -> true
+digital_pdf_text_extraction -> false
+extraction_scope -> encrypted_pdf_password_required
+pdf_encrypted_failure_candidate_count
+PDF Encrypted Failure Candidates
+```
+
+Boundary: explicit upload chunk handoff and operations metadata only; not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for uploaded PDF encrypted failure candidate handoff ops if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 675 - Uploaded PDF Encrypted Failure Candidate Handoff Ops Runtime Smoke v0
+
+Status: verified.
+
+Purpose: verify encrypted PDF handoff ops behavior through local Docker PostgreSQL plus live FastAPI.
+
+Implemented artifacts:
+
+```text
+uploaded PDF encrypted failure candidate handoff ops runtime smoke v0
+docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-runtime-smoke.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Runtime markers:
+
+```text
+runtime-encrypted-handoff-phase675.pdf
+pre_pdf_encrypted_failure_candidate_count -> 0
+POST /documents/upload-chunks -> 201
+upload_failure_type -> pdf_encrypted_requires_password
+upload_encrypted -> True
+upload_password_required -> True
+post_pdf_encrypted_failure_candidate_count -> 1
+dashboard -> PDF Encrypted Failure Candidates
+dashboard -> does not prove decryption
+```
+
+Boundary: local Docker PostgreSQL plus live FastAPI runtime evidence only; not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
 ### Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0
 
 Status: implemented.

@@ -63,6 +63,7 @@ def render_ops_dashboard(
       {_metric("Revision Reports", summary.revision_report_count)}
       {_metric("No-text PDF Handoffs", summary.chunk_handoff_no_chunks_count)}
       {_metric("PDF No-text Failure Candidates", summary.pdf_no_text_failure_candidate_count)}
+      {_metric("PDF Encrypted Failure Candidates", summary.pdf_encrypted_failure_candidate_count)}
       {_metric("Uploaded Raw Files", summary.uploaded_raw_file_count)}
       {_metric("Raw File Scan Results", summary.raw_file_scan_result_count)}
       {_metric("Raw File Clean Scans", summary.raw_file_clean_scan_count)}
@@ -127,6 +128,7 @@ def render_ops_dashboard(
       <li>Unsupported claim and contradiction counts come from persisted Evidence Ledger entries.</li>
       <li>Semantic retrieval and caller-provided embedding metrics are operational counts, not semantic retrieval quality evidence.</li>
       <li>No-text PDF handoff counts are metadata-derived from document profile_json. This is metadata-derived from document profile_json and does not prove robust PDF extraction, OCR, table extraction, or layout fidelity.</li>
+      <li>Encrypted PDF failure candidate counts are metadata-derived from document profile_json and does not prove decryption, password bypass, robust PDF extraction, OCR, table extraction, or layout fidelity.</li>
       <li>Persisted evidence, gate, and report records link back to their parent agent run through trace lookup.</li>
       <li>Embedding generation, semantic retrieval quality evidence, distributed tracing, and free-form final reports are still not implemented.</li>
       <li>Visual polish is intentionally deferred until failure behavior is more complete.</li>

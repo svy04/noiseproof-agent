@@ -618,6 +618,14 @@ class InMemoryRepository:
                 == "pdf_no_extractable_text"
                 for row in self.documents
             ),
+            pdf_encrypted_failure_candidate_count=sum(
+                row.get("source_type") == "pdf"
+                and row.get("profile_json", {})
+                .get("failure_case_candidate", {})
+                .get("failure_type")
+                == "pdf_encrypted_requires_password"
+                for row in self.documents
+            ),
             uploaded_raw_file_count=len(self.uploaded_raw_files),
             raw_file_scan_result_count=len(self.raw_file_scan_results),
             raw_file_clean_scan_count=sum(
@@ -656,6 +664,7 @@ class InMemoryRepository:
                 "test repository",
                 f"Semantic retrieval runs recorded: {sum(row['strategy'] == 'semantic-cosine' or (row.get('metadata_json') or {}).get('retrieval_mode') == 'semantic_persisted' for row in self.retrieval_runs)}; caller-provided embedding row(s): {sum((row.get('metadata_json') or {}).get('embedding_source') == 'caller_provided_vector' for row in self.chunk_embeddings)}. These are operational counts, not semantic retrieval quality evidence.",
                 f"No-text PDF failure candidates: {sum(row.get('source_type') == 'pdf' and row.get('profile_json', {}).get('failure_case_candidate', {}).get('failure_type') == 'pdf_no_extractable_text' for row in self.documents)}.",
+                f"Encrypted PDF failure candidates: {sum(row.get('source_type') == 'pdf' and row.get('profile_json', {}).get('failure_case_candidate', {}).get('failure_type') == 'pdf_encrypted_requires_password' for row in self.documents)}. This is metadata-derived from document profile_json, not robust PDF extraction and does not prove decryption.",
                 f"Raw file guard records: {len(self.uploaded_raw_files)} upload(s), {len(self.raw_file_scan_results)} scan result(s), {len(self.raw_file_download_approvals)} approval row(s), {len(self.raw_file_download_events)} download event(s).",
                 "Caller-provided vector semantic retrieval preview/run paths are implemented; they do not generate embeddings, call an LLM, or prove semantic retrieval quality.",
                 "No embedding generation, hosted semantic retrieval quality evidence, distributed tracing, or free-form final report generation is claimed.",
@@ -3671,6 +3680,52 @@ def test_ops_summary_and_dashboard_surface_no_text_pdf_failure_candidate_counts(
     assert "No-text PDF Handoffs" in dashboard.text
     assert "PDF No-text Failure Candidates" in dashboard.text
     assert "This is metadata-derived from document profile_json" in dashboard.text
+
+
+def test_upload_chunks_ops_surface_encrypted_pdf_failure_candidate_counts():
+    client = make_client()
+    content = _encrypted_pdf_bytes()
+
+    upload = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Encrypted PDF report",
+            "strategy": "fixed-window",
+            "max_characters": "80",
+            "overlap": "0",
+        },
+        files={"file": ("encrypted-report.pdf", content, "application/pdf")},
+    )
+
+    assert upload.status_code == 201
+    body = upload.json()
+    profile_json = body["document"]["profile_json"]
+
+    assert body["source_type"] == "pdf"
+    assert body["parser"] == "pdf-pymupdf"
+    assert body["chunks"] == []
+    assert body["document"]["status"] == "chunk_handoff_no_chunks"
+    assert profile_json["failure_case_candidate"]["failure_type"] == (
+        "pdf_encrypted_requires_password"
+    )
+    assert profile_json["encrypted"] is True
+    assert profile_json["password_required"] is True
+    assert profile_json["digital_pdf_text_extraction"] is False
+    assert profile_json["extraction_scope"] == "encrypted_pdf_password_required"
+    assert profile_json["robust_pdf_extraction"] is False
+
+    summary = client.get("/ops/summary").json()
+    assert summary["document_count"] == 1
+    assert summary["chunk_handoff_no_chunks_count"] == 1
+    assert summary["pdf_encrypted_failure_candidate_count"] == 1
+    assert any(
+        "Encrypted PDF failure candidates: 1" in note for note in summary["notes"]
+    )
+
+    dashboard = client.get("/ops/dashboard")
+    assert dashboard.status_code == 200
+    assert "PDF Encrypted Failure Candidates" in dashboard.text
+    assert "does not prove decryption" in dashboard.text
 
 
 def test_persisted_no_text_pdf_document_failure_case_draft_preview_without_persistence():

@@ -113,6 +113,9 @@ ALLOWED_RAW_FILE_EXTENSIONS = {
 }
 PDF_PAGE_DIAGNOSTIC_METADATA_KEYS = (
     "robust_pdf_extraction",
+    "digital_pdf_text_extraction",
+    "encrypted",
+    "password_required",
     "page_diagnostics_available",
     "layout_block_diagnostics_available",
     "extraction_scope",
