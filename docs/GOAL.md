@@ -43,6 +43,30 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 792:
+
+```text
+latest_remote_verification_gate: PDF binary fixture smoke preview response contract runtime smoke remote verification v0
+latest_remote_verification_artifact: docs/review/pdf-binary-fixture-smoke-preview-response-contract-runtime-smoke-remote-verification.md
+latest_verified_head_sha: 43056ee9efa34448e82b90fc5287a328c6e0a643
+latest_ci_run: 27074533336
+latest_ci_job_id: 79909526986
+latest_external_feedback_screen_run: 27074533345
+latest_external_feedback_screen_job_id: 79909526991
+latest_runtime_proof_gate: PDF binary fixture smoke preview response contract runtime smoke v0
+latest_runtime_proof_artifact: docs/review/pdf-binary-fixture-smoke-preview-response-contract-runtime-smoke.md
+latest_api_surface: GET /documents/pdf-binary-fixture-smoke-preview
+response_contract: pdf_binary_fixture_smoke_preview_response_contract_v0
+truth_scope: repo_synthetic_binary_fixture_smoke_only
+document_count_delta: 0
+table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 791:
 
 ```text
@@ -4116,6 +4140,40 @@ table_adapter_rows=[[Segment, Growth], [Enterprise, 12%]]
 Boundary: local runtime evidence only; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: remote verification after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 792 - PDF Binary Fixture Smoke Preview Response Contract Runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Purpose: record that the repository state containing the Phase 791 local runtime-smoke proof passed remote GitHub Actions workflows after push.
+
+Implemented artifacts:
+
+```text
+PDF binary fixture smoke preview response contract runtime smoke remote verification v0
+docs/review/pdf-binary-fixture-smoke-preview-response-contract-runtime-smoke-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote markers:
+
+```text
+head_sha: 43056ee9efa34448e82b90fc5287a328c6e0a643
+CI run: 27074533336
+CI job: 79909526986
+External Feedback Screen run: 27074533345
+External Feedback Screen job: 79909526991
+api-smoke -> success
+screen -> success
+```
+
+Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
