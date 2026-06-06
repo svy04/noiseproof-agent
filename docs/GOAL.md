@@ -783,6 +783,40 @@ Boundary: local runtime evidence only; not hosted deployment evidence, not exter
 
 Next gate: remote verification for this runtime-smoke proof after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 725 - Upload PDF Quality Preview Summary Runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 724 upload PDF quality preview summary runtime-smoke documentation passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+upload PDF quality preview summary runtime smoke remote verification v0
+docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 87cbed97b244e941060d844b8edc342a843b24f0
+CI run 27065207880: success
+External Feedback Screen run 27065207869: success
+CI job_id -> 79884771285
+External Feedback Screen job_id -> 79884771247
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the local runtime smoke itself, not new runtime evidence, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not extracted text storage, not document persistence, not retrieval behavior, not Evidence Ledger generation, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: external-reader proof path route refresh if the upload PDF quality preview summary proof chain should become the first reviewer route, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text
