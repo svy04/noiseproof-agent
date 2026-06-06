@@ -35394,6 +35394,65 @@ def test_external_review_issue_body_docker_environment_route_refresh_is_recorded
     assert "external review issue body Docker environment route refresh" in portfolio
 
 
+def test_external_review_issue_body_docker_environment_route_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-docker-environment-route-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Review Issue Body Docker Environment Route Refresh Remote Verification"
+        in content
+    )
+    assert (
+        "external review issue body Docker environment route refresh remote verification v0"
+        in content
+    )
+    assert "fc54bf9de784e12104889020647bddab4a47c05f" in content
+    assert "CI run `27071038589`" in content
+    assert "External Feedback Screen run `27071038603`" in content
+    assert "CI job_id -> 79900211041" in content
+    assert "External Feedback Screen job_id -> 79900210960" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-review-issue-body-docker-environment-route-refresh.md"
+        in content
+    )
+    assert "not the live issue body edit itself" in content
+    assert "not new runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production readiness" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External review issue body Docker environment route refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 768 - External Review Issue Body Docker Environment Route Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 768 adds external review issue body Docker environment route refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "external review issue body Docker environment route refresh remote verification"
+        in portfolio
+    )
+
+
 def test_goal_current_state_upload_pdf_summary_link_map_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
