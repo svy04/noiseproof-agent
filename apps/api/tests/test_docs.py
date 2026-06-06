@@ -26331,7 +26331,7 @@ def test_readme_top_latest_remote_verification_state_preserves_table_candidate_r
         not in fast_path
     )
     assert (
-        "Latest recorded remote verification state: the retrieval-run-linked Evidence Ledger semantic source provenance issue-screen proof was remotely checked by CI run `27046055674` and External Feedback Screen run `27046055690`"
+        "Latest recorded remote verification state: the retrieval-run-linked Gate/Report semantic source provenance runtime-smoke proof was remotely checked by CI run `27048811299` and External Feedback Screen run `27048811288`"
         in fast_path
     )
     assert (
@@ -26339,7 +26339,7 @@ def test_readme_top_latest_remote_verification_state_preserves_table_candidate_r
         not in fast_path
     )
     assert (
-        "docs/review/external-feedback-current-state-retrieval-run-linked-evidence-ledger-semantic-source-provenance-issue-verification-remote-verification.md"
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke-remote-verification.md"
         in fast_path
     )
     assert "workflow evidence only" in fast_path
@@ -26347,6 +26347,8 @@ def test_readme_top_latest_remote_verification_state_preserves_table_candidate_r
     assert "not hosted deployment evidence" in fast_path
     assert "not semantic retrieval quality evidence" in fast_path
     assert "not Evidence Ledger quality evidence" in fast_path
+    assert "not Noise Gate quality evidence" in fast_path
+    assert "not report quality evidence" in fast_path
     assert "not runtime product proof" in fast_path
     assert "Compose service-name runbook refresh was remotely checked" not in fast_path
     assert (
@@ -26896,11 +26898,11 @@ def test_external_review_issue_body_retrieval_run_semantic_provenance_runtime_re
         not in fast_path
     )
     assert (
-        "Latest proof routing now points reviewers to the retrieval-run-linked Evidence Ledger semantic source provenance proof"
+        "Latest proof routing now points reviewers to the retrieval-run-linked Gate/Report semantic source provenance proof"
         in fast_path
     )
     assert (
-        "docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance.md"
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance.md"
         in fast_path
     )
     assert "docs/review/retrieval-run-semantic-provenance-runtime-smoke.md" not in fast_path
@@ -27054,7 +27056,7 @@ def test_external_feedback_current_state_retrieval_run_semantic_provenance_issue
         not in fast_path
     )
     assert (
-        "Latest recorded remote verification state: the retrieval-run-linked Evidence Ledger semantic source provenance issue-screen proof was remotely checked by CI run `27046055674` and External Feedback Screen run `27046055690`"
+        "Latest recorded remote verification state: the retrieval-run-linked Gate/Report semantic source provenance runtime-smoke proof was remotely checked by CI run `27048811299` and External Feedback Screen run `27048811288`"
         in fast_path
     )
     assert (
@@ -27062,7 +27064,7 @@ def test_external_feedback_current_state_retrieval_run_semantic_provenance_issue
         not in fast_path
     )
     assert (
-        "docs/review/external-feedback-current-state-retrieval-run-linked-evidence-ledger-semantic-source-provenance-issue-verification-remote-verification.md"
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke-remote-verification.md"
         in fast_path
     )
     assert (
@@ -27533,31 +27535,31 @@ def test_readme_latest_marker_semantic_source_provenance_current_state_refresh_u
         in content
     )
     assert (
-        "docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance.md"
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance.md"
         in fast_path
     )
     assert (
-        "docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-smoke.md"
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke.md"
         in fast_path
     )
     assert (
-        "docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-smoke-remote-verification.md"
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke-remote-verification.md"
         in fast_path
     )
     assert (
         "docs/review/external-review-issue-body-retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-refresh.md"
-        in fast_path
+        not in fast_path
     )
     assert (
         "docs/review/external-feedback-current-state-retrieval-run-linked-evidence-ledger-semantic-source-provenance-issue-verification-remote-verification.md"
-        in fast_path
+        not in fast_path
     )
     assert (
         "Latest external-feedback state: pending after retrieval-run-linked Evidence Ledger semantic source provenance issue verification"
         in fast_path
     )
     assert (
-        "Latest recorded remote verification state: the retrieval-run-linked Evidence Ledger semantic source provenance issue-screen proof was remotely checked by CI run `27046055674` and External Feedback Screen run `27046055690`"
+        "Latest recorded remote verification state: the retrieval-run-linked Gate/Report semantic source provenance runtime-smoke proof was remotely checked by CI run `27048811299` and External Feedback Screen run `27048811288`"
         in fast_path
     )
     assert "PDF table-candidate downstream runtime issue verification" not in fast_path
@@ -27569,6 +27571,8 @@ def test_readme_latest_marker_semantic_source_provenance_current_state_refresh_u
     assert "not hosted deployment evidence" in fast_path
     assert "not semantic retrieval quality evidence" in fast_path
     assert "not Evidence Ledger quality evidence" in fast_path
+    assert "not Noise Gate quality evidence" in fast_path
+    assert "not report quality evidence" in fast_path
     assert "not product-complete" in fast_path
     assert (
         "README latest-marker semantic source provenance current-state refresh v0: implemented"
@@ -27907,6 +27911,92 @@ def test_retrieval_run_linked_gate_report_semantic_source_provenance_runtime_smo
     )
     assert (
         "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke-remote-verification.md"
+        in portfolio
+    )
+
+
+def test_external_reader_proof_path_gate_report_semantic_source_provenance_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reader-proof-path-gate-report-semantic-source-provenance-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External-reader Proof Path Gate/Report Semantic Source Provenance Route Refresh"
+        in content
+    )
+    assert (
+        "external-reader proof path Gate/Report semantic source provenance route refresh v0"
+        in content
+    )
+    assert "## Current Proof Route" in proof_path
+    assert (
+        "Retrieval-run-linked Gate/Report semantic source provenance proof:"
+        in proof_path
+    )
+    assert (
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance.md"
+        in proof_path
+    )
+    assert (
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke.md"
+        in proof_path
+    )
+    assert (
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke-remote-verification.md"
+        in proof_path
+    )
+    assert (
+        "Retrieval-run-linked Evidence Ledger semantic source provenance proof:"
+        in proof_path
+    )
+    assert "not semantic retrieval quality evidence" in proof_path
+    assert "not embedding generation" in proof_path
+    assert "not Evidence Ledger quality evidence" in proof_path
+    assert "not Noise Gate quality evidence" in proof_path
+    assert "not report quality evidence" in proof_path
+    assert "not external reviewer feedback" in proof_path
+    assert "not hosted deployment evidence" in proof_path
+    assert (
+        "Latest proof routing now points reviewers to the retrieval-run-linked Gate/Report semantic source provenance proof"
+        in readme
+    )
+    assert (
+        "Latest recorded remote verification state: the retrieval-run-linked Gate/Report semantic source provenance runtime-smoke proof was remotely checked by CI run `27048811299` and External Feedback Screen run `27048811288`"
+        in readme
+    )
+    assert (
+        "External-reader proof path Gate/Report semantic source provenance route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 636 - External-reader Proof Path Gate/Report Semantic Source Provenance Route Refresh v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 635 - Retrieval-run-linked Gate/Report Semantic Source Provenance Runtime Smoke Remote Verification v0"
+    ) < goal.index(
+        "Phase 636 - External-reader Proof Path Gate/Report Semantic Source Provenance Route Refresh v0"
+    )
+    assert (
+        "external-reader proof path Gate/Report semantic source provenance route refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reader-proof-path-gate-report-semantic-source-provenance-route-refresh.md"
         in portfolio
     )
 

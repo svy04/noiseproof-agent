@@ -16,6 +16,16 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Retrieval-run-linked Gate/Report semantic source provenance proof:
+
+```text
+docs/review/retrieval-run-linked-gate-report-semantic-source-provenance.md
+docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke.md
+docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke-remote-verification.md
+```
+
+Boundary: this current route proves semantic source-provenance preservation from a persisted retrieval run through retrieval-run-linked Evidence Ledger metadata into downstream Noise Gate and Report warnings, stage input manifests, and agent-run traces. It is not external reviewer feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
+
 Retrieval-run-linked Evidence Ledger semantic source provenance proof:
 
 ```text
@@ -26,7 +36,7 @@ docs/review/external-review-issue-body-retrieval-run-linked-evidence-ledger-sema
 docs/review/external-feedback-current-state-retrieval-run-linked-evidence-ledger-semantic-source-provenance-issue-verification-remote-verification.md
 ```
 
-Boundary: this current route proves source-provenance preservation from a persisted semantic retrieval run into the retrieval-run-linked Evidence Ledger handoff and reviewer routing. It is not external reviewer feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not final truth adjudication, and not product-complete.
+Boundary: this predecessor route proves source-provenance preservation from a persisted semantic retrieval run into the retrieval-run-linked Evidence Ledger handoff and reviewer routing. It is not external reviewer feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not final truth adjudication, and not product-complete.
 
 Persisted Report markdown export proof:
 
