@@ -24001,3 +24001,37 @@ self-authored comment only
 Boundary: README current-state coherence only; not external reviewer feedback, not a new runtime smoke, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 656 - Workflow Proof Bundle Reviewer Checklist v0
+
+Status: implemented.
+
+Purpose: make `GET /workflow-runs/{workflow_run_id}/proof-bundle` self-describing for reviewers by adding a read-only `reviewer_checklist` that names which proof surface to inspect and what each surface does not prove.
+
+Implemented artifacts:
+
+```text
+workflow proof bundle reviewer checklist v0
+apps/api/app/schemas.py
+apps/api/app/routes/workflow_runs.py
+apps/api/tests/test_routes.py
+docs/review/workflow-proof-bundle-reviewer-checklist.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Reviewer checklist items:
+
+```text
+detail_counts
+lineage_links
+trace_lookup
+failure_case_handoff
+```
+
+Boundary: read-only response-shape inspectability only; not new storage, not distributed tracing, not hosted observability, not a new lineage contract, not retry behavior, not root-cause automation, not semantic retrieval quality evidence, not embedding generation, not LLM output, not external reviewer feedback, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

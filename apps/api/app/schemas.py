@@ -972,6 +972,14 @@ class TraceLookupOut(BaseModel):
     summary: TraceLookupSummaryOut
 
 
+class WorkflowProofChecklistItemOut(BaseModel):
+    check_id: str
+    proof_surface: str | None
+    status: str
+    inspection_goal: str
+    boundary: str
+
+
 class WorkflowProofBundleOut(BaseModel):
     workflow_run: WorkflowRunOut
     workflow_trace_id: UUID | None
@@ -980,4 +988,5 @@ class WorkflowProofBundleOut(BaseModel):
     lineage: WorkflowLineageOut
     trace: TraceLookupOut | None
     proof_surfaces: list[str]
+    reviewer_checklist: list[WorkflowProofChecklistItemOut]
     warnings: list[str]

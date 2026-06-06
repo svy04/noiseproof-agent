@@ -105,6 +105,11 @@ def get_workflow_run_proof_bundle(
         lineage=lineage,
         trace=trace,
         proof_surfaces=proof_surfaces,
+        reviewer_checklist=_build_reviewer_checklist(
+            workflow_run_id,
+            workflow_trace_id,
+            detail,
+        ),
         warnings=warnings,
     )
 
@@ -186,6 +191,55 @@ def _workflow_trace_id_from_run(workflow_run: dict) -> tuple[UUID | None, str | 
         return UUID(str(value)), None
     except ValueError:
         return None, "workflow_trace_id is present but is not a valid UUID."
+
+
+def _build_reviewer_checklist(
+    workflow_run_id: UUID,
+    workflow_trace_id: UUID | None,
+    detail: WorkflowRunDetailOut,
+) -> list[dict[str, str | None]]:
+    workflow_path = f"/workflow-runs/{workflow_run_id}"
+    lineage_path = f"/workflow-runs/{workflow_run_id}/lineage"
+    trace_path = f"/traces/{workflow_trace_id}" if workflow_trace_id else None
+    failure_case_path = (
+        f"/failure-cases?workflow_run_id={workflow_run_id}"
+        if detail.summary.failure_case_count
+        else None
+    )
+    return [
+        {
+            "check_id": "detail_counts",
+            "proof_surface": workflow_path,
+            "status": "available",
+            "inspection_goal": "Inspect existing child record counts and local stage events.",
+            "boundary": "read-only detail surface over existing records; no new storage or quality claim.",
+        },
+        {
+            "check_id": "lineage_links",
+            "proof_surface": lineage_path,
+            "status": "available",
+            "inspection_goal": "Inspect derived Evidence Ledger, Noise Gate, and Report handoff links.",
+            "boundary": "read-only derived lineage surface; not a relational lineage contract.",
+        },
+        {
+            "check_id": "trace_lookup",
+            "proof_surface": trace_path,
+            "status": "available" if trace_path else "not_available",
+            "inspection_goal": "Inspect trace-correlated evidence, gate, and report records when a workflow_trace_id exists.",
+            "boundary": (
+                "read-only trace lookup surface; not distributed tracing or hosted observability."
+                if trace_path
+                else "read-only bundle state; missing workflow_trace_id does not claim trace-level proof."
+            ),
+        },
+        {
+            "check_id": "failure_case_handoff",
+            "proof_surface": failure_case_path,
+            "status": "available" if failure_case_path else "not_applicable",
+            "inspection_goal": "Inspect linked failure cases when the workflow has persisted failure-case records.",
+            "boundary": "read-only failure-case handoff surface; not retry behavior or root-cause automation.",
+        },
+    ]
 
 
 def _build_workflow_lineage(

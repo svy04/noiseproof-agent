@@ -232,6 +232,7 @@ Historical latest-marker compatibility: Latest proof-boundary marker: Architectu
 Historical latest-marker compatibility: Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest workflow dashboard runtime marker: Workflow failure auto-created failure-case dashboard runtime smoke v0
 Historical latest-marker compatibility: README top current-state coherence refresh v0: implemented
+Historical latest-marker compatibility: Workflow proof bundle reviewer checklist v0: implemented
 Historical latest-marker compatibility: Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown stage input links runtime smoke v0.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown source provenance export runtime smoke v0.

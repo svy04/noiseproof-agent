@@ -4919,6 +4919,68 @@ def test_workflow_run_proof_bundle_handles_metadata_only_workflow_without_trace_
     assert any("No workflow_trace_id is present" in warning for warning in payload["warnings"])
 
 
+def test_workflow_run_proof_bundle_exposes_reviewer_checklist_without_new_storage():
+    client = make_client()
+    execution = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-demand",
+                    "source_type": "markdown",
+                    "content": "Enterprise segment demand growth was 12 percent in 2026.",
+                }
+            ],
+        },
+    ).json()
+    workflow_run_id = execution["workflow_run"]["id"]
+    workflow_trace_id = execution["workflow_trace_id"]
+
+    payload = client.get(f"/workflow-runs/{workflow_run_id}/proof-bundle").json()
+
+    checklist = payload["reviewer_checklist"]
+    by_id = {item["check_id"]: item for item in checklist}
+    assert list(by_id) == [
+        "detail_counts",
+        "lineage_links",
+        "trace_lookup",
+        "failure_case_handoff",
+    ]
+    assert by_id["detail_counts"]["proof_surface"] == f"/workflow-runs/{workflow_run_id}"
+    assert by_id["detail_counts"]["status"] == "available"
+    assert "existing child record counts" in by_id["detail_counts"]["inspection_goal"]
+    assert by_id["lineage_links"]["proof_surface"] == (
+        f"/workflow-runs/{workflow_run_id}/lineage"
+    )
+    assert by_id["lineage_links"]["status"] == "available"
+    assert by_id["trace_lookup"]["proof_surface"] == f"/traces/{workflow_trace_id}"
+    assert by_id["trace_lookup"]["status"] == "available"
+    assert by_id["failure_case_handoff"]["proof_surface"] is None
+    assert by_id["failure_case_handoff"]["status"] == "not_applicable"
+    assert all("read-only" in item["boundary"] for item in checklist)
+    assert any("no new storage" in item["boundary"] for item in checklist)
+
+    metadata_workflow = client.post(
+        "/workflow-runs",
+        json={
+            "question": "Which sources disagree about memory demand?",
+            "status": "created",
+            "trace_json": {"phase": "metadata-only"},
+        },
+    ).json()
+    metadata_payload = client.get(
+        f"/workflow-runs/{metadata_workflow['id']}/proof-bundle"
+    ).json()
+    metadata_by_id = {
+        item["check_id"]: item for item in metadata_payload["reviewer_checklist"]
+    }
+    assert metadata_by_id["trace_lookup"]["proof_surface"] is None
+    assert metadata_by_id["trace_lookup"]["status"] == "not_available"
+    assert "does not claim trace-level proof" in metadata_by_id["trace_lookup"]["boundary"]
+
+
 def test_workflow_run_lineage_reports_missing_manifest_references_without_mutation_api():
     client = make_client()
     repository = client.app.dependency_overrides[get_repository]()

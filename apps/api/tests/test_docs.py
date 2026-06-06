@@ -29486,3 +29486,35 @@ def test_readme_top_current_state_coherence_refresh_updates_first_pass_status():
     )
     assert "readme top current-state coherence refresh v0" in runbook
     assert "docs/review/readme-top-current-state-coherence-refresh.md" in portfolio
+
+
+def test_workflow_proof_bundle_reviewer_checklist_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/workflow-proof-bundle-reviewer-checklist.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Workflow Proof Bundle Reviewer Checklist" in content
+    assert "workflow proof bundle reviewer checklist v0" in content
+    assert "GET /workflow-runs/{workflow_run_id}/proof-bundle" in content
+    assert "reviewer_checklist" in content
+    assert "detail_counts" in content
+    assert "lineage_links" in content
+    assert "trace_lookup" in content
+    assert "failure_case_handoff" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not product-complete" in content
+    assert "Workflow proof bundle reviewer checklist v0: implemented" in readme
+    assert "Phase 656 - Workflow Proof Bundle Reviewer Checklist v0" in goal
+    assert "workflow proof bundle reviewer checklist v0" in runbook
+    assert "docs/review/workflow-proof-bundle-reviewer-checklist.md" in portfolio
