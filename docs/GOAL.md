@@ -358,6 +358,32 @@ Boundary: remote workflow verification only; not new runtime evidence, not hoste
 
 Next gate: broader source-first product gate selected from current repository state.
 
+### Phase 714 - Upload PDF Quality Preview API v0
+
+Status: implemented.
+
+Purpose: expose the existing PDF parser-to-quality-observation path through `POST /documents/upload-pdf-quality-preview` so reviewers can inspect born-digital and encrypted PDF quality metadata without creating persisted document records.
+
+Implemented artifacts:
+
+```text
+Upload PDF quality preview API v0
+docs/review/upload-pdf-quality-preview-api.md
+apps/api/app/routes/documents.py
+apps/api/app/services/upload_pdf_quality_preview.py
+apps/api/app/schemas.py
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Boundary: preview-only API behavior; not document persistence, not retrieval, not Evidence Ledger generation, not decryption evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not hosted deployment evidence, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for this preview API if runtime proof is needed, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text

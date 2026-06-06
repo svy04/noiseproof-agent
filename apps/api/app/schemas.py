@@ -74,6 +74,20 @@ class UploadPreviewOut(ParsePreviewOut):
     persistence_boundary: str
 
 
+class UploadPdfQualityPreviewOut(BaseModel):
+    filename: str | None = None
+    content_type: str | None = None
+    byte_count: int
+    source_type: str
+    parser: str
+    quality_observation: dict[str, Any]
+    quality_boundary: str
+    warnings: list[str]
+    failure_case_candidate: FailureCaseCandidateOut | None = None
+    profile: DocumentProfileOut
+    persistence_boundary: str
+
+
 class UploadIntakeManifestPreviewOut(BaseModel):
     filename: str | None = None
     content_type: str | None = None

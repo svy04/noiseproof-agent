@@ -43,6 +43,7 @@ from app.schemas import (
     UploadIntakeManifestPreviewOut,
     UploadedFileIntakeManifestCreate,
     UploadedFileIntakeManifestOut,
+    UploadPdfQualityPreviewOut,
     UploadedRawFileCreate,
     UploadedRawFileOut,
     UploadNoiseGatePreviewOut,
@@ -68,6 +69,7 @@ from app.services.upload_evidence_preview import preview_uploaded_evidence
 from app.services.upload_failure_case_draft_preview import preview_uploaded_failure_case_draft
 from app.services.upload_intake_manifest_preview import preview_uploaded_intake_manifest
 from app.services.upload_noise_gate_preview import preview_uploaded_noise_gate
+from app.services.upload_pdf_quality_preview import preview_uploaded_pdf_quality
 from app.services.upload_preview import preview_upload
 from app.services.upload_report_preview import preview_uploaded_report
 from app.services.upload_retrieval_preview import preview_uploaded_retrieval
@@ -824,6 +826,35 @@ async def upload_document_preview(
             "persistence_boundary": "preview_only_not_persisted",
         },
         operation=lambda _agent_run_id: preview_upload(
+            filename=file.filename,
+            content_type=file.content_type,
+            source_type=source_type,
+            content=content,
+        ),
+    )
+
+
+@router.post("/upload-pdf-quality-preview", response_model=UploadPdfQualityPreviewOut)
+async def upload_document_pdf_quality_preview(
+    file: UploadFile = File(...),
+    source_type: str | None = Form(default=None),
+    repository: Repository = Depends(get_repository),
+) -> UploadPdfQualityPreviewOut:
+    content = await file.read()
+
+    return run_with_trace(
+        repository,
+        endpoint="POST /documents/upload-pdf-quality-preview",
+        user_question=f"upload PDF quality preview: {source_type or file.filename or 'unknown'}",
+        trace_json={
+            "source_type": source_type or "pdf",
+            "filename": file.filename,
+            "content_type": file.content_type,
+            "byte_count": len(content),
+            "quality_boundary": "pdf_quality_observation_preview_only_no_robust_extraction_claim",
+            "persistence_boundary": "preview_only_not_persisted",
+        },
+        operation=lambda _agent_run_id: preview_uploaded_pdf_quality(
             filename=file.filename,
             content_type=file.content_type,
             source_type=source_type,

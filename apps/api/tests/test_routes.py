@@ -3513,6 +3513,72 @@ def test_document_upload_preview_surfaces_encrypted_pdf_failure_candidate_withou
     assert client.get("/documents").json() == []
 
 
+def test_document_upload_pdf_quality_preview_returns_observation_without_persistence():
+    client = make_client()
+    content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")
+
+    response = client.post(
+        "/documents/upload-pdf-quality-preview",
+        files={"file": ("sample-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    observation = body["quality_observation"]
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["quality_boundary"] == (
+        "pdf_quality_observation_preview_only_no_robust_extraction_claim"
+    )
+    assert body["filename"] == "sample-report.pdf"
+    assert body["content_type"] == "application/pdf"
+    assert body["byte_count"] == len(content)
+    assert body["source_type"] == "pdf"
+    assert body["parser"] == "pdf-pymupdf"
+    assert observation["parser"] == "pdf-pymupdf"
+    assert "Enterprise PDF demand grew 12% in 2026" in observation["extracted_text"]
+    assert observation["digital_pdf_text_extraction"] is True
+    assert observation["robust_pdf_extraction"] is False
+    assert observation["page_count"] == 1
+    assert observation["extracted_page_count"] == 1
+    assert observation["failure_case_candidate"] is None
+    assert body["profile"]["has_numbers"] is True
+    assert any("does not claim robust PDF extraction" in warning for warning in body["warnings"])
+    assert client.get("/documents").json() == []
+
+
+def test_document_upload_pdf_quality_preview_preserves_encrypted_failure_candidate_without_decryption():
+    client = make_client()
+    content = _encrypted_pdf_bytes()
+
+    response = client.post(
+        "/documents/upload-pdf-quality-preview",
+        files={"file": ("encrypted-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    observation = body["quality_observation"]
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["quality_boundary"] == (
+        "pdf_quality_observation_preview_only_no_robust_extraction_claim"
+    )
+    assert body["source_type"] == "pdf"
+    assert body["parser"] == "pdf-pymupdf"
+    assert observation["encrypted"] is True
+    assert observation["password_required"] is True
+    assert observation["digital_pdf_text_extraction"] is False
+    assert observation["robust_pdf_extraction"] is False
+    assert observation["failure_case_candidate"] == "pdf_encrypted_requires_password"
+    assert "encrypted" in observation["failure_case_description"]
+    assert "authorized password" in observation["failure_case_next_action"]
+    assert body["failure_case_candidate"]["failure_type"] == (
+        "pdf_encrypted_requires_password"
+    )
+    assert any("password required" in warning.lower() for warning in body["warnings"])
+    assert not any("decryption" in warning.lower() for warning in body["warnings"])
+    assert client.get("/documents").json() == []
+
+
 def test_document_upload_chunk_preview_compares_uploaded_csv_without_persistence():
     client = make_client()
     content = b"date,segment,growth\n2026-05-28,enterprise,12\n2026-05-29,consumer,-3\n"

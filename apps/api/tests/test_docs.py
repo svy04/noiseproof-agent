@@ -32694,3 +32694,36 @@ def test_pdf_extraction_quality_observation_grouped_report_remote_verification_i
         "PDF extraction quality observation grouped report remote verification"
         in portfolio
     )
+
+
+def test_upload_pdf_quality_preview_api_is_recorded():
+    review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-api.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Upload PDF Quality Preview API" in content
+    assert "upload PDF quality preview API v0" in content
+    assert "POST /documents/upload-pdf-quality-preview" in content
+    assert "apps/api/app/services/upload_pdf_quality_preview.py" in content
+    assert "packages/ingestion/pdf_quality/observation.py" in content
+    assert "quality_boundary -> pdf_quality_observation_preview_only_no_robust_extraction_claim" in content
+    assert "quality_observation" in content
+    assert "preview_only_not_persisted" in content
+    assert "not robust PDF extraction implementation" in content
+    assert "not OCR implementation" in content
+    assert "not table extraction implementation" in content
+    assert "not decryption evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "upload PDF quality preview API v0: implemented" in readme
+    assert "Phase 714 - Upload PDF Quality Preview API v0" in goal
+    assert "Phase 714 adds upload PDF quality preview API v0" in runbook
+    assert "Upload PDF quality preview API" in portfolio
