@@ -34864,3 +34864,66 @@ def test_external_review_issue_body_upload_pdf_quality_preview_coverage_summary_
         "external review issue body upload PDF quality preview coverage summary route refresh"
         in portfolio
     )
+
+
+def test_external_feedback_current_state_upload_pdf_quality_preview_coverage_summary_issue_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-upload-pdf-quality-preview-coverage-summary-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Feedback Current-state Upload PDF Quality Preview Coverage Summary Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state upload PDF quality preview coverage summary issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt: 2026-06-06T17:25:34Z" in content
+    assert "comment_count: 1" in content
+    assert "screened_comment_count: 1" in content
+    assert "owner_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment" in content
+    assert "status: pending" in content
+    assert "does_not_close_gate: true" in content
+    assert "first_codepoint: 35" in content
+    assert "has_leading_bom: false" in content
+    assert "quality_summary.page_coverage_ratio" in content
+    assert "quality_summary.extraction_status" in content
+    assert "partial_extraction_status=partial_text" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not Braincrew acceptance" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External feedback current-state upload PDF quality preview coverage summary issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 750 - External Feedback Current-state Upload PDF Quality Preview Coverage Summary Issue Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 750 adds external feedback current-state upload PDF quality preview coverage summary issue verification v0"
+        in runbook
+    )
+    assert (
+        "external feedback current-state upload PDF quality preview coverage summary issue verification"
+        in portfolio
+    )

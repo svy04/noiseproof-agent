@@ -1706,6 +1706,39 @@ Boundary: owner-authored issue body routing only; not external reviewer feedback
 
 Next gate: external feedback current-state upload PDF quality preview coverage-summary issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 750 - External Feedback Current-state Upload PDF Quality Preview Coverage Summary Issue Verification v0
+
+Status: implemented.
+
+Purpose: record the live issue #1 state after the upload PDF quality preview coverage-summary issue-body refresh and keep external reviewer feedback v0 pending.
+
+Implemented artifacts:
+
+```text
+external feedback current-state upload PDF quality preview coverage summary issue verification v0
+docs/review/external-feedback-current-state-upload-pdf-quality-preview-coverage-summary-issue-verification.md
+https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt -> 2026-06-06T17:25:34Z
+comment_count -> 1
+screened_comment_count -> 1
+owner_comment_count -> 1
+candidate_count -> 0
+draft_count -> 0
+classification -> non_qualifying
+reason -> self_authored_comment
+status -> pending
+does_not_close_gate -> true
+first_codepoint -> 35
+has_leading_bom -> false
+quality_summary.page_coverage_ratio
+quality_summary.extraction_status
+partial_extraction_status=partial_text
+```
+
+Boundary: current-state verification of a public request issue only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction evidence, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: remote verification for this current-state issue screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.
