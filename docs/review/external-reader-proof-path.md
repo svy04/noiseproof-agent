@@ -16,6 +16,16 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Workflow proof bundle markdown export runtime proof:
+
+```text
+docs/review/workflow-proof-bundle-markdown-export.md
+docs/review/workflow-proof-bundle-markdown-export-runtime-smoke.md
+docs/review/external-reader-proof-path-workflow-markdown-runtime-route-refresh.md
+```
+
+Boundary: this current route points first-pass reviewers to the local runtime proof that `GET /ops/dashboard` exposes the `proof markdown` link and `GET /workflow-runs/{id}/proof-bundle/markdown` returns `200` with `text/markdown; charset=utf-8`. This route alignment is not new runtime evidence. It is not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
+
 Workflow proof bundle reviewer checklist dashboard runtime proof:
 
 ```text
@@ -24,7 +34,7 @@ docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md
 docs/review/external-reader-proof-path-workflow-checklist-dashboard-runtime-route-refresh.md
 ```
 
-Boundary: this current route proves that the local operations dashboard can route a reviewer to the workflow proof bundle through a visible `reviewer checklist` link, and that the linked proof bundle returns four read-only checklist items: `detail_counts`, `lineage_links`, `trace_lookup`, and `failure_case_handoff`. This route is not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
+Boundary: this predecessor route proves that the local operations dashboard can route a reviewer to the workflow proof bundle through a visible `reviewer checklist` link, and that the linked proof bundle returns four read-only checklist items: `detail_counts`, `lineage_links`, `trace_lookup`, and `failure_case_handoff`. This route is not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
 
 Report markdown local inspection paths proof:
 

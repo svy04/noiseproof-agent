@@ -22891,6 +22891,38 @@ Boundary: local runtime evidence only; not hosted deployment evidence, not exter
 
 Next gate: external-reader proof path markdown export route refresh v0 if this proof should become the latest reviewer route, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 667 - External-reader Proof Path Workflow Markdown Runtime Route Refresh v0
+
+Status: implemented.
+
+Purpose: align the repository-native external-reader proof path and README External Reviewer Fast Path with the workflow proof bundle markdown export runtime smoke while preserving the workflow checklist dashboard proof and report inspection proof as predecessor routes.
+
+Implemented artifacts:
+
+```text
+external-reader proof path workflow markdown runtime route refresh v0
+docs/review/external-reader-proof-path-workflow-markdown-runtime-route-refresh.md
+docs/review/external-reader-proof-path.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Route markers:
+
+```text
+Current Proof Route -> workflow proof bundle markdown export runtime smoke
+Predecessor workflow checklist dashboard proof -> workflow proof bundle reviewer checklist dashboard runtime smoke
+Predecessor report inspection proof -> report markdown local inspection paths proof chain
+README External Reviewer Fast Path -> workflow proof bundle markdown export runtime smoke
+```
+
+Boundary: reader-route alignment only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not LLM output, and not product-complete.
+
+Next gate: remote verification for this reader-route refresh after push, issue-body refresh if the public issue should route to this proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
 ### Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0
 
 Status: implemented.

@@ -29696,10 +29696,7 @@ def test_external_reader_proof_path_routes_to_workflow_checklist_dashboard_runti
     assert "not external reviewer feedback" in content
     assert "not hosted deployment evidence" in content
     assert "not product-complete" in content
-    assert (
-        "Latest proof routing now points reviewers to the workflow proof bundle reviewer checklist dashboard runtime smoke"
-        in readme
-    )
+    assert "Historical predecessor route remote verification compatibility" in readme
     assert (
         "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md"
         in readme
@@ -29711,6 +29708,11 @@ def test_external_reader_proof_path_routes_to_workflow_checklist_dashboard_runti
     assert proof_path.index(
         "Workflow proof bundle reviewer checklist dashboard runtime proof:"
     ) < proof_path.index("Report markdown local inspection paths proof:")
+    assert proof_path.index(
+        "Workflow proof bundle markdown export runtime proof:"
+    ) < proof_path.index(
+        "Workflow proof bundle reviewer checklist dashboard runtime proof:"
+    )
     assert (
         "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md"
         in proof_path
@@ -30066,5 +30068,98 @@ def test_workflow_proof_bundle_markdown_export_runtime_smoke_is_recorded():
     assert "workflow proof bundle markdown export runtime smoke v0" in runbook
     assert (
         "docs/review/workflow-proof-bundle-markdown-export-runtime-smoke.md"
+        in portfolio
+    )
+
+
+def test_external_reader_proof_path_workflow_markdown_runtime_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reader-proof-path-workflow-markdown-runtime-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    fast_path = readme.split("## External Reviewer Fast Path", 1)[1].split(
+        "## What This Is", 1
+    )[0]
+    current_route = proof_path.split("## Current Proof Route", 1)[1].split(
+        "Read in this order:", 1
+    )[0]
+
+    assert (
+        "External-reader Proof Path Workflow Markdown Runtime Route Refresh"
+        in content
+    )
+    assert (
+        "external-reader proof path workflow markdown runtime route refresh v0"
+        in content
+    )
+    assert "## Current Proof Route" in proof_path
+    assert "Workflow proof bundle markdown export runtime proof:" in current_route
+    assert (
+        "docs/review/workflow-proof-bundle-markdown-export.md"
+        in current_route
+    )
+    assert (
+        "docs/review/workflow-proof-bundle-markdown-export-runtime-smoke.md"
+        in current_route
+    )
+    assert (
+        "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md"
+        in current_route
+    )
+    assert current_route.index(
+        "Workflow proof bundle markdown export runtime proof:"
+    ) < current_route.index(
+        "Workflow proof bundle reviewer checklist dashboard runtime proof:"
+    )
+    assert "not new runtime evidence" in current_route
+    assert "not external reviewer feedback" in current_route
+    assert "not hosted deployment evidence" in current_route
+    assert "not semantic retrieval quality evidence" in current_route
+    assert "not embedding generation" in current_route
+    assert "not product-complete" in current_route
+    assert (
+        "Latest proof routing now points reviewers to the workflow proof bundle markdown export runtime smoke"
+        in fast_path
+    )
+    assert (
+        "docs/review/workflow-proof-bundle-markdown-export-runtime-smoke.md"
+        in fast_path
+    )
+    assert (
+        "Latest proof routing now points reviewers to the workflow proof bundle reviewer checklist dashboard runtime smoke"
+        not in fast_path
+    )
+    assert (
+        "External-reader proof path workflow markdown runtime route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 667 - External-reader Proof Path Workflow Markdown Runtime Route Refresh v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 666 - Workflow Proof Bundle Markdown Export Runtime Smoke v0"
+    ) < goal.index(
+        "Phase 667 - External-reader Proof Path Workflow Markdown Runtime Route Refresh v0"
+    )
+    assert (
+        "external-reader proof path workflow markdown runtime route refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reader-proof-path-workflow-markdown-runtime-route-refresh.md"
         in portfolio
     )
