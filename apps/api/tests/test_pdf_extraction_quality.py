@@ -18,6 +18,9 @@ from packages.ingestion.pdf_quality.observation import (
     pdf_parse_result_to_quality_observation,
 )
 from packages.ingestion.pdf_quality.report import build_pdf_extraction_quality_report
+from packages.ingestion.pdf_quality.table_adapter import (
+    extract_pdf_tables_with_pymupdf,
+)
 from packages.ingestion.parsers.pdf import PdfParser
 from packages.ingestion.types import ParseInput
 
@@ -137,6 +140,68 @@ def test_pdf_extraction_quality_evaluator_scores_table_cell_recall_contract():
         "manifest_metric_only_not_robust_pdf_extraction"
     )
     assert result["robust_pdf_extraction_claimed"] is False
+
+
+def test_pdf_table_adapter_extracts_table_rows_without_robust_pdf_claim():
+    adapter_result = extract_pdf_tables_with_pymupdf(_table_pdf_bytes())
+
+    assert adapter_result["table_extraction_performed"] is True
+    assert adapter_result["table_extraction_engine"] == "pymupdf-find_tables-extract"
+    assert adapter_result["robust_pdf_extraction"] is False
+    assert adapter_result["tables"] == [
+        [["Segment", "Growth"], ["Enterprise", "12%"]]
+    ]
+    assert adapter_result["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert adapter_result["table_rows_extracted"] == 2
+    assert adapter_result["table_cell_count"] == 4
+    assert adapter_result["failure_case_candidate"] is None
+    assert "adapter output only" in adapter_result["boundary"]
+
+
+def test_pdf_table_adapter_feeds_quality_evaluator_table_cell_recall():
+    adapter_result = extract_pdf_tables_with_pymupdf(_table_pdf_bytes())
+    fixture = load_pdf_extraction_quality_fixture(
+        REPO_ROOT / "examples/pdf-extraction-quality"
+    )
+
+    result = evaluate_pdf_extraction_quality(
+        fixture,
+        {
+            "table_heavy_report": {
+                "extracted_text": "Segment Growth Enterprise 12%",
+                "warnings": [
+                    "PyMuPDF table extraction adapter output only; robust PDF extraction is not claimed."
+                ],
+                "page_count": 1,
+                "extracted_page_count": 1,
+                "table_rows_extracted": adapter_result["table_rows_extracted"],
+                "extracted_table_rows": adapter_result["extracted_table_rows"],
+                "failure_case_candidate": None,
+            }
+        },
+    )
+
+    assert result["per_fixture"]["table_heavy_report"]["table_row_coverage"] == 1.0
+    assert result["per_fixture"]["table_heavy_report"]["table_cell_recall"] == 0.0
+    assert result["robust_pdf_extraction_claimed"] is False
+    assert "not robust PDF extraction evidence" in result["boundary_notes"]
+
+
+def test_pdf_table_adapter_reports_no_table_as_structured_warning():
+    adapter_result = extract_pdf_tables_with_pymupdf(
+        _minimal_pdf_bytes("market memo without table")
+    )
+
+    assert adapter_result["table_extraction_performed"] is False
+    assert adapter_result["tables"] == []
+    assert adapter_result["extracted_table_rows"] == []
+    assert adapter_result["table_rows_extracted"] == 0
+    assert adapter_result["failure_case_candidate"] == "pdf_no_tables_found"
+    assert any("No tables were extracted" in warning for warning in adapter_result["warnings"])
+    assert adapter_result["robust_pdf_extraction"] is False
 
 
 def test_pdf_extraction_quality_report_matches_committed_artifact():

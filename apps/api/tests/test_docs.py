@@ -32716,6 +32716,42 @@ def test_pdf_table_extraction_contract_v0_is_recorded():
     assert "PDF table extraction contract" in portfolio
 
 
+def test_pdf_table_extraction_adapter_v0_is_recorded():
+    review_path = REPO_ROOT / "docs/review/pdf-table-extraction-adapter.md"
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "PDF Table Extraction Adapter" in content
+    assert "Phase marker: PDF table extraction adapter v0" in content
+    assert "source-first adapter decision" in content
+    assert "packages/ingestion/pdf_quality/table_adapter.py" in content
+    assert "apps/api/tests/test_pdf_extraction_quality.py" in content
+    assert "pymupdf-find_tables-extract" in content
+    assert "Table.extract()" in content
+    assert "https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables" in content
+    assert "https://github.com/jsvine/pdfplumber#extracting-tables" in content
+    assert "https://camelot-py.readthedocs.io/en/stable/" in content
+    assert "no new dependency" in content
+    assert "not wired into the default PdfParser output" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not OCR implementation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "PDF table extraction adapter v0: implemented" in readme
+    assert "Phase 772 - PDF Table Extraction Adapter v0" in goal
+    assert "Phase 772 adds PDF table extraction adapter v0" in runbook
+    assert "PDF table extraction adapter" in portfolio
+
+
 def test_pdf_extraction_quality_evaluator_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/pdf-extraction-quality-evaluator.md"
     assert review_path.is_file()

@@ -43,6 +43,37 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 772:
+
+```text
+latest_product_gate: PDF table extraction adapter v0
+latest_product_artifact: docs/review/pdf-table-extraction-adapter.md
+latest_adapter_code: packages/ingestion/pdf_quality/table_adapter.py
+latest_adapter_test: apps/api/tests/test_pdf_extraction_quality.py
+source_first_basis:
+  - PyMuPDF Page.find_tables() / Table.extract()
+  - pdfplumber extract_tables as future richer alternative
+  - Camelot as future table-focused alternative
+table_extraction_engine: pymupdf-find_tables-extract
+adapter_extracted_table_fixture:
+  - [Segment, Growth]
+  - [Enterprise, 12%]
+adapter_table_rows_extracted: 2
+adapter_table_cell_count: 4
+default_pdf_parser_table_extraction_performed: still_false
+default_pdf_parser_integration: not_implemented
+robust_pdf_extraction: not_implemented
+table_extraction_evidence_for_arbitrary_market_pdfs: not_claimed
+latest_reviewer_route: upload PDF quality preview coverage summary proof chain plus Docker environment runtime proof
+latest_feedback_state_remote_verification: docs/review/external-feedback-current-state-docker-environment-issue-verification-remote-verification.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: adapter output only; not default PdfParser output; not robust PDF extraction evidence; not OCR implementation; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 771:
 
 ```text
@@ -2785,6 +2816,48 @@ current_table_heavy_observation.table_cell_recall: 0
 Boundary: fixture and evaluator contract only; not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Next gate: table extraction adapter source-first review, a tiny table extraction adapter behind this contract, external reviewer feedback v0 if qualifying outside feedback exists, or owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner.
+
+### Phase 772 - PDF Table Extraction Adapter v0
+
+Status: implemented.
+
+Purpose: add the smallest PyMuPDF table extraction adapter behind the Phase 771 table contract, without changing the default `PdfParser` output boundary.
+
+Implemented artifacts:
+
+```text
+PDF table extraction adapter v0
+docs/review/pdf-table-extraction-adapter.md
+packages/ingestion/pdf_quality/table_adapter.py
+apps/api/tests/test_pdf_extraction_quality.py
+apps/api/tests/test_docs.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Source-first basis:
+
+```text
+PyMuPDF Page.find_tables() / Table.extract()
+pdfplumber extract_tables as future richer alternative
+Camelot as future table-focused alternative
+```
+
+Adapter markers:
+
+```text
+table_extraction_engine -> pymupdf-find_tables-extract
+tables -> [[Segment, Growth], [Enterprise, 12%]]
+table_rows_extracted -> 2
+table_cell_count -> 4
+robust_pdf_extraction -> false
+default PdfParser output integration -> not implemented
+```
+
+Boundary: adapter output only; not wired into default `PdfParser` output; not table extraction evidence for arbitrary market PDFs; not robust PDF extraction evidence; not OCR implementation; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: preview-only integration of the adapter into PDF quality output, or add a fixture whose expected table rows match the deterministic local table fixture and regenerate the quality report.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
