@@ -32976,6 +32976,54 @@ def test_pdf_binary_fixture_parser_adapter_smoke_v0_is_recorded():
     assert "PDF binary fixture parser adapter smoke" in portfolio
 
 
+def test_pdf_binary_fixture_parser_adapter_smoke_remote_verification_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/pdf-binary-fixture-parser-adapter-smoke-remote-verification.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "PDF Binary Fixture Parser Adapter Smoke Remote Verification" in content
+    assert "PDF binary fixture parser adapter smoke remote verification v0" in content
+    assert "f3c123ec79c53832716cb79220488f5541bd5d2e" in content
+    assert "CI run `27072946995`" in content
+    assert "External Feedback Screen run `27072946997`" in content
+    assert "CI job_id -> 79905281142" in content
+    assert "External Feedback Screen job_id -> 79905281112" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "docs/review/pdf-binary-fixture-parser-adapter-smoke.md" in content
+    assert "not the parser/adapter smoke itself" in content
+    assert "not new runtime evidence" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not default PdfParser table extraction" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "PDF binary fixture parser adapter smoke remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 780 - PDF Binary Fixture Parser Adapter Smoke Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 780 adds PDF binary fixture parser adapter smoke remote verification v0"
+        in runbook
+    )
+    assert "PDF binary fixture parser adapter smoke remote verification" in portfolio
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
