@@ -16,7 +16,15 @@ It does not replace the full proof path.
 
 1. `README.md`
    - Scope, non-goals, implementation status, and the current proof boundaries.
-2. Upload PDF quality preview coverage summary proof
+2. Uploaded PDF table adapter metadata provenance runtime proof
+   - `docs/review/uploaded-pdf-table-adapter-metadata-provenance.md`
+   - Product remote verification: `docs/review/uploaded-pdf-table-adapter-metadata-provenance-remote-verification.md`.
+   - Runtime proof: `docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md`.
+   - Runtime remote verification: `docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md`.
+   - Route refresh: `docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md`.
+   - Records `POST /documents/upload-chunks`, `POST /documents/{document_id}/retrieval-runs`, `GET /retrieval-runs`, `default_pdf_parser_table_adapter_metadata`, `table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]`, `table_extraction_performed remains false`, and `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`.
+   - Boundary: not new runtime evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger generation, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
+   - Related Upload PDF quality preview coverage summary proof
    - `docs/review/upload-pdf-quality-preview-coverage-summary.md`
    - Runtime proof: `docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md`.
    - Runtime remote verification: `docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md`.

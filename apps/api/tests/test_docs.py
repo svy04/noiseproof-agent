@@ -34037,6 +34037,102 @@ def test_uploaded_pdf_table_adapter_metadata_provenance_runtime_smoke_remote_ver
     )
 
 
+def test_external_reader_uploaded_pdf_table_adapter_metadata_provenance_runtime_route_refresh_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    external_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    shortlist = (REPO_ROOT / "docs/review/external-reviewer-shortlist.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External-reader Proof Path Uploaded PDF Table Adapter Metadata Provenance Runtime Route Refresh"
+        in content
+    )
+    assert (
+        "external-reader proof path uploaded PDF table adapter metadata provenance runtime route refresh v0"
+        in content
+    )
+    assert "docs/review/external-reader-proof-path.md" in content
+    assert "docs/review/external-reviewer-link-map.md" in content
+    assert "docs/review/external-reviewer-shortlist.md" in content
+    assert "docs/review/uploaded-pdf-table-adapter-metadata-provenance.md" in content
+    assert (
+        "docs/review/uploaded-pdf-table-adapter-metadata-provenance-remote-verification.md"
+        in content
+    )
+    assert (
+        "docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md"
+        in content
+    )
+    assert (
+        "docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md"
+        in content
+    )
+    assert "POST /documents/upload-chunks" in content
+    assert "POST /documents/{document_id}/retrieval-runs" in content
+    assert "GET /retrieval-runs" in content
+    assert "default_pdf_parser_table_adapter_metadata" in content
+    assert "table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]" in content
+    assert "table_extraction_performed remains false" in content
+    assert "source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only" in content
+    assert "CI run `27075457410`" in content
+    assert "External Feedback Screen run `27075457400`" in content
+    assert "remote verification follow-up CI run `27075534491`" in content
+    assert (
+        "remote verification follow-up External Feedback Screen run `27075534480`"
+        in content
+    )
+    assert "not new runtime evidence" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not table extraction evidence for arbitrary market PDFs" in content
+    assert "not Evidence Ledger generation" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Uploaded PDF table adapter metadata provenance runtime proof" in external_path
+    )
+    assert (
+        "Latest Uploaded PDF Table Adapter Metadata Provenance Runtime Proof"
+        in link_map
+    )
+    assert "Uploaded PDF table adapter metadata provenance runtime proof" in shortlist
+    assert (
+        "External-reader proof path uploaded PDF table adapter metadata provenance runtime route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 799 - External-reader Proof Path Uploaded PDF Table Adapter Metadata Provenance Runtime Route Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 799 adds external-reader proof path uploaded PDF table adapter metadata provenance runtime route refresh v0"
+        in runbook
+    )
+    assert (
+        "external-reader proof path uploaded PDF table adapter metadata provenance runtime route refresh"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

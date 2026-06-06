@@ -43,6 +43,26 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 799:
+
+```text
+latest_reviewer_route_gate: External-reader proof path uploaded PDF table adapter metadata provenance runtime route refresh v0
+latest_reviewer_route_artifact: docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md
+latest_routed_product_artifact: docs/review/uploaded-pdf-table-adapter-metadata-provenance.md
+latest_routed_runtime_artifact: docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md
+latest_routed_remote_artifact: docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md
+latest_api_surface: POST /documents/upload-chunks; POST /documents/{document_id}/retrieval-runs; GET /retrieval-runs
+default_pdf_parser_table_adapter_metadata: visible_in_uploaded_document_chunk_retrieval_metadata
+table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed_claim: remains_false_on_parser_metadata
+source_provenance_boundary: retrieval_run_candidate_chunk_metadata_only
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: reviewer route hygiene only; not new runtime evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger generation; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 798:
 
 ```text
@@ -4292,6 +4312,51 @@ screen -> success
 Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 799 - External-reader Proof Path Uploaded PDF Table Adapter Metadata Provenance Runtime Route Refresh v0
+
+Status: implemented.
+
+Purpose: route first-pass external reviewers to the Phase 795/796/797/798 uploaded PDF table-adapter metadata provenance proof chain without making any new runtime, extraction, or Evidence Ledger claim.
+
+Implemented artifacts:
+
+```text
+External-reader proof path uploaded PDF table adapter metadata provenance runtime route refresh v0
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Routed proof markers:
+
+```text
+docs/review/uploaded-pdf-table-adapter-metadata-provenance.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-remote-verification.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md
+POST /documents/upload-chunks
+POST /documents/{document_id}/retrieval-runs
+GET /retrieval-runs
+default_pdf_parser_table_adapter_metadata
+table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed remains false
+source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only
+CI run `27075457410`
+External Feedback Screen run `27075457400`
+remote verification follow-up CI run `27075534491`
+remote verification follow-up External Feedback Screen run `27075534480`
+```
+
+Boundary: reviewer route hygiene only; not new runtime evidence; not the runtime smoke itself; not robust PDF extraction evidence; not default PdfParser table extraction; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger generation; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: remote verification for this reader-route refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 798 - Uploaded PDF Table Adapter Metadata Provenance Runtime Smoke Remote Verification v0
 

@@ -16,6 +16,38 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Uploaded PDF table adapter metadata provenance runtime proof:
+
+```text
+docs/review/uploaded-pdf-table-adapter-metadata-provenance.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-remote-verification.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md
+POST /documents/upload-chunks
+POST /documents/{document_id}/retrieval-runs
+GET /retrieval-runs
+```
+
+Route markers:
+
+```text
+default_pdf_parser_table_adapter_metadata
+table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed remains false
+source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only
+document_profile_default_pdf_parser_table_adapter_metadata -> true
+chunk_metadata_default_pdf_parser_table_adapter_metadata -> true
+retrieval_metadata_default_pdf_parser_table_adapter_metadata -> true
+retrieval_candidate_default_pdf_parser_table_adapter_metadata -> true
+CI run `27075457410`
+External Feedback Screen run `27075457400`
+remote verification follow-up CI run `27075534491`
+remote verification follow-up External Feedback Screen run `27075534480`
+```
+
+Boundary: this route points reviewers to the uploaded-PDF table-adapter metadata provenance path from `POST /documents/upload-chunks` through persisted chunks and retrieval-run candidate metadata. It is route hygiene only, not new runtime evidence, not robust PDF extraction evidence, not default `PdfParser` table extraction, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger generation, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 PDF binary fixture smoke preview runtime proof:
 
 ```text

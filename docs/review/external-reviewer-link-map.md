@@ -8,6 +8,24 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest Uploaded PDF Table Adapter Metadata Provenance Runtime Proof
+
+- Product proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-table-adapter-metadata-provenance.md
+- Product remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-table-adapter-metadata-provenance-remote-verification.md
+- Runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md
+- Runtime remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md
+- API routes:
+  `POST /documents/upload-chunks`, `POST /documents/{document_id}/retrieval-runs`, `GET /retrieval-runs`
+- Route markers:
+  `default_pdf_parser_table_adapter_metadata`, `table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]`, `table_extraction_performed remains false`, `source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only`
+- Boundary: uploaded-PDF metadata provenance runtime routing only; not a live issue body edit, not new runtime evidence, not robust PDF extraction evidence, not default `PdfParser` table extraction, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger generation, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 ## Latest PDF Binary Fixture Smoke Preview Runtime Proof
 
 - Runtime proof:
