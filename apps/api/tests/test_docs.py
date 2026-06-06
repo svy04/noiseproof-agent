@@ -35453,6 +35453,70 @@ def test_external_review_issue_body_docker_environment_route_refresh_remote_veri
     )
 
 
+def test_external_feedback_current_state_docker_environment_issue_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-docker-environment-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Feedback Current-state Docker Environment Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state Docker environment issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt: 2026-06-06T18:54:09Z" in content
+    assert "comment_count: 1" in content
+    assert "screened_comment_count: 1" in content
+    assert "owner_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment" in content
+    assert "status: pending" in content
+    assert "does_not_close_gate: true" in content
+    assert "first_codepoint: 35" in content
+    assert "has_leading_bom: false" in content
+    assert "Docker version 29.4.3" in content
+    assert "GET /health -> 200" in content
+    assert "GET /ops/summary -> 200" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production readiness" in content
+    assert "not customer validation" in content
+    assert "not Braincrew acceptance" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External feedback current-state Docker environment issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 769 - External Feedback Current-state Docker Environment Issue Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 769 adds external feedback current-state Docker environment issue verification v0"
+        in runbook
+    )
+    assert (
+        "external feedback current-state Docker environment issue verification"
+        in portfolio
+    )
+
+
 def test_goal_current_state_upload_pdf_summary_link_map_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
