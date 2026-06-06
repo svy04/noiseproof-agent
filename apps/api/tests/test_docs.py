@@ -29781,3 +29781,75 @@ def test_external_reader_proof_path_workflow_checklist_dashboard_runtime_route_r
         "docs/review/external-reader-proof-path-workflow-checklist-dashboard-runtime-route-refresh-remote-verification.md"
         in portfolio
     )
+
+
+def test_external_review_issue_body_workflow_checklist_dashboard_runtime_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-workflow-checklist-dashboard-runtime-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Review Issue Body Workflow Checklist Dashboard Runtime Route Refresh"
+        in content
+    )
+    assert (
+        "external review issue body workflow checklist dashboard runtime route refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt:" in content
+    assert "comment_count: 1" in content
+    assert "starts_with_request: true" in content
+    assert "first_codepoint: 35" in content
+    assert "has_workflow_checklist_dashboard_runtime_smoke: true" in content
+    assert "has_workflow_checklist_dashboard_route_refresh: true" in content
+    assert "has_workflow_checklist_dashboard_route_refresh_remote_verification: true" in content
+    assert "has_report_markdown_local_inspection_predecessor: true" in content
+    assert "old_report_markdown_latest_label_present: false" in content
+    assert (
+        "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md"
+        in content
+    )
+    assert (
+        "docs/review/external-reader-proof-path-workflow-checklist-dashboard-runtime-route-refresh.md"
+        in content
+    )
+    assert (
+        "docs/review/external-reader-proof-path-workflow-checklist-dashboard-runtime-route-refresh-remote-verification.md"
+        in content
+    )
+    assert "reviewer_checklist_ids: detail_counts,lineage_links,trace_lookup,failure_case_handoff" in content
+    assert "owner-authored issue body routing only" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest external-feedback state: pending after workflow checklist dashboard runtime issue-body refresh"
+        in readme
+    )
+    assert (
+        "External review issue body workflow checklist dashboard runtime route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 662 - External Review Issue Body Workflow Checklist Dashboard Runtime Route Refresh v0"
+        in goal
+    )
+    assert (
+        "external review issue body workflow checklist dashboard runtime route refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-review-issue-body-workflow-checklist-dashboard-runtime-route-refresh.md"
+        in portfolio
+    )
