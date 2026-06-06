@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 794:
+
+```text
+latest_remote_verification_gate: Default PdfParser table adapter metadata remote verification v0
+latest_remote_verification_artifact: docs/review/default-pdf-parser-table-adapter-metadata-remote-verification.md
+latest_verified_head_sha: 996b9a4ff8ba13b99fd16e096758d287e7b084d3
+latest_ci_run: 27074818789
+latest_ci_job_id: 79910280094
+latest_external_feedback_screen_run: 27074818787
+latest_external_feedback_screen_job_id: 79910280046
+verified_product_gate: Default PdfParser table adapter metadata v0
+verified_product_artifact: docs/review/default-pdf-parser-table-adapter-metadata.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the product gate itself; not new runtime evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 793:
 
 ```text
@@ -4193,6 +4212,40 @@ screen -> success
 Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 794 - Default PdfParser Table Adapter Metadata Remote Verification v0
+
+Status: implemented.
+
+Purpose: record that the Phase 793 default `PdfParser` table-adapter metadata product gate passed the remote GitHub Actions workflows after push.
+
+Implemented artifacts:
+
+```text
+Default PdfParser table adapter metadata remote verification v0
+docs/review/default-pdf-parser-table-adapter-metadata-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote workflow evidence:
+
+```text
+head_commit -> 996b9a4ff8ba13b99fd16e096758d287e7b084d3
+CI run -> 27074818789
+CI job -> 79910280094
+External Feedback Screen run -> 27074818787
+External Feedback Screen job -> 79910280046
+api-smoke -> success
+screen -> success
+```
+
+Boundary: remote workflow verification only; not the product gate itself; not new runtime evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: uploaded PDF handoff route/runtime proof for the default parser table-adapter metadata, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 793 - Default PdfParser Table Adapter Metadata v0
 

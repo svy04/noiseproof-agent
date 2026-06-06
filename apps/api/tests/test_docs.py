@@ -33767,6 +33767,54 @@ def test_default_pdf_parser_table_adapter_metadata_v0_is_recorded():
     assert "Default PdfParser table adapter metadata" in portfolio
 
 
+def test_default_pdf_parser_table_adapter_metadata_remote_verification_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/default-pdf-parser-table-adapter-metadata-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Default PdfParser Table Adapter Metadata Remote Verification" in content
+    assert "default PdfParser table adapter metadata remote verification v0" in content
+    assert "996b9a4ff8ba13b99fd16e096758d287e7b084d3" in content
+    assert "CI run: 27074818789" in content
+    assert "CI job: 79910280094" in content
+    assert "External Feedback Screen run: 27074818787" in content
+    assert "External Feedback Screen job: 79910280046" in content
+    assert "api-smoke -> success" in content
+    assert "screen -> success" in content
+    assert "docs/review/default-pdf-parser-table-adapter-metadata.md" in content
+    assert "not the product gate itself" in content
+    assert "not new runtime evidence" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not table extraction evidence for arbitrary market PDFs" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Default PdfParser table adapter metadata remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 794 - Default PdfParser Table Adapter Metadata Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 794 adds default PdfParser table adapter metadata remote verification v0"
+        in runbook
+    )
+    assert "Default PdfParser table adapter metadata remote verification" in portfolio
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
