@@ -3711,6 +3711,49 @@ def test_document_upload_pdf_quality_preview_preserves_encrypted_failure_candida
     assert client.get("/documents").json() == []
 
 
+def test_document_pdf_binary_fixture_smoke_preview_exposes_synthetic_fixture_behavior_without_persistence():
+    client = make_client()
+
+    response = client.get("/documents/pdf-binary-fixture-smoke-preview")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["fixture_source_boundary"] == (
+        "repo_synthetic_binary_fixtures_only_no_arbitrary_upload"
+    )
+    assert body["claim_boundary"] == (
+        "binary_fixture_smoke_only_not_robust_pdf_extraction"
+    )
+    assert body["robust_pdf_extraction_claimed"] is False
+    assert body["fixture_count"] == 2
+    assert body["passed_count"] == 2
+    assert body["failed_count"] == 0
+    assert body["packet"] == "pdf_binary_fixture_provenance_packet_v0"
+    assert "binary_born_digital_text" in body["per_fixture"]
+    assert "binary_deterministic_table_adapter" in body["per_fixture"]
+
+    born_digital = body["per_fixture"]["binary_born_digital_text"]
+    assert born_digital["parser"] == "pdf-pymupdf"
+    assert born_digital["digital_pdf_text_extraction"] is True
+    assert born_digital["robust_pdf_extraction"] is False
+    assert born_digital["expected_spans_found"] is True
+
+    table_fixture = body["per_fixture"]["binary_deterministic_table_adapter"]
+    assert table_fixture["parser"] == "pdf-pymupdf"
+    assert table_fixture["table_candidate_count"] == 1
+    assert table_fixture["table_extraction_performed"] is False
+    assert table_fixture["table_adapter"]["table_extraction_performed"] is True
+    assert table_fixture["table_adapter"]["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert any("does not create documents" in warning for warning in body["warnings"])
+    assert any("does not accept arbitrary uploads" in warning for warning in body["warnings"])
+    assert any("not robust PDF extraction evidence" in note for note in body["boundary_notes"])
+    assert client.get("/documents").json() == []
+
+
 def test_document_upload_chunk_preview_compares_uploaded_csv_without_persistence():
     client = make_client()
     content = b"date,segment,growth\n2026-05-28,enterprise,12\n2026-05-29,consumer,-3\n"

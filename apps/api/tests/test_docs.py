@@ -33145,6 +33145,52 @@ def test_external_reader_pdf_binary_fixture_smoke_route_refresh_remote_verificat
     )
 
 
+def test_pdf_binary_fixture_smoke_preview_runtime_smoke_v0_is_recorded():
+    review_path = REPO_ROOT / "docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke.md"
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "PDF Binary Fixture Smoke Preview Runtime Smoke" in content
+    assert "PDF binary fixture smoke preview runtime smoke v0" in content
+    assert "GET /documents/pdf-binary-fixture-smoke-preview" in content
+    assert "noiseproof-phase783" in content
+    assert "POSTGRES_PORT=55457" in content
+    assert "FastAPI URL: http://127.0.0.1:8118" in content
+    assert "Pending migrations: 23" in content
+    assert "Pending migrations: 0" in content
+    assert "GET /health -> 200" in content
+    assert "GET /documents/pdf-binary-fixture-smoke-preview -> 200" in content
+    assert "fixture_source_boundary=repo_synthetic_binary_fixtures_only_no_arbitrary_upload" in content
+    assert "persistence_boundary=preview_only_not_persisted" in content
+    assert "claim_boundary=binary_fixture_smoke_only_not_robust_pdf_extraction" in content
+    assert "fixture_count=2" in content
+    assert "passed_count=2" in content
+    assert "failed_count=0" in content
+    assert "document_count_delta=0" in content
+    assert "agent_run_count=1" in content
+    assert "table_adapter_rows=[[Segment, Growth], [Enterprise, 12%]]" in content
+    assert "uvicorn stopped" in content
+    assert "docker compose -p noiseproof-phase783 down -v -> completed" in content
+    assert "not arbitrary uploaded-file behavior" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not default PdfParser table extraction" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert "PDF binary fixture smoke preview runtime smoke v0: verified" in readme
+    assert "Phase 783 - PDF Binary Fixture Smoke Preview Runtime Smoke v0" in goal
+    assert "Phase 783 adds PDF binary fixture smoke preview runtime smoke v0" in runbook
+    assert "PDF binary fixture smoke preview runtime smoke" in portfolio
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

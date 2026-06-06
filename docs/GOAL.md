@@ -43,6 +43,35 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 783:
+
+```text
+latest_runtime_proof_gate: PDF binary fixture smoke preview runtime smoke v0
+latest_runtime_proof_artifact: docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke.md
+latest_api_surface: GET /documents/pdf-binary-fixture-smoke-preview
+runtime_compose_project: noiseproof-phase783
+runtime_postgres_port: 55457
+runtime_fastapi_url: http://127.0.0.1:8118
+runtime_health_status: 200
+runtime_preview_status: 200
+fixture_source_boundary: repo_synthetic_binary_fixtures_only_no_arbitrary_upload
+persistence_boundary: preview_only_not_persisted
+claim_boundary: binary_fixture_smoke_only_not_robust_pdf_extraction
+fixture_count: 2
+passed_count: 2
+failed_count: 0
+document_count_delta: 0
+agent_run_count: 1
+robust_pdf_extraction: not_implemented
+default_pdf_parser_table_extraction_performed: still_false
+table_extraction_evidence_for_arbitrary_market_pdfs: not_claimed
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: local runtime proof for repo synthetic binary fixture smoke preview only; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not default PdfParser table extraction; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 782:
 
 ```text
@@ -3532,6 +3561,51 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the route refresh itself; not new runtime evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: API/runtime smoke that exposes binary fixture behavior without storing arbitrary uploaded files, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 783 - PDF Binary Fixture Smoke Preview Runtime Smoke v0
+
+Status: verified.
+
+Purpose: expose the repository's synthetic PDF binary fixture parser/adapter smoke through a live FastAPI preview route while preserving the no-arbitrary-upload and no-persistence boundary.
+
+Implemented artifacts:
+
+```text
+PDF binary fixture smoke preview runtime smoke v0
+GET /documents/pdf-binary-fixture-smoke-preview
+apps/api/app/services/pdf_binary_fixture_smoke_preview.py
+apps/api/app/routes/documents.py
+apps/api/app/schemas.py
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Runtime markers:
+
+```text
+Compose project: noiseproof-phase783
+POSTGRES_PORT=55457
+FastAPI URL: http://127.0.0.1:8118
+GET /health -> 200
+GET /documents/pdf-binary-fixture-smoke-preview -> 200
+fixture_source_boundary=repo_synthetic_binary_fixtures_only_no_arbitrary_upload
+persistence_boundary=preview_only_not_persisted
+claim_boundary=binary_fixture_smoke_only_not_robust_pdf_extraction
+fixture_count=2
+passed_count=2
+failed_count=0
+document_count_delta=0
+agent_run_count=1
+```
+
+Boundary: local runtime proof for repo synthetic binary fixture smoke preview only; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: remote verification for this runtime-smoke proof after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

@@ -90,6 +90,20 @@ class UploadPdfQualityPreviewOut(BaseModel):
     persistence_boundary: str
 
 
+class PdfBinaryFixtureSmokePreviewOut(BaseModel):
+    packet: str
+    claim_boundary: str
+    robust_pdf_extraction_claimed: bool
+    fixture_count: int
+    passed_count: int
+    failed_count: int
+    per_fixture: dict[str, Any]
+    boundary_notes: list[str]
+    warnings: list[str]
+    persistence_boundary: str
+    fixture_source_boundary: str
+
+
 class UploadIntakeManifestPreviewOut(BaseModel):
     filename: str | None = None
     content_type: str | None = None

@@ -25,6 +25,7 @@ from app.schemas import (
     FailureCaseDraftPreviewOut,
     ParsePreviewOut,
     ParsePreviewRequest,
+    PdfBinaryFixtureSmokePreviewOut,
     RawFileDownloadApprovalCreate,
     RawFileDownloadApprovalOut,
     RawFileDownloadEventCreate,
@@ -57,6 +58,7 @@ from app.services.document_chunk_retrieval import run_document_chunk_retrieval
 from app.services.document_failure_case_draft import preview_document_failure_case_draft
 from app.services.document_profiler import profile_document
 from app.services.parse_preview import preview_parse
+from app.services.pdf_binary_fixture_smoke_preview import preview_pdf_binary_fixture_smoke
 from app.services.raw_file_scan_execution import (
     get_scanner_adapter,
     scan_uploaded_raw_file,
@@ -860,6 +862,35 @@ async def upload_document_pdf_quality_preview(
             source_type=source_type,
             content=content,
         ),
+    )
+
+
+@router.get(
+    "/pdf-binary-fixture-smoke-preview",
+    response_model=PdfBinaryFixtureSmokePreviewOut,
+)
+def pdf_binary_fixture_smoke_preview(
+    repository: Repository = Depends(get_repository),
+) -> PdfBinaryFixtureSmokePreviewOut:
+    def operation(_agent_run_id) -> PdfBinaryFixtureSmokePreviewOut:
+        return preview_pdf_binary_fixture_smoke()
+
+    return run_with_trace(
+        repository,
+        endpoint="GET /documents/pdf-binary-fixture-smoke-preview",
+        user_question="preview synthetic PDF binary fixture smoke",
+        trace_json={
+            "fixture_source_boundary": "repo_synthetic_binary_fixtures_only_no_arbitrary_upload",
+            "persistence_boundary": "preview_only_not_persisted",
+            "robust_pdf_extraction_claimed": False,
+        },
+        trace_from_result=lambda result: {
+            "fixture_count": result.fixture_count,
+            "passed_count": result.passed_count,
+            "failed_count": result.failed_count,
+            "claim_boundary": result.claim_boundary,
+        },
+        operation=operation,
     )
 
 

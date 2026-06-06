@@ -447,6 +447,7 @@ Recent fixture smoke: PDF binary fixture parser adapter smoke v0: implemented.
 Recent fixture smoke remote verification: PDF binary fixture parser adapter smoke remote verification v0: implemented.
 Recent reviewer route: External-reader proof path PDF binary fixture smoke route refresh v0: implemented.
 Recent reviewer route remote verification: External-reader proof path PDF binary fixture smoke route refresh remote verification v0: implemented.
+Recent runtime proof: PDF binary fixture smoke preview runtime smoke v0: verified.
 
 Historical latest-marker compatibility: Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Historical latest-marker compatibility: Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification; candidate_count=0; self-authored comment only.
