@@ -43,6 +43,33 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 785:
+
+```text
+latest_reviewer_route_gate: external-reader proof path PDF binary fixture smoke preview route refresh v0
+latest_reviewer_route_artifact: docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-preview-route-refresh.md
+latest_runtime_proof_gate: PDF binary fixture smoke preview runtime smoke v0
+latest_runtime_proof_artifact: docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke.md
+latest_runtime_remote_verification_artifact: docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke-remote-verification.md
+latest_api_surface: GET /documents/pdf-binary-fixture-smoke-preview
+fixture_source_boundary: repo_synthetic_binary_fixtures_only_no_arbitrary_upload
+persistence_boundary: preview_only_not_persisted
+claim_boundary: binary_fixture_smoke_only_not_robust_pdf_extraction
+fixture_count: 2
+passed_count: 2
+failed_count: 0
+document_count_delta: 0
+agent_run_count: 1
+robust_pdf_extraction: not_implemented
+default_pdf_parser_table_extraction_performed: still_false
+table_extraction_evidence_for_arbitrary_market_pdfs: not_claimed
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: reviewer route hygiene only; not new runtime evidence; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not default PdfParser table extraction; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 784:
 
 ```text
@@ -3673,6 +3700,48 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: external-reader proof path route refresh if this API/runtime proof should become a first-pass reviewer route, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 785 - External-reader Proof Path PDF Binary Fixture Smoke Preview Route Refresh v0
+
+Status: implemented.
+
+Purpose: route first-pass external reviewers to the Phase 783/784 PDF binary fixture smoke preview runtime proof chain without making any new runtime, upload, or PDF extraction claim.
+
+Implemented artifacts:
+
+```text
+external-reader proof path PDF binary fixture smoke preview route refresh v0
+docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-preview-route-refresh.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke.md
+docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke-remote-verification.md
+GET /documents/pdf-binary-fixture-smoke-preview
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Route markers:
+
+```text
+GET /documents/pdf-binary-fixture-smoke-preview
+fixture_source_boundary=repo_synthetic_binary_fixtures_only_no_arbitrary_upload
+persistence_boundary=preview_only_not_persisted
+claim_boundary=binary_fixture_smoke_only_not_robust_pdf_extraction
+fixture_count=2
+passed_count=2
+failed_count=0
+document_count_delta=0
+agent_run_count=1
+```
+
+Boundary: reviewer route hygiene only; not new runtime evidence; not the runtime smoke itself; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: remote verification for this reader-route refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

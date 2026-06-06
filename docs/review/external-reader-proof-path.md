@@ -16,6 +16,34 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+PDF binary fixture smoke preview runtime proof:
+
+```text
+docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke.md
+docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-preview-route-refresh.md
+GET /documents/pdf-binary-fixture-smoke-preview
+```
+
+Route markers:
+
+```text
+GET /documents/pdf-binary-fixture-smoke-preview
+fixture_source_boundary=repo_synthetic_binary_fixtures_only_no_arbitrary_upload
+persistence_boundary=preview_only_not_persisted
+claim_boundary=binary_fixture_smoke_only_not_robust_pdf_extraction
+fixture_count=2
+passed_count=2
+failed_count=0
+document_count_delta=0
+agent_run_count=1
+table_adapter_rows=[[Segment, Growth], [Enterprise, 12%]]
+CI run `27073528326`
+External Feedback Screen run `27073528323`
+```
+
+Boundary: this route points reviewers to the local Docker PostgreSQL plus live FastAPI HTTP proof for the repository synthetic PDF binary fixture smoke preview route. It is route hygiene only, not new runtime evidence, not arbitrary uploaded-file behavior, not document persistence evidence, not robust PDF extraction evidence, not default `PdfParser` table extraction, not table extraction evidence for arbitrary market PDFs, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 PDF binary fixture parser/adapter smoke proof:
 
 ```text

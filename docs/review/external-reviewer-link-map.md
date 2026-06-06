@@ -8,6 +8,20 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest PDF Binary Fixture Smoke Preview Runtime Proof
+
+- Runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke.md
+- Runtime remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke-remote-verification.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-preview-route-refresh.md
+- API route:
+  `GET /documents/pdf-binary-fixture-smoke-preview`
+- Route markers:
+  `fixture_source_boundary=repo_synthetic_binary_fixtures_only_no_arbitrary_upload`, `persistence_boundary=preview_only_not_persisted`, `claim_boundary=binary_fixture_smoke_only_not_robust_pdf_extraction`, `fixture_count=2`, `passed_count=2`, `failed_count=0`, `document_count_delta=0`, `agent_run_count=1`
+- Boundary: synthetic binary fixture runtime preview routing only; not a live issue body edit, not new runtime evidence, not arbitrary uploaded-file behavior, not robust PDF extraction evidence, not default `PdfParser` table extraction, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 ## Latest PDF Binary Fixture Smoke Proof
 
 - Binary fixture provenance packet:
