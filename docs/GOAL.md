@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 814:
+
+```text
+latest_remote_verification_gate: Uploaded PDF table adapter Noise Gate provenance remote verification v0
+latest_remote_verification_artifact: docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-remote-verification.md
+latest_verified_head_sha: a18fcc625bd533c56787911c64f03302ff606d9b
+latest_ci_run: 27077347774
+latest_ci_job_id: 79916869573
+latest_external_feedback_screen_run: 27077347758
+latest_external_feedback_screen_job_id: 79916869639
+verified_product_gate: Uploaded PDF table adapter Noise Gate provenance v0
+verified_product_artifact: docs/review/uploaded-pdf-table-adapter-noise-gate-provenance.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the product gate itself; not local Docker runtime evidence; not hosted deployment evidence; not external reviewer feedback; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Noise Gate quality evidence; not final truth adjudication; not final report generation; not product-complete
+```
+
 Current navigation overlay as of Phase 813:
 
 ```text
@@ -28226,6 +28245,32 @@ handoff_performs_pdf_table_extraction -> false
 ```
 
 Phase 813 adds uploaded PDF table adapter Noise Gate provenance v0. It is route-level regression evidence only, not local Docker runtime evidence, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Noise Gate quality evidence, not final truth adjudication, not final report generation, and not product-complete.
+
+### Phase 814 - Uploaded PDF Table Adapter Noise Gate Provenance Remote Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record remote GitHub Actions success for the uploaded PDF table-adapter Noise Gate provenance product gate
+```
+
+Implemented:
+
+```text
+uploaded PDF table adapter Noise Gate provenance remote verification v0
+docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-remote-verification.md
+head_sha: a18fcc625bd533c56787911c64f03302ff606d9b
+CI run `27077347774`
+CI job_id -> 79916869573
+External Feedback Screen run `27077347758`
+External Feedback Screen job_id -> 79916869639
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Phase 814 adds uploaded PDF table adapter Noise Gate provenance remote verification v0. It is remote workflow verification only, not the product gate itself, not local Docker runtime evidence, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Noise Gate quality evidence, not final truth adjudication, not final report generation, and not product-complete.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 

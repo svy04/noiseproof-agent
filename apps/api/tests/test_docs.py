@@ -35114,6 +35114,55 @@ def test_uploaded_pdf_table_adapter_noise_gate_provenance_v0_is_recorded():
     assert "uploaded PDF table adapter Noise Gate provenance" in portfolio
 
 
+def test_uploaded_pdf_table_adapter_noise_gate_provenance_remote_verification_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-remote-verification.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded PDF Table Adapter Noise Gate Provenance Remote Verification" in content
+    assert "uploaded PDF table adapter Noise Gate provenance remote verification v0" in content
+    assert "a18fcc625bd533c56787911c64f03302ff606d9b" in content
+    assert "CI run `27077347774`" in content
+    assert "CI job_id -> 79916869573" in content
+    assert "External Feedback Screen run `27077347758`" in content
+    assert "External Feedback Screen job_id -> 79916869639" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "docs/review/uploaded-pdf-table-adapter-noise-gate-provenance.md" in content
+    assert "not the product gate itself" in content
+    assert "not local Docker runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Uploaded PDF table adapter Noise Gate provenance remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 814 - Uploaded PDF Table Adapter Noise Gate Provenance Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 814 adds uploaded PDF table adapter Noise Gate provenance remote verification v0"
+        in runbook
+    )
+    assert "uploaded PDF table adapter Noise Gate provenance remote verification" in portfolio
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
