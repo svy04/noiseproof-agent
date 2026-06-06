@@ -22842,6 +22842,30 @@ Boundary: local runtime evidence only; not hosted deployment evidence, not final
 
 Next gate: external reviewer feedback v0 remains pending, hosted deployment evidence remains unproven, live embedding generation remains unproven, semantic retrieval quality remains toy-fixture only, or select another source-first product gate from the current repository state.
 
+### Phase 691 - Evidence Quality Risk Ops Surface Runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions verification that the pushed Phase 689/690 product/runtime proof passed CI and External Feedback Screen.
+
+Implemented artifacts:
+
+```text
+evidence quality risk ops surface runtime smoke remote verification v0
+docs/review/evidence-quality-risk-ops-surface-runtime-smoke-remote-verification.md
+commit: 2344fe63d79c51558a73716af35c6031d6194001
+CI run 27059770935: success
+CI job_id -> 79870490383
+External Feedback Screen run 27059770929: success
+External Feedback Screen job_id -> 79870490444
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the local runtime smoke itself, not hosted deployment evidence, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not an LLM call, not embedding generation, not external reviewer feedback, and not product-complete.
+
+Next gate: external reviewer feedback v0 remains pending, hosted deployment evidence remains unproven, live embedding generation remains unproven, semantic retrieval quality remains toy-fixture only, or select another source-first product gate from the current repository state.
+
 ### Phase 664 - External Feedback Current-state Workflow Checklist Dashboard Runtime Issue Verification Remote Verification v0
 
 Status: implemented.
