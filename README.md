@@ -437,6 +437,9 @@ Not implemented yet:
 - embedding generation and vector search quality evidence beyond the deterministic local hash preview
 - full distributed tracing or hosted observability
 
+Recent verified runtime proof: Upload PDF quality preview table adapter runtime smoke v0: verified.
+Recent product gate: Upload PDF quality preview table adapter v0: implemented.
+
 Historical latest-marker compatibility: Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Historical latest-marker compatibility: Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest workflow dashboard runtime marker: Workflow failure auto-created failure-case dashboard runtime smoke v0

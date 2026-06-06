@@ -43,6 +43,41 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 774:
+
+```text
+latest_runtime_proof_gate: upload PDF quality preview table adapter runtime smoke v0
+latest_runtime_proof_artifact: docs/review/upload-pdf-quality-preview-table-adapter-runtime-smoke.md
+latest_product_gate: upload PDF quality preview table adapter v0
+latest_product_artifact: docs/review/upload-pdf-quality-preview-table-adapter.md
+latest_api_surface: POST /documents/upload-pdf-quality-preview
+latest_response_marker: quality_table_adapter
+runtime_compose_project: noiseproof-phase774
+runtime_postgres_port: 55456
+runtime_fastapi_url: http://127.0.0.1:8117
+runtime_health_status: 200
+quality_table_adapter_present: true
+quality_table_adapter.table_extraction_engine: pymupdf-find_tables-extract
+quality_table_adapter.extracted_table_rows:
+  - [Segment, Growth]
+  - [Enterprise, 12%]
+quality_table_adapter.table_rows_extracted: 2
+quality_table_adapter.table_cell_count: 4
+quality_observation.table_extraction_performed: false
+quality_summary.table_extraction_performed: false
+document_count_delta: 0
+default_pdf_parser_table_extraction_performed: still_false
+default_pdf_parser_integration: not_implemented
+robust_pdf_extraction: not_implemented
+table_extraction_evidence_for_arbitrary_market_pdfs: not_claimed
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: local runtime proof for preview-only adapter output; not default PdfParser table extraction; not robust PDF extraction evidence; not OCR implementation; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 773:
 
 ```text
@@ -2924,6 +2959,44 @@ quality_summary.table_extraction_performed -> false
 Boundary: preview-only adapter output; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not robust PDF extraction evidence; not OCR implementation; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: local Docker/FastAPI runtime smoke for `quality_table_adapter`, or a quality fixture/report update that evaluates a matching deterministic table fixture.
+
+### Phase 774 - Upload PDF Quality Preview Table Adapter Runtime Smoke v0
+
+Status: verified.
+
+Purpose: record local Docker PostgreSQL plus live FastAPI HTTP evidence that `POST /documents/upload-pdf-quality-preview` exposes the Phase 773 `quality_table_adapter` block without persisting preview documents or changing the default PDF parser boundary.
+
+Implemented artifacts:
+
+```text
+upload PDF quality preview table adapter runtime smoke v0
+docs/review/upload-pdf-quality-preview-table-adapter-runtime-smoke.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Runtime markers:
+
+```text
+Compose project -> noiseproof-phase774
+FastAPI URL -> http://127.0.0.1:8117
+GET /health -> 200
+table_adapter_upload_status -> 200
+quality_table_adapter.table_extraction_engine -> pymupdf-find_tables-extract
+quality_table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+quality_table_adapter.table_rows_extracted -> 2
+quality_table_adapter.table_cell_count -> 4
+quality_observation.table_extraction_performed -> false
+quality_summary.table_extraction_performed -> false
+document_count_delta -> 0
+```
+
+Boundary: local runtime evidence only; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not robust PDF extraction evidence; not OCR implementation; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: remote verification for this runtime-smoke proof after push, a quality fixture/report update that evaluates the deterministic table fixture, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

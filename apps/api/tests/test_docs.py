@@ -32789,6 +32789,51 @@ def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     assert "Upload PDF quality preview table adapter" in portfolio
 
 
+def test_upload_pdf_quality_preview_table_adapter_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/upload-pdf-quality-preview-table-adapter-runtime-smoke.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Upload PDF Quality Preview Table Adapter Runtime Smoke" in content
+    assert "Phase marker: upload PDF quality preview table adapter runtime smoke v0" in content
+    assert "Docker version" in content
+    assert "Docker Compose version" in content
+    assert "Compose project: noiseproof-phase774" in content
+    assert "FastAPI URL: http://127.0.0.1:8117" in content
+    assert "GET /health -> 200" in content
+    assert "table_adapter_upload_status=200" in content
+    assert "quality_table_adapter_present=True" in content
+    assert "quality_table_adapter.table_extraction_engine=pymupdf-find_tables-extract" in content
+    assert "quality_table_adapter.table_rows_extracted=2" in content
+    assert "quality_table_adapter.table_cell_count=4" in content
+    assert "quality_table_adapter.rows=[['Segment', 'Growth'], ['Enterprise', '12%']]" in content
+    assert "quality_observation.table_extraction_performed=False" in content
+    assert "quality_summary.table_extraction_performed=False" in content
+    assert "document_count_delta=0" in content
+    assert "uvicorn stopped" in content
+    assert "no listening process" in content
+    assert "not default PdfParser table extraction" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "Upload PDF quality preview table adapter runtime smoke v0: verified" in readme
+    assert "Phase 774 - Upload PDF Quality Preview Table Adapter Runtime Smoke v0" in goal
+    assert "Phase 774 adds upload PDF quality preview table adapter runtime smoke v0" in runbook
+    assert "Upload PDF quality preview table adapter runtime smoke" in portfolio
+
+
 def test_pdf_extraction_quality_evaluator_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/pdf-extraction-quality-evaluator.md"
     assert review_path.is_file()
