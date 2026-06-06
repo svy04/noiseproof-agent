@@ -33123,3 +33123,53 @@ def test_external_feedback_current_state_upload_pdf_quality_preview_issue_verifi
         "external feedback current-state upload PDF quality preview issue verification remote verification"
         in portfolio
     )
+
+
+def test_upload_pdf_quality_preview_summary_is_recorded():
+    review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-summary.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    api_doc = (REPO_ROOT / "docs/review/upload-pdf-quality-preview-api.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Upload PDF Quality Preview Summary" in content
+    assert "upload PDF quality preview summary v0" in content
+    assert "POST /documents/upload-pdf-quality-preview" in content
+    assert "quality_summary" in content
+    assert "summary_only_not_robust_pdf_extraction_evidence" in content
+    assert "page_count" in content
+    assert "extracted_page_count" in content
+    assert "empty_page_count" in content
+    assert "digital_pdf_text_extraction" in content
+    assert "robust_pdf_extraction" in content
+    assert "encrypted" in content
+    assert "password_required" in content
+    assert "table_candidate_count" in content
+    assert "table_extraction_performed" in content
+    assert "failure_case_candidate" in content
+    assert "https://pymupdf.readthedocs.io/en/latest/document.html" in content
+    assert "https://pymupdf.readthedocs.io/en/latest/page.html" in content
+    assert "not extracted text storage" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not OCR implementation" in content
+    assert "not table extraction implementation" in content
+    assert "not decryption evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "quality_summary" in api_doc
+    assert (
+        "Upload PDF quality preview summary v0: implemented"
+        in readme
+    )
+    assert "Phase 722 - Upload PDF Quality Preview Summary v0" in goal
+    assert "Phase 722 adds upload PDF quality preview summary v0" in runbook
+    assert "Upload PDF quality preview summary" in portfolio

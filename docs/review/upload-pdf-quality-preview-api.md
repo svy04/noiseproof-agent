@@ -36,6 +36,7 @@ Response markers:
 persistence_boundary -> preview_only_not_persisted
 quality_boundary -> pdf_quality_observation_preview_only_no_robust_extraction_claim
 quality_observation
+quality_summary
 parser -> pdf-pymupdf
 robust_pdf_extraction -> false
 ```
@@ -44,6 +45,7 @@ Observed behavior:
 
 - born-digital PDF input returns `digital_pdf_text_extraction -> true` and extracted text inside `quality_observation`.
 - encrypted PDF input preserves `failure_case_candidate -> pdf_encrypted_requires_password`, `encrypted -> true`, and `password_required -> true`.
+- `quality_summary` exposes compact reviewer-facing fields such as `page_count`, `extracted_page_count`, `password_required`, `robust_pdf_extraction`, `table_extraction_performed`, and `reviewer_boundary -> summary_only_not_robust_pdf_extraction_evidence`.
 - the preview endpoint records an agent-run trace like the other preview endpoints, but it does not create a `Document` row.
 
 ## Boundary

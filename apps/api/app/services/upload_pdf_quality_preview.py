@@ -42,6 +42,7 @@ def preview_uploaded_pdf_quality(
         source_type=parsed.source_type,
         parser=parsed.parser,
         quality_observation=observation,
+        quality_summary=_quality_summary(observation),
         quality_boundary=PDF_QUALITY_PREVIEW_BOUNDARY,
         warnings=warnings + parsed.warnings + observation["warnings"],
         failure_case_candidate=(
@@ -52,3 +53,19 @@ def preview_uploaded_pdf_quality(
         profile=profile,
         persistence_boundary="preview_only_not_persisted",
     )
+
+
+def _quality_summary(observation: dict) -> dict:
+    return {
+        "page_count": observation.get("page_count"),
+        "extracted_page_count": observation.get("extracted_page_count"),
+        "empty_page_count": observation.get("empty_page_count"),
+        "digital_pdf_text_extraction": observation.get("digital_pdf_text_extraction"),
+        "robust_pdf_extraction": observation.get("robust_pdf_extraction"),
+        "encrypted": observation.get("encrypted"),
+        "password_required": observation.get("password_required"),
+        "table_candidate_count": observation.get("table_candidate_count"),
+        "table_extraction_performed": observation.get("table_extraction_performed"),
+        "failure_case_candidate": observation.get("failure_case_candidate"),
+        "reviewer_boundary": "summary_only_not_robust_pdf_extraction_evidence",
+    }

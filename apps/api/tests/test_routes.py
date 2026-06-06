@@ -3525,6 +3525,7 @@ def test_document_upload_pdf_quality_preview_returns_observation_without_persist
     assert response.status_code == 200
     body = response.json()
     observation = body["quality_observation"]
+    summary = body["quality_summary"]
     assert body["persistence_boundary"] == "preview_only_not_persisted"
     assert body["quality_boundary"] == (
         "pdf_quality_observation_preview_only_no_robust_extraction_claim"
@@ -3541,6 +3542,17 @@ def test_document_upload_pdf_quality_preview_returns_observation_without_persist
     assert observation["page_count"] == 1
     assert observation["extracted_page_count"] == 1
     assert observation["failure_case_candidate"] is None
+    assert summary["page_count"] == 1
+    assert summary["extracted_page_count"] == 1
+    assert summary["digital_pdf_text_extraction"] is True
+    assert summary["robust_pdf_extraction"] is False
+    assert summary["encrypted"] is False
+    assert summary["password_required"] is False
+    assert summary["table_extraction_performed"] is False
+    assert summary["failure_case_candidate"] is None
+    assert summary["reviewer_boundary"] == (
+        "summary_only_not_robust_pdf_extraction_evidence"
+    )
     assert body["profile"]["has_numbers"] is True
     assert any("does not claim robust PDF extraction" in warning for warning in body["warnings"])
     assert client.get("/documents").json() == []
@@ -3558,6 +3570,7 @@ def test_document_upload_pdf_quality_preview_preserves_encrypted_failure_candida
     assert response.status_code == 200
     body = response.json()
     observation = body["quality_observation"]
+    summary = body["quality_summary"]
     assert body["persistence_boundary"] == "preview_only_not_persisted"
     assert body["quality_boundary"] == (
         "pdf_quality_observation_preview_only_no_robust_extraction_claim"
@@ -3571,6 +3584,14 @@ def test_document_upload_pdf_quality_preview_preserves_encrypted_failure_candida
     assert observation["failure_case_candidate"] == "pdf_encrypted_requires_password"
     assert "encrypted" in observation["failure_case_description"]
     assert "authorized password" in observation["failure_case_next_action"]
+    assert summary["encrypted"] is True
+    assert summary["password_required"] is True
+    assert summary["digital_pdf_text_extraction"] is False
+    assert summary["robust_pdf_extraction"] is False
+    assert summary["failure_case_candidate"] == "pdf_encrypted_requires_password"
+    assert summary["reviewer_boundary"] == (
+        "summary_only_not_robust_pdf_extraction_evidence"
+    )
     assert body["failure_case_candidate"]["failure_type"] == (
         "pdf_encrypted_requires_password"
     )

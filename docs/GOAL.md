@@ -662,6 +662,48 @@ Boundary: remote workflow verification only; not the current-state issue screen 
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 722 - Upload PDF Quality Preview Summary v0
+
+Status: implemented.
+
+Purpose: add a compact `quality_summary` field to `POST /documents/upload-pdf-quality-preview` so reviewers can inspect key PDF quality boundary signals without reading the full `quality_observation.extracted_text` payload.
+
+Implemented artifacts:
+
+```text
+upload PDF quality preview summary v0
+docs/review/upload-pdf-quality-preview-summary.md
+docs/review/upload-pdf-quality-preview-api.md
+apps/api/app/schemas.py
+apps/api/app/services/upload_pdf_quality_preview.py
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Response markers:
+
+```text
+quality_summary.page_count
+quality_summary.extracted_page_count
+quality_summary.empty_page_count
+quality_summary.digital_pdf_text_extraction
+quality_summary.robust_pdf_extraction
+quality_summary.encrypted
+quality_summary.password_required
+quality_summary.table_candidate_count
+quality_summary.table_extraction_performed
+quality_summary.failure_case_candidate
+quality_summary.reviewer_boundary -> summary_only_not_robust_pdf_extraction_evidence
+```
+
+Boundary: response-shape inspectability only; not extracted text storage, not document persistence, not retrieval behavior, not Evidence Ledger generation, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for the upload PDF quality preview summary if runtime proof is needed, remote verification after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text
