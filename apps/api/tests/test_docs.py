@@ -35002,6 +35002,46 @@ def test_goal_current_state_upload_pdf_coverage_summary_reviewer_surfaces_refres
     )
 
 
+def test_docker_environment_current_runtime_check_is_recorded():
+    review_path = (
+        REPO_ROOT / "docs/review/docker-environment-current-runtime-check.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Docker Environment Current Runtime Check" in content
+    assert "docker environment current runtime check v0" in content
+    assert "Docker version 29.4.3" in content
+    assert "noiseproof-agent-api-1" in content
+    assert "noiseproof-agent-db-1" in content
+    assert "noiseproof-agent-clamav" in content
+    assert "db -> healthy" in content
+    assert "clamav -> healthy" in content
+    assert "GET /health -> 200" in content
+    assert '"status": "ok"' in content
+    assert '"service": "noiseproof-agent-api"' in content
+    assert "GET /ops/summary -> 200" in content
+    assert '"document_count": 28' in content
+    assert '"agent_run_count": 89' in content
+    assert '"failure_case_count": 11' in content
+    assert "Docker is needed to make PostgreSQL/pgvector" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert "Docker environment current runtime check v0: verified" in readme
+    assert "Phase 761 - Docker Environment Current Runtime Check v0" in goal
+    assert "Phase 761 adds Docker environment current runtime check v0" in runbook
+    assert "Docker environment current runtime check" in portfolio
+
+
 def test_goal_current_state_upload_pdf_summary_link_map_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

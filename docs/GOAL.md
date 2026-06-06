@@ -2144,6 +2144,46 @@ Boundary: remote workflow verification only; not the GOAL overlay refresh itself
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 761 - Docker Environment Current Runtime Check v0
+
+Status: verified.
+
+Purpose: record that the local Docker environment is available and currently running the NoiseProof API, PostgreSQL/pgvector database, and ClamAV service.
+
+Why Docker matters:
+
+```text
+Docker is needed to make PostgreSQL/pgvector, the API container, and auxiliary services reproducible without depending on the host machine's global Python, PostgreSQL, or service configuration.
+```
+
+Observed evidence:
+
+```text
+Docker version 29.4.3, build 055a478
+noiseproof-agent-api-1 -> Up 22 hours
+noiseproof-agent-db-1 -> Up 22 hours
+db -> healthy
+noiseproof-agent-clamav -> Up 3 days
+clamav -> healthy
+GET /health -> 200
+"status": "ok"
+"service": "noiseproof-agent-api"
+GET /ops/summary -> 200
+"document_count": 28
+"agent_run_count": 89
+"failure_case_count": 11
+```
+
+Implemented artifact:
+
+```text
+docs/review/docker-environment-current-runtime-check.md
+```
+
+Boundary: local runtime environment evidence only; not new product functionality, not a fresh database migration, not hosted deployment evidence, not production readiness, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: remote verification for this Docker environment check after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.
