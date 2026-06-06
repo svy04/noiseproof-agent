@@ -26331,7 +26331,7 @@ def test_readme_top_latest_remote_verification_state_preserves_table_candidate_r
         not in fast_path
     )
     assert (
-            "Latest recorded remote verification state: the external-reader report markdown local inspection route refresh was remotely checked by CI run `27052319517` and External Feedback Screen run `27052319510`"
+            "Latest recorded remote verification state: the report markdown local inspection issue verification was remotely checked by CI run `27052979808` and External Feedback Screen run `27052979809`"
         in fast_path
     )
     assert (
@@ -26339,7 +26339,7 @@ def test_readme_top_latest_remote_verification_state_preserves_table_candidate_r
         not in fast_path
     )
     assert (
-            "docs/review/external-reader-proof-path-report-markdown-local-inspection-route-refresh-remote-verification.md"
+            "docs/review/external-feedback-current-state-report-markdown-local-inspection-issue-verification-remote-verification.md"
             in fast_path
         )
     assert "workflow evidence only" in fast_path
@@ -27056,7 +27056,7 @@ def test_external_feedback_current_state_retrieval_run_semantic_provenance_issue
         not in fast_path
     )
     assert (
-            "Latest recorded remote verification state: the external-reader report markdown local inspection route refresh was remotely checked by CI run `27052319517` and External Feedback Screen run `27052319510`"
+            "Latest recorded remote verification state: the report markdown local inspection issue verification was remotely checked by CI run `27052979808` and External Feedback Screen run `27052979809`"
         in fast_path
     )
     assert (
@@ -27064,7 +27064,7 @@ def test_external_feedback_current_state_retrieval_run_semantic_provenance_issue
         not in fast_path
     )
     assert (
-            "docs/review/external-reader-proof-path-report-markdown-local-inspection-route-refresh-remote-verification.md"
+            "docs/review/external-feedback-current-state-report-markdown-local-inspection-issue-verification-remote-verification.md"
             in fast_path
         )
     assert (
@@ -27559,7 +27559,7 @@ def test_readme_latest_marker_semantic_source_provenance_current_state_refresh_u
         in fast_path
     )
     assert (
-            "Latest recorded remote verification state: the external-reader report markdown local inspection route refresh was remotely checked by CI run `27052319517` and External Feedback Screen run `27052319510`"
+            "Latest recorded remote verification state: the report markdown local inspection issue verification was remotely checked by CI run `27052979808` and External Feedback Screen run `27052979809`"
         in fast_path
     )
     assert "PDF table-candidate downstream runtime issue verification" not in fast_path
@@ -27975,7 +27975,7 @@ def test_external_reader_proof_path_gate_report_semantic_source_provenance_route
         in readme
     )
     assert (
-            "Latest recorded remote verification state: the external-reader report markdown local inspection route refresh was remotely checked by CI run `27052319517` and External Feedback Screen run `27052319510`"
+            "Latest recorded remote verification state: the report markdown local inspection issue verification was remotely checked by CI run `27052979808` and External Feedback Screen run `27052979809`"
         in readme
     )
     assert (
@@ -28304,7 +28304,7 @@ def test_external_feedback_current_state_gate_report_semantic_source_provenance_
     assert "not report quality evidence" in content
     assert "not product-complete" in content
     assert (
-            "Latest recorded remote verification state: the external-reader report markdown local inspection route refresh was remotely checked by CI run `27052319517` and External Feedback Screen run `27052319510`"
+            "Latest recorded remote verification state: the report markdown local inspection issue verification was remotely checked by CI run `27052979808` and External Feedback Screen run `27052979809`"
         in readme
     )
     assert (
@@ -28517,7 +28517,7 @@ def test_report_markdown_source_provenance_export_runtime_smoke_remote_verificat
     assert "not an LLM call" in content
     assert "not product-complete" in content
     assert (
-            "Latest recorded remote verification state: the external-reader report markdown local inspection route refresh was remotely checked by CI run `27052319517` and External Feedback Screen run `27052319510`"
+            "Latest recorded remote verification state: the report markdown local inspection issue verification was remotely checked by CI run `27052979808` and External Feedback Screen run `27052979809`"
         in readme
     )
     assert (
@@ -28722,7 +28722,7 @@ def test_report_markdown_stage_input_links_runtime_smoke_remote_verification_is_
     assert "not an LLM call" in content
     assert "not product-complete" in content
     assert (
-            "Latest recorded remote verification state: the external-reader report markdown local inspection route refresh was remotely checked by CI run `27052319517` and External Feedback Screen run `27052319510`"
+            "Latest recorded remote verification state: the report markdown local inspection issue verification was remotely checked by CI run `27052979808` and External Feedback Screen run `27052979809`"
         in readme
     )
     assert (
@@ -28942,7 +28942,7 @@ def test_report_markdown_local_inspection_paths_runtime_smoke_remote_verificatio
     assert "not an LLM call" in content
     assert "not product-complete" in content
     assert (
-        "Latest recorded remote verification state: the external-reader report markdown local inspection route refresh was remotely checked by CI run `27052319517` and External Feedback Screen run `27052319510`"
+        "Latest recorded remote verification state: the report markdown local inspection issue verification was remotely checked by CI run `27052979808` and External Feedback Screen run `27052979809`"
         in readme
     )
     assert (
@@ -29110,7 +29110,7 @@ def test_external_reader_proof_path_report_markdown_local_inspection_route_refre
     assert "not an LLM call" in content
     assert "not product-complete" in content
     assert (
-        "Latest recorded remote verification state: the external-reader report markdown local inspection route refresh was remotely checked by CI run `27052319517` and External Feedback Screen run `27052319510`"
+        "Latest recorded remote verification state: the report markdown local inspection issue verification was remotely checked by CI run `27052979808` and External Feedback Screen run `27052979809`"
         in readme
     )
     assert (
@@ -29321,6 +29321,79 @@ def test_external_feedback_current_state_report_markdown_local_inspection_issue_
     )
     assert (
         "docs/review/external-feedback-current-state-report-markdown-local-inspection-issue-verification.md"
+        in portfolio
+    )
+
+
+def test_external_feedback_current_state_report_markdown_local_inspection_issue_verification_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-report-markdown-local-inspection-issue-verification-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state Report Markdown Local Inspection Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state report markdown local inspection issue verification remote verification v0"
+        in content
+    )
+    assert "e03329dcd1659fb01bf8b879b817f7514c03295b" in content
+    assert "CI run 27052979808" in content
+    assert "External Feedback Screen run 27052979809" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27052979808" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27052979809" in content
+    assert "CI job_id -> 79851901797" in content
+    assert "External Feedback Screen job_id -> 79851901831" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-feedback-current-state-report-markdown-local-inspection-issue-verification.md"
+        in content
+    )
+    assert "not the current-state issue screen itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not report quality evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest recorded remote verification state: the report markdown local inspection issue verification was remotely checked by CI run `27052979808` and External Feedback Screen run `27052979809`"
+        in readme
+    )
+    assert (
+        "External feedback current-state report markdown local inspection issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 654 - External Feedback Current-state Report Markdown Local Inspection Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 653 - External Feedback Current-state Report Markdown Local Inspection Issue Verification v0"
+    ) < goal.index(
+        "Phase 654 - External Feedback Current-state Report Markdown Local Inspection Issue Verification Remote Verification v0"
+    )
+    assert (
+        "external feedback current-state report markdown local inspection issue verification remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-report-markdown-local-inspection-issue-verification-remote-verification.md"
         in portfolio
     )
 
