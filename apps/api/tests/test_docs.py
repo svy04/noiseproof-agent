@@ -31347,3 +31347,44 @@ def test_embedding_provider_readiness_ops_surface_is_recorded():
     assert "Phase 687 - Embedding Provider Readiness Ops Surface v0" in goal
     assert "Phase 687 adds embedding provider readiness ops surface v0" in runbook
     assert "Embedding provider readiness ops surface" in portfolio
+
+
+def test_embedding_provider_readiness_ops_surface_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/embedding-provider-readiness-ops-surface-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    assert "8407bb47e155039cb8526d0aef6429417990cf24" in content
+    assert "CI run 27059262165: success" in content
+    assert "External Feedback Screen run 27059262159: success" in content
+    assert "CI job_id -> 79869143104" in content
+    assert "External Feedback Screen job_id -> 79869143109" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "remote workflow verification only" in content
+    assert "not live embedding generation proof" in content
+    assert "not external reviewer feedback" in content
+
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Embedding provider readiness ops surface remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 688 - Embedding Provider Readiness Ops Surface Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 688 adds embedding provider readiness ops surface remote verification v0"
+        in runbook
+    )
+    assert "Embedding provider readiness ops surface remote verification" in portfolio
