@@ -43,6 +43,30 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 811:
+
+```text
+latest_external_feedback_state_gate: External feedback current-state uploaded PDF table adapter Evidence Ledger provenance issue verification v0
+latest_external_feedback_state_artifact: docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-evidence-ledger-provenance-issue-verification.md
+issue_url: https://github.com/svy04/noiseproof-agent/issues/1
+issue_updatedAt: 2026-06-06T23:33:08Z
+comment_count: 1
+screened_comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+classification: non_qualifying
+reason: self_authored_comment_only
+status: pending
+does_not_close_gate: true
+latest_uploaded_pdf_table_adapter_evidence_ledger_provenance: true
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: current-state issue screening only; not external reviewer feedback; not hosted deployment evidence; not customer validation; not Braincrew acceptance; not new runtime evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger quality evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 810:
 
 ```text
@@ -28078,6 +28102,36 @@ GET /evidence-ledgers?retrieval_run_id={retrieval_run_id}
 ```
 
 Phase 810 adds external review issue body uploaded PDF table adapter Evidence Ledger provenance runtime route refresh v0. It is owner-authored issue body routing only, not external reviewer feedback, not new runtime evidence, not hosted deployment evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not final truth adjudication, and not product-complete.
+
+### Phase 811 - External Feedback Current-state Uploaded PDF Table Adapter Evidence Ledger Provenance Issue Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the live issue #1 feedback state after the Evidence Ledger issue-body route refresh and keep the external feedback gate pending until a qualifying outside comment exists
+```
+
+Implemented:
+
+```text
+external feedback current-state uploaded PDF table adapter Evidence Ledger provenance issue verification v0
+docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-evidence-ledger-provenance-issue-verification.md
+https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt: 2026-06-06T23:33:08Z
+comment_count: 1
+screened_comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+classification: non_qualifying
+reason: self_authored_comment_only
+status: pending
+does_not_close_gate: true
+```
+
+Phase 811 adds external feedback current-state uploaded PDF table adapter Evidence Ledger provenance issue verification v0. It is current-state issue screening only, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not new runtime evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, and not product-complete.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 
