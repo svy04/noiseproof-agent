@@ -43,6 +43,42 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 767:
+
+```text
+latest_reviewer_route: upload PDF quality preview coverage summary proof chain plus Docker environment runtime proof
+latest_live_issue_route: docs/review/external-review-issue-body-docker-environment-route-refresh.md
+latest_issue_updatedAt: 2026-06-06T18:54:09Z
+latest_issue_comment_count: 1
+latest_issue_first_codepoint: 35
+latest_issue_has_leading_bom: false
+latest_environment_route: Docker environment runtime proof
+latest_environment_artifacts:
+  - docs/review/docker-environment-current-runtime-check.md
+  - docs/review/docker-environment-current-runtime-check-remote-verification.md
+  - docs/review/external-reader-proof-path-docker-environment-route-refresh.md
+  - docs/review/external-reader-proof-path-docker-environment-route-refresh-remote-verification.md
+  - docs/review/goal-current-state-docker-environment-route-refresh.md
+  - docs/review/external-review-issue-body-docker-environment-route-refresh.md
+Docker version 29.4.3
+noiseproof-agent-api-1
+noiseproof-agent-db-1
+noiseproof-agent-clamav
+GET /health -> 200
+GET /ops/summary -> 200
+"document_count": 28
+"agent_run_count": 89
+"failure_case_count": 11
+latest_external_feedback_state: pending after Docker environment issue body route refresh
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+robust_pdf_extraction: not_implemented
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: not hosted deployment evidence; not production readiness; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 765:
 
 ```text
@@ -2395,6 +2431,50 @@ docs/review/goal-current-state-docker-environment-route-refresh-remote-verificat
 Boundary: remote workflow verification only; not the GOAL overlay refresh itself, not new runtime evidence, not a live issue body edit, not hosted deployment evidence, not production readiness, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
+### Phase 767 - External Review Issue Body Docker Environment Route Refresh v0
+
+Status: implemented.
+
+Purpose: record the owner-authored live issue #1 body update that points reviewers to the Docker environment runtime proof route.
+
+Implemented artifacts:
+
+```text
+external review issue body Docker environment route refresh v0
+docs/review/external-review-issue-body-docker-environment-route-refresh.md
+docs/GOAL.md
+apps/api/tests/test_docs.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Observed live issue markers:
+
+```text
+https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt: 2026-06-06T18:54:09Z
+comment_count: 1
+body_length: 8907
+starts_with_request: true
+first_codepoint: 35
+has_leading_bom: false
+has_docker_environment_current_runtime_check: true
+has_docker_environment_current_runtime_check_remote_verification: true
+has_docker_environment_external_reader_route_refresh: true
+has_goal_current_state_docker_environment_route_refresh: true
+Docker version 29.4.3
+noiseproof-agent-api-1
+noiseproof-agent-db-1
+noiseproof-agent-clamav
+GET /health -> 200
+GET /ops/summary -> 200
+```
+
+Boundary: owner-authored issue body routing only; not new runtime evidence, not hosted deployment evidence, not production readiness, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: external feedback current-state Docker environment issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

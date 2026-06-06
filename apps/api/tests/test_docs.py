@@ -35333,6 +35333,67 @@ def test_goal_current_state_docker_environment_route_refresh_remote_verification
     assert "GOAL current-state Docker environment route refresh remote verification" in portfolio
 
 
+def test_external_review_issue_body_docker_environment_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-docker-environment-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Review Issue Body Docker Environment Route Refresh" in content
+    assert "external review issue body Docker environment route refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt:" in content
+    assert "comment_count: 1" in content
+    assert "starts_with_request: true" in content
+    assert "first_codepoint: 35" in content
+    assert "has_leading_bom: false" in content
+
+    required_markers = [
+        "has_docker_environment_current_runtime_check: true",
+        "has_docker_environment_current_runtime_check_remote_verification: true",
+        "has_docker_environment_external_reader_route_refresh: true",
+        "has_goal_current_state_docker_environment_route_refresh: true",
+        "Docker version 29.4.3",
+        "noiseproof-agent-api-1",
+        "noiseproof-agent-db-1",
+        "noiseproof-agent-clamav",
+        "GET /health -> 200",
+        "GET /ops/summary -> 200",
+        '"document_count": 28',
+        '"agent_run_count": 89',
+        '"failure_case_count": 11',
+        "not external reviewer feedback",
+        "not hosted deployment evidence",
+        "not production readiness",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+
+    assert (
+        "External review issue body Docker environment route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 767 - External Review Issue Body Docker Environment Route Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 767 adds external review issue body Docker environment route refresh v0"
+        in runbook
+    )
+    assert "external review issue body Docker environment route refresh" in portfolio
+
+
 def test_goal_current_state_upload_pdf_summary_link_map_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
