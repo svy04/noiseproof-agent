@@ -16,8 +16,16 @@ It does not replace the full proof path.
 
 1. `README.md`
    - Scope, non-goals, implementation status, and the current proof boundaries.
-2. `docs/review/ops-dashboard-anchor-get-runtime-smoke.md`
+2. Upload PDF quality preview summary proof
+   - `docs/review/upload-pdf-quality-preview-summary.md`
+   - Runtime proof: `docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md`.
+   - Runtime remote verification: `docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md`.
+   - Route refresh: `docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md`.
+   - Records `quality_summary`, `summary_only_not_robust_pdf_extraction_evidence`, `digital_quality_summary_present=True`, `encrypted_quality_summary_present=True`, `document_count_delta=0`, and `pdf_encrypted_requires_password`.
+   - Boundary: not robust PDF extraction evidence, not OCR, not table extraction, not decryption evidence, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
+3. `docs/review/ops-dashboard-anchor-get-runtime-smoke.md`
    - Local Docker PostgreSQL plus live FastAPI HTTP proof that `GET /ops/dashboard` exposes clickable `data-method="GET"` inspection anchors and every unique dashboard href returns GET 200.
+   - Related raw-file guard ops proof: `docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md`.
    - Request refresh: `docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md`.
    - Browser proof: `docs/review/ops-dashboard-anchor-browser-smoke.md`.
    - Browser request refresh: `docs/review/external-reviewer-ops-dashboard-anchor-browser-smoke-request-refresh.md`.
@@ -35,8 +43,6 @@ It does not replace the full proof path.
    - Related uploaded PDF no-text failure candidate runtime proof: `docs/review/uploaded-pdf-no-text-failure-candidate-runtime-smoke.md`; request refresh: `docs/review/external-reviewer-pdf-no-text-failure-candidate-runtime-request-refresh.md`; records `pdf_no_extractable_text`, `chunk_handoff_no_chunks`, and `not robust PDF extraction`.
    - Related persisted document failure candidate draft preview runtime proof: `docs/review/persisted-document-failure-candidate-draft-preview-runtime-smoke.md`; request refresh: `docs/review/external-reviewer-persisted-document-failure-candidate-draft-runtime-request-refresh.md`; records `preview_only_not_persisted`, `failure_case_count_delta -> 0`, and `not automatic failure-case creation`.
    - Related persisted document failure candidate manual handoff runtime proof: `docs/review/persisted-document-failure-candidate-manual-handoff-runtime-smoke.md`; request refresh: `docs/review/external-reviewer-persisted-document-failure-candidate-manual-handoff-runtime-request-refresh.md`; records `failure_case_count_delta -> 1`, human confirmation, and `not a confirm endpoint`.
-3. `docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md`
-   - Local runtime proof that raw-file guard decisions surface in `/ops/summary` and `/ops/dashboard`.
 4. `docs/review/clamav-api-endpoint-malicious-detection-owner-runtime-smoke.md`
    - Owner-runtime proof that the ClamAV endpoint detects an owner-provided malicious test input without committing or logging the payload.
 5. `docs/review/retrieval-run-linked-report-runtime-smoke.md`
@@ -57,7 +63,7 @@ These artifacts show:
 ```text
 service operation
 reviewer navigation
-guarded raw-file handling
+PDF quality boundary visibility
 malware-scanning boundary evidence
 retrieval -> ledger -> gate -> report linkage
 ```

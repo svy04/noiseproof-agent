@@ -1079,6 +1079,45 @@ Boundary: remote workflow verification only; not the current-state issue screen 
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 731 - External Reviewer Shortlist Upload PDF Quality Preview Summary Refresh v0
+
+Status: implemented.
+
+Purpose: align the 90-second reviewer shortlist with the current upload PDF quality preview summary proof chain, while keeping the full external-reader path as the broader proof index.
+
+Implemented artifacts:
+
+```text
+external reviewer shortlist upload PDF quality preview summary refresh v0
+docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-summary-refresh.md
+docs/review/external-reviewer-shortlist.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Shortlist markers:
+
+```text
+Upload PDF quality preview summary proof
+docs/review/upload-pdf-quality-preview-summary.md
+docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md
+docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md
+quality_summary
+summary_only_not_robust_pdf_extraction_evidence
+digital_quality_summary_present=True
+encrypted_quality_summary_present=True
+document_count_delta=0
+pdf_encrypted_requires_password
+```
+
+Boundary: reviewer navigation only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction evidence, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: remote verification for this shortlist refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text
