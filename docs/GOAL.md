@@ -1192,6 +1192,40 @@ Boundary: reviewer navigation only; not new runtime evidence, not a live issue b
 
 Next gate: remote verification for this request/brief refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 734 - External Reviewer Request Brief Upload PDF Quality Preview Summary Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 733 external reviewer request/brief refresh passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+external reviewer request brief upload PDF quality preview summary refresh remote verification v0
+docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-summary-refresh-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 57c60e83183d4ce06fdadc692c0292779edc9321
+CI run 27066640879: success
+External Feedback Screen run 27066640866: success
+CI job_id -> 79888570230
+External Feedback Screen job_id -> 79888570242
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the request/brief refresh itself, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text
