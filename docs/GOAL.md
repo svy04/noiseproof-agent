@@ -23070,3 +23070,38 @@ Stale fast-path markers removed -> PDF table-candidate downstream runtime issue 
 Boundary: README current-state alignment only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger quality evidence, not final truth adjudication, not Noise Gate behavior, not report generation, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 631 - README Fast-path Issue Screen Baseline Cleanup v0
+
+Status: implemented.
+
+Purpose: remove stale `Latest issue-*` markers from the README External Reviewer Fast Path and keep the issue screen readability/BOM state as a baseline.
+
+Implemented artifacts:
+
+```text
+readme fast-path issue screen baseline cleanup v0
+docs/review/readme-fast-path-issue-screen-baseline-cleanup.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Updated README first-pass route:
+
+```text
+Removed stale fast-path labels:
+Latest issue readability state
+Latest issue-feedback state
+Latest issue-feedback remote verification
+
+Added baseline:
+Issue screen baseline -> issue #1 starts with ## Request, codepoint 35, no leading BOM, candidate_count=0, draft_count=0.
+Historical BOM-removal workflow runs remain archived as request-surface hygiene, not the current proof route.
+```
+
+Boundary: README first-pass copy hygiene only; not a new live issue edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not semantic retrieval quality evidence, not Evidence Ledger quality evidence, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

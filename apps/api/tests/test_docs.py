@@ -27593,6 +27593,59 @@ def test_readme_latest_marker_semantic_source_provenance_current_state_refresh_u
     )
 
 
+def test_readme_fast_path_issue_screen_baseline_cleanup_removes_stale_latest_issue_markers():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "readme-fast-path-issue-screen-baseline-cleanup.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    fast_path = readme.split("## External Reviewer Fast Path", 1)[1].split(
+        "## What This Is", 1
+    )[0]
+
+    assert "README Fast-path Issue Screen Baseline Cleanup" in content
+    assert "readme fast-path issue screen baseline cleanup v0" in content
+    assert "Latest issue readability state:" not in fast_path
+    assert "Latest issue-feedback state:" not in fast_path
+    assert "Latest issue-feedback remote verification:" not in fast_path
+    assert "Issue screen baseline:" in fast_path
+    assert "issue #1 starts with `## Request`" in fast_path
+    assert "codepoint `35`" in fast_path
+    assert "no leading BOM" in fast_path
+    assert "candidate_count=0" in fast_path
+    assert "draft_count=0" in fast_path
+    assert "BOM-removal workflow runs remain archived" in fast_path
+    assert "not the current proof route" in fast_path
+    assert "not external reviewer feedback" in fast_path
+    assert "not hosted deployment evidence" in fast_path
+    assert "not product-complete" in fast_path
+    assert (
+        "README fast-path issue screen baseline cleanup v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 631 - README Fast-path Issue Screen Baseline Cleanup v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 630 - README Latest-marker Semantic Source Provenance Current-state Refresh v0"
+    ) < goal.index("Phase 631 - README Fast-path Issue Screen Baseline Cleanup v0")
+    assert "readme fast-path issue screen baseline cleanup v0" in runbook
+    assert (
+        "docs/review/readme-fast-path-issue-screen-baseline-cleanup.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

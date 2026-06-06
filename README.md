@@ -18,11 +18,7 @@ Latest external-feedback state: pending after retrieval-run-linked Evidence Ledg
 
 Latest recorded remote verification state: the retrieval-run-linked Evidence Ledger semantic source provenance issue-screen proof was remotely checked by CI run `27046055674` and External Feedback Screen run `27046055690`; see `docs/review/external-feedback-current-state-retrieval-run-linked-evidence-ledger-semantic-source-provenance-issue-verification-remote-verification.md`. This is workflow evidence only, not external feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, and not runtime product proof.
 
-Latest issue readability state: issue #1 now starts with `## Request` after the owner-authored BOM removal refresh; this is request-surface hygiene only, not external feedback.
-
-Latest issue-feedback state: pending after the issue body BOM removal current-state verification; the issue starts with codepoint `35`, has no leading BOM, and still has `candidate_count=0`.
-
-Latest issue-feedback remote verification: CI run `27025500388` and External Feedback Screen run `27025500574` verified the BOM removal current-state issue screen on head `db316bf07baa4d6058e4249e24ad4d8349d1459b`; this is workflow evidence only, not external feedback.
+Issue screen baseline: issue #1 starts with `## Request`, first codepoint `35`, no leading BOM, `candidate_count=0`, and `draft_count=0`. The older BOM-removal workflow runs remain archived as request-surface hygiene, not the current proof route, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
 
 ## What This Is
 
@@ -257,6 +253,8 @@ External feedback current-state retrieval-run-linked Evidence Ledger semantic so
 External feedback current-state retrieval-run-linked Evidence Ledger semantic source provenance issue verification remote verification v0: implemented. Boundary: CI run `27046055674` and External Feedback Screen run `27046055690` succeeded on head `af50f77563c270131eefd2ce75dbbf197c584b16`; external reviewer feedback remains pending with `candidate_count=0`, `draft_count=0`, and `reason=self_authored_comment`. This is remote workflow verification only, not external reviewer feedback, hosted deployment evidence, semantic retrieval quality evidence, embedding generation, Evidence Ledger quality evidence, or product-complete.
 
 README latest-marker semantic source provenance current-state refresh v0: implemented. Boundary: the README External Reviewer Fast Path now points first-pass readers to the retrieval-run-linked Evidence Ledger semantic source provenance proof chain and the latest recorded issue-screen remote verification. This is README current-state alignment only, not external reviewer feedback, hosted deployment evidence, semantic retrieval quality evidence, embedding generation, Evidence Ledger quality evidence, or product-complete.
+
+README fast-path issue screen baseline cleanup v0: implemented. Boundary: the README External Reviewer Fast Path now presents the issue #1 readability/BOM state as a baseline instead of three stale `Latest issue-*` markers. This is first-pass copy hygiene only, not a new issue edit, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
 
 Workflow direct stage links v0: implemented. Boundary: deterministic workflow-created records now create direct local link rows in `noise_gate_evidence_links`, `report_evidence_links`, and `report_noise_gate_links`, surfaced through `GET /workflow-runs/{id}/lineage` as `direct_stage_links`. Standalone gate/report endpoints remain payload-only unless they create explicit links. This is not distributed tracing, hosted observability, autonomous workflow execution, external reviewer feedback, or product-complete.
 
