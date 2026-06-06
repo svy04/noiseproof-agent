@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 800:
+
+```text
+latest_remote_verification_gate: External-reader proof path uploaded PDF table adapter metadata provenance runtime route refresh remote verification v0
+latest_remote_verification_artifact: docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh-remote-verification.md
+latest_verified_head_sha: ddfec59770fc0f477e5329e74e9c06b4ab7bf694
+latest_ci_run: 27075715368
+latest_ci_job_id: 79912654573
+latest_external_feedback_screen_run: 27075715366
+latest_external_feedback_screen_job_id: 79912654694
+verified_reviewer_route_gate: External-reader proof path uploaded PDF table adapter metadata provenance runtime route refresh v0
+verified_reviewer_route_artifact: docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the route refresh itself; not new runtime evidence; not hosted deployment evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 799:
 
 ```text
@@ -4310,6 +4329,40 @@ screen -> success
 ```
 
 Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 800 - External-reader Proof Path Uploaded PDF Table Adapter Metadata Provenance Runtime Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record that the Phase 799 external-reader proof path uploaded PDF table-adapter metadata provenance runtime route refresh passed the remote GitHub Actions workflows after push.
+
+Implemented artifacts:
+
+```text
+External-reader proof path uploaded PDF table adapter metadata provenance runtime route refresh remote verification v0
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-metadata-provenance-runtime-route-refresh-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote workflow evidence:
+
+```text
+head_sha -> ddfec59770fc0f477e5329e74e9c06b4ab7bf694
+CI run `27075715368`
+CI job_id -> 79912654573
+External Feedback Screen run `27075715366`
+External Feedback Screen job_id -> 79912654694
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the route refresh itself; not new runtime evidence; not hosted deployment evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not external reviewer feedback; and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
