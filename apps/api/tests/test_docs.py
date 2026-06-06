@@ -30678,3 +30678,57 @@ def test_uploaded_pdf_encrypted_handoff_ops_runtime_smoke_is_documented():
         "docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_uploaded_pdf_encrypted_handoff_ops_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "uploaded-pdf-encrypted-failure-candidate-handoff-ops-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Uploaded PDF Encrypted Failure Candidate Handoff Ops Remote Verification"
+        in content
+    )
+    assert (
+        "uploaded PDF encrypted failure candidate handoff ops remote verification v0"
+        in content
+    )
+    assert "eef4636f94d987de701fdfeacf052020afffc4fe" in content
+    assert "CI run 27057453047: success" in content
+    assert "External Feedback Screen run 27057453051: success" in content
+    assert "CI job_id -> 79864299633" in content
+    assert "External Feedback Screen job_id -> 79864299629" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the local runtime smoke itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert "Uploaded PDF encrypted handoff ops remote verification v0" in readme
+    assert (
+        "docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-remote-verification.md"
+        in readme
+    )
+    assert (
+        "Phase 676 - Uploaded PDF Encrypted Failure Candidate Handoff Ops Remote Verification v0"
+        in goal
+    )
+    assert (
+        "uploaded PDF encrypted failure candidate handoff ops remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-remote-verification.md"
+        in portfolio
+    )
