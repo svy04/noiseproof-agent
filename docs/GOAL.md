@@ -43,6 +43,24 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 798:
+
+```text
+latest_remote_verification_gate: Uploaded PDF table adapter metadata provenance runtime smoke remote verification v0
+latest_remote_verification_artifact: docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md
+latest_verified_head_sha: 547b96103424730c8422562cfe77ada1c19e92f9
+latest_ci_run: 27075457410
+latest_ci_job_id: 79911954103
+latest_external_feedback_screen_run: 27075457400
+latest_runtime_proof_gate: Uploaded PDF table adapter metadata provenance runtime smoke v0
+latest_runtime_proof_artifact: docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not hosted deployment evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 797:
 
 ```text
@@ -4272,6 +4290,39 @@ screen -> success
 ```
 
 Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 798 - Uploaded PDF Table Adapter Metadata Provenance Runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Purpose: record that the Phase 797 uploaded PDF table-adapter metadata provenance runtime-smoke proof passed the remote GitHub Actions workflows after push.
+
+Implemented artifacts:
+
+```text
+Uploaded PDF table adapter metadata provenance runtime smoke remote verification v0
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote workflow evidence:
+
+```text
+head_commit -> 547b96103424730c8422562cfe77ada1c19e92f9
+CI run -> 27075457410
+CI job -> 79911954103
+External Feedback Screen run -> 27075457400
+api-smoke -> success
+screen -> success
+```
+
+Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not hosted deployment evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not external reviewer feedback; and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 

@@ -33978,6 +33978,65 @@ def test_uploaded_pdf_table_adapter_metadata_provenance_runtime_smoke_v0_is_reco
     )
 
 
+def test_uploaded_pdf_table_adapter_metadata_provenance_runtime_smoke_remote_verification_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Uploaded PDF Table Adapter Metadata Provenance Runtime Smoke Remote Verification"
+        in content
+    )
+    assert (
+        "uploaded PDF table adapter metadata provenance runtime smoke remote verification v0"
+        in content
+    )
+    assert "547b96103424730c8422562cfe77ada1c19e92f9" in content
+    assert "CI run: 27075457410" in content
+    assert "CI job: 79911954103" in content
+    assert "External Feedback Screen run: 27075457400" in content
+    assert "api-smoke -> success" in content
+    assert "screen -> success" in content
+    assert (
+        "docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md"
+        in content
+    )
+    assert "not the local runtime smoke itself" in content
+    assert "not new runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not table extraction evidence for arbitrary market PDFs" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Uploaded PDF table adapter metadata provenance runtime smoke remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 798 - Uploaded PDF Table Adapter Metadata Provenance Runtime Smoke Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 798 adds uploaded PDF table adapter metadata provenance runtime smoke remote verification v0"
+        in runbook
+    )
+    assert (
+        "Uploaded PDF table adapter metadata provenance runtime smoke remote verification"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
