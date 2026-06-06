@@ -1448,6 +1448,40 @@ Boundary: external reviewer link-map navigation hygiene only; not new runtime ev
 
 Next gate: remote verification for this link-map refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 740 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 739 external reviewer link-map refresh passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+external reviewer link map upload PDF summary reviewer surfaces refresh remote verification v0
+docs/review/external-reviewer-link-map-upload-pdf-summary-reviewer-surfaces-refresh-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> b4d61092e9a2da6f46e8c80f7c26df5f8bf686cd
+CI run 27067477020: success
+External Feedback Screen run 27067477025: success
+CI job_id -> 79890740524
+External Feedback Screen job_id -> 79890740517
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the link-map refresh itself, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text

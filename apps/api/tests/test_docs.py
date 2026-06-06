@@ -34239,3 +34239,61 @@ def test_external_reviewer_link_map_routes_upload_pdf_summary_reviewer_surfaces(
         "external reviewer link map upload PDF summary reviewer surfaces refresh"
         in portfolio
     )
+
+
+def test_external_reviewer_link_map_upload_pdf_summary_reviewer_surfaces_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-link-map-upload-pdf-summary-reviewer-surfaces-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh Remote Verification"
+        in content
+    )
+    assert (
+        "external reviewer link map upload PDF summary reviewer surfaces refresh remote verification v0"
+        in content
+    )
+    assert "b4d61092e9a2da6f46e8c80f7c26df5f8bf686cd" in content
+    assert "CI run `27067477020`" in content
+    assert "External Feedback Screen run `27067477025`" in content
+    assert "CI job_id -> 79890740524" in content
+    assert "External Feedback Screen job_id -> 79890740517" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-reviewer-link-map-upload-pdf-summary-reviewer-surfaces-refresh.md"
+        in content
+    )
+    assert "not the link-map refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External reviewer link map upload PDF summary reviewer surfaces refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 740 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 740 adds external reviewer link map upload PDF summary reviewer surfaces refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "external reviewer link map upload PDF summary reviewer surfaces refresh remote verification"
+        in portfolio
+    )
