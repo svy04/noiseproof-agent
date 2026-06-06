@@ -17,3 +17,5 @@ quality_gate_required_before_robust_claim: true
 ```
 
 Use this packet to test future adapters for born-digital text, table-heavy reports, scanned/image PDFs, encrypted PDFs, image-heavy PDFs, multi-column layouts, and no-extractable-text cases.
+
+The table-heavy fixture includes `expected_table_rows` and the evaluator reports `table_cell_recall`. This is a contract for future table extraction adapters only; it does not claim table extraction is implemented.

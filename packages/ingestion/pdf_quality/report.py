@@ -38,6 +38,7 @@ def build_pdf_extraction_quality_report(
         "character_coverage",
         "expected_span_recall",
         "table_row_coverage",
+        "table_cell_recall",
         "ocr_page_coverage",
         "warning_correctness",
         "failure_case_candidate_correctness",
@@ -49,8 +50,8 @@ def build_pdf_extraction_quality_report(
             "",
             "## Per-fixture Metrics",
             "",
-            "| Fixture | Status | expected_span_recall | warning_correctness | failure_case_candidate_correctness |",
-            "|---|---|---:|---:|---:|",
+            "| Fixture | Status | expected_span_recall | table_cell_recall | warning_correctness | failure_case_candidate_correctness |",
+            "|---|---|---:|---:|---:|---:|",
         ]
     )
     for item in fixture.fixtures:
@@ -62,6 +63,7 @@ def build_pdf_extraction_quality_report(
                     item.fixture_id,
                     row["status"],
                     _format_metric(row["expected_span_recall"]),
+                    _format_metric(row["table_cell_recall"]),
                     _format_metric(row["warning_correctness"]),
                     _format_metric(row["failure_case_candidate_correctness"]),
                 ]
@@ -87,6 +89,8 @@ def build_pdf_extraction_quality_report(
             "This report intentionally evaluates only a partial observation fixture. Four fixture roles remain `not_evaluated`, so this artifact is useful as evaluator plumbing and gap visibility, not as extraction quality evidence.",
             "",
             "The table-heavy observation currently records zero extracted table rows. That keeps table extraction weakness visible instead of turning table candidate diagnostics into a table extraction claim.",
+            "",
+            "The table contract now records expected table cells separately from row count, so future table extraction must recover expected cell values instead of passing on positive row count alone.",
             "",
             "The scanned-image fixture is not evaluated here. OCR remains outside this gate.",
             "",

@@ -41,11 +41,14 @@ Future extraction implementations should report these metrics before changing pu
 - character_coverage
 - expected_span_recall
 - table_row_coverage
+- table_cell_recall
 - ocr_page_coverage
 - warning_correctness
 - failure_case_candidate_correctness
 
 The metric contract is small on purpose. It should make unsupported situations visible before making the parser more ambitious.
+
+The table-heavy fixture also records `expected_table_rows` so a future table extraction adapter must recover expected cell values, not only a positive row count.
 
 ## Required future evaluation behavior
 

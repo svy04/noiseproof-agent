@@ -43,6 +43,14 @@ def test_pdf_extraction_quality_fixture_loader_keeps_boundaries_visible():
     assert "table_heavy_report" in summary["fixture_ids"]
     assert "scanned_image_pdf" in summary["fixture_ids"]
     assert "page_coverage" in summary["quality_metrics"]
+    assert "table_cell_recall" in summary["quality_metrics"]
+    table_fixture = next(
+        item for item in fixture.fixtures if item.fixture_id == "table_heavy_report"
+    )
+    assert table_fixture.expected_table_rows == [
+        ["region", "q1 volume"],
+        ["seoul", "120"],
+    ]
     assert summary["claim_boundary"] == (
         "manifest_only_not_robust_pdf_extraction_evidence"
     )
@@ -66,6 +74,7 @@ def test_pdf_extraction_quality_evaluator_scores_observations_without_robust_cla
             "warnings": ["table candidate detection is not table extraction"],
             "page_count": 1,
             "extracted_page_count": 1,
+            "extracted_table_rows": [],
             "table_rows_extracted": 0,
             "failure_case_candidate": None,
         },
@@ -89,6 +98,7 @@ def test_pdf_extraction_quality_evaluator_scores_observations_without_robust_cla
     assert result["per_fixture"]["born_digital_text"]["status"] == "evaluated"
     assert result["per_fixture"]["born_digital_text"]["expected_span_recall"] == 1.0
     assert result["per_fixture"]["born_digital_text"]["warning_correctness"] == 1.0
+    assert result["per_fixture"]["table_heavy_report"]["table_cell_recall"] == 0.0
     assert result["per_fixture"]["encrypted_pdf"][
         "failure_case_candidate_correctness"
     ] == 1.0
@@ -96,6 +106,37 @@ def test_pdf_extraction_quality_evaluator_scores_observations_without_robust_cla
     assert "not robust PDF extraction evidence" in result["boundary_notes"]
     assert "not OCR evidence" in result["boundary_notes"]
     assert "not table extraction evidence" in result["boundary_notes"]
+
+
+def test_pdf_extraction_quality_evaluator_scores_table_cell_recall_contract():
+    fixture = load_pdf_extraction_quality_fixture(
+        REPO_ROOT / "examples/pdf-extraction-quality"
+    )
+    observations = {
+        "table_heavy_report": {
+            "extracted_text": "quarterly volume table with region row label",
+            "warnings": ["table candidate detection is not table extraction"],
+            "page_count": 1,
+            "extracted_page_count": 1,
+            "table_rows_extracted": 2,
+            "extracted_table_rows": [
+                ["Region", "Q1 Volume"],
+                ["Seoul", "120"],
+            ],
+            "failure_case_candidate": None,
+        },
+    }
+
+    result = evaluate_pdf_extraction_quality(fixture, observations)
+
+    assert (
+        result["per_fixture"]["table_heavy_report"]["table_cell_recall"] == 1.0
+    )
+    assert result["per_fixture"]["table_heavy_report"]["table_row_coverage"] == 1.0
+    assert result["claim_boundary"] == (
+        "manifest_metric_only_not_robust_pdf_extraction"
+    )
+    assert result["robust_pdf_extraction_claimed"] is False
 
 
 def test_pdf_extraction_quality_report_matches_committed_artifact():

@@ -26,6 +26,9 @@ def evaluate_pdf_extraction_quality(
         page_count = _positive_int(observation.get("page_count"))
         extracted_page_count = _non_negative_int(observation.get("extracted_page_count"))
         table_rows_extracted = _non_negative_int(observation.get("table_rows_extracted"))
+        extracted_table_rows = _normalized_table_rows(
+            observation.get("extracted_table_rows")
+        )
         ocr_page_count = _non_negative_int(observation.get("ocr_page_count"))
         failure_case_candidate = observation.get("failure_case_candidate")
 
@@ -37,6 +40,10 @@ def evaluate_pdf_extraction_quality(
             "table_row_coverage": _table_row_coverage(
                 item.fixture_id,
                 table_rows_extracted,
+            ),
+            "table_cell_recall": _table_cell_recall(
+                item.expected_table_rows,
+                extracted_table_rows,
             ),
             "ocr_page_coverage": _ocr_page_coverage(
                 item.fixture_id,
@@ -77,6 +84,7 @@ def _not_evaluated_metrics() -> dict[str, Any]:
         "character_coverage": 0.0,
         "expected_span_recall": 0.0,
         "table_row_coverage": 0.0,
+        "table_cell_recall": 0.0,
         "ocr_page_coverage": 0.0,
         "warning_correctness": 0.0,
         "failure_case_candidate_correctness": 0.0,
@@ -120,6 +128,28 @@ def _table_row_coverage(fixture_id: str, table_rows_extracted: int) -> float:
     return 1.0 if table_rows_extracted > 0 else 0.0
 
 
+def _table_cell_recall(
+    expected_table_rows: list[list[str]],
+    extracted_table_rows: list[list[str]],
+) -> float:
+    expected_cells = [
+        _normalize_cell(cell)
+        for row in expected_table_rows
+        for cell in row
+        if _normalize_cell(cell)
+    ]
+    if not expected_cells:
+        return 1.0
+    extracted_cells = {
+        _normalize_cell(cell)
+        for row in extracted_table_rows
+        for cell in row
+        if _normalize_cell(cell)
+    }
+    hits = sum(1 for cell in expected_cells if cell in extracted_cells)
+    return _round(hits / len(expected_cells))
+
+
 def _ocr_page_coverage(fixture_id: str, ocr_page_count: int, page_count: int) -> float:
     if fixture_id != "scanned_image_pdf":
         return 1.0
@@ -132,6 +162,7 @@ def _aggregate(per_fixture: dict[str, dict[str, Any]]) -> dict[str, Any]:
         "character_coverage",
         "expected_span_recall",
         "table_row_coverage",
+        "table_cell_recall",
         "ocr_page_coverage",
         "warning_correctness",
         "failure_case_candidate_correctness",
@@ -167,6 +198,21 @@ def _non_negative_int(value: Any) -> int:
     if isinstance(value, int):
         return max(value, 0)
     return 0
+
+
+def _normalized_table_rows(value: Any) -> list[list[str]]:
+    if not isinstance(value, list):
+        return []
+    rows: list[list[str]] = []
+    for row in value:
+        if not isinstance(row, list):
+            continue
+        rows.append([str(cell) for cell in row])
+    return rows
+
+
+def _normalize_cell(value: object) -> str:
+    return " ".join(str(value).strip().lower().split())
 
 
 def _round(value: float) -> float:

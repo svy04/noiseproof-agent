@@ -12,6 +12,7 @@ class PdfExtractionQualityFixtureCase:
     expected_behavior: str
     expected_warnings: list[str]
     expected_spans: list[str]
+    expected_table_rows: list[list[str]]
 
 
 @dataclass(frozen=True)
@@ -37,6 +38,10 @@ def load_pdf_extraction_quality_fixture(
             expected_behavior=row["expected_behavior"],
             expected_warnings=list(row.get("expected_warnings", [])),
             expected_spans=list(row.get("expected_spans", [])),
+            expected_table_rows=[
+                [str(cell) for cell in table_row]
+                for table_row in row.get("expected_table_rows", [])
+            ],
         )
         for row in manifest["fixtures"]
     ]
@@ -61,6 +66,9 @@ def summarize_pdf_extraction_quality_fixture(
         "packet": fixture.packet,
         "fixture_count": len(fixture.fixtures),
         "fixture_ids": [item.fixture_id for item in fixture.fixtures],
+        "table_contract_fixture_ids": [
+            item.fixture_id for item in fixture.fixtures if item.expected_table_rows
+        ],
         "quality_metrics": fixture.quality_metrics,
         "binary_pdf_fixtures_included": fixture.binary_pdf_fixtures_included,
         "robust_pdf_extraction_claimed": fixture.robust_pdf_extraction_claimed,
@@ -87,6 +95,7 @@ def _validate_fixture(fixture: PdfExtractionQualityFixture) -> None:
         "character_coverage",
         "expected_span_recall",
         "table_row_coverage",
+        "table_cell_recall",
         "ocr_page_coverage",
         "warning_correctness",
         "failure_case_candidate_correctness",
@@ -102,3 +111,7 @@ def _validate_fixture(fixture: PdfExtractionQualityFixture) -> None:
             raise ValueError(f"Fixture {item.fixture_id} is missing expected_warnings.")
         if not item.expected_spans:
             raise ValueError(f"Fixture {item.fixture_id} is missing expected_spans.")
+        if item.expected_table_rows and not all(item.expected_table_rows):
+            raise ValueError(
+                f"Fixture {item.fixture_id} has an empty expected_table_rows row."
+            )

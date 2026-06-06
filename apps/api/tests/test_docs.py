@@ -32648,6 +32648,7 @@ def test_pdf_extraction_quality_fixture_packet_is_recorded():
         "character_coverage",
         "expected_span_recall",
         "table_row_coverage",
+        "table_cell_recall",
         "ocr_page_coverage",
         "warning_correctness",
         "failure_case_candidate_correctness",
@@ -32665,6 +32666,54 @@ def test_pdf_extraction_quality_fixture_packet_is_recorded():
     assert "Phase 703 - PDF Extraction Quality Fixture Packet v0" in goal
     assert "Phase 703 adds PDF extraction quality fixture packet v0" in runbook
     assert "examples/pdf-extraction-quality/fixture-manifest.json" in portfolio
+
+
+def test_pdf_table_extraction_contract_v0_is_recorded():
+    review_path = REPO_ROOT / "docs/review/pdf-table-extraction-contract.md"
+    manifest_path = REPO_ROOT / "examples/pdf-extraction-quality/fixture-manifest.json"
+    report_path = REPO_ROOT / "docs/evaluation/pdf-extraction-quality-report.md"
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    report = report_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    table_fixture = next(
+        item for item in manifest["fixtures"] if item["id"] == "table_heavy_report"
+    )
+
+    assert "PDF Table Extraction Contract" in content
+    assert "PDF table extraction contract v0" in content
+    assert "expected_table_rows" in content
+    assert "table_cell_recall" in content
+    assert "table_contract_fixture_ids" in content
+    assert "table_heavy_report" in content
+    assert "packages/ingestion/pdf_quality/evaluator.py" in content
+    assert "packages/ingestion/pdf_quality/fixture.py" in content
+    assert table_fixture["expected_table_rows"] == [
+        ["region", "q1 volume"],
+        ["seoul", "120"],
+    ]
+    assert "table_cell_recall" in manifest["quality_metrics"]
+    assert "table_cell_recall" in report
+    assert "The table contract now records expected table cells" in report
+    assert "not robust PDF extraction implementation" in content
+    assert "not OCR implementation" in content
+    assert "not table extraction implementation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "PDF table extraction contract v0: implemented" in readme
+    assert "Phase 771 - PDF Table Extraction Contract v0" in goal
+    assert "Phase 771 adds PDF table extraction contract v0" in runbook
+    assert "PDF table extraction contract" in portfolio
 
 
 def test_pdf_extraction_quality_evaluator_v0_is_recorded():

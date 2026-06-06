@@ -18,7 +18,11 @@
       "source_shape": "market report with tabular financial or volume data",
       "expected_behavior": "surface table candidates and keep table extraction separate from plain text extraction",
       "expected_warnings": ["table candidate detection is not table extraction"],
-      "expected_spans": ["quarterly volume table", "region row label"]
+      "expected_spans": ["quarterly volume table", "region row label"],
+      "expected_table_rows": [
+        ["region", "q1 volume"],
+        ["seoul", "120"]
+      ]
     },
     {
       "id": "scanned_image_pdf",
@@ -66,6 +70,7 @@
     "character_coverage",
     "expected_span_recall",
     "table_row_coverage",
+    "table_cell_recall",
     "ocr_page_coverage",
     "warning_correctness",
     "failure_case_candidate_correctness"

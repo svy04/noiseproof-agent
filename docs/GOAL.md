@@ -43,6 +43,32 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 771:
+
+```text
+latest_product_gate: PDF table extraction contract v0
+latest_product_artifact: docs/review/pdf-table-extraction-contract.md
+latest_pdf_quality_report: docs/evaluation/pdf-extraction-quality-report.md
+table_heavy_report.expected_table_rows:
+  - [region, q1 volume]
+  - [seoul, 120]
+table_cell_recall: implemented_as_fixture_metric
+table_row_coverage: still_visible
+current_table_heavy_observation.table_rows_extracted: 0
+current_table_heavy_observation.table_cell_recall: 0
+table_extraction_implementation: not_implemented
+table_extraction_evidence: not_claimed
+robust_pdf_extraction: not_implemented
+latest_reviewer_route: upload PDF quality preview coverage summary proof chain plus Docker environment runtime proof
+latest_feedback_state_remote_verification: docs/review/external-feedback-current-state-docker-environment-issue-verification-remote-verification.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: not robust PDF extraction evidence; not table extraction implementation; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 770:
 
 ```text
@@ -2718,6 +2744,47 @@ docs/review/external-feedback-current-state-docker-environment-issue-verificatio
 Boundary: remote workflow verification only; not the current-state issue screen itself, not external reviewer feedback, not hosted deployment evidence, not production readiness, not customer validation, not Braincrew acceptance, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
+### Phase 771 - PDF Table Extraction Contract v0
+
+Status: implemented.
+
+Purpose: define the minimum table-heavy PDF fixture and evaluator contract before adding any table extraction adapter.
+
+Implemented artifacts:
+
+```text
+PDF table extraction contract v0
+docs/review/pdf-table-extraction-contract.md
+examples/pdf-extraction-quality/fixture-manifest.json
+examples/pdf-extraction-quality/README.md
+packages/ingestion/pdf_quality/fixture.py
+packages/ingestion/pdf_quality/evaluator.py
+packages/ingestion/pdf_quality/observation.py
+packages/ingestion/pdf_quality/report.py
+docs/evaluation/pdf-extraction-quality-report.md
+apps/api/tests/test_pdf_extraction_quality.py
+apps/api/tests/test_docs.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Contract markers:
+
+```text
+table_contract_fixture_ids
+table_heavy_report
+expected_table_rows
+table_cell_recall
+table_row_coverage
+current_table_heavy_observation.table_rows_extracted: 0
+current_table_heavy_observation.table_cell_recall: 0
+```
+
+Boundary: fixture and evaluator contract only; not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: table extraction adapter source-first review, a tiny table extraction adapter behind this contract, external reviewer feedback v0 if qualifying outside feedback exists, or owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

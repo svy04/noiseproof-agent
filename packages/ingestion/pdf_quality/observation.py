@@ -29,6 +29,7 @@ def pdf_parse_result_to_quality_observation(parse_result: ParseResult) -> dict[s
             metadata.get("table_candidate_page_counts") or []
         ),
         "table_rows_extracted": _table_rows_extracted(metadata),
+        "extracted_table_rows": _extracted_table_rows(metadata),
         "ocr_page_count": _non_negative_int(metadata.get("ocr_page_count")),
         "digital_pdf_text_extraction": bool(
             metadata.get("digital_pdf_text_extraction")
@@ -74,6 +75,20 @@ def _table_rows_extracted(metadata: dict[str, Any]) -> int:
     if not metadata.get("table_extraction_performed"):
         return 0
     return _non_negative_int(metadata.get("table_rows_extracted"))
+
+
+def _extracted_table_rows(metadata: dict[str, Any]) -> list[list[str]]:
+    if not metadata.get("table_extraction_performed"):
+        return []
+    value = metadata.get("extracted_table_rows")
+    if not isinstance(value, list):
+        return []
+    rows: list[list[str]] = []
+    for row in value:
+        if not isinstance(row, list):
+            continue
+        rows.append([str(cell) for cell in row])
+    return rows
 
 
 def _positive_int(value: Any) -> int:
