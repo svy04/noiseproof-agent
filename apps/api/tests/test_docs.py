@@ -35042,6 +35042,43 @@ def test_docker_environment_current_runtime_check_is_recorded():
     assert "Docker environment current runtime check" in portfolio
 
 
+def test_docker_environment_current_runtime_check_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/docker-environment-current-runtime-check-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Docker Environment Current Runtime Check Remote Verification" in content
+    assert "docker environment current runtime check remote verification v0" in content
+    assert "b90d8430007d4fb615397be2c09db3b19adfa624" in content
+    assert "CI run `27070323164`" in content
+    assert "External Feedback Screen run `27070323163`" in content
+    assert "CI job_id -> 79898261270" in content
+    assert "External Feedback Screen job_id -> 79898261240" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "docs/review/docker-environment-current-runtime-check.md" in content
+    assert "not the Docker environment check itself" in content
+    assert "not new runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert "Docker environment current runtime check remote verification v0: implemented" in readme
+    assert "Phase 762 - Docker Environment Current Runtime Check Remote Verification v0" in goal
+    assert "Phase 762 adds Docker environment current runtime check remote verification v0" in runbook
+    assert "Docker environment current runtime check remote verification" in portfolio
+
+
 def test_goal_current_state_upload_pdf_summary_link_map_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
