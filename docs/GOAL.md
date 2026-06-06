@@ -23432,6 +23432,48 @@ Boundary: current-state issue screening and remote workflow sanity check only; n
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 681 - Uploaded PDF Encrypted Failure Candidate Manual Handoff Runtime Smoke v0
+
+Status: verified.
+
+Purpose: verify that a password-protected uploaded PDF failure candidate can move from persisted document metadata into a preview-only failure-case draft, then into a persisted failure case only after human confirmation.
+
+Implemented artifacts:
+
+```text
+uploaded PDF encrypted failure candidate manual handoff runtime smoke v0
+apps/api/app/services/document_failure_case_draft.py
+apps/api/tests/test_routes.py
+docs/review/uploaded-pdf-encrypted-failure-candidate-manual-handoff-runtime-smoke.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Runtime markers:
+
+```text
+runtime-encrypted-manual-handoff-phase681.pdf
+POST /documents/upload-chunks -> 201
+POST /documents/{document_id}/failure-case-draft-preview -> 200
+POST /failure-cases -> 201
+upload_failure_type -> pdf_encrypted_requires_password
+draft_failure_type -> pdf_encrypted_requires_password
+draft_persistence_boundary -> preview_only_not_persisted
+human_confirmation_required -> True
+draft_failure_case_count_delta -> 0
+persisted_failure_type -> pdf_encrypted_requires_password
+failure_case_count_delta -> 1
+draft_next_action_contains_authorized_password -> True
+draft_next_action_contains_approved_decryption -> True
+```
+
+Boundary: local Docker PostgreSQL plus live FastAPI runtime evidence only; not automatic failure-case creation, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, not downstream retrieval evidence, and not product-complete.
+
+Next gate: remote verification for this runtime-smoke proof after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
 ### Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0
 
 Status: implemented.

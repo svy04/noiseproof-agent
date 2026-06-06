@@ -16,6 +16,13 @@ def preview_document_failure_case_draft(
         or failure_candidate.get("description")
         or "Document profile contains a failure candidate without a root cause."
     )
+    next_action = str(
+        failure_candidate.get("next_action")
+        or (
+            "Inspect the persisted document profile, confirm the failure candidate, "
+            "then manually submit or edit the failure case."
+        )
+    )
     title = str(document.get("title") or document.get("filename") or document.get("id"))
     document_id = str(document.get("id"))
     document_status = str(document.get("status") or "unknown")
@@ -31,10 +38,7 @@ def preview_document_failure_case_draft(
         ),
         root_cause=root_cause,
         fix_status="draft",
-        next_action=(
-            "Inspect the persisted document profile, confirm the failure candidate, "
-            "then manually submit or edit the failure case."
-        ),
+        next_action=next_action,
     )
     source_summary = {
         "document_id": document_id,

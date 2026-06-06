@@ -3818,6 +3818,37 @@ def test_persisted_document_failure_candidate_can_be_manually_handed_to_failure_
     assert rows[0]["id"] == row["id"]
 
 
+def test_persisted_encrypted_pdf_failure_candidate_draft_preserves_password_next_action():
+    client = make_client()
+    content = _encrypted_pdf_bytes()
+
+    upload = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Encrypted manual handoff PDF",
+            "strategy": "fixed-window",
+            "max_characters": "80",
+            "overlap": "0",
+        },
+        files={"file": ("encrypted-manual-handoff.pdf", content, "application/pdf")},
+    )
+    document_id = upload.json()["document"]["id"]
+
+    preview = client.post(f"/documents/{document_id}/failure-case-draft-preview")
+
+    assert preview.status_code == 200
+    body = preview.json()
+    assert body["draft"]["failure_type"] == "pdf_encrypted_requires_password"
+    assert body["draft"]["fix_status"] == "draft"
+    assert body["source_summary"]["failure_type"] == "pdf_encrypted_requires_password"
+    assert body["source_summary"]["stage"] == "persisted_document_failure_case_candidate"
+    assert body["persistence_boundary"] == "preview_only_not_persisted"
+    assert body["human_confirmation_required"] is True
+    assert "authorized password" in body["draft"]["next_action"]
+    assert "approved decryption" in body["draft"]["next_action"]
+    assert client.get("/failure-cases").json() == []
+
+
 def test_uploaded_pdf_chunk_retrieval_run_keeps_pdf_parser_provenance():
     client = make_client()
     content = _minimal_pdf_bytes("Enterprise PDF demand grew 12% in 2026.")

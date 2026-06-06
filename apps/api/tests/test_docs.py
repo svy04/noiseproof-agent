@@ -30982,3 +30982,63 @@ def test_external_feedback_current_state_encrypted_pdf_handoff_ops_issue_verific
         "docs/review/external-feedback-current-state-encrypted-pdf-handoff-ops-issue-verification.md"
         in portfolio
     )
+
+
+def test_uploaded_pdf_encrypted_failure_candidate_manual_handoff_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "uploaded-pdf-encrypted-failure-candidate-manual-handoff-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Uploaded PDF Encrypted Failure Candidate Manual Handoff Runtime Smoke"
+        in content
+    )
+    assert (
+        "uploaded PDF encrypted failure candidate manual handoff runtime smoke v0"
+        in content
+    )
+    assert "runtime-encrypted-manual-handoff-phase681.pdf" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/failure-case-draft-preview -> 200" in content
+    assert "POST /failure-cases -> 201" in content
+    assert "draft_failure_type -> pdf_encrypted_requires_password" in content
+    assert "persisted_failure_type -> pdf_encrypted_requires_password" in content
+    assert "failure_case_count_delta -> 1" in content
+    assert "preview_only_not_persisted" in content
+    assert "human_confirmation_required -> True" in content
+    assert "not automatic failure-case creation" in content
+    assert "not robust PDF extraction" in content
+    assert "not decryption" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Uploaded PDF encrypted failure candidate manual handoff runtime smoke v0"
+        in readme
+    )
+    assert (
+        "docs/review/uploaded-pdf-encrypted-failure-candidate-manual-handoff-runtime-smoke.md"
+        in readme
+    )
+    assert (
+        "Phase 681 - Uploaded PDF Encrypted Failure Candidate Manual Handoff Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "uploaded PDF encrypted failure candidate manual handoff runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/uploaded-pdf-encrypted-failure-candidate-manual-handoff-runtime-smoke.md"
+        in portfolio
+    )
