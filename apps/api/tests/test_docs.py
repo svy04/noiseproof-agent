@@ -6164,6 +6164,71 @@ def test_external_reviewer_outreach_packet_upload_pdf_quality_preview_summary_re
     )
 
 
+def test_goal_current_state_surfaces_latest_upload_pdf_summary_reviewer_surfaces():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/goal-current-state-upload-pdf-summary-reviewer-surfaces-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "GOAL Current-state Upload PDF Summary Reviewer Surfaces Refresh" in content
+    assert (
+        "goal current-state upload PDF summary reviewer surfaces refresh v0"
+        in content
+    )
+
+    required_markers = [
+        "Current navigation overlay as of Phase 736",
+        "latest_reviewer_route: upload PDF quality preview summary proof chain",
+        "docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md",
+        "docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-summary-refresh.md",
+        "docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-summary-refresh.md",
+        "docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-summary-refresh.md",
+        "docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-summary-refresh-remote-verification.md",
+        "latest_live_issue_route: docs/review/external-review-issue-body-upload-pdf-quality-preview-summary-route-refresh.md",
+        "latest_external_feedback_state: pending after upload PDF quality preview summary issue verification",
+        "candidate_count: 0",
+        "draft_count: 0",
+        "reason: self_authored_comment",
+        "external_reviewer_feedback_v0: pending_until_qualifying_outside_comment",
+        "live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured",
+        "robust_pdf_extraction: not_implemented",
+        "hosted_deployment_evidence: not_implemented",
+        "product_complete: false",
+        "not external reviewer feedback",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+        assert marker in goal
+
+    assert (
+        "GOAL current-state upload PDF summary reviewer surfaces refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 737 - GOAL Current-state Upload PDF Summary Reviewer Surfaces Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 737 adds GOAL current-state upload PDF summary reviewer surfaces refresh v0"
+        in runbook
+    )
+    assert (
+        "goal current-state upload PDF summary reviewer surfaces refresh"
+        in portfolio
+    )
+
+
 def test_external_feedback_qualification_preview_screens_comments_without_closing_gate():
     preview_path = REPO_ROOT / "docs/review/external-feedback-qualification-preview.md"
     assert preview_path.is_file()
