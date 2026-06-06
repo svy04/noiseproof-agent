@@ -23662,6 +23662,46 @@ Boundary: remote workflow verification only; not the local route behavior itself
 
 Next gate: owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
+### Phase 687 - Embedding Provider Readiness Ops Surface v0
+
+Status: implemented.
+
+Purpose: expose the current OpenAI embedding provider readiness and boundary through operations surfaces without making a provider call, printing secrets, or claiming live embedding generation proof.
+
+Implemented artifacts:
+
+```text
+embedding provider readiness ops surface v0
+apps/api/app/services/embedding_provider_readiness.py
+apps/api/app/routes/ops.py
+apps/api/app/services/ops_dashboard.py
+apps/api/app/schemas.py
+apps/api/tests/test_routes.py
+docs/review/embedding-provider-readiness-ops-surface.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Implemented behavior:
+
+```text
+GET /ops/summary -> embedding_provider_readiness
+GET /ops/dashboard -> Embedding Provider Readiness
+readiness_status: ready_for_owner_runtime_opt_in
+provider_call_boundary: owner_runtime_opt_in_only
+network_boundary: no_network_call
+cost_boundary: no_cost_incurred
+persistence_boundary: readiness_only_not_persisted
+secret_exposed: false
+```
+
+Boundary: readiness metadata only; not live embedding generation proof, not a live OpenAI provider call, not semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: remote verification for this ops-surface gate after push, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
 ### Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0
 
 Status: implemented.

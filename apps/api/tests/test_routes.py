@@ -5594,6 +5594,52 @@ def test_ops_summary_counts_semantic_retrieval_and_caller_provided_embeddings():
     assert "not semantic retrieval quality evidence" in notes
 
 
+def test_ops_summary_surfaces_embedding_provider_readiness_without_secret_leak():
+    client = make_client()
+    client.app.dependency_overrides[get_settings] = lambda: Settings(
+        openai_api_key="sk-secret-for-readiness",
+        enable_openai_provider=True,
+        ci=False,
+    )
+
+    response = client.get("/ops/summary")
+
+    assert response.status_code == 200
+    response_text = response.text
+    body = response.json()
+    readiness = body["embedding_provider_readiness"]
+    assert readiness["provider"] == "openai"
+    assert readiness["configured"] is True
+    assert readiness["provider_enabled"] is True
+    assert readiness["provider_client_available"] is True
+    assert readiness["readiness_status"] == "ready_for_owner_runtime_opt_in"
+    assert readiness["provider_call_boundary"] == "owner_runtime_opt_in_only"
+    assert readiness["network_boundary"] == "no_network_call"
+    assert readiness["cost_boundary"] == "no_cost_incurred"
+    assert readiness["persistence_boundary"] == "readiness_only_not_persisted"
+    assert readiness["secret_exposed"] is False
+    assert "sk-secret-for-readiness" not in response_text
+
+
+def test_ops_dashboard_surfaces_embedding_provider_readiness_boundary():
+    client = make_client()
+    client.app.dependency_overrides[get_settings] = lambda: Settings(
+        openai_api_key="sk-dashboard-secret",
+        enable_openai_provider=True,
+        ci=False,
+    )
+
+    dashboard = client.get("/ops/dashboard")
+
+    assert dashboard.status_code == 200
+    assert "Embedding Provider Readiness" in dashboard.text
+    assert "ready_for_owner_runtime_opt_in" in dashboard.text
+    assert "owner_runtime_opt_in_only" in dashboard.text
+    assert "No OpenAI provider call is made by ops summary or dashboard rendering." in dashboard.text
+    assert "readiness_only_not_persisted" in dashboard.text
+    assert "sk-dashboard-secret" not in dashboard.text
+
+
 def test_ops_dashboard_surfaces_semantic_retrieval_operational_counts():
     client = make_client()
     document, *_ = _create_semantic_fixture(client)

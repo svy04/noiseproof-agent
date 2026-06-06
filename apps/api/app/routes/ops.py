@@ -3,23 +3,33 @@ from fastapi.responses import HTMLResponse
 
 from app.db import Repository, get_repository
 from app.schemas import OpsSummaryOut
+from app.services.embedding_provider_readiness import (
+    summarize_embedding_provider_readiness,
+)
 from app.services.failure_case_review_queue import build_failure_case_workflow_review_queue
 from app.services.ops_dashboard import render_ops_dashboard
+from app.settings import Settings, get_settings
 
 router = APIRouter(prefix="/ops", tags=["ops"])
 
 
 @router.get("/summary", response_model=OpsSummaryOut)
-def ops_summary(repository: Repository = Depends(get_repository)) -> OpsSummaryOut:
-    return repository.ops_summary()
+def ops_summary(
+    repository: Repository = Depends(get_repository),
+    settings: Settings = Depends(get_settings),
+) -> OpsSummaryOut:
+    return _ops_summary_with_runtime_boundaries(repository, settings)
 
 
 @router.get("/dashboard", response_class=HTMLResponse)
-def ops_dashboard(repository: Repository = Depends(get_repository)) -> HTMLResponse:
+def ops_dashboard(
+    repository: Repository = Depends(get_repository),
+    settings: Settings = Depends(get_settings),
+) -> HTMLResponse:
     failure_cases = list(repository.list_failure_cases())
     workflow_runs = list(repository.list_workflow_runs())
     html = render_ops_dashboard(
-        summary=repository.ops_summary(),
+        summary=_ops_summary_with_runtime_boundaries(repository, settings),
         agent_runs=list(repository.list_agent_runs()),
         failure_cases=failure_cases,
         workflow_runs=workflow_runs,
@@ -33,3 +43,17 @@ def ops_dashboard(repository: Repository = Depends(get_repository)) -> HTMLRespo
         ),
     )
     return HTMLResponse(content=html)
+
+
+def _ops_summary_with_runtime_boundaries(
+    repository: Repository,
+    settings: Settings,
+) -> OpsSummaryOut:
+    summary = repository.ops_summary()
+    return summary.model_copy(
+        update={
+            "embedding_provider_readiness": summarize_embedding_provider_readiness(
+                settings
+            )
+        }
+    )

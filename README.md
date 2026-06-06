@@ -459,6 +459,8 @@ Embedding model live-provider error boundary v0: implemented. Boundary: `POST /c
 
 Embedding model live-provider error boundary remote verification v0: implemented. Boundary: commit `44c7273496198cbd88f43bd5fa030306353dd4ef` passed CI run `27058899825` and External Feedback Screen run `27058899830`; this is remote workflow evidence only, not the local route behavior itself, not live embedding generation proof, not external reviewer feedback, and not product-complete.
 
+Embedding provider readiness ops surface v0: implemented. Boundary: `GET /ops/summary` now exposes `embedding_provider_readiness`, and `GET /ops/dashboard` renders `Embedding Provider Readiness` plus `owner_runtime_opt_in_only` / `readiness_only_not_persisted` boundaries. Ops rendering makes no OpenAI provider call, prints no secret, persists no readiness row, and is not live embedding generation proof.
+
 Embedding model live-provider owner-runtime smoke packet v0: implemented. Boundary: `app.services.embedding_model_live_provider_harness --print-owner-runtime-smoke-packet` emits a no-secret/no-call owner-runtime smoke contract; current local discovery has no `OPENAI_API_KEY`, so live embedding generation proof remains pending.
 
 Embedding model live-provider owner-runtime input discovery v0: implemented. Boundary: `app.services.embedding_model_live_provider_harness --discover-owner-runtime-input` reports owner-runtime readiness booleans without printing secrets or calling the provider; current local status is `missing_openai_api_key`, and actual live embedding model generation remains unproven.

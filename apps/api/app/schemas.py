@@ -922,6 +922,21 @@ class HealthOut(BaseModel):
     workflow_version: str
 
 
+class EmbeddingProviderReadinessOut(BaseModel):
+    provider: str
+    configured: bool
+    provider_enabled: bool
+    provider_client_available: bool
+    readiness_status: str
+    provider_call_boundary: str
+    network_boundary: str
+    cost_boundary: str
+    persistence_boundary: str
+    secret_exposed: bool
+    blocking_reasons: list[str]
+    warnings: list[str]
+
+
 class OpsSummaryOut(BaseModel):
     status: str
     workflow_version: str
@@ -954,6 +969,7 @@ class OpsSummaryOut(BaseModel):
     unsupported_claim_count: int
     contradiction_count: int
     average_latency_ms: float | None
+    embedding_provider_readiness: EmbeddingProviderReadinessOut | None = None
     notes: list[str]
 
 

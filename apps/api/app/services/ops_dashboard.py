@@ -54,6 +54,8 @@ def render_ops_dashboard(
       {_metric("Semantic Retrieval Runs", summary.semantic_retrieval_run_count)}
       {_metric("Chunk Embedding Rows", summary.chunk_embedding_count)}
       {_metric("Caller-provided Embeddings", summary.caller_provided_embedding_count)}
+      {_metric("Embedding Provider Readiness", _embedding_provider_value(summary, "readiness_status"))}
+      {_metric("Embedding Provider Boundary", _embedding_provider_value(summary, "provider_call_boundary"))}
       {_metric("Noise Gate Records", summary.noise_gate_record_count)}
       {_metric("Blocked Gates", summary.blocked_gate_count)}
       {_metric("Revision Gates", summary.revision_gate_count)}
@@ -127,6 +129,7 @@ def render_ops_dashboard(
       <li>POST-only actions render as method cues, not anchors.</li>
       <li>Unsupported claim and contradiction counts come from persisted Evidence Ledger entries.</li>
       <li>Semantic retrieval and caller-provided embedding metrics are operational counts, not semantic retrieval quality evidence.</li>
+      {_embedding_provider_boundary_item(summary)}
       <li>No-text PDF handoff counts are metadata-derived from document profile_json. This is metadata-derived from document profile_json and does not prove robust PDF extraction, OCR, table extraction, or layout fidelity.</li>
       <li>Encrypted PDF failure candidate counts are metadata-derived from document profile_json and does not prove decryption, password bypass, robust PDF extraction, OCR, table extraction, or layout fidelity.</li>
       <li>Persisted evidence, gate, and report records link back to their parent agent run through trace lookup.</li>
@@ -140,6 +143,29 @@ def render_ops_dashboard(
 
 def _metric(label: str, value: object) -> str:
     return f'<div class="metric"><div class="muted">{escape(label)}</div><strong>{_cell(value)}</strong></div>'
+
+
+def _embedding_provider_value(summary: OpsSummaryOut, field: str) -> object:
+    readiness = summary.embedding_provider_readiness
+    if readiness is None:
+        return "unknown"
+    return getattr(readiness, field)
+
+
+def _embedding_provider_boundary_item(summary: OpsSummaryOut) -> str:
+    readiness = summary.embedding_provider_readiness
+    if readiness is None:
+        return "<li>Embedding provider readiness is not attached to this summary.</li>"
+    return (
+        "<li>"
+        "No OpenAI provider call is made by ops summary or dashboard rendering. "
+        f"Provider boundary: <code>{escape(readiness.provider_call_boundary)}</code>; "
+        f"network boundary: <code>{escape(readiness.network_boundary)}</code>; "
+        f"cost boundary: <code>{escape(readiness.cost_boundary)}</code>; "
+        f"persistence boundary: <code>{escape(readiness.persistence_boundary)}</code>. "
+        "This is readiness metadata only, not live embedding generation proof."
+        "</li>"
+    )
 
 
 def _agent_runs_table(rows: list[dict[str, Any]]) -> str:

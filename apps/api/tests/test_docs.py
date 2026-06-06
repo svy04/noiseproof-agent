@@ -31315,3 +31315,35 @@ def test_external_feedback_current_state_encrypted_pdf_manual_handoff_issue_veri
         "docs/review/external-feedback-current-state-encrypted-pdf-manual-handoff-issue-verification.md"
         in portfolio
     )
+
+
+def test_embedding_provider_readiness_ops_surface_is_recorded():
+    review_path = (
+        REPO_ROOT / "docs/review/embedding-provider-readiness-ops-surface.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    assert "GET /ops/summary" in content
+    assert "GET /ops/dashboard" in content
+    assert "Embedding Provider Readiness" in content
+    assert "ready_for_owner_runtime_opt_in" in content
+    assert "owner_runtime_opt_in_only" in content
+    assert "readiness_only_not_persisted" in content
+    assert (
+        "No OpenAI provider call is made by ops summary or dashboard rendering."
+        in content
+    )
+    assert "not live embedding generation proof" in content
+
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Embedding provider readiness ops surface v0: implemented" in readme
+    assert "Phase 687 - Embedding Provider Readiness Ops Surface v0" in goal
+    assert "Phase 687 adds embedding provider readiness ops surface v0" in runbook
+    assert "Embedding provider readiness ops surface" in portfolio
