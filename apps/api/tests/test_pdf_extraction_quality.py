@@ -264,6 +264,43 @@ def test_pdf_binary_fixture_provenance_packet_validates_synthetic_pdf_files():
     assert "not robust PDF extraction evidence" in packet["boundary_notes"]
 
 
+def test_pdf_binary_fixture_smoke_runs_parser_and_table_adapter_on_synthetic_pdfs():
+    from packages.ingestion.pdf_quality.binary_smoke import (
+        run_pdf_binary_fixture_smoke,
+    )
+
+    result = run_pdf_binary_fixture_smoke(
+        REPO_ROOT / "examples/pdf-extraction-quality/binary-fixtures"
+    )
+
+    assert result["claim_boundary"] == (
+        "binary_fixture_smoke_only_not_robust_pdf_extraction"
+    )
+    assert result["robust_pdf_extraction_claimed"] is False
+    assert result["fixture_count"] == 2
+    assert result["passed_count"] == 2
+    assert result["failed_count"] == 0
+
+    born_digital = result["per_fixture"]["binary_born_digital_text"]
+    assert born_digital["parser"] == "pdf-pymupdf"
+    assert born_digital["digital_pdf_text_extraction"] is True
+    assert born_digital["robust_pdf_extraction"] is False
+    assert born_digital["expected_spans_found"] is True
+    assert born_digital["failure_case_candidate"] is None
+
+    table_fixture = result["per_fixture"]["binary_deterministic_table_adapter"]
+    assert table_fixture["parser"] == "pdf-pymupdf"
+    assert table_fixture["table_candidate_count"] >= 1
+    assert table_fixture["table_adapter"]["table_extraction_performed"] is True
+    assert table_fixture["table_adapter"]["robust_pdf_extraction"] is False
+    assert table_fixture["table_adapter"]["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert table_fixture["table_adapter"]["expected_table_rows_found"] is True
+    assert "not robust PDF extraction evidence" in result["boundary_notes"]
+
+
 def test_pdf_table_adapter_reports_no_table_as_structured_warning():
     adapter_result = extract_pdf_tables_with_pymupdf(
         _minimal_pdf_bytes("market memo without table")

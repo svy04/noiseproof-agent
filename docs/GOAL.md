@@ -43,6 +43,36 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 779:
+
+```text
+latest_product_gate: PDF binary fixture parser adapter smoke v0
+latest_product_artifact: docs/review/pdf-binary-fixture-parser-adapter-smoke.md
+latest_smoke_runner: packages/ingestion/pdf_quality/binary_smoke.py
+latest_binary_fixture_packet: examples/pdf-extraction-quality/binary-fixtures/provenance.json
+binary_fixture_smoke_claim_boundary: binary_fixture_smoke_only_not_robust_pdf_extraction
+binary_fixture_smoke_fixture_count: 2
+binary_fixture_smoke_passed_count: 2
+binary_fixture_smoke_failed_count: 0
+binary_born_digital_text.parser: pdf-pymupdf
+binary_born_digital_text.digital_pdf_text_extraction: true
+binary_born_digital_text.expected_spans_found: true
+binary_deterministic_table_adapter.parser: pdf-pymupdf
+binary_deterministic_table_adapter.table_candidate_count: 1
+binary_deterministic_table_adapter.table_adapter.table_extraction_performed: true
+binary_deterministic_table_adapter.table_adapter.extracted_table_rows:
+  - [Segment, Growth]
+  - [Enterprise, 12%]
+robust_pdf_extraction: not_implemented
+default_pdf_parser_table_extraction_performed: still_false
+table_extraction_evidence_for_arbitrary_market_pdfs: not_claimed
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: local parser/adapter smoke evidence over synthetic binary fixtures only; not robust PDF extraction evidence; not default PdfParser table extraction; not arbitrary market PDF table extraction; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 778:
 
 ```text
@@ -3269,6 +3299,47 @@ redistribution_allowed -> true
 Boundary: synthetic binary fixture provenance only; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not external data redistribution; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: parser/adapter smoke over these binary fixtures, remote verification after push, external-reader route refresh if this packet should become reviewer-facing, or a future real-world binary fixture gate with explicit license and redistribution review.
+
+### Phase 779 - PDF Binary Fixture Parser Adapter Smoke v0
+
+Status: implemented.
+
+Purpose: run the synthetic binary PDF fixtures through the existing `PdfParser` and tiny PyMuPDF table adapter while preserving the no-robust-extraction boundary.
+
+Implemented artifacts:
+
+```text
+PDF binary fixture parser adapter smoke v0
+docs/review/pdf-binary-fixture-parser-adapter-smoke.md
+packages/ingestion/pdf_quality/binary_smoke.py
+examples/pdf-extraction-quality/binary-fixtures/provenance.json
+examples/pdf-extraction-quality/binary-fixtures/born-digital-text.pdf
+examples/pdf-extraction-quality/binary-fixtures/deterministic-table-adapter.pdf
+apps/api/tests/test_pdf_extraction_quality.py
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Smoke markers:
+
+```text
+claim_boundary -> binary_fixture_smoke_only_not_robust_pdf_extraction
+fixture_count -> 2
+passed_count -> 2
+failed_count -> 0
+binary_born_digital_text.parser -> pdf-pymupdf
+binary_born_digital_text.digital_pdf_text_extraction -> true
+binary_deterministic_table_adapter.table_candidate_count -> 1
+binary_deterministic_table_adapter.table_adapter.table_extraction_performed -> true
+binary_deterministic_table_adapter.table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+```
+
+Boundary: local parser/adapter smoke evidence over synthetic binary fixtures only; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: remote verification after push, external-reader route refresh if this smoke should become reviewer-facing, or a future runtime/API smoke that exposes binary fixture behavior without storing arbitrary uploaded files.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

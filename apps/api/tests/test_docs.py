@@ -32937,6 +32937,45 @@ def test_pdf_binary_fixture_provenance_packet_v0_is_recorded():
     assert "PDF binary fixture provenance packet" in portfolio
 
 
+def test_pdf_binary_fixture_parser_adapter_smoke_v0_is_recorded():
+    review_path = REPO_ROOT / "docs/review/pdf-binary-fixture-parser-adapter-smoke.md"
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "PDF Binary Fixture Parser Adapter Smoke" in content
+    assert "PDF binary fixture parser adapter smoke v0" in content
+    assert "packages/ingestion/pdf_quality/binary_smoke.py" in content
+    assert "examples/pdf-extraction-quality/binary-fixtures/provenance.json" in content
+    assert "binary_born_digital_text" in content
+    assert "binary_deterministic_table_adapter" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "digital_pdf_text_extraction -> true" in content
+    assert "table_candidate_count" in content
+    assert "table_adapter.table_extraction_performed -> true" in content
+    assert "table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]" in content
+    assert "passed_count -> 2" in content
+    assert "failed_count -> 0" in content
+    assert "binary_fixture_smoke_only_not_robust_pdf_extraction" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not default PdfParser table extraction" in content
+    assert "not table extraction evidence for arbitrary market PDFs" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "PDF binary fixture parser adapter smoke v0: implemented" in readme
+    assert "Phase 779 - PDF Binary Fixture Parser Adapter Smoke v0" in goal
+    assert "Phase 779 adds PDF binary fixture parser adapter smoke v0" in runbook
+    assert "PDF binary fixture parser adapter smoke" in portfolio
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
