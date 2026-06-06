@@ -355,6 +355,44 @@ def test_pdf_quality_observation_smoke_preserves_no_text_failure_candidate():
     assert "not robust PDF extraction evidence" in result["boundary_notes"]
 
 
+def test_pdf_quality_observation_smoke_preserves_encrypted_failure_candidate():
+    parse_result = PdfParser().parse(
+        ParseInput(
+            source_type="pdf",
+            content_bytes=_encrypted_pdf_bytes(),
+            filename="encrypted-smoke.pdf",
+        )
+    )
+
+    observation = pdf_parse_result_to_quality_observation(parse_result)
+
+    assert observation["parser"] == "pdf-pymupdf"
+    assert observation["digital_pdf_text_extraction"] is False
+    assert observation["robust_pdf_extraction"] is False
+    assert observation["encrypted"] is True
+    assert observation["password_required"] is True
+    assert observation["failure_case_candidate"] == "pdf_encrypted_requires_password"
+    assert "encrypted" in observation["failure_case_description"]
+    assert "authorized password" in observation["failure_case_next_action"]
+    assert observation["extracted_text"] == ""
+
+    fixture = load_pdf_extraction_quality_fixture(
+        REPO_ROOT / "examples/pdf-extraction-quality"
+    )
+    result = evaluate_pdf_extraction_quality(
+        fixture,
+        {"encrypted_pdf": observation},
+    )
+
+    assert result["aggregate"]["observed_fixture_count"] == 1
+    assert result["aggregate"]["not_evaluated_fixture_count"] == 6
+    assert result["per_fixture"]["encrypted_pdf"][
+        "failure_case_candidate_correctness"
+    ] == 1.0
+    assert result["per_fixture"]["encrypted_pdf"]["warning_correctness"] == 1.0
+    assert "not robust PDF extraction evidence" in result["boundary_notes"]
+
+
 def _minimal_pdf_bytes(text: str) -> bytes:
     escaped_text = text.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
     content_stream = f"BT /F1 12 Tf 72 720 Td ({escaped_text}) Tj ET\n".encode("ascii")
@@ -438,3 +476,18 @@ def _table_pdf_bytes() -> bytes:
     content = document.tobytes()
     document.close()
     return content
+
+
+def _encrypted_pdf_bytes() -> bytes:
+    import pymupdf
+
+    document = pymupdf.open()
+    page = document.new_page(width=300, height=200)
+    page.insert_text((50, 80), "Encrypted market memo")
+    content = document.write(
+        encryption=pymupdf.PDF_ENCRYPT_AES_256,
+        owner_pw="owner-password",
+        user_pw="user-password",
+    )
+    document.close()
+    return bytes(content)

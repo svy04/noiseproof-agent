@@ -8,10 +8,12 @@ def pdf_parse_result_to_quality_observation(parse_result: ParseResult) -> dict[s
     failure_case_candidate = parse_result.failure_case_candidate
     table_candidate_count = _non_negative_int(metadata.get("table_candidate_count"))
     table_extraction_performed = bool(metadata.get("table_extraction_performed"))
+    password_required = bool(metadata.get("password_required"))
     warnings = _quality_warnings(
         list(parse_result.warnings),
         table_candidate_count=table_candidate_count,
         table_extraction_performed=table_extraction_performed,
+        password_required=password_required,
     )
     return {
         "parser": parse_result.parser,
@@ -32,6 +34,8 @@ def pdf_parse_result_to_quality_observation(parse_result: ParseResult) -> dict[s
             metadata.get("digital_pdf_text_extraction")
         ),
         "robust_pdf_extraction": bool(metadata.get("robust_pdf_extraction")),
+        "encrypted": bool(metadata.get("encrypted")),
+        "password_required": password_required,
         "table_extraction_performed": table_extraction_performed,
         "failure_case_candidate": (
             failure_case_candidate.failure_type if failure_case_candidate else None
@@ -50,6 +54,7 @@ def _quality_warnings(
     *,
     table_candidate_count: int,
     table_extraction_performed: bool,
+    password_required: bool,
 ) -> list[str]:
     normalized = list(warnings)
     table_boundary = "table candidate detection is not table extraction"
@@ -59,6 +64,9 @@ def _quality_warnings(
         and not any(table_boundary in warning.lower() for warning in normalized)
     ):
         normalized.append(table_boundary)
+    password_boundary = "password required"
+    if password_required and not any(password_boundary in warning.lower() for warning in normalized):
+        normalized.append(password_boundary)
     return normalized
 
 

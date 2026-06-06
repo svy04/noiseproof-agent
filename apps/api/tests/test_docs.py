@@ -32511,3 +32511,45 @@ def test_pdf_extraction_quality_no_text_observation_smoke_is_recorded():
         in runbook
     )
     assert "no-text observation smoke" in portfolio
+
+
+def test_pdf_extraction_quality_encrypted_observation_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT / "docs/review/pdf-extraction-quality-encrypted-observation-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "PDF Extraction Quality Encrypted Observation Smoke" in content
+    assert "PDF extraction quality encrypted observation smoke v0" in content
+    assert "packages/ingestion/pdf_quality/observation.py" in content
+    assert "packages/ingestion/parsers/pdf.py" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "encrypted -> true" in content
+    assert "password_required -> true" in content
+    assert "failure_case_candidate -> pdf_encrypted_requires_password" in content
+    assert "failure_case_candidate_correctness -> 1" in content
+    assert "robust_pdf_extraction -> false" in content
+    assert "not decryption evidence" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not OCR implementation" in content
+    assert "not table extraction implementation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "PDF extraction quality encrypted observation smoke v0: implemented"
+        in readme
+    )
+    assert "Phase 710 - PDF Extraction Quality Encrypted Observation Smoke v0" in goal
+    assert (
+        "Phase 710 adds PDF extraction quality encrypted observation smoke v0"
+        in runbook
+    )
+    assert "encrypted observation smoke" in portfolio

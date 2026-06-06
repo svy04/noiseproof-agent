@@ -269,6 +269,29 @@ Boundary: local deterministic parser smoke only; not robust PDF extraction imple
 
 Next gate: encrypted PDF observation smoke, or a committed no-text observation report that keeps failure candidates inspectable.
 
+### Phase 710 - PDF Extraction Quality Encrypted Observation Smoke v0
+
+Status: implemented.
+
+Purpose: preserve encrypted PDF authorization metadata and `pdf_encrypted_requires_password` failure-candidate metadata through the PDF quality observation and evaluator path, without supplying a password or attempting decryption.
+
+Implemented artifacts:
+
+```text
+PDF extraction quality encrypted observation smoke v0
+packages/ingestion/pdf_quality/observation.py
+docs/review/pdf-extraction-quality-encrypted-observation-smoke.md
+apps/api/tests/test_pdf_extraction_quality.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Boundary: local deterministic parser smoke only; not decryption evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not hosted deployment evidence, and not product-complete.
+
+Next gate: compact PDF observation smoke index for external reviewers.
+
 Accepted state as of Phase 403:
 
 ```text
