@@ -35287,6 +35287,52 @@ def test_goal_current_state_docker_environment_route_refresh_is_recorded():
     assert "GOAL current-state Docker environment route refresh" in portfolio
 
 
+def test_goal_current_state_docker_environment_route_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/goal-current-state-docker-environment-route-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "GOAL Current-state Docker Environment Route Refresh Remote Verification" in content
+    assert "goal current-state Docker environment route refresh remote verification v0" in content
+    assert "3bcb0b5d43162c41347a9ced694bfe4d97e59a25" in content
+    assert "CI run `27070742785`" in content
+    assert "External Feedback Screen run `27070742798`" in content
+    assert "CI job_id -> 79899399059" in content
+    assert "External Feedback Screen job_id -> 79899399029" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "docs/review/goal-current-state-docker-environment-route-refresh.md" in content
+    assert "not the GOAL overlay refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "GOAL current-state Docker environment route refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 766 - GOAL Current-state Docker Environment Route Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 766 adds GOAL current-state Docker environment route refresh remote verification v0"
+        in runbook
+    )
+    assert "GOAL current-state Docker environment route refresh remote verification" in portfolio
+
+
 def test_goal_current_state_upload_pdf_summary_link_map_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
