@@ -34643,3 +34643,90 @@ def test_upload_pdf_quality_preview_coverage_summary_runtime_smoke_remote_verifi
         "Upload PDF quality preview coverage summary runtime smoke remote verification"
         in portfolio
     )
+
+
+def test_external_reader_path_upload_pdf_quality_preview_coverage_summary_route_refresh_is_documented():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    required_markers = [
+        "docs/review/upload-pdf-quality-preview-api.md",
+        "docs/review/upload-pdf-quality-preview-summary.md",
+        "docs/review/upload-pdf-quality-preview-coverage-summary.md",
+        "docs/review/upload-pdf-quality-preview-coverage-summary-remote-verification.md",
+        "docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md",
+        "docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md",
+        "POST /documents/upload-pdf-quality-preview",
+        "quality_summary.page_coverage_ratio",
+        "quality_summary.extraction_status",
+        "full_text",
+        "partial_text",
+        "no_text",
+        "password_required",
+        "partial_page_coverage_ratio=0.5",
+        "partial_extraction_status=partial_text",
+        "partial_warning_present=True",
+        "no_text_extraction_status=no_text",
+        "encrypted_extraction_status=password_required",
+        "summary_only_not_robust_pdf_extraction_evidence",
+        "document_count_delta=0",
+        "not a live issue body edit",
+        "not robust PDF extraction evidence",
+        "not external reviewer feedback",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+
+    assert (
+        "External-reader Proof Path Upload PDF Quality Preview Coverage Summary Route Refresh"
+        in content
+    )
+    assert (
+        "external-reader proof path upload PDF quality preview coverage summary route refresh v0"
+        in content
+    )
+    for marker in required_markers:
+        assert marker in content
+        assert marker in proof_path
+        assert marker in link_map
+
+    current_route = proof_path.split("## Current Proof Route", 1)[1].split(
+        "Evidence quality draft preview proof:", 1
+    )[0]
+    assert "Upload PDF quality preview coverage summary proof:" in current_route
+    assert "quality_summary.page_coverage_ratio" in current_route
+    assert "partial_extraction_status=partial_text" in current_route
+
+    assert (
+        "External-reader proof path upload PDF quality preview coverage summary route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 747 - External-reader Proof Path Upload PDF Quality Preview Coverage Summary Route Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 747 adds external-reader proof path upload PDF quality preview coverage summary route refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md"
+        in portfolio
+    )

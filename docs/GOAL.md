@@ -1592,6 +1592,49 @@ Boundary: remote workflow verification only; not the local runtime smoke itself,
 
 Next gate: external-reader proof path route refresh if the coverage-summary runtime-smoke proof should become the first reviewer route, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 747 - External-reader Proof Path Upload PDF Quality Preview Coverage Summary Route Refresh v0
+
+Status: implemented.
+
+Purpose: route first-pass external reviewers to the current upload PDF quality preview coverage-summary proof chain instead of the older summary-only proof chain.
+
+Implemented artifacts:
+
+```text
+external-reader proof path upload PDF quality preview coverage summary route refresh v0
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-link-map.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Route markers:
+
+```text
+POST /documents/upload-pdf-quality-preview
+quality_summary.page_coverage_ratio
+quality_summary.extraction_status
+full_text
+partial_text
+no_text
+password_required
+partial_page_coverage_ratio=0.5
+partial_extraction_status=partial_text
+partial_warning_present=True
+no_text_extraction_status=no_text
+encrypted_extraction_status=password_required
+summary_only_not_robust_pdf_extraction_evidence
+document_count_delta=0
+```
+
+Boundary: reader-route alignment only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction evidence, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: remote verification for this route refresh after push, external review issue-body route refresh only if the owner wants issue #1 to point at the coverage-summary proof chain, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.

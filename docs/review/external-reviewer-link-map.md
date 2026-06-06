@@ -148,6 +148,28 @@ This artifact gives outside reviewers direct links to the shortest inspectable p
   `pdf_encrypted_failure_candidate_count`, `PDF Encrypted Failure Candidates`
 - Boundary: password-protected PDF failure metadata and operations visibility only; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, and not product-complete.
 
+## Focused Upload PDF Quality Preview Coverage Summary Proof
+
+- API proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-api.md
+- Summary proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-summary.md
+- Coverage summary proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-coverage-summary.md
+- Coverage summary remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-coverage-summary-remote-verification.md
+- Coverage summary runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md
+- Coverage summary runtime remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md
+- Proof chain paths:
+  `docs/review/upload-pdf-quality-preview-api.md`, `docs/review/upload-pdf-quality-preview-summary.md`, `docs/review/upload-pdf-quality-preview-coverage-summary.md`, `docs/review/upload-pdf-quality-preview-coverage-summary-remote-verification.md`, `docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md`, `docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md`
+- Route markers:
+  `POST /documents/upload-pdf-quality-preview`, `quality_summary.page_coverage_ratio`, `quality_summary.extraction_status`, `full_text`, `partial_text`, `no_text`, `password_required`, `partial_page_coverage_ratio=0.5`, `partial_extraction_status=partial_text`, `partial_warning_present=True`, `no_text_extraction_status=no_text`, `encrypted_extraction_status=password_required`, `summary_only_not_robust_pdf_extraction_evidence`, `document_count_delta=0`, `pdf_encrypted_requires_password`
+- Boundary: compact PDF quality coverage proof routing only; not a live issue body edit, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not document persistence evidence for this preview route, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, not password bypass, and not product-complete.
+
 ## Focused Upload PDF Quality Preview Summary Proof
 
 - API proof:
