@@ -33327,3 +33327,83 @@ def test_upload_pdf_quality_preview_summary_runtime_smoke_remote_verification_is
         "Upload PDF quality preview summary runtime smoke remote verification"
         in portfolio
     )
+
+
+def test_external_reader_path_surfaces_upload_pdf_quality_preview_summary_route():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    required_markers = [
+        "docs/review/upload-pdf-quality-preview-api.md",
+        "docs/review/upload-pdf-quality-preview-summary.md",
+        "docs/review/upload-pdf-quality-preview-summary-remote-verification.md",
+        "docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md",
+        "docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md",
+        "POST /documents/upload-pdf-quality-preview",
+        "quality_summary",
+        "summary_only_not_robust_pdf_extraction_evidence",
+        "digital_quality_summary_present=True",
+        "encrypted_quality_summary_present=True",
+        "digital_summary_robust_pdf_extraction=False",
+        "encrypted_summary_failure_case=pdf_encrypted_requires_password",
+        "document_count_delta=0",
+        "pdf_encrypted_requires_password",
+        "not a live issue body edit",
+        "not robust PDF extraction evidence",
+        "not external reviewer feedback",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+
+    assert (
+        "External-reader Proof Path Upload PDF Quality Preview Summary Route Refresh"
+        in content
+    )
+    assert (
+        "external-reader proof path upload PDF quality preview summary route refresh v0"
+        in content
+    )
+    for marker in required_markers:
+        assert marker in content
+        assert marker in proof_path
+        assert marker in link_map
+
+    current_route = proof_path.split("## Current Proof Route", 1)[1].split(
+        "Evidence quality draft preview proof:", 1
+    )[0]
+    assert "Upload PDF quality preview summary proof:" in current_route
+    assert "quality_summary" in current_route
+
+    assert (
+        "External-reader proof path upload PDF quality preview summary route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 726 - External-reader Proof Path Upload PDF Quality Preview Summary Route Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 726 adds external-reader proof path upload PDF quality preview summary route refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md"
+        in portfolio
+    )

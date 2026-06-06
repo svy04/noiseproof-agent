@@ -148,6 +148,26 @@ This artifact gives outside reviewers direct links to the shortest inspectable p
   `pdf_encrypted_failure_candidate_count`, `PDF Encrypted Failure Candidates`
 - Boundary: password-protected PDF failure metadata and operations visibility only; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, and not product-complete.
 
+## Focused Upload PDF Quality Preview Summary Proof
+
+- API proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-api.md
+- Summary proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-summary.md
+- Summary remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-summary-remote-verification.md
+- Summary runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md
+- Summary runtime remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md
+- Proof chain paths:
+  `docs/review/upload-pdf-quality-preview-api.md`, `docs/review/upload-pdf-quality-preview-summary.md`, `docs/review/upload-pdf-quality-preview-summary-remote-verification.md`, `docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md`, `docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md`
+- Route markers:
+  `POST /documents/upload-pdf-quality-preview`, `quality_summary`, `summary_only_not_robust_pdf_extraction_evidence`, `digital_quality_summary_present=True`, `encrypted_quality_summary_present=True`, `digital_summary_robust_pdf_extraction=False`, `encrypted_summary_failure_case=pdf_encrypted_requires_password`, `document_count_delta=0`, `pdf_encrypted_requires_password`
+- Boundary: compact PDF quality summary proof routing only; not a live issue body edit, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not document persistence evidence for this preview route, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, not password bypass, and not product-complete.
+
 ## Focused Upload PDF Quality Preview Proof
 
 - API proof:

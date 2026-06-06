@@ -92,6 +92,32 @@ hosted_deployment_evidence: not_implemented
 product_complete: false
 ```
 
+Current navigation overlay as of Phase 726:
+
+```text
+latest_reviewer_route: upload PDF quality preview summary proof chain
+latest_route_artifacts:
+  - docs/review/upload-pdf-quality-preview-api.md
+  - docs/review/upload-pdf-quality-preview-summary.md
+  - docs/review/upload-pdf-quality-preview-summary-remote-verification.md
+  - docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md
+  - docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md
+  - docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md
+latest_live_issue_route: not_refreshed_for_summary_chain
+latest_external_feedback_state: pending after upload PDF quality preview issue verification
+latest_feedback_state_artifact: docs/review/external-feedback-current-state-upload-pdf-quality-preview-issue-verification.md
+latest_feedback_state_remote_verification: docs/review/external-feedback-current-state-upload-pdf-quality-preview-issue-verification-remote-verification.md
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+robust_pdf_extraction: not_implemented
+robust_pdf_extraction_strategy_review: implemented
+hosted_deployment_evidence: not_implemented
+product_complete: false
+```
+
 Use this snapshot for first-pass orientation, then inspect the phase records below when exact provenance is needed.
 
 ### Phase 702 - Robust PDF Extraction Source-first Strategy Review v0
@@ -816,6 +842,44 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the local runtime smoke itself, not new runtime evidence, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not extracted text storage, not document persistence, not retrieval behavior, not Evidence Ledger generation, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
 
 Next gate: external-reader proof path route refresh if the upload PDF quality preview summary proof chain should become the first reviewer route, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
+### Phase 726 - External-reader Proof Path Upload PDF Quality Preview Summary Route Refresh v0
+
+Status: implemented.
+
+Purpose: route first-pass external reviewers to the compact `quality_summary` proof chain for `POST /documents/upload-pdf-quality-preview` while preserving the predecessor upload PDF quality observation route and Evidence quality proof chains.
+
+Implemented artifacts:
+
+```text
+external-reader proof path upload PDF quality preview summary route refresh v0
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-link-map.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Route markers:
+
+```text
+POST /documents/upload-pdf-quality-preview
+quality_summary
+summary_only_not_robust_pdf_extraction_evidence
+digital_quality_summary_present=True
+encrypted_quality_summary_present=True
+digital_summary_robust_pdf_extraction=False
+encrypted_summary_failure_case=pdf_encrypted_requires_password
+document_count_delta=0
+pdf_encrypted_requires_password
+```
+
+Boundary: reader-route alignment only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not extracted text storage, not document persistence evidence for this preview route, not retrieval behavior, not Evidence Ledger generation, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: remote verification for this route refresh after push, live issue-body refresh only if the owner wants issue #1 to route to the summary proof chain, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
 Accepted state as of Phase 403:
 

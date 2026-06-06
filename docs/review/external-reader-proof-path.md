@@ -16,6 +16,33 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Upload PDF quality preview summary proof:
+
+```text
+docs/review/upload-pdf-quality-preview-api.md
+docs/review/upload-pdf-quality-preview-summary.md
+docs/review/upload-pdf-quality-preview-summary-remote-verification.md
+docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md
+docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md
+```
+
+Route markers:
+
+```text
+POST /documents/upload-pdf-quality-preview
+quality_summary
+summary_only_not_robust_pdf_extraction_evidence
+digital_quality_summary_present=True
+encrypted_quality_summary_present=True
+digital_summary_robust_pdf_extraction=False
+encrypted_summary_failure_case=pdf_encrypted_requires_password
+document_count_delta=0
+pdf_encrypted_requires_password
+```
+
+Boundary: this current route points first-pass reviewers to the compact PDF quality summary response shape for `POST /documents/upload-pdf-quality-preview`, including local runtime proof that born-digital and encrypted uploads return `quality_summary` without creating document rows. This route alignment is not new runtime evidence. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not extracted text storage, not document persistence evidence for this preview route, not retrieval behavior, not Evidence Ledger generation, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
 Evidence quality draft preview proof:
 
 ```text
