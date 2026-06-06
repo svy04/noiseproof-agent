@@ -45,6 +45,31 @@ docs/review/external-feedback-intake-criteria.md
 Current compact proof to inspect:
 
 ```text
+Upload PDF quality preview coverage summary proof
+docs/review/external-reviewer-outreach-packet.md
+docs/review/upload-pdf-quality-preview-coverage-summary.md
+docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md
+docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md
+docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-coverage-summary-refresh.md
+docs/review/external-reviewer-surfaces-upload-pdf-quality-preview-coverage-summary-refresh-remote-verification.md
+quality_summary.page_coverage_ratio
+quality_summary.extraction_status
+partial_page_coverage_ratio=0.5
+partial_extraction_status=partial_text
+partial_warning_present=True
+no_text_extraction_status=no_text
+encrypted_extraction_status=password_required
+summary_only_not_robust_pdf_extraction_evidence
+document_count_delta=0
+pdf_encrypted_requires_password
+```
+
+Boundary: this compact proof route is not robust PDF extraction evidence, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Predecessor compact proof:
+
+```text
 Upload PDF quality preview summary proof
 docs/review/external-reviewer-outreach-packet.md
 docs/review/upload-pdf-quality-preview-summary.md
@@ -59,8 +84,6 @@ document_count_delta=0
 pdf_encrypted_requires_password
 ```
 
-Boundary: this compact proof route is not robust PDF extraction evidence, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
-
 ## Copy-paste outreach messages
 
 ### FDE / product engineer reviewer
@@ -70,7 +93,7 @@ Hi, I am preparing NoiseProof Agent as a small portfolio project for Forward Dep
 
 It is not a trading bot and not a production RAG platform. The current proof path is intentionally bounded: local service surfaces, parser/chunk/retrieval previews, evidence/noise/report previews, workflow lineage, and failure-case provenance.
 
-The most compact current proof to inspect is the upload PDF quality preview summary proof in docs/review/upload-pdf-quality-preview-summary.md.
+The most compact current proof to inspect is the upload PDF quality preview coverage summary proof in docs/review/upload-pdf-quality-preview-coverage-summary.md.
 
 Could you spend 5 minutes on the reviewer brief and leave one concrete comment on issue #1?
 
@@ -93,7 +116,7 @@ Hi, I am looking for a technical review of NoiseProof Agent before I claim more 
 
 The project is currently a local, inspectable evidence-first market-intelligence service. It has deterministic previews for collection planning, parser/chunk/retrieval boundaries, Evidence Ledger / Noise Gate / report previews, workflow lineage, and failure-case provenance. It does not claim semantic retrieval quality, embeddings, robust PDF extraction, hosted deployment, or production RAG behavior.
 
-The most compact current proof to inspect is the upload PDF quality preview summary proof in docs/review/upload-pdf-quality-preview-summary.md.
+The most compact current proof to inspect is the upload PDF quality preview coverage summary proof in docs/review/upload-pdf-quality-preview-coverage-summary.md.
 
 Could you inspect the short proof path and leave one evidence-referenced comment on issue #1?
 
@@ -119,7 +142,7 @@ Hi, I am stress-testing the clarity of a portfolio project called NoiseProof Age
 
 The project tries to show one thing: before an AI system generates a confident market-intelligence answer, it should expose what evidence exists, what conflicts, what is missing, and what claims should be blocked.
 
-The most compact current proof to inspect is the upload PDF quality preview summary proof in docs/review/upload-pdf-quality-preview-summary.md.
+The most compact current proof to inspect is the upload PDF quality preview coverage summary proof in docs/review/upload-pdf-quality-preview-coverage-summary.md.
 
 Could you spend 5 minutes on the reviewer brief and leave one practical comment on issue #1?
 

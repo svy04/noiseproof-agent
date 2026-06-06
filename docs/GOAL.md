@@ -1878,6 +1878,48 @@ Boundary: remote workflow verification only; not the reviewer-surface refresh it
 
 Next gate: outreach packet coverage-summary refresh, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 755 - External Reviewer Outreach Packet Upload PDF Quality Preview Coverage Summary Refresh v0
+
+Status: implemented.
+
+Purpose: make `docs/review/external-reviewer-outreach-packet.md` point copy-paste reviewer messages to the current upload PDF quality preview coverage-summary proof chain.
+
+Implemented artifacts:
+
+```text
+external reviewer outreach packet upload PDF quality preview coverage summary refresh v0
+docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-coverage-summary-refresh.md
+docs/review/external-reviewer-outreach-packet.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Outreach markers:
+
+```text
+Upload PDF quality preview coverage summary proof
+docs/review/upload-pdf-quality-preview-coverage-summary.md
+docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md
+docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md
+docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-coverage-summary-refresh.md
+docs/review/external-reviewer-surfaces-upload-pdf-quality-preview-coverage-summary-refresh-remote-verification.md
+quality_summary.page_coverage_ratio
+quality_summary.extraction_status
+partial_page_coverage_ratio=0.5
+partial_extraction_status=partial_text
+partial_warning_present=True
+no_text_extraction_status=no_text
+encrypted_extraction_status=password_required
+```
+
+Boundary: reviewer outreach navigation only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction evidence, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: remote verification for this outreach refresh after push, link-map coverage-summary reviewer surfaces refresh, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.
