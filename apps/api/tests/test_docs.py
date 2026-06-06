@@ -33497,6 +33497,66 @@ def test_external_feedback_current_state_pdf_binary_fixture_smoke_preview_issue_
     )
 
 
+def test_external_feedback_current_state_pdf_binary_fixture_smoke_preview_issue_verification_remote_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-pdf-binary-fixture-smoke-preview-issue-verification-remote-verification.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state PDF Binary Fixture Smoke Preview Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state PDF binary fixture smoke preview issue verification remote verification v0"
+        in content
+    )
+    assert "58da0ce51ffdc3a2de71d733974c78a1e29c3d3c" in content
+    assert "CI run `27074050121`" in content
+    assert "External Feedback Screen run `27074050119`" in content
+    assert "CI job_id -> 79908224208" in content
+    assert "External Feedback Screen job_id -> 79908224205" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-feedback-current-state-pdf-binary-fixture-smoke-preview-issue-verification.md"
+        in content
+    )
+    assert "not the issue-state screen itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not new runtime evidence" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External feedback current-state PDF binary fixture smoke preview issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 789 - External Feedback Current-state PDF Binary Fixture Smoke Preview Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 789 adds external feedback current-state PDF binary fixture smoke preview issue verification remote verification v0"
+        in runbook
+    )
+    assert (
+        "external feedback current-state PDF binary fixture smoke preview issue verification remote verification"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

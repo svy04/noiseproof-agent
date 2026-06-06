@@ -43,6 +43,29 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 789:
+
+```text
+latest_remote_verification_gate: external feedback current-state PDF binary fixture smoke preview issue verification remote verification v0
+latest_remote_verification_artifact: docs/review/external-feedback-current-state-pdf-binary-fixture-smoke-preview-issue-verification-remote-verification.md
+latest_verified_head_sha: 58da0ce51ffdc3a2de71d733974c78a1e29c3d3c
+latest_ci_run: 27074050121
+latest_ci_job_id: 79908224208
+latest_external_feedback_screen_run: 27074050119
+latest_external_feedback_screen_job_id: 79908224205
+latest_external_feedback_state_gate: external feedback current-state PDF binary fixture smoke preview issue verification v0
+latest_external_feedback_state_artifact: docs/review/external-feedback-current-state-pdf-binary-fixture-smoke-preview-issue-verification.md
+latest_issue_candidate_count: 0
+latest_issue_feedback_status: pending
+latest_issue_feedback_reason: self_authored_comment_only
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+latest_api_surface: GET /documents/pdf-binary-fixture-smoke-preview
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the issue-state screen itself; not external reviewer feedback; not hosted deployment evidence; not new runtime evidence; not robust PDF extraction evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 788:
 
 ```text
@@ -3934,6 +3957,41 @@ latest_pdf_preview: true
 Boundary: current-state issue screening only; not external reviewer feedback; not hosted deployment evidence; not production readiness; not customer validation; not Braincrew acceptance; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; and not product-complete.
 
 Next gate: remote verification for this issue-state screen after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 789 - External Feedback Current-state PDF Binary Fixture Smoke Preview Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 788 external feedback current-state PDF binary fixture smoke preview issue verification passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+external feedback current-state PDF binary fixture smoke preview issue verification remote verification v0
+docs/review/external-feedback-current-state-pdf-binary-fixture-smoke-preview-issue-verification-remote-verification.md
+docs/review/external-feedback-current-state-pdf-binary-fixture-smoke-preview-issue-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 58da0ce51ffdc3a2de71d733974c78a1e29c3d3c
+CI run `27074050121` -> success
+External Feedback Screen run `27074050119` -> success
+CI job_id -> 79908224208
+External Feedback Screen job_id -> 79908224205
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the issue-state screen itself; not external reviewer feedback; not hosted deployment evidence; not production readiness; not customer validation; not Braincrew acceptance; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
