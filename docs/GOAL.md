@@ -43,6 +43,30 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 782:
+
+```text
+latest_remote_verification_gate: external-reader proof path PDF binary fixture smoke route refresh remote verification v0
+latest_remote_verification_artifact: docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-route-refresh-remote-verification.md
+latest_verified_head_sha: 5eeb09713302844de21fd3e8000704cc504aeeef
+latest_ci_run: 27073228784
+latest_ci_job_id: 79906045348
+latest_external_feedback_screen_run: 27073228781
+latest_external_feedback_screen_job_id: 79906045347
+latest_reviewer_route: external-reader proof path PDF binary fixture smoke route refresh v0
+latest_reviewer_route_artifact: docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-route-refresh.md
+latest_product_gate: PDF binary fixture parser adapter smoke v0
+latest_product_artifact: docs/review/pdf-binary-fixture-parser-adapter-smoke.md
+robust_pdf_extraction: not_implemented
+default_pdf_parser_table_extraction_performed: still_false
+table_extraction_evidence_for_arbitrary_market_pdfs: not_claimed
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the route refresh itself; not new runtime evidence; not robust PDF extraction evidence; not default PdfParser table extraction; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 781:
 
 ```text
@@ -3468,6 +3492,44 @@ table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
 ```
 
 Boundary: reviewer route hygiene only; not new runtime evidence; not the parser/adapter smoke itself; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: API/runtime smoke that exposes binary fixture behavior without storing arbitrary uploaded files, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 782 - External-reader Proof Path PDF Binary Fixture Smoke Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 781 external-reader proof path PDF binary fixture smoke route refresh passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+external-reader proof path PDF binary fixture smoke route refresh remote verification v0
+docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-route-refresh-remote-verification.md
+docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-route-refresh.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 5eeb09713302844de21fd3e8000704cc504aeeef
+CI run `27073228784` -> success
+External Feedback Screen run `27073228781` -> success
+CI job_id -> 79906045348
+External Feedback Screen job_id -> 79906045347
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the route refresh itself; not new runtime evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: API/runtime smoke that exposes binary fixture behavior without storing arbitrary uploaded files, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
