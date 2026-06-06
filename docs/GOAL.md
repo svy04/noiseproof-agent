@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 805:
+
+```text
+latest_product_gate: Uploaded PDF table adapter Evidence Ledger provenance v0
+latest_product_artifact: docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance.md
+latest_code_surface: apps/api/app/services/retrieval_run_evidence.py
+latest_regression_test: test_uploaded_pdf_table_adapter_metadata_flows_into_evidence_ledger_provenance
+latest_api_surface: POST /documents/upload-chunks; POST /documents/{document_id}/retrieval-runs; POST /retrieval-runs/{retrieval_run_id}/evidence-ledger; GET /evidence-ledgers?retrieval_run_id={retrieval_run_id}
+default_pdf_parser_table_adapter_metadata: visible_in_persisted_evidence_ledger_entry_metadata
+table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed_claim: remains_false_on_parser_metadata
+source_provenance_boundary: evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: deterministic metadata provenance only; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger quality evidence; not final truth adjudication; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 804:
 
 ```text
@@ -27768,6 +27787,41 @@ does_not_close_gate: true
 Boundary: live issue current-state screen only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not a new retrieval algorithm, not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger generation, not Critic / Noise Gate behavior, not final report generation, and not product-complete.
 
 Next gate: remote verification for this current-state issue screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 805 - Uploaded PDF Table Adapter Evidence Ledger Provenance v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+prove bounded uploaded PDF table-adapter metadata can survive retrieval-run-linked Evidence Ledger persistence as provenance-only row metadata
+```
+
+Implemented:
+
+```text
+uploaded PDF table adapter Evidence Ledger provenance v0
+docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance.md
+apps/api/app/services/retrieval_run_evidence.py
+test_uploaded_pdf_table_adapter_metadata_flows_into_evidence_ledger_provenance
+POST /documents/upload-chunks
+POST /documents/{document_id}/retrieval-runs
+POST /retrieval-runs/{retrieval_run_id}/evidence-ledger
+GET /evidence-ledgers?retrieval_run_id={retrieval_run_id}
+default_pdf_parser_table_adapter_metadata
+table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed remains false
+source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk
+```
+
+Phase 805 adds uploaded PDF table adapter Evidence Ledger provenance v0. It is deterministic metadata provenance only, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next recommended evidence gate:
+
+```text
+local runtime smoke for uploaded PDF table adapter Evidence Ledger provenance v0, remote verification after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state
+```
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 

@@ -4475,6 +4475,73 @@ def test_uploaded_pdf_retrieval_run_evidence_ledger_preserves_source_provenance(
     )
 
 
+def test_uploaded_pdf_table_adapter_metadata_flows_into_evidence_ledger_provenance():
+    client = make_client()
+    content = _table_pdf_bytes()
+
+    upload = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Uploaded table PDF report",
+            "strategy": "fixed-window",
+            "max_characters": "120",
+            "overlap": "0",
+        },
+        files={"file": ("table-report.pdf", content, "application/pdf")},
+    ).json()
+
+    retrieval_run = client.post(
+        f"/documents/{upload['document']['id']}/retrieval-runs",
+        json={
+            "question": "Which evidence mentions Enterprise Growth?",
+            "strategy": "fixed-window",
+            "top_k": 1,
+        },
+    ).json()
+
+    response = client.post(f"/retrieval-runs/{retrieval_run['id']}/evidence-ledger")
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["stored_entry_count"] == 1
+    assert any(
+        "Uploaded PDF table-adapter metadata is preserved in Evidence Ledger entry metadata as provenance only"
+        in warning
+        for warning in body["warnings"]
+    )
+
+    entry = body["entries"][0]
+    assert entry["retrieval_run_id"] == retrieval_run["id"]
+    assert entry["source_type"] == "pdf"
+    assert entry["metadata_json"]["default_pdf_parser_table_adapter_metadata"] is True
+    assert entry["metadata_json"]["table_adapter_extraction_performed"] is True
+    assert entry["metadata_json"]["table_adapter"]["table_extraction_engine"] == (
+        "pymupdf-find_tables-extract"
+    )
+    assert entry["metadata_json"]["table_adapter"]["robust_pdf_extraction"] is False
+    assert entry["metadata_json"]["table_adapter"]["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert entry["metadata_json"]["table_extraction_performed"] is False
+    assert entry["metadata_json"]["source_provenance_boundary"] == (
+        "evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk"
+    )
+    assert entry["metadata_json"]["persistence_boundary"] == (
+        "retrieval_run_linked_evidence_ledger_no_llm_no_embeddings"
+    )
+
+    listed = client.get(f"/evidence-ledgers?retrieval_run_id={retrieval_run['id']}")
+    assert listed.status_code == 200
+    listed_entry = listed.json()[0]
+    assert listed_entry["metadata_json"]["default_pdf_parser_table_adapter_metadata"] is True
+    assert listed_entry["metadata_json"]["table_adapter"]["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert listed_entry["metadata_json"]["table_extraction_performed"] is False
+
+
 def test_document_upload_retrieval_preview_searches_uploaded_markdown_without_persistence():
     client = make_client()
     content = b"# Market note\nEnterprise demand growth was 12 percent in 2026.\nConsumer demand declined.\n"

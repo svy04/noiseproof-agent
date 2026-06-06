@@ -157,6 +157,16 @@ def _candidates_from_retrieval_run(
             "Some candidate_chunk_ids no longer resolve to document_chunks rows: "
             + ", ".join(missing_chunk_ids)
         )
+    resolved_candidate_chunks = [
+        chunks_by_id[chunk_id]
+        for chunk_id in candidate_chunk_ids
+        if chunk_id in chunks_by_id
+    ]
+    if any(_has_pdf_table_adapter_metadata(chunk) for chunk in resolved_candidate_chunks):
+        warnings.append(
+            "Uploaded PDF table-adapter metadata is preserved in Evidence Ledger entry metadata as provenance only; "
+            "it is not robust PDF extraction evidence or table extraction evidence for arbitrary market PDFs."
+        )
 
     query_terms = set(_terms(retrieval_run["question"]))
     candidates: list[EvidenceLedgerCandidateIn] = []
@@ -199,3 +209,12 @@ def _candidates_from_retrieval_run(
         )
 
     return warnings, candidates
+
+
+def _has_pdf_table_adapter_metadata(chunk: dict) -> bool:
+    metadata = chunk.get("metadata_json") or {}
+    return bool(
+        metadata.get("default_pdf_parser_table_adapter_metadata")
+        or metadata.get("table_adapter")
+        or metadata.get("table_adapter_boundary")
+    )
