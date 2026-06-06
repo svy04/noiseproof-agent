@@ -34356,3 +34356,61 @@ def test_goal_current_state_upload_pdf_summary_link_map_refresh_is_recorded():
         in runbook
     )
     assert "goal current-state upload PDF summary link map refresh" in portfolio
+
+
+def test_goal_current_state_upload_pdf_summary_link_map_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/goal-current-state-upload-pdf-summary-link-map-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "GOAL Current-state Upload PDF Summary Link Map Refresh Remote Verification"
+        in content
+    )
+    assert (
+        "goal current-state upload PDF summary link map refresh remote verification v0"
+        in content
+    )
+    assert "6ebae8021719f77f54b49c3e88502dc6c37f64ce" in content
+    assert "CI run `27067767913`" in content
+    assert "External Feedback Screen run `27067767925`" in content
+    assert "CI job_id -> 79891520483" in content
+    assert "External Feedback Screen job_id -> 79891520488" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/goal-current-state-upload-pdf-summary-link-map-refresh.md"
+        in content
+    )
+    assert "not the GOAL overlay refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "GOAL current-state upload PDF summary link map refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 742 - GOAL Current-state Upload PDF Summary Link Map Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 742 adds GOAL current-state upload PDF summary link map refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "goal current-state upload PDF summary link map refresh remote verification"
+        in portfolio
+    )
