@@ -1955,6 +1955,43 @@ Boundary: remote workflow verification only; not the outreach refresh itself, no
 
 Next gate: link-map coverage-summary reviewer surfaces refresh, GOAL current-state coverage-summary reviewer surfaces refresh, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 757 - External Reviewer Link Map Upload PDF Coverage Summary Reviewer Surfaces Refresh v0
+
+Status: implemented.
+
+Purpose: refresh `docs/review/external-reviewer-link-map.md` so first-pass external reviewers can jump directly to the upload PDF quality preview coverage-summary proof chain plus the latest coverage-summary shortlist, request/brief, outreach, and remote-verification surfaces.
+
+Implemented artifacts:
+
+```text
+external reviewer link map upload PDF coverage summary reviewer surfaces refresh v0
+docs/review/external-reviewer-link-map-upload-pdf-coverage-summary-reviewer-surfaces-refresh.md
+docs/review/external-reviewer-link-map.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Routed proof chain:
+
+```text
+docs/review/upload-pdf-quality-preview-coverage-summary.md
+docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md
+docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md
+docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-coverage-summary-refresh.md
+docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-coverage-summary-refresh.md
+docs/review/external-reviewer-surfaces-upload-pdf-quality-preview-coverage-summary-refresh-remote-verification.md
+docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-coverage-summary-refresh.md
+docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-coverage-summary-refresh-remote-verification.md
+```
+
+Boundary: reviewer navigation hygiene only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction evidence, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: remote verification for this link-map refresh after push, GOAL current-state coverage-summary reviewer surfaces refresh, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.
