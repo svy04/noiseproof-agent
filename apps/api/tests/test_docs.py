@@ -26331,7 +26331,7 @@ def test_readme_top_latest_remote_verification_state_preserves_table_candidate_r
         not in fast_path
     )
     assert (
-        "Latest recorded remote verification state: the retrieval-run-linked Gate/Report semantic source provenance runtime-smoke proof was remotely checked by CI run `27048811299` and External Feedback Screen run `27048811288`"
+        "Latest recorded remote verification state: the current Gate/Report issue-screen proof was remotely checked by CI run `27049669832` and External Feedback Screen run `27049669830`"
         in fast_path
     )
     assert (
@@ -27056,7 +27056,7 @@ def test_external_feedback_current_state_retrieval_run_semantic_provenance_issue
         not in fast_path
     )
     assert (
-        "Latest recorded remote verification state: the retrieval-run-linked Gate/Report semantic source provenance runtime-smoke proof was remotely checked by CI run `27048811299` and External Feedback Screen run `27048811288`"
+        "Latest recorded remote verification state: the current Gate/Report issue-screen proof was remotely checked by CI run `27049669832` and External Feedback Screen run `27049669830`"
         in fast_path
     )
     assert (
@@ -27559,7 +27559,7 @@ def test_readme_latest_marker_semantic_source_provenance_current_state_refresh_u
         in fast_path
     )
     assert (
-        "Latest recorded remote verification state: the retrieval-run-linked Gate/Report semantic source provenance runtime-smoke proof was remotely checked by CI run `27048811299` and External Feedback Screen run `27048811288`"
+        "Latest recorded remote verification state: the current Gate/Report issue-screen proof was remotely checked by CI run `27049669832` and External Feedback Screen run `27049669830`"
         in fast_path
     )
     assert "PDF table-candidate downstream runtime issue verification" not in fast_path
@@ -27975,7 +27975,7 @@ def test_external_reader_proof_path_gate_report_semantic_source_provenance_route
         in readme
     )
     assert (
-        "Latest recorded remote verification state: the retrieval-run-linked Gate/Report semantic source provenance runtime-smoke proof was remotely checked by CI run `27048811299` and External Feedback Screen run `27048811288`"
+        "Latest recorded remote verification state: the current Gate/Report issue-screen proof was remotely checked by CI run `27049669832` and External Feedback Screen run `27049669830`"
         in readme
     )
     assert (
@@ -28250,6 +28250,82 @@ def test_external_feedback_current_state_gate_report_semantic_source_provenance_
     )
     assert (
         "docs/review/external-feedback-current-state-gate-report-semantic-source-provenance-issue-verification.md"
+        in portfolio
+    )
+
+
+def test_external_feedback_current_state_gate_report_semantic_source_provenance_issue_verification_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-gate-report-semantic-source-provenance-issue-verification-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state Gate/Report Semantic Source Provenance Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state Gate/Report semantic source provenance issue verification remote verification v0"
+        in content
+    )
+    assert "213274f59d730ed840b6a103858df7aaa85b96c9" in content
+    assert "CI run 27049669832" in content
+    assert "External Feedback Screen run 27049669830" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27049669832" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27049669830" in content
+    assert "job_id -> 79842654854" in content
+    assert "job_id -> 79842654845" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-feedback-current-state-gate-report-semantic-source-provenance-issue-verification.md"
+        in content
+    )
+    assert "external reviewer feedback v0 remains pending" in content
+    assert "candidate_count=0" in content
+    assert "draft_count=0" in content
+    assert "reason=self_authored_comment" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not report quality evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest recorded remote verification state: the current Gate/Report issue-screen proof was remotely checked by CI run `27049669832` and External Feedback Screen run `27049669830`"
+        in readme
+    )
+    assert (
+        "External feedback current-state Gate/Report semantic source provenance issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 640 - External Feedback Current-state Gate/Report Semantic Source Provenance Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 639 - External Feedback Current-state Gate/Report Semantic Source Provenance Issue Verification v0"
+    ) < goal.index(
+        "Phase 640 - External Feedback Current-state Gate/Report Semantic Source Provenance Issue Verification Remote Verification v0"
+    )
+    assert (
+        "external feedback current-state Gate/Report semantic source provenance issue verification remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-gate-report-semantic-source-provenance-issue-verification-remote-verification.md"
         in portfolio
     )
 
