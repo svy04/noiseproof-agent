@@ -30529,3 +30529,53 @@ def test_phase15_runtime_persistence_verification_is_recorded_without_hosted_cla
     assert "Phase 1.5 - Runtime Persistence Verification: verified" in goal
     assert "Phase 1.5 runtime persistence verification" in runbook
     assert "docs/review/runtime-persistence-verification.md" in portfolio
+
+
+def test_uploaded_pdf_encrypted_failure_candidate_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-encrypted-failure-candidate-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded PDF Encrypted Failure Candidate Runtime Smoke" in content
+    assert "uploaded PDF encrypted failure candidate runtime smoke v0" in content
+    assert "uv run uvicorn app.main:app --host 127.0.0.1 --port 8001" in content
+    assert "runtime-encrypted-phase673.pdf" in content
+    assert "POST /documents/upload-preview -> 200" in content
+    assert "parser -> pdf-pymupdf" in content
+    assert "encrypted -> true" in content
+    assert "password_required -> true" in content
+    assert "digital_pdf_text_extraction -> false" in content
+    assert "extraction_scope -> encrypted_pdf_password_required" in content
+    assert (
+        "failure_case_candidate.failure_type -> pdf_encrypted_requires_password"
+        in content
+    )
+    assert "persistence_boundary -> preview_only_not_persisted" in content
+    assert "not robust PDF extraction" in content
+    assert "not decryption" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert "Uploaded PDF encrypted failure candidate runtime smoke v0" in readme
+    assert (
+        "docs/review/uploaded-pdf-encrypted-failure-candidate-runtime-smoke.md"
+        in readme
+    )
+    assert (
+        "Phase 673 - Uploaded PDF Encrypted Failure Candidate Runtime Smoke v0"
+        in goal
+    )
+    assert "uploaded PDF encrypted failure candidate runtime smoke v0" in runbook
+    assert (
+        "docs/review/uploaded-pdf-encrypted-failure-candidate-runtime-smoke.md"
+        in portfolio
+    )
