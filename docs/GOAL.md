@@ -1482,6 +1482,40 @@ Boundary: response-shape inspectability only; not extracted text storage, not do
 
 Next gate: remote verification for this coverage summary after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 744 - Upload PDF Quality Preview Coverage Summary Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 743 upload PDF quality preview coverage summary passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+upload PDF quality preview coverage summary remote verification v0
+docs/review/upload-pdf-quality-preview-coverage-summary-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 77ca62a086b40e8230795583d7d066de1f8a1c8c
+CI run 27068132057: success
+External Feedback Screen run 27068132066: success
+CI job_id -> 79892482513
+External Feedback Screen job_id -> 79892482574
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the coverage summary implementation itself, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, local runtime smoke for coverage summary if needed, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.

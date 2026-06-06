@@ -34472,3 +34472,55 @@ def test_upload_pdf_quality_preview_coverage_summary_is_recorded():
         in runbook
     )
     assert "Upload PDF quality preview coverage summary" in portfolio
+
+
+def test_upload_pdf_quality_preview_coverage_summary_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/upload-pdf-quality-preview-coverage-summary-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Upload PDF Quality Preview Coverage Summary Remote Verification" in content
+    assert "upload PDF quality preview coverage summary remote verification v0" in content
+    assert "77ca62a086b40e8230795583d7d066de1f8a1c8c" in content
+    assert "CI run `27068132057`" in content
+    assert "External Feedback Screen run `27068132066`" in content
+    assert "CI job_id -> 79892482513" in content
+    assert "External Feedback Screen job_id -> 79892482574" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/upload-pdf-quality-preview-coverage-summary.md"
+        in content
+    )
+    assert "not the coverage summary implementation itself" in content
+    assert "not new runtime evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Upload PDF quality preview coverage summary remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 744 - Upload PDF Quality Preview Coverage Summary Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 744 adds upload PDF quality preview coverage summary remote verification v0"
+        in runbook
+    )
+    assert (
+        "Upload PDF quality preview coverage summary remote verification"
+        in portfolio
+    )
