@@ -44,6 +44,26 @@ Read only these:
 21. `docs/review/uploaded-raw-file-scan-execution-endpoint-runtime-smoke.md`
 22. `docs/review/external-feedback-intake-criteria.md`
 
+Latest compact PDF boundary proof:
+
+```text
+Upload PDF quality preview summary proof
+docs/review/external-review-request.md
+docs/review/external-reviewer-brief.md
+docs/review/upload-pdf-quality-preview-summary.md
+docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md
+docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md
+quality_summary
+summary_only_not_robust_pdf_extraction_evidence
+digital_quality_summary_present=True
+encrypted_quality_summary_present=True
+document_count_delta=0
+pdf_encrypted_requires_password
+```
+
+This proof gives reviewers a compact summary of preview-only PDF quality boundaries before the longer workflow proof chain. It is not robust PDF extraction evidence, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
 Latest persisted Report markdown export proof:
 
 ```text
