@@ -22974,6 +22974,44 @@ Boundary: remote workflow verification only; not the local runtime smoke itself,
 
 Next gate: route refresh if this proof should become reviewer-facing, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
+### Phase 699 - External Review Issue Body Evidence Quality Draft Preview Route Refresh v0
+
+Status: implemented.
+
+Purpose: record the owner-authored public issue #1 body edit that routes external reviewers to the Evidence quality failure-case draft preview proof chain as the latest proof to inspect.
+
+Implemented artifacts:
+
+```text
+external review issue body evidence quality draft preview route refresh v0
+docs/review/external-review-issue-body-evidence-quality-draft-preview-route-refresh.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Issue markers:
+
+```text
+updatedAt: 2026-06-06T11:32:26Z
+comment_count: 1
+starts_with_request: true
+first_codepoint: 35
+body_length: 6291
+has_evidence_quality_draft_preview: true
+has_evidence_quality_draft_preview_runtime_smoke: true
+has_evidence_quality_draft_preview_runtime_remote_verification: true
+has_evidence_quality_draft_preview_route_refresh: true
+has_evidence_quality_draft_preview_route_remote_verification: true
+old_workflow_markdown_latest_label_present: false
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not automatic failure-case creation, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not embedding generation, not an LLM call, and not product-complete.
+
+Next gate: external feedback current-state evidence quality draft preview issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from the current repository state.
+
 ### Phase 698 - External-reader Proof Path Evidence Quality Draft Preview Route Refresh Remote Verification v0
 
 Status: implemented.
