@@ -35079,6 +35079,88 @@ def test_docker_environment_current_runtime_check_remote_verification_is_recorde
     assert "Docker environment current runtime check remote verification" in portfolio
 
 
+def test_external_reader_proof_path_docker_environment_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-docker-environment-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    link_map = (
+        REPO_ROOT / "docs/review/external-reviewer-link-map.md"
+    ).read_text(encoding="utf-8")
+    shortlist = (
+        REPO_ROOT / "docs/review/external-reviewer-shortlist.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External-reader Proof Path Docker Environment Runtime Check Route Refresh" in content
+    assert (
+        "external-reader proof path Docker environment runtime check route refresh v0"
+        in content
+    )
+
+    required_markers = [
+        "docs/review/docker-environment-current-runtime-check.md",
+        "docs/review/docker-environment-current-runtime-check-remote-verification.md",
+        "Docker version 29.4.3",
+        "noiseproof-agent-api-1",
+        "noiseproof-agent-db-1",
+        "noiseproof-agent-clamav",
+        "GET /health -> 200",
+        "GET /ops/summary -> 200",
+        '"document_count": 28',
+        '"agent_run_count": 89',
+        '"failure_case_count": 11',
+        "not hosted deployment evidence",
+        "not production readiness",
+        "not external reviewer feedback",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+
+    route_markers = [
+        "Docker environment runtime proof",
+        "docs/review/docker-environment-current-runtime-check.md",
+        "docs/review/docker-environment-current-runtime-check-remote-verification.md",
+        "GET /health -> 200",
+        "GET /ops/summary -> 200",
+        "not hosted deployment evidence",
+        "not external reviewer feedback",
+        "not product-complete",
+    ]
+    for marker in route_markers:
+        assert marker in proof_path
+        assert marker in link_map
+
+    assert "docs/review/docker-environment-current-runtime-check.md" in shortlist
+    assert "Docker environment current runtime check" in shortlist
+
+    assert (
+        "External-reader proof path Docker environment runtime check route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 763 - External-reader Proof Path Docker Environment Runtime Check Route Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 763 adds external-reader proof path Docker environment runtime check route refresh v0"
+        in runbook
+    )
+    assert "external-reader proof path Docker environment runtime check route refresh" in portfolio
+
+
 def test_goal_current_state_upload_pdf_summary_link_map_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

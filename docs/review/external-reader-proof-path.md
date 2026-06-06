@@ -50,6 +50,30 @@ pdf_encrypted_requires_password
 
 Boundary: this current route points first-pass reviewers to page-level PDF quality coverage signals for `POST /documents/upload-pdf-quality-preview`, including local runtime proof that born-digital, partial-text, no-text, and encrypted uploads return explicit coverage statuses without creating document rows. This route alignment is not new runtime evidence. It is not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not extracted text storage, not document persistence evidence for this preview route, not retrieval behavior, not Evidence Ledger generation, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
 
+Docker environment runtime proof:
+
+```text
+docs/review/docker-environment-current-runtime-check.md
+docs/review/docker-environment-current-runtime-check-remote-verification.md
+docs/review/external-reader-proof-path-docker-environment-route-refresh.md
+```
+
+Route markers:
+
+```text
+Docker version 29.4.3
+noiseproof-agent-api-1
+noiseproof-agent-db-1
+noiseproof-agent-clamav
+GET /health -> 200
+GET /ops/summary -> 200
+"document_count": 28
+"agent_run_count": 89
+"failure_case_count": 11
+```
+
+Boundary: this route points reviewers to the current local Docker/runtime environment check, including API, PostgreSQL/pgvector, ClamAV service presence, health, and operations summary evidence. It is route hygiene only, not new runtime evidence, not hosted deployment evidence, not production readiness, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
 Upload PDF quality preview summary proof:
 
 ```text

@@ -76,6 +76,18 @@ This artifact gives outside reviewers direct links to the shortest inspectable p
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-embedding-provider-owner-runtime-smoke-handoff-alignment-request-refresh.md
 - Boundary: no-secret/no-call owner-runtime smoke contract with `api_calls_attempted: false` and `openai_api_key_printed: false`; validator command `--validate-owner-runtime-smoke-report <runtime-report-path-outside-repo>` expects `accepted_owner_runtime_smoke: true` and `missing_or_failed_checks: []` only after a future owner-runtime report exists; response handoff command `--build-owner-runtime-smoke-report-from-response`; packet field `response_handoff_command`; CI verification is workflow screen only; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not live embedding generation proof, not semantic retrieval quality evidence, and not product-complete.
 
+## Latest Docker Environment Runtime Proof
+
+- Docker environment runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/docker-environment-current-runtime-check.md
+- Remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/docker-environment-current-runtime-check-remote-verification.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-docker-environment-route-refresh.md
+- Route markers:
+  `Docker version 29.4.3`, `noiseproof-agent-api-1`, `noiseproof-agent-db-1`, `noiseproof-agent-clamav`, `GET /health -> 200`, `GET /ops/summary -> 200`, `"document_count": 28`, `"agent_run_count": 89`, `"failure_case_count": 11`
+- Boundary: local Docker/runtime environment proof only; not a live issue body edit, not new runtime evidence, not hosted deployment evidence, not production readiness, not external reviewer feedback, and not product-complete.
+
 ## Latest Workflow Proof Bundle Runtime Proof
 
 - Runtime proof:

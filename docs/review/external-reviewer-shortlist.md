@@ -31,6 +31,8 @@ It does not replace the full proof path.
    - Boundary: not robust PDF extraction evidence, not OCR, not table extraction, not decryption evidence, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
 3. `docs/review/ops-dashboard-anchor-get-runtime-smoke.md`
    - Local Docker PostgreSQL plus live FastAPI HTTP proof that `GET /ops/dashboard` exposes clickable `data-method="GET"` inspection anchors and every unique dashboard href returns GET 200.
+   - Docker environment current runtime check: `docs/review/docker-environment-current-runtime-check.md`.
+   - Records `Docker version 29.4.3`, `GET /health -> 200`, `GET /ops/summary -> 200`, `noiseproof-agent-api-1`, `noiseproof-agent-db-1`, and `noiseproof-agent-clamav`; boundary: not hosted deployment evidence, not production readiness, not external reviewer feedback, and not product-complete.
    - Related raw-file guard ops proof: `docs/review/uploaded-raw-file-guard-ops-summary-runtime-smoke.md`.
    - Request refresh: `docs/review/external-reviewer-ops-dashboard-anchor-get-runtime-request-refresh.md`.
    - Browser proof: `docs/review/ops-dashboard-anchor-browser-smoke.md`.

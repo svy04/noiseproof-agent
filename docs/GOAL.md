@@ -2218,6 +2218,41 @@ Boundary: remote workflow verification only; not the Docker environment check it
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 763 - External-reader Proof Path Docker Environment Runtime Check Route Refresh v0
+
+Status: implemented.
+
+Purpose: make the current local Docker/runtime environment proof discoverable from the shortest external-reader proof path without replacing the upload PDF quality coverage route.
+
+Routed artifacts:
+
+```text
+docs/review/docker-environment-current-runtime-check.md
+docs/review/docker-environment-current-runtime-check-remote-verification.md
+docs/review/external-reader-proof-path-docker-environment-route-refresh.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+```
+
+Route markers:
+
+```text
+Docker version 29.4.3
+noiseproof-agent-api-1
+noiseproof-agent-db-1
+noiseproof-agent-clamav
+GET /health -> 200
+GET /ops/summary -> 200
+"document_count": 28
+"agent_run_count": 89
+"failure_case_count": 11
+```
+
+Boundary: reviewer route hygiene only; not new runtime evidence, not the Docker environment check itself, not hosted deployment evidence, not production readiness, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: remote verification for this route refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.
