@@ -23170,3 +23170,45 @@ Warnings, stage_input_manifest, and agent-run trace_json expose the provenance.
 Boundary: deterministic route-level provenance preservation only; not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Next gate: local Docker/FastAPI runtime smoke for retrieval-run-linked Gate/Report semantic source provenance if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 634 - Retrieval-run-linked Gate/Report Semantic Source Provenance Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: verify with local Docker PostgreSQL and live FastAPI HTTP that semantic retrieval source provenance survives from a persisted retrieval run through retrieval-run-linked Evidence Ledger, Noise Gate, Report, and agent-run trace handoffs.
+
+Implemented artifacts:
+
+```text
+retrieval-run-linked Gate/Report semantic source provenance runtime smoke v0
+docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Observed runtime markers:
+
+```text
+Docker version 29.4.3
+Docker Compose version v5.1.3
+noiseproof-phase634
+POSTGRES_PORT=55445
+API_PORT=8051
+Applied migrations: 23
+Pending migrations: 0
+health_status -> ok
+retrieval_mode -> semantic_persisted
+retrieval_query_vector_source -> caller_provided_vector
+ledger_source_retrieval_mode -> semantic_persisted
+gate_source_retrieval_mode -> semantic_persisted
+report_source_retrieval_mode -> semantic_persisted
+gate_handoff_performs_semantic_retrieval -> false
+report_handoff_performs_semantic_retrieval -> false
+```
+
+Boundary: local Docker/FastAPI runtime source-provenance handoff evidence only; not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
