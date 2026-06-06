@@ -28817,6 +28817,83 @@ def test_report_markdown_local_inspection_paths_are_recorded():
     assert "docs/review/report-markdown-local-inspection-paths.md" in portfolio
 
 
+def test_report_markdown_local_inspection_paths_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/report-markdown-local-inspection-paths-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Report Markdown Local Inspection Paths Runtime Smoke" in content
+    assert "report markdown local inspection paths runtime smoke v0" in content
+    assert "Docker version 29.4.3" in content
+    assert "Docker Compose version v5.1.3" in content
+    assert "noiseproof-phase648" in content
+    assert "POSTGRES_PORT=55447" in content
+    assert "db_health=healthy" in content
+    assert "Pending migrations: 0" in content
+    assert "GET /health -> ok" in content
+    assert "POST /documents/{document_id}/semantic-retrieval-runs" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger -> stored_entry_count=2" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/noise-gate -> blocked" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/report -> blocked" in content
+    assert "GET /reports/{report_record_id}/markdown -> HTTP/1.1 200 OK" in content
+    assert "content-type: text/markdown; charset=utf-8" in content
+    assert "markdown_contains_local_inspection_paths=True" in content
+    assert "markdown_contains_current_report_markdown=True" in content
+    assert "markdown_contains_current_report_record_filter=True" in content
+    assert "markdown_contains_current_trace_path=True" in content
+    assert "markdown_contains_retrieval_runs_path=True" in content
+    assert "markdown_contains_evidence_ledgers_path=True" in content
+    assert "markdown_contains_noise_gates_path=True" in content
+    assert "markdown_contains_stage_input_links=True" in content
+    assert "markdown_contains_source_provenance=True" in content
+    assert "api_process_stopped=true" in content
+    assert "api_8045_down=true" in content
+    assert "not hosted deployment evidence" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not report quality evidence" in content
+    assert "not an LLM call" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest runtime proof marker: Report markdown local inspection paths runtime smoke v0."
+        in readme
+    )
+    assert (
+        "Historical latest-marker compatibility: Latest runtime proof marker: Report markdown stage input links runtime smoke v0."
+        in readme
+    )
+    assert (
+        "Report markdown local inspection paths runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 648 - Report Markdown Local Inspection Paths Runtime Smoke v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 647 - Report Markdown Local Inspection Paths v0"
+    ) < goal.index(
+        "Phase 648 - Report Markdown Local Inspection Paths Runtime Smoke v0"
+    )
+    assert "report markdown local inspection paths runtime smoke v0" in runbook
+    assert (
+        "docs/review/report-markdown-local-inspection-paths-runtime-smoke.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

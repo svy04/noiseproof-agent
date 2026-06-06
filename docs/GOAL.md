@@ -23706,3 +23706,51 @@ GREEN: apps/api/tests/test_routes.py::test_semantic_retrieval_run_noise_gate_and
 Boundary: deterministic markdown read-surface inspectability only; not new record creation, not new retrieval behavior, not Evidence Ledger creation, not Noise Gate creation, not report generation, not an LLM call, not embedding generation, not semantic retrieval quality evidence, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Next gate: local Docker/FastAPI runtime smoke for report markdown local inspection paths if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 648 - Report Markdown Local Inspection Paths Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: record local Docker PostgreSQL plus live FastAPI HTTP evidence that persisted report markdown exports render the Phase 647 `Local Inspection Paths` section from stored Report records.
+
+Implemented artifacts:
+
+```text
+report markdown local inspection paths runtime smoke v0
+docs/review/report-markdown-local-inspection-paths-runtime-smoke.md
+docs/review/report-markdown-local-inspection-paths.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Runtime markers:
+
+```text
+Docker version 29.4.3
+Docker Compose version v5.1.3
+noiseproof-phase648
+POSTGRES_PORT=55447
+Pending migrations: 0
+GET /health -> ok
+POST /documents/{document_id}/semantic-retrieval-runs -> retrieval_run_id=cd347bea-cf43-42db-a653-8ffcae417026
+POST /retrieval-runs/{retrieval_run_id}/evidence-ledger -> stored_entry_count=2
+POST /retrieval-runs/{retrieval_run_id}/noise-gate -> blocked
+POST /retrieval-runs/{retrieval_run_id}/report -> blocked
+GET /reports/{report_record_id}/markdown -> HTTP/1.1 200 OK
+markdown_contains_local_inspection_paths=True
+markdown_contains_current_report_markdown=True
+markdown_contains_current_report_record_filter=True
+markdown_contains_current_trace_path=True
+markdown_contains_retrieval_runs_path=True
+markdown_contains_evidence_ledgers_path=True
+markdown_contains_noise_gates_path=True
+markdown_contains_stage_input_links=True
+markdown_contains_source_provenance=True
+```
+
+Boundary: local Docker/FastAPI runtime read-surface evidence only; not hosted deployment evidence, not external reviewer feedback, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not new retrieval behavior, not an LLM call, and not product-complete.
+
+Next gate: remote verification for this runtime-smoke proof after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
