@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 796:
+
+```text
+latest_remote_verification_gate: Uploaded PDF table adapter metadata provenance remote verification v0
+latest_remote_verification_artifact: docs/review/uploaded-pdf-table-adapter-metadata-provenance-remote-verification.md
+latest_verified_head_sha: 3b4d31b4052256c9c43fe7321d3502e05e3a1c7c
+latest_ci_run: 27075012127
+latest_ci_job_id: 79910781992
+latest_external_feedback_screen_run: 27075012138
+latest_external_feedback_screen_job_id: 79910782010
+verified_product_gate: Uploaded PDF table adapter metadata provenance v0
+verified_product_artifact: docs/review/uploaded-pdf-table-adapter-metadata-provenance.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the product gate itself; not new runtime evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 795:
 
 ```text
@@ -4231,6 +4250,40 @@ screen -> success
 Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 796 - Uploaded PDF Table Adapter Metadata Provenance Remote Verification v0
+
+Status: implemented.
+
+Purpose: record that the Phase 795 uploaded PDF table-adapter metadata provenance product gate passed the remote GitHub Actions workflows after push.
+
+Implemented artifacts:
+
+```text
+Uploaded PDF table adapter metadata provenance remote verification v0
+docs/review/uploaded-pdf-table-adapter-metadata-provenance-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote workflow evidence:
+
+```text
+head_commit -> 3b4d31b4052256c9c43fe7321d3502e05e3a1c7c
+CI run -> 27075012127
+CI job -> 79910781992
+External Feedback Screen run -> 27075012138
+External Feedback Screen job -> 79910782010
+api-smoke -> success
+screen -> success
+```
+
+Boundary: remote workflow verification only; not the product gate itself; not new runtime evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: local runtime smoke for this uploaded-PDF table-adapter metadata provenance path, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 795 - Uploaded PDF Table Adapter Metadata Provenance v0
 
