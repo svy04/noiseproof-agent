@@ -30026,3 +30026,45 @@ def test_workflow_proof_bundle_markdown_export_is_recorded():
     assert "Phase 665 - Workflow Proof Bundle Markdown Export v0" in goal
     assert "workflow proof bundle markdown export v0" in runbook
     assert "docs/review/workflow-proof-bundle-markdown-export.md" in portfolio
+
+
+def test_workflow_proof_bundle_markdown_export_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT / "docs/review/workflow-proof-bundle-markdown-export-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Workflow Proof Bundle Markdown Export Runtime Smoke" in content
+    assert "workflow proof bundle markdown export runtime smoke v0" in content
+    assert "Docker version:" in content
+    assert "Docker Compose version:" in content
+    assert "GET /workflow-runs/{id}/proof-bundle/markdown -> 200" in content
+    assert "markdown_starts_with_heading: true" in content
+    assert "markdown_contains_reviewer_checklist: true" in content
+    assert "markdown_contains_boundary: true" in content
+    assert "dashboard_contains_proof_markdown_link: true" in content
+    assert "text/markdown" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Workflow proof bundle markdown export runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 666 - Workflow Proof Bundle Markdown Export Runtime Smoke v0"
+        in goal
+    )
+    assert "workflow proof bundle markdown export runtime smoke v0" in runbook
+    assert (
+        "docs/review/workflow-proof-bundle-markdown-export-runtime-smoke.md"
+        in portfolio
+    )

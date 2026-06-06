@@ -253,6 +253,7 @@ Historical latest-marker compatibility: External review issue body workflow chec
 Historical latest-marker compatibility: External feedback current-state workflow checklist dashboard runtime issue verification v0: implemented
 Historical latest-marker compatibility: External feedback current-state workflow checklist dashboard runtime issue verification remote verification v0: implemented
 Historical latest-marker compatibility: Workflow proof bundle markdown export v0: implemented
+Historical latest-marker compatibility: Workflow proof bundle markdown export runtime smoke v0: implemented
 Historical latest-marker compatibility: Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown stage input links runtime smoke v0.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown source provenance export runtime smoke v0.
@@ -1005,6 +1006,8 @@ Workflow proof bundle dashboard link v0: implemented. Boundary: `GET /ops/dashbo
 Workflow proof bundle dashboard runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified `GET /ops/dashboard` includes the workflow proof bundle link and `GET /workflow-runs/{id}/proof-bundle` returns `200`; this is not new endpoint behavior, schema, migration, lineage storage, distributed tracing, hosted observability, hosted deployment evidence, external reviewer feedback, or product-complete.
 
 Workflow proof bundle markdown export v0: implemented. Boundary: `GET /workflow-runs/{id}/proof-bundle/markdown` renders the existing workflow proof bundle read model as `text/markdown; charset=utf-8`, and `GET /ops/dashboard` exposes a GET-only `proof markdown` link. This is read-only rendering only, not new storage, distributed tracing, hosted observability, semantic retrieval quality evidence, external reviewer feedback, or product-complete.
+
+Workflow proof bundle markdown export runtime smoke v0: implemented. Boundary: local Docker PostgreSQL plus live FastAPI HTTP verified `GET /ops/dashboard -> 200`, dashboard `proof markdown` link discovery, and `GET /workflow-runs/{id}/proof-bundle/markdown -> 200` returning `text/markdown; charset=utf-8`; this is not hosted deployment evidence, external reviewer feedback, distributed tracing, hosted observability, semantic retrieval quality evidence, or product-complete.
 
 External reviewer workflow proof bundle dashboard runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md` and `docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, new lineage storage, or product-complete.
 
