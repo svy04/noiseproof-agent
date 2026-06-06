@@ -384,6 +384,50 @@ Boundary: preview-only API behavior; not document persistence, not retrieval, no
 
 Next gate: local Docker/FastAPI runtime smoke for this preview API if runtime proof is needed, or another source-first product gate selected from current repository state.
 
+### Phase 715 - Upload PDF Quality Preview Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: record local Docker PostgreSQL plus live FastAPI HTTP evidence that `POST /documents/upload-pdf-quality-preview` keeps born-digital and encrypted PDF quality observations preview-only, does not create document rows, and preserves the no-robust-extraction and no-decryption boundaries.
+
+Implemented artifacts:
+
+```text
+Upload PDF quality preview runtime smoke v0
+docs/review/upload-pdf-quality-preview-runtime-smoke.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Runtime markers:
+
+```text
+Docker version 29.4.3
+Docker Compose version v5.1.3
+Compose project: noiseproof-phase715
+POSTGRES_PORT=55453
+FastAPI URL: http://127.0.0.1:8114
+Pending migrations: 23
+Pending migrations: 0
+GET /health -> 200
+phase715-born-digital.pdf_status=200
+phase715-encrypted.pdf_status=200
+document_count_delta=0
+digital_text_extraction=True
+digital_robust_pdf_extraction=False
+encrypted_password_required=True
+encrypted_failure_type=pdf_encrypted_requires_password
+quality_boundary=pdf_quality_observation_preview_only_no_robust_extraction_claim
+persistence_boundary=preview_only_not_persisted
+```
+
+Boundary: local runtime evidence only; not hosted deployment evidence, not external reviewer feedback, not document persistence evidence for this preview route, not retrieval, not Evidence Ledger generation, not decryption evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, and not product-complete.
+
+Next gate: remote verification for this runtime-smoke documentation after push, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text

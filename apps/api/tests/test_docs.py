@@ -32727,3 +32727,55 @@ def test_upload_pdf_quality_preview_api_is_recorded():
     assert "Phase 714 - Upload PDF Quality Preview API v0" in goal
     assert "Phase 714 adds upload PDF quality preview API v0" in runbook
     assert "Upload PDF quality preview API" in portfolio
+
+
+def test_upload_pdf_quality_preview_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT / "docs/review/upload-pdf-quality-preview-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Upload PDF Quality Preview Runtime Smoke" in content
+    assert "upload PDF quality preview runtime smoke v0" in content
+    assert "Docker version 29.4.3" in content
+    assert "Docker Compose version v5.1.3" in content
+    assert "Compose project: noiseproof-phase715" in content
+    assert "POSTGRES_PORT=55453" in content
+    assert "FastAPI URL: http://127.0.0.1:8114" in content
+    assert "Pending migrations: 23" in content
+    assert "Pending migrations: 0" in content
+    assert "GET /health -> 200" in content
+    assert "phase715-born-digital.pdf_status=200" in content
+    assert "phase715-encrypted.pdf_status=200" in content
+    assert "document_count_delta=0" in content
+    assert "digital_text_extraction=True" in content
+    assert "digital_robust_pdf_extraction=False" in content
+    assert "encrypted_password_required=True" in content
+    assert "encrypted_failure_type=pdf_encrypted_requires_password" in content
+    assert "quality_boundary=pdf_quality_observation_preview_only_no_robust_extraction_claim" in content
+    assert "persistence_boundary=preview_only_not_persisted" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction implementation" in content
+    assert "not OCR implementation" in content
+    assert "not table extraction implementation" in content
+    assert "not decryption evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "upload PDF quality preview runtime smoke v0: verified"
+        in readme
+    )
+    assert "Phase 715 - Upload PDF Quality Preview Runtime Smoke v0" in goal
+    assert (
+        "Phase 715 adds upload PDF quality preview runtime smoke v0"
+        in runbook
+    )
+    assert "Upload PDF quality preview runtime smoke" in portfolio
