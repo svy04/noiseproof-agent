@@ -32818,6 +32818,64 @@ def test_pdf_quality_deterministic_table_adapter_fixture_v0_is_recorded():
     assert "PDF quality deterministic table adapter fixture" in portfolio
 
 
+def test_pdf_quality_deterministic_table_adapter_fixture_remote_verification_is_recorded():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/pdf-quality-deterministic-table-adapter-fixture-remote-verification.md"
+    )
+
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "PDF Quality Deterministic Table Adapter Fixture Remote Verification"
+        in content
+    )
+    assert (
+        "PDF quality deterministic table adapter fixture remote verification v0"
+        in content
+    )
+    assert "e02d7595b08a17b8815780141515caaebe6fa36d" in content
+    assert "CI run `27072558017`" in content
+    assert "External Feedback Screen run `27072558020`" in content
+    assert "CI job_id -> 79904273601" in content
+    assert "External Feedback Screen job_id -> 79904273640" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "docs/review/pdf-quality-deterministic-table-adapter-fixture.md" in content
+    assert "not the fixture/report update itself" in content
+    assert "not new runtime evidence" in content
+    assert "not binary PDF fixture evidence" in content
+    assert "not default PdfParser table extraction" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "PDF quality deterministic table adapter fixture remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 777 - PDF Quality Deterministic Table Adapter Fixture Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 777 adds PDF quality deterministic table adapter fixture remote verification v0"
+        in runbook
+    )
+    assert (
+        "PDF quality deterministic table adapter fixture remote verification"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

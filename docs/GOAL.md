@@ -43,6 +43,35 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 777:
+
+```text
+latest_remote_verification_gate: PDF quality deterministic table adapter fixture remote verification v0
+latest_remote_verification_artifact: docs/review/pdf-quality-deterministic-table-adapter-fixture-remote-verification.md
+latest_verified_head_sha: e02d7595b08a17b8815780141515caaebe6fa36d
+latest_ci_run: 27072558017
+latest_ci_job_id: 79904273601
+latest_external_feedback_screen_run: 27072558020
+latest_external_feedback_screen_job_id: 79904273640
+latest_product_gate: PDF quality deterministic table adapter fixture v0
+latest_product_artifact: docs/review/pdf-quality-deterministic-table-adapter-fixture.md
+latest_quality_report: docs/evaluation/pdf-extraction-quality-report.md
+latest_fixture_id: deterministic_table_adapter_pdf
+deterministic_table_adapter_pdf.table_cell_recall: 1
+table_heavy_report.table_cell_recall: 0
+quality_report_fixture_count: 8
+quality_report_observed_fixture_count: 4
+quality_report_not_evaluated_fixture_count: 4
+default_pdf_parser_table_extraction_performed: still_false
+robust_pdf_extraction: not_implemented
+binary_pdf_fixtures_included: false
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the fixture/report update itself; not new runtime evidence; not default PdfParser table extraction; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 776:
 
 ```text
@@ -3139,6 +3168,40 @@ table_heavy_report.table_cell_recall -> 0
 Boundary: manifest/observation evaluator evidence only; not binary PDF fixture evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: full local and remote verification for this fixture/report update, external-reader proof path route refresh if this proof should become reviewer-facing, or a future binary fixture gate with explicit provenance and redistribution boundaries.
+
+### Phase 777 - PDF Quality Deterministic Table Adapter Fixture Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the Phase 776 fixture/report update passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+PDF quality deterministic table adapter fixture remote verification v0
+docs/review/pdf-quality-deterministic-table-adapter-fixture-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote markers:
+
+```text
+head_sha -> e02d7595b08a17b8815780141515caaebe6fa36d
+CI run -> 27072558017
+CI job_id -> 79904273601
+External Feedback Screen run -> 27072558020
+External Feedback Screen job_id -> 79904273640
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the fixture/report update itself; not new runtime evidence; not binary PDF fixture evidence; not default `PdfParser` table extraction; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: external-reader proof path route refresh if the deterministic table adapter quality proof should become reviewer-facing, a future binary fixture gate with explicit provenance and redistribution boundaries, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
