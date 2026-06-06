@@ -23347,6 +23347,42 @@ Boundary: remote workflow verification only; not the reader-route refresh itself
 
 Next gate: issue-body refresh if the public feedback issue should route reviewers to this focused proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 679 - External Review Issue Body Encrypted PDF Handoff Ops Route Refresh v0
+
+Status: implemented.
+
+Purpose: record the owner-authored issue #1 body edit that routes external reviewers to the focused uploaded PDF encrypted handoff ops proof chain while keeping workflow proof bundle markdown export as the latest primary proof.
+
+Implemented artifacts:
+
+```text
+external review issue body encrypted PDF handoff ops route refresh v0
+docs/review/external-review-issue-body-encrypted-pdf-handoff-ops-route-refresh.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Issue markers:
+
+```text
+updatedAt: 2026-06-06T08:51:18Z
+comment_count: 1
+starts_with_request: true
+first_codepoint: 35
+has_encrypted_handoff_ops_proof: true
+has_encrypted_handoff_ops_runtime_smoke: true
+has_encrypted_handoff_ops_route_refresh: true
+has_encrypted_handoff_ops_route_refresh_remote_verification: true
+keeps_workflow_markdown_latest_proof: true
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback, not customer validation, not Braincrew acceptance, not hosted deployment evidence, not hosted runtime product proof, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, and not product-complete.
+
+Next gate: external feedback current-state encrypted PDF handoff ops issue verification v0, remote verification for this issue-body route refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
 ### Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0
 
 Status: implemented.
