@@ -31926,3 +31926,68 @@ def test_external_reader_proof_path_evidence_quality_draft_preview_route_refresh
         "docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh.md"
         in portfolio
     )
+
+
+def test_external_reader_proof_path_evidence_quality_draft_preview_route_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    link_map = (
+        REPO_ROOT / "docs/review/external-reviewer-link-map.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External-reader Proof Path Evidence Quality Draft Preview Route Refresh Remote Verification"
+        in content
+    )
+    assert (
+        "external-reader proof path evidence quality draft preview route refresh remote verification v0"
+        in content
+    )
+    assert "c2024456f449b9ab65272ba51c0cbfb71e32879f" in content
+    assert "CI run 27060871797: success" in content
+    assert "External Feedback Screen run 27060871781: success" in content
+    assert "CI job_id -> 79873403969" in content
+    assert "External Feedback Screen job_id -> 79873403934" in content
+    assert "not the reader-route refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh-remote-verification.md"
+        in proof_path
+    )
+    assert (
+        "docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh-remote-verification.md"
+        in link_map
+    )
+    assert (
+        "External-reader proof path evidence quality draft preview route refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 698 - External-reader Proof Path Evidence Quality Draft Preview Route Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "external-reader proof path evidence quality draft preview route refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh-remote-verification.md"
+        in portfolio
+    )

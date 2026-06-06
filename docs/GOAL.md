@@ -22974,6 +22974,42 @@ Boundary: remote workflow verification only; not the local runtime smoke itself,
 
 Next gate: route refresh if this proof should become reviewer-facing, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
+### Phase 698 - External-reader Proof Path Evidence Quality Draft Preview Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions verification for the pushed Phase 697 external-reader proof path evidence quality draft preview route refresh.
+
+Implemented artifacts:
+
+```text
+external-reader proof path evidence quality draft preview route refresh remote verification v0
+docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh-remote-verification.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-link-map.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote verification markers:
+
+```text
+head_sha -> c2024456f449b9ab65272ba51c0cbfb71e32879f
+CI run 27060871797: success
+CI job_id -> 79873403969
+External Feedback Screen run 27060871781: success
+External Feedback Screen job_id -> 79873403934
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the reader-route refresh itself, not new runtime evidence, not a live issue body edit, not automatic failure-case creation, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not embedding generation, not an LLM call, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: external review issue-body refresh only if the public issue should point to this latest product handoff proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from the current repository state.
+
 ### Phase 697 - External-reader Proof Path Evidence Quality Draft Preview Route Refresh v0
 
 Status: implemented.
