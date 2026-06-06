@@ -80,6 +80,7 @@ latest_route_artifacts:
 latest_live_issue_route: docs/review/external-review-issue-body-upload-pdf-quality-preview-route-refresh.md
 latest_external_feedback_state: pending after upload PDF quality preview issue verification
 latest_feedback_state_artifact: docs/review/external-feedback-current-state-upload-pdf-quality-preview-issue-verification.md
+latest_feedback_state_remote_verification: docs/review/external-feedback-current-state-upload-pdf-quality-preview-issue-verification-remote-verification.md
 candidate_count: 0
 draft_count: 0
 reason: self_authored_comment
@@ -626,6 +627,40 @@ has_upload_pdf_quality_preview_route: true
 Boundary: current-state issue screening only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, not password bypass, not document persistence evidence for the preview route, not retrieval behavior, not Evidence Ledger generation, and not product-complete.
 
 Next gate: remote verification for this current-state issue screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
+### Phase 721 - External Feedback Current-state Upload PDF Quality Preview Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 720 current-state issue verification passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+external feedback current-state upload PDF quality preview issue verification remote verification v0
+docs/review/external-feedback-current-state-upload-pdf-quality-preview-issue-verification-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 8d4e543b2180bfd305a8752a44d4f9417f7da1c7
+CI run 27064547630: success
+External Feedback Screen run 27064547631: success
+CI job_id -> 79883006872
+External Feedback Screen job_id -> 79883006881
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the current-state issue screen itself, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, not password bypass, not document persistence evidence for the preview route, not retrieval behavior, not Evidence Ledger generation, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
 Accepted state as of Phase 403:
 

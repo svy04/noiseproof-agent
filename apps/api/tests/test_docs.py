@@ -33063,3 +33063,63 @@ def test_external_feedback_current_state_upload_pdf_quality_preview_issue_verifi
         "external feedback current-state upload PDF quality preview issue verification"
         in portfolio
     )
+
+
+def test_external_feedback_current_state_upload_pdf_quality_preview_issue_verification_remote_verification_is_recorded():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-upload-pdf-quality-preview-issue-verification-remote-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Feedback Current-state Upload PDF Quality Preview Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state upload PDF quality preview issue verification remote verification v0"
+        in content
+    )
+    assert "8d4e543b2180bfd305a8752a44d4f9417f7da1c7" in content
+    assert "CI run `27064547630`" in content
+    assert "External Feedback Screen run `27064547631`" in content
+    assert "CI job_id -> 79883006872" in content
+    assert "External Feedback Screen job_id -> 79883006881" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-feedback-current-state-upload-pdf-quality-preview-issue-verification.md"
+        in content
+    )
+    assert "not the current-state issue screen itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not Braincrew acceptance" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External feedback current-state upload PDF quality preview issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 721 - External Feedback Current-state Upload PDF Quality Preview Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 721 adds external feedback current-state upload PDF quality preview issue verification remote verification v0"
+        in runbook
+    )
+    assert (
+        "external feedback current-state upload PDF quality preview issue verification remote verification"
+        in portfolio
+    )
