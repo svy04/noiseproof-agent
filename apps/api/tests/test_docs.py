@@ -28069,6 +28069,98 @@ def test_external_reader_proof_path_gate_report_semantic_source_provenance_route
     )
 
 
+def test_external_review_issue_body_gate_report_semantic_source_provenance_runtime_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-review-issue-body-gate-report-semantic-source-provenance-runtime-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Review Issue Body Gate/Report Semantic Source Provenance Runtime Refresh"
+        in content
+    )
+    assert (
+        "external review issue body Gate/Report semantic source provenance runtime refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "owner-authored issue body routing only" in content
+    assert (
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance.md"
+        in content
+    )
+    assert (
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke.md"
+        in content
+    )
+    assert (
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke-remote-verification.md"
+        in content
+    )
+    assert (
+        "docs/review/external-review-issue-body-gate-report-semantic-source-provenance-runtime-refresh.md"
+        in content
+    )
+    assert "POST /retrieval-runs/{retrieval_run_id}/noise-gate -> 201" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/report -> 201" in content
+    assert "source_retrieval_mode -> semantic_persisted" in content
+    assert "source_query_vector_source -> caller_provided_vector" in content
+    assert "gate_handoff_performs_semantic_retrieval -> false" in content
+    assert "report_handoff_performs_semantic_retrieval -> false" in content
+    assert "has_gate_report_semantic_source_provenance_proof: true" in content
+    assert "has_gate_report_runtime_smoke: true" in content
+    assert "has_gate_report_remote_verification: true" in content
+    assert "has_gate_report_issue_body_record: true" in content
+    assert "has_noise_gate_quality_boundary: true" in content
+    assert "has_report_quality_boundary: true" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not report quality evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "docs/review/external-review-issue-body-gate-report-semantic-source-provenance-runtime-refresh.md"
+        in proof_path
+    )
+    assert (
+        "External review issue body Gate/Report semantic source provenance runtime refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 638 - External Review Issue Body Gate/Report Semantic Source Provenance Runtime Refresh v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 637 - External-reader Proof Path Gate/Report Semantic Source Provenance Route Refresh Remote Verification v0"
+    ) < goal.index(
+        "Phase 638 - External Review Issue Body Gate/Report Semantic Source Provenance Runtime Refresh v0"
+    )
+    assert (
+        "external review issue body Gate/Report semantic source provenance runtime refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-review-issue-body-gate-report-semantic-source-provenance-runtime-refresh.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

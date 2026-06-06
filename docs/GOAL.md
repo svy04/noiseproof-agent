@@ -23309,3 +23309,41 @@ Run API smoke tests -> success
 Boundary: remote workflow verification only; not the reader-route refresh itself, not a new runtime smoke, not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Next gate: external review issue body Gate/Report semantic source provenance runtime refresh if public issue routing should match the repository route, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 638 - External Review Issue Body Gate/Report Semantic Source Provenance Runtime Refresh v0
+
+Status: implemented.
+
+Purpose: update public issue #1 so external reviewers are routed to the current retrieval-run-linked Gate/Report semantic source provenance proof chain.
+
+Implemented artifacts:
+
+```text
+external review issue body Gate/Report semantic source provenance runtime refresh v0
+docs/review/external-review-issue-body-gate-report-semantic-source-provenance-runtime-refresh.md
+docs/review/external-reader-proof-path.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Live issue markers:
+
+```text
+issue -> https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt -> 2026-06-06T01:55:45Z
+starts_with_request -> true
+first_codepoint -> 35
+body_length -> 7938
+has_gate_report_semantic_source_provenance_proof -> true
+has_gate_report_runtime_smoke -> true
+has_gate_report_remote_verification -> true
+has_gate_report_issue_body_record -> true
+old_evidence_ledger_latest_label_present -> false
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
+
+Next gate: external feedback current-state Gate/Report semantic source provenance issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
