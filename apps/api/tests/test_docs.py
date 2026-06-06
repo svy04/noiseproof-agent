@@ -27646,6 +27646,73 @@ def test_readme_fast_path_issue_screen_baseline_cleanup_removes_stale_latest_iss
     )
 
 
+def test_external_reader_proof_path_semantic_source_provenance_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reader-proof-path-semantic-source-provenance-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External-reader Proof Path Semantic Source Provenance Route Refresh" in content
+    assert (
+        "external-reader proof path semantic source provenance route refresh v0"
+        in content
+    )
+    assert "## Current Proof Route" in proof_path
+    assert (
+        "docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance.md"
+        in proof_path
+    )
+    assert (
+        "docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-smoke.md"
+        in proof_path
+    )
+    assert (
+        "docs/review/external-feedback-current-state-retrieval-run-linked-evidence-ledger-semantic-source-provenance-issue-verification-remote-verification.md"
+        in proof_path
+    )
+    assert "Latest persisted Report markdown export proof:" not in proof_path
+    assert "## Latest Table-candidate Downstream Proof Routing" not in proof_path
+    assert "## Historical Table-candidate Downstream Proof Routing" in proof_path
+    assert "not external reviewer feedback" in proof_path
+    assert "not hosted deployment evidence" in proof_path
+    assert "not semantic retrieval quality evidence" in proof_path
+    assert "not Evidence Ledger quality evidence" in proof_path
+    assert (
+        "External-reader proof path semantic source provenance route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 632 - External-reader Proof Path Semantic Source Provenance Route Refresh v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 631 - README Fast-path Issue Screen Baseline Cleanup v0"
+    ) < goal.index(
+        "Phase 632 - External-reader Proof Path Semantic Source Provenance Route Refresh v0"
+    )
+    assert (
+        "external-reader proof path semantic source provenance route refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reader-proof-path-semantic-source-provenance-route-refresh.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

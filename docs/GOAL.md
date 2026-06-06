@@ -23105,3 +23105,34 @@ Historical BOM-removal workflow runs remain archived as request-surface hygiene,
 Boundary: README first-pass copy hygiene only; not a new live issue edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not semantic retrieval quality evidence, not Evidence Ledger quality evidence, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 632 - External-reader Proof Path Semantic Source Provenance Route Refresh v0
+
+Status: implemented.
+
+Purpose: align `docs/review/external-reader-proof-path.md` with the current retrieval-run-linked Evidence Ledger semantic source provenance proof chain.
+
+Implemented artifacts:
+
+```text
+external-reader proof path semantic source provenance route refresh v0
+docs/review/external-reader-proof-path-semantic-source-provenance-route-refresh.md
+docs/review/external-reader-proof-path.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Updated proof path:
+
+```text
+Current Proof Route -> retrieval-run-linked Evidence Ledger semantic source provenance proof chain
+Persisted Report markdown export proof -> preserved without Latest label
+Historical Table-candidate Downstream Proof Routing -> preserved without Latest label
+```
+
+Boundary: external-reader route alignment only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not final truth adjudication, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

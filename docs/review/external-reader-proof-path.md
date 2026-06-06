@@ -14,7 +14,21 @@ For a shorter first pass, start with:
 docs/review/external-reviewer-shortlist.md
 ```
 
-Latest persisted Report markdown export proof:
+## Current Proof Route
+
+Retrieval-run-linked Evidence Ledger semantic source provenance proof:
+
+```text
+docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance.md
+docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-smoke.md
+docs/review/retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-smoke-remote-verification.md
+docs/review/external-review-issue-body-retrieval-run-linked-evidence-ledger-semantic-source-provenance-runtime-refresh.md
+docs/review/external-feedback-current-state-retrieval-run-linked-evidence-ledger-semantic-source-provenance-issue-verification-remote-verification.md
+```
+
+Boundary: this current route proves source-provenance preservation from a persisted semantic retrieval run into the retrieval-run-linked Evidence Ledger handoff and reviewer routing. It is not external reviewer feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not final truth adjudication, and not product-complete.
+
+Persisted Report markdown export proof:
 
 ```text
 docs/review/persisted-report-markdown-export.md
@@ -421,7 +435,7 @@ This is not complete workflow failure causality.
 external reviewer feedback v0
 ```
 
-## Latest Table-candidate Downstream Proof Routing
+## Historical Table-candidate Downstream Proof Routing
 
 uploaded PDF table-candidate downstream runtime proof:
 
