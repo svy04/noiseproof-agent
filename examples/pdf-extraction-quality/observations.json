@@ -1,0 +1,25 @@
+{
+  "born_digital_text": {
+    "extracted_text": "company revenue increased and source date visible",
+    "warnings": ["robust PDF extraction is not claimed"],
+    "page_count": 2,
+    "extracted_page_count": 2,
+    "empty_page_count": 0,
+    "failure_case_candidate": null
+  },
+  "table_heavy_report": {
+    "extracted_text": "quarterly volume table with region row label",
+    "warnings": ["table candidate detection is not table extraction"],
+    "page_count": 1,
+    "extracted_page_count": 1,
+    "table_rows_extracted": 0,
+    "failure_case_candidate": null
+  },
+  "encrypted_pdf": {
+    "extracted_text": "",
+    "warnings": ["password required"],
+    "page_count": 1,
+    "extracted_page_count": 0,
+    "failure_case_candidate": "pdf_encrypted_requires_password"
+  }
+}

@@ -150,6 +150,31 @@ Boundary: evaluator plumbing only; not robust PDF extraction implementation, not
 
 Next gate: generate a committed PDF extraction quality report from a small observation fixture, still without claiming robust extraction.
 
+### Phase 705 - PDF Extraction Quality Report v0
+
+Status: implemented.
+
+Purpose: commit a deterministic report from the Phase 704 evaluator and a partial observation fixture so PDF extraction quality gaps are visible before any robust extraction claim changes.
+
+Implemented artifacts:
+
+```text
+PDF extraction quality report v0
+docs/evaluation/pdf-extraction-quality-report.md
+docs/review/pdf-extraction-quality-report.md
+examples/pdf-extraction-quality/observations.json
+packages/ingestion/pdf_quality/report.py
+apps/api/tests/test_pdf_extraction_quality.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Boundary: partial evaluator output only; not robust PDF extraction evidence, not OCR evidence, not table extraction evidence, not hosted deployment evidence, and not product-complete.
+
+Next gate: report regeneration command or PyMuPDF digital-text observation smoke feeding the evaluator, still without robust extraction claims.
+
 Accepted state as of Phase 403:
 
 ```text

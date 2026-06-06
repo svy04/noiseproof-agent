@@ -5,10 +5,12 @@ from packages.ingestion.pdf_quality.fixture import (
     load_pdf_extraction_quality_fixture,
     summarize_pdf_extraction_quality_fixture,
 )
+from packages.ingestion.pdf_quality.report import build_pdf_extraction_quality_report
 
 __all__ = [
     "PdfExtractionQualityFixture",
     "PdfExtractionQualityFixtureCase",
+    "build_pdf_extraction_quality_report",
     "evaluate_pdf_extraction_quality",
     "load_pdf_extraction_quality_fixture",
     "summarize_pdf_extraction_quality_fixture",

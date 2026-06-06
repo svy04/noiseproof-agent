@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 import sys
 
@@ -12,6 +13,7 @@ from packages.ingestion.pdf_quality.fixture import (
     load_pdf_extraction_quality_fixture,
     summarize_pdf_extraction_quality_fixture,
 )
+from packages.ingestion.pdf_quality.report import build_pdf_extraction_quality_report
 
 
 def test_pdf_extraction_quality_fixture_loader_keeps_boundaries_visible():
@@ -88,3 +90,31 @@ def test_pdf_extraction_quality_evaluator_scores_observations_without_robust_cla
     assert "not robust PDF extraction evidence" in result["boundary_notes"]
     assert "not OCR evidence" in result["boundary_notes"]
     assert "not table extraction evidence" in result["boundary_notes"]
+
+
+def test_pdf_extraction_quality_report_matches_committed_artifact():
+    fixture_root = REPO_ROOT / "examples/pdf-extraction-quality"
+    fixture = load_pdf_extraction_quality_fixture(fixture_root)
+    observations = json.loads(
+        (fixture_root / "observations.json").read_text(encoding="utf-8")
+    )
+    evaluation = evaluate_pdf_extraction_quality(fixture, observations)
+
+    report = build_pdf_extraction_quality_report(fixture, evaluation)
+    committed_report = (
+        REPO_ROOT / "docs/evaluation/pdf-extraction-quality-report.md"
+    ).read_text(encoding="utf-8")
+
+    assert report == committed_report
+    assert "PDF Extraction Quality Report" in report
+    assert "PDF extraction quality report v0" in report
+    assert "manifest_metric_only_not_robust_pdf_extraction" in report
+    assert "observed_fixture_count" in report
+    assert "not_evaluated_fixture_count" in report
+    assert "born_digital_text" in report
+    assert "scanned_image_pdf" in report
+    assert "not_evaluated" in report
+    assert "not robust PDF extraction evidence" in report
+    assert "not OCR evidence" in report
+    assert "not table extraction evidence" in report
+    assert "not hosted deployment evidence" in report
