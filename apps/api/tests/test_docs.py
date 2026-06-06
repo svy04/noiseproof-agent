@@ -32553,3 +32553,51 @@ def test_pdf_extraction_quality_encrypted_observation_smoke_is_recorded():
         in runbook
     )
     assert "encrypted observation smoke" in portfolio
+
+
+def test_pdf_extraction_quality_observation_smoke_index_is_recorded():
+    index_path = (
+        REPO_ROOT / "docs/review/pdf-extraction-quality-observation-smoke-index.md"
+    )
+    assert index_path.is_file()
+
+    content = index_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    expected_smokes = [
+        "docs/review/pdf-extraction-quality-digital-text-observation-smoke.md",
+        "docs/review/pdf-extraction-quality-table-candidate-observation-smoke.md",
+        "docs/review/pdf-extraction-quality-no-text-observation-smoke.md",
+        "docs/review/pdf-extraction-quality-encrypted-observation-smoke.md",
+    ]
+    for smoke_path in expected_smokes:
+        assert smoke_path in content
+
+    assert "PDF Extraction Quality Observation Smoke Index" in content
+    assert "PDF extraction quality observation smoke index v0" in content
+    assert "digital_pdf_text_extraction -> true" in content
+    assert "table_extraction_performed -> false" in content
+    assert "failure_case_candidate -> pdf_no_extractable_text" in content
+    assert "failure_case_candidate -> pdf_encrypted_requires_password" in content
+    assert "not robust PDF extraction implementation" in content
+    assert "not OCR implementation" in content
+    assert "not table extraction implementation" in content
+    assert "not decryption evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "PDF extraction quality observation smoke index v0: implemented"
+        in readme
+    )
+    assert "Phase 711 - PDF Extraction Quality Observation Smoke Index v0" in goal
+    assert (
+        "Phase 711 adds PDF extraction quality observation smoke index v0"
+        in runbook
+    )
+    assert "PDF extraction quality observation smoke index" in portfolio

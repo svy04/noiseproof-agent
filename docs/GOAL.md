@@ -292,6 +292,28 @@ Boundary: local deterministic parser smoke only; not decryption evidence, not ro
 
 Next gate: compact PDF observation smoke index for external reviewers.
 
+### Phase 711 - PDF Extraction Quality Observation Smoke Index v0
+
+Status: implemented.
+
+Purpose: give external reviewers one compact map across the current digital-text, table-candidate, no-text, and encrypted PDF observation smokes before any robust PDF extraction claim changes.
+
+Implemented artifacts:
+
+```text
+PDF extraction quality observation smoke index v0
+docs/review/pdf-extraction-quality-observation-smoke-index.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Boundary: reviewer navigation only; not new runtime evidence, not decryption evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not hosted deployment evidence, and not product-complete.
+
+Next gate: committed grouped observation report for these four local smokes, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text
