@@ -22824,6 +22824,42 @@ Boundary: reader-route alignment only; not new runtime evidence, not a live issu
 
 Next gate: remote verification for this reader-route refresh after push, external review issue-body refresh only if the public issue should point to this latest ops proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 693 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 692 external-reader proof path evidence quality risk ops route refresh passed CI and External Feedback Screen.
+
+Implemented artifacts:
+
+```text
+external-reader proof path evidence quality risk ops route refresh remote verification v0
+docs/review/external-reader-proof-path-evidence-quality-risk-ops-route-refresh-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-link-map.md
+apps/api/tests/test_docs.py
+```
+
+Remote verification markers:
+
+```text
+head_sha -> b16792e0e06076a440e0cb3d072a204b1271c322
+CI run 27060113992: success
+CI job_id -> 79871431796
+External Feedback Screen run 27060113984: success
+External Feedback Screen job_id -> 79871431773
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the reader-route refresh itself, not new runtime evidence, not a live issue body edit, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not embedding generation, not an LLM call, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: external review issue-body refresh only if the public issue should point to this latest ops proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from the current repository state.
+
 ### Phase 689 - Evidence Quality Risk Ops Surface v0
 
 Status: done.

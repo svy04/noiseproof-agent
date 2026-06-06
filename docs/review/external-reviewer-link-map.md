@@ -18,6 +18,8 @@ This artifact gives outside reviewers direct links to the shortest inspectable p
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/evidence-quality-risk-ops-surface-runtime-smoke-remote-verification.md
 - Route refresh:
   https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-evidence-quality-risk-ops-route-refresh.md
+- Route refresh remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-evidence-quality-risk-ops-route-refresh-remote-verification.md
 - Route markers:
   `weakly_supported_evidence_count`, `low_confidence_evidence_count`, `missing_source_date_evidence_count`, `evidence_quality_risk_count`, `Weak Evidence`, `Low Confidence Evidence`, `Missing Source Dates`, `Evidence Quality Risk Rows`
 - Boundary: persisted Evidence Ledger row risk metadata and operations visibility only; not a live issue body edit, not new runtime evidence, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not embedding generation, not an LLM call, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
