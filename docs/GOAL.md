@@ -43,6 +43,52 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 770:
+
+```text
+latest_reviewer_route: upload PDF quality preview coverage summary proof chain plus Docker environment runtime proof
+latest_live_issue_route: docs/review/external-review-issue-body-docker-environment-route-refresh.md
+latest_live_issue_route_remote_verification: docs/review/external-review-issue-body-docker-environment-route-refresh-remote-verification.md
+latest_feedback_state_artifact: docs/review/external-feedback-current-state-docker-environment-issue-verification.md
+latest_feedback_state_remote_verification: docs/review/external-feedback-current-state-docker-environment-issue-verification-remote-verification.md
+candidate_count: 0
+draft_count: 0
+classification: non_qualifying
+reason: self_authored_comment
+status: pending
+does_not_close_gate: true
+latest_remote_ci_run: 27071229045
+latest_remote_external_feedback_screen_run: 27071229043
+latest_environment_route: Docker environment runtime proof
+latest_environment_artifacts:
+  - docs/review/docker-environment-current-runtime-check.md
+  - docs/review/docker-environment-current-runtime-check-remote-verification.md
+  - docs/review/external-reader-proof-path-docker-environment-route-refresh.md
+  - docs/review/external-reader-proof-path-docker-environment-route-refresh-remote-verification.md
+  - docs/review/goal-current-state-docker-environment-route-refresh.md
+  - docs/review/external-review-issue-body-docker-environment-route-refresh.md
+  - docs/review/external-review-issue-body-docker-environment-route-refresh-remote-verification.md
+  - docs/review/external-feedback-current-state-docker-environment-issue-verification.md
+  - docs/review/external-feedback-current-state-docker-environment-issue-verification-remote-verification.md
+Docker version 29.4.3
+noiseproof-agent-api-1
+noiseproof-agent-db-1
+noiseproof-agent-clamav
+GET /health -> 200
+GET /ops/summary -> 200
+"document_count": 28
+"agent_run_count": 89
+"failure_case_count": 11
+latest_external_feedback_state: pending after Docker environment issue verification remote verification
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+robust_pdf_extraction: not_implemented
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: not hosted deployment evidence; not production readiness; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 769:
 
 ```text
@@ -2638,6 +2684,40 @@ docs/review/external-feedback-current-state-docker-environment-issue-verificatio
 Boundary: current-state issue screening only; not external reviewer feedback, not hosted deployment evidence, not production readiness, not customer validation, not Braincrew acceptance, not new runtime evidence, and not product-complete.
 
 Next gate: remote verification for this issue-state screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
+### Phase 770 - External Feedback Current-state Docker Environment Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record that the Phase 769 external feedback current-state Docker environment issue verification passed the remote repository workflows after push.
+
+Verified commit:
+
+```text
+7aafcf7f45c7e5ec404b8b6bbe4b397c250be999
+```
+
+Remote workflow evidence:
+
+```text
+CI run `27071229045`: success
+CI job_id -> 79900740995
+Run API smoke tests -> success
+External Feedback Screen run `27071229043`: success
+External Feedback Screen job_id -> 79900740972
+Screen issue comments -> success
+```
+
+Verified artifacts:
+
+```text
+docs/review/external-feedback-current-state-docker-environment-issue-verification.md
+docs/review/external-feedback-current-state-docker-environment-issue-verification-remote-verification.md
+```
+
+Boundary: remote workflow verification only; not the current-state issue screen itself, not external reviewer feedback, not hosted deployment evidence, not production readiness, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
