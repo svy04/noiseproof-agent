@@ -35161,6 +35161,64 @@ def test_external_reader_proof_path_docker_environment_route_refresh_is_recorded
     assert "external-reader proof path Docker environment runtime check route refresh" in portfolio
 
 
+def test_external_reader_proof_path_docker_environment_route_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-docker-environment-route-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External-reader Proof Path Docker Environment Runtime Check Route Refresh Remote Verification"
+        in content
+    )
+    assert (
+        "external-reader proof path Docker environment runtime check route refresh remote verification v0"
+        in content
+    )
+    assert "b0da2c6858f67a6e6242c1e7dd1b2c5f379199a1" in content
+    assert "CI run `27070530403`" in content
+    assert "External Feedback Screen run `27070530412`" in content
+    assert "CI job_id -> 79898821215" in content
+    assert "External Feedback Screen job_id -> 79898821161" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-reader-proof-path-docker-environment-route-refresh.md"
+        in content
+    )
+    assert "not the route refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External-reader proof path Docker environment runtime check route refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 764 - External-reader Proof Path Docker Environment Runtime Check Route Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 764 adds external-reader proof path Docker environment runtime check route refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "external-reader proof path Docker environment runtime check route refresh remote verification"
+        in portfolio
+    )
+
+
 def test_goal_current_state_upload_pdf_summary_link_map_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

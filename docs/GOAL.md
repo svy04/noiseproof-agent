@@ -2253,6 +2253,40 @@ Boundary: reviewer route hygiene only; not new runtime evidence, not the Docker 
 
 Next gate: remote verification for this route refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 764 - External-reader Proof Path Docker Environment Runtime Check Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record that the Phase 763 Docker environment reviewer-route refresh passed the remote repository workflows after push.
+
+Verified commit:
+
+```text
+b0da2c6858f67a6e6242c1e7dd1b2c5f379199a1
+```
+
+Remote workflow evidence:
+
+```text
+CI run `27070530403`: success
+CI job_id -> 79898821215
+Run API smoke tests -> success
+External Feedback Screen run `27070530412`: success
+External Feedback Screen job_id -> 79898821161
+Screen issue comments -> success
+```
+
+Verified artifact:
+
+```text
+docs/review/external-reader-proof-path-docker-environment-route-refresh.md
+docs/review/external-reader-proof-path-docker-environment-route-refresh-remote-verification.md
+```
+
+Boundary: remote workflow verification only; not the route refresh itself, not new runtime evidence, not a live issue body edit, not hosted deployment evidence, not production readiness, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.
