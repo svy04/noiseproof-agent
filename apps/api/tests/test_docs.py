@@ -26331,7 +26331,7 @@ def test_readme_top_latest_remote_verification_state_preserves_table_candidate_r
         not in fast_path
     )
     assert (
-        "Latest recorded remote verification state: the report markdown source provenance export runtime-smoke proof was remotely checked by CI run `27050315671` and External Feedback Screen run `27050315683`"
+        "Latest recorded remote verification state: the report markdown stage input links runtime-smoke proof was remotely checked by CI run `27051217722` and External Feedback Screen run `27051217725`"
         in fast_path
     )
     assert (
@@ -27056,7 +27056,7 @@ def test_external_feedback_current_state_retrieval_run_semantic_provenance_issue
         not in fast_path
     )
     assert (
-        "Latest recorded remote verification state: the report markdown source provenance export runtime-smoke proof was remotely checked by CI run `27050315671` and External Feedback Screen run `27050315683`"
+        "Latest recorded remote verification state: the report markdown stage input links runtime-smoke proof was remotely checked by CI run `27051217722` and External Feedback Screen run `27051217725`"
         in fast_path
     )
     assert (
@@ -27559,7 +27559,7 @@ def test_readme_latest_marker_semantic_source_provenance_current_state_refresh_u
         in fast_path
     )
     assert (
-        "Latest recorded remote verification state: the report markdown source provenance export runtime-smoke proof was remotely checked by CI run `27050315671` and External Feedback Screen run `27050315683`"
+        "Latest recorded remote verification state: the report markdown stage input links runtime-smoke proof was remotely checked by CI run `27051217722` and External Feedback Screen run `27051217725`"
         in fast_path
     )
     assert "PDF table-candidate downstream runtime issue verification" not in fast_path
@@ -27975,7 +27975,7 @@ def test_external_reader_proof_path_gate_report_semantic_source_provenance_route
         in readme
     )
     assert (
-        "Latest recorded remote verification state: the report markdown source provenance export runtime-smoke proof was remotely checked by CI run `27050315671` and External Feedback Screen run `27050315683`"
+        "Latest recorded remote verification state: the report markdown stage input links runtime-smoke proof was remotely checked by CI run `27051217722` and External Feedback Screen run `27051217725`"
         in readme
     )
     assert (
@@ -28304,7 +28304,7 @@ def test_external_feedback_current_state_gate_report_semantic_source_provenance_
     assert "not report quality evidence" in content
     assert "not product-complete" in content
     assert (
-        "Latest recorded remote verification state: the report markdown source provenance export runtime-smoke proof was remotely checked by CI run `27050315671` and External Feedback Screen run `27050315683`"
+        "Latest recorded remote verification state: the report markdown stage input links runtime-smoke proof was remotely checked by CI run `27051217722` and External Feedback Screen run `27051217725`"
         in readme
     )
     assert (
@@ -28517,7 +28517,7 @@ def test_report_markdown_source_provenance_export_runtime_smoke_remote_verificat
     assert "not an LLM call" in content
     assert "not product-complete" in content
     assert (
-        "Latest recorded remote verification state: the report markdown source provenance export runtime-smoke proof was remotely checked by CI run `27050315671` and External Feedback Screen run `27050315683`"
+        "Latest recorded remote verification state: the report markdown stage input links runtime-smoke proof was remotely checked by CI run `27051217722` and External Feedback Screen run `27051217725`"
         in readme
     )
     assert (
@@ -28673,6 +28673,77 @@ def test_report_markdown_stage_input_links_runtime_smoke_is_recorded():
     assert "report markdown stage input links runtime smoke v0" in runbook
     assert (
         "docs/review/report-markdown-stage-input-links-runtime-smoke.md"
+        in portfolio
+    )
+
+
+def test_report_markdown_stage_input_links_runtime_smoke_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/report-markdown-stage-input-links-runtime-smoke-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Report Markdown Stage Input Links Runtime Smoke Remote Verification" in content
+    assert (
+        "report markdown stage input links runtime smoke remote verification v0"
+        in content
+    )
+    assert "633c2c35000bd9098b18e5f4108d61dd6099c4f1" in content
+    assert "CI run 27051217722" in content
+    assert "External Feedback Screen run 27051217725" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27051217722" in content
+    assert "https://github.com/svy04/noiseproof-agent/actions/runs/27051217725" in content
+    assert "CI job_id -> 79847061237" in content
+    assert "External Feedback Screen job_id -> 79847061197" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "docs/review/report-markdown-stage-input-links-runtime-smoke.md" in content
+    assert "not the local Docker/FastAPI runtime smoke itself" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not report quality evidence" in content
+    assert "not new retrieval behavior" in content
+    assert "not Evidence Ledger creation logic" in content
+    assert "not Noise Gate creation logic" in content
+    assert "not report generation logic" in content
+    assert "not an LLM call" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest recorded remote verification state: the report markdown stage input links runtime-smoke proof was remotely checked by CI run `27051217722` and External Feedback Screen run `27051217725`"
+        in readme
+    )
+    assert (
+        "Report markdown stage input links runtime smoke remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 646 - Report Markdown Stage Input Links Runtime Smoke Remote Verification v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 645 - Report Markdown Stage Input Links Runtime Smoke v0"
+    ) < goal.index(
+        "Phase 646 - Report Markdown Stage Input Links Runtime Smoke Remote Verification v0"
+    )
+    assert (
+        "report markdown stage input links runtime smoke remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/report-markdown-stage-input-links-runtime-smoke-remote-verification.md"
         in portfolio
     )
 
