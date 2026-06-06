@@ -145,6 +145,32 @@ hosted_deployment_evidence: not_implemented
 product_complete: false
 ```
 
+Current navigation overlay as of Phase 729:
+
+```text
+latest_reviewer_route: upload PDF quality preview summary proof chain
+latest_route_artifacts:
+  - docs/review/upload-pdf-quality-preview-api.md
+  - docs/review/upload-pdf-quality-preview-summary.md
+  - docs/review/upload-pdf-quality-preview-summary-remote-verification.md
+  - docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md
+  - docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md
+  - docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md
+  - docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh-remote-verification.md
+latest_live_issue_route: docs/review/external-review-issue-body-upload-pdf-quality-preview-summary-route-refresh.md
+latest_external_feedback_state: pending after upload PDF quality preview summary issue verification
+latest_feedback_state_artifact: docs/review/external-feedback-current-state-upload-pdf-quality-preview-summary-issue-verification.md
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+robust_pdf_extraction: not_implemented
+robust_pdf_extraction_strategy_review: implemented
+hosted_deployment_evidence: not_implemented
+product_complete: false
+```
+
 Use this snapshot for first-pass orientation, then inspect the phase records below when exact provenance is needed.
 
 ### Phase 702 - Robust PDF Extraction Source-first Strategy Review v0
@@ -979,6 +1005,45 @@ document_count_delta=0
 Boundary: owner-authored issue body routing only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, not document persistence evidence for this preview route, not retrieval behavior, not Evidence Ledger generation, and not product-complete.
 
 Next gate: external feedback current-state screening for this issue route, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
+### Phase 729 - External Feedback Current-state Upload PDF Quality Preview Summary Issue Verification v0
+
+Status: implemented.
+
+Purpose: record the current external feedback state after issue #1 was routed to the upload PDF quality preview summary proof chain.
+
+Implemented artifacts:
+
+```text
+external feedback current-state upload PDF quality preview summary issue verification v0
+docs/review/external-feedback-current-state-upload-pdf-quality-preview-summary-issue-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Issue screening markers:
+
+```text
+updatedAt: 2026-06-06T15:07:19Z
+comment_count: 1
+screened_comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+classification: non_qualifying
+reason: self_authored_comment
+status: pending
+does_not_close_gate: true
+quality_summary
+summary_only_not_robust_pdf_extraction_evidence
+```
+
+Boundary: current-state issue screening only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction evidence, and not product-complete.
+
+Next gate: remote verification for this current-state document after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
 Accepted state as of Phase 403:
 
