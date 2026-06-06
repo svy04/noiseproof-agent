@@ -1739,6 +1739,30 @@ Boundary: current-state verification of a public request issue only; not externa
 
 Next gate: remote verification for this current-state issue screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 751 - External Feedback Current-state Upload PDF Quality Preview Coverage Summary Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 750 current-state issue verification passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+external feedback current-state upload PDF quality preview coverage summary issue verification remote verification v0
+docs/review/external-feedback-current-state-upload-pdf-quality-preview-coverage-summary-issue-verification-remote-verification.md
+docs/review/external-feedback-current-state-upload-pdf-quality-preview-coverage-summary-issue-verification.md
+head_sha -> 7be1e3ba295e58a7f7e17a5bcf47f8aee776472c
+CI run 27069134870 -> api-smoke -> success
+External Feedback Screen run 27069134882 -> screen -> success
+candidate_count=0
+draft_count=0
+self_authored_comment
+```
+
+Boundary: remote workflow verification only; not the current-state issue screen itself, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction evidence, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.

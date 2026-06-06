@@ -34927,3 +34927,65 @@ def test_external_feedback_current_state_upload_pdf_quality_preview_coverage_sum
         "external feedback current-state upload PDF quality preview coverage summary issue verification"
         in portfolio
     )
+
+
+def test_external_feedback_current_state_upload_pdf_quality_preview_coverage_summary_issue_verification_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-upload-pdf-quality-preview-coverage-summary-issue-verification-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Feedback Current-state Upload PDF Quality Preview Coverage Summary Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state upload PDF quality preview coverage summary issue verification remote verification v0"
+        in content
+    )
+    assert "7be1e3ba295e58a7f7e17a5bcf47f8aee776472c" in content
+    assert "CI run `27069134870`" in content
+    assert "External Feedback Screen run `27069134882`" in content
+    assert "CI job_id -> 79895125826" in content
+    assert "External Feedback Screen job_id -> 79895125779" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-feedback-current-state-upload-pdf-quality-preview-coverage-summary-issue-verification.md"
+        in content
+    )
+    assert "candidate_count=0" in content
+    assert "draft_count=0" in content
+    assert "self_authored_comment" in content
+    assert "not the current-state issue screen itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not Braincrew acceptance" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External feedback current-state upload PDF quality preview coverage summary issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 751 - External Feedback Current-state Upload PDF Quality Preview Coverage Summary Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 751 adds external feedback current-state upload PDF quality preview coverage summary issue verification remote verification v0"
+        in runbook
+    )
+    assert (
+        "external feedback current-state upload PDF quality preview coverage summary issue verification remote verification"
+        in portfolio
+    )
