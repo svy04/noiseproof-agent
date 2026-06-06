@@ -1516,6 +1516,48 @@ Boundary: remote workflow verification only; not the coverage summary implementa
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, local runtime smoke for coverage summary if needed, or another source-first product gate selected from current repository state.
 
+### Phase 745 - Upload PDF Quality Preview Coverage Summary Runtime Smoke v0
+
+Status: verified.
+
+Purpose: record local Docker PostgreSQL plus live FastAPI HTTP evidence that the upload PDF quality preview coverage summary works for born-digital, partial-text, no-text, and encrypted PDF uploads.
+
+Implemented artifacts:
+
+```text
+upload PDF quality preview coverage summary runtime smoke v0
+docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Runtime smoke markers:
+
+```text
+Compose project: noiseproof-phase745
+POSTGRES_PORT=55455
+FastAPI URL: http://127.0.0.1:8116
+Pending migrations: 0
+GET /health -> 200
+phase745-born-digital.pdf_status=200
+phase745-partial.pdf_status=200
+phase745-no-text.pdf_status=200
+phase745-encrypted.pdf_status=200
+born_digital_extraction_status=full_text
+partial_extraction_status=partial_text
+partial_warning_present=True
+no_text_extraction_status=no_text
+encrypted_extraction_status=password_required
+document_count_delta=0
+```
+
+Boundary: local runtime evidence only; not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not extracted text storage, not document persistence evidence for this preview route, not retrieval behavior, not Evidence Ledger generation, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: remote verification for this runtime-smoke proof after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.

@@ -34524,3 +34524,64 @@ def test_upload_pdf_quality_preview_coverage_summary_remote_verification_is_reco
         "Upload PDF quality preview coverage summary remote verification"
         in portfolio
     )
+
+
+def test_upload_pdf_quality_preview_coverage_summary_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Upload PDF Quality Preview Coverage Summary Runtime Smoke" in content
+    assert "upload PDF quality preview coverage summary runtime smoke v0" in content
+    assert "Docker version 29.4.3" in content
+    assert "Docker Compose version v5.1.3" in content
+    assert "Compose project: noiseproof-phase745" in content
+    assert "POSTGRES_PORT=55455" in content
+    assert "FastAPI URL: http://127.0.0.1:8116" in content
+    assert "Pending migrations: 0" in content
+    assert "GET /health -> 200" in content
+    assert "phase745-born-digital.pdf_status=200" in content
+    assert "phase745-partial.pdf_status=200" in content
+    assert "phase745-no-text.pdf_status=200" in content
+    assert "phase745-encrypted.pdf_status=200" in content
+    assert "born_digital_page_coverage_ratio=1.0" in content
+    assert "born_digital_extraction_status=full_text" in content
+    assert "partial_page_coverage_ratio=0.5" in content
+    assert "partial_extraction_status=partial_text" in content
+    assert "partial_warning_present=True" in content
+    assert "no_text_page_coverage_ratio=0.0" in content
+    assert "no_text_extraction_status=no_text" in content
+    assert "encrypted_page_coverage_ratio=0.0" in content
+    assert "encrypted_extraction_status=password_required" in content
+    assert "document_count_delta=0" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not OCR implementation" in content
+    assert "not table extraction implementation" in content
+    assert "not decryption evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Upload PDF quality preview coverage summary runtime smoke v0: verified"
+        in readme
+    )
+    assert (
+        "Phase 745 - Upload PDF Quality Preview Coverage Summary Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "Phase 745 adds upload PDF quality preview coverage summary runtime smoke v0"
+        in runbook
+    )
+    assert "Upload PDF quality preview coverage summary runtime smoke" in portfolio
