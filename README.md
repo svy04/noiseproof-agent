@@ -438,6 +438,7 @@ Not implemented yet:
 - full distributed tracing or hosted observability
 
 Recent verified runtime proof: Upload PDF quality preview table adapter runtime smoke v0: verified.
+Recent remote verification: Upload PDF quality preview table adapter runtime smoke remote verification v0: implemented.
 Recent product gate: Upload PDF quality preview table adapter v0: implemented.
 
 Historical latest-marker compatibility: Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
