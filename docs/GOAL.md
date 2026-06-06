@@ -246,6 +246,29 @@ Boundary: local deterministic parser smoke only; not robust PDF extraction imple
 
 Next gate: committed table-candidate observation report, or no-text PDF observation smoke that keeps failure candidates visible.
 
+### Phase 709 - PDF Extraction Quality No-text Observation Smoke v0
+
+Status: implemented.
+
+Purpose: preserve `pdf_no_extractable_text` failure-candidate metadata when a PDF opens but yields no extractable digital text, then score that expected failure through the PDF quality evaluator.
+
+Implemented artifacts:
+
+```text
+PDF extraction quality no-text observation smoke v0
+packages/ingestion/pdf_quality/observation.py
+docs/review/pdf-extraction-quality-no-text-observation-smoke.md
+apps/api/tests/test_pdf_extraction_quality.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Boundary: local deterministic parser smoke only; not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not hosted deployment evidence, and not product-complete.
+
+Next gate: encrypted PDF observation smoke, or a committed no-text observation report that keeps failure candidates inspectable.
+
 Accepted state as of Phase 403:
 
 ```text

@@ -36,6 +36,12 @@ def pdf_parse_result_to_quality_observation(parse_result: ParseResult) -> dict[s
         "failure_case_candidate": (
             failure_case_candidate.failure_type if failure_case_candidate else None
         ),
+        "failure_case_description": (
+            failure_case_candidate.description if failure_case_candidate else None
+        ),
+        "failure_case_next_action": (
+            failure_case_candidate.next_action if failure_case_candidate else None
+        ),
     }
 
 
