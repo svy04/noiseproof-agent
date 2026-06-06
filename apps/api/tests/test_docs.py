@@ -29727,3 +29727,57 @@ def test_external_reader_proof_path_routes_to_workflow_checklist_dashboard_runti
         "docs/review/external-reader-proof-path-workflow-checklist-dashboard-runtime-route-refresh.md"
         in portfolio
     )
+
+
+def test_external_reader_proof_path_workflow_checklist_dashboard_runtime_route_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-workflow-checklist-dashboard-runtime-route-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External-reader Proof Path Workflow Checklist Dashboard Runtime Route Refresh Remote Verification"
+        in content
+    )
+    assert (
+        "external-reader proof path workflow checklist dashboard runtime route refresh remote verification v0"
+        in content
+    )
+    assert "264d99a592fb9f050570d3239c1cf17a41c6e6bc" in content
+    assert "CI run `27054455690`: success" in content
+    assert "External Feedback Screen run `27054455683`: success" in content
+    assert "Run API smoke tests" in content
+    assert "Screen issue comments" in content
+    assert (
+        "docs/review/external-reader-proof-path-workflow-checklist-dashboard-runtime-route-refresh.md"
+        in content
+    )
+    assert "not the reader-route refresh itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "External-reader proof path workflow checklist dashboard runtime route refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 661 - External-reader Proof Path Workflow Checklist Dashboard Runtime Route Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "external-reader proof path workflow checklist dashboard runtime route refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reader-proof-path-workflow-checklist-dashboard-runtime-route-refresh-remote-verification.md"
+        in portfolio
+    )

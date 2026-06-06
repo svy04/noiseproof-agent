@@ -24169,3 +24169,35 @@ README External Reviewer Fast Path -> workflow checklist dashboard runtime smoke
 Boundary: reader-route alignment only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not LLM output, and not product-complete.
 
 Next gate: remote verification for this reader-route refresh after push, issue-body refresh if the public issue should route to this proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 661 - External-reader Proof Path Workflow Checklist Dashboard Runtime Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 660 external-reader proof path workflow checklist dashboard runtime route refresh passed CI and External Feedback Screen.
+
+Implemented artifacts:
+
+```text
+external-reader proof path workflow checklist dashboard runtime route refresh remote verification v0
+docs/review/external-reader-proof-path-workflow-checklist-dashboard-runtime-route-refresh-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 264d99a592fb9f050570d3239c1cf17a41c6e6bc
+CI run 27054455690: success
+External Feedback Screen run 27054455683: success
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the reader-route refresh itself, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not LLM output, and not product-complete.
+
+Next gate: issue-body refresh if the public issue should route to this proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
