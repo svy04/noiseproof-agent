@@ -27555,7 +27555,7 @@ def test_readme_latest_marker_semantic_source_provenance_current_state_refresh_u
         not in fast_path
     )
     assert (
-        "Latest external-feedback state: pending after report markdown local inspection issue-body route refresh"
+        "Latest external-feedback state: pending after report markdown local inspection issue verification"
         in fast_path
     )
     assert (
@@ -28228,7 +28228,7 @@ def test_external_feedback_current_state_gate_report_semantic_source_provenance_
     assert "not report quality evidence" in content
     assert "not product-complete" in content
     assert (
-        "Latest external-feedback state: pending after report markdown local inspection issue-body route refresh"
+        "Latest external-feedback state: pending after report markdown local inspection issue verification"
         in readme
     )
     assert (
@@ -29205,7 +29205,7 @@ def test_external_review_issue_body_report_markdown_local_inspection_route_refre
     assert "not report quality evidence" in content
     assert "not product-complete" in content
     assert (
-        "Latest external-feedback state: pending after report markdown local inspection issue-body route refresh"
+        "Latest external-feedback state: pending after report markdown local inspection issue verification"
         in readme
     )
     assert (
@@ -29227,6 +29227,100 @@ def test_external_review_issue_body_report_markdown_local_inspection_route_refre
     )
     assert (
         "docs/review/external-review-issue-body-report-markdown-local-inspection-route-refresh.md"
+        in portfolio
+    )
+
+
+def test_external_feedback_current_state_report_markdown_local_inspection_issue_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-report-markdown-local-inspection-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state Report Markdown Local Inspection Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state report markdown local inspection issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt: 2026-06-06T04:31:28Z" in content
+    assert "comment_count: 1" in content
+    assert "screened_comment_count: 1" in content
+    assert "owner_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment" in content
+    assert "status: pending" in content
+    assert "does_not_close_gate: true" in content
+    assert "external reviewer feedback v0 gate remains pending" in content
+    assert "starts_with_request: true" in content
+    assert "first_codepoint: 35" in content
+    assert "body_length: 8231" in content
+    assert "has_report_markdown_local_inspection_paths_proof: true" in content
+    assert "has_report_markdown_local_inspection_runtime_smoke: true" in content
+    assert "has_report_markdown_local_inspection_remote_verification: true" in content
+    assert "has_report_markdown_local_inspection_issue_body_record: true" in content
+    assert "has_report_markdown_local_inspection_route_refresh_record: true" in content
+    assert "has_external_feedback_boundary: true" in content
+    assert "old_gate_report_latest_label_present: false" in content
+    assert "docs/review/report-markdown-local-inspection-paths.md" in content
+    assert (
+        "docs/review/report-markdown-local-inspection-paths-runtime-smoke.md"
+        in content
+    )
+    assert (
+        "docs/review/report-markdown-local-inspection-paths-runtime-smoke-remote-verification.md"
+        in content
+    )
+    assert (
+        "docs/review/external-review-issue-body-report-markdown-local-inspection-route-refresh.md"
+        in content
+    )
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not report quality evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest external-feedback state: pending after report markdown local inspection issue verification"
+        in readme
+    )
+    assert (
+        "External feedback current-state report markdown local inspection issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 653 - External Feedback Current-state Report Markdown Local Inspection Issue Verification v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 652 - External Review Issue Body Report Markdown Local Inspection Route Refresh v0"
+    ) < goal.index(
+        "Phase 653 - External Feedback Current-state Report Markdown Local Inspection Issue Verification v0"
+    )
+    assert (
+        "external feedback current-state report markdown local inspection issue verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-report-markdown-local-inspection-issue-verification.md"
         in portfolio
     )
 
