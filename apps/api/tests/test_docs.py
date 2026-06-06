@@ -29662,3 +29662,68 @@ def test_workflow_proof_bundle_reviewer_checklist_dashboard_runtime_smoke_is_rec
         "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md"
         in portfolio
     )
+
+
+def test_external_reader_proof_path_routes_to_workflow_checklist_dashboard_runtime_smoke():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-workflow-checklist-dashboard-runtime-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    proof_path = (REPO_ROOT / "docs/review/external-reader-proof-path.md").read_text(
+        encoding="utf-8"
+    )
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External-reader Proof Path Workflow Checklist Dashboard Runtime Route Refresh"
+        in content
+    )
+    assert (
+        "external-reader proof path workflow checklist dashboard runtime route refresh v0"
+        in content
+    )
+    assert "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md" in content
+    assert "docs/review/report-markdown-local-inspection-paths-runtime-smoke.md" in content
+    assert "not a live issue body edit" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest proof routing now points reviewers to the workflow proof bundle reviewer checklist dashboard runtime smoke"
+        in readme
+    )
+    assert (
+        "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md"
+        in readme
+    )
+    assert (
+        "Workflow proof bundle reviewer checklist dashboard runtime proof:"
+        in proof_path
+    )
+    assert proof_path.index(
+        "Workflow proof bundle reviewer checklist dashboard runtime proof:"
+    ) < proof_path.index("Report markdown local inspection paths proof:")
+    assert (
+        "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md"
+        in proof_path
+    )
+    assert (
+        "Phase 660 - External-reader Proof Path Workflow Checklist Dashboard Runtime Route Refresh v0"
+        in goal
+    )
+    assert (
+        "external-reader proof path workflow checklist dashboard runtime route refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reader-proof-path-workflow-checklist-dashboard-runtime-route-refresh.md"
+        in portfolio
+    )

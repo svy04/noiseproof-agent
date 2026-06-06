@@ -16,6 +16,16 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Workflow proof bundle reviewer checklist dashboard runtime proof:
+
+```text
+docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-discovery.md
+docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md
+docs/review/external-reader-proof-path-workflow-checklist-dashboard-runtime-route-refresh.md
+```
+
+Boundary: this current route proves that the local operations dashboard can route a reviewer to the workflow proof bundle through a visible `reviewer checklist` link, and that the linked proof bundle returns four read-only checklist items: `detail_counts`, `lineage_links`, `trace_lookup`, and `failure_case_handoff`. This route is not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
+
 Report markdown local inspection paths proof:
 
 ```text
@@ -25,7 +35,7 @@ docs/review/report-markdown-local-inspection-paths-runtime-smoke-remote-verifica
 docs/review/external-review-issue-body-report-markdown-local-inspection-route-refresh.md
 ```
 
-Boundary: this current route proves that a persisted Report markdown export can show local inspection paths for the current report markdown export, report workflow-trace filter, workflow trace lookup, retrieval-run list, Evidence Ledger list, and Noise Gate list, while preserving stage input ids and source retrieval provenance. The issue-body refresh is owner-authored routing only. This route is not external reviewer feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
+Boundary: this predecessor report-inspection route proves that a persisted Report markdown export can show local inspection paths for the current report markdown export, report workflow-trace filter, workflow trace lookup, retrieval-run list, Evidence Ledger list, and Noise Gate list, while preserving stage input ids and source retrieval provenance. The issue-body refresh is owner-authored routing only. This route is not external reviewer feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
 
 Retrieval-run-linked Gate/Report semantic source provenance proof:
 
