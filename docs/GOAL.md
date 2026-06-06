@@ -314,6 +314,28 @@ Boundary: reviewer navigation only; not new runtime evidence, not decryption evi
 
 Next gate: committed grouped observation report for these four local smokes, or another source-first product gate selected from current repository state.
 
+### Phase 712 - PDF Extraction Quality Observation Grouped Report v0
+
+Status: implemented.
+
+Purpose: summarize the digital-text, table-candidate, no-text, and encrypted PDF observation smokes as one reviewer-facing grouped report while preserving the no-new-runtime-evidence and no-robust-PDF-extraction boundaries.
+
+Implemented artifacts:
+
+```text
+PDF extraction quality observation grouped report v0
+docs/review/pdf-extraction-quality-observation-grouped-report.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Boundary: report navigation only; not new runtime evidence, not decryption evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not hosted deployment evidence, and not product-complete.
+
+Next gate: remote verification for this grouped report after push, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text
