@@ -99,6 +99,7 @@ def render_ops_dashboard(
     <p class="muted">Workflow parent records include metadata rows and deterministic execution-preview parents. Phase 36 exposes structured warning codes for the derived lineage read model while keeping human-readable warnings.</p>
     <p class="muted">Lineage warning codes: <code>derived_read_model_boundary</code>, <code>local_workflow_scope</code>, <code>missing_manifest_reference</code>, <code>invalid_manifest_shape</code>. These are response-level taxonomy only, not persisted dashboard analytics.</p>
     <p class="muted">Workflow failure-case counts are read-only links over existing records.</p>
+    <p class="muted">Proof bundle includes a read-only reviewer_checklist for detail counts, lineage links, trace lookup, and failure-case handoff. This is not distributed tracing and not hosted observability.</p>
     {_workflow_runs_table(workflow_runs, failure_cases)}
   </section>
   <section>
@@ -437,7 +438,11 @@ def _workflow_run_links_cell(row: dict[str, Any]) -> str:
         f"/workflow-runs/{workflow_run_id}/proof-bundle",
         "proof bundle",
     )
-    return f"{detail} / {lineage} / {proof_bundle}"
+    reviewer_checklist = _link(
+        f"/workflow-runs/{workflow_run_id}/proof-bundle",
+        "reviewer checklist",
+    )
+    return f"{detail} / {lineage} / {proof_bundle} / {reviewer_checklist}"
 
 
 def _workflow_parent_cell(row: dict[str, Any]) -> str:

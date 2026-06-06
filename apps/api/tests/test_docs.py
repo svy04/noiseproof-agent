@@ -29518,3 +29518,47 @@ def test_workflow_proof_bundle_reviewer_checklist_is_recorded():
     assert "Phase 656 - Workflow Proof Bundle Reviewer Checklist v0" in goal
     assert "workflow proof bundle reviewer checklist v0" in runbook
     assert "docs/review/workflow-proof-bundle-reviewer-checklist.md" in portfolio
+
+
+def test_workflow_proof_bundle_reviewer_checklist_dashboard_discovery_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-discovery.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    dashboard_py = (
+        REPO_ROOT / "apps/api/app/services/ops_dashboard.py"
+    ).read_text(encoding="utf-8")
+    routes_test = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Workflow Proof Bundle Reviewer Checklist Dashboard Discovery" in content
+    assert "workflow proof bundle reviewer checklist dashboard discovery v0" in content
+    assert "GET /ops/dashboard" in content
+    assert "GET /workflow-runs/{id}/proof-bundle" in content
+    assert "reviewer_checklist" in content
+    assert "reviewer checklist" in dashboard_py
+    assert "test_ops_dashboard_surfaces_workflow_proof_bundle_reviewer_checklist_discovery" in routes_test
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Workflow proof bundle reviewer checklist dashboard discovery v0: implemented"
+        in readme
+    )
+    assert "Phase 657 - Workflow Proof Bundle Reviewer Checklist Dashboard Discovery v0" in goal
+    assert "workflow proof bundle reviewer checklist dashboard discovery v0" in runbook
+    assert (
+        "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-discovery.md"
+        in portfolio
+    )

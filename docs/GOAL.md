@@ -24035,3 +24035,34 @@ failure_case_handoff
 Boundary: read-only response-shape inspectability only; not new storage, not distributed tracing, not hosted observability, not a new lineage contract, not retry behavior, not root-cause automation, not semantic retrieval quality evidence, not embedding generation, not LLM output, not external reviewer feedback, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 657 - Workflow Proof Bundle Reviewer Checklist Dashboard Discovery v0
+
+Status: implemented.
+
+Purpose: make the proof-bundle `reviewer_checklist` discoverable from `GET /ops/dashboard` without adding storage, migrations, distributed tracing, hosted observability, or new workflow behavior.
+
+Implemented artifacts:
+
+```text
+workflow proof bundle reviewer checklist dashboard discovery v0
+apps/api/app/services/ops_dashboard.py
+apps/api/tests/test_routes.py
+docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-discovery.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Dashboard discovery behavior:
+
+```text
+GET /ops/dashboard workflow rows expose a reviewer checklist link to GET /workflow-runs/{id}/proof-bundle
+GET /ops/dashboard states that proof bundle includes a read-only reviewer_checklist
+```
+
+Boundary: dashboard discovery only; not new storage, not distributed tracing, not hosted observability, not retry behavior, not root-cause automation, not semantic retrieval quality evidence, not embedding generation, not LLM output, not external reviewer feedback, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

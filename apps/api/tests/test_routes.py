@@ -5213,6 +5213,36 @@ def test_ops_dashboard_links_workflow_runs_to_detail_lineage_and_proof_bundle_vi
     assert "derived lineage read model" in dashboard.text
 
 
+def test_ops_dashboard_surfaces_workflow_proof_bundle_reviewer_checklist_discovery():
+    client = make_client()
+    execution = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which proof surfaces should a reviewer inspect?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-proof-surface",
+                    "source_type": "markdown",
+                    "content": "Enterprise demand grew 12 percent in 2026.",
+                }
+            ],
+        },
+    )
+    workflow_run_id = execution.json()["workflow_run"]["id"]
+
+    dashboard = client.get("/ops/dashboard")
+
+    assert dashboard.status_code == 200
+    assert "Proof bundle includes a read-only reviewer_checklist" in dashboard.text
+    assert (
+        f'href="/workflow-runs/{workflow_run_id}/proof-bundle">reviewer checklist</a>'
+        in dashboard.text
+    )
+    assert "not distributed tracing" in dashboard.text
+    assert "not hosted observability" in dashboard.text
+
+
 def test_ops_dashboard_surfaces_workflow_failure_case_counts_and_filter_links():
     client = make_client()
     linked_workflow = client.post(
