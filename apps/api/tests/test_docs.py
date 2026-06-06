@@ -32647,3 +32647,50 @@ def test_pdf_extraction_quality_observation_grouped_report_is_recorded():
         in runbook
     )
     assert "PDF extraction quality observation grouped report" in portfolio
+
+
+def test_pdf_extraction_quality_observation_grouped_report_remote_verification_is_recorded():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/pdf-extraction-quality-observation-grouped-report-remote-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "PDF Extraction Quality Observation Grouped Report Remote Verification" in content
+    assert (
+        "PDF extraction quality observation grouped report remote verification v0"
+        in content
+    )
+    assert "e1dbefdbf0f3a13a9f7247fa03aaee8db62c35b9" in content
+    assert "CI run `27063162767`" in content
+    assert "External Feedback Screen run `27063162754`" in content
+    assert "docs/review/pdf-extraction-quality-observation-grouped-report.md" in content
+    assert "not new runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "PDF extraction quality observation grouped report remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 713 - PDF Extraction Quality Observation Grouped Report Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 713 adds PDF extraction quality observation grouped report remote verification v0"
+        in runbook
+    )
+    assert (
+        "PDF extraction quality observation grouped report remote verification"
+        in portfolio
+    )

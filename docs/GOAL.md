@@ -336,6 +336,28 @@ Boundary: report navigation only; not new runtime evidence, not decryption evide
 
 Next gate: remote verification for this grouped report after push, or another source-first product gate selected from current repository state.
 
+### Phase 713 - PDF Extraction Quality Observation Grouped Report Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 712 grouped report passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+PDF extraction quality observation grouped report remote verification v0
+docs/review/pdf-extraction-quality-observation-grouped-report-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Boundary: remote workflow verification only; not new runtime evidence, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: broader source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text
