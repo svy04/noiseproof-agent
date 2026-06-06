@@ -529,6 +529,42 @@ Boundary: remote workflow verification only; not the route refresh itself, not n
 
 Next gate: issue-body refresh if the public feedback issue should route reviewers to this focused proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 719 - External Review Issue Body Upload PDF Quality Preview Route Refresh v0
+
+Status: implemented.
+
+Purpose: record the owner-authored issue #1 body edit that points `Latest Proof To Inspect` to the upload PDF quality preview proof chain and keeps Evidence quality draft preview as predecessor proof.
+
+Implemented artifacts:
+
+```text
+external review issue body upload PDF quality preview route refresh v0
+docs/review/external-review-issue-body-upload-pdf-quality-preview-route-refresh.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Issue markers:
+
+```text
+updatedAt: 2026-06-06T13:59:24Z
+comment_count: 1
+starts_with_request: true
+has_upload_pdf_quality_preview_api: true
+has_upload_pdf_quality_preview_runtime_smoke: true
+has_upload_pdf_quality_preview_route_refresh: true
+has_upload_pdf_quality_preview_route_remote_verification: true
+has_evidence_quality_draft_preview_predecessor: true
+old_evidence_quality_latest_label_present: false
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, not password bypass, not document persistence evidence for the preview route, and not product-complete.
+
+Next gate: external feedback current-state screening for this issue route, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text
