@@ -26339,9 +26339,9 @@ def test_readme_top_latest_remote_verification_state_preserves_table_candidate_r
         not in fast_path
     )
     assert (
-        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke-remote-verification.md"
-        in fast_path
-    )
+            "docs/review/report-markdown-local-inspection-paths-runtime-smoke-remote-verification.md"
+            in fast_path
+        )
     assert "workflow evidence only" in fast_path
     assert "not external feedback" in fast_path
     assert "not hosted deployment evidence" in fast_path
@@ -26898,11 +26898,11 @@ def test_external_review_issue_body_retrieval_run_semantic_provenance_runtime_re
         not in fast_path
     )
     assert (
-        "Latest proof routing now points reviewers to the retrieval-run-linked Gate/Report semantic source provenance proof"
+        "Latest proof routing now points reviewers to the report markdown local inspection paths proof"
         in fast_path
     )
     assert (
-        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance.md"
+        "docs/review/report-markdown-local-inspection-paths-runtime-smoke-remote-verification.md"
         in fast_path
     )
     assert "docs/review/retrieval-run-semantic-provenance-runtime-smoke.md" not in fast_path
@@ -27064,9 +27064,9 @@ def test_external_feedback_current_state_retrieval_run_semantic_provenance_issue
         not in fast_path
     )
     assert (
-        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke-remote-verification.md"
-        in fast_path
-    )
+            "docs/review/report-markdown-local-inspection-paths-runtime-smoke-remote-verification.md"
+            in fast_path
+        )
     assert (
         "Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0"
         in goal
@@ -27535,15 +27535,15 @@ def test_readme_latest_marker_semantic_source_provenance_current_state_refresh_u
         in content
     )
     assert (
-        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance.md"
+        "docs/review/report-markdown-local-inspection-paths.md"
         in fast_path
     )
     assert (
-        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke.md"
+        "docs/review/report-markdown-local-inspection-paths-runtime-smoke.md"
         in fast_path
     )
     assert (
-        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance-runtime-smoke-remote-verification.md"
+        "docs/review/report-markdown-local-inspection-paths-runtime-smoke-remote-verification.md"
         in fast_path
     )
     assert (
@@ -27971,7 +27971,7 @@ def test_external_reader_proof_path_gate_report_semantic_source_provenance_route
     assert "not external reviewer feedback" in proof_path
     assert "not hosted deployment evidence" in proof_path
     assert (
-        "Latest proof routing now points reviewers to the retrieval-run-linked Gate/Report semantic source provenance proof"
+        "Latest proof routing now points reviewers to the report markdown local inspection paths proof"
         in readme
     )
     assert (
@@ -28964,6 +28964,100 @@ def test_report_markdown_local_inspection_paths_runtime_smoke_remote_verificatio
     )
     assert (
         "docs/review/report-markdown-local-inspection-paths-runtime-smoke-remote-verification.md"
+        in portfolio
+    )
+
+
+def test_external_reader_proof_path_report_markdown_local_inspection_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reader-proof-path-report-markdown-local-inspection-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    fast_path = readme.split("## External Reviewer Fast Path", 1)[1].split(
+        "## What This Is", 1
+    )[0]
+    current_route = proof_path.split("## Current Proof Route", 1)[1].split(
+        "Read in this order:", 1
+    )[0]
+
+    assert (
+        "External-reader Proof Path Report Markdown Local Inspection Route Refresh"
+        in content
+    )
+    assert (
+        "external-reader proof path report markdown local inspection route refresh v0"
+        in content
+    )
+    assert "## Current Proof Route" in proof_path
+    assert "Report markdown local inspection paths proof:" in current_route
+    assert (
+        "docs/review/report-markdown-local-inspection-paths.md"
+        in current_route
+    )
+    assert (
+        "docs/review/report-markdown-local-inspection-paths-runtime-smoke.md"
+        in current_route
+    )
+    assert (
+        "docs/review/report-markdown-local-inspection-paths-runtime-smoke-remote-verification.md"
+        in current_route
+    )
+    assert current_route.index(
+        "Report markdown local inspection paths proof:"
+    ) < current_route.index(
+        "Retrieval-run-linked Gate/Report semantic source provenance proof:"
+    )
+    assert "not semantic retrieval quality evidence" in current_route
+    assert "not embedding generation" in current_route
+    assert "not Evidence Ledger quality evidence" in current_route
+    assert "not Noise Gate quality evidence" in current_route
+    assert "not report quality evidence" in current_route
+    assert "not external reviewer feedback" in current_route
+    assert "not hosted deployment evidence" in current_route
+    assert (
+        "Latest proof routing now points reviewers to the report markdown local inspection paths proof"
+        in fast_path
+    )
+    assert (
+        "docs/review/report-markdown-local-inspection-paths-runtime-smoke-remote-verification.md"
+        in fast_path
+    )
+    assert (
+        "Latest proof routing now points reviewers to the retrieval-run-linked Gate/Report semantic source provenance proof"
+        not in fast_path
+    )
+    assert (
+        "External-reader proof path report markdown local inspection route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 650 - External-reader Proof Path Report Markdown Local Inspection Route Refresh v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 649 - Report Markdown Local Inspection Paths Runtime Smoke Remote Verification v0"
+    ) < goal.index(
+        "Phase 650 - External-reader Proof Path Report Markdown Local Inspection Route Refresh v0"
+    )
+    assert (
+        "external-reader proof path report markdown local inspection route refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reader-proof-path-report-markdown-local-inspection-route-refresh.md"
         in portfolio
     )
 

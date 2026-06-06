@@ -23789,3 +23789,35 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the local Docker/FastAPI runtime smoke itself, not hosted deployment evidence, not external reviewer feedback, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not new retrieval behavior, not Evidence Ledger creation logic, not Noise Gate creation logic, not report generation logic, not an LLM call, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 650 - External-reader Proof Path Report Markdown Local Inspection Route Refresh v0
+
+Status: implemented.
+
+Purpose: align `docs/review/external-reader-proof-path.md` and the README External Reviewer Fast Path with the latest report markdown local inspection paths proof chain while preserving Gate/Report semantic source provenance as predecessor proof.
+
+Implemented artifacts:
+
+```text
+external-reader proof path report markdown local inspection route refresh v0
+docs/review/external-reader-proof-path-report-markdown-local-inspection-route-refresh.md
+docs/review/external-reader-proof-path.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Routing markers:
+
+```text
+Current Proof Route -> report markdown local inspection paths proof chain
+Report markdown local inspection paths proof
+Retrieval-run-linked Gate/Report semantic source provenance proof
+Latest proof routing now points reviewers to the report markdown local inspection paths proof
+```
+
+Boundary: reader-route alignment only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
+
+Next gate: remote verification for this reader-route refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
