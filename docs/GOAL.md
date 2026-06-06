@@ -428,6 +428,38 @@ Boundary: local runtime evidence only; not hosted deployment evidence, not exter
 
 Next gate: remote verification for this runtime-smoke documentation after push, or another source-first product gate selected from current repository state.
 
+### Phase 716 - Upload PDF Quality Preview Runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 715 runtime-smoke documentation passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+Upload PDF quality preview runtime smoke remote verification v0
+docs/review/upload-pdf-quality-preview-runtime-smoke-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> b78bcdc45a1a2f7c9a1d5a42e5a467df4e376bd0
+CI run 27063793616: success
+External Feedback Screen run 27063793624: success
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the local runtime smoke itself, not new runtime evidence, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text
