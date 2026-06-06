@@ -120,6 +120,7 @@ Forbidden claim: this is not hosted deployment evidence, not automatic failure-c
 | proof index reader path exists | Pass | `docs/review/failure-case-workflow-parent-linkage-proof-index.md` | index-only; no new runtime proof |
 | External-reader proof path exists | Pass | `docs/review/external-reader-proof-path.md` | 5-minute path only; not hosted deployment evidence; not automatic failure-case creation; not complete workflow failure causality |
 | README proof-marker archive is discoverable from application docs | Pass | `docs/review/readme-proof-marker-archive.md` | source-level provenance only; not product runtime evidence |
+| Evidence Ledger quality risk ops counts are visible | Pass | `GET /ops/summary`, `GET /ops/dashboard`, `docs/review/evidence-quality-risk-ops-surface.md`, `docs/review/evidence-quality-risk-ops-surface-runtime-smoke.md` | persisted-row metadata only; local runtime smoke exists; not final truth adjudication, retrieval quality evidence, Evidence Ledger quality evidence, embedding generation, external reviewer feedback, or hosted deployment evidence |
 
 Historical Phase 31.5 boundary: JSON manifest only, not direct FK or join-table lineage. Phase 32 makes that manifest easier to inspect through a derived read model, but it still does not convert the manifest into a relational contract.
 

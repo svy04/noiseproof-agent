@@ -22787,6 +22787,61 @@ Boundary: live issue current-state screen only; not external reviewer feedback, 
 
 Next gate: remote verification for this current-state issue screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 689 - Evidence Quality Risk Ops Surface v0
+
+Status: done.
+
+Purpose: surface persisted Evidence Ledger quality-risk rows in operations views before downstream gate/report review misses weak evidence metadata.
+
+Implemented artifacts:
+
+```text
+evidence quality risk ops surface v0
+docs/review/evidence-quality-risk-ops-surface.md
+GET /ops/summary fields:
+  weakly_supported_evidence_count
+  low_confidence_evidence_count
+  missing_source_date_evidence_count
+  evidence_quality_risk_count
+GET /ops/dashboard labels:
+  Weak Evidence
+  Low Confidence Evidence
+  Missing Source Dates
+  Evidence Quality Risk Rows
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+```
+
+Boundary: operations metadata visibility only; not final truth adjudication, not retrieval quality evidence, not Evidence Ledger generation, not an LLM call, not embedding generation, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: external reviewer feedback v0 remains pending, hosted deployment evidence remains unproven, live embedding generation remains unproven, semantic retrieval quality remains toy-fixture only, or select another source-first product gate from the current repository state.
+
+### Phase 690 - Evidence Quality Risk Ops Surface Runtime Smoke v0
+
+Status: verified.
+
+Purpose: verify the Phase 689 persisted-row ops counts against local Docker PostgreSQL and a live FastAPI process.
+
+Implemented artifacts:
+
+```text
+evidence quality risk ops surface runtime smoke v0
+docs/review/evidence-quality-risk-ops-surface-runtime-smoke.md
+Compose project: noiseproof-phase689
+POSTGRES_PORT: 55450
+POST /evidence-ledgers -> 201
+GET /ops/summary -> 200
+GET /ops/dashboard -> 200
+weakly_supported_evidence_count -> 1
+low_confidence_evidence_count -> 1
+missing_source_date_evidence_count -> 1
+evidence_quality_risk_count -> 1
+```
+
+Boundary: local runtime evidence only; not hosted deployment evidence, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not an LLM call, not embedding generation, not external reviewer feedback, and not product-complete.
+
+Next gate: external reviewer feedback v0 remains pending, hosted deployment evidence remains unproven, live embedding generation remains unproven, semantic retrieval quality remains toy-fixture only, or select another source-first product gate from the current repository state.
+
 ### Phase 664 - External Feedback Current-state Workflow Checklist Dashboard Runtime Issue Verification Remote Verification v0
 
 Status: implemented.

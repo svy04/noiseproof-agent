@@ -968,6 +968,10 @@ class OpsSummaryOut(BaseModel):
     allowed_download_event_count: int = 0
     unsupported_claim_count: int
     contradiction_count: int
+    weakly_supported_evidence_count: int = 0
+    low_confidence_evidence_count: int = 0
+    missing_source_date_evidence_count: int = 0
+    evidence_quality_risk_count: int = 0
     average_latency_ms: float | None
     embedding_provider_readiness: EmbeddingProviderReadinessOut | None = None
     notes: list[str]

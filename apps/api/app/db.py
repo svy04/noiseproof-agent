@@ -1554,6 +1554,30 @@ class PostgresRepository:
                     WHERE status = 'contradicted'
                        OR jsonb_array_length(contradicting_source_ids) > 0
                   ) AS contradiction_count,
+                  (
+                    SELECT count(*)
+                    FROM evidence_ledger_entries
+                    WHERE status = 'weakly_supported'
+                  ) AS weakly_supported_evidence_count,
+                  (
+                    SELECT count(*)
+                    FROM evidence_ledger_entries
+                    WHERE confidence = 'low'
+                  ) AS low_confidence_evidence_count,
+                  (
+                    SELECT count(*)
+                    FROM evidence_ledger_entries
+                    WHERE source_date IS NULL
+                       OR btrim(source_date) = ''
+                  ) AS missing_source_date_evidence_count,
+                  (
+                    SELECT count(*)
+                    FROM evidence_ledger_entries
+                    WHERE status = 'weakly_supported'
+                       OR confidence = 'low'
+                       OR source_date IS NULL
+                       OR btrim(source_date) = ''
+                  ) AS evidence_quality_risk_count,
                   (SELECT avg(latency_ms) FROM agent_runs WHERE latency_ms IS NOT NULL)
                     AS average_latency_ms
                 """
@@ -1596,9 +1620,18 @@ class PostgresRepository:
             allowed_download_event_count=row["allowed_download_event_count"],
             unsupported_claim_count=row["unsupported_claim_count"],
             contradiction_count=row["contradiction_count"],
+            weakly_supported_evidence_count=row[
+                "weakly_supported_evidence_count"
+            ],
+            low_confidence_evidence_count=row["low_confidence_evidence_count"],
+            missing_source_date_evidence_count=row[
+                "missing_source_date_evidence_count"
+            ],
+            evidence_quality_risk_count=row["evidence_quality_risk_count"],
             average_latency_ms=row["average_latency_ms"],
             notes=[
                 f"Retrieval runs recorded: {row['retrieval_run_count']}. Evidence Ledger persisted entries now drive unsupported and contradiction counts.",
+                f"Evidence quality risk rows: {row['evidence_quality_risk_count']} persisted Evidence Ledger entrie(s) have weak support, low confidence, or missing source date metadata. These are operations metadata, not final truth adjudication.",
                 f"Semantic retrieval runs recorded: {row['semantic_retrieval_run_count']}; caller-provided embedding row(s): {row['caller_provided_embedding_count']}. These are operational counts, not semantic retrieval quality evidence.",
                 f"No-text PDF failure candidates: {row['pdf_no_text_failure_candidate_count']}. This is metadata-derived from document profile_json, not robust PDF extraction.",
                 f"Encrypted PDF failure candidates: {row['pdf_encrypted_failure_candidate_count']}. This is metadata-derived from document profile_json, not robust PDF extraction and does not prove decryption.",

@@ -31388,3 +31388,83 @@ def test_embedding_provider_readiness_ops_surface_remote_verification_is_recorde
         in runbook
     )
     assert "Embedding provider readiness ops surface remote verification" in portfolio
+
+
+def test_evidence_quality_risk_ops_surface_is_recorded():
+    review_path = REPO_ROOT / "docs/review/evidence-quality-risk-ops-surface.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    assert "Evidence Quality Risk Ops Surface" in content
+    assert "evidence quality risk ops surface v0" in content
+    assert "GET /ops/summary" in content
+    assert "GET /ops/dashboard" in content
+    assert "weakly_supported_evidence_count" in content
+    assert "low_confidence_evidence_count" in content
+    assert "missing_source_date_evidence_count" in content
+    assert "evidence_quality_risk_count" in content
+    assert "Weak Evidence" in content
+    assert "Low Confidence Evidence" in content
+    assert "Missing Source Dates" in content
+    assert "not final truth adjudication" in content
+    assert "not a benchmark" in content
+
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Evidence quality risk ops surface v0: implemented" in readme
+    assert "Phase 689 - Evidence Quality Risk Ops Surface v0" in goal
+    assert "Phase 689 adds evidence quality risk ops surface v0" in runbook
+    assert "Evidence quality risk ops surface" in portfolio
+    assert "Evidence Ledger quality risk ops counts are visible" in application_ready
+
+
+def test_evidence_quality_risk_ops_surface_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT / "docs/review/evidence-quality-risk-ops-surface-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    assert "Evidence Quality Risk Ops Surface Runtime Smoke" in content
+    assert "evidence quality risk ops surface runtime smoke v0" in content
+    assert "Docker version: 29.4.3" in content
+    assert "Docker Compose version: v5.1.3" in content
+    assert "Compose project: noiseproof-phase689" in content
+    assert "POSTGRES_PORT: 55450" in content
+    assert "POST /evidence-ledgers HTTP/1.1 -> 201 Created" in content
+    assert "GET /ops/summary HTTP/1.1 -> 200 OK" in content
+    assert "GET /ops/dashboard HTTP/1.1 -> 200 OK" in content
+    assert "weakly_supported_evidence_count    : 1" in content
+    assert "low_confidence_evidence_count      : 1" in content
+    assert "missing_source_date_evidence_count : 1" in content
+    assert "evidence_quality_risk_count        : 1" in content
+    assert "local runtime evidence only" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Evidence quality risk ops surface runtime smoke v0: verified" in readme
+    assert "Phase 690 - Evidence Quality Risk Ops Surface Runtime Smoke v0" in goal
+    assert (
+        "Phase 690 adds evidence quality risk ops surface runtime smoke v0"
+        in runbook
+    )
+    assert "Evidence quality risk ops surface runtime smoke" in portfolio
+    assert "docs/review/evidence-quality-risk-ops-surface-runtime-smoke.md" in application_ready

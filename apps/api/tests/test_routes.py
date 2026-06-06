@@ -660,9 +660,26 @@ class InMemoryRepository:
                 row["status"] == "contradicted" or bool(row["contradicting_source_ids"])
                 for row in self.evidence_ledger_entries
             ),
+            weakly_supported_evidence_count=sum(
+                row["status"] == "weakly_supported"
+                for row in self.evidence_ledger_entries
+            ),
+            low_confidence_evidence_count=sum(
+                row["confidence"] == "low" for row in self.evidence_ledger_entries
+            ),
+            missing_source_date_evidence_count=sum(
+                not row.get("source_date") for row in self.evidence_ledger_entries
+            ),
+            evidence_quality_risk_count=sum(
+                row["status"] == "weakly_supported"
+                or row["confidence"] == "low"
+                or not row.get("source_date")
+                for row in self.evidence_ledger_entries
+            ),
             average_latency_ms=None,
             notes=[
                 "test repository",
+                f"Evidence quality risk rows: {sum(row['status'] == 'weakly_supported' or row['confidence'] == 'low' or not row.get('source_date') for row in self.evidence_ledger_entries)} persisted Evidence Ledger entrie(s) have weak support, low confidence, or missing source date metadata. These are operations metadata, not final truth adjudication.",
                 f"Semantic retrieval runs recorded: {sum(row['strategy'] == 'semantic-cosine' or (row.get('metadata_json') or {}).get('retrieval_mode') == 'semantic_persisted' for row in self.retrieval_runs)}; caller-provided embedding row(s): {sum((row.get('metadata_json') or {}).get('embedding_source') == 'caller_provided_vector' for row in self.chunk_embeddings)}. These are operational counts, not semantic retrieval quality evidence.",
                 f"No-text PDF failure candidates: {sum(row.get('source_type') == 'pdf' and row.get('profile_json', {}).get('failure_case_candidate', {}).get('failure_type') == 'pdf_no_extractable_text' for row in self.documents)}.",
                 f"Encrypted PDF failure candidates: {sum(row.get('source_type') == 'pdf' and row.get('profile_json', {}).get('failure_case_candidate', {}).get('failure_type') == 'pdf_encrypted_requires_password' for row in self.documents)}. This is metadata-derived from document profile_json, not robust PDF extraction and does not prove decryption.",
@@ -6152,6 +6169,46 @@ def test_ops_summary_counts_persisted_evidence_ledger_boundaries():
     summary = client.get("/ops/summary").json()
     assert summary["unsupported_claim_count"] == 1
     assert summary["contradiction_count"] == 1
+
+
+def test_ops_summary_and_dashboard_surface_evidence_quality_risks():
+    client = make_client()
+
+    client.post(
+        "/evidence-ledgers",
+        json={
+            "question": "Which segment had enterprise demand growth?",
+            "retrieval_results": [
+                {
+                    "source_id": "doc-weak",
+                    "source_type": "markdown",
+                    "chunk_strategy": "heading-aware",
+                    "chunk_index": 0,
+                    "text": "Enterprise demand showed some growth signals.",
+                    "score": 0.35,
+                    "matched_terms": ["enterprise", "demand"],
+                    "metadata": {},
+                }
+            ],
+        },
+    )
+
+    summary = client.get("/ops/summary").json()
+    assert summary["weakly_supported_evidence_count"] == 1
+    assert summary["low_confidence_evidence_count"] == 1
+    assert summary["missing_source_date_evidence_count"] == 1
+    assert summary["evidence_quality_risk_count"] == 1
+    assert any(
+        "Evidence quality risk rows: 1" in note for note in summary["notes"]
+    )
+
+    dashboard = client.get("/ops/dashboard")
+    assert dashboard.status_code == 200
+    assert "Weak Evidence" in dashboard.text
+    assert "Low Confidence Evidence" in dashboard.text
+    assert "Missing Source Dates" in dashboard.text
+    assert "Evidence quality risk counts are operations metadata" in dashboard.text
+    assert 'href="/evidence-ledgers?status=weakly_supported"' in dashboard.text
 
 
 def test_noise_gate_records_can_be_persisted_and_listed():

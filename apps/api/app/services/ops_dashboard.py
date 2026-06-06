@@ -77,6 +77,10 @@ def render_ops_dashboard(
       {_metric("Allowed Downloads", summary.allowed_download_event_count)}
       {_metric("Unsupported Claims", summary.unsupported_claim_count)}
       {_metric("Contradictions", summary.contradiction_count)}
+      {_metric("Weak Evidence", summary.weakly_supported_evidence_count)}
+      {_metric("Low Confidence Evidence", summary.low_confidence_evidence_count)}
+      {_metric("Missing Source Dates", summary.missing_source_date_evidence_count)}
+      {_metric("Evidence Quality Risk Rows", summary.evidence_quality_risk_count)}
       {_metric("Average Latency", summary.average_latency_ms if summary.average_latency_ms is not None else "n/a")}
     </div>
   </section>
@@ -128,6 +132,7 @@ def render_ops_dashboard(
       <li>Dashboard links are GET-only inspection routes.</li>
       <li>POST-only actions render as method cues, not anchors.</li>
       <li>Unsupported claim and contradiction counts come from persisted Evidence Ledger entries.</li>
+      <li>Evidence quality risk counts are operations metadata from persisted Evidence Ledger entries, not final truth adjudication.</li>
       <li>Semantic retrieval and caller-provided embedding metrics are operational counts, not semantic retrieval quality evidence.</li>
       {_embedding_provider_boundary_item(summary)}
       <li>No-text PDF handoff counts are metadata-derived from document profile_json. This is metadata-derived from document profile_json and does not prove robust PDF extraction, OCR, table extraction, or layout fidelity.</li>
@@ -395,6 +400,7 @@ def _trace_filter_links(
 ) -> str:
     links = [
         _link("/evidence-ledgers?status=unsupported", "Evidence: unsupported"),
+        _link("/evidence-ledgers?status=weakly_supported", "Evidence: weakly supported"),
         _link("/evidence-ledgers?status=contradicted", "Evidence: contradicted"),
         _link("/noise-gates?decision=blocked", "Gate: blocked"),
         _link("/noise-gates?decision=needs_revision", "Gate: needs_revision"),
