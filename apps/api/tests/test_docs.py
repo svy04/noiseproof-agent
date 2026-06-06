@@ -30925,3 +30925,60 @@ def test_external_review_issue_body_encrypted_pdf_handoff_ops_route_refresh_is_r
         "docs/review/external-review-issue-body-encrypted-pdf-handoff-ops-route-refresh.md"
         in portfolio
     )
+
+
+def test_external_feedback_current_state_encrypted_pdf_handoff_ops_issue_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-encrypted-pdf-handoff-ops-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state Encrypted PDF Handoff Ops Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state encrypted PDF handoff ops issue verification v0"
+        in content
+    )
+    assert "status: pending" in content
+    assert "candidate_count: 0" in content
+    assert "screened_comment_count: 1" in content
+    assert "owner_comment_count: 1" in content
+    assert "reason: self_authored_comment" in content
+    assert "does_not_close_gate: true" in content
+    assert "has_encrypted_handoff_ops_route: true" in content
+    assert "fdcd6e02ac8dce2d2c8ed4d3ffcd7c03a799b24b" in content
+    assert "CI run 27057951344: success" in content
+    assert "External Feedback Screen run 27057951352: success" in content
+    assert "CI job_id -> 79865647651" in content
+    assert "External Feedback Screen job_id -> 79865647668" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state encrypted PDF handoff ops issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 680 - External Feedback Current-state Encrypted PDF Handoff Ops Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state encrypted PDF handoff ops issue verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-encrypted-pdf-handoff-ops-issue-verification.md"
+        in portfolio
+    )

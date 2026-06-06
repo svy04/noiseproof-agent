@@ -23383,6 +23383,55 @@ Boundary: owner-authored issue body routing only; not external reviewer feedback
 
 Next gate: external feedback current-state encrypted PDF handoff ops issue verification v0, remote verification for this issue-body route refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 680 - External Feedback Current-state Encrypted PDF Handoff Ops Issue Verification v0
+
+Status: implemented.
+
+Purpose: screen issue #1 after the encrypted PDF handoff ops issue-body refresh and record that the external reviewer feedback gate remains pending unless a qualifying outside comment exists.
+
+Implemented artifacts:
+
+```text
+external feedback current-state encrypted PDF handoff ops issue verification v0
+docs/review/external-feedback-current-state-encrypted-pdf-handoff-ops-issue-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Issue screen markers:
+
+```text
+updatedAt: 2026-06-06T08:51:18Z
+status: pending
+candidate_count: 0
+screened_comment_count: 1
+owner_comment_count: 1
+classification: non_qualifying
+reason: self_authored_comment
+does_not_close_gate: true
+has_encrypted_handoff_ops_route: true
+```
+
+Remote workflow markers:
+
+```text
+head_sha -> fdcd6e02ac8dce2d2c8ed4d3ffcd7c03a799b24b
+CI run 27057951344: success
+External Feedback Screen run 27057951352: success
+CI job_id -> 79865647651
+External Feedback Screen job_id -> 79865647668
+Run API smoke tests -> success
+Screen issue comments -> success
+Draft manual acceptance records -> success
+```
+
+Boundary: current-state issue screening and remote workflow sanity check only; not external reviewer feedback, not customer validation, not Braincrew acceptance, not hosted deployment evidence, not hosted runtime product proof, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
 ### Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0
 
 Status: implemented.
