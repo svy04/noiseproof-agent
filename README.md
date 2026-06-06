@@ -260,6 +260,7 @@ Historical latest-marker compatibility: Workflow proof bundle markdown export v0
 Historical latest-marker compatibility: Workflow proof bundle markdown export runtime smoke v0: implemented
 Historical latest-marker compatibility: External-reader proof path workflow markdown runtime route refresh v0: implemented
 Historical latest-marker compatibility: External-reader proof path workflow markdown runtime route refresh remote verification v0: implemented
+Historical latest-marker compatibility: External review issue body workflow markdown runtime route refresh v0: implemented
 Historical latest-marker compatibility: Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown stage input links runtime smoke v0.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown source provenance export runtime smoke v0.
@@ -1018,6 +1019,8 @@ Workflow proof bundle markdown export runtime smoke v0: implemented. Boundary: l
 External-reader proof path workflow markdown runtime route refresh v0: implemented. Boundary: `docs/review/external-reader-proof-path.md` and the README External Reviewer Fast Path now start first-pass readers with `docs/review/workflow-proof-bundle-markdown-export-runtime-smoke.md`, while preserving workflow checklist dashboard runtime and report markdown inspection paths as predecessor proof. This is reader-route alignment only, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
 
 External-reader proof path workflow markdown runtime route refresh remote verification v0: implemented. Boundary: pushed route-refresh commit `2c5fd10a990887cd6baeb288aa7c83918dc303ba` passed CI run `27055679959` and External Feedback Screen run `27055679968`; this is remote workflow verification only, not the reader-route refresh itself, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
+
+External review issue body workflow markdown runtime route refresh v0: implemented. Boundary: issue #1 now points `Latest Proof To Inspect` to `docs/review/workflow-proof-bundle-markdown-export-runtime-smoke.md`, the workflow markdown route refresh, and its remote verification; this is owner-authored issue routing only, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
 
 External reviewer workflow proof bundle dashboard runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md` and `docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, new lineage storage, or product-complete.
 
