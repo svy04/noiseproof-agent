@@ -23855,3 +23855,41 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the reader-route refresh itself, not hosted deployment evidence, not external reviewer feedback, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not an LLM call, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 652 - External Review Issue Body Report Markdown Local Inspection Route Refresh v0
+
+Status: implemented.
+
+Purpose: refresh the live public issue #1 body so external reviewers reach the report markdown local inspection paths proof chain from the feedback request.
+
+Implemented artifacts:
+
+```text
+external review issue body report markdown local inspection route refresh v0
+docs/review/external-review-issue-body-report-markdown-local-inspection-route-refresh.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+docs/review/external-reader-proof-path.md
+apps/api/tests/test_docs.py
+```
+
+Live issue markers:
+
+```text
+updatedAt: 2026-06-06T04:31:28Z
+comment_count: 1
+starts_with_request: true
+first_codepoint: 35
+body_length: 8231
+has_report_markdown_local_inspection_paths_proof: true
+has_report_markdown_local_inspection_runtime_smoke: true
+has_report_markdown_local_inspection_remote_verification: true
+has_report_markdown_local_inspection_route_refresh_record: true
+old_gate_report_latest_label_present: false
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
+
+Next gate: external feedback current-state report markdown local inspection issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
