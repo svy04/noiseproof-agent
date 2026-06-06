@@ -33191,6 +33191,54 @@ def test_pdf_binary_fixture_smoke_preview_runtime_smoke_v0_is_recorded():
     assert "PDF binary fixture smoke preview runtime smoke" in portfolio
 
 
+def test_pdf_binary_fixture_smoke_preview_runtime_smoke_remote_verification_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke-remote-verification.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "PDF Binary Fixture Smoke Preview Runtime Smoke Remote Verification" in content
+    assert "PDF binary fixture smoke preview runtime smoke remote verification v0" in content
+    assert "3ea288eef2f35d000db693ee003a509f156e8826" in content
+    assert "CI run `27073528326`" in content
+    assert "External Feedback Screen run `27073528323`" in content
+    assert "CI job_id -> 79906829312" in content
+    assert "External Feedback Screen job_id -> 79906829325" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke.md" in content
+    assert "GET /documents/pdf-binary-fixture-smoke-preview" in content
+    assert "not the local runtime smoke itself" in content
+    assert "not new runtime evidence" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "PDF binary fixture smoke preview runtime smoke remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 784 - PDF Binary Fixture Smoke Preview Runtime Smoke Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 784 adds PDF binary fixture smoke preview runtime smoke remote verification v0"
+        in runbook
+    )
+    assert "PDF binary fixture smoke preview runtime smoke remote verification" in portfolio
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

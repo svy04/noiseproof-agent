@@ -43,6 +43,35 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 784:
+
+```text
+latest_remote_verification_gate: PDF binary fixture smoke preview runtime smoke remote verification v0
+latest_remote_verification_artifact: docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke-remote-verification.md
+latest_verified_head_sha: 3ea288eef2f35d000db693ee003a509f156e8826
+latest_ci_run: 27073528326
+latest_ci_job_id: 79906829312
+latest_external_feedback_screen_run: 27073528323
+latest_external_feedback_screen_job_id: 79906829325
+latest_runtime_proof_gate: PDF binary fixture smoke preview runtime smoke v0
+latest_runtime_proof_artifact: docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke.md
+latest_api_surface: GET /documents/pdf-binary-fixture-smoke-preview
+fixture_source_boundary: repo_synthetic_binary_fixtures_only_no_arbitrary_upload
+persistence_boundary: preview_only_not_persisted
+claim_boundary: binary_fixture_smoke_only_not_robust_pdf_extraction
+fixture_count: 2
+passed_count: 2
+failed_count: 0
+robust_pdf_extraction: not_implemented
+default_pdf_parser_table_extraction_performed: still_false
+table_extraction_evidence_for_arbitrary_market_pdfs: not_claimed
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not default PdfParser table extraction; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 783:
 
 ```text
@@ -3606,6 +3635,44 @@ agent_run_count=1
 Boundary: local runtime proof for repo synthetic binary fixture smoke preview only; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: remote verification for this runtime-smoke proof after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 784 - PDF Binary Fixture Smoke Preview Runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 783 PDF binary fixture smoke preview runtime-smoke proof passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+PDF binary fixture smoke preview runtime smoke remote verification v0
+docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke-remote-verification.md
+docs/review/pdf-binary-fixture-smoke-preview-runtime-smoke.md
+GET /documents/pdf-binary-fixture-smoke-preview
+apps/api/app/services/pdf_binary_fixture_smoke_preview.py
+apps/api/app/schemas.py
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 3ea288eef2f35d000db693ee003a509f156e8826
+CI run `27073528326` -> success
+External Feedback Screen run `27073528323` -> success
+CI job_id -> 79906829312
+External Feedback Screen job_id -> 79906829325
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: external-reader proof path route refresh if this API/runtime proof should become a first-pass reviewer route, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
