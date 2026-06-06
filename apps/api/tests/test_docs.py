@@ -30163,3 +30163,74 @@ def test_external_reader_proof_path_workflow_markdown_runtime_route_refresh_is_r
         "docs/review/external-reader-proof-path-workflow-markdown-runtime-route-refresh.md"
         in portfolio
     )
+
+
+def test_external_reader_proof_path_workflow_markdown_runtime_route_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-reader-proof-path-workflow-markdown-runtime-route-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External-reader Proof Path Workflow Markdown Runtime Route Refresh Remote Verification"
+        in content
+    )
+    assert (
+        "external-reader proof path workflow markdown runtime route refresh remote verification v0"
+        in content
+    )
+    assert "2c5fd10a990887cd6baeb288aa7c83918dc303ba" in content
+    assert "CI run 27055679959: success" in content
+    assert "External Feedback Screen run 27055679968: success" in content
+    assert "CI job_id -> 79859501424" in content
+    assert "External Feedback Screen job_id -> 79859501381" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-reader-proof-path-workflow-markdown-runtime-route-refresh.md"
+        in content
+    )
+    assert "not the reader-route refresh itself" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not report quality evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest recorded remote verification state: the external-reader workflow markdown route refresh commit `2c5fd10a990887cd6baeb288aa7c83918dc303ba` passed CI run `27055679959` and External Feedback Screen run `27055679968`"
+        in readme
+    )
+    assert (
+        "External-reader proof path workflow markdown runtime route refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 668 - External-reader Proof Path Workflow Markdown Runtime Route Refresh Remote Verification v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 667 - External-reader Proof Path Workflow Markdown Runtime Route Refresh v0"
+    ) < goal.index(
+        "Phase 668 - External-reader Proof Path Workflow Markdown Runtime Route Refresh Remote Verification v0"
+    )
+    assert (
+        "external-reader proof path workflow markdown runtime route refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reader-proof-path-workflow-markdown-runtime-route-refresh-remote-verification.md"
+        in portfolio
+    )
