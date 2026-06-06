@@ -14,7 +14,12 @@ from packages.ingestion.pdf_quality.fixture import (
     load_pdf_extraction_quality_fixture,
     summarize_pdf_extraction_quality_fixture,
 )
+from packages.ingestion.pdf_quality.observation import (
+    pdf_parse_result_to_quality_observation,
+)
 from packages.ingestion.pdf_quality.report import build_pdf_extraction_quality_report
+from packages.ingestion.parsers.pdf import PdfParser
+from packages.ingestion.types import ParseInput
 
 
 def test_pdf_extraction_quality_fixture_loader_keeps_boundaries_visible():
@@ -239,3 +244,76 @@ def test_pdf_extraction_quality_report_command_fails_with_boundary_for_bad_obser
     assert "not robust PDF extraction evidence" in result.stderr
     assert "Traceback" not in result.stderr
     assert not output_path.exists()
+
+
+def test_pdf_quality_observation_smoke_uses_pymupdf_digital_text_without_robust_claim():
+    parse_result = PdfParser().parse(
+        ParseInput(
+            source_type="pdf",
+            content_bytes=_minimal_pdf_bytes(
+                "company revenue increased and source date visible"
+            ),
+            filename="born-digital-smoke.pdf",
+        )
+    )
+
+    observation = pdf_parse_result_to_quality_observation(parse_result)
+
+    assert observation["parser"] == "pdf-pymupdf"
+    assert observation["digital_pdf_text_extraction"] is True
+    assert observation["robust_pdf_extraction"] is False
+    assert observation["failure_case_candidate"] is None
+    assert observation["extracted_page_count"] == 1
+    assert observation["page_count"] == 1
+
+    fixture = load_pdf_extraction_quality_fixture(
+        REPO_ROOT / "examples/pdf-extraction-quality"
+    )
+    result = evaluate_pdf_extraction_quality(
+        fixture,
+        {"born_digital_text": observation},
+    )
+
+    assert result["claim_boundary"] == (
+        "manifest_metric_only_not_robust_pdf_extraction"
+    )
+    assert result["aggregate"]["observed_fixture_count"] == 1
+    assert result["aggregate"]["not_evaluated_fixture_count"] == 6
+    assert result["per_fixture"]["born_digital_text"]["expected_span_recall"] == 1.0
+    assert "not robust PDF extraction evidence" in result["boundary_notes"]
+
+
+def _minimal_pdf_bytes(text: str) -> bytes:
+    escaped_text = text.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
+    content_stream = f"BT /F1 12 Tf 72 720 Td ({escaped_text}) Tj ET\n".encode("ascii")
+    objects = [
+        b"<< /Type /Catalog /Pages 2 0 R >>",
+        b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+        (
+            b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] "
+            b"/Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>"
+        ),
+        b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+        b"<< /Length %d >>\nstream\n" % len(content_stream)
+        + content_stream
+        + b"endstream",
+    ]
+    output = bytearray(b"%PDF-1.4\n")
+    offsets = [0]
+    for index, body in enumerate(objects, start=1):
+        offsets.append(len(output))
+        output.extend(f"{index} 0 obj\n".encode("ascii"))
+        output.extend(body)
+        output.extend(b"\nendobj\n")
+    xref_offset = len(output)
+    output.extend(f"xref\n0 {len(objects) + 1}\n".encode("ascii"))
+    output.extend(b"0000000000 65535 f \n")
+    for offset in offsets[1:]:
+        output.extend(f"{offset:010d} 00000 n \n".encode("ascii"))
+    output.extend(
+        (
+            f"trailer\n<< /Size {len(objects) + 1} /Root 1 0 R >>\n"
+            f"startxref\n{xref_offset}\n%%EOF\n"
+        ).encode("ascii")
+    )
+    return bytes(output)

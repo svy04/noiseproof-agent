@@ -200,6 +200,29 @@ Boundary: report reproducibility plumbing only; not robust PDF extraction implem
 
 Next gate: PyMuPDF digital-text observation smoke feeding actual parser output into the evaluator, still without robust extraction claims.
 
+### Phase 707 - PDF Extraction Quality Digital-text Observation Smoke v0
+
+Status: implemented.
+
+Purpose: connect actual `PdfParser` PyMuPDF digital-text output to the PDF quality evaluator through a small observation adapter, without expanding into OCR, table extraction, or robust PDF claims.
+
+Implemented artifacts:
+
+```text
+PDF extraction quality digital-text observation smoke v0
+packages/ingestion/pdf_quality/observation.py
+docs/review/pdf-extraction-quality-digital-text-observation-smoke.md
+apps/api/tests/test_pdf_extraction_quality.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Boundary: local deterministic parser smoke only; not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not hosted deployment evidence, and not product-complete.
+
+Next gate: committed local smoke report for digital-text parser observations, or table-candidate observation smoke while preserving the no-table-extraction claim.
+
 Accepted state as of Phase 403:
 
 ```text
