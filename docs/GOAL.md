@@ -23474,6 +23474,41 @@ Boundary: local Docker PostgreSQL plus live FastAPI runtime evidence only; not a
 
 Next gate: remote verification for this runtime-smoke proof after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 682 - Uploaded PDF Encrypted Failure Candidate Manual Handoff Runtime Smoke Remote Verification v0
+
+Status: verified.
+
+Purpose: record remote GitHub Actions evidence that the uploaded PDF encrypted failure candidate manual handoff runtime-smoke proof and next-action preservation code gate passed CI and External Feedback Screen after push.
+
+Implemented artifacts:
+
+```text
+uploaded PDF encrypted failure candidate manual handoff runtime smoke remote verification v0
+docs/review/uploaded-pdf-encrypted-failure-candidate-manual-handoff-runtime-smoke-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote markers:
+
+```text
+head_sha -> 2bafa95d3d282337cd442438018c4736883d8c92
+CI run 27058294029: success
+External Feedback Screen run 27058294024: success
+CI job_id -> 79866566812
+External Feedback Screen job_id -> 79866566813
+Run API smoke tests -> success
+Screen issue comments -> success
+Draft manual acceptance records -> success
+```
+
+Boundary: remote workflow verification only; not the local runtime smoke itself, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not hosted runtime product proof, not automatic failure-case creation, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, issue-body route refresh if this focused proof should be added to issue #1, or another source-first product gate selected from the current repository state.
+
 ### Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0
 
 Status: implemented.
