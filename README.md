@@ -457,6 +457,7 @@ Latest external feedback state remote verification: External feedback current-st
 PDF binary fixture smoke preview response contract v0: implemented.
 PDF binary fixture smoke preview response contract runtime smoke v0: verified.
 PDF binary fixture smoke preview response contract runtime smoke remote verification v0: implemented.
+Default PdfParser table adapter metadata v0: implemented.
 
 Historical latest-marker compatibility: Latest proof-boundary marker: Architecture ClamAV proof boundary refresh v0.
 Historical latest-marker compatibility: Latest external-feedback state: pending after workflow failure auto-created dashboard runtime issue verification; candidate_count=0; self-authored comment only.

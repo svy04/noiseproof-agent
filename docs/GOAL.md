@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 793:
+
+```text
+latest_product_gate: Default PdfParser table adapter metadata v0
+latest_product_artifact: docs/review/default-pdf-parser-table-adapter-metadata.md
+latest_code_surface: packages/ingestion/parsers/pdf.py
+latest_source_first_basis: PyMuPDF Page.find_tables() / Table.extract()
+default_pdf_parser_table_adapter_metadata: true
+table_adapter_engine: pymupdf-find_tables-extract
+table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed_claim: remains_false_on_parser_metadata
+robust_pdf_extraction: false
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: adapter metadata visibility only; not robust PDF extraction evidence; not OCR; not layout fidelity; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 792:
 
 ```text
@@ -4174,6 +4193,42 @@ screen -> success
 Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 793 - Default PdfParser Table Adapter Metadata v0
+
+Status: implemented.
+
+Purpose: expose the existing PyMuPDF table-adapter output from the default `PdfParser` metadata for digital PDFs where table candidates are detected, while keeping the parser's robust extraction and default table extraction claims bounded.
+
+Implemented artifacts:
+
+```text
+Default PdfParser table adapter metadata v0
+docs/review/default-pdf-parser-table-adapter-metadata.md
+packages/ingestion/parsers/pdf.py
+packages/ingestion/pdf_quality/table_adapter.py
+apps/api/tests/test_pdf_extraction_quality.py
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Observed deterministic markers:
+
+```text
+default_pdf_parser_table_adapter_metadata -> true
+table_adapter_boundary
+table_adapter.table_extraction_engine -> pymupdf-find_tables-extract
+table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed remains false
+robust_pdf_extraction -> false
+```
+
+Boundary: metadata visibility for the existing adapter output only; not robust PDF extraction evidence; not robust PDF extraction implementation; not OCR implementation; not layout fidelity evidence; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: route/runtime proof that uploaded PDF handoff surfaces preserve this default parser table-adapter metadata, remote verification after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

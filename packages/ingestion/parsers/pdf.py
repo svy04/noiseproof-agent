@@ -1,6 +1,7 @@
 from typing import Any
 
 from packages.ingestion.parsers.base import empty_content_failure
+from packages.ingestion.pdf_quality.table_adapter import extract_pdf_tables_with_pymupdf
 from packages.ingestion.types import FailureCaseCandidate, ParseInput, ParseResult
 
 PDF_FALLBACK_WARNING = "PDF parser is currently a text-only fallback; robust PDF extraction is not claimed."
@@ -207,6 +208,15 @@ def _extract_pdf_text(
             "table_candidate_shapes": table_candidate_shapes,
             "table_extraction_performed": False,
         }
+        if table_candidate_count > 0:
+            table_adapter = extract_pdf_tables_with_pymupdf(content)
+            metadata["default_pdf_parser_table_adapter_metadata"] = True
+            metadata["table_adapter"] = table_adapter
+            metadata["table_adapter_boundary"] = table_adapter["boundary"]
+            metadata["table_adapter_extraction_performed"] = bool(
+                table_adapter["table_extraction_performed"]
+            )
+            warnings.extend(table_adapter["warnings"])
         return "\n".join(text for text in page_text if text), metadata, warnings, None
     except Exception:
         return None

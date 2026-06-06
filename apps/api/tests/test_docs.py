@@ -33732,6 +33732,41 @@ def test_pdf_binary_fixture_smoke_preview_response_contract_runtime_smoke_remote
     )
 
 
+def test_default_pdf_parser_table_adapter_metadata_v0_is_recorded():
+    review_path = REPO_ROOT / "docs/review/default-pdf-parser-table-adapter-metadata.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Default PdfParser Table Adapter Metadata" in content
+    assert "default PdfParser table adapter metadata v0" in content
+    assert "https://pymupdf.readthedocs.io/en/latest/page.html" in content
+    assert "https://pymupdf.readthedocs.io/en/latest/the-basics.html" in content
+    assert "Page.find_tables()" in content
+    assert "Table.extract()" in content
+    assert "packages/ingestion/parsers/pdf.py" in content
+    assert "packages/ingestion/pdf_quality/table_adapter.py" in content
+    assert "default_pdf_parser_table_adapter_metadata" in content
+    assert "table_adapter_boundary" in content
+    assert "pymupdf-find_tables-extract" in content
+    assert "table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]" in content
+    assert "table_extraction_performed remains false" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not OCR implementation" in content
+    assert "not table extraction evidence for arbitrary market PDFs" in content
+    assert "not product-complete" in content
+    assert "Default PdfParser table adapter metadata v0: implemented" in readme
+    assert "Phase 793 - Default PdfParser Table Adapter Metadata v0" in goal
+    assert "Phase 793 adds default PdfParser table adapter metadata v0" in runbook
+    assert "Default PdfParser table adapter metadata" in portfolio
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

@@ -537,6 +537,37 @@ def test_pdf_quality_observation_smoke_keeps_table_candidates_out_of_table_extra
     assert "not table extraction evidence" in result["boundary_notes"]
 
 
+def test_pdf_parser_exposes_default_table_adapter_metadata_without_robust_claim():
+    parse_result = PdfParser().parse(
+        ParseInput(
+            source_type="pdf",
+            content_bytes=_table_pdf_bytes(),
+            filename="default-parser-table-adapter-smoke.pdf",
+        )
+    )
+
+    metadata = parse_result.metadata
+    table_adapter = metadata["table_adapter"]
+
+    assert parse_result.parser == "pdf-pymupdf"
+    assert metadata["robust_pdf_extraction"] is False
+    assert metadata["table_candidate_count"] > 0
+    assert metadata["table_extraction_performed"] is False
+    assert table_adapter["table_extraction_engine"] == "pymupdf-find_tables-extract"
+    assert table_adapter["table_extraction_performed"] is True
+    assert table_adapter["robust_pdf_extraction"] is False
+    assert table_adapter["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert table_adapter["table_rows_extracted"] == 2
+    assert table_adapter["table_cell_count"] == 4
+    assert "adapter output only" in table_adapter["boundary"]
+    assert metadata["default_pdf_parser_table_adapter_metadata"] is True
+    assert metadata["table_adapter_boundary"] == table_adapter["boundary"]
+    assert any("adapter output only" in warning for warning in parse_result.warnings)
+
+
 def test_pdf_quality_observation_smoke_preserves_no_text_failure_candidate():
     parse_result = PdfParser().parse(
         ParseInput(
