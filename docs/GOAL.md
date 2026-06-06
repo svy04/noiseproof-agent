@@ -43,6 +43,34 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 791:
+
+```text
+latest_runtime_proof_gate: PDF binary fixture smoke preview response contract runtime smoke v0
+latest_runtime_proof_artifact: docs/review/pdf-binary-fixture-smoke-preview-response-contract-runtime-smoke.md
+latest_product_gate: PDF binary fixture smoke preview response contract v0
+latest_product_artifact: docs/review/pdf-binary-fixture-smoke-preview-response-contract.md
+latest_api_surface: GET /documents/pdf-binary-fixture-smoke-preview
+runtime_compose_project: noiseproof-phase791
+runtime_postgres_port: 55458
+runtime_fastapi_url: http://127.0.0.1:8119
+runtime_health_status: 200
+runtime_preview_status: 200
+response_contract: pdf_binary_fixture_smoke_preview_response_contract_v0
+truth_scope: repo_synthetic_binary_fixture_smoke_only
+reviewer_summary_present: true
+response_contract_present: true
+document_count_delta: 0
+agent_run_count_delta: 1
+failure_case_count_delta: 0
+table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: local runtime proof for response contract only; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 790:
 
 ```text
@@ -4049,6 +4077,45 @@ table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]
 Boundary: response contract clarity only; not new runtime evidence; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: local Docker/FastAPI runtime smoke for this response contract if runtime proof is needed, remote verification after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 791 - PDF Binary Fixture Smoke Preview Response Contract Runtime Smoke v0
+
+Status: verified.
+
+Purpose: verify through a live local Docker PostgreSQL plus FastAPI HTTP path that the Phase 790 `reviewer_summary` and `response_contract` fields are present on `GET /documents/pdf-binary-fixture-smoke-preview`.
+
+Implemented artifacts:
+
+```text
+PDF binary fixture smoke preview response contract runtime smoke v0
+docs/review/pdf-binary-fixture-smoke-preview-response-contract-runtime-smoke.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Runtime markers:
+
+```text
+Compose project: noiseproof-phase791
+POSTGRES_PORT=55458
+FastAPI URL: http://127.0.0.1:8119
+GET /health -> 200
+GET /documents/pdf-binary-fixture-smoke-preview -> 200
+reviewer_summary.api_surface=GET /documents/pdf-binary-fixture-smoke-preview
+response_contract.contract=pdf_binary_fixture_smoke_preview_response_contract_v0
+response_contract.truth_scope=repo_synthetic_binary_fixture_smoke_only
+document_count_delta=0
+agent_run_count_after=1
+failure_case_count_after=0
+table_adapter_rows=[[Segment, Growth], [Enterprise, 12%]]
+```
+
+Boundary: local runtime evidence only; not arbitrary uploaded-file behavior; not document persistence evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: remote verification after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

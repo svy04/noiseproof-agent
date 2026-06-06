@@ -8,6 +8,8 @@ Fast path: `docs/review/external-reader-proof-path.md` is the 5-minute path for 
 
 Boundary: this fast path is not hosted deployment evidence, not automatic failure-case creation beyond the local v0 workflow failure path, and not complete workflow failure causality.
 
+PDF binary fixture smoke preview response contract runtime smoke: `docs/review/pdf-binary-fixture-smoke-preview-response-contract-runtime-smoke.md` records local Docker PostgreSQL plus live FastAPI HTTP proof that `GET /documents/pdf-binary-fixture-smoke-preview` returns the Phase 790 `reviewer_summary` and `response_contract` fields, including `pdf_binary_fixture_smoke_preview_response_contract_v0`, `truth_scope=repo_synthetic_binary_fixture_smoke_only`, `document_count_delta=0`, and `table_adapter_rows=[[Segment, Growth], [Enterprise, 12%]]`. It is local runtime evidence only, not arbitrary uploaded-file behavior, robust PDF extraction evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Public portfolio surface: `docs/review/portfolio-site-proof-artifact-route-verification.md` records that the live portfolio proof artifact points back to this repo without converting that route into NoiseProof hosted deployment evidence.
 
 Latest public proof route refresh: `docs/review/external-reviewer-live-proof-route-refresh.md` points reviewers to `https://svy04.github.io/proof-artifacts/noiseproof-live-route-verification-2026-06-01/`. It is not external reviewer feedback and not NoiseProof hosted deployment evidence.

@@ -33602,6 +33602,77 @@ def test_pdf_binary_fixture_smoke_preview_response_contract_v0_is_recorded():
     assert "PDF binary fixture smoke preview response contract" in portfolio
 
 
+def test_pdf_binary_fixture_smoke_preview_response_contract_runtime_smoke_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/pdf-binary-fixture-smoke-preview-response-contract-runtime-smoke.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "PDF Binary Fixture Smoke Preview Response Contract Runtime Smoke" in content
+    assert "pdf binary fixture smoke preview response contract runtime smoke v0" in content
+    assert "Compose project: noiseproof-phase791" in content
+    assert "POSTGRES_PORT=55458" in content
+    assert "FastAPI URL: http://127.0.0.1:8119" in content
+    assert "GET /health -> 200" in content
+    assert "GET /documents/pdf-binary-fixture-smoke-preview -> 200" in content
+    assert (
+        "reviewer_summary.api_surface=GET /documents/pdf-binary-fixture-smoke-preview"
+        in content
+    )
+    assert (
+        "reviewer_summary.fixture_source_boundary=repo_synthetic_binary_fixtures_only_no_arbitrary_upload"
+        in content
+    )
+    assert "reviewer_summary.persistence_boundary=preview_only_not_persisted" in content
+    assert (
+        "reviewer_summary.claim_boundary=binary_fixture_smoke_only_not_robust_pdf_extraction"
+        in content
+    )
+    assert (
+        "response_contract.contract=pdf_binary_fixture_smoke_preview_response_contract_v0"
+        in content
+    )
+    assert (
+        "response_contract.truth_scope=repo_synthetic_binary_fixture_smoke_only"
+        in content
+    )
+    assert "response_contract.not_claimed includes robust_pdf_extraction" in content
+    assert "document_count_delta=0" in content
+    assert "table_adapter_rows=[[Segment, Growth], [Enterprise, 12%]]" in content
+    assert "not arbitrary uploaded-file behavior" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "PDF binary fixture smoke preview response contract runtime smoke v0: verified"
+        in readme
+    )
+    assert (
+        "Phase 791 - PDF Binary Fixture Smoke Preview Response Contract Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "Phase 791 adds PDF binary fixture smoke preview response contract runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "PDF binary fixture smoke preview response contract runtime smoke"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
