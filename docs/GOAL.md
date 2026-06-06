@@ -43,6 +43,42 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 765:
+
+```text
+latest_reviewer_route: upload PDF quality preview coverage summary proof chain plus Docker environment runtime proof
+latest_pdf_route_artifacts:
+  - docs/review/upload-pdf-quality-preview-api.md
+  - docs/review/upload-pdf-quality-preview-summary.md
+  - docs/review/upload-pdf-quality-preview-coverage-summary.md
+  - docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md
+  - docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md
+  - docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md
+latest_environment_route: Docker environment runtime proof
+latest_environment_artifacts:
+  - docs/review/docker-environment-current-runtime-check.md
+  - docs/review/docker-environment-current-runtime-check-remote-verification.md
+  - docs/review/external-reader-proof-path-docker-environment-route-refresh.md
+  - docs/review/external-reader-proof-path-docker-environment-route-refresh-remote-verification.md
+Docker version 29.4.3
+noiseproof-agent-api-1
+noiseproof-agent-db-1
+noiseproof-agent-clamav
+GET /health -> 200
+GET /ops/summary -> 200
+"document_count": 28
+"agent_run_count": 89
+"failure_case_count": 11
+latest_external_feedback_state: pending after Docker environment route refresh
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+robust_pdf_extraction: not_implemented
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: not hosted deployment evidence; not production readiness; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 759:
 
 ```text
@@ -2286,6 +2322,45 @@ docs/review/external-reader-proof-path-docker-environment-route-refresh-remote-v
 Boundary: remote workflow verification only; not the route refresh itself, not new runtime evidence, not a live issue body edit, not hosted deployment evidence, not production readiness, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
+### Phase 765 - GOAL Current-state Docker Environment Route Refresh v0
+
+Status: implemented.
+
+Purpose: refresh the first-pass `docs/GOAL.md` orientation so future agents start from the current upload PDF coverage-summary proof route plus the Docker environment runtime proof route.
+
+Implemented artifacts:
+
+```text
+goal current-state Docker environment route refresh v0
+docs/review/goal-current-state-docker-environment-route-refresh.md
+docs/GOAL.md
+apps/api/tests/test_docs.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Current overlay markers:
+
+```text
+latest_reviewer_route: upload PDF quality preview coverage summary proof chain plus Docker environment runtime proof
+latest_environment_route: Docker environment runtime proof
+docs/review/docker-environment-current-runtime-check.md
+docs/review/docker-environment-current-runtime-check-remote-verification.md
+docs/review/external-reader-proof-path-docker-environment-route-refresh.md
+docs/review/external-reader-proof-path-docker-environment-route-refresh-remote-verification.md
+Docker version 29.4.3
+GET /health -> 200
+GET /ops/summary -> 200
+latest_external_feedback_state: pending after Docker environment route refresh
+production_readiness: not_claimed
+product_complete: false
+```
+
+Boundary: GOAL current-state navigation hygiene only; not new runtime evidence, not the Docker environment check itself, not the reviewer-route refresh itself, not hosted deployment evidence, not production readiness, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: remote verification for this GOAL overlay refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

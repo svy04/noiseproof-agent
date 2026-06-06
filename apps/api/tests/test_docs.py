@@ -35219,6 +35219,74 @@ def test_external_reader_proof_path_docker_environment_route_refresh_remote_veri
     )
 
 
+def test_goal_current_state_docker_environment_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT / "docs/review/goal-current-state-docker-environment-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "GOAL Current-state Docker Environment Route Refresh" in content
+    assert "goal current-state Docker environment route refresh v0" in content
+
+    required_markers = [
+        "Current navigation overlay as of Phase 765",
+        "latest_reviewer_route: upload PDF quality preview coverage summary proof chain plus Docker environment runtime proof",
+        "latest_environment_route: Docker environment runtime proof",
+        "docs/review/docker-environment-current-runtime-check.md",
+        "docs/review/docker-environment-current-runtime-check-remote-verification.md",
+        "docs/review/external-reader-proof-path-docker-environment-route-refresh.md",
+        "docs/review/external-reader-proof-path-docker-environment-route-refresh-remote-verification.md",
+        "Docker version 29.4.3",
+        "noiseproof-agent-api-1",
+        "noiseproof-agent-db-1",
+        "noiseproof-agent-clamav",
+        "GET /health -> 200",
+        "GET /ops/summary -> 200",
+        '"document_count": 28',
+        '"agent_run_count": 89',
+        '"failure_case_count": 11',
+        "latest_external_feedback_state: pending after Docker environment route refresh",
+        "external_reviewer_feedback_v0: pending_until_qualifying_outside_comment",
+        "live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured",
+        "hosted_deployment_evidence: not_implemented",
+        "production_readiness: not_claimed",
+        "product_complete: false",
+        "not hosted deployment evidence",
+        "not production readiness",
+        "not external reviewer feedback",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+        assert marker in goal
+
+    assert goal.index("Current navigation overlay as of Phase 765") < goal.index(
+        "Current navigation overlay as of Phase 759"
+    )
+
+    assert (
+        "GOAL current-state Docker environment route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 765 - GOAL Current-state Docker Environment Route Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 765 adds GOAL current-state Docker environment route refresh v0"
+        in runbook
+    )
+    assert "GOAL current-state Docker environment route refresh" in portfolio
+
+
 def test_goal_current_state_upload_pdf_summary_link_map_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
