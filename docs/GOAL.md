@@ -1669,6 +1669,43 @@ Boundary: remote workflow verification only; not the route refresh itself, not n
 
 Next gate: external review issue-body route refresh only if the owner wants issue #1 to point at the coverage-summary proof chain, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 749 - External Review Issue Body Upload PDF Quality Preview Coverage Summary Route Refresh v0
+
+Status: implemented.
+
+Purpose: record the owner-authored live issue #1 body update that points reviewers to the upload PDF quality preview coverage-summary proof chain.
+
+Implemented artifacts:
+
+```text
+external review issue body upload PDF quality preview coverage summary route refresh v0
+docs/review/external-review-issue-body-upload-pdf-quality-preview-coverage-summary-route-refresh.md
+https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt -> 2026-06-06T17:25:34Z
+comment_count -> 1
+starts_with_request -> true
+first_codepoint -> 35
+has_leading_bom -> false
+has_upload_pdf_quality_preview_coverage_summary -> true
+has_upload_pdf_quality_preview_coverage_summary_runtime_smoke -> true
+has_upload_pdf_quality_preview_coverage_summary_route_remote_verification -> true
+has_summary_predecessor -> true
+old_summary_latest_label_present -> false
+quality_summary.page_coverage_ratio
+quality_summary.extraction_status
+partial_page_coverage_ratio=0.5
+partial_extraction_status=partial_text
+partial_warning_present=True
+no_text_extraction_status=no_text
+encrypted_extraction_status=password_required
+summary_only_not_robust_pdf_extraction_evidence
+document_count_delta=0
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction evidence, not OCR implementation, not table extraction implementation, not decryption evidence, not retrieval behavior, not Evidence Ledger generation, and not product-complete.
+
+Next gate: external feedback current-state upload PDF quality preview coverage-summary issue verification v0, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.
