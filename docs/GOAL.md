@@ -43,6 +43,31 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation snapshot as of Phase 700:
+
+```text
+latest_reviewer_route: Evidence quality draft preview proof chain
+latest_route_artifacts:
+  - docs/review/evidence-quality-risk-failure-case-draft-preview.md
+  - docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke.md
+  - docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke-remote-verification.md
+  - docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh.md
+  - docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh-remote-verification.md
+latest_live_issue_route: docs/review/external-review-issue-body-evidence-quality-draft-preview-route-refresh.md
+latest_external_feedback_state: pending after Evidence quality draft preview issue verification
+latest_feedback_state_artifact: docs/review/external-feedback-current-state-evidence-quality-draft-preview-issue-verification.md
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+robust_pdf_extraction: not_implemented
+hosted_deployment_evidence: not_implemented
+product_complete: false
+```
+
+Use this snapshot for first-pass orientation, then inspect the phase records below when exact provenance is needed.
+
 Accepted state as of Phase 403:
 
 ```text

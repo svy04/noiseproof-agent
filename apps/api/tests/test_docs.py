@@ -32124,3 +32124,37 @@ def test_external_feedback_current_state_evidence_quality_draft_preview_issue_ve
         "docs/review/external-feedback-current-state-evidence-quality-draft-preview-issue-verification.md"
         in portfolio
     )
+
+
+def test_goal_current_state_snapshot_after_phase_700_is_recorded():
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Current navigation snapshot as of Phase 700" in goal
+    assert "latest_reviewer_route: Evidence quality draft preview proof chain" in goal
+    assert (
+        "latest_external_feedback_state: pending after Evidence quality draft preview issue verification"
+        in goal
+    )
+    assert "candidate_count: 0" in goal
+    assert "reason: self_authored_comment" in goal
+    assert "live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured" in goal
+    assert "external_reviewer_feedback_v0: pending_until_qualifying_outside_comment" in goal
+    assert "robust_pdf_extraction: not_implemented" in goal
+    assert (
+        "docs/review/external-feedback-current-state-evidence-quality-draft-preview-issue-verification.md"
+        in goal
+    )
+    assert (
+        "GOAL current-state snapshot after Phase 700 v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 701 adds GOAL current-state snapshot after Phase 700 v0"
+        in runbook
+    )
+    assert "GOAL current-state snapshot after Phase 700" in portfolio
