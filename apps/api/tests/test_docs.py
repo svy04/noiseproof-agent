@@ -27713,6 +27713,70 @@ def test_external_reader_proof_path_semantic_source_provenance_route_refresh_is_
     )
 
 
+def test_retrieval_run_linked_gate_report_semantic_source_provenance_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "retrieval-run-linked-gate-report-semantic-source-provenance.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Retrieval-run-linked Gate/Report Semantic Source Provenance" in content
+    )
+    assert (
+        "retrieval-run-linked Gate/Report semantic source provenance v0" in content
+    )
+    assert "POST /retrieval-runs/{retrieval_run_id}/noise-gate" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/report" in content
+    assert "source_retrieval_mode" in content
+    assert "source_query_vector_source" in content
+    assert "source_is_semantic_retrieval_run" in content
+    assert "source_retrieval_persistence_boundary" in content
+    assert "handoff_performs_semantic_retrieval" in content
+    assert "semantic_persisted" in content
+    assert "caller_provided_vector" in content
+    assert (
+        "test_semantic_retrieval_run_noise_gate_and_report_preserve_source_retrieval_provenance"
+        in content
+    )
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not report quality evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Retrieval-run-linked Gate/Report semantic source provenance v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 633 - Retrieval-run-linked Gate/Report Semantic Source Provenance v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 632 - External-reader Proof Path Semantic Source Provenance Route Refresh v0"
+    ) < goal.index(
+        "Phase 633 - Retrieval-run-linked Gate/Report Semantic Source Provenance v0"
+    )
+    assert (
+        "retrieval-run-linked Gate/Report semantic source provenance v0"
+        in runbook
+    )
+    assert (
+        "docs/review/retrieval-run-linked-gate-report-semantic-source-provenance.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT

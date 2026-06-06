@@ -1925,6 +1925,108 @@ def test_semantic_retrieval_run_evidence_ledger_preserves_source_retrieval_prove
     assert trace["trace_json"]["handoff_performs_semantic_retrieval"] is False
 
 
+def test_semantic_retrieval_run_noise_gate_and_report_preserve_source_retrieval_provenance():
+    client = make_client()
+    document, *_chunks = _create_semantic_fixture(client)
+
+    retrieval_run = client.post(
+        f"/documents/{document['id']}/semantic-retrieval-runs",
+        json={
+            "question": "Which chunk is closest to demand growth?",
+            "query_embedding": [1.0, 0.0],
+            "embedding_model": "local-test-model",
+            "embedding_dimension": 2,
+            "limit": 2,
+        },
+    ).json()
+    client.post(f"/retrieval-runs/{retrieval_run['id']}/evidence-ledger")
+
+    gate_response = client.post(f"/retrieval-runs/{retrieval_run['id']}/noise-gate")
+
+    assert gate_response.status_code == 201
+    gate = gate_response.json()
+    assert gate["stage_input_manifest"]["source_retrieval_mode"] == (
+        "semantic_persisted"
+    )
+    assert gate["stage_input_manifest"]["source_query_vector_source"] == (
+        "caller_provided_vector"
+    )
+    assert gate["stage_input_manifest"]["source_is_semantic_retrieval_run"] is True
+    assert gate["stage_input_manifest"]["source_retrieval_persistence_boundary"] == (
+        "semantic_retrieval_run_only_no_evidence_ledger"
+    )
+    assert gate["stage_input_manifest"]["handoff_performs_semantic_retrieval"] is False
+    assert any(
+        "Source retrieval run mode: semantic_persisted" in warning
+        for warning in gate["warnings"]
+    )
+    assert any(
+        "Source query vector source: caller_provided_vector" in warning
+        for warning in gate["warnings"]
+    )
+
+    listed_gate = client.get("/noise-gates").json()[0]
+    assert listed_gate["stage_input_manifest"]["source_retrieval_mode"] == (
+        "semantic_persisted"
+    )
+
+    report_response = client.post(f"/retrieval-runs/{retrieval_run['id']}/report")
+
+    assert report_response.status_code == 201
+    report = report_response.json()
+    assert report["stage_input_manifest"]["source_retrieval_mode"] == (
+        "semantic_persisted"
+    )
+    assert report["stage_input_manifest"]["source_query_vector_source"] == (
+        "caller_provided_vector"
+    )
+    assert report["stage_input_manifest"]["source_is_semantic_retrieval_run"] is True
+    assert report["stage_input_manifest"]["source_retrieval_persistence_boundary"] == (
+        "semantic_retrieval_run_only_no_evidence_ledger"
+    )
+    assert report["stage_input_manifest"]["handoff_performs_semantic_retrieval"] is False
+    assert any(
+        "Source retrieval run mode: semantic_persisted" in warning
+        for warning in report["warnings"]
+    )
+    assert any(
+        "Source query vector source: caller_provided_vector" in warning
+        for warning in report["warnings"]
+    )
+
+    listed_report = client.get("/reports").json()[0]
+    assert listed_report["stage_input_manifest"]["source_retrieval_mode"] == (
+        "semantic_persisted"
+    )
+
+    traces = client.get("/agent-runs").json()
+    gate_trace = next(
+        row
+        for row in traces
+        if row["trace_json"].get("retrieval_run_id") == retrieval_run["id"]
+        and row["trace_json"].get("endpoint")
+        == "POST /retrieval-runs/{retrieval_run_id}/noise-gate"
+    )
+    assert gate_trace["trace_json"]["source_retrieval_mode"] == "semantic_persisted"
+    assert gate_trace["trace_json"]["source_query_vector_source"] == (
+        "caller_provided_vector"
+    )
+    assert gate_trace["trace_json"]["handoff_performs_semantic_retrieval"] is False
+
+    report_trace = next(
+        row
+        for row in traces
+        if row["trace_json"].get("retrieval_run_id") == retrieval_run["id"]
+        and row["trace_json"].get("endpoint")
+        == "POST /retrieval-runs/{retrieval_run_id}/report"
+    )
+    assert report_trace["trace_json"]["source_retrieval_mode"] == "semantic_persisted"
+    assert report_trace["trace_json"]["source_query_vector_source"] == (
+        "caller_provided_vector"
+    )
+    assert report_trace["trace_json"]["handoff_performs_semantic_retrieval"] is False
+
+
 def test_semantic_retrieval_run_rejects_query_dimension_mismatch_without_persistence():
     client = make_client()
     document, *_ = _create_semantic_fixture(client)

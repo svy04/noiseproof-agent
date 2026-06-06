@@ -23136,3 +23136,37 @@ Historical Table-candidate Downstream Proof Routing -> preserved without Latest 
 Boundary: external-reader route alignment only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not final truth adjudication, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 633 - Retrieval-run-linked Gate/Report Semantic Source Provenance v0
+
+Status: implemented.
+
+Purpose: preserve source retrieval provenance from retrieval-run-linked Evidence Ledger rows through the downstream Noise Gate and Report handoffs.
+
+Implemented artifacts:
+
+```text
+retrieval-run-linked Gate/Report semantic source provenance v0
+docs/review/retrieval-run-linked-gate-report-semantic-source-provenance.md
+apps/api/app/services/retrieval_run_source_provenance.py
+apps/api/app/services/retrieval_run_noise_gate.py
+apps/api/app/services/retrieval_run_report.py
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Implemented behavior:
+
+```text
+POST /retrieval-runs/{retrieval_run_id}/noise-gate preserves source_retrieval_mode, source_query_vector_source, source_is_semantic_retrieval_run, source_retrieval_persistence_boundary, and handoff_performs_semantic_retrieval.
+POST /retrieval-runs/{retrieval_run_id}/report preserves the same fields.
+Warnings, stage_input_manifest, and agent-run trace_json expose the provenance.
+```
+
+Boundary: deterministic route-level provenance preservation only; not semantic retrieval quality evidence, not embedding generation, not live OpenAI provider evidence, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for retrieval-run-linked Gate/Report semantic source provenance if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

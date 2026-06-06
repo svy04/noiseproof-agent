@@ -9,6 +9,10 @@ from app.schemas import (
     NoiseGateStoredRecordOut,
 )
 from app.services.noise_gate import preview_noise_gate
+from app.services.retrieval_run_source_provenance import (
+    source_provenance_from_ledger_entries,
+    source_provenance_warnings,
+)
 from app.services.run_trace import run_with_trace
 
 
@@ -39,6 +43,7 @@ def persist_noise_gate_from_retrieval_run(
             EvidenceLedgerEntryOut(**entry)
             for entry in ledger_entries
         ]
+        source_provenance = source_provenance_from_ledger_entries(ledger_entries)
         preview = preview_noise_gate(
             NoiseGatePreviewRequest(
                 question=retrieval_run["question"],
@@ -50,6 +55,7 @@ def persist_noise_gate_from_retrieval_run(
             update={
                 "warnings": [
                     *preview.warnings,
+                    *source_provenance_warnings(source_provenance),
                     (
                         "Noise Gate record was generated from retrieval_run-linked "
                         "Evidence Ledger rows."
@@ -79,6 +85,7 @@ def persist_noise_gate_from_retrieval_run(
                 "persistence_boundary": (
                     "retrieval_run_linked_noise_gate_no_llm_no_embeddings"
                 ),
+                **source_provenance,
             },
         )
         return NoiseGateStoredRecordOut(**persisted)
@@ -95,6 +102,11 @@ def persist_noise_gate_from_retrieval_run(
             "no_embeddings": True,
             "no_semantic_retrieval": True,
             "no_report_generation": True,
+            "source_retrieval_mode": None,
+            "source_query_vector_source": None,
+            "source_is_semantic_retrieval_run": None,
+            "source_retrieval_persistence_boundary": None,
+            "handoff_performs_semantic_retrieval": False,
         },
         operation=operation,
         trace_from_result=lambda result: {
@@ -102,5 +114,6 @@ def persist_noise_gate_from_retrieval_run(
             "final_response_allowed": result.final_response_allowed,
             "evidence_entry_count": result.evidence_entry_count,
             "draft_claim_count": result.draft_claim_count,
+            **(result.stage_input_manifest or {}),
         },
     )

@@ -9,6 +9,10 @@ from app.schemas import (
     ReportStoredRecordOut,
 )
 from app.services.report_preview import preview_report
+from app.services.retrieval_run_source_provenance import (
+    source_provenance_from_ledger_entries,
+    source_provenance_warnings,
+)
 from app.services.run_trace import run_with_trace
 
 
@@ -49,6 +53,7 @@ def persist_report_from_retrieval_run(
             EvidenceLedgerEntryOut(**entry)
             for entry in ledger_entries
         ]
+        source_provenance = source_provenance_from_ledger_entries(ledger_entries)
         preview = preview_report(
             ReportPreviewRequest(
                 question=retrieval_run["question"],
@@ -60,6 +65,7 @@ def persist_report_from_retrieval_run(
             update={
                 "warnings": [
                     *preview.warnings,
+                    *source_provenance_warnings(source_provenance),
                     (
                         "Report record was generated from retrieval_run-linked "
                         "Noise Gate and Evidence Ledger rows."
@@ -90,6 +96,7 @@ def persist_report_from_retrieval_run(
                 "persistence_boundary": (
                     "retrieval_run_linked_report_no_llm_no_embeddings"
                 ),
+                **source_provenance,
             },
         )
         return ReportStoredRecordOut(**persisted)
@@ -106,6 +113,11 @@ def persist_report_from_retrieval_run(
             "no_embeddings": True,
             "no_semantic_retrieval": True,
             "no_failure_case_creation": True,
+            "source_retrieval_mode": None,
+            "source_query_vector_source": None,
+            "source_is_semantic_retrieval_run": None,
+            "source_retrieval_persistence_boundary": None,
+            "handoff_performs_semantic_retrieval": False,
         },
         operation=operation,
         trace_from_result=lambda result: {
@@ -114,6 +126,7 @@ def persist_report_from_retrieval_run(
             "claim_count": result.claim_count,
             "evidence_entry_count": result.evidence_entry_count,
             "draft_claim_count": result.draft_claim_count,
+            **(result.stage_input_manifest or {}),
         },
     )
 
