@@ -33724,3 +33724,61 @@ def test_external_reviewer_shortlist_surfaces_upload_pdf_quality_preview_summary
         "external reviewer shortlist upload PDF quality preview summary refresh"
         in portfolio
     )
+
+
+def test_external_reviewer_shortlist_upload_pdf_quality_preview_summary_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-summary-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "External Reviewer Shortlist Upload PDF Quality Preview Summary Refresh Remote Verification"
+        in content
+    )
+    assert (
+        "external reviewer shortlist upload PDF quality preview summary refresh remote verification v0"
+        in content
+    )
+    assert "66e9a4b2990c8b42330decb9e362cca8221a25ae" in content
+    assert "CI run `27066315927`" in content
+    assert "External Feedback Screen run `27066315798`" in content
+    assert "CI job_id -> 79887696052" in content
+    assert "External Feedback Screen job_id -> 79887695961" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-summary-refresh.md"
+        in content
+    )
+    assert "not the shortlist refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External reviewer shortlist upload PDF quality preview summary refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 732 - External Reviewer Shortlist Upload PDF Quality Preview Summary Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 732 adds external reviewer shortlist upload PDF quality preview summary refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "external reviewer shortlist upload PDF quality preview summary refresh remote verification"
+        in portfolio
+    )
