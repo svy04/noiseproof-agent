@@ -34414,3 +34414,61 @@ def test_goal_current_state_upload_pdf_summary_link_map_refresh_remote_verificat
         "goal current-state upload PDF summary link map refresh remote verification"
         in portfolio
     )
+
+
+def test_upload_pdf_quality_preview_coverage_summary_is_recorded():
+    review_path = (
+        REPO_ROOT / "docs/review/upload-pdf-quality-preview-coverage-summary.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    summary_doc = (
+        REPO_ROOT / "docs/review/upload-pdf-quality-preview-summary.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Upload PDF Quality Preview Coverage Summary" in content
+    assert "upload PDF quality preview coverage summary v0" in content
+
+    required_markers = [
+        "POST /documents/upload-pdf-quality-preview",
+        "quality_summary.page_coverage_ratio",
+        "quality_summary.extraction_status",
+        "partial_text",
+        "full_text",
+        "password_required",
+        "no_text",
+        "partial PDF text extraction",
+        "summary_only_not_robust_pdf_extraction_evidence",
+        "not robust PDF extraction evidence",
+        "not robust PDF extraction implementation",
+        "not OCR implementation",
+        "not table extraction implementation",
+        "not hosted deployment evidence",
+        "not external reviewer feedback",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+
+    assert "page_coverage_ratio" in summary_doc
+    assert "extraction_status" in summary_doc
+    assert (
+        "Upload PDF quality preview coverage summary v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 743 - Upload PDF Quality Preview Coverage Summary v0"
+        in goal
+    )
+    assert (
+        "Phase 743 adds upload PDF quality preview coverage summary v0"
+        in runbook
+    )
+    assert "Upload PDF quality preview coverage summary" in portfolio

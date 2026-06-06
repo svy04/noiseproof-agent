@@ -839,6 +839,18 @@ def _table_pdf_bytes() -> bytes:
     return content
 
 
+def _partial_text_pdf_bytes() -> bytes:
+    import pymupdf
+
+    document = pymupdf.open()
+    text_page = document.new_page(width=300, height=200)
+    text_page.insert_text((50, 80), "Only the first page has market text")
+    document.new_page(width=300, height=200)
+    content = document.tobytes()
+    document.close()
+    return content
+
+
 def _encrypted_pdf_bytes() -> bytes:
     import pymupdf
 
@@ -3544,6 +3556,8 @@ def test_document_upload_pdf_quality_preview_returns_observation_without_persist
     assert observation["failure_case_candidate"] is None
     assert summary["page_count"] == 1
     assert summary["extracted_page_count"] == 1
+    assert summary["page_coverage_ratio"] == 1.0
+    assert summary["extraction_status"] == "full_text"
     assert summary["digital_pdf_text_extraction"] is True
     assert summary["robust_pdf_extraction"] is False
     assert summary["encrypted"] is False
@@ -3555,6 +3569,59 @@ def test_document_upload_pdf_quality_preview_returns_observation_without_persist
     )
     assert body["profile"]["has_numbers"] is True
     assert any("does not claim robust PDF extraction" in warning for warning in body["warnings"])
+    assert client.get("/documents").json() == []
+
+
+def test_document_upload_pdf_quality_preview_summarizes_partial_page_coverage_without_robust_claim():
+    client = make_client()
+    content = _partial_text_pdf_bytes()
+
+    response = client.post(
+        "/documents/upload-pdf-quality-preview",
+        files={"file": ("partial-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    summary = body["quality_summary"]
+
+    assert summary["page_count"] == 2
+    assert summary["extracted_page_count"] == 1
+    assert summary["empty_page_count"] == 1
+    assert summary["page_coverage_ratio"] == 0.5
+    assert summary["extraction_status"] == "partial_text"
+    assert summary["robust_pdf_extraction"] is False
+    assert summary["reviewer_boundary"] == (
+        "summary_only_not_robust_pdf_extraction_evidence"
+    )
+    assert any("partial PDF text extraction" in warning for warning in body["warnings"])
+    assert client.get("/documents").json() == []
+
+
+def test_document_upload_pdf_quality_preview_summarizes_no_text_without_robust_claim():
+    client = make_client()
+    content = _blank_pdf_bytes()
+
+    response = client.post(
+        "/documents/upload-pdf-quality-preview",
+        files={"file": ("blank-report.pdf", content, "application/pdf")},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    summary = body["quality_summary"]
+
+    assert summary["page_count"] == 1
+    assert summary["extracted_page_count"] == 0
+    assert summary["empty_page_count"] == 1
+    assert summary["page_coverage_ratio"] == 0.0
+    assert summary["extraction_status"] == "no_text"
+    assert summary["failure_case_candidate"] == "pdf_no_extractable_text"
+    assert summary["robust_pdf_extraction"] is False
+    assert summary["reviewer_boundary"] == (
+        "summary_only_not_robust_pdf_extraction_evidence"
+    )
+    assert any("no digital text was extracted" in warning for warning in body["warnings"])
     assert client.get("/documents").json() == []
 
 
@@ -3586,6 +3653,8 @@ def test_document_upload_pdf_quality_preview_preserves_encrypted_failure_candida
     assert "authorized password" in observation["failure_case_next_action"]
     assert summary["encrypted"] is True
     assert summary["password_required"] is True
+    assert summary["page_coverage_ratio"] == 0.0
+    assert summary["extraction_status"] == "password_required"
     assert summary["digital_pdf_text_extraction"] is False
     assert summary["robust_pdf_extraction"] is False
     assert summary["failure_case_candidate"] == "pdf_encrypted_requires_password"

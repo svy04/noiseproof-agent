@@ -37,6 +37,8 @@ Summary markers:
 page_count
 extracted_page_count
 empty_page_count
+page_coverage_ratio
+extraction_status
 digital_pdf_text_extraction
 robust_pdf_extraction
 encrypted
@@ -61,6 +63,9 @@ https://pymupdf.readthedocs.io/en/latest/page.html
 ## Behavior
 
 - Born-digital PDF preview returns `quality_summary.digital_pdf_text_extraction -> true`.
+- Page coverage is exposed through `quality_summary.page_coverage_ratio`.
+- Extraction status is exposed through `quality_summary.extraction_status`.
+- Partial digital-text extraction returns `quality_summary.extraction_status -> partial_text` and a warning containing `partial PDF text extraction`.
 - Encrypted PDF preview returns `quality_summary.password_required -> true`.
 - `quality_summary.robust_pdf_extraction` stays `false`.
 - `quality_summary.table_extraction_performed` stays `false`.

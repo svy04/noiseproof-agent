@@ -1444,6 +1444,44 @@ Boundary: remote workflow verification only; not the GOAL overlay refresh itself
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 743 - Upload PDF Quality Preview Coverage Summary v0
+
+Status: implemented.
+
+Purpose: make partial digital-text extraction visible in the compact upload PDF quality preview response before any robust PDF extraction, OCR, table extraction, retrieval, or Evidence Ledger claim.
+
+Implemented artifacts:
+
+```text
+upload PDF quality preview coverage summary v0
+docs/review/upload-pdf-quality-preview-coverage-summary.md
+docs/review/upload-pdf-quality-preview-summary.md
+apps/api/app/services/upload_pdf_quality_preview.py
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+README.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Coverage summary markers:
+
+```text
+POST /documents/upload-pdf-quality-preview
+quality_summary.page_coverage_ratio
+quality_summary.extraction_status
+partial_text
+full_text
+password_required
+no_text
+partial PDF text extraction
+summary_only_not_robust_pdf_extraction_evidence
+```
+
+Boundary: response-shape inspectability only; not extracted text storage, not document persistence, not retrieval behavior, not Evidence Ledger generation, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: remote verification for this coverage summary after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.
