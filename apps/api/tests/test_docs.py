@@ -31161,3 +31161,63 @@ def test_external_review_issue_body_encrypted_pdf_manual_handoff_route_refresh_i
         "docs/review/external-review-issue-body-encrypted-pdf-manual-handoff-route-refresh.md"
         in portfolio
     )
+
+
+def test_external_feedback_current_state_encrypted_pdf_manual_handoff_issue_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/"
+        "external-feedback-current-state-encrypted-pdf-manual-handoff-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state Encrypted PDF Manual Handoff Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state encrypted PDF manual handoff issue verification v0"
+        in content
+    )
+    assert "status: pending" in content
+    assert "candidate_count: 0" in content
+    assert "screened_comment_count: 1" in content
+    assert "owner_comment_count: 1" in content
+    assert "reason: self_authored_comment" in content
+    assert "does_not_close_gate: true" in content
+    assert "has_manual_handoff_route: true" in content
+    assert "has_manual_handoff_remote_verification_route: true" in content
+    assert "keeps_workflow_markdown_route: true" in content
+    assert "keeps_encrypted_handoff_ops_route: true" in content
+    assert "9f9fa19bb94d0119482209cc79c07e0dab21b768" in content
+    assert "CI run 27058525400: success" in content
+    assert "External Feedback Screen run 27058525413: success" in content
+    assert "CI job_id -> 79867181370" in content
+    assert "External Feedback Screen job_id -> 79867181416" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "External feedback current-state encrypted PDF manual handoff issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 684 - External Feedback Current-state Encrypted PDF Manual Handoff Issue Verification v0"
+        in goal
+    )
+    assert (
+        "external feedback current-state encrypted PDF manual handoff issue verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-feedback-current-state-encrypted-pdf-manual-handoff-issue-verification.md"
+        in portfolio
+    )
