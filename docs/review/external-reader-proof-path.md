@@ -62,6 +62,27 @@ docs/review/external-reader-proof-path-encrypted-pdf-handoff-ops-route-refresh-r
 
 Boundary: this focused route proves that password-protected uploaded PDFs can be preserved as explicit failure metadata through `POST /documents/upload-chunks` and surfaced as `pdf_encrypted_failure_candidate_count` / `PDF Encrypted Failure Candidates` in operations views. This route alignment is not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, not customer validation, not Braincrew acceptance, and not product-complete.
 
+Focused upload PDF quality preview proof:
+
+```text
+docs/review/upload-pdf-quality-preview-api.md
+docs/review/upload-pdf-quality-preview-runtime-smoke.md
+docs/review/upload-pdf-quality-preview-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-route-refresh.md
+```
+
+Route markers:
+
+```text
+POST /documents/upload-pdf-quality-preview
+quality_boundary=pdf_quality_observation_preview_only_no_robust_extraction_claim
+persistence_boundary=preview_only_not_persisted
+document_count_delta=0
+pdf_encrypted_requires_password
+```
+
+Boundary: this focused route proves that the upload PDF quality preview endpoint can return born-digital and encrypted PDF quality observations while preserving preview-only non-persistence. This route alignment is not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, not password bypass, and not product-complete.
+
 Workflow proof bundle reviewer checklist dashboard runtime proof:
 
 ```text

@@ -460,6 +460,43 @@ Boundary: remote workflow verification only; not the local runtime smoke itself,
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 717 - External-reader Proof Path Upload PDF Quality Preview Route Refresh v0
+
+Status: implemented.
+
+Purpose: make the upload PDF quality preview API, local runtime smoke, and remote workflow verification discoverable from the repository-native external-reader proof path and reviewer link map.
+
+Implemented artifacts:
+
+```text
+external-reader proof path upload PDF quality preview route refresh v0
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-route-refresh.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-link-map.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Route markers:
+
+```text
+docs/review/upload-pdf-quality-preview-api.md
+docs/review/upload-pdf-quality-preview-runtime-smoke.md
+docs/review/upload-pdf-quality-preview-runtime-smoke-remote-verification.md
+POST /documents/upload-pdf-quality-preview
+quality_boundary=pdf_quality_observation_preview_only_no_robust_extraction_claim
+persistence_boundary=preview_only_not_persisted
+document_count_delta=0
+pdf_encrypted_requires_password
+```
+
+Boundary: reader-route alignment only; not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not document persistence evidence for this preview route, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: remote verification for this route refresh after push, issue-body refresh if the public feedback issue should route reviewers to this focused proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text

@@ -148,6 +148,20 @@ This artifact gives outside reviewers direct links to the shortest inspectable p
   `pdf_encrypted_failure_candidate_count`, `PDF Encrypted Failure Candidates`
 - Boundary: password-protected PDF failure metadata and operations visibility only; not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, and not product-complete.
 
+## Focused Upload PDF Quality Preview Proof
+
+- API proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-api.md
+- Runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-runtime-smoke.md
+- Remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/upload-pdf-quality-preview-runtime-smoke-remote-verification.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-upload-pdf-quality-preview-route-refresh.md
+- Route markers:
+  `POST /documents/upload-pdf-quality-preview`, `quality_boundary=pdf_quality_observation_preview_only_no_robust_extraction_claim`, `persistence_boundary=preview_only_not_persisted`, `document_count_delta=0`, `pdf_encrypted_requires_password`
+- Boundary: preview-only PDF quality observation route; not a live issue body edit, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not document persistence evidence for this preview route, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, not password bypass, and not product-complete.
+
 ## Public Feedback Surface
 
 Leave feedback here:
