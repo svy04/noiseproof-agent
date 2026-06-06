@@ -1,6 +1,7 @@
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import PlainTextResponse
 
 from app.db import Repository, get_repository
 from app.schemas import (
@@ -66,6 +67,25 @@ def get_workflow_run_proof_bundle(
     workflow_run_id: UUID,
     repository: Repository = Depends(get_repository),
 ) -> WorkflowProofBundleOut:
+    return _load_workflow_run_proof_bundle(workflow_run_id, repository)
+
+
+@router.get("/{workflow_run_id}/proof-bundle/markdown", response_class=PlainTextResponse)
+def get_workflow_run_proof_bundle_markdown(
+    workflow_run_id: UUID,
+    repository: Repository = Depends(get_repository),
+) -> PlainTextResponse:
+    bundle = _load_workflow_run_proof_bundle(workflow_run_id, repository)
+    return PlainTextResponse(
+        _render_workflow_proof_bundle_markdown(bundle),
+        media_type="text/markdown; charset=utf-8",
+    )
+
+
+def _load_workflow_run_proof_bundle(
+    workflow_run_id: UUID,
+    repository: Repository,
+) -> WorkflowProofBundleOut:
     workflow_run = repository.get_workflow_run(workflow_run_id)
     if workflow_run is None:
         raise HTTPException(status_code=404, detail="workflow run not found")
@@ -112,6 +132,72 @@ def get_workflow_run_proof_bundle(
         ),
         warnings=warnings,
     )
+
+
+def _render_workflow_proof_bundle_markdown(bundle: WorkflowProofBundleOut) -> str:
+    workflow_id = bundle.workflow_run.id
+    lines = [
+        "# Workflow Proof Bundle",
+        "",
+        f"workflow_run_id: `{workflow_id}`",
+        f"workflow_trace_id: `{bundle.workflow_trace_id}`" if bundle.workflow_trace_id else "workflow_trace_id: `none`",
+        f"bundle_boundary: `{bundle.bundle_boundary}`",
+        "",
+        "## Summary Counts",
+        "",
+    ]
+    summary = bundle.detail.summary
+    for key, value in [
+        ("retrieval_run_count", summary.retrieval_run_count),
+        ("evidence_ledger_entry_count", summary.evidence_ledger_entry_count),
+        ("noise_gate_record_count", summary.noise_gate_record_count),
+        ("report_record_count", summary.report_record_count),
+        ("failure_case_count", summary.failure_case_count),
+        ("workflow_stage_event_count", summary.workflow_stage_event_count),
+    ]:
+        lines.append(f"- {key}: {value}")
+    lines.extend(["", "## Proof Surfaces", ""])
+    lines.extend(f"- `{surface}`" for surface in bundle.proof_surfaces)
+    lines.extend(["", "## Reviewer Checklist", ""])
+    for item in bundle.reviewer_checklist:
+        proof_surface = item.proof_surface or "none"
+        lines.extend(
+            [
+                f"### {item.check_id}",
+                "",
+                f"- status: `{item.status}`",
+                f"- proof_surface: `{proof_surface}`",
+                f"- inspection_goal: {item.inspection_goal}",
+                f"- boundary: {item.boundary}",
+                "",
+            ]
+        )
+    lines.extend(["## Warnings", ""])
+    lines.extend(f"- {warning}" for warning in bundle.warnings)
+    lines.extend(
+        [
+            "",
+            "## Boundary",
+            "",
+            "This markdown export is a read-only rendering of the existing workflow proof bundle.",
+            "",
+            "It creates no new storage.",
+            "",
+            "It is not distributed tracing.",
+            "",
+            "It is not hosted observability.",
+            "",
+            "It is not semantic retrieval quality evidence.",
+            "",
+            "It is not embedding generation.",
+            "",
+            "It is not external reviewer feedback.",
+            "",
+            "It is not product-complete.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
 
 
 @router.get("/{workflow_run_id}", response_model=WorkflowRunDetailOut)

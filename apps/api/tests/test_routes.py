@@ -4981,6 +4981,64 @@ def test_workflow_run_proof_bundle_exposes_reviewer_checklist_without_new_storag
     assert "does not claim trace-level proof" in metadata_by_id["trace_lookup"]["boundary"]
 
 
+def test_workflow_run_proof_bundle_markdown_export_is_readable_and_dashboard_linked():
+    client = make_client()
+    execution = client.post(
+        "/workflow-runs/execute-preview",
+        json={
+            "question": "Which workflow proof surfaces should a reviewer inspect?",
+            "strategy": "fixed-window",
+            "sources": [
+                {
+                    "source_id": "doc-proof",
+                    "source_type": "markdown",
+                    "content": "Enterprise demand grew 12 percent in 2026.",
+                }
+            ],
+        },
+    ).json()
+    workflow_run_id = execution["workflow_run"]["id"]
+
+    response = client.get(f"/workflow-runs/{workflow_run_id}/proof-bundle/markdown")
+
+    assert response.status_code == 200
+    assert response.headers["content-type"].startswith("text/markdown")
+    text = response.text
+    assert text.startswith("# Workflow Proof Bundle")
+    assert f"workflow_run_id: `{workflow_run_id}`" in text
+    assert "## Summary Counts" in text
+    assert "- retrieval_run_count: 1" in text
+    assert "- evidence_ledger_entry_count: 1" in text
+    assert "- workflow_stage_event_count: 4" in text
+    assert "## Proof Surfaces" in text
+    assert f"- `/workflow-runs/{workflow_run_id}`" in text
+    assert f"- `/workflow-runs/{workflow_run_id}/lineage`" in text
+    assert "## Reviewer Checklist" in text
+    assert "### detail_counts" in text
+    assert "### lineage_links" in text
+    assert "### trace_lookup" in text
+    assert "### failure_case_handoff" in text
+    assert "## Warnings" in text
+    assert "read model over existing records" in text
+    assert "not distributed tracing" in text
+    assert "not hosted observability" in text
+    assert "not product-complete" in text
+    assert (
+        client.get(f"/workflow-runs/{workflow_run_id}/proof-bundle")
+        .json()["detail"]["summary"]["workflow_stage_event_count"]
+        == 4
+    )
+
+    dashboard = client.get("/ops/dashboard")
+
+    assert dashboard.status_code == 200
+    assert (
+        f'href="/workflow-runs/{workflow_run_id}/proof-bundle/markdown">proof markdown</a>'
+        in dashboard.text
+    )
+    assert "Dashboard links are GET-only inspection routes." in dashboard.text
+
+
 def test_workflow_run_lineage_reports_missing_manifest_references_without_mutation_api():
     client = make_client()
     repository = client.app.dependency_overrides[get_repository]()

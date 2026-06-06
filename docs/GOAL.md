@@ -22811,6 +22811,44 @@ Boundary: remote workflow verification only; not the current-state issue screen 
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
+### Phase 665 - Workflow Proof Bundle Markdown Export v0
+
+Status: implemented.
+
+Purpose: add a reviewer-readable markdown rendering of the existing workflow proof bundle read model and expose it from the operations dashboard.
+
+Implemented artifacts:
+
+```text
+workflow proof bundle markdown export v0
+GET /workflow-runs/{id}/proof-bundle/markdown
+docs/review/workflow-proof-bundle-markdown-export.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/app/routes/workflow_runs.py
+apps/api/app/services/ops_dashboard.py
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+```
+
+Route markers:
+
+```text
+GET /workflow-runs/{id}/proof-bundle/markdown -> text/markdown; charset=utf-8
+GET /ops/dashboard -> proof markdown link
+## Reviewer Checklist
+detail_counts
+lineage_links
+trace_lookup
+failure_case_handoff
+```
+
+Boundary: read-only rendering of the existing workflow proof bundle only; not new storage, not a new workflow execution path, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not LLM output, not external reviewer feedback, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for workflow proof bundle markdown export if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
 ### Phase 623 - External Feedback Current-state Retrieval Run Semantic Provenance Issue Verification Remote Verification v0
 
 Status: implemented.

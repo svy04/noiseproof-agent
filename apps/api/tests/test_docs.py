@@ -29987,3 +29987,42 @@ def test_external_feedback_current_state_workflow_checklist_dashboard_runtime_is
         "docs/review/external-feedback-current-state-workflow-checklist-dashboard-runtime-issue-verification-remote-verification.md"
         in portfolio
     )
+
+
+def test_workflow_proof_bundle_markdown_export_is_recorded():
+    review_path = REPO_ROOT / "docs/review/workflow-proof-bundle-markdown-export.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    workflow_route = (REPO_ROOT / "apps/api/app/routes/workflow_runs.py").read_text(
+        encoding="utf-8"
+    )
+    dashboard = (REPO_ROOT / "apps/api/app/services/ops_dashboard.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Workflow Proof Bundle Markdown Export" in content
+    assert "workflow proof bundle markdown export v0" in content
+    assert "GET /workflow-runs/{id}/proof-bundle/markdown" in content
+    assert "text/markdown; charset=utf-8" in content
+    assert "## Reviewer Checklist" in content
+    assert "read-only rendering" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not product-complete" in content
+    assert '"/{workflow_run_id}/proof-bundle/markdown"' in workflow_route
+    assert "response_class=PlainTextResponse" in workflow_route
+    assert "_render_workflow_proof_bundle_markdown" in workflow_route
+    assert "/proof-bundle/markdown" in dashboard
+    assert "proof markdown" in dashboard
+    assert "Workflow proof bundle markdown export v0: implemented" in readme
+    assert "Phase 665 - Workflow Proof Bundle Markdown Export v0" in goal
+    assert "workflow proof bundle markdown export v0" in runbook
+    assert "docs/review/workflow-proof-bundle-markdown-export.md" in portfolio

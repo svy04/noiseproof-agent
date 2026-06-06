@@ -438,11 +438,15 @@ def _workflow_run_links_cell(row: dict[str, Any]) -> str:
         f"/workflow-runs/{workflow_run_id}/proof-bundle",
         "proof bundle",
     )
+    proof_markdown = _link(
+        f"/workflow-runs/{workflow_run_id}/proof-bundle/markdown",
+        "proof markdown",
+    )
     reviewer_checklist = _link(
         f"/workflow-runs/{workflow_run_id}/proof-bundle",
         "reviewer checklist",
     )
-    return f"{detail} / {lineage} / {proof_bundle} / {reviewer_checklist}"
+    return f"{detail} / {lineage} / {proof_bundle} / {proof_markdown} / {reviewer_checklist}"
 
 
 def _workflow_parent_cell(row: dict[str, Any]) -> str:
