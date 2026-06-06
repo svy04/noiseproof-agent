@@ -34856,6 +34856,94 @@ def test_goal_current_state_upload_pdf_summary_link_map_refresh_is_recorded():
     assert "goal current-state upload PDF summary link map refresh" in portfolio
 
 
+def test_goal_current_state_upload_pdf_coverage_summary_reviewer_surfaces_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/goal-current-state-upload-pdf-coverage-summary-reviewer-surfaces-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert (
+        "GOAL Current-state Upload PDF Coverage Summary Reviewer Surfaces Refresh"
+        in content
+    )
+    assert (
+        "goal current-state upload PDF coverage summary reviewer surfaces refresh v0"
+        in content
+    )
+
+    required_markers = [
+        "Current navigation overlay as of Phase 759",
+        "latest_reviewer_route: upload PDF quality preview coverage summary proof chain",
+        "latest_reviewer_link_map: docs/review/external-reviewer-link-map.md",
+        "docs/review/upload-pdf-quality-preview-coverage-summary.md",
+        "docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md",
+        "docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke-remote-verification.md",
+        "docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh.md",
+        "docs/review/external-reviewer-link-map-upload-pdf-coverage-summary-reviewer-surfaces-refresh.md",
+        "docs/review/external-reviewer-link-map-upload-pdf-coverage-summary-reviewer-surfaces-refresh-remote-verification.md",
+        "docs/review/external-reviewer-shortlist-upload-pdf-quality-preview-coverage-summary-refresh.md",
+        "docs/review/external-reviewer-request-brief-upload-pdf-quality-preview-coverage-summary-refresh.md",
+        "docs/review/external-reviewer-surfaces-upload-pdf-quality-preview-coverage-summary-refresh-remote-verification.md",
+        "docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-coverage-summary-refresh.md",
+        "docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-coverage-summary-refresh-remote-verification.md",
+        "latest_live_issue_route: docs/review/external-review-issue-body-upload-pdf-quality-preview-coverage-summary-route-refresh.md",
+        "latest_external_feedback_state: pending after upload PDF quality preview coverage summary issue verification",
+        "latest_feedback_state_artifact: docs/review/external-feedback-current-state-upload-pdf-quality-preview-coverage-summary-issue-verification.md",
+        "quality_summary.page_coverage_ratio",
+        "quality_summary.extraction_status",
+        "partial_page_coverage_ratio=0.5",
+        "partial_extraction_status=partial_text",
+        "partial_warning_present=True",
+        "no_text_extraction_status=no_text",
+        "encrypted_extraction_status=password_required",
+        "summary_only_not_robust_pdf_extraction_evidence",
+        "candidate_count: 0",
+        "draft_count: 0",
+        "reason: self_authored_comment",
+        "external_reviewer_feedback_v0: pending_until_qualifying_outside_comment",
+        "live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured",
+        "robust_pdf_extraction: not_implemented",
+        "hosted_deployment_evidence: not_implemented",
+        "product_complete: false",
+        "not external reviewer feedback",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+        assert marker in goal
+
+    assert goal.index("Current navigation overlay as of Phase 759") < goal.index(
+        "Current navigation overlay as of Phase 740"
+    )
+
+    assert (
+        "GOAL current-state upload PDF coverage summary reviewer surfaces refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 759 - GOAL Current-state Upload PDF Coverage Summary Reviewer Surfaces Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 759 adds GOAL current-state upload PDF coverage summary reviewer surfaces refresh v0"
+        in runbook
+    )
+    assert (
+        "goal current-state upload PDF coverage summary reviewer surfaces refresh"
+        in portfolio
+    )
+
+
 def test_goal_current_state_upload_pdf_summary_link_map_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
