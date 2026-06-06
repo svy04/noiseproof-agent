@@ -28,6 +28,10 @@ It does not replace the full proof path.
    - Summary runtime remote verification: `docs/review/upload-pdf-quality-preview-summary-runtime-smoke-remote-verification.md`.
    - Summary route refresh: `docs/review/external-reader-proof-path-upload-pdf-quality-preview-summary-route-refresh.md`.
    - Summary records `quality_summary`, `digital_quality_summary_present=True`, `encrypted_quality_summary_present=True`, `summary_only_not_robust_pdf_extraction_evidence`, `document_count_delta=0`, and `pdf_encrypted_requires_password`.
+   - PDF binary fixture parser/adapter smoke: `docs/review/pdf-binary-fixture-parser-adapter-smoke.md`.
+   - Binary fixture smoke remote verification: `docs/review/pdf-binary-fixture-parser-adapter-smoke-remote-verification.md`.
+   - Binary fixture smoke route refresh: `docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-route-refresh.md`.
+   - Records `binary_fixture_smoke_only_not_robust_pdf_extraction`, `fixture_count -> 2`, `passed_count -> 2`, `failed_count -> 0`, `parser -> pdf-pymupdf`, `digital_pdf_text_extraction -> true`, and `table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]`.
    - Boundary: not robust PDF extraction evidence, not OCR, not table extraction, not decryption evidence, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
 3. `docs/review/ops-dashboard-anchor-get-runtime-smoke.md`
    - Local Docker PostgreSQL plus live FastAPI HTTP proof that `GET /ops/dashboard` exposes clickable `data-method="GET"` inspection anchors and every unique dashboard href returns GET 200.

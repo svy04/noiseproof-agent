@@ -43,6 +43,34 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 781:
+
+```text
+latest_reviewer_route: external-reader proof path PDF binary fixture smoke route refresh v0
+latest_reviewer_route_artifact: docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-route-refresh.md
+latest_external_reader_path: docs/review/external-reader-proof-path.md
+latest_external_reviewer_link_map: docs/review/external-reviewer-link-map.md
+latest_external_reviewer_shortlist: docs/review/external-reviewer-shortlist.md
+latest_product_gate: PDF binary fixture parser adapter smoke v0
+latest_product_artifact: docs/review/pdf-binary-fixture-parser-adapter-smoke.md
+latest_remote_verification_gate: PDF binary fixture parser adapter smoke remote verification v0
+latest_remote_verification_artifact: docs/review/pdf-binary-fixture-parser-adapter-smoke-remote-verification.md
+latest_verified_head_sha: f3c123ec79c53832716cb79220488f5541bd5d2e
+latest_ci_run: 27072946995
+latest_external_feedback_screen_run: 27072946997
+binary_fixture_smoke_fixture_count: 2
+binary_fixture_smoke_passed_count: 2
+binary_fixture_smoke_failed_count: 0
+robust_pdf_extraction: not_implemented
+default_pdf_parser_table_extraction_performed: still_false
+table_extraction_evidence_for_arbitrary_market_pdfs: not_claimed
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: reviewer route hygiene only; not new runtime evidence; not robust PDF extraction evidence; not default PdfParser table extraction; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 780:
 
 ```text
@@ -3404,6 +3432,44 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the parser/adapter smoke itself; not new runtime evidence; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: external-reader proof path route refresh if this smoke should become reviewer-facing, an API/runtime smoke that exposes binary fixture behavior without storing arbitrary uploaded files, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 781 - External-reader Proof Path PDF Binary Fixture Smoke Route Refresh v0
+
+Status: implemented.
+
+Purpose: make the Phase 779/780 PDF binary fixture parser/adapter smoke proof chain discoverable from the compact external-reader route surfaces without claiming new product behavior.
+
+Implemented artifacts:
+
+```text
+external-reader proof path PDF binary fixture smoke route refresh v0
+docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-route-refresh.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-link-map.md
+docs/review/external-reviewer-shortlist.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Route markers:
+
+```text
+docs/review/pdf-binary-fixture-provenance-packet.md
+docs/review/pdf-binary-fixture-parser-adapter-smoke.md
+docs/review/pdf-binary-fixture-parser-adapter-smoke-remote-verification.md
+binary_fixture_smoke_only_not_robust_pdf_extraction
+fixture_count -> 2
+passed_count -> 2
+failed_count -> 0
+table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+```
+
+Boundary: reviewer route hygiene only; not new runtime evidence; not the parser/adapter smoke itself; not robust PDF extraction evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: API/runtime smoke that exposes binary fixture behavior without storing arbitrary uploaded files, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

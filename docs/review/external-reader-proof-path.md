@@ -16,6 +16,31 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+PDF binary fixture parser/adapter smoke proof:
+
+```text
+docs/review/pdf-binary-fixture-provenance-packet.md
+docs/review/pdf-binary-fixture-parser-adapter-smoke.md
+docs/review/pdf-binary-fixture-parser-adapter-smoke-remote-verification.md
+docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-route-refresh.md
+```
+
+Route markers:
+
+```text
+binary_fixture_smoke_only_not_robust_pdf_extraction
+fixture_count -> 2
+passed_count -> 2
+failed_count -> 0
+parser -> pdf-pymupdf
+digital_pdf_text_extraction -> true
+table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]
+CI run `27072946995`
+External Feedback Screen run `27072946997`
+```
+
+Boundary: this route points reviewers to synthetic binary PDF fixture provenance plus local parser/adapter smoke evidence accepted by remote CI. It is route hygiene only, not new runtime evidence, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not default `PdfParser` table extraction, not table extraction evidence for arbitrary market PDFs, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 Upload PDF quality preview coverage summary proof:
 
 ```text

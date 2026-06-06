@@ -8,6 +8,20 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest PDF Binary Fixture Smoke Proof
+
+- Binary fixture provenance packet:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/pdf-binary-fixture-provenance-packet.md
+- Parser/adapter smoke:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/pdf-binary-fixture-parser-adapter-smoke.md
+- Remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/pdf-binary-fixture-parser-adapter-smoke-remote-verification.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-route-refresh.md
+- Route markers:
+  `binary_fixture_smoke_only_not_robust_pdf_extraction`, `fixture_count -> 2`, `passed_count -> 2`, `failed_count -> 0`, `parser -> pdf-pymupdf`, `digital_pdf_text_extraction -> true`, `table_adapter.extracted_table_rows -> [[Segment, Growth], [Enterprise, 12%]]`
+- Boundary: synthetic binary fixture parser/adapter smoke routing only; not a live issue body edit, not new runtime evidence, not robust PDF extraction evidence, not default `PdfParser` table extraction, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 ## Latest Evidence Quality Draft Preview Proof
 
 - Evidence quality risk failure-case draft preview:

@@ -33024,6 +33024,68 @@ def test_pdf_binary_fixture_parser_adapter_smoke_remote_verification_v0_is_recor
     assert "PDF binary fixture parser adapter smoke remote verification" in portfolio
 
 
+def test_external_reader_pdf_binary_fixture_smoke_route_refresh_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-pdf-binary-fixture-smoke-route-refresh.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    external_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    link_map = (REPO_ROOT / "docs/review/external-reviewer-link-map.md").read_text(
+        encoding="utf-8"
+    )
+    shortlist = (REPO_ROOT / "docs/review/external-reviewer-shortlist.md").read_text(
+        encoding="utf-8"
+    )
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "External-reader Proof Path PDF Binary Fixture Smoke Route Refresh" in content
+    assert "external-reader proof path PDF binary fixture smoke route refresh v0" in content
+    assert "docs/review/external-reader-proof-path.md" in content
+    assert "docs/review/external-reviewer-link-map.md" in content
+    assert "docs/review/external-reviewer-shortlist.md" in content
+    assert "docs/review/pdf-binary-fixture-parser-adapter-smoke.md" in content
+    assert (
+        "docs/review/pdf-binary-fixture-parser-adapter-smoke-remote-verification.md"
+        in content
+    )
+    assert "binary_fixture_smoke_only_not_robust_pdf_extraction" in content
+    assert "fixture_count -> 2" in content
+    assert "passed_count -> 2" in content
+    assert "table_adapter.extracted_table_rows" in content
+    assert "not new runtime evidence" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert "PDF binary fixture parser/adapter smoke proof" in external_path
+    assert "Latest PDF Binary Fixture Smoke Proof" in link_map
+    assert "PDF binary fixture parser/adapter smoke" in shortlist
+    assert (
+        "External-reader proof path PDF binary fixture smoke route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 781 - External-reader Proof Path PDF Binary Fixture Smoke Route Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 781 adds external-reader proof path PDF binary fixture smoke route refresh v0"
+        in runbook
+    )
+    assert "external-reader proof path PDF binary fixture smoke route refresh" in portfolio
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
