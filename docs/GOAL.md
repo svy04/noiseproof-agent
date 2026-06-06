@@ -497,6 +497,38 @@ Boundary: reader-route alignment only; not new runtime evidence, not a live issu
 
 Next gate: remote verification for this route refresh after push, issue-body refresh if the public feedback issue should route reviewers to this focused proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 718 - External-reader Proof Path Upload PDF Quality Preview Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 717 external-reader route refresh passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+external-reader proof path upload PDF quality preview route refresh remote verification v0
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-route-refresh-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> fe227e21e215aca507364562cf6ad278bb6e2479
+CI run 27064024263: success
+External Feedback Screen run 27064024276: success
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the route refresh itself, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: issue-body refresh if the public feedback issue should route reviewers to this focused proof, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text
