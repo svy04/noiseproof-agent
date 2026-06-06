@@ -30,6 +30,8 @@ Latest repository push verification state: Phase 654 artifact commit `5dd5b246a6
 
 Latest external-feedback state: pending after workflow markdown issue verification; candidate_count=0; draft_count=0; self-authored comment only.
 
+Latest external-feedback remote workflow check: Phase 671 current-state workflow markdown issue verification commit `ea58f7ecedb2d0f3a5e839d6ba2c62def3e1bee4` passed CI run `27056276600` and External Feedback Screen run `27056276610`. This is remote workflow evidence only, not external reviewer feedback, not hosted deployment evidence, and not product-complete behavior.
+
 Historical predecessor feedback compatibility: Latest external-feedback state: pending after workflow checklist dashboard runtime issue verification; candidate_count=0; draft_count=0; self-authored comment only.
 
 Historical predecessor feedback compatibility: Latest external-feedback state: pending after workflow checklist dashboard runtime issue-body refresh; candidate_count=0; draft_count=0; self-authored comment only.
@@ -264,6 +266,7 @@ Historical latest-marker compatibility: External-reader proof path workflow mark
 Historical latest-marker compatibility: External-reader proof path workflow markdown runtime route refresh remote verification v0: implemented
 Historical latest-marker compatibility: External review issue body workflow markdown runtime route refresh v0: implemented
 Historical latest-marker compatibility: External feedback current-state workflow markdown issue verification v0: implemented
+Historical latest-marker compatibility: External feedback current-state workflow markdown issue verification remote verification v0: implemented
 Historical latest-marker compatibility: Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown stage input links runtime smoke v0.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown source provenance export runtime smoke v0.
@@ -1026,6 +1029,8 @@ External-reader proof path workflow markdown runtime route refresh remote verifi
 External review issue body workflow markdown runtime route refresh v0: implemented. Boundary: issue #1 now points `Latest Proof To Inspect` to `docs/review/workflow-proof-bundle-markdown-export-runtime-smoke.md`, the workflow markdown route refresh, and its remote verification; this is owner-authored issue routing only, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
 
 External feedback current-state workflow markdown issue verification v0: implemented. Boundary: issue #1 still has only owner-authored non-qualifying feedback after the workflow markdown issue-body refresh, with `candidate_count=0`, `draft_count=0`, `reason=self_authored_comment`, and `status=pending`; this is current-state issue screening only, not external reviewer feedback, hosted deployment evidence, or product-complete.
+
+External feedback current-state workflow markdown issue verification remote verification v0: implemented. Boundary: pushed issue-screen commit `ea58f7ecedb2d0f3a5e839d6ba2c62def3e1bee4` passed CI run `27056276600` and External Feedback Screen run `27056276610`; this is remote workflow verification only, not the current-state issue screen itself, not external reviewer feedback, hosted deployment evidence, or product-complete.
 
 External reviewer workflow proof bundle dashboard runtime request refresh v0: implemented. Boundary: reviewer-facing repository paths now link to `docs/review/workflow-proof-bundle-dashboard-runtime-smoke.md` and `docs/review/external-reviewer-workflow-proof-bundle-dashboard-runtime-request-refresh.md`; this is not a live issue body edit, external reviewer feedback, hosted deployment evidence, distributed tracing, hosted observability, new lineage storage, or product-complete.
 
