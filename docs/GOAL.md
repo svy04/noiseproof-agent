@@ -43,6 +43,28 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 810:
+
+```text
+latest_issue_body_route_gate: External review issue body uploaded PDF table adapter Evidence Ledger provenance runtime route refresh v0
+latest_issue_body_route_artifact: docs/review/external-review-issue-body-uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-route-refresh.md
+issue_url: https://github.com/svy04/noiseproof-agent/issues/1
+issue_updatedAt: 2026-06-06T23:33:08Z
+issue_starts_with_request: true
+issue_first_codepoint: 35
+issue_has_leading_bom: false
+issue_latest_proof_to_inspect: Uploaded PDF table adapter Evidence Ledger provenance runtime proof
+old_uploaded_pdf_table_adapter_metadata_latest_label_present: false
+latest_issue_body_api_surface: POST /documents/upload-chunks; POST /documents/{document_id}/retrieval-runs; POST /retrieval-runs/{retrieval_run_id}/evidence-ledger; GET /evidence-ledgers?retrieval_run_id={retrieval_run_id}
+default_pdf_parser_table_adapter_metadata: visible_in_persisted_evidence_ledger_entry_metadata
+source_provenance_boundary: evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: owner-authored issue body routing only; not external reviewer feedback; not new runtime evidence; not hosted deployment evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger quality evidence; not final truth adjudication; not product-complete
+```
+
 Current navigation overlay as of Phase 809:
 
 ```text
@@ -28026,6 +28048,36 @@ Screen issue comments -> success
 ```
 
 Phase 809 adds external-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh remote verification v0. It is remote workflow verification only, not the route refresh itself, not new runtime evidence, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, and not product-complete.
+
+### Phase 810 - External Review Issue Body Uploaded PDF Table Adapter Evidence Ledger Provenance Runtime Route Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record the owner-authored GitHub issue #1 body update that routes Latest Proof To Inspect to the uploaded PDF table-adapter Evidence Ledger provenance runtime proof chain
+```
+
+Implemented:
+
+```text
+external review issue body uploaded PDF table adapter Evidence Ledger provenance runtime route refresh v0
+docs/review/external-review-issue-body-uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-route-refresh.md
+https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt: 2026-06-06T23:33:08Z
+comment_count: 1
+starts_with_request: true
+first_codepoint: 35
+has_leading_bom: false
+old_uploaded_pdf_table_adapter_metadata_latest_label_present: false
+POST /documents/upload-chunks
+POST /documents/{document_id}/retrieval-runs
+POST /retrieval-runs/{retrieval_run_id}/evidence-ledger
+GET /evidence-ledgers?retrieval_run_id={retrieval_run_id}
+```
+
+Phase 810 adds external review issue body uploaded PDF table adapter Evidence Ledger provenance runtime route refresh v0. It is owner-authored issue body routing only, not external reviewer feedback, not new runtime evidence, not hosted deployment evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not final truth adjudication, and not product-complete.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 
