@@ -23429,3 +23429,39 @@ reason=self_authored_comment
 Boundary: remote workflow verification only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not final truth adjudication, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 641 - Report Markdown Source Provenance Export v0
+
+Status: implemented.
+
+Purpose: make persisted Report markdown exports expose source retrieval provenance as a first-class review section.
+
+Implemented artifacts:
+
+```text
+report markdown source provenance export v0
+apps/api/app/services/report_markdown.py
+apps/api/tests/test_routes.py
+docs/review/report-markdown-source-provenance-export.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Verified markdown markers:
+
+```text
+GET /reports/{report_record_id}/markdown
+## Source Retrieval Provenance
+Source retrieval mode: semantic_persisted
+Source query vector source: caller_provided_vector
+Source is semantic retrieval run: true
+Source retrieval persistence boundary: semantic_retrieval_run_only_no_evidence_ledger
+Handoff performs semantic retrieval: false
+```
+
+Boundary: deterministic read-surface inspectability only; not a new report-generation path, not free-form report generation, not an LLM call, not retrieval execution, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: local Docker/FastAPI runtime smoke for report markdown source provenance export if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

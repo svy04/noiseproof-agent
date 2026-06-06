@@ -1998,6 +1998,17 @@ def test_semantic_retrieval_run_noise_gate_and_report_preserve_source_retrieval_
     assert listed_report["stage_input_manifest"]["source_retrieval_mode"] == (
         "semantic_persisted"
     )
+    markdown_export = client.get(f"/reports/{report['id']}/markdown")
+    assert markdown_export.status_code == 200
+    assert "## Source Retrieval Provenance" in markdown_export.text
+    assert "- Source retrieval mode: semantic_persisted" in markdown_export.text
+    assert "- Source query vector source: caller_provided_vector" in markdown_export.text
+    assert "- Source is semantic retrieval run: true" in markdown_export.text
+    assert (
+        "- Source retrieval persistence boundary: semantic_retrieval_run_only_no_evidence_ledger"
+        in markdown_export.text
+    )
+    assert "- Handoff performs semantic retrieval: false" in markdown_export.text
 
     traces = client.get("/agent-runs").json()
     gate_trace = next(

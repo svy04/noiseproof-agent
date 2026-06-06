@@ -23,6 +23,8 @@ def render_report_record_markdown(record: Mapping[str, Any]) -> str:
         "",
     ]
 
+    lines.extend(_render_source_retrieval_provenance(record.get("stage_input_manifest")))
+
     report = record.get("report")
     if isinstance(report, Mapping):
         lines.extend(_render_report(report))
@@ -96,6 +98,36 @@ def _render_stage_input_manifest(value: Any) -> list[str]:
     return lines
 
 
+def _render_source_retrieval_provenance(value: Any) -> list[str]:
+    lines = ["## Source Retrieval Provenance", ""]
+    if not isinstance(value, Mapping) or not value:
+        lines.extend(["- None", ""])
+        return lines
+
+    fields = [
+        ("source_retrieval_mode", "Source retrieval mode"),
+        ("source_query_vector_source", "Source query vector source"),
+        ("source_is_semantic_retrieval_run", "Source is semantic retrieval run"),
+        (
+            "source_retrieval_persistence_boundary",
+            "Source retrieval persistence boundary",
+        ),
+        (
+            "handoff_performs_semantic_retrieval",
+            "Handoff performs semantic retrieval",
+        ),
+    ]
+    rendered_any = False
+    for key, label in fields:
+        if key in value:
+            lines.append(f"- {label}: {_provenance_value(value.get(key))}")
+            rendered_any = True
+    if not rendered_any:
+        lines.append("- None")
+    lines.append("")
+    return lines
+
+
 def _render_section(title: str, value: Any) -> list[str]:
     lines = [f"## {title}", ""]
     if not value:
@@ -121,3 +153,9 @@ def _value(value: Any) -> str:
     if value is None:
         return "None"
     return str(value)
+
+
+def _provenance_value(value: Any) -> str:
+    if isinstance(value, bool):
+        return str(value).lower()
+    return _value(value)

@@ -28330,6 +28330,72 @@ def test_external_feedback_current_state_gate_report_semantic_source_provenance_
     )
 
 
+def test_report_markdown_source_provenance_export_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/report-markdown-source-provenance-export.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    report_markdown_py = (
+        REPO_ROOT / "apps/api/app/services/report_markdown.py"
+    ).read_text(encoding="utf-8")
+    route_tests = (REPO_ROOT / "apps/api/tests/test_routes.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Report Markdown Source Provenance Export" in content
+    assert "report markdown source provenance export v0" in content
+    assert "GET /reports/{report_record_id}/markdown" in content
+    assert "## Source Retrieval Provenance" in content
+    assert "Source retrieval mode: semantic_persisted" in content
+    assert "Source query vector source: caller_provided_vector" in content
+    assert "Source is semantic retrieval run: true" in content
+    assert (
+        "Source retrieval persistence boundary: semantic_retrieval_run_only_no_evidence_ledger"
+        in content
+    )
+    assert "Handoff performs semantic retrieval: false" in content
+    assert "not a new report-generation path" in content
+    assert "not free-form report generation" in content
+    assert "not an LLM call" in content
+    assert "not retrieval execution" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not product-complete" in content
+    assert "_render_source_retrieval_provenance" in report_markdown_py
+    assert "Source Retrieval Provenance" in report_markdown_py
+    assert "Handoff performs semantic retrieval" in report_markdown_py
+    assert "Source Retrieval Provenance" in route_tests
+    assert "Handoff performs semantic retrieval: false" in route_tests
+    assert (
+        "Latest product gate marker: Report markdown source provenance export v0: implemented."
+        in readme
+    )
+    assert (
+        "Report markdown source provenance export v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 641 - Report Markdown Source Provenance Export v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 640 - External Feedback Current-state Gate/Report Semantic Source Provenance Issue Verification Remote Verification v0"
+    ) < goal.index(
+        "Phase 641 - Report Markdown Source Provenance Export v0"
+    )
+    assert "report markdown source provenance export v0" in runbook
+    assert "docs/review/report-markdown-source-provenance-export.md" in portfolio
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
