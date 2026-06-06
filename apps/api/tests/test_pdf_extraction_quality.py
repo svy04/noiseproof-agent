@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import subprocess
 import sys
 
 
@@ -118,3 +119,123 @@ def test_pdf_extraction_quality_report_matches_committed_artifact():
     assert "not OCR evidence" in report
     assert "not table extraction evidence" in report
     assert "not hosted deployment evidence" in report
+
+
+def test_pdf_extraction_quality_report_command_regenerates_committed_report(tmp_path):
+    output_path = tmp_path / "pdf-extraction-quality-report.md"
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "app.services.pdf_extraction_quality_report_command",
+            "--fixture",
+            str(REPO_ROOT / "examples/pdf-extraction-quality"),
+            "--observations",
+            str(REPO_ROOT / "examples/pdf-extraction-quality/observations.json"),
+            "--output",
+            str(output_path),
+        ],
+        cwd=REPO_ROOT / "apps/api",
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    report = output_path.read_text(encoding="utf-8")
+    committed_report = (
+        REPO_ROOT / "docs/evaluation/pdf-extraction-quality-report.md"
+    ).read_text(encoding="utf-8")
+
+    assert report == committed_report
+    assert "PDF extraction quality report v0" in result.stdout
+    assert "manifest_metric_only_not_robust_pdf_extraction" in result.stdout
+    assert "not robust PDF extraction evidence" in result.stdout
+
+
+def test_pdf_extraction_quality_report_command_check_mode_accepts_current_report():
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "app.services.pdf_extraction_quality_report_command",
+            "--fixture",
+            str(REPO_ROOT / "examples/pdf-extraction-quality"),
+            "--observations",
+            str(REPO_ROOT / "examples/pdf-extraction-quality/observations.json"),
+            "--output",
+            str(REPO_ROOT / "docs/evaluation/pdf-extraction-quality-report.md"),
+            "--check",
+        ],
+        cwd=REPO_ROOT / "apps/api",
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert "pdf_extraction_quality_report_current" in result.stdout
+    assert "byte-for-byte regeneration" in result.stdout
+    assert "not robust PDF extraction evidence" in result.stdout
+
+
+def test_pdf_extraction_quality_report_command_check_mode_rejects_stale_report(tmp_path):
+    stale_report = tmp_path / "pdf-extraction-quality-report.md"
+    stale_report.write_text("# stale\n", encoding="utf-8")
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "app.services.pdf_extraction_quality_report_command",
+            "--fixture",
+            str(REPO_ROOT / "examples/pdf-extraction-quality"),
+            "--observations",
+            str(REPO_ROOT / "examples/pdf-extraction-quality/observations.json"),
+            "--output",
+            str(stale_report),
+            "--check",
+        ],
+        cwd=REPO_ROOT / "apps/api",
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 3
+    assert "pdf_extraction_quality_report_stale" in result.stderr
+    assert "byte-for-byte regeneration mismatch" in result.stderr
+    assert "not robust PDF extraction evidence" in result.stderr
+    assert stale_report.read_text(encoding="utf-8") == "# stale\n"
+
+
+def test_pdf_extraction_quality_report_command_fails_with_boundary_for_bad_observations(tmp_path):
+    bad_observations = tmp_path / "bad-observations.json"
+    bad_observations.write_text("[]", encoding="utf-8")
+    output_path = tmp_path / "pdf-extraction-quality-report.md"
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "app.services.pdf_extraction_quality_report_command",
+            "--fixture",
+            str(REPO_ROOT / "examples/pdf-extraction-quality"),
+            "--observations",
+            str(bad_observations),
+            "--output",
+            str(output_path),
+        ],
+        cwd=REPO_ROOT / "apps/api",
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 2
+    assert "pdf_extraction_quality_report_regeneration_failed" in result.stderr
+    assert "observations fixture must be a JSON object" in result.stderr
+    assert "not robust PDF extraction evidence" in result.stderr
+    assert "Traceback" not in result.stderr
+    assert not output_path.exists()

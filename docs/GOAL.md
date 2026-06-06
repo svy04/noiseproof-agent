@@ -175,6 +175,31 @@ Boundary: partial evaluator output only; not robust PDF extraction evidence, not
 
 Next gate: report regeneration command or PyMuPDF digital-text observation smoke feeding the evaluator, still without robust extraction claims.
 
+### Phase 706 - PDF Extraction Quality Report Command v0
+
+Status: implemented.
+
+Purpose: make the Phase 705 report byte-for-byte reproducible and stale-checkable in CI.
+
+Implemented artifacts:
+
+```text
+PDF extraction quality report command v0
+apps/api/app/services/pdf_extraction_quality_report_command.py
+.github/workflows/ci.yml
+docs/review/pdf-extraction-quality-report-command.md
+apps/api/tests/test_pdf_extraction_quality.py
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Boundary: report reproducibility plumbing only; not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not hosted deployment evidence, and not product-complete.
+
+Next gate: PyMuPDF digital-text observation smoke feeding actual parser output into the evaluator, still without robust extraction claims.
+
 Accepted state as of Phase 403:
 
 ```text

@@ -42,6 +42,15 @@ jobs:
             --k 2 \
             --check
 
+      - name: Check PDF extraction quality report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.pdf_extraction_quality_report_command \
+            --fixture ../../examples/pdf-extraction-quality \
+            --observations ../../examples/pdf-extraction-quality/observations.json \
+            --output ../../docs/evaluation/pdf-extraction-quality-report.md \
+            --check
+
       - name: Check ClamAV owner runtime input discovery no-payload missing state
         working-directory: apps/api
         run: |

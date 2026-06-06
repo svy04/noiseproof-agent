@@ -32349,3 +32349,36 @@ def test_pdf_extraction_quality_report_v0_is_recorded():
     assert "Phase 705 - PDF Extraction Quality Report v0" in goal
     assert "Phase 705 adds PDF extraction quality report v0" in runbook
     assert "docs/evaluation/pdf-extraction-quality-report.md" in portfolio
+
+
+def test_pdf_extraction_quality_report_command_v0_is_recorded():
+    review_path = REPO_ROOT / "docs/review/pdf-extraction-quality-report-command.md"
+    workflow_path = REPO_ROOT / ".github/workflows/ci.yml"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    workflow = workflow_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "PDF Extraction Quality Report Command" in content
+    assert "PDF extraction quality report command v0" in content
+    assert "apps/api/app/services/pdf_extraction_quality_report_command.py" in content
+    assert "pdf_extraction_quality_report_current" in content
+    assert "pdf_extraction_quality_report_stale" in content
+    assert "pdf_extraction_quality_report_regeneration_failed" in content
+    assert "Check PDF extraction quality report staleness" in workflow
+    assert "app.services.pdf_extraction_quality_report_command" in workflow
+    assert "not robust PDF extraction implementation" in content
+    assert "not OCR implementation" in content
+    assert "not table extraction implementation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert "PDF extraction quality report command v0: implemented" in readme
+    assert "Phase 706 - PDF Extraction Quality Report Command v0" in goal
+    assert "Phase 706 adds PDF extraction quality report command v0" in runbook
+    assert "apps/api/app/services/pdf_extraction_quality_report_command.py" in portfolio
