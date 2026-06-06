@@ -235,6 +235,7 @@ Historical latest-marker compatibility: README top current-state coherence refre
 Historical latest-marker compatibility: Workflow proof bundle reviewer checklist v0: implemented
 Historical latest-marker compatibility: Workflow proof bundle reviewer checklist dashboard discovery v0: implemented
 Historical latest-marker compatibility: Workflow proof bundle reviewer checklist dashboard discovery remote verification v0: implemented
+Historical latest-marker compatibility: Workflow proof bundle reviewer checklist dashboard runtime smoke v0: implemented
 Historical latest-marker compatibility: Latest external-feedback state: pending after persisted document failure candidate manual handoff issue verification; candidate_count=0; self-authored comment only.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown stage input links runtime smoke v0.
 Historical latest-marker compatibility: Latest runtime proof marker: Report markdown source provenance export runtime smoke v0.

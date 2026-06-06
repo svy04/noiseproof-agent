@@ -24098,3 +24098,43 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the dashboard discovery itself, not a new runtime smoke, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not LLM output, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 659 - Workflow Proof Bundle Reviewer Checklist Dashboard Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: record local Docker PostgreSQL plus live FastAPI HTTP evidence that the workflow proof bundle reviewer checklist is discoverable from the operations dashboard and resolves to the existing proof bundle read model.
+
+Implemented artifacts:
+
+```text
+workflow proof bundle reviewer checklist dashboard runtime smoke v0
+docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Runtime markers:
+
+```text
+Docker version: 29.4.3
+Docker Compose version: v5.1.3
+Compose project: noiseproof-phase659
+POSTGRES_PORT=55448
+FastAPI URL: http://127.0.0.1:8105
+Pending migrations: 0
+GET /ops/dashboard -> 200
+GET /workflow-runs/{id}/proof-bundle -> 200
+dashboard_contains_reviewer_checklist_link: true
+dashboard_contains_reviewer_checklist_boundary: true
+proof_bundle_reviewer_checklist_count: 4
+reviewer_checklist_ids: detail_counts,lineage_links,trace_lookup,failure_case_handoff
+docker compose -p noiseproof-phase659 down -v -> completed
+```
+
+Boundary: local runtime evidence only; not hosted deployment evidence, not external reviewer feedback, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not LLM output, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

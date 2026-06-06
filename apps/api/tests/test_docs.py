@@ -29612,3 +29612,53 @@ def test_workflow_proof_bundle_reviewer_checklist_dashboard_discovery_remote_ver
         "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-discovery-remote-verification.md"
         in portfolio
     )
+
+
+def test_workflow_proof_bundle_reviewer_checklist_dashboard_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Workflow Proof Bundle Reviewer Checklist Dashboard Runtime Smoke" in content
+    assert "workflow proof bundle reviewer checklist dashboard runtime smoke v0" in content
+    assert "Docker version: 29.4.3" in content
+    assert "Docker Compose version: v5.1.3" in content
+    assert "POSTGRES_PORT=55448" in content
+    assert "FastAPI URL: http://127.0.0.1:8105" in content
+    assert "Pending migrations: 0" in content
+    assert "GET /ops/dashboard -> 200" in content
+    assert "GET /workflow-runs/{id}/proof-bundle -> 200" in content
+    assert "dashboard_contains_reviewer_checklist_link: true" in content
+    assert "dashboard_contains_reviewer_checklist_boundary: true" in content
+    assert "proof_bundle_reviewer_checklist_count: 4" in content
+    assert "reviewer_checklist_ids: detail_counts,lineage_links,trace_lookup,failure_case_handoff" in content
+    assert "docker compose -p noiseproof-phase659 down -v -> completed" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "Workflow proof bundle reviewer checklist dashboard runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 659 - Workflow Proof Bundle Reviewer Checklist Dashboard Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "workflow proof bundle reviewer checklist dashboard runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/workflow-proof-bundle-reviewer-checklist-dashboard-runtime-smoke.md"
+        in portfolio
+    )
