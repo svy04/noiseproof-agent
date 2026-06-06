@@ -738,6 +738,51 @@ Boundary: remote workflow verification only; not the summary implementation itse
 
 Next gate: local Docker/FastAPI runtime smoke for the upload PDF quality preview summary if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 724 - Upload PDF Quality Preview Summary Runtime Smoke v0
+
+Status: verified.
+
+Purpose: record local Docker PostgreSQL plus live FastAPI HTTP evidence that `POST /documents/upload-pdf-quality-preview` returns `quality_summary` for born-digital and encrypted PDF uploads while preserving preview-only and no-robust-PDF-extraction boundaries.
+
+Implemented artifacts:
+
+```text
+upload PDF quality preview summary runtime smoke v0
+docs/review/upload-pdf-quality-preview-summary-runtime-smoke.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Runtime markers:
+
+```text
+Docker version 29.4.3
+Docker Compose version v5.1.3
+Compose project: noiseproof-phase724
+POSTGRES_PORT=55454
+FastAPI URL: http://127.0.0.1:8115
+Pending migrations: 23
+Pending migrations: 0
+GET /health -> 200
+phase724-born-digital.pdf_status=200
+phase724-encrypted.pdf_status=200
+document_count_delta=0
+digital_quality_summary_present=True
+digital_summary_boundary=summary_only_not_robust_pdf_extraction_evidence
+digital_summary_robust_pdf_extraction=False
+encrypted_quality_summary_present=True
+encrypted_summary_password_required=True
+encrypted_summary_failure_case=pdf_encrypted_requires_password
+docker compose -p noiseproof-phase724 down -v -> completed
+```
+
+Boundary: local runtime evidence only; not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not extracted text storage, not document persistence evidence for the preview route, not retrieval behavior, not Evidence Ledger generation, not robust PDF extraction evidence, not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: remote verification for this runtime-smoke proof after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 Accepted state as of Phase 403:
 
 ```text
