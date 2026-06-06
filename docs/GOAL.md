@@ -22974,6 +22974,44 @@ Boundary: remote workflow verification only; not the local runtime smoke itself,
 
 Next gate: route refresh if this proof should become reviewer-facing, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
+### Phase 697 - External-reader Proof Path Evidence Quality Draft Preview Route Refresh v0
+
+Status: implemented.
+
+Purpose: align the repository-native external-reader proof path and reviewer link map with the latest Evidence quality draft preview proof chain while preserving Evidence quality risk ops counts as predecessor visibility proof.
+
+Implemented artifacts:
+
+```text
+external-reader proof path evidence quality draft preview route refresh v0
+docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-link-map.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Route markers:
+
+```text
+Current Proof Route -> Evidence quality draft preview proof
+docs/review/evidence-quality-risk-failure-case-draft-preview.md
+docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke.md
+docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke-remote-verification.md
+POST /evidence-ledgers/{entry_id}/failure-case-draft-preview
+preview_only_not_persisted
+failure_case_count_delta -> 0
+clean_preview_status -> 409
+missing_preview_status -> 404
+```
+
+Boundary: reader-route alignment only; not new runtime evidence, not a live issue body edit, not automatic failure-case creation, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not embedding generation, not an LLM call, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Next gate: remote verification for this reader-route refresh after push, external review issue-body refresh only if the public issue should point to this latest product handoff proof, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
 ### Phase 689 - Evidence Quality Risk Ops Surface v0
 
 Status: done.

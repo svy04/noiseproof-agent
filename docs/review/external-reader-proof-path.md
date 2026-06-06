@@ -16,6 +16,17 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Evidence quality draft preview proof:
+
+```text
+docs/review/evidence-quality-risk-failure-case-draft-preview.md
+docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke.md
+docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh.md
+```
+
+Boundary: this current route points first-pass reviewers to the preview-only manual handoff where a persisted Evidence Ledger quality-risk row can produce a failure-case draft payload through `POST /evidence-ledgers/{entry_id}/failure-case-draft-preview`, while weak-row preview returns `200`, clean-row preview returns `409`, missing-row preview returns `404`, and `failure_case_count_delta -> 0`. This route alignment is not new runtime evidence. It is not a live issue body edit, not automatic failure-case creation, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not embedding generation, not an LLM call, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 Evidence quality risk ops proof:
 
 ```text

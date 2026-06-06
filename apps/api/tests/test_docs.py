@@ -31837,3 +31837,92 @@ def test_evidence_quality_risk_failure_case_draft_preview_runtime_smoke_remote_v
         "docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke-remote-verification.md"
         in application_ready
     )
+
+
+def test_external_reader_proof_path_evidence_quality_draft_preview_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    link_map = (
+        REPO_ROOT / "docs/review/external-reviewer-link-map.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External-reader Proof Path Evidence Quality Draft Preview Route Refresh"
+        in content
+    )
+    assert (
+        "external-reader proof path evidence quality draft preview route refresh v0"
+        in content
+    )
+    assert "docs/review/evidence-quality-risk-failure-case-draft-preview.md" in content
+    assert (
+        "docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke.md"
+        in content
+    )
+    assert (
+        "docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke-remote-verification.md"
+        in content
+    )
+    assert "not new runtime evidence" in content
+    assert "not automatic failure-case creation" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    current_route = proof_path.split("## Current Proof Route", 1)[1].split(
+        "Workflow proof bundle markdown export runtime proof:", 1
+    )[0]
+    assert "Evidence quality draft preview proof:" in current_route
+    assert (
+        "docs/review/evidence-quality-risk-failure-case-draft-preview.md"
+        in current_route
+    )
+    assert (
+        "docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke.md"
+        in current_route
+    )
+    assert (
+        "docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke-remote-verification.md"
+        in current_route
+    )
+    assert (
+        "docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh.md"
+        in current_route
+    )
+    assert current_route.index("Evidence quality draft preview proof:") < current_route.index(
+        "Evidence quality risk ops proof:"
+    )
+    assert "Latest Evidence Quality Draft Preview Proof" in link_map
+    assert (
+        "docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke.md"
+        in link_map
+    )
+    assert (
+        "External-reader proof path evidence quality draft preview route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 697 - External-reader Proof Path Evidence Quality Draft Preview Route Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 697 adds external-reader proof path evidence quality draft preview route refresh v0"
+        in runbook
+    )
+    assert (
+        "docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh.md"
+        in portfolio
+    )

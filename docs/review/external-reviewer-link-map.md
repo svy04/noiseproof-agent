@@ -8,6 +8,20 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest Evidence Quality Draft Preview Proof
+
+- Evidence quality risk failure-case draft preview:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/evidence-quality-risk-failure-case-draft-preview.md
+- Runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke.md
+- Remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/evidence-quality-risk-failure-case-draft-preview-runtime-smoke-remote-verification.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-evidence-quality-draft-preview-route-refresh.md
+- Route markers:
+  `POST /evidence-ledgers/{entry_id}/failure-case-draft-preview`, `preview_only_not_persisted`, `evidence_quality_risk`, `failure_case_count_delta -> 0`, clean-row `409`, missing-row `404`
+- Boundary: preview-only manual handoff over persisted Evidence Ledger row metadata; not a live issue body edit, not new runtime evidence, not automatic failure-case creation, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not embedding generation, not an LLM call, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 ## Latest Evidence Quality Risk Ops Proof
 
 - Evidence quality risk ops surface:
