@@ -33,6 +33,7 @@ docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops.md
 docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-runtime-smoke.md
 docs/review/uploaded-pdf-encrypted-failure-candidate-handoff-ops-remote-verification.md
 docs/review/external-reader-proof-path-encrypted-pdf-handoff-ops-route-refresh.md
+docs/review/external-reader-proof-path-encrypted-pdf-handoff-ops-route-refresh-remote-verification.md
 ```
 
 Boundary: this focused route proves that password-protected uploaded PDFs can be preserved as explicit failure metadata through `POST /documents/upload-chunks` and surfaced as `pdf_encrypted_failure_candidate_count` / `PDF Encrypted Failure Candidates` in operations views. This route alignment is not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not robust PDF extraction, not OCR, not table extraction, not layout fidelity, not decryption, not password bypass, not customer validation, not Braincrew acceptance, and not product-complete.
