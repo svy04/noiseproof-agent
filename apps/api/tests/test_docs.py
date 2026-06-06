@@ -34435,6 +34435,66 @@ def test_external_feedback_current_state_uploaded_pdf_table_adapter_metadata_pro
     )
 
 
+def test_external_feedback_current_state_uploaded_pdf_table_adapter_metadata_provenance_issue_verification_remote_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-metadata-provenance-issue-verification-remote-verification.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state Uploaded PDF Table Adapter Metadata Provenance Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state uploaded PDF table adapter metadata provenance issue verification remote verification v0"
+        in content
+    )
+    assert "5b885f4f7df626d19811d74a48a089a85f2f0166" in content
+    assert "CI run `27076150741`" in content
+    assert "External Feedback Screen run `27076150731`" in content
+    assert "CI job_id -> 79913777658" in content
+    assert "External Feedback Screen job_id -> 79913777634" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-metadata-provenance-issue-verification.md"
+        in content
+    )
+    assert "not the issue-state screen itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not new runtime evidence" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External feedback current-state uploaded PDF table adapter metadata provenance issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 804 - External Feedback Current-state Uploaded PDF Table Adapter Metadata Provenance Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 804 adds external feedback current-state uploaded PDF table adapter metadata provenance issue verification remote verification v0"
+        in runbook
+    )
+    assert (
+        "external feedback current-state uploaded PDF table adapter metadata provenance issue verification remote verification"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

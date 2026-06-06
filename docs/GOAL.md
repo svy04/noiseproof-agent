@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 804:
+
+```text
+latest_remote_verification_gate: External feedback current-state uploaded PDF table adapter metadata provenance issue verification remote verification v0
+latest_remote_verification_artifact: docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-metadata-provenance-issue-verification-remote-verification.md
+latest_verified_head_sha: 5b885f4f7df626d19811d74a48a089a85f2f0166
+latest_ci_run: 27076150741
+latest_ci_job_id: 79913777658
+latest_external_feedback_screen_run: 27076150731
+latest_external_feedback_screen_job_id: 79913777634
+verified_issue_state_gate: External feedback current-state uploaded PDF table adapter metadata provenance issue verification v0
+verified_issue_state_artifact: docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-metadata-provenance-issue-verification.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the issue-state screen itself; not external reviewer feedback; not hosted deployment evidence; not new runtime evidence; not robust PDF extraction evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 803:
 
 ```text
@@ -4390,6 +4409,40 @@ screen -> success
 Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not arbitrary uploaded-file behavior; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 804 - External Feedback Current-state Uploaded PDF Table Adapter Metadata Provenance Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record that the Phase 803 external feedback current-state uploaded PDF table-adapter metadata provenance issue verification passed the remote GitHub Actions workflows after push.
+
+Implemented artifacts:
+
+```text
+External feedback current-state uploaded PDF table adapter metadata provenance issue verification remote verification v0
+docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-metadata-provenance-issue-verification-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote workflow evidence:
+
+```text
+head_sha -> 5b885f4f7df626d19811d74a48a089a85f2f0166
+CI run `27076150741`
+CI job_id -> 79913777658
+External Feedback Screen run `27076150731`
+External Feedback Screen job_id -> 79913777634
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the issue-state screen itself; not external reviewer feedback; not hosted deployment evidence; not new runtime evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger generation; and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or return to the next source-first product gate selected from the current repository state.
 
 ### Phase 803 - External Feedback Current-state Uploaded PDF Table Adapter Metadata Provenance Issue Verification v0
 
