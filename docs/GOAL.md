@@ -23465,3 +23465,50 @@ Handoff performs semantic retrieval: false
 Boundary: deterministic read-surface inspectability only; not a new report-generation path, not free-form report generation, not an LLM call, not retrieval execution, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Next gate: local Docker/FastAPI runtime smoke for report markdown source provenance export if runtime proof is needed, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 642 - Report Markdown Source Provenance Export Runtime Smoke v0
+
+Status: implemented.
+
+Purpose: record local Docker PostgreSQL plus live FastAPI HTTP evidence for the report markdown source provenance export.
+
+Implemented artifacts:
+
+```text
+report markdown source provenance export runtime smoke v0
+docs/review/report-markdown-source-provenance-export-runtime-smoke.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Runtime markers:
+
+```text
+Docker version 29.4.3
+Docker Compose version v5.1.3
+noiseproof-phase642
+POSTGRES_PORT=55445
+noiseproof-phase642-db-1
+Pending migrations: 0
+uvicorn on 127.0.0.1:8042
+GET /health -> ok
+POST /documents/{document_id}/semantic-retrieval-runs -> completed
+POST /retrieval-runs/{retrieval_run_id}/evidence-ledger -> stored_entry_count=2
+POST /retrieval-runs/{retrieval_run_id}/noise-gate -> blocked
+POST /retrieval-runs/{retrieval_run_id}/report -> blocked
+GET /reports/{report_record_id}/markdown -> HTTP/1.1 200 OK
+content-type: text/markdown; charset=utf-8
+markdown_contains_source_provenance=True
+markdown_contains_semantic_persisted=True
+markdown_contains_caller_vector=True
+markdown_contains_semantic_flag=True
+markdown_contains_persistence_boundary=True
+markdown_contains_handoff_false=True
+```
+
+Boundary: local Docker/FastAPI runtime read-surface evidence only; not hosted deployment evidence, not semantic retrieval quality evidence, not embedding generation, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not report quality evidence, not a new report-generation path, not free-form report generation, not an LLM call, not external reviewer feedback, and not product-complete.
+
+Next gate: remote verification for this runtime-smoke proof after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.

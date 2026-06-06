@@ -28396,6 +28396,78 @@ def test_report_markdown_source_provenance_export_is_recorded():
     assert "docs/review/report-markdown-source-provenance-export.md" in portfolio
 
 
+def test_report_markdown_source_provenance_export_runtime_smoke_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/report-markdown-source-provenance-export-runtime-smoke.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Report Markdown Source Provenance Export Runtime Smoke" in content
+    assert "report markdown source provenance export runtime smoke v0" in content
+    assert "Docker version 29.4.3" in content
+    assert "Docker Compose version v5.1.3" in content
+    assert "noiseproof-phase642" in content
+    assert "POSTGRES_PORT=55445" in content
+    assert "noiseproof-phase642-db-1" in content
+    assert "Pending migrations: 0" in content
+    assert "uvicorn on 127.0.0.1:8042" in content
+    assert "GET /health -> ok" in content
+    assert "POST /documents/{document_id}/semantic-retrieval-runs -> completed" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger -> stored_entry_count=2" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/noise-gate -> blocked" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/report -> blocked" in content
+    assert "GET /reports/{report_record_id}/markdown -> HTTP/1.1 200 OK" in content
+    assert "content-type: text/markdown; charset=utf-8" in content
+    assert "markdown_contains_source_provenance=True" in content
+    assert "markdown_contains_semantic_persisted=True" in content
+    assert "markdown_contains_caller_vector=True" in content
+    assert "markdown_contains_semantic_flag=True" in content
+    assert "markdown_contains_persistence_boundary=True" in content
+    assert "markdown_contains_handoff_false=True" in content
+    assert "raised a client-side NullReferenceException" in content
+    assert "verified the endpoint returned `HTTP/1.1 200 OK`" in content
+    assert "not hosted deployment evidence" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not report quality evidence" in content
+    assert "not product-complete" in content
+    assert (
+        "Latest runtime proof marker: Report markdown source provenance export runtime smoke v0."
+        in readme
+    )
+    assert (
+        "Historical latest-marker compatibility: Latest runtime proof marker: Workflow failure auto failure-case creation runtime smoke v0."
+        in readme
+    )
+    assert (
+        "Report markdown source provenance export runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 642 - Report Markdown Source Provenance Export Runtime Smoke v0"
+        in goal
+    )
+    assert goal.index(
+        "Phase 641 - Report Markdown Source Provenance Export v0"
+    ) < goal.index(
+        "Phase 642 - Report Markdown Source Provenance Export Runtime Smoke v0"
+    )
+    assert "report markdown source provenance export runtime smoke v0" in runbook
+    assert (
+        "docs/review/report-markdown-source-provenance-export-runtime-smoke.md"
+        in portfolio
+    )
+
+
 def test_readme_current_proof_route_refresh_remote_verification_is_recorded():
     review_path = (
         REPO_ROOT
