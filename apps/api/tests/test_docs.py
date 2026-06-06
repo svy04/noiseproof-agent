@@ -34561,6 +34561,76 @@ def test_uploaded_pdf_table_adapter_evidence_ledger_provenance_v0_is_recorded():
     assert "Uploaded PDF table adapter Evidence Ledger provenance" in portfolio
 
 
+def test_uploaded_pdf_table_adapter_evidence_ledger_provenance_runtime_smoke_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-smoke.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded PDF Table Adapter Evidence Ledger Provenance Runtime Smoke" in content
+    assert (
+        "uploaded PDF table adapter Evidence Ledger provenance runtime smoke v0"
+        in content
+    )
+    assert "Docker Compose version" in content
+    assert "noiseproof-phase806" in content
+    assert "POSTGRES_PORT=55460" in content
+    assert "uv run uvicorn app.main:app --host 127.0.0.1 --port 8121" in content
+    assert "Pending migrations: 0" in content
+    assert "GET /health -> 200" in content
+    assert "POST /documents/upload-chunks -> 201" in content
+    assert "POST /documents/{document_id}/retrieval-runs -> 201" in content
+    assert (
+        "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger -> 201"
+        in content
+    )
+    assert "GET /evidence-ledgers?retrieval_run_id={retrieval_run_id} -> 200" in content
+    assert "stored_entry_count -> 1" in content
+    assert "evidence_entry_default_pdf_parser_table_adapter_metadata -> True" in content
+    assert "listed_entry_default_pdf_parser_table_adapter_metadata -> True" in content
+    assert "table_adapter.extracted_table_rows -> [['Segment', 'Growth'], ['Enterprise', '12%']]" in content
+    assert "table_extraction_performed remains false -> False" in content
+    assert (
+        "source_provenance_boundary -> evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk"
+        in content
+    )
+    assert "warning_boundary_present -> True" in content
+    assert "all_required_markers_passed -> True" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not table extraction evidence for arbitrary market PDFs" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not final truth adjudication" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Uploaded PDF table adapter Evidence Ledger provenance runtime smoke v0: verified"
+        in readme
+    )
+    assert (
+        "Phase 806 - Uploaded PDF Table Adapter Evidence Ledger Provenance Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "Phase 806 adds uploaded PDF table adapter Evidence Ledger provenance runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "Uploaded PDF table adapter Evidence Ledger provenance runtime smoke"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
