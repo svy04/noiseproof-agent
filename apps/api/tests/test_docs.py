@@ -6106,6 +6106,64 @@ def test_external_reviewer_outreach_packet_surfaces_upload_pdf_quality_preview_s
     )
 
 
+def test_external_reviewer_outreach_packet_upload_pdf_quality_preview_summary_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-summary-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Reviewer Outreach Packet Upload PDF Quality Preview Summary Refresh Remote Verification"
+        in content
+    )
+    assert (
+        "external reviewer outreach packet upload PDF quality preview summary refresh remote verification v0"
+        in content
+    )
+    assert "93ef859a14ca424aa0a618349446032f99d66a23" in content
+    assert "CI run `27066875409`" in content
+    assert "External Feedback Screen run `27066875415`" in content
+    assert "CI job_id -> 79889174858" in content
+    assert "External Feedback Screen job_id -> 79889174859" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-reviewer-outreach-packet-upload-pdf-quality-preview-summary-refresh.md"
+        in content
+    )
+    assert "not the outreach refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External reviewer outreach packet upload PDF quality preview summary refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 736 - External Reviewer Outreach Packet Upload PDF Quality Preview Summary Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 736 adds external reviewer outreach packet upload PDF quality preview summary refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "external reviewer outreach packet upload PDF quality preview summary refresh remote verification"
+        in portfolio
+    )
+
+
 def test_external_feedback_qualification_preview_screens_comments_without_closing_gate():
     preview_path = REPO_ROOT / "docs/review/external-feedback-qualification-preview.md"
     assert preview_path.is_file()
