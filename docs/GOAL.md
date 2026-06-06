@@ -1635,6 +1635,40 @@ Boundary: reader-route alignment only; not new runtime evidence, not a live issu
 
 Next gate: remote verification for this route refresh after push, external review issue-body route refresh only if the owner wants issue #1 to point at the coverage-summary proof chain, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from current repository state.
 
+### Phase 748 - External-reader Proof Path Upload PDF Quality Preview Coverage Summary Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions evidence that the pushed Phase 747 external-reader proof path upload PDF quality preview coverage-summary route refresh passed CI and External Feedback Screen on `main`.
+
+Implemented artifacts:
+
+```text
+external-reader proof path upload PDF quality preview coverage summary route refresh remote verification v0
+docs/review/external-reader-proof-path-upload-pdf-quality-preview-coverage-summary-route-refresh-remote-verification.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote verification markers:
+
+```text
+head_sha -> 32d8f6742a2f55e36da42cfa1d08fb73ca293728
+CI run 27068810527: success
+External Feedback Screen run 27068810528: success
+CI job_id -> 79894260568
+External Feedback Screen job_id -> 79894260554
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the route refresh itself, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not robust PDF extraction evidence, not OCR implementation, not table extraction implementation, not decryption evidence, and not product-complete.
+
+Next gate: external review issue-body route refresh only if the owner wants issue #1 to point at the coverage-summary proof chain, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.
