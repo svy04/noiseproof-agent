@@ -125,6 +125,31 @@ Boundary: manifest-only fixture packet; not binary PDF fixture evidence, not rob
 
 Next gate: deterministic PDF extraction quality evaluator over this manifest, still without claiming robust extraction.
 
+### Phase 704 - PDF Extraction Quality Evaluator v0
+
+Status: implemented.
+
+Purpose: score caller-provided PDF extraction observations against the Phase 703 manifest with deterministic fixture metrics, without opening PDF files or claiming robust extraction.
+
+Implemented artifacts:
+
+```text
+PDF extraction quality evaluator v0
+packages/ingestion/pdf_quality/__init__.py
+packages/ingestion/pdf_quality/fixture.py
+packages/ingestion/pdf_quality/evaluator.py
+docs/review/pdf-extraction-quality-evaluator.md
+apps/api/tests/test_pdf_extraction_quality.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Boundary: evaluator plumbing only; not robust PDF extraction implementation, not OCR implementation, not table extraction implementation, not hosted deployment evidence, and not product-complete.
+
+Next gate: generate a committed PDF extraction quality report from a small observation fixture, still without claiming robust extraction.
+
 Accepted state as of Phase 403:
 
 ```text

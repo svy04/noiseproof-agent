@@ -32280,3 +32280,37 @@ def test_pdf_extraction_quality_fixture_packet_is_recorded():
     assert "Phase 703 - PDF Extraction Quality Fixture Packet v0" in goal
     assert "Phase 703 adds PDF extraction quality fixture packet v0" in runbook
     assert "examples/pdf-extraction-quality/fixture-manifest.json" in portfolio
+
+
+def test_pdf_extraction_quality_evaluator_v0_is_recorded():
+    review_path = REPO_ROOT / "docs/review/pdf-extraction-quality-evaluator.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "PDF Extraction Quality Evaluator" in content
+    assert "PDF extraction quality evaluator v0" in content
+    assert "packages/ingestion/pdf_quality/fixture.py" in content
+    assert "packages/ingestion/pdf_quality/evaluator.py" in content
+    assert "examples/pdf-extraction-quality/fixture-manifest.json" in content
+    assert "manifest_metric_only_not_robust_pdf_extraction" in content
+    assert "observed_fixture_count" in content
+    assert "not_evaluated_fixture_count" in content
+    assert "expected_span_recall" in content
+    assert "warning_correctness" in content
+    assert "failure_case_candidate_correctness" in content
+    assert "not robust PDF extraction implementation" in content
+    assert "not OCR implementation" in content
+    assert "not table extraction implementation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+    assert "PDF extraction quality evaluator v0: implemented" in readme
+    assert "Phase 704 - PDF Extraction Quality Evaluator v0" in goal
+    assert "Phase 704 adds PDF extraction quality evaluator v0" in runbook
+    assert "packages/ingestion/pdf_quality/evaluator.py" in portfolio
