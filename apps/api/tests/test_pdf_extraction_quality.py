@@ -34,16 +34,17 @@ def test_pdf_extraction_quality_fixture_loader_keeps_boundaries_visible():
     assert fixture.binary_pdf_fixtures_included is False
     assert fixture.robust_pdf_extraction_claimed is False
     assert fixture.quality_gate_required_before_robust_claim is True
-    assert len(fixture.fixtures) == 7
+    assert len(fixture.fixtures) == 8
     assert fixture.fixtures[0].fixture_id == "born_digital_text"
 
     summary = summarize_pdf_extraction_quality_fixture(fixture)
 
-    assert summary["fixture_count"] == 7
+    assert summary["fixture_count"] == 8
     assert summary["binary_pdf_fixtures_included"] is False
     assert summary["robust_pdf_extraction_claimed"] is False
     assert summary["quality_gate_required_before_robust_claim"] is True
     assert "table_heavy_report" in summary["fixture_ids"]
+    assert "deterministic_table_adapter_pdf" in summary["fixture_ids"]
     assert "scanned_image_pdf" in summary["fixture_ids"]
     assert "page_coverage" in summary["quality_metrics"]
     assert "table_cell_recall" in summary["quality_metrics"]
@@ -97,7 +98,7 @@ def test_pdf_extraction_quality_evaluator_scores_observations_without_robust_cla
     )
     assert result["robust_pdf_extraction_claimed"] is False
     assert result["aggregate"]["observed_fixture_count"] == 3
-    assert result["aggregate"]["not_evaluated_fixture_count"] == 4
+    assert result["aggregate"]["not_evaluated_fixture_count"] == 5
     assert result["per_fixture"]["born_digital_text"]["status"] == "evaluated"
     assert result["per_fixture"]["born_digital_text"]["expected_span_recall"] == 1.0
     assert result["per_fixture"]["born_digital_text"]["warning_correctness"] == 1.0
@@ -188,6 +189,39 @@ def test_pdf_table_adapter_feeds_quality_evaluator_table_cell_recall():
     assert result["per_fixture"]["table_heavy_report"]["table_cell_recall"] == 0.0
     assert result["robust_pdf_extraction_claimed"] is False
     assert "not robust PDF extraction evidence" in result["boundary_notes"]
+
+
+def test_pdf_quality_fixture_scores_deterministic_table_adapter_observation():
+    fixture_root = REPO_ROOT / "examples/pdf-extraction-quality"
+    fixture = load_pdf_extraction_quality_fixture(fixture_root)
+    observations = json.loads((fixture_root / "observations.json").read_text())
+
+    deterministic_fixture = next(
+        item
+        for item in fixture.fixtures
+        if item.fixture_id == "deterministic_table_adapter_pdf"
+    )
+
+    assert deterministic_fixture.expected_table_rows == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert observations["deterministic_table_adapter_pdf"]["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+
+    result = evaluate_pdf_extraction_quality(fixture, observations)
+    row = result["per_fixture"]["deterministic_table_adapter_pdf"]
+
+    assert row["status"] == "evaluated"
+    assert row["table_row_coverage"] == 1.0
+    assert row["table_cell_recall"] == 1.0
+    assert row["warning_correctness"] == 1.0
+    assert result["per_fixture"]["table_heavy_report"]["table_cell_recall"] == 0.0
+    assert result["aggregate"]["observed_fixture_count"] == 4
+    assert result["aggregate"]["not_evaluated_fixture_count"] == 4
+    assert result["robust_pdf_extraction_claimed"] is False
 
 
 def test_pdf_table_adapter_reports_no_table_as_structured_warning():
@@ -384,7 +418,7 @@ def test_pdf_quality_observation_smoke_uses_pymupdf_digital_text_without_robust_
         "manifest_metric_only_not_robust_pdf_extraction"
     )
     assert result["aggregate"]["observed_fixture_count"] == 1
-    assert result["aggregate"]["not_evaluated_fixture_count"] == 6
+    assert result["aggregate"]["not_evaluated_fixture_count"] == 7
     assert result["per_fixture"]["born_digital_text"]["expected_span_recall"] == 1.0
     assert "not robust PDF extraction evidence" in result["boundary_notes"]
 
@@ -420,7 +454,7 @@ def test_pdf_quality_observation_smoke_keeps_table_candidates_out_of_table_extra
     )
 
     assert result["aggregate"]["observed_fixture_count"] == 1
-    assert result["aggregate"]["not_evaluated_fixture_count"] == 6
+    assert result["aggregate"]["not_evaluated_fixture_count"] == 7
     assert result["per_fixture"]["table_heavy_report"]["table_row_coverage"] == 0.0
     assert result["per_fixture"]["table_heavy_report"]["warning_correctness"] == 1.0
     assert "not table extraction evidence" in result["boundary_notes"]
@@ -454,7 +488,7 @@ def test_pdf_quality_observation_smoke_preserves_no_text_failure_candidate():
     )
 
     assert result["aggregate"]["observed_fixture_count"] == 1
-    assert result["aggregate"]["not_evaluated_fixture_count"] == 6
+    assert result["aggregate"]["not_evaluated_fixture_count"] == 7
     assert result["per_fixture"]["no_extractable_text_pdf"][
         "failure_case_candidate_correctness"
     ] == 1.0
@@ -491,7 +525,7 @@ def test_pdf_quality_observation_smoke_preserves_encrypted_failure_candidate():
     )
 
     assert result["aggregate"]["observed_fixture_count"] == 1
-    assert result["aggregate"]["not_evaluated_fixture_count"] == 6
+    assert result["aggregate"]["not_evaluated_fixture_count"] == 7
     assert result["per_fixture"]["encrypted_pdf"][
         "failure_case_candidate_correctness"
     ] == 1.0

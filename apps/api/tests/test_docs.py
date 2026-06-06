@@ -32631,6 +32631,7 @@ def test_pdf_extraction_quality_fixture_packet_is_recorded():
     expected_fixtures = {
         "born_digital_text",
         "table_heavy_report",
+        "deterministic_table_adapter_pdf",
         "scanned_image_pdf",
         "encrypted_pdf",
         "image_heavy_pdf",
@@ -32750,6 +32751,71 @@ def test_pdf_table_extraction_adapter_v0_is_recorded():
     assert "Phase 772 - PDF Table Extraction Adapter v0" in goal
     assert "Phase 772 adds PDF table extraction adapter v0" in runbook
     assert "PDF table extraction adapter" in portfolio
+
+
+def test_pdf_quality_deterministic_table_adapter_fixture_v0_is_recorded():
+    review_path = (
+        REPO_ROOT / "docs/review/pdf-quality-deterministic-table-adapter-fixture.md"
+    )
+    manifest_path = REPO_ROOT / "examples/pdf-extraction-quality/fixture-manifest.json"
+    observations_path = REPO_ROOT / "examples/pdf-extraction-quality/observations.json"
+    report_path = REPO_ROOT / "docs/evaluation/pdf-extraction-quality-report.md"
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    observations = json.loads(observations_path.read_text(encoding="utf-8"))
+    report = report_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    deterministic_fixture = next(
+        item
+        for item in manifest["fixtures"]
+        if item["id"] == "deterministic_table_adapter_pdf"
+    )
+
+    assert "PDF Quality Deterministic Table Adapter Fixture" in content
+    assert "PDF quality deterministic table adapter fixture v0" in content
+    assert "deterministic_table_adapter_pdf" in content
+    assert "examples/pdf-extraction-quality/fixture-manifest.json" in content
+    assert "examples/pdf-extraction-quality/observations.json" in content
+    assert "docs/evaluation/pdf-extraction-quality-report.md" in content
+    assert deterministic_fixture["expected_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert observations["deterministic_table_adapter_pdf"]["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert "fixture count: 8" in report
+    assert "observed_fixture_count | 4" in report
+    assert "not_evaluated_fixture_count | 4" in report
+    assert "deterministic_table_adapter_pdf | evaluated | 1 | 1 | 1 | 1" in report
+    assert "table_heavy_report | evaluated | 1 | 0 | 1 | 1" in report
+    assert "The deterministic table adapter fixture records" in report
+    assert "The table-heavy observation still records zero extracted table rows" in report
+    assert "not robust PDF extraction evidence" in content
+    assert "not default PdfParser table extraction" in content
+    assert "not table extraction evidence for arbitrary market PDFs" in content
+    assert "not product-complete" in content
+
+    assert "PDF quality deterministic table adapter fixture v0: implemented" in readme
+    assert (
+        "Phase 776 - PDF Quality Deterministic Table Adapter Fixture v0"
+        in goal
+    )
+    assert (
+        "Phase 776 adds PDF quality deterministic table adapter fixture v0"
+        in runbook
+    )
+    assert "PDF quality deterministic table adapter fixture" in portfolio
 
 
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():

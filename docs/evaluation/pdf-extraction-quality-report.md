@@ -9,7 +9,7 @@ It is not robust PDF extraction evidence.
 ## Fixture
 
 - fixture: `pdf_extraction_quality_fixture_packet_v0`
-- fixture count: 7
+- fixture count: 8
 - binary PDF fixtures included: False
 - robust PDF extraction claimed: False
 - claim boundary: `manifest_metric_only_not_robust_pdf_extraction`
@@ -18,13 +18,13 @@ It is not robust PDF extraction evidence.
 
 | Metric | Value |
 |---|---:|
-| observed_fixture_count | 3 |
+| observed_fixture_count | 4 |
 | not_evaluated_fixture_count | 4 |
-| page_coverage | 0.6667 |
-| character_coverage | 0.6667 |
+| page_coverage | 0.75 |
+| character_coverage | 0.75 |
 | expected_span_recall | 1 |
-| table_row_coverage | 0.6667 |
-| table_cell_recall | 0.6667 |
+| table_row_coverage | 0.75 |
+| table_cell_recall | 0.75 |
 | ocr_page_coverage | 1 |
 | warning_correctness | 1 |
 | failure_case_candidate_correctness | 1 |
@@ -35,6 +35,7 @@ It is not robust PDF extraction evidence.
 |---|---|---:|---:|---:|---:|
 | born_digital_text | evaluated | 1 | 1 | 1 | 1 |
 | table_heavy_report | evaluated | 1 | 0 | 1 | 1 |
+| deterministic_table_adapter_pdf | evaluated | 1 | 1 | 1 | 1 |
 | scanned_image_pdf | not_evaluated | 0 | 0 | 0 | 0 |
 | encrypted_pdf | evaluated | 1 | 1 | 1 | 1 |
 | image_heavy_pdf | not_evaluated | 0 | 0 | 0 | 0 |
@@ -52,7 +53,9 @@ It is not robust PDF extraction evidence.
 
 This report intentionally evaluates only a partial observation fixture. Four fixture roles remain `not_evaluated`, so this artifact is useful as evaluator plumbing and gap visibility, not as extraction quality evidence.
 
-The table-heavy observation currently records zero extracted table rows. That keeps table extraction weakness visible instead of turning table candidate diagnostics into a table extraction claim.
+The deterministic table adapter fixture records the tiny PyMuPDF adapter output against matching expected cells, proving the evaluator can score adapter-provided `extracted_table_rows` without claiming broad extraction quality.
+
+The table-heavy observation still records zero extracted table rows. That keeps default parser table extraction weakness visible instead of turning table candidate diagnostics into a table extraction claim.
 
 The table contract now records expected table cells separately from row count, so future table extraction must recover expected cell values instead of passing on positive row count alone.
 

@@ -25,6 +25,18 @@
       ]
     },
     {
+      "id": "deterministic_table_adapter_pdf",
+      "role": "deterministic PyMuPDF table adapter contract",
+      "source_shape": "small born-digital PDF with a simple 2x2 table generated in local tests",
+      "expected_behavior": "score adapter-provided extracted_table_rows without changing the default PdfParser boundary",
+      "expected_warnings": ["robust PDF extraction is not claimed"],
+      "expected_spans": ["Segment Growth", "Enterprise 12%"],
+      "expected_table_rows": [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"]
+      ]
+    },
+    {
       "id": "scanned_image_pdf",
       "role": "OCR opt-in boundary",
       "source_shape": "image-only scanned PDF with no embedded selectable text",

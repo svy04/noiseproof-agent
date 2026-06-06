@@ -16,6 +16,8 @@ binary_pdf_fixtures_included: false
 quality_gate_required_before_robust_claim: true
 ```
 
-Use this packet to test future adapters for born-digital text, table-heavy reports, scanned/image PDFs, encrypted PDFs, image-heavy PDFs, multi-column layouts, and no-extractable-text cases.
+Use this packet to test future adapters for born-digital text, table-heavy reports, deterministic table-adapter rows, scanned/image PDFs, encrypted PDFs, image-heavy PDFs, multi-column layouts, and no-extractable-text cases.
 
 The table-heavy fixture includes `expected_table_rows` and the evaluator reports `table_cell_recall`. This is a contract for future table extraction adapters only; it does not claim table extraction is implemented.
+
+The `deterministic_table_adapter_pdf` fixture records the tiny PyMuPDF table adapter's local deterministic 2x2 output in `observations.json`. It is manifest/observation evidence for evaluator plumbing only, not binary fixture evidence, not default `PdfParser` table extraction, and not robust PDF extraction evidence.

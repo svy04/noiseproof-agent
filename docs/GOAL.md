@@ -43,6 +43,39 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 776:
+
+```text
+latest_product_gate: PDF quality deterministic table adapter fixture v0
+latest_product_artifact: docs/review/pdf-quality-deterministic-table-adapter-fixture.md
+latest_quality_report: docs/evaluation/pdf-extraction-quality-report.md
+latest_fixture_packet: examples/pdf-extraction-quality/fixture-manifest.json
+latest_observation_packet: examples/pdf-extraction-quality/observations.json
+latest_fixture_id: deterministic_table_adapter_pdf
+latest_fixture_expected_table_rows:
+  - [Segment, Growth]
+  - [Enterprise, 12%]
+latest_observed_extracted_table_rows:
+  - [Segment, Growth]
+  - [Enterprise, 12%]
+quality_report_fixture_count: 8
+quality_report_observed_fixture_count: 4
+quality_report_not_evaluated_fixture_count: 4
+deterministic_table_adapter_pdf.table_cell_recall: 1
+table_heavy_report.table_cell_recall: 0
+default_pdf_parser_table_extraction_performed: still_false
+default_pdf_parser_integration: not_implemented
+robust_pdf_extraction: not_implemented
+binary_pdf_fixtures_included: false
+table_extraction_evidence_for_arbitrary_market_pdfs: not_claimed
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+live_embedding_generation: blocked_until_OPENAI_API_KEY_is_configured
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: manifest/observation evaluator evidence only; not binary PDF fixture evidence; not default PdfParser table extraction; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 775:
 
 ```text
@@ -3068,6 +3101,44 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not default `PdfParser` table extraction; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
 
 Next gate: a quality fixture/report update that evaluates the deterministic table fixture, external-reader proof path route refresh if this proof should become a first-pass reviewer route, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 776 - PDF Quality Deterministic Table Adapter Fixture v0
+
+Status: implemented.
+
+Purpose: add a manifest/observation fixture that lets the PDF extraction quality report score the deterministic PyMuPDF table adapter rows without changing the default `PdfParser` boundary.
+
+Implemented artifacts:
+
+```text
+PDF quality deterministic table adapter fixture v0
+docs/review/pdf-quality-deterministic-table-adapter-fixture.md
+examples/pdf-extraction-quality/fixture-manifest.json
+examples/pdf-extraction-quality/observations.json
+examples/pdf-extraction-quality/README.md
+docs/evaluation/pdf-extraction-quality-report.md
+packages/ingestion/pdf_quality/report.py
+apps/api/tests/test_pdf_extraction_quality.py
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Report markers:
+
+```text
+fixture count -> 8
+observed_fixture_count -> 4
+not_evaluated_fixture_count -> 4
+deterministic_table_adapter_pdf.table_cell_recall -> 1
+table_heavy_report.table_cell_recall -> 0
+```
+
+Boundary: manifest/observation evaluator evidence only; not binary PDF fixture evidence; not default `PdfParser` table extraction; not table extraction evidence for arbitrary market PDFs; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; and not product-complete.
+
+Next gate: full local and remote verification for this fixture/report update, external-reader proof path route refresh if this proof should become reviewer-facing, or a future binary fixture gate with explicit provenance and redistribution boundaries.
 
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 

@@ -28,7 +28,7 @@ Report boundary:
 manifest_metric_only_not_robust_pdf_extraction
 ```
 
-This report has partial observations only. It records `observed_fixture_count = 3` and `not_evaluated_fixture_count = 4`, so it is evaluator plumbing and gap visibility rather than extraction quality evidence.
+This report has partial observations only. It currently records `observed_fixture_count = 4` and `not_evaluated_fixture_count = 4`, so it is evaluator plumbing and gap visibility rather than extraction quality evidence.
 
 ## Boundary
 
