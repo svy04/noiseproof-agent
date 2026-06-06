@@ -1992,6 +1992,41 @@ Boundary: reviewer navigation hygiene only; not new runtime evidence, not a live
 
 Next gate: remote verification for this link-map refresh after push, GOAL current-state coverage-summary reviewer surfaces refresh, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
 
+### Phase 758 - External Reviewer Link Map Upload PDF Coverage Summary Reviewer Surfaces Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record that the pushed Phase 757 link-map refresh passed the repository's remote workflows on `main`.
+
+Implemented artifacts:
+
+```text
+external reviewer link map upload PDF coverage summary reviewer surfaces refresh remote verification v0
+docs/review/external-reviewer-link-map-upload-pdf-coverage-summary-reviewer-surfaces-refresh-remote-verification.md
+docs/review/external-reviewer-link-map-upload-pdf-coverage-summary-reviewer-surfaces-refresh.md
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+```
+
+Remote workflow evidence:
+
+```text
+head_sha -> 343188c73978cbb9d587464aedaf57bd6e25ff79
+CI run `27069885246`: success
+External Feedback Screen run `27069885231`: success
+CI job_id -> 79897101535
+External Feedback Screen job_id -> 79897101526
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the link-map refresh itself, not new runtime evidence, not a live issue body edit, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: GOAL current-state coverage-summary reviewer surfaces refresh, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when `OPENAI_API_KEY` is configured by the owner, or another source-first product gate selected from current repository state.
+
 ### Phase 739 - External Reviewer Link Map Upload PDF Summary Reviewer Surfaces Refresh v0
 
 Status: implemented.
