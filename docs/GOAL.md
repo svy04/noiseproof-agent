@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 809:
+
+```text
+latest_remote_verification_gate: External-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh remote verification v0
+latest_remote_verification_artifact: docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-route-refresh-remote-verification.md
+latest_verified_head_sha: 7a2ce5ec113c9b1ab421a1bb30a6bb939a8069dc
+latest_ci_run: 27076749685
+latest_ci_job_id: 79915329467
+latest_external_feedback_screen_run: 27076749689
+latest_external_feedback_screen_job_id: 79915329546
+verified_reviewer_route_gate: External-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh v0
+verified_reviewer_route_artifact: docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-route-refresh.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the route refresh itself; not new runtime evidence; not hosted deployment evidence; not external reviewer feedback; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger quality evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 808:
 
 ```text
@@ -27981,6 +28000,32 @@ External Feedback Screen run `27076548930`
 ```
 
 Phase 808 adds external-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh v0. It is reviewer route hygiene only, not new runtime evidence, not a live issue body edit, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not final truth adjudication, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+### Phase 809 - External-reader Proof Path Uploaded PDF Table Adapter Evidence Ledger Provenance Runtime Route Refresh Remote Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record remote GitHub Actions success for the uploaded PDF table-adapter Evidence Ledger provenance reviewer route refresh
+```
+
+Implemented:
+
+```text
+external-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh remote verification v0
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-route-refresh-remote-verification.md
+head_sha: 7a2ce5ec113c9b1ab421a1bb30a6bb939a8069dc
+CI run `27076749685`
+CI job_id -> 79915329467
+External Feedback Screen run `27076749689`
+External Feedback Screen job_id -> 79915329546
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Phase 809 adds external-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh remote verification v0. It is remote workflow verification only, not the route refresh itself, not new runtime evidence, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, and not product-complete.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 

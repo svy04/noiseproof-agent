@@ -34786,6 +34786,68 @@ def test_external_reader_uploaded_pdf_table_adapter_evidence_ledger_provenance_r
     )
 
 
+def test_external_reader_uploaded_pdf_table_adapter_evidence_ledger_provenance_runtime_route_refresh_remote_verification_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-route-refresh-remote-verification.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External-reader Proof Path Uploaded PDF Table Adapter Evidence Ledger Provenance Runtime Route Refresh Remote Verification"
+        in content
+    )
+    assert (
+        "external-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh remote verification v0"
+        in content
+    )
+    assert "7a2ce5ec113c9b1ab421a1bb30a6bb939a8069dc" in content
+    assert "CI run `27076749685`" in content
+    assert "CI job_id -> 79915329467" in content
+    assert "External Feedback Screen run `27076749689`" in content
+    assert "External Feedback Screen job_id -> 79915329546" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-route-refresh.md"
+        in content
+    )
+    assert "not the route refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not table extraction evidence for arbitrary market PDFs" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 809 - External-reader Proof Path Uploaded PDF Table Adapter Evidence Ledger Provenance Runtime Route Refresh Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 809 adds external-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh remote verification v0"
+        in runbook
+    )
+    assert (
+        "external-reader proof path uploaded PDF table adapter Evidence Ledger provenance runtime route refresh remote verification"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
