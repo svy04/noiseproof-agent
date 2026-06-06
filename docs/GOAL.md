@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 807:
+
+```text
+latest_remote_verification_gate: Uploaded PDF table adapter Evidence Ledger provenance runtime smoke remote verification v0
+latest_remote_verification_artifact: docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-smoke-remote-verification.md
+latest_verified_head_sha: 96967f9f00f43eb86c549df0adc1d3aca0f3cbb5
+latest_ci_run: 27076548950
+latest_ci_job_id: 79914811968
+latest_external_feedback_screen_run: 27076548930
+latest_external_feedback_screen_job_id: 79914811952
+verified_runtime_proof_gate: Uploaded PDF table adapter Evidence Ledger provenance runtime smoke v0
+verified_runtime_proof_artifact: docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-smoke.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not hosted deployment evidence; not external reviewer feedback; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger quality evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 806:
 
 ```text
@@ -27884,6 +27903,32 @@ all_required_markers_passed -> True
 ```
 
 Phase 806 adds uploaded PDF table adapter Evidence Ledger provenance runtime smoke v0. It is local runtime evidence only, not hosted deployment evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not final truth adjudication, not external reviewer feedback, and not product-complete.
+
+### Phase 807 - Uploaded PDF Table Adapter Evidence Ledger Provenance Runtime Smoke Remote Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record remote GitHub Actions success for the uploaded PDF table-adapter Evidence Ledger provenance runtime-smoke documentation commit
+```
+
+Implemented:
+
+```text
+uploaded PDF table adapter Evidence Ledger provenance runtime smoke remote verification v0
+docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-smoke-remote-verification.md
+head_sha: 96967f9f00f43eb86c549df0adc1d3aca0f3cbb5
+CI run `27076548950`
+CI job_id -> 79914811968
+External Feedback Screen run `27076548930`
+External Feedback Screen job_id -> 79914811952
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Phase 807 adds uploaded PDF table adapter Evidence Ledger provenance runtime smoke remote verification v0. It is remote workflow verification only, not the local runtime smoke itself, not new runtime evidence, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, and not product-complete.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 
