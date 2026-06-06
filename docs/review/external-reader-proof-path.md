@@ -16,6 +16,17 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Evidence quality risk ops proof:
+
+```text
+docs/review/evidence-quality-risk-ops-surface.md
+docs/review/evidence-quality-risk-ops-surface-runtime-smoke.md
+docs/review/evidence-quality-risk-ops-surface-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-evidence-quality-risk-ops-route-refresh.md
+```
+
+Boundary: this current route points first-pass reviewers to the operations surface where persisted Evidence Ledger rows drive `weakly_supported_evidence_count`, `low_confidence_evidence_count`, `missing_source_date_evidence_count`, and `evidence_quality_risk_count` in `GET /ops/summary`, and where `GET /ops/dashboard` renders `Weak Evidence`, `Low Confidence Evidence`, `Missing Source Dates`, and `Evidence Quality Risk Rows`. This route alignment is not new runtime evidence. It is not a live issue body edit, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not embedding generation, not an LLM call, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 Workflow proof bundle markdown export runtime proof:
 
 ```text

@@ -8,6 +8,20 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest Evidence Quality Risk Ops Proof
+
+- Evidence quality risk ops surface:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/evidence-quality-risk-ops-surface.md
+- Runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/evidence-quality-risk-ops-surface-runtime-smoke.md
+- Remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/evidence-quality-risk-ops-surface-runtime-smoke-remote-verification.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-evidence-quality-risk-ops-route-refresh.md
+- Route markers:
+  `weakly_supported_evidence_count`, `low_confidence_evidence_count`, `missing_source_date_evidence_count`, `evidence_quality_risk_count`, `Weak Evidence`, `Low Confidence Evidence`, `Missing Source Dates`, `Evidence Quality Risk Rows`
+- Boundary: persisted Evidence Ledger row risk metadata and operations visibility only; not a live issue body edit, not new runtime evidence, not final truth adjudication, not retrieval quality evidence, not Evidence Ledger quality evidence, not embedding generation, not an LLM call, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 ## Latest Persisted Report Markdown Export Proof
 
 - persisted Report markdown export proof:

@@ -31528,3 +31528,85 @@ def test_evidence_quality_risk_ops_surface_runtime_smoke_remote_verification_is_
         "docs/review/evidence-quality-risk-ops-surface-runtime-smoke-remote-verification.md"
         in application_ready
     )
+
+
+def test_external_reader_proof_path_evidence_quality_risk_ops_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-evidence-quality-risk-ops-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    assert (
+        "External-reader Proof Path Evidence Quality Risk Ops Route Refresh"
+        in content
+    )
+    assert (
+        "external-reader proof path evidence quality risk ops route refresh v0"
+        in content
+    )
+    assert "docs/review/evidence-quality-risk-ops-surface.md" in content
+    assert "docs/review/evidence-quality-risk-ops-surface-runtime-smoke.md" in content
+    assert (
+        "docs/review/evidence-quality-risk-ops-surface-runtime-smoke-remote-verification.md"
+        in content
+    )
+    assert "weakly_supported_evidence_count" in content
+    assert "evidence_quality_risk_count" in content
+    assert "not new runtime evidence" in content
+    assert "not final truth adjudication" in content
+    assert "not Evidence Ledger quality evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    link_map = (
+        REPO_ROOT / "docs/review/external-reviewer-link-map.md"
+    ).read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External-reader proof path evidence quality risk ops route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 692 adds external-reader proof path evidence quality risk ops route refresh v0"
+        in runbook
+    )
+    assert "Evidence quality risk ops proof:" in proof_path
+    assert "docs/review/evidence-quality-risk-ops-surface.md" in proof_path
+    assert "docs/review/evidence-quality-risk-ops-surface-runtime-smoke.md" in proof_path
+    assert (
+        "docs/review/evidence-quality-risk-ops-surface-runtime-smoke-remote-verification.md"
+        in proof_path
+    )
+    assert (
+        "docs/review/external-reader-proof-path-evidence-quality-risk-ops-route-refresh.md"
+        in proof_path
+    )
+    assert (
+        "Latest Evidence Quality Risk Ops Proof"
+        in link_map
+    )
+    assert "docs/review/evidence-quality-risk-ops-surface.md" in link_map
+    assert "docs/review/evidence-quality-risk-ops-surface-runtime-smoke.md" in link_map
+    assert (
+        "docs/review/evidence-quality-risk-ops-surface-runtime-smoke-remote-verification.md"
+        in link_map
+    )
+    assert (
+        "docs/review/external-reader-proof-path-evidence-quality-risk-ops-route-refresh.md"
+        in portfolio
+    )
