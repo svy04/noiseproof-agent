@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 812:
+
+```text
+latest_remote_verification_gate: External feedback current-state uploaded PDF table adapter Evidence Ledger provenance issue verification remote verification v0
+latest_remote_verification_artifact: docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-evidence-ledger-provenance-issue-verification-remote-verification.md
+latest_verified_head_sha: 3a6d418dc3077401a536b435d0b0fcc184a011f0
+latest_ci_run: 27077127109
+latest_ci_job_id: 79916310044
+latest_external_feedback_screen_run: 27077127096
+latest_external_feedback_screen_job_id: 79916309995
+verified_issue_state_gate: External feedback current-state uploaded PDF table adapter Evidence Ledger provenance issue verification v0
+verified_issue_state_artifact: docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-evidence-ledger-provenance-issue-verification.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the issue-state screen itself; not external reviewer feedback; not hosted deployment evidence; not new runtime evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger quality evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 811:
 
 ```text
@@ -28132,6 +28151,32 @@ does_not_close_gate: true
 ```
 
 Phase 811 adds external feedback current-state uploaded PDF table adapter Evidence Ledger provenance issue verification v0. It is current-state issue screening only, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not new runtime evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, and not product-complete.
+
+### Phase 812 - External Feedback Current-state Uploaded PDF Table Adapter Evidence Ledger Provenance Issue Verification Remote Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record remote GitHub Actions success for the uploaded PDF table-adapter Evidence Ledger provenance issue-state verification
+```
+
+Implemented:
+
+```text
+external feedback current-state uploaded PDF table adapter Evidence Ledger provenance issue verification remote verification v0
+docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-evidence-ledger-provenance-issue-verification-remote-verification.md
+head_sha: 3a6d418dc3077401a536b435d0b0fcc184a011f0
+CI run `27077127109`
+CI job_id -> 79916310044
+External Feedback Screen run `27077127096`
+External Feedback Screen job_id -> 79916309995
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Phase 812 adds external feedback current-state uploaded PDF table adapter Evidence Ledger provenance issue verification remote verification v0. It is remote workflow verification only, not the issue-state screen itself, not external reviewer feedback, not hosted deployment evidence, not new runtime evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, and not product-complete.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 
