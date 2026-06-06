@@ -43,6 +43,27 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 813:
+
+```text
+latest_product_gate: Uploaded PDF table adapter Noise Gate provenance v0
+latest_product_artifact: docs/review/uploaded-pdf-table-adapter-noise-gate-provenance.md
+latest_code_surface: apps/api/app/services/retrieval_run_source_provenance.py
+latest_regression_test: test_uploaded_pdf_table_adapter_metadata_flows_into_noise_gate_provenance
+latest_api_surface: POST /documents/upload-chunks; POST /documents/{document_id}/retrieval-runs; POST /retrieval-runs/{retrieval_run_id}/evidence-ledger; POST /retrieval-runs/{retrieval_run_id}/noise-gate; GET /noise-gates
+default_pdf_parser_table_adapter_metadata: visible_in_retrieval_run_linked_noise_gate_stage_input_manifest
+table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]
+table_extraction_performed_claim: remains_false_on_parser_metadata
+source_provenance_boundary: evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk
+source_pdf_table_adapter_provenance_boundary: noise_gate_stage_input_manifest_from_evidence_ledger_entry_metadata
+handoff_performs_pdf_table_extraction: false
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: route-level regression evidence only; not local Docker runtime evidence; not hosted deployment evidence; not external reviewer feedback; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Noise Gate quality evidence; not final truth adjudication; not final report generation; not product-complete
+```
+
 Current navigation overlay as of Phase 812:
 
 ```text
@@ -28177,6 +28198,34 @@ Screen issue comments -> success
 ```
 
 Phase 812 adds external feedback current-state uploaded PDF table adapter Evidence Ledger provenance issue verification remote verification v0. It is remote workflow verification only, not the issue-state screen itself, not external reviewer feedback, not hosted deployment evidence, not new runtime evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, and not product-complete.
+
+### Phase 813 - Uploaded PDF Table Adapter Noise Gate Provenance v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+preserve uploaded PDF table-adapter Evidence Ledger metadata into retrieval-run-linked Noise Gate stage_input_manifest without claiming Noise Gate quality or robust PDF extraction
+```
+
+Implemented:
+
+```text
+uploaded PDF table adapter Noise Gate provenance v0
+docs/review/uploaded-pdf-table-adapter-noise-gate-provenance.md
+apps/api/app/services/retrieval_run_source_provenance.py
+test_uploaded_pdf_table_adapter_metadata_flows_into_noise_gate_provenance
+POST /documents/upload-chunks
+POST /documents/{document_id}/retrieval-runs
+POST /retrieval-runs/{retrieval_run_id}/evidence-ledger
+POST /retrieval-runs/{retrieval_run_id}/noise-gate
+GET /noise-gates
+source_pdf_table_adapter_provenance_boundary -> noise_gate_stage_input_manifest_from_evidence_ledger_entry_metadata
+handoff_performs_pdf_table_extraction -> false
+```
+
+Phase 813 adds uploaded PDF table adapter Noise Gate provenance v0. It is route-level regression evidence only, not local Docker runtime evidence, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Noise Gate quality evidence, not final truth adjudication, not final report generation, and not product-complete.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 

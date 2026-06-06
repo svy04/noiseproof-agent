@@ -35055,6 +35055,65 @@ def test_external_feedback_current_state_uploaded_pdf_table_adapter_evidence_led
     )
 
 
+def test_uploaded_pdf_table_adapter_noise_gate_provenance_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-table-adapter-noise-gate-provenance.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded PDF Table Adapter Noise Gate Provenance" in content
+    assert "uploaded PDF table adapter Noise Gate provenance v0" in content
+    assert "apps/api/app/services/retrieval_run_source_provenance.py" in content
+    assert "test_uploaded_pdf_table_adapter_metadata_flows_into_noise_gate_provenance" in content
+    required_markers = [
+        "POST /documents/upload-chunks",
+        "POST /documents/{document_id}/retrieval-runs",
+        "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger",
+        "POST /retrieval-runs/{retrieval_run_id}/noise-gate",
+        "GET /noise-gates",
+        "default_pdf_parser_table_adapter_metadata",
+        "table_adapter.extracted_table_rows -> [['Segment', 'Growth'], ['Enterprise', '12%']]",
+        "table_extraction_performed remains false",
+        "source_pdf_table_adapter_provenance_boundary -> noise_gate_stage_input_manifest_from_evidence_ledger_entry_metadata",
+        "handoff_performs_pdf_table_extraction -> false",
+        "Noise Gate handoff does not perform PDF table extraction",
+        "not robust PDF extraction evidence",
+        "not table extraction evidence for arbitrary market PDFs",
+        "not Noise Gate quality evidence",
+        "not final truth adjudication",
+        "not final report generation",
+        "not hosted deployment evidence",
+        "not external reviewer feedback",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+
+    assert (
+        "Uploaded PDF table adapter Noise Gate provenance v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 813 - Uploaded PDF Table Adapter Noise Gate Provenance v0"
+        in goal
+    )
+    assert (
+        "Phase 813 adds uploaded PDF table adapter Noise Gate provenance v0"
+        in runbook
+    )
+    assert "uploaded PDF table adapter Noise Gate provenance" in portfolio
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

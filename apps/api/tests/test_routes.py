@@ -4542,6 +4542,80 @@ def test_uploaded_pdf_table_adapter_metadata_flows_into_evidence_ledger_provenan
     assert listed_entry["metadata_json"]["table_extraction_performed"] is False
 
 
+def test_uploaded_pdf_table_adapter_metadata_flows_into_noise_gate_provenance():
+    client = make_client()
+    content = _table_pdf_bytes()
+
+    upload = client.post(
+        "/documents/upload-chunks",
+        data={
+            "title": "Uploaded table PDF report",
+            "strategy": "fixed-window",
+            "max_characters": "120",
+            "overlap": "0",
+        },
+        files={"file": ("table-report.pdf", content, "application/pdf")},
+    ).json()
+
+    retrieval_run = client.post(
+        f"/documents/{upload['document']['id']}/retrieval-runs",
+        json={
+            "question": "Which evidence mentions Enterprise Growth?",
+            "strategy": "fixed-window",
+            "top_k": 1,
+        },
+    ).json()
+    ledger = client.post(f"/retrieval-runs/{retrieval_run['id']}/evidence-ledger").json()
+
+    response = client.post(f"/retrieval-runs/{retrieval_run['id']}/noise-gate")
+
+    assert response.status_code == 201
+    body = response.json()
+    manifest = body["stage_input_manifest"]
+    assert manifest["retrieval_run_id"] == retrieval_run["id"]
+    assert manifest["input_evidence_ledger_entry_ids"] == [
+        ledger["entries"][0]["id"]
+    ]
+    assert manifest["default_pdf_parser_table_adapter_metadata"] is True
+    assert manifest["table_adapter_extraction_performed"] is True
+    assert manifest["table_adapter"]["table_extraction_engine"] == (
+        "pymupdf-find_tables-extract"
+    )
+    assert manifest["table_adapter"]["robust_pdf_extraction"] is False
+    assert manifest["table_adapter"]["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert manifest["table_extraction_performed"] is False
+    assert manifest["source_provenance_boundary"] == (
+        "evidence_ledger_entry_metadata_from_retrieval_run_candidate_chunk"
+    )
+    assert manifest["source_pdf_table_adapter_provenance_boundary"] == (
+        "noise_gate_stage_input_manifest_from_evidence_ledger_entry_metadata"
+    )
+    assert manifest["handoff_performs_pdf_table_extraction"] is False
+    assert any(
+        "Uploaded PDF table-adapter metadata was preserved into Noise Gate stage_input_manifest as provenance only"
+        in warning
+        for warning in body["warnings"]
+    )
+    assert any(
+        "Noise Gate handoff does not perform PDF table extraction"
+        in warning
+        for warning in body["warnings"]
+    )
+
+    listed = client.get("/noise-gates")
+    assert listed.status_code == 200
+    listed_manifest = listed.json()[0]["stage_input_manifest"]
+    assert listed_manifest["default_pdf_parser_table_adapter_metadata"] is True
+    assert listed_manifest["table_adapter"]["extracted_table_rows"] == [
+        ["Segment", "Growth"],
+        ["Enterprise", "12%"],
+    ]
+    assert listed_manifest["handoff_performs_pdf_table_extraction"] is False
+
+
 def test_document_upload_retrieval_preview_searches_uploaded_markdown_without_persistence():
     client = make_client()
     content = b"# Market note\nEnterprise demand growth was 12 percent in 2026.\nConsumer demand declined.\n"
