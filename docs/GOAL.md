@@ -43,6 +43,50 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 829:
+
+```text
+latest_external_feedback_state_gate: External feedback current-state HTTP trace context Docker runtime smoke issue verification v0
+latest_external_feedback_state_artifact: docs/review/external-feedback-current-state-http-trace-context-docker-runtime-smoke-issue-verification.md
+issue_url: https://github.com/svy04/noiseproof-agent/issues/1
+issue_updatedAt: 2026-06-07T01:37:57Z
+comment_count: 1
+screened_comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+classification: non_qualifying
+reason: self_authored_comment_only
+status: pending
+does_not_close_gate: true
+latest_http_trace_context_docker_runtime_smoke: true
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: current-state issue screening only; not external reviewer feedback; not hosted deployment evidence; not distributed tracing; not OpenTelemetry span export; not hosted observability; not customer validation; not product-complete
+```
+
+Current navigation overlay as of Phase 828:
+
+```text
+latest_issue_body_route_gate: External review issue body HTTP trace context Docker runtime smoke route refresh v0
+latest_issue_body_route_artifact: docs/review/external-review-issue-body-http-trace-context-docker-runtime-smoke-route-refresh.md
+issue_url: https://github.com/svy04/noiseproof-agent/issues/1
+issue_updatedAt: 2026-06-07T01:37:57Z
+issue_starts_with_request: true
+issue_first_codepoint: 35
+issue_has_leading_bom: false
+issue_latest_proof_to_inspect: HTTP trace context Docker runtime smoke proof
+old_uploaded_pdf_table_adapter_noise_gate_latest_label_present: false
+latest_issue_body_api_surface: POST /collection-plans/preview; GET /agent-runs; GET /health
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: owner-authored issue body routing only; not external reviewer feedback; not hosted deployment evidence; not distributed tracing; not OpenTelemetry span export; not hosted observability; not product-complete
+```
+
 Current navigation overlay as of Phase 827:
 
 ```text
@@ -29017,6 +29061,79 @@ verified_artifact -> docs/review/http-trace-context-docker-runtime-smoke.md
 Boundary: remote workflow verification only; not the local runtime smoke itself, not new runtime evidence, not hosted deployment evidence, not distributed tracing, not OpenTelemetry span export, not hosted observability, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, hosted observability only with explicit deployment target, or another source-first product gate selected from the current repository state.
+
+### Phase 828 - External Review Issue Body HTTP Trace Context Docker Runtime Smoke Route Refresh v0
+
+Status: implemented.
+
+Purpose: route live issue #1 `Latest Proof To Inspect` to the HTTP trace context Docker runtime smoke proof chain.
+
+Implemented artifacts:
+
+```text
+external review issue body HTTP trace context Docker runtime smoke route refresh v0
+docs/review/external-review-issue-body-http-trace-context-docker-runtime-smoke-route-refresh.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Issue markers:
+
+```text
+updatedAt: 2026-06-07T01:37:57Z
+comment_count: 1
+starts_with_request: true
+first_codepoint: 35
+has_leading_bom: false
+has_http_trace_context_docker_runtime_smoke: true
+has_http_trace_context_docker_runtime_smoke_remote_verification: true
+old_uploaded_pdf_table_adapter_noise_gate_latest_label_present: false
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not OpenTelemetry span export, not hosted observability, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: external feedback current-state HTTP trace context Docker runtime smoke issue verification v0, remote verification for this route refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, hosted observability only with explicit deployment target, or another source-first product gate selected from the current repository state.
+
+### Phase 829 - External Feedback Current-state HTTP Trace Context Docker Runtime Smoke Issue Verification v0
+
+Status: implemented.
+
+Purpose: screen the live public issue after the HTTP trace context Docker runtime smoke route refresh and keep external reviewer feedback pending unless a qualifying outside comment exists.
+
+Implemented artifacts:
+
+```text
+external feedback current-state HTTP trace context Docker runtime smoke issue verification v0
+docs/review/external-feedback-current-state-http-trace-context-docker-runtime-smoke-issue-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Issue screen markers:
+
+```text
+updatedAt: 2026-06-07T01:37:57Z
+comment_count: 1
+screened_comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+classification: non_qualifying
+reason: self_authored_comment_only
+status: pending
+does_not_close_gate: true
+latest_http_trace_context_docker_runtime_smoke: true
+```
+
+Boundary: current-state issue screening only; not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not OpenTelemetry span export, not hosted observability, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: remote verification for this issue-state screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, hosted observability only with explicit deployment target, or another source-first product gate selected from the current repository state.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 
