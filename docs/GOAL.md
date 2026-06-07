@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 818:
+
+```text
+latest_remote_verification_gate: External-reader proof path uploaded PDF table adapter Noise Gate provenance runtime route refresh remote verification v0
+latest_remote_verification_artifact: docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-noise-gate-provenance-runtime-route-refresh-remote-verification.md
+latest_verified_head_sha: 11c75de3b28c6ed5604fb61f9f31d37181c1f4aa
+latest_ci_run: 27077884275
+latest_ci_job_id: 79918258737
+latest_external_feedback_screen_run: 27077884282
+latest_external_feedback_screen_job_id: 79918258752
+verified_reviewer_route_gate: External-reader proof path uploaded PDF table adapter Noise Gate provenance runtime route refresh v0
+verified_reviewer_route_artifact: docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-noise-gate-provenance-runtime-route-refresh.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the route refresh itself; not new runtime evidence; not hosted deployment evidence; not external reviewer feedback; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger quality evidence; not Noise Gate quality evidence; not final truth adjudication; not final report generation; not product-complete
+```
+
 Current navigation overlay as of Phase 817:
 
 ```text
@@ -28447,6 +28466,38 @@ GET /noise-gates
 Boundary: reviewer route hygiene only; not new runtime evidence, not a live issue body edit, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not final truth adjudication, not final report generation, and not product-complete.
 
 Next gate: remote verification after push, live issue body route refresh if this should become the public issue's latest proof, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 818 - External-reader Proof Path Uploaded PDF Table Adapter Noise Gate Provenance Runtime Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Implemented artifacts:
+
+```text
+external-reader proof path uploaded PDF table adapter Noise Gate provenance runtime route refresh remote verification v0
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-noise-gate-provenance-runtime-route-refresh-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote workflow evidence:
+
+```text
+head_sha -> 11c75de3b28c6ed5604fb61f9f31d37181c1f4aa
+CI run `27077884275`
+CI job_id -> 79918258737
+External Feedback Screen run `27077884282`
+External Feedback Screen job_id -> 79918258752
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the route refresh itself, not new runtime evidence, not a live issue body edit, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not final truth adjudication, not final report generation, and not product-complete.
+
+Next gate: live issue body route refresh if this should become the public issue's latest proof, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 
