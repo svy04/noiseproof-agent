@@ -43,6 +43,31 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 815:
+
+```text
+latest_runtime_proof_gate: Uploaded PDF table adapter Noise Gate provenance runtime smoke v0
+latest_runtime_proof_artifact: docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke.md
+latest_runtime_environment: local Docker PostgreSQL plus live FastAPI HTTP
+latest_compose_project: noiseproof-phase815
+latest_postgres_port: 55461
+latest_api_port: 8122
+latest_api_surface: POST /documents/upload-chunks; POST /documents/{document_id}/retrieval-runs; POST /retrieval-runs/{retrieval_run_id}/evidence-ledger; POST /retrieval-runs/{retrieval_run_id}/noise-gate; GET /noise-gates
+noise_gate_id: 826c1bc9-8ee0-4ca6-a769-4ed4c1df6fbf
+noise_gate_manifest_default_pdf_parser_table_adapter_metadata: true
+noise_gate_manifest_table_adapter_rows: [[Segment, Growth], [Enterprise, 12%]]
+noise_gate_manifest_table_extraction_performed: false
+noise_gate_manifest_source_pdf_table_adapter_provenance_boundary: noise_gate_stage_input_manifest_from_evidence_ledger_entry_metadata
+noise_gate_manifest_handoff_performs_pdf_table_extraction: false
+all_required_markers_passed: true
+previous_remote_verification_gate: Uploaded PDF table adapter Noise Gate provenance remote verification v0
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: local Docker runtime evidence only; not hosted deployment evidence; not external reviewer feedback; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Noise Gate quality evidence; not final truth adjudication; not final report generation; not product-complete
+```
+
 Current navigation overlay as of Phase 814:
 
 ```text
@@ -28271,6 +28296,47 @@ Screen issue comments -> success
 ```
 
 Phase 814 adds uploaded PDF table adapter Noise Gate provenance remote verification v0. It is remote workflow verification only, not the product gate itself, not local Docker runtime evidence, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Noise Gate quality evidence, not final truth adjudication, not final report generation, and not product-complete.
+
+### Phase 815 - Uploaded PDF Table Adapter Noise Gate Provenance Runtime Smoke v0
+
+Status: verified locally.
+
+Implemented artifacts:
+
+```text
+uploaded PDF table adapter Noise Gate provenance runtime smoke v0
+docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Runtime proof markers:
+
+```text
+Compose project -> noiseproof-phase815
+POSTGRES_PORT=55461
+API port -> 8122
+Pending migrations: 0
+GET /health -> 200
+POST /documents/upload-chunks -> 201
+POST /documents/{document_id}/retrieval-runs -> 201
+POST /retrieval-runs/{retrieval_run_id}/evidence-ledger -> 201
+POST /retrieval-runs/{retrieval_run_id}/noise-gate -> 201
+GET /noise-gates -> 200
+default_pdf_parser_table_adapter_metadata -> True
+table_adapter.extracted_table_rows -> [['Segment', 'Growth'], ['Enterprise', '12%']]
+table_extraction_performed -> False
+source_pdf_table_adapter_provenance_boundary -> noise_gate_stage_input_manifest_from_evidence_ledger_entry_metadata
+handoff_performs_pdf_table_extraction -> False
+all_required_markers_passed -> True
+```
+
+Boundary: local Docker runtime evidence only; not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Noise Gate quality evidence, not final truth adjudication, not final report generation, and not product-complete.
+
+Next gate: remote verification after push, external-reader route refresh if this proof should become reviewer-facing, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 

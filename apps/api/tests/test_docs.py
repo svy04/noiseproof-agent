@@ -35163,6 +35163,72 @@ def test_uploaded_pdf_table_adapter_noise_gate_provenance_remote_verification_v0
     assert "uploaded PDF table adapter Noise Gate provenance remote verification" in portfolio
 
 
+def test_uploaded_pdf_table_adapter_noise_gate_provenance_runtime_smoke_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "Uploaded PDF Table Adapter Noise Gate Provenance Runtime Smoke" in content
+    assert (
+        "uploaded PDF table adapter Noise Gate provenance runtime smoke v0"
+        in content
+    )
+    required_markers = [
+        "local Docker PostgreSQL plus live FastAPI HTTP",
+        "Compose project -> noiseproof-phase815",
+        "Pending migrations: 0",
+        "GET /health -> 200",
+        "POST /documents/upload-chunks -> 201",
+        "POST /documents/{document_id}/retrieval-runs -> 201",
+        "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger -> 201",
+        "POST /retrieval-runs/{retrieval_run_id}/noise-gate -> 201",
+        "GET /noise-gates -> 200",
+        "default_pdf_parser_table_adapter_metadata -> True",
+        "table_adapter.extracted_table_rows -> [['Segment', 'Growth'], ['Enterprise', '12%']]",
+        "table_extraction_performed -> False",
+        "source_pdf_table_adapter_provenance_boundary -> noise_gate_stage_input_manifest_from_evidence_ledger_entry_metadata",
+        "handoff_performs_pdf_table_extraction -> False",
+        "Uploaded PDF table-adapter metadata was preserved into Noise Gate stage_input_manifest as provenance only.",
+        "Noise Gate handoff does not perform PDF table extraction",
+        "all_required_markers_passed -> True",
+        "not hosted deployment evidence",
+        "not external reviewer feedback",
+        "not robust PDF extraction evidence",
+        "not table extraction evidence for arbitrary market PDFs",
+        "not Noise Gate quality evidence",
+        "not final truth adjudication",
+        "not final report generation",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+
+    assert (
+        "Uploaded PDF table adapter Noise Gate provenance runtime smoke v0: verified"
+        in readme
+    )
+    assert (
+        "Phase 815 - Uploaded PDF Table Adapter Noise Gate Provenance Runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "Phase 815 adds uploaded PDF table adapter Noise Gate provenance runtime smoke v0"
+        in runbook
+    )
+    assert "uploaded PDF table adapter Noise Gate provenance runtime smoke" in portfolio
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
