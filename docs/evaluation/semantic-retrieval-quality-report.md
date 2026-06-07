@@ -35,6 +35,17 @@ It is not vector search quality evidence.
 | q-source-quality | 1 | 0.5 | 0.5 | 0.2128 | 1 |
 | q-what-missing | 0 | 0 | 0 | 0 | 0 |
 
+## Diagnostic Matrix
+
+This matrix explains fixture misses; it does not prove semantic retrieval quality.
+
+| Query | Semantic top-k | Missed relevant | Missing roles | Lexical rescue | Warnings |
+|---|---|---|---|---|---|
+| q-demand-growth | chunk-scope-boundary, chunk-demand-growth | chunk-revenue-growth | none | chunk-revenue-growth | lexical_retrieved_relevant_not_in_semantic_top_k |
+| q-risk-contradiction | chunk-demand-growth, chunk-source-quality | chunk-contradictory-channel | contradiction | chunk-contradictory-channel | missing_required_information_roles_at_k, lexical_retrieved_relevant_not_in_semantic_top_k |
+| q-source-quality | chunk-demand-growth, chunk-missing-source | chunk-source-quality | none | chunk-source-quality | relevant_chunk_missing_embedding, lexical_retrieved_relevant_not_in_semantic_top_k |
+| q-what-missing | none | chunk-missing-source, chunk-scope-boundary | missing_data_signal, scope_boundary, user_intent_check | chunk-missing-source | no_semantic_candidates_at_k, no_relevant_semantic_candidate_at_k, missing_required_information_roles_at_k, relevant_chunk_missing_embedding, lexical_retrieved_relevant_not_in_semantic_top_k |
+
 ## Interpretation
 
 This report intentionally uses a weak semantic ranking fixture so misses and disagreements remain visible.

@@ -43,6 +43,21 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 831:
+
+```text
+latest_quality_gate: Semantic retrieval quality diagnostic matrix v0
+latest_quality_artifact: docs/review/semantic-retrieval-quality-diagnostic-matrix.md
+updated_evaluation_report: docs/evaluation/semantic-retrieval-quality-report.md
+diagnostic_fields: semantic_top_k; missed_relevant_chunk_ids; missing_information_roles; relevant_missing_embedding_chunk_ids; lexical_rescue_chunk_ids; warnings
+visible_fixture_failure: q-what-missing -> no_semantic_candidates_at_k
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: toy fixture diagnostic evidence only; not vector search quality evidence; not embedding generation; not benchmark evidence; not retrieval tuning; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 830:
 
 ```text
@@ -32064,3 +32079,28 @@ does_not_close_gate: true
 Boundary: current-state issue screening only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not distributed tracing, not hosted observability, not semantic retrieval quality evidence, not embedding generation, not LLM output, and not product-complete.
 
 Next gate: remote verification for this current-state issue screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 831 - Semantic Retrieval Quality Diagnostic Matrix v0
+
+Status: implemented.
+
+Purpose: make the toy semantic retrieval quality report expose per-query misses, missing information roles, missing embedding coverage, lexical rescue candidates, and structured warnings before any aggregate metric can be mistaken for a quality claim.
+
+Artifacts:
+
+- `packages/ingestion/retrieval/quality_metrics.py`
+- `packages/ingestion/retrieval/quality_report.py`
+- `docs/evaluation/semantic-retrieval-quality-report.md`
+- `docs/review/semantic-retrieval-quality-diagnostic-matrix.md`
+
+Boundaries:
+
+- not vector search quality evidence
+- not embedding generation
+- not a benchmark result
+- not a model comparison
+- not retrieval tuning
+- not Evidence Ledger generation
+- not hosted deployment evidence
+- not external reviewer feedback
+- not product-complete

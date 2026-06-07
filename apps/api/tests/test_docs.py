@@ -39758,3 +39758,43 @@ def test_current_implementation_status_coherence_remote_verification_is_recorded
         "current implementation status coherence remote verification"
         in portfolio
     )
+
+
+def test_semantic_retrieval_quality_diagnostic_matrix_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-diagnostic-matrix.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    report = (
+        REPO_ROOT / "docs/evaluation/semantic-retrieval-quality-report.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Semantic Retrieval Quality Diagnostic Matrix" in content
+    assert "semantic retrieval quality diagnostic matrix v0" in content
+    assert "q-what-missing" in content
+    assert "no_semantic_candidates_at_k" in content
+    assert "lexical_retrieved_relevant_not_in_semantic_top_k" in content
+    assert "not vector search quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not a benchmark result" in content
+    assert "not product-complete" in content
+
+    assert "## Diagnostic Matrix" in report
+    assert "This matrix explains fixture misses; it does not prove semantic retrieval quality." in report
+    assert "Semantic retrieval quality diagnostic matrix v0: implemented" in readme
+    assert "Phase 831 - Semantic Retrieval Quality Diagnostic Matrix v0" in goal
+    assert "Phase 831 adds semantic retrieval quality diagnostic matrix v0" in runbook
+    assert "semantic retrieval quality diagnostic matrix" in portfolio
+    assert "toy semantic retrieval diagnostic matrix exists" in application_ready

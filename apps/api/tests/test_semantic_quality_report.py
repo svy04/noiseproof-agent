@@ -49,6 +49,39 @@ def test_semantic_quality_report_keeps_toy_fixture_boundary_visible():
     assert "not embedding generation" in report
 
 
+def test_semantic_quality_report_includes_diagnostic_matrix_without_expanding_scope():
+    fixture = load_semantic_quality_fixture(
+        REPO_ROOT / "examples/semantic-retrieval-quality"
+    )
+    semantic_rankings = {
+        "q-demand-growth": ["chunk-scope-boundary", "chunk-demand-growth"],
+        "q-risk-contradiction": ["chunk-demand-growth", "chunk-source-quality"],
+        "q-source-quality": ["chunk-demand-growth", "chunk-missing-source"],
+        "q-what-missing": [],
+    }
+    lexical_rankings = {
+        "q-demand-growth": ["chunk-demand-growth", "chunk-revenue-growth"],
+        "q-risk-contradiction": ["chunk-contradictory-channel"],
+        "q-source-quality": ["chunk-source-quality"],
+        "q-what-missing": ["chunk-missing-source"],
+    }
+    evaluation = evaluate_semantic_quality(
+        fixture,
+        semantic_rankings,
+        lexical_rankings=lexical_rankings,
+        k=2,
+    )
+
+    report = build_semantic_quality_report(fixture, evaluation)
+
+    assert "## Diagnostic Matrix" in report
+    assert "no_semantic_candidates_at_k" in report
+    assert "lexical_retrieved_relevant_not_in_semantic_top_k" in report
+    assert "chunk-missing-source" in report
+    assert "missing_data_signal, scope_boundary, user_intent_check" in report
+    assert "This matrix explains fixture misses; it does not prove semantic retrieval quality." in report
+
+
 def test_semantic_quality_report_command_regenerates_committed_report(tmp_path):
     output_path = tmp_path / "semantic-retrieval-quality-report.md"
 

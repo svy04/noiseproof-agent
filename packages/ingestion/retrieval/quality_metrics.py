@@ -15,9 +15,15 @@ def evaluate_semantic_quality(
     qrels = fixture.qrels
     chunks_by_id = {chunk.chunk_id: chunk for chunk in fixture.corpus}
     per_query: dict[str, dict[str, float]] = {}
+    per_query_diagnostics: dict[str, dict[str, Any]] = {}
 
     for query in fixture.queries:
         ranked_ids = rankings.get(query.query_id, [])[:safe_k]
+        lexical_ids = (
+            lexical_rankings.get(query.query_id, [])[:safe_k]
+            if lexical_rankings is not None
+            else []
+        )
         qrel = qrels.get(query.query_id, {})
         relevant_ids = {chunk_id for chunk_id, grade in qrel.items() if grade > 0}
         retrieved_relevant = [chunk_id for chunk_id in ranked_ids if chunk_id in relevant_ids]
@@ -30,6 +36,13 @@ def evaluate_semantic_quality(
             "nDCG@k": _round(_ndcg(ranked_ids, qrel, safe_k)),
             "role_coverage_at_k": _round(_role_coverage(query.information_roles, ranked_ids, chunks_by_id)),
         }
+        per_query_diagnostics[query.query_id] = _query_diagnostics(
+            expected_roles=query.information_roles,
+            relevant_chunk_ids=query.relevant_chunk_ids,
+            ranked_ids=ranked_ids,
+            lexical_ids=lexical_ids,
+            chunks_by_id=chunks_by_id,
+        )
 
     aggregate = _aggregate(per_query)
     aggregate["missing_embedding_rate"] = _round(
@@ -45,6 +58,7 @@ def evaluate_semantic_quality(
         "fixture": fixture.name,
         "k": safe_k,
         "per_query": per_query,
+        "per_query_diagnostics": per_query_diagnostics,
         "aggregate": aggregate,
         "claim_boundary": "toy_fixture_metric_only_not_search_quality",
         "no_embedding_generation": fixture.no_embedding_generation,
@@ -86,6 +100,71 @@ def _role_coverage(
         for role in chunks_by_id[chunk_id].information_roles
     }
     return len(expected.intersection(retrieved_roles)) / len(expected)
+
+
+def _query_diagnostics(
+    *,
+    expected_roles: list[str],
+    relevant_chunk_ids: list[str],
+    ranked_ids: list[str],
+    lexical_ids: list[str],
+    chunks_by_id: dict[str, Any],
+) -> dict[str, Any]:
+    relevant_set = set(relevant_chunk_ids)
+    ranked_set = set(ranked_ids)
+    retrieved_relevant = [chunk_id for chunk_id in ranked_ids if chunk_id in relevant_set]
+    missed_relevant = [
+        chunk_id for chunk_id in relevant_chunk_ids if chunk_id not in ranked_set
+    ]
+    covered_roles = _covered_roles(expected_roles, ranked_ids, chunks_by_id)
+    missing_roles = [role for role in expected_roles if role not in covered_roles]
+    relevant_missing_embeddings = [
+        chunk_id
+        for chunk_id in relevant_chunk_ids
+        if chunk_id in chunks_by_id and chunks_by_id[chunk_id].embedding is None
+    ]
+    lexical_rescue = [
+        chunk_id
+        for chunk_id in lexical_ids
+        if chunk_id in relevant_set and chunk_id not in ranked_set
+    ]
+    warnings: list[str] = []
+    if not ranked_ids:
+        warnings.append("no_semantic_candidates_at_k")
+    if not retrieved_relevant:
+        warnings.append("no_relevant_semantic_candidate_at_k")
+    if missing_roles:
+        warnings.append("missing_required_information_roles_at_k")
+    if relevant_missing_embeddings:
+        warnings.append("relevant_chunk_missing_embedding")
+    if lexical_rescue:
+        warnings.append("lexical_retrieved_relevant_not_in_semantic_top_k")
+
+    return {
+        "semantic_top_k": ranked_ids,
+        "lexical_top_k": lexical_ids,
+        "retrieved_relevant_chunk_ids": retrieved_relevant,
+        "missed_relevant_chunk_ids": missed_relevant,
+        "covered_information_roles": covered_roles,
+        "missing_information_roles": missing_roles,
+        "relevant_missing_embedding_chunk_ids": relevant_missing_embeddings,
+        "lexical_rescue_chunk_ids": lexical_rescue,
+        "warnings": warnings,
+    }
+
+
+def _covered_roles(
+    expected_roles: list[str],
+    ranked_ids: list[str],
+    chunks_by_id: dict[str, Any],
+) -> list[str]:
+    retrieved_roles = {
+        role
+        for chunk_id in ranked_ids
+        if chunk_id in chunks_by_id
+        for role in chunks_by_id[chunk_id].information_roles
+    }
+    return [role for role in expected_roles if role in retrieved_roles]
 
 
 def _average_disagreement(

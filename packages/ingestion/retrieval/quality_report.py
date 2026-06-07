@@ -68,6 +68,36 @@ def build_semantic_quality_report(
             + " |"
         )
 
+    diagnostics = evaluation.get("per_query_diagnostics", {})
+    if diagnostics:
+        lines.extend(
+            [
+                "",
+                "## Diagnostic Matrix",
+                "",
+                "This matrix explains fixture misses; it does not prove semantic retrieval quality.",
+                "",
+                "| Query | Semantic top-k | Missed relevant | Missing roles | Lexical rescue | Warnings |",
+                "|---|---|---|---|---|---|",
+            ]
+        )
+        for query in fixture.queries:
+            query_diagnostics = diagnostics.get(query.query_id, {})
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        query.query_id,
+                        _format_list(query_diagnostics.get("semantic_top_k")),
+                        _format_list(query_diagnostics.get("missed_relevant_chunk_ids")),
+                        _format_list(query_diagnostics.get("missing_information_roles")),
+                        _format_list(query_diagnostics.get("lexical_rescue_chunk_ids")),
+                        _format_list(query_diagnostics.get("warnings")),
+                    ]
+                )
+                + " |"
+            )
+
     lines.extend(
         [
             "",
@@ -103,4 +133,12 @@ def _format_metric(value: Any) -> str:
     if isinstance(value, float):
         text = f"{value:.4f}".rstrip("0").rstrip(".")
         return text or "0"
+    return str(value)
+
+
+def _format_list(value: Any) -> str:
+    if not value:
+        return "none"
+    if isinstance(value, list):
+        return ", ".join(str(item) for item in value)
     return str(value)
