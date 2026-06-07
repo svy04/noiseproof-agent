@@ -16,6 +16,30 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Semantic quality claim gate:
+
+```text
+docs/review/semantic-quality-claim-gate.md
+docs/review/semantic-quality-claim-gate-remote-verification.md
+docs/evaluation/semantic-retrieval-quality-report.md
+docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh.md
+```
+
+Route markers:
+
+```text
+status: blocked
+can_claim_semantic_quality: false
+semantic_quality_claim_blocked
+claim_gate_only_not_vector_search_quality_evidence
+toy_fixture_boundary
+no_embedding_generation
+missing_embeddings
+lexical_rescue_needed
+```
+
+Boundary: this route points reviewers to the semantic quality claim gate before the toy semantic retrieval fixture can be misread as semantic retrieval quality evidence. It is route hygiene only, not new runtime evidence, not vector search quality evidence, not embedding generation, not benchmark evidence, not retrieval tuning, not a model comparison, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 Semantic retrieval quality diagnostic matrix:
 
 ```text

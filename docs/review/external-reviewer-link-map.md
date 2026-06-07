@@ -8,6 +8,20 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest Semantic Quality Claim Gate Route
+
+- Claim gate:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/semantic-quality-claim-gate.md
+- Claim gate remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/semantic-quality-claim-gate-remote-verification.md
+- Evaluation report:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/evaluation/semantic-retrieval-quality-report.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh.md
+- Route markers:
+  `status: blocked`, `can_claim_semantic_quality: false`, `semantic_quality_claim_blocked`, `claim_gate_only_not_vector_search_quality_evidence`, `toy_fixture_boundary`, `no_embedding_generation`, `missing_embeddings`, `lexical_rescue_needed`
+- Boundary: semantic quality claim-gate routing only; not a live issue body edit, not new runtime evidence, not vector search quality evidence, not embedding generation, not benchmark evidence, not retrieval tuning, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 ## Latest Semantic Retrieval Quality Diagnostic Matrix
 
 - Diagnostic matrix:

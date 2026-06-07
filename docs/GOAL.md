@@ -43,6 +43,26 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 842:
+
+```text
+latest_semantic_quality_gate_route_refresh: External-reader proof path semantic quality claim gate route refresh v0
+latest_semantic_quality_gate_route_refresh_artifact: docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh.md
+semantic_quality_gate_artifact: docs/review/semantic-quality-claim-gate.md
+semantic_quality_gate_remote_verification_artifact: docs/review/semantic-quality-claim-gate-remote-verification.md
+semantic_quality_gate_status: blocked
+can_claim_semantic_quality: false
+semantic_quality_gate_summary: semantic_quality_claim_blocked
+semantic_quality_gate_boundary: claim_gate_only_not_vector_search_quality_evidence
+semantic_retrieval_quality: unproven
+actual_embedding_generation: unproven
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: route hygiene only; not new runtime evidence; not vector search quality evidence; not embedding generation; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 841:
 
 ```text
@@ -32680,6 +32700,52 @@ Boundaries:
 - not retrieval tuning
 - not external reviewer feedback
 - not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 842 - External-reader Proof Path Semantic Quality Claim Gate Route Refresh v0
+
+Status: implemented.
+
+Purpose: route first-pass external reviewers to the semantic quality claim gate before the toy semantic retrieval fixture can be mistaken for semantic retrieval or vector-search quality evidence.
+
+Artifacts:
+
+- `docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh.md`
+- `docs/review/external-reader-proof-path.md`
+- `docs/review/external-reviewer-link-map.md`
+- `docs/review/external-reviewer-shortlist.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Route markers:
+
+```text
+status: blocked
+can_claim_semantic_quality: false
+semantic_quality_claim_blocked
+claim_gate_only_not_vector_search_quality_evidence
+toy_fixture_boundary
+no_embedding_generation
+missing_embeddings
+lexical_rescue_needed
+```
+
+Boundaries:
+
+- route hygiene only
+- not new runtime evidence
+- not vector search quality evidence
+- not embedding generation
+- not benchmark evidence
+- not retrieval tuning
+- not a model comparison
+- not hosted deployment evidence
+- not external reviewer feedback
 - not customer validation
 - not Braincrew acceptance
 - not product-complete

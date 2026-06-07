@@ -16,6 +16,12 @@ It does not replace the full proof path.
 
 1. `README.md`
    - Scope, non-goals, implementation status, and the current proof boundaries.
+   - Current semantic quality claim gate: `docs/review/semantic-quality-claim-gate.md`.
+   - Claim gate remote verification: `docs/review/semantic-quality-claim-gate-remote-verification.md`.
+   - Evaluation report: `docs/evaluation/semantic-retrieval-quality-report.md`.
+   - Route refresh: `docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh.md`.
+   - Records `status: blocked`, `can_claim_semantic_quality: false`, `semantic_quality_claim_blocked`, `claim_gate_only_not_vector_search_quality_evidence`, `toy_fixture_boundary`, `no_embedding_generation`, `missing_embeddings`, and `lexical_rescue_needed`.
+   - Boundary: not vector search quality evidence, not embedding generation, not benchmark evidence, not retrieval tuning, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
    - Current semantic retrieval diagnostic matrix: `docs/review/semantic-retrieval-quality-diagnostic-matrix.md`.
    - Remote verification: `docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md`.
    - Evaluation report: `docs/evaluation/semantic-retrieval-quality-report.md`.
