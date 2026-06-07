@@ -677,6 +677,8 @@ Trace context header runtime smoke v0: implemented. Boundary: local uvicorn/curl
 
 HTTP trace context run metadata v0: implemented. Boundary: `run_with_trace()` now records resolved HTTP trace context fields in `agent_runs.trace_json` for local inspection, including `http_traceparent`, `http_trace_source`, `http_trace_context_boundary`, `distributed_tracing=false`, and `opentelemetry_span_export=false`; this is not distributed tracing, not OpenTelemetry span export, and not hosted observability.
 
+HTTP trace context run metadata remote verification v0: implemented. Boundary: `docs/review/http-trace-context-run-metadata-remote-verification.md` records that commit `e88ff0d86664c185f2dca9b74a8bded142c79548` passed CI run `27078923440` and External Feedback Screen run `27078923450` after the Phase 824 product gate was pushed; this is remote workflow verification only, not distributed tracing, not OpenTelemetry span export, not hosted observability, and not product-complete.
+
 Embedding provider source review v0: implemented. Boundary: official OpenAI embeddings contract reviewed only; no API call, no dependency, no cost-incurring runtime path, and actual embedding model generation remains unproven.
 
 Embedding model provider disabled-path v0: implemented. Boundary: `POST /chunks/embedding-model-preview` reports provider configuration only; no provider call, no embedding vector, no persistence, and no cost.

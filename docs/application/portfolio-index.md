@@ -118,6 +118,8 @@ Trace context header runtime smoke: `docs/review/trace-context-header-runtime-sm
 
 HTTP trace context run metadata: `docs/review/http-trace-context-run-metadata.md` records that `run_with_trace()` now stores the resolved HTTP trace context in `agent_runs.trace_json` for local inspection. It is not distributed tracing, not OpenTelemetry span export, not hosted observability, and not external reviewer feedback.
 
+http trace context run metadata remote verification: `docs/review/http-trace-context-run-metadata-remote-verification.md` records that head `e88ff0d86664c185f2dca9b74a8bded142c79548` passed CI run `27078923440` and External Feedback Screen run `27078923450` after the Phase 824 product gate was pushed. It is remote workflow verification only, not the product gate itself, not distributed tracing, not OpenTelemetry span export, not hosted observability, not external reviewer feedback, and not product-complete.
+
 Embedding provider source review: `docs/review/embedding-provider-source-review.md` records the official OpenAI embeddings contract selected for future actual model generation. It is source review only, not implemented runtime behavior, not an API call, not a cost-incurring path, and not semantic retrieval quality evidence.
 
 Embedding model provider disabled path: `docs/review/embedding-model-provider-disabled-path.md` records `POST /chunks/embedding-model-preview` returning `disabled_missing_api_key` or `configured_no_call` without a provider call. It is not actual embedding generation, not persistence, not retrieval expansion, and not semantic retrieval quality evidence.

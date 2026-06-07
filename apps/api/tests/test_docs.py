@@ -22976,6 +22976,51 @@ def test_http_trace_context_run_metadata_documents_local_trace_capture_boundary(
     assert "not distributed tracing" in app_review
 
 
+def test_http_trace_context_run_metadata_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT / "docs/review/http-trace-context-run-metadata-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "HTTP Trace Context Run Metadata Remote Verification" in content
+    assert "http trace context run metadata remote verification v0" in content
+    assert "e88ff0d86664c185f2dca9b74a8bded142c79548" in content
+    assert "CI run `27078923440`" in content
+    assert "External Feedback Screen run `27078923450`" in content
+    assert "CI job_id -> 79921154247" in content
+    assert "External Feedback Screen job_id -> 79921154239" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "docs/review/http-trace-context-run-metadata.md" in content
+    assert "not the product gate itself" in content
+    assert "not distributed tracing" in content
+    assert "not OpenTelemetry span export" in content
+    assert "not hosted observability" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert (
+        "HTTP trace context run metadata remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 825 - HTTP Trace Context Run Metadata Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 825 adds HTTP trace context run metadata remote verification v0"
+        in runbook
+    )
+    assert "http trace context run metadata remote verification" in portfolio
+
+
 def test_embedding_provider_source_review_documents_official_openai_boundary():
     review_path = REPO_ROOT / "docs/review/embedding-provider-source-review.md"
     assert review_path.is_file()

@@ -8852,6 +8852,8 @@ uv run pytest tests/test_docs.py::test_http_trace_context_run_metadata_documents
 
 Boundary: local run metadata capture only; not distributed tracing, not OpenTelemetry span export, not hosted observability, not cross-service trace proof, and not product-complete.
 
+Phase 825 adds HTTP trace context run metadata remote verification v0: `docs/review/http-trace-context-run-metadata-remote-verification.md` records that commit `e88ff0d86664c185f2dca9b74a8bded142c79548` passed CI run `27078923440` (`Run API smoke tests -> success`, job `79921154247`) and External Feedback Screen run `27078923450` (`Screen issue comments -> success`, job `79921154239`) after the Phase 824 product gate was pushed. This is remote workflow verification only, not the product gate itself, not distributed tracing, not OpenTelemetry span export, not hosted observability, not external reviewer feedback, and not product-complete.
+
 ## Embedding Provider Source Review
 
 Phase marker: embedding provider source review v0.

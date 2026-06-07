@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 825:
+
+```text
+latest_remote_verification_gate: HTTP trace context run metadata remote verification v0
+latest_remote_verification_artifact: docs/review/http-trace-context-run-metadata-remote-verification.md
+latest_verified_head_sha: e88ff0d86664c185f2dca9b74a8bded142c79548
+latest_ci_run: 27078923440
+latest_ci_job_id: 79921154247
+latest_external_feedback_screen_run: 27078923450
+latest_external_feedback_screen_job_id: 79921154239
+verified_product_gate: HTTP trace context run metadata v0
+verified_product_artifact: docs/review/http-trace-context-run-metadata.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the product gate itself; not distributed tracing; not OpenTelemetry span export; not hosted observability; not cross-service trace proof; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 824:
 
 ```text
@@ -28843,6 +28862,39 @@ opentelemetry_span_export=false captured
 ```
 
 Phase 824 is local run metadata capture only. It adds no OpenTelemetry instrumentation package, no span export, no hosted observability, no cross-service trace proof, no sampling, no trace backend, no external reviewer feedback, no customer validation, no Braincrew acceptance, and no product-complete claim.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, hosted observability only with explicit deployment target, or another source-first product gate selected from the current repository state.
+
+### Phase 825 - HTTP Trace Context Run Metadata Remote Verification v0
+
+Status: implemented.
+
+Implemented artifacts:
+
+```text
+http trace context run metadata remote verification v0
+docs/review/http-trace-context-run-metadata-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote verification markers:
+
+```text
+head_sha -> e88ff0d86664c185f2dca9b74a8bded142c79548
+CI run `27078923440`
+CI job_id -> 79921154247
+External Feedback Screen run `27078923450`
+External Feedback Screen job_id -> 79921154239
+Run API smoke tests -> success
+Screen issue comments -> success
+verified_artifact -> docs/review/http-trace-context-run-metadata.md
+```
+
+Boundary: remote workflow verification only; not the product gate itself, not new runtime evidence, not distributed tracing, not OpenTelemetry span export, not hosted observability, not cross-service trace proof, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, hosted observability only with explicit deployment target, or another source-first product gate selected from the current repository state.
 
