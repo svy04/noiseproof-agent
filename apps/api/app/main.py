@@ -15,7 +15,12 @@ from app.routes import (
     traces,
     workflow_runs,
 )
-from app.services.trace_context import TRACE_CONTEXT_BOUNDARY, resolve_traceparent
+from app.services.trace_context import (
+    TRACE_CONTEXT_BOUNDARY,
+    reset_current_http_trace_context,
+    resolve_traceparent,
+    set_current_http_trace_context,
+)
 
 
 def create_app() -> FastAPI:
@@ -28,7 +33,11 @@ def create_app() -> FastAPI:
     @app.middleware("http")
     async def trace_context_header_middleware(request, call_next):
         traceparent, source = resolve_traceparent(request.headers.get("traceparent"))
-        response = await call_next(request)
+        token = set_current_http_trace_context(traceparent=traceparent, source=source)
+        try:
+            response = await call_next(request)
+        finally:
+            reset_current_http_trace_context(token)
         response.headers["traceparent"] = traceparent
         response.headers["x-noiseproof-trace-source"] = source
         response.headers["x-noiseproof-trace-boundary"] = TRACE_CONTEXT_BOUNDARY

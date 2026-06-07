@@ -8822,6 +8822,36 @@ not distributed tracing
 not cross-service trace proof
 ```
 
+## HTTP Trace Context Run Metadata
+
+Phase marker: http trace context run metadata v0.
+
+Review artifact:
+
+```text
+docs/review/http-trace-context-run-metadata.md
+```
+
+Traced endpoints now include the resolved HTTP trace context in `agent_runs.trace_json`:
+
+```text
+http_traceparent
+http_trace_source
+http_trace_context_boundary
+distributed_tracing: false
+opentelemetry_span_export: false
+```
+
+Focused verification:
+
+```bash
+cd apps/api
+uv run pytest tests/test_routes.py::test_run_trace_captures_http_trace_context_without_distributed_tracing_claim -q
+uv run pytest tests/test_docs.py::test_http_trace_context_run_metadata_documents_local_trace_capture_boundary -q
+```
+
+Boundary: local run metadata capture only; not distributed tracing, not OpenTelemetry span export, not hosted observability, not cross-service trace proof, and not product-complete.
+
 ## Embedding Provider Source Review
 
 Phase marker: embedding provider source review v0.

@@ -116,6 +116,8 @@ Trace context header propagation: `docs/review/trace-context-header-propagation.
 
 Trace context header runtime smoke: `docs/review/trace-context-header-runtime-smoke.md` records local `uvicorn` plus `curl` evidence for generated, accepted, and invalid-fallback `traceparent` headers on `GET /health`. It is not hosted observability, not distributed tracing, not cross-service trace proof, and not external reviewer feedback.
 
+HTTP trace context run metadata: `docs/review/http-trace-context-run-metadata.md` records that `run_with_trace()` now stores the resolved HTTP trace context in `agent_runs.trace_json` for local inspection. It is not distributed tracing, not OpenTelemetry span export, not hosted observability, and not external reviewer feedback.
+
 Embedding provider source review: `docs/review/embedding-provider-source-review.md` records the official OpenAI embeddings contract selected for future actual model generation. It is source review only, not implemented runtime behavior, not an API call, not a cost-incurring path, and not semantic retrieval quality evidence.
 
 Embedding model provider disabled path: `docs/review/embedding-model-provider-disabled-path.md` records `POST /chunks/embedding-model-preview` returning `disabled_missing_api_key` or `configured_no_call` without a provider call. It is not actual embedding generation, not persistence, not retrieval expansion, and not semantic retrieval quality evidence.

@@ -6,6 +6,7 @@ from uuid import UUID
 from app.db import Repository
 from app.schemas import AgentRunCreate
 from app.settings import get_settings
+from app.services.trace_context import get_current_http_trace_context
 
 
 T = TypeVar("T")
@@ -25,6 +26,7 @@ def run_with_trace(
     initial_trace = {
         "endpoint": endpoint,
         "phase": workflow_version,
+        **get_current_http_trace_context(),
         **trace_json,
     }
     agent_run = repository.create_agent_run(

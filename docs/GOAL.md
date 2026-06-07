@@ -43,6 +43,22 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 824:
+
+```text
+latest_product_gate: HTTP trace context run metadata v0
+latest_product_artifact: docs/review/http-trace-context-run-metadata.md
+latest_code_surface: apps/api/app/services/trace_context.py; apps/api/app/main.py; apps/api/app/services/run_trace.py
+latest_regression_test: test_run_trace_captures_http_trace_context_without_distributed_tracing_claim
+captured_trace_fields: http_traceparent; http_trace_source; http_trace_context_boundary; distributed_tracing=false; opentelemetry_span_export=false
+source_basis: W3C Trace Context; OpenTelemetry Python instrumentation docs
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: local run metadata capture only; not distributed tracing; not OpenTelemetry span export; not hosted observability; not cross-service trace proof; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 823:
 
 ```text
@@ -28786,6 +28802,49 @@ verified_artifact -> docs/review/current-implementation-status-coherence.md
 Boundary: remote workflow verification only; not the status-copy coherence gate itself, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not production authorization, not production malware scanning evidence, not robust PDF extraction evidence, not live embedding generation proof, not semantic retrieval quality evidence, not customer validation, not Braincrew acceptance, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 824 - HTTP Trace Context Run Metadata v0
+
+Status: implemented.
+
+Purpose:
+
+```text
+capture the resolved HTTP trace context in local agent run metadata without claiming distributed tracing or OpenTelemetry export
+```
+
+Implemented artifacts:
+
+```text
+http trace context run metadata v0
+docs/review/http-trace-context-run-metadata.md
+apps/api/app/services/trace_context.py
+apps/api/app/main.py
+apps/api/app/services/run_trace.py
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+```
+
+Implemented behavior:
+
+```text
+trace_context_header_middleware stores request-local HTTP trace context
+run_with_trace merges current HTTP trace context into agent_runs.trace_json
+http_traceparent captured
+http_trace_source captured
+http_trace_context_boundary captured
+distributed_tracing=false captured
+opentelemetry_span_export=false captured
+```
+
+Phase 824 is local run metadata capture only. It adds no OpenTelemetry instrumentation package, no span export, no hosted observability, no cross-service trace proof, no sampling, no trace backend, no external reviewer feedback, no customer validation, no Braincrew acceptance, and no product-complete claim.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, hosted observability only with explicit deployment target, or another source-first product gate selected from the current repository state.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 

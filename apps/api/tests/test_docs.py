@@ -22940,6 +22940,42 @@ def test_trace_context_header_runtime_smoke_documents_live_http_boundary():
     assert "trace context header runtime smoke exists" in app_review
 
 
+def test_http_trace_context_run_metadata_documents_local_trace_capture_boundary():
+    review_path = REPO_ROOT / "docs/review/http-trace-context-run-metadata.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    app_review = (REPO_ROOT / "docs/review/application-ready-review.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "HTTP Trace Context Run Metadata" in content
+    assert "http trace context run metadata v0" in content
+    assert "https://www.w3.org/TR/trace-context/" in content
+    assert "https://opentelemetry.io/docs/languages/python/instrumentation/" in content
+    assert "http_traceparent" in content
+    assert "http_trace_source" in content
+    assert "http_trace_context_boundary" in content
+    assert "distributed_tracing: false" in content
+    assert "opentelemetry_span_export: false" in content
+    assert "local_header_propagation_no_distributed_tracing" in content
+    assert "not distributed tracing" in content
+    assert "not OpenTelemetry span export" in content
+    assert "not hosted observability" in content
+    assert "HTTP trace context run metadata v0: implemented" in readme
+    assert "Phase 824 - HTTP Trace Context Run Metadata v0" in goal
+    assert "http trace context run metadata v0" in runbook
+    assert "docs/review/http-trace-context-run-metadata.md" in portfolio
+    assert "http trace context run metadata exists" in app_review
+    assert "not distributed tracing" in app_review
+
+
 def test_embedding_provider_source_review_documents_official_openai_boundary():
     review_path = REPO_ROOT / "docs/review/embedding-provider-source-review.md"
     assert review_path.is_file()

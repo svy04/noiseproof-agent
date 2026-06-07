@@ -940,6 +940,30 @@ def test_trace_context_header_accepts_valid_incoming_traceparent():
     assert response.headers["x-noiseproof-trace-source"] == "incoming_traceparent"
 
 
+def test_run_trace_captures_http_trace_context_without_distributed_tracing_claim():
+    client = make_client()
+    repo = client.app.dependency_overrides[get_repository]()
+    incoming = "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
+
+    response = client.post(
+        "/collection-plans/preview",
+        headers={"traceparent": incoming},
+        json={"question": "What supports the market demand growth claim?"},
+    )
+
+    assert response.status_code == 200
+    assert response.headers["traceparent"] == incoming
+    assert len(repo.agent_runs) == 1
+    trace_json = repo.agent_runs[0]["trace_json"]
+    assert trace_json["http_traceparent"] == incoming
+    assert trace_json["http_trace_source"] == "incoming_traceparent"
+    assert trace_json["http_trace_context_boundary"] == (
+        "local_header_propagation_no_distributed_tracing"
+    )
+    assert trace_json["distributed_tracing"] is False
+    assert trace_json["opentelemetry_span_export"] is False
+
+
 def test_trace_context_header_replaces_invalid_incoming_traceparent():
     client = make_client()
 
