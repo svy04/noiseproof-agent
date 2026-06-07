@@ -43,6 +43,26 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 845:
+
+```text
+latest_external_review_issue_body_route_refresh_remote_verification: External review issue body semantic quality claim gate route refresh remote verification v0
+latest_external_review_issue_body_route_refresh_remote_verification_artifact: docs/review/external-review-issue-body-semantic-quality-claim-gate-route-refresh-remote-verification.md
+latest_verified_head_sha: bb4ae002c4f0facf95481549ebf09b87dfa7ee36
+latest_ci_run: 27081249412
+latest_ci_job_id: 79927421314
+latest_external_feedback_screen_run: 27081249419
+latest_external_feedback_screen_job_id: 79927421281
+verified_issue_body_route_refresh_artifact: docs/review/external-review-issue-body-semantic-quality-claim-gate-route-refresh.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+semantic_retrieval_quality: unproven
+actual_embedding_generation: unproven
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the issue body route refresh itself; not external reviewer feedback; not new runtime evidence; not vector search quality evidence; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 844:
 
 ```text
@@ -32860,6 +32880,45 @@ old_semantic_diagnostic_latest_label_present: false
 Boundaries:
 
 - owner-authored issue body routing only
+- not external reviewer feedback
+- not new runtime evidence
+- not vector search quality evidence
+- not embedding generation
+- not benchmark evidence
+- not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 845 - External Review Issue Body Semantic Quality Claim Gate Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions success for the Phase 844 owner-authored issue-body semantic quality claim-gate route refresh after it was pushed.
+
+Artifacts:
+
+- `docs/review/external-review-issue-body-semantic-quality-claim-gate-route-refresh-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Remote markers:
+
+```text
+head_sha: bb4ae002c4f0facf95481549ebf09b87dfa7ee36
+CI run: 27081249412 success
+CI job_id: 79927421314
+External Feedback Screen run: 27081249419 success
+External Feedback Screen job_id: 79927421281
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the issue body route refresh itself
 - not external reviewer feedback
 - not new runtime evidence
 - not vector search quality evidence

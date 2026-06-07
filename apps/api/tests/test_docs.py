@@ -40322,3 +40322,42 @@ def test_external_review_issue_body_semantic_quality_claim_gate_route_refresh_is
     assert "Phase 844 - External Review Issue Body Semantic Quality Claim Gate Route Refresh v0" in goal
     assert "Phase 844 adds external review issue body semantic quality claim gate route refresh v0" in runbook
     assert "external review issue body semantic quality claim gate route refresh" in portfolio
+
+
+def test_external_review_issue_body_semantic_quality_claim_gate_route_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-semantic-quality-claim-gate-route-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Review Issue Body Semantic Quality Claim Gate Route Refresh Remote Verification" in content
+    assert "external review issue body semantic quality claim gate route refresh remote verification v0" in content
+    assert "bb4ae002c4f0facf95481549ebf09b87dfa7ee36" in content
+    assert "CI run `27081249412`: success" in content
+    assert "CI job_id -> 79927421314" in content
+    assert "External Feedback Screen run `27081249419`: success" in content
+    assert "External Feedback Screen job_id -> 79927421281" in content
+    assert "Check semantic retrieval quality report staleness -> success" in content
+    assert "Check PDF extraction quality report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the issue body route refresh itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not new runtime evidence" in content
+    assert "not vector search quality evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "External review issue body semantic quality claim gate route refresh remote verification v0: implemented" in readme
+    assert "Phase 845 - External Review Issue Body Semantic Quality Claim Gate Route Refresh Remote Verification v0" in goal
+    assert "Phase 845 adds external review issue body semantic quality claim gate route refresh remote verification v0" in runbook
+    assert "external review issue body semantic quality claim gate route refresh remote verification" in portfolio
