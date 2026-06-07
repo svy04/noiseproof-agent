@@ -35444,6 +35444,84 @@ def test_external_reader_uploaded_pdf_table_adapter_noise_gate_provenance_runtim
     )
 
 
+def test_external_review_issue_body_uploaded_pdf_table_adapter_noise_gate_provenance_runtime_route_refresh_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-uploaded-pdf-table-adapter-noise-gate-provenance-runtime-route-refresh.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Review Issue Body Uploaded PDF Table Adapter Noise Gate Provenance Runtime Route Refresh"
+        in content
+    )
+    assert (
+        "external review issue body uploaded PDF table adapter Noise Gate provenance runtime route refresh v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt:" in content
+    assert "comment_count: 1" in content
+    assert "starts_with_request: true" in content
+    assert "first_codepoint: 35" in content
+    assert "has_leading_bom: false" in content
+
+    required_markers = [
+        "has_uploaded_pdf_table_adapter_noise_gate_provenance: true",
+        "has_uploaded_pdf_table_adapter_noise_gate_provenance_remote_verification: true",
+        "has_uploaded_pdf_table_adapter_noise_gate_provenance_runtime_smoke: true",
+        "has_uploaded_pdf_table_adapter_noise_gate_provenance_runtime_smoke_remote_verification: true",
+        "has_external_reader_uploaded_pdf_table_adapter_noise_gate_provenance_runtime_route_refresh: true",
+        "has_external_reader_uploaded_pdf_table_adapter_noise_gate_provenance_runtime_route_refresh_remote_verification: true",
+        "old_uploaded_pdf_table_adapter_evidence_ledger_latest_label_present: false",
+        "POST /documents/upload-chunks",
+        "POST /documents/{document_id}/retrieval-runs",
+        "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger",
+        "POST /retrieval-runs/{retrieval_run_id}/noise-gate",
+        "GET /noise-gates",
+        "default_pdf_parser_table_adapter_metadata",
+        "table_adapter.extracted_table_rows -> [['Segment', 'Growth'], ['Enterprise', '12%']]",
+        "table_extraction_performed -> False",
+        "source_pdf_table_adapter_provenance_boundary -> noise_gate_stage_input_manifest_from_evidence_ledger_entry_metadata",
+        "handoff_performs_pdf_table_extraction -> False",
+        "not external reviewer feedback",
+        "not new runtime evidence",
+        "not robust PDF extraction evidence",
+        "not table extraction evidence for arbitrary market PDFs",
+        "not Noise Gate quality evidence",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+    for marker in required_markers:
+        assert marker in content
+
+    assert (
+        "External review issue body uploaded PDF table adapter Noise Gate provenance runtime route refresh v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 819 - External Review Issue Body Uploaded PDF Table Adapter Noise Gate Provenance Runtime Route Refresh v0"
+        in goal
+    )
+    assert (
+        "Phase 819 adds external review issue body uploaded PDF table adapter Noise Gate provenance runtime route refresh v0"
+        in runbook
+    )
+    assert (
+        "external review issue body uploaded PDF table adapter Noise Gate provenance runtime route refresh"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

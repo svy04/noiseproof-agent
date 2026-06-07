@@ -43,6 +43,28 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 819:
+
+```text
+latest_issue_body_route_gate: External review issue body uploaded PDF table adapter Noise Gate provenance runtime route refresh v0
+latest_issue_body_route_artifact: docs/review/external-review-issue-body-uploaded-pdf-table-adapter-noise-gate-provenance-runtime-route-refresh.md
+issue_url: https://github.com/svy04/noiseproof-agent/issues/1
+issue_updatedAt: 2026-06-07T00:29:26Z
+comment_count: 1
+issue_starts_with_request: true
+issue_first_codepoint: 35
+issue_has_leading_bom: false
+issue_latest_proof_to_inspect: Uploaded PDF table adapter Noise Gate provenance runtime proof
+old_uploaded_pdf_table_adapter_evidence_ledger_latest_label_present: false
+latest_issue_body_api_surface: POST /documents/upload-chunks; POST /documents/{document_id}/retrieval-runs; POST /retrieval-runs/{retrieval_run_id}/evidence-ledger; POST /retrieval-runs/{retrieval_run_id}/noise-gate; GET /noise-gates
+source_pdf_table_adapter_provenance_boundary: noise_gate_stage_input_manifest_from_evidence_ledger_entry_metadata
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: owner-authored issue body routing only; not external reviewer feedback; not new runtime evidence; not hosted deployment evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Evidence Ledger quality evidence; not Noise Gate quality evidence; not final truth adjudication; not final report generation; not product-complete
+```
+
 Current navigation overlay as of Phase 818:
 
 ```text
@@ -28498,6 +28520,42 @@ Screen issue comments -> success
 Boundary: remote workflow verification only; not the route refresh itself, not new runtime evidence, not a live issue body edit, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not final truth adjudication, not final report generation, and not product-complete.
 
 Next gate: live issue body route refresh if this should become the public issue's latest proof, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 819 - External Review Issue Body Uploaded PDF Table Adapter Noise Gate Provenance Runtime Route Refresh v0
+
+Status: implemented.
+
+Implemented artifacts:
+
+```text
+external review issue body uploaded PDF table adapter Noise Gate provenance runtime route refresh v0
+docs/review/external-review-issue-body-uploaded-pdf-table-adapter-noise-gate-provenance-runtime-route-refresh.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Issue markers:
+
+```text
+updatedAt: 2026-06-07T00:29:26Z
+comment_count: 1
+starts_with_request: true
+first_codepoint: 35
+has_leading_bom: false
+has_uploaded_pdf_table_adapter_noise_gate_provenance: true
+has_uploaded_pdf_table_adapter_noise_gate_provenance_runtime_smoke: true
+has_uploaded_pdf_table_adapter_noise_gate_provenance_runtime_smoke_remote_verification: true
+has_external_reader_uploaded_pdf_table_adapter_noise_gate_provenance_runtime_route_refresh: true
+has_external_reader_uploaded_pdf_table_adapter_noise_gate_provenance_runtime_route_refresh_remote_verification: true
+old_uploaded_pdf_table_adapter_evidence_ledger_latest_label_present: false
+```
+
+Boundary: owner-authored issue body routing only; not external reviewer feedback, not new runtime evidence, not hosted deployment evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not final truth adjudication, not final report generation, and not product-complete.
+
+Next gate: external-feedback current-state verification for this issue route, remote verification for this issue-body refresh after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 
