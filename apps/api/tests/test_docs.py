@@ -35656,6 +35656,48 @@ def test_external_feedback_current_state_uploaded_pdf_table_adapter_noise_gate_p
     )
 
 
+def test_current_implementation_status_coherence_v0_updates_stale_current_status_copy():
+    review_path = REPO_ROOT / "docs/review/current-implementation-status-coherence.md"
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    current_gap_section = runbook.split("Current remaining boundaries:", 1)[1].split(
+        "## Local Database",
+        1,
+    )[0]
+
+    assert "Current Implementation Status Coherence" in content
+    assert "current implementation status coherence v0" in content
+    assert "GET /documents/upload-raw-files/{raw_file_id}/download" in content
+    assert "document_chunks" in content
+    assert "chunk_embeddings" in content
+    assert "semantic retrieval run records" in content
+    assert "owner-runtime gated and unproven" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production authorization" in content
+    assert "not product-complete" in content
+
+    assert "Current implementation status coherence v0: implemented" in readme
+    assert "Phase 822 - Current Implementation Status Coherence v0" in goal
+    assert "current implementation status coherence v0" in runbook
+    assert "docs/review/current-implementation-status-coherence.md" in portfolio
+    assert (
+        "- raw upload quarantine storage exists; download endpoint and malware scanning do not"
+        not in current_gap_section
+    )
+    assert "- persisted chunks" not in current_gap_section
+    assert "- embeddings" not in current_gap_section
+    assert "production-grade authorization" in current_gap_section
+    assert "live embedding generation proof" in current_gap_section
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

@@ -6304,6 +6304,30 @@ def test_ops_dashboard_surfaces_runs_failures_and_retrievals():
     assert "Phase 35" in response.text
 
 
+def test_ops_dashboard_boundary_copy_matches_current_implemented_surfaces():
+    client = make_client()
+
+    response = client.get("/ops/dashboard")
+
+    assert response.status_code == 200
+    assert (
+        "Semantic retrieval run records and caller-provided embedding metrics are implemented inspection surfaces, not semantic retrieval quality evidence."
+        in response.text
+    )
+    assert (
+        "Live embedding generation remains owner-runtime gated and unproven without provider evidence."
+        in response.text
+    )
+    assert (
+        "Full distributed tracing, hosted observability, production authorization, and free-form final report generation remain unproven."
+        in response.text
+    )
+    assert (
+        "Embedding generation, semantic retrieval quality evidence, distributed tracing, and free-form final reports are still not implemented."
+        not in response.text
+    )
+
+
 def test_ops_dashboard_links_failure_cases_to_manual_workflow_parent():
     client = make_client()
     workflow_run = client.post(

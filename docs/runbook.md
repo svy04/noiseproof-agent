@@ -669,15 +669,19 @@ Implemented:
 - PostgreSQL schema init SQL
 - GitHub Actions API smoke CI
 
-Not implemented:
+Phase 822 adds current implementation status coherence v0: `docs/review/current-implementation-status-coherence.md` updates current-status wording so reviewer-facing surfaces no longer say download endpoints, persisted chunks, or embeddings are simply not implemented after local v0 guarded download, `document_chunks`, `chunk_embeddings`, semantic retrieval run records, and owner-runtime gated embedding-provider paths exist. This is status-copy coherence only, not new runtime evidence, hosted deployment evidence, production authorization, live embedding generation proof, semantic retrieval quality evidence, or product-complete.
 
-- raw upload quarantine storage exists; download endpoint and malware scanning do not
-- robust PDF extraction
-- persisted parse records
-- persisted chunks
-- autonomous workflow execution endpoints
-- embeddings
-- distributed tracing or hosted observability
+Current remaining boundaries:
+
+- robust PDF extraction remains unproven
+- production-grade authorization remains unproven; local operator-token and manual approval boundaries are local v0 only
+- production malware scanning evidence remains unproven; owner-runtime ClamAV smoke evidence is not production evidence
+- implicit upload-preview auto-persistence is not implemented; explicit upload-to-chunks handoff exists
+- autonomous workflow execution endpoints are not implemented; deterministic execution-preview and workflow records exist
+- production background failure-case workers, retry automation, and root-cause automation are not implemented
+- live embedding generation proof remains owner-runtime gated and unproven; local deterministic previews, caller-provided `chunk_embeddings`, provider readiness, and owner-runtime harnesses exist
+- semantic retrieval quality evidence remains unproven; semantic retrieval run records and caller-provided embedding metrics are inspection surfaces only
+- full distributed tracing and hosted observability are not implemented; local trace headers and workflow stage events exist
 
 ## Local Database
 

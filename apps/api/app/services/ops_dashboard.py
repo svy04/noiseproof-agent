@@ -133,12 +133,13 @@ def render_ops_dashboard(
       <li>POST-only actions render as method cues, not anchors.</li>
       <li>Unsupported claim and contradiction counts come from persisted Evidence Ledger entries.</li>
       <li>Evidence quality risk counts are operations metadata from persisted Evidence Ledger entries, not final truth adjudication.</li>
-      <li>Semantic retrieval and caller-provided embedding metrics are operational counts, not semantic retrieval quality evidence.</li>
+      <li>Semantic retrieval run records and caller-provided embedding metrics are implemented inspection surfaces, not semantic retrieval quality evidence. They remain operational counts, not semantic retrieval quality evidence.</li>
       {_embedding_provider_boundary_item(summary)}
       <li>No-text PDF handoff counts are metadata-derived from document profile_json. This is metadata-derived from document profile_json and does not prove robust PDF extraction, OCR, table extraction, or layout fidelity.</li>
       <li>Encrypted PDF failure candidate counts are metadata-derived from document profile_json and does not prove decryption, password bypass, robust PDF extraction, OCR, table extraction, or layout fidelity.</li>
       <li>Persisted evidence, gate, and report records link back to their parent agent run through trace lookup.</li>
-      <li>Embedding generation, semantic retrieval quality evidence, distributed tracing, and free-form final reports are still not implemented.</li>
+      <li>Live embedding generation remains owner-runtime gated and unproven without provider evidence.</li>
+      <li>Full distributed tracing, hosted observability, production authorization, and free-form final report generation remain unproven.</li>
       <li>Visual polish is intentionally deferred until failure behavior is more complete.</li>
     </ul>
   </section>

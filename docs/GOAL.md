@@ -43,6 +43,20 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 822:
+
+```text
+latest_status_coherence_gate: Current implementation status coherence v0
+latest_status_coherence_artifact: docs/review/current-implementation-status-coherence.md
+implemented_local_v0_surfaces: guarded raw-file download endpoint; document_chunks; chunk_embeddings; semantic retrieval run records; owner-runtime gated embedding provider preview path
+remaining_boundaries: robust PDF extraction; production-grade authorization; production malware scanning evidence; implicit upload-preview auto-persistence; autonomous workflow execution endpoints; production failure-case workers; live embedding generation proof; semantic retrieval quality evidence; full distributed tracing; hosted observability; hosted deployment evidence
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: status-copy coherence only; not new runtime evidence; not external reviewer feedback; not hosted deployment evidence; not production authorization; not live embedding generation proof; not semantic retrieval quality evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 821:
 
 ```text
@@ -28675,6 +28689,49 @@ reason=self_authored_comment_only
 Boundary: remote workflow verification only; not the issue-state screen itself, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not new runtime evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Noise Gate quality evidence, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 822 - Current Implementation Status Coherence v0
+
+Status: implemented.
+
+Implemented artifacts:
+
+```text
+current implementation status coherence v0
+docs/review/current-implementation-status-coherence.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/app/services/ops_dashboard.py
+apps/api/tests/test_routes.py
+apps/api/tests/test_docs.py
+```
+
+Coherence markers:
+
+```text
+implemented local v0 surfaces:
+- GET /documents/upload-raw-files/{raw_file_id}/download
+- document_chunks
+- chunk_embeddings
+- semantic retrieval run records
+- owner-runtime gated embedding provider preview path
+
+remaining unproven boundaries:
+- robust PDF extraction
+- production-grade authorization
+- production malware scanning evidence
+- live embedding generation proof
+- semantic retrieval quality evidence
+- full distributed tracing
+- hosted observability
+- hosted deployment evidence
+```
+
+Boundary: status-copy coherence only; not new runtime evidence, not hosted deployment evidence, not production authorization, not production malware scanning evidence, not robust PDF extraction evidence, not semantic retrieval quality evidence, not live embedding generation proof, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: remote verification for this coherence gate after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 
