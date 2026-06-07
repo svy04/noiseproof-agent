@@ -40154,3 +40154,38 @@ def test_semantic_quality_claim_gate_is_recorded_without_quality_claim():
     assert "Phase 840 adds semantic quality claim gate v0" in runbook
     assert "semantic quality claim gate" in portfolio
     assert "semantic quality claim gate exists" in application_ready
+
+
+def test_semantic_quality_claim_gate_remote_verification_is_recorded():
+    review_path = REPO_ROOT / "docs/review/semantic-quality-claim-gate-remote-verification.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Semantic Quality Claim Gate Remote Verification" in content
+    assert "semantic quality claim gate remote verification v0" in content
+    assert "c32186b7ce1e55ae45789ade8cd9000e84689ac8" in content
+    assert "CI run `27080779122`: success" in content
+    assert "CI job_id -> 79926106355" in content
+    assert "External Feedback Screen run `27080779117`: success" in content
+    assert "External Feedback Screen job_id -> 79926106325" in content
+    assert "Check semantic retrieval quality report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the claim gate itself" in content
+    assert "not vector search quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "Semantic quality claim gate remote verification v0: implemented" in readme
+    assert "Phase 841 - Semantic Quality Claim Gate Remote Verification v0" in goal
+    assert "Phase 841 adds semantic quality claim gate remote verification v0" in runbook
+    assert "semantic quality claim gate remote verification" in portfolio
