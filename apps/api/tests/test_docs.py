@@ -35522,6 +35522,77 @@ def test_external_review_issue_body_uploaded_pdf_table_adapter_noise_gate_proven
     )
 
 
+def test_external_feedback_current_state_uploaded_pdf_table_adapter_noise_gate_provenance_issue_verification_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-noise-gate-provenance-issue-verification.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state Uploaded PDF Table Adapter Noise Gate Provenance Issue Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state uploaded PDF table adapter Noise Gate provenance issue verification v0"
+        in content
+    )
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt: 2026-06-07T00:29:26Z" in content
+    assert "comment_count: 1" in content
+    assert "screened_comment_count: 1" in content
+    assert "owner_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "classification: non_qualifying" in content
+    assert "reason: self_authored_comment_only" in content
+    assert "status: pending" in content
+    assert "does_not_close_gate: true" in content
+    assert "latest_uploaded_pdf_table_adapter_noise_gate_provenance: true" in content
+    assert "first_codepoint: 35" in content
+    assert "has_leading_bom: false" in content
+    assert (
+        "docs/review/external-review-issue-body-uploaded-pdf-table-adapter-noise-gate-provenance-runtime-route-refresh.md"
+        in content
+    )
+    assert "POST /documents/upload-chunks" in content
+    assert "POST /documents/{document_id}/retrieval-runs" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/evidence-ledger" in content
+    assert "POST /retrieval-runs/{retrieval_run_id}/noise-gate" in content
+    assert "GET /noise-gates" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External feedback current-state uploaded PDF table adapter Noise Gate provenance issue verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 820 - External Feedback Current-state Uploaded PDF Table Adapter Noise Gate Provenance Issue Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 820 adds external feedback current-state uploaded PDF table adapter Noise Gate provenance issue verification v0"
+        in runbook
+    )
+    assert (
+        "external feedback current-state uploaded PDF table adapter Noise Gate provenance issue verification"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 
