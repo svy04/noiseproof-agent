@@ -39798,3 +39798,39 @@ def test_semantic_retrieval_quality_diagnostic_matrix_is_recorded():
     assert "Phase 831 adds semantic retrieval quality diagnostic matrix v0" in runbook
     assert "semantic retrieval quality diagnostic matrix" in portfolio
     assert "toy semantic retrieval diagnostic matrix exists" in application_ready
+
+
+def test_semantic_retrieval_quality_diagnostic_matrix_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Semantic Retrieval Quality Diagnostic Matrix Remote Verification" in content
+    assert "semantic retrieval quality diagnostic matrix remote verification v0" in content
+    assert "e9458bfa079a9540476217160972a0374238ed57" in content
+    assert "CI run `27079764317`: success" in content
+    assert "CI job_id -> 79923449359" in content
+    assert "External Feedback Screen run `27079764318`: success" in content
+    assert "External Feedback Screen job_id -> 79923449368" in content
+    assert "Check semantic retrieval quality report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the diagnostic matrix itself" in content
+    assert "not new runtime evidence" in content
+    assert "not vector search quality evidence" in content
+    assert "not product-complete" in content
+
+    assert "Semantic retrieval quality diagnostic matrix remote verification v0: implemented" in readme
+    assert "Phase 832 - Semantic Retrieval Quality Diagnostic Matrix Remote Verification v0" in goal
+    assert "Phase 832 adds semantic retrieval quality diagnostic matrix remote verification v0" in runbook
+    assert "semantic retrieval quality diagnostic matrix remote verification" in portfolio

@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 832:
+
+```text
+latest_remote_verification_gate: Semantic retrieval quality diagnostic matrix remote verification v0
+latest_remote_verification_artifact: docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md
+latest_verified_head_sha: e9458bfa079a9540476217160972a0374238ed57
+latest_ci_run: 27079764317
+latest_ci_job_id: 79923449359
+latest_external_feedback_screen_run: 27079764318
+latest_external_feedback_screen_job_id: 79923449368
+verified_quality_gate: Semantic retrieval quality diagnostic matrix v0
+verified_quality_artifact: docs/review/semantic-retrieval-quality-diagnostic-matrix.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the diagnostic matrix itself; not new runtime evidence; not vector search quality evidence; not embedding generation; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 831:
 
 ```text
@@ -32101,6 +32120,42 @@ Boundaries:
 - not a model comparison
 - not retrieval tuning
 - not Evidence Ledger generation
+- not hosted deployment evidence
+- not external reviewer feedback
+- not product-complete
+
+### Phase 832 - Semantic Retrieval Quality Diagnostic Matrix Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions success for the Phase 831 semantic retrieval quality diagnostic matrix gate after it was pushed.
+
+Artifacts:
+
+- `docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Remote evidence:
+
+```text
+head_sha: e9458bfa079a9540476217160972a0374238ed57
+CI run: 27079764317 success
+CI job_id: 79923449359
+External Feedback Screen run: 27079764318 success
+External Feedback Screen job_id: 79923449368
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the diagnostic matrix itself
+- not new runtime evidence
+- not vector search quality evidence
+- not embedding generation
 - not hosted deployment evidence
 - not external reviewer feedback
 - not product-complete
