@@ -43,6 +43,24 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 837:
+
+```text
+latest_external_feedback_state_remote_verification_gate: External feedback current-state semantic retrieval quality diagnostic matrix issue verification remote verification v0
+latest_external_feedback_state_remote_verification_artifact: docs/review/external-feedback-current-state-semantic-retrieval-quality-diagnostic-matrix-issue-verification-remote-verification.md
+latest_verified_head_sha: aaa775e87bda75aa38137bf997f28e0368eaff4c
+latest_ci_run: 27080354999
+latest_ci_job_id: 79924961691
+latest_external_feedback_screen_run: 27080354996
+latest_external_feedback_screen_job_id: 79924961645
+verified_issue_state_artifact: docs/review/external-feedback-current-state-semantic-retrieval-quality-diagnostic-matrix-issue-verification.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the issue-state screen itself; not external reviewer feedback; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 836:
 
 ```text
@@ -32379,6 +32397,44 @@ has_semantic_diagnostic_latest_proof: true
 Boundaries:
 
 - current-state issue screening only
+- not external reviewer feedback
+- not new runtime evidence
+- not vector search quality evidence
+- not embedding generation
+- not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 837 - External Feedback Current-state Semantic Retrieval Quality Diagnostic Matrix Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions success for the Phase 836 current-state issue verification after it was pushed.
+
+Artifacts:
+
+- `docs/review/external-feedback-current-state-semantic-retrieval-quality-diagnostic-matrix-issue-verification-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Remote markers:
+
+```text
+head_sha: aaa775e87bda75aa38137bf997f28e0368eaff4c
+CI run: 27080354999 success
+CI job_id: 79924961691
+External Feedback Screen run: 27080354996 success
+External Feedback Screen job_id: 79924961645
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the issue-state screen itself
 - not external reviewer feedback
 - not new runtime evidence
 - not vector search quality evidence
