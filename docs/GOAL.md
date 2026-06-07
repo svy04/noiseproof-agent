@@ -43,6 +43,27 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 823:
+
+```text
+latest_remote_verification_gate: Current implementation status coherence remote verification v0
+latest_remote_verification_artifact: docs/review/current-implementation-status-coherence-remote-verification.md
+latest_verified_head_sha: e30d11beb78d7c5298d80c57cf1473b72079810e
+latest_ci_run: 27078546420
+latest_ci_job_id: 79920120516
+latest_external_feedback_screen_run: 27078546399
+latest_external_feedback_screen_job_id: 79920120466
+verified_status_coherence_gate: Current implementation status coherence v0
+verified_status_coherence_artifact: docs/review/current-implementation-status-coherence.md
+implemented_local_v0_surfaces: guarded raw-file download endpoint; document_chunks; chunk_embeddings; semantic retrieval run records; owner-runtime gated embedding provider preview path
+remaining_boundaries: robust PDF extraction; production-grade authorization; production malware scanning evidence; implicit upload-preview auto-persistence; autonomous workflow execution endpoints; production failure-case workers; live embedding generation proof; semantic retrieval quality evidence; full distributed tracing; hosted observability; hosted deployment evidence
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the status-copy coherence gate itself; not new runtime evidence; not external reviewer feedback; not hosted deployment evidence; not production authorization; not live embedding generation proof; not semantic retrieval quality evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 822:
 
 ```text
@@ -28732,6 +28753,39 @@ remaining unproven boundaries:
 Boundary: status-copy coherence only; not new runtime evidence, not hosted deployment evidence, not production authorization, not production malware scanning evidence, not robust PDF extraction evidence, not semantic retrieval quality evidence, not live embedding generation proof, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
 
 Next gate: remote verification for this coherence gate after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
+
+### Phase 823 - Current Implementation Status Coherence Remote Verification v0
+
+Status: implemented.
+
+Implemented artifacts:
+
+```text
+current implementation status coherence remote verification v0
+docs/review/current-implementation-status-coherence-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote verification markers:
+
+```text
+head_sha -> e30d11beb78d7c5298d80c57cf1473b72079810e
+CI run `27078546420`
+CI job_id -> 79920120516
+External Feedback Screen run `27078546399`
+External Feedback Screen job_id -> 79920120466
+Run API smoke tests -> success
+Screen issue comments -> success
+verified_artifact -> docs/review/current-implementation-status-coherence.md
+```
+
+Boundary: remote workflow verification only; not the status-copy coherence gate itself, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not production authorization, not production malware scanning evidence, not robust PDF extraction evidence, not live embedding generation proof, not semantic retrieval quality evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, or another source-first product gate selected from the current repository state.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 

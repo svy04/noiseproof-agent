@@ -39377,3 +39377,55 @@ def test_external_feedback_current_state_upload_pdf_quality_preview_coverage_sum
         "external feedback current-state upload PDF quality preview coverage summary issue verification remote verification"
         in portfolio
     )
+
+
+def test_current_implementation_status_coherence_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/current-implementation-status-coherence-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Current Implementation Status Coherence Remote Verification" in content
+    assert "current implementation status coherence remote verification v0" in content
+    assert "e30d11beb78d7c5298d80c57cf1473b72079810e" in content
+    assert "CI run `27078546420`" in content
+    assert "External Feedback Screen run `27078546399`" in content
+    assert "CI job_id -> 79920120516" in content
+    assert "External Feedback Screen job_id -> 79920120466" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "docs/review/current-implementation-status-coherence.md" in content
+    assert "not the status-copy coherence gate itself" in content
+    assert "not new runtime evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not production authorization" in content
+    assert "not live embedding generation proof" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Current implementation status coherence remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 823 - Current Implementation Status Coherence Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 823 adds current implementation status coherence remote verification v0"
+        in runbook
+    )
+    assert (
+        "current implementation status coherence remote verification"
+        in portfolio
+    )

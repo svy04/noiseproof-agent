@@ -671,6 +671,8 @@ Implemented:
 
 Phase 822 adds current implementation status coherence v0: `docs/review/current-implementation-status-coherence.md` updates current-status wording so reviewer-facing surfaces no longer say download endpoints, persisted chunks, or embeddings are simply not implemented after local v0 guarded download, `document_chunks`, `chunk_embeddings`, semantic retrieval run records, and owner-runtime gated embedding-provider paths exist. This is status-copy coherence only, not new runtime evidence, hosted deployment evidence, production authorization, live embedding generation proof, semantic retrieval quality evidence, or product-complete.
 
+Phase 823 adds current implementation status coherence remote verification v0: `docs/review/current-implementation-status-coherence-remote-verification.md` records that commit `e30d11beb78d7c5298d80c57cf1473b72079810e` passed CI run `27078546420` (`Run API smoke tests -> success`, job `79920120516`) and External Feedback Screen run `27078546399` (`Screen issue comments -> success`, job `79920120466`) after the Phase 822 status-copy coherence gate was pushed. This is remote workflow verification only, not the status-copy coherence gate itself, not new runtime evidence, not hosted deployment evidence, not production authorization, not live embedding generation proof, not semantic retrieval quality evidence, not external reviewer feedback, and not product-complete.
+
 Current remaining boundaries:
 
 - robust PDF extraction remains unproven
