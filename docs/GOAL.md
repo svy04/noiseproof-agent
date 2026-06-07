@@ -43,6 +43,28 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 836:
+
+```text
+latest_external_feedback_state_gate: External feedback current-state semantic retrieval quality diagnostic matrix issue verification v0
+latest_external_feedback_state_artifact: docs/review/external-feedback-current-state-semantic-retrieval-quality-diagnostic-matrix-issue-verification.md
+issue_url: https://github.com/svy04/noiseproof-agent/issues/1
+issue_updatedAt: 2026-06-07T02:15:43Z
+comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment_only
+status: pending
+does_not_close_gate: true
+has_semantic_diagnostic_latest_proof: true
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: current-state issue screening only; not external reviewer feedback; not hosted deployment evidence; not customer validation; not Braincrew acceptance; not product-complete
+```
+
 Current navigation overlay as of Phase 835:
 
 ```text
@@ -32322,4 +32344,46 @@ Boundaries:
 - not vector search quality evidence
 - not embedding generation
 - not hosted deployment evidence
+- not product-complete
+
+### Phase 836 - External Feedback Current-state Semantic Retrieval Quality Diagnostic Matrix Issue Verification v0
+
+Status: implemented.
+
+Purpose: record the current issue #1 state after the semantic diagnostic issue-body route refresh without treating the owner-authored route edit or owner-authored comment as external reviewer feedback.
+
+Artifacts:
+
+- `docs/review/external-feedback-current-state-semantic-retrieval-quality-diagnostic-matrix-issue-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Issue markers:
+
+```text
+issue: https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt: 2026-06-07T02:15:43Z
+comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment_only
+status: pending
+does_not_close_gate: true
+has_semantic_diagnostic_latest_proof: true
+```
+
+Boundaries:
+
+- current-state issue screening only
+- not external reviewer feedback
+- not new runtime evidence
+- not vector search quality evidence
+- not embedding generation
+- not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
 - not product-complete

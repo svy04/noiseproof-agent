@@ -39952,3 +39952,44 @@ def test_external_review_issue_body_semantic_retrieval_quality_diagnostic_matrix
     assert "Phase 835 - External Review Issue Body Semantic Retrieval Quality Diagnostic Matrix Route Refresh v0" in goal
     assert "Phase 835 adds external review issue body semantic retrieval quality diagnostic matrix route refresh v0" in runbook
     assert "external review issue body semantic retrieval quality diagnostic matrix route refresh" in portfolio
+
+
+def test_external_feedback_current_state_semantic_retrieval_quality_diagnostic_matrix_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-semantic-retrieval-quality-diagnostic-matrix-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Feedback Current-state Semantic Retrieval Quality Diagnostic Matrix Issue Verification" in content
+    assert "external feedback current-state semantic retrieval quality diagnostic matrix issue verification v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt: 2026-06-07T02:15:43Z" in content
+    assert "comment_count: 1" in content
+    assert "owner_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "reason: self_authored_comment_only" in content
+    assert "status: pending" in content
+    assert "does_not_close_gate: true" in content
+    assert "docs/review/semantic-retrieval-quality-diagnostic-matrix.md" in content
+    assert "docs/review/external-review-issue-body-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md" in content
+    assert "has_semantic_diagnostic_latest_proof: true" in content
+    assert "not external reviewer feedback" in content
+    assert "not vector search quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "External feedback current-state semantic retrieval quality diagnostic matrix issue verification v0: implemented" in readme
+    assert "Phase 836 - External Feedback Current-state Semantic Retrieval Quality Diagnostic Matrix Issue Verification v0" in goal
+    assert "Phase 836 adds external feedback current-state semantic retrieval quality diagnostic matrix issue verification v0" in runbook
+    assert "external feedback current-state semantic retrieval quality diagnostic matrix issue verification" in portfolio
