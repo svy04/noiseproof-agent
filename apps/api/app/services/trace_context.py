@@ -20,16 +20,25 @@ def resolve_traceparent(incoming_traceparent: str | None) -> tuple[str, str]:
     return _generate_traceparent(), "generated_traceparent"
 
 
-def set_current_http_trace_context(*, traceparent: str, source: str) -> Token:
-    return _CURRENT_HTTP_TRACE_CONTEXT.set(
-        {
-            "http_traceparent": traceparent,
-            "http_trace_source": source,
-            "http_trace_context_boundary": TRACE_CONTEXT_BOUNDARY,
-            "distributed_tracing": False,
-            "opentelemetry_span_export": False,
-        }
-    )
+def set_current_http_trace_context(
+    *,
+    traceparent: str,
+    source: str,
+    opentelemetry_span_export: bool = False,
+    opentelemetry_span_export_boundary: str | None = None,
+) -> Token:
+    context = {
+        "http_traceparent": traceparent,
+        "http_trace_source": source,
+        "http_trace_context_boundary": TRACE_CONTEXT_BOUNDARY,
+        "distributed_tracing": False,
+        "opentelemetry_span_export": opentelemetry_span_export,
+    }
+    if opentelemetry_span_export_boundary:
+        context["opentelemetry_span_export_boundary"] = (
+            opentelemetry_span_export_boundary
+        )
+    return _CURRENT_HTTP_TRACE_CONTEXT.set(context)
 
 
 def reset_current_http_trace_context(token: Token) -> None:

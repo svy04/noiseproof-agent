@@ -43,6 +43,26 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 850:
+
+```text
+latest_observability_gate: Local OpenTelemetry span export v0
+latest_observability_artifact: docs/review/local-otel-span-export.md
+implemented_runtime_switch: NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT
+inspection_endpoint: GET /traces/otel-spans/local
+response_header: x-noiseproof-otel-span-export
+span_export_boundary: local_in_memory_otel_span_export_not_distributed_tracing
+default_boundary: disabled_no_span_export
+distributed_tracing: not_claimed
+external_collector: not_implemented
+hosted_observability: not_implemented
+hosted_deployment_evidence: not_implemented
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+production_readiness: not_claimed
+product_complete: false
+boundary: local in-memory OpenTelemetry span export only; not distributed tracing; not hosted observability; not external collector integration; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 849:
 
 ```text
@@ -33193,4 +33213,51 @@ Boundaries:
 - not external reviewer feedback
 - not customer validation
 - not Braincrew acceptance
+- not product-complete
+
+### Phase 850 - Local OpenTelemetry Span Export v0
+
+Status: implemented.
+
+Purpose: add an opt-in local OpenTelemetry span export surface so request-level spans can be inspected without claiming distributed tracing, hosted observability, or external collector integration.
+
+Artifacts:
+
+- `docs/review/local-otel-span-export.md`
+- `apps/api/pyproject.toml`
+- `apps/api/uv.lock`
+- `apps/api/app/services/otel_span_export.py`
+- `apps/api/app/settings.py`
+- `apps/api/app/main.py`
+- `apps/api/app/routes/traces.py`
+- `apps/api/app/services/trace_context.py`
+- `apps/api/tests/test_routes.py`
+- `apps/api/tests/test_docs.py`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+
+Runtime markers:
+
+```text
+NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT
+GET /traces/otel-spans/local
+x-noiseproof-otel-span-export
+local_in_memory_otel_span_export_not_distributed_tracing
+disabled_no_span_export
+```
+
+Boundaries:
+
+- local in-memory OpenTelemetry span export only
+- not distributed tracing
+- not hosted observability
+- not external collector integration
+- not OpenTelemetry Collector deployment
+- not production monitoring
+- not cross-service trace proof
+- not hosted deployment evidence
+- not external reviewer feedback
 - not product-complete

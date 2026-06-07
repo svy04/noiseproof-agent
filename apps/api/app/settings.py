@@ -38,6 +38,13 @@ class Settings(BaseSettings):
             "openai_provider_timeout_seconds",
         ),
     )
+    enable_otel_span_export: bool = Field(
+        default=False,
+        validation_alias=AliasChoices(
+            "NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT",
+            "enable_otel_span_export",
+        ),
+    )
 
     model_config = SettingsConfigDict(
         env_file=("../../.env", ".env"),

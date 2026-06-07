@@ -744,6 +744,14 @@ def make_client():
     return TestClient(app)
 
 
+def make_client_with_settings(settings: Settings):
+    app = create_app(settings=settings)
+    repository = InMemoryRepository()
+    app.dependency_overrides[get_repository] = lambda: repository
+    app.dependency_overrides[get_settings] = lambda: settings
+    return TestClient(app)
+
+
 def _cosine_distance(left, right):
     left_norm = sum(value * value for value in left) ** 0.5
     right_norm = sum(value * value for value in right) ** 0.5
@@ -976,6 +984,74 @@ def test_trace_context_header_replaces_invalid_incoming_traceparent():
     )
     assert response.headers["x-noiseproof-trace-boundary"] == (
         "local_header_propagation_no_distributed_tracing"
+    )
+
+
+def test_local_otel_span_export_is_disabled_by_default():
+    client = make_client()
+
+    response = client.get("/traces/otel-spans/local")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["span_export_enabled"] is False
+    assert body["span_export_boundary"] == "disabled_no_span_export"
+    assert body["span_count"] == 0
+    assert body["spans"] == []
+    assert body["non_claims"]["distributed_tracing"] is False
+    assert body["non_claims"]["hosted_observability"] is False
+
+
+def test_local_otel_span_export_records_request_span_when_enabled():
+    client = make_client_with_settings(Settings(enable_otel_span_export=True))
+
+    health_response = client.get("/health")
+    traceparent = health_response.headers["traceparent"]
+    response = client.get("/traces/otel-spans/local")
+
+    assert health_response.status_code == 200
+    assert health_response.headers["x-noiseproof-otel-span-export"] == (
+        "local_in_memory_enabled"
+    )
+    assert response.status_code == 200
+    body = response.json()
+    assert body["span_export_enabled"] is True
+    assert body["span_export_boundary"] == (
+        "local_in_memory_otel_span_export_not_distributed_tracing"
+    )
+    assert body["span_count"] >= 1
+    span = body["spans"][0]
+    assert span["name"] == "HTTP GET /health"
+    assert span["attributes"]["http.request.method"] == "GET"
+    assert span["attributes"]["url.path"] == "/health"
+    assert span["attributes"]["http.response.status_code"] == 200
+    assert span["attributes"]["noiseproof.http_traceparent"] == traceparent
+    assert span["attributes"]["noiseproof.otel_boundary"] == (
+        "local_in_memory_otel_span_export_not_distributed_tracing"
+    )
+    assert body["non_claims"]["distributed_tracing"] is False
+    assert body["non_claims"]["external_collector"] is False
+
+
+def test_run_trace_marks_local_otel_span_export_without_distributed_tracing_claim():
+    client = make_client_with_settings(Settings(enable_otel_span_export=True))
+    repo = client.app.dependency_overrides[get_repository]()
+    incoming = "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
+
+    response = client.post(
+        "/collection-plans/preview",
+        headers={"traceparent": incoming},
+        json={"question": "What supports the market demand growth claim?"},
+    )
+
+    assert response.status_code == 200
+    assert len(repo.agent_runs) == 1
+    trace_json = repo.agent_runs[0]["trace_json"]
+    assert trace_json["http_traceparent"] == incoming
+    assert trace_json["distributed_tracing"] is False
+    assert trace_json["opentelemetry_span_export"] is True
+    assert trace_json["opentelemetry_span_export_boundary"] == (
+        "local_in_memory_otel_span_export_not_distributed_tracing"
     )
 
 

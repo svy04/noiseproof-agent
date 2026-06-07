@@ -40534,3 +40534,38 @@ def test_application_ready_semantic_quality_claim_gate_alignment_remote_verifica
     assert "Phase 849 - Application-ready Semantic Quality Claim Gate Alignment Remote Verification v0" in goal
     assert "Phase 849 adds application-ready semantic quality claim gate alignment remote verification v0" in runbook
     assert "application-ready semantic quality claim gate alignment remote verification" in portfolio
+
+
+def test_local_otel_span_export_is_recorded_without_distributed_tracing_claim():
+    review_path = REPO_ROOT / "docs/review/local-otel-span-export.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Local OpenTelemetry Span Export" in content
+    assert "local OpenTelemetry span export v0" in content
+    assert "opentelemetry-sdk" in content
+    assert "NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT" in content
+    assert "GET /traces/otel-spans/local" in content
+    assert "x-noiseproof-otel-span-export" in content
+    assert "local_in_memory_otel_span_export_not_distributed_tracing" in content
+    assert "disabled_no_span_export" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not external collector" in content
+    assert "not product-complete" in content
+
+    assert "Local OpenTelemetry span export v0: implemented" in readme
+    assert "Phase 850 - Local OpenTelemetry Span Export v0" in goal
+    assert "Phase 850 adds local OpenTelemetry span export v0" in runbook
+    assert "local OpenTelemetry span export" in portfolio
+    assert "local OpenTelemetry span export exists" in application_ready

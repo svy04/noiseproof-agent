@@ -11,6 +11,7 @@ dependencies = [
   "uvicorn[standard]>=0.34.0",
   "pymupdf>=1.24.0",
   "openai==2.41.0",
+  "opentelemetry-sdk>=1.42.1",
 ]
 
 [dependency-groups]

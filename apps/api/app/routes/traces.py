@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 
 from app.db import Repository, get_repository
 from app.schemas import (
@@ -13,6 +13,12 @@ from app.schemas import (
 )
 
 router = APIRouter(prefix="/traces", tags=["traces"])
+
+
+@router.get("/otel-spans/local")
+def list_local_otel_spans(request: Request) -> dict:
+    recorder = request.app.state.otel_span_recorder
+    return recorder.snapshot()
 
 
 @router.get("/{workflow_trace_id}", response_model=TraceLookupOut)
