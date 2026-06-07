@@ -40361,3 +40361,48 @@ def test_external_review_issue_body_semantic_quality_claim_gate_route_refresh_re
     assert "Phase 845 - External Review Issue Body Semantic Quality Claim Gate Route Refresh Remote Verification v0" in goal
     assert "Phase 845 adds external review issue body semantic quality claim gate route refresh remote verification v0" in runbook
     assert "external review issue body semantic quality claim gate route refresh remote verification" in portfolio
+
+
+def test_external_feedback_current_state_semantic_quality_claim_gate_issue_verification_keeps_gate_pending():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-semantic-quality-claim-gate-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Feedback Current-state Semantic Quality Claim Gate Issue Verification" in content
+    assert "external feedback current-state semantic quality claim gate issue verification v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt: 2026-06-07T03:10:59Z" in content
+    assert "comment_count: 1" in content
+    assert "screened_comment_count: 1" in content
+    assert "owner_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "reason: self_authored_comment_only" in content
+    assert "status: pending" in content
+    assert "does_not_close_gate: true" in content
+    assert "has_semantic_quality_claim_gate_latest_proof: true" in content
+    assert "has_semantic_quality_claim_gate_issue_body_refresh: true" in content
+    assert "has_vector_search_boundary: true" in content
+    assert "has_embedding_boundary: true" in content
+    assert "docs/review/semantic-quality-claim-gate.md" in content
+    assert "docs/review/external-review-issue-body-semantic-quality-claim-gate-route-refresh.md" in content
+    assert "not external reviewer feedback" in content
+    assert "not vector search quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "External feedback current-state semantic quality claim gate issue verification v0: implemented" in readme
+    assert "Phase 846 - External Feedback Current-state Semantic Quality Claim Gate Issue Verification v0" in goal
+    assert "Phase 846 adds external feedback current-state semantic quality claim gate issue verification v0" in runbook
+    assert "external feedback current-state semantic quality claim gate issue verification" in portfolio
