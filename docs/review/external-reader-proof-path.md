@@ -16,6 +16,35 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Uploaded PDF table adapter Noise Gate provenance runtime proof:
+
+```text
+docs/review/uploaded-pdf-table-adapter-noise-gate-provenance.md
+docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-remote-verification.md
+docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke.md
+docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke-remote-verification.md
+docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-noise-gate-provenance-runtime-route-refresh.md
+POST /documents/upload-chunks
+POST /documents/{document_id}/retrieval-runs
+POST /retrieval-runs/{retrieval_run_id}/evidence-ledger
+POST /retrieval-runs/{retrieval_run_id}/noise-gate
+GET /noise-gates
+```
+
+Route markers:
+
+```text
+default_pdf_parser_table_adapter_metadata
+table_adapter.extracted_table_rows -> [['Segment', 'Growth'], ['Enterprise', '12%']]
+table_extraction_performed -> False
+source_pdf_table_adapter_provenance_boundary -> noise_gate_stage_input_manifest_from_evidence_ledger_entry_metadata
+handoff_performs_pdf_table_extraction -> False
+CI run `27077666558`
+External Feedback Screen run `27077666546`
+```
+
+Boundary: this route points reviewers to the uploaded-PDF table-adapter metadata provenance path from `POST /documents/upload-chunks` through persisted chunks, document-chunk retrieval, persisted Evidence Ledger row metadata, and retrieval-run-linked Noise Gate `stage_input_manifest`. It is route hygiene only, not new runtime evidence, not robust PDF extraction evidence, not default `PdfParser` table extraction, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not final truth adjudication, not final report generation, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 Uploaded PDF table adapter Evidence Ledger provenance runtime proof:
 
 ```text

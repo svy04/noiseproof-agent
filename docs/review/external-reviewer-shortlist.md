@@ -16,7 +16,15 @@ It does not replace the full proof path.
 
 1. `README.md`
    - Scope, non-goals, implementation status, and the current proof boundaries.
-2. Uploaded PDF table adapter Evidence Ledger provenance runtime proof
+2. Uploaded PDF table adapter Noise Gate provenance runtime proof
+   - `docs/review/uploaded-pdf-table-adapter-noise-gate-provenance.md`
+   - Product remote verification: `docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-remote-verification.md`.
+   - Runtime proof: `docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke.md`.
+   - Runtime remote verification: `docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke-remote-verification.md`.
+   - Route refresh: `docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-noise-gate-provenance-runtime-route-refresh.md`.
+   - Records `POST /documents/upload-chunks`, `POST /documents/{document_id}/retrieval-runs`, `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, `POST /retrieval-runs/{retrieval_run_id}/noise-gate`, `GET /noise-gates`, `default_pdf_parser_table_adapter_metadata`, `table_adapter.extracted_table_rows -> [['Segment', 'Growth'], ['Enterprise', '12%']]`, `table_extraction_performed -> False`, `source_pdf_table_adapter_provenance_boundary -> noise_gate_stage_input_manifest_from_evidence_ledger_entry_metadata`, `handoff_performs_pdf_table_extraction -> False`, CI run `27077666558`, and External Feedback Screen run `27077666546`.
+   - Boundary: not new runtime evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Noise Gate quality evidence, not final truth adjudication, not final report generation, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
+   - Related Uploaded PDF table adapter Evidence Ledger provenance runtime proof
    - `docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance.md`
    - Runtime proof: `docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-smoke.md`.
    - Runtime remote verification: `docs/review/uploaded-pdf-table-adapter-evidence-ledger-provenance-runtime-smoke-remote-verification.md`.

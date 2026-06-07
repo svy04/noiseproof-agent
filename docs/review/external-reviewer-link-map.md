@@ -8,6 +8,24 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest Uploaded PDF Table Adapter Noise Gate Provenance Runtime Proof
+
+- Product proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-table-adapter-noise-gate-provenance.md
+- Product remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-remote-verification.md
+- Runtime proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke.md
+- Runtime remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke-remote-verification.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-uploaded-pdf-table-adapter-noise-gate-provenance-runtime-route-refresh.md
+- API routes:
+  `POST /documents/upload-chunks`, `POST /documents/{document_id}/retrieval-runs`, `POST /retrieval-runs/{retrieval_run_id}/evidence-ledger`, `POST /retrieval-runs/{retrieval_run_id}/noise-gate`, `GET /noise-gates`
+- Route markers:
+  `default_pdf_parser_table_adapter_metadata`, `table_adapter.extracted_table_rows -> [['Segment', 'Growth'], ['Enterprise', '12%']]`, `table_extraction_performed -> False`, `source_pdf_table_adapter_provenance_boundary -> noise_gate_stage_input_manifest_from_evidence_ledger_entry_metadata`, `handoff_performs_pdf_table_extraction -> False`, CI run `27077666558`, External Feedback Screen run `27077666546`
+- Boundary: uploaded-PDF table-adapter Noise Gate provenance runtime routing only; not a live issue body edit, not new runtime evidence, not robust PDF extraction evidence, not default `PdfParser` table extraction, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger quality evidence, not Noise Gate quality evidence, not final truth adjudication, not final report generation, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 ## Latest Uploaded PDF Table Adapter Evidence Ledger Provenance Runtime Proof
 
 - Product proof:
