@@ -40445,3 +40445,53 @@ def test_external_feedback_current_state_semantic_quality_claim_gate_issue_verif
     assert "Phase 847 - External Feedback Current-state Semantic Quality Claim Gate Issue Verification Remote Verification v0" in goal
     assert "Phase 847 adds external feedback current-state semantic quality claim gate issue verification remote verification v0" in runbook
     assert "external feedback current-state semantic quality claim gate issue verification remote verification" in portfolio
+
+
+def test_application_ready_semantic_quality_claim_gate_alignment_keeps_claim_block_visible():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/application-ready-semantic-quality-claim-gate-alignment.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Application-ready Semantic Quality Claim Gate Alignment" in content
+    assert "application-ready semantic quality claim gate alignment v0" in content
+    for artifact in [
+        "docs/review/semantic-quality-claim-gate.md",
+        "docs/review/semantic-quality-claim-gate-remote-verification.md",
+        "docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh.md",
+        "docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh-remote-verification.md",
+        "docs/review/external-review-issue-body-semantic-quality-claim-gate-route-refresh.md",
+        "docs/review/external-review-issue-body-semantic-quality-claim-gate-route-refresh-remote-verification.md",
+        "docs/review/external-feedback-current-state-semantic-quality-claim-gate-issue-verification.md",
+        "docs/review/external-feedback-current-state-semantic-quality-claim-gate-issue-verification-remote-verification.md",
+    ]:
+        assert artifact in content
+        assert artifact in application_ready
+    assert "status: blocked" in content
+    assert "can_claim_semantic_quality: false" in content
+    assert "semantic_quality_claim_blocked" in content
+    assert "candidate_count: 0" in content
+    assert "status: pending" in content
+    assert "semantic retrieval quality remains unproven" in content
+    assert "not vector search quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert "Application-ready semantic quality claim gate alignment v0: implemented" in readme
+    assert "Phase 848 - Application-ready Semantic Quality Claim Gate Alignment v0" in goal
+    assert "Phase 848 adds application-ready semantic quality claim gate alignment v0" in runbook
+    assert "application-ready semantic quality claim gate alignment" in portfolio

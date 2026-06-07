@@ -43,6 +43,30 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 848:
+
+```text
+latest_application_alignment_gate: Application-ready semantic quality claim gate alignment v0
+latest_application_alignment_artifact: docs/review/application-ready-semantic-quality-claim-gate-alignment.md
+aligned_application_review: docs/review/application-ready-review.md
+semantic_quality_gate_artifact: docs/review/semantic-quality-claim-gate.md
+semantic_quality_gate_remote_verification_artifact: docs/review/semantic-quality-claim-gate-remote-verification.md
+latest_external_feedback_current_state_artifact: docs/review/external-feedback-current-state-semantic-quality-claim-gate-issue-verification.md
+latest_external_feedback_current_state_remote_verification_artifact: docs/review/external-feedback-current-state-semantic-quality-claim-gate-issue-verification-remote-verification.md
+semantic_quality_gate_status: blocked
+can_claim_semantic_quality: false
+semantic_quality_gate_summary: semantic_quality_claim_blocked
+candidate_count: 0
+status: pending
+semantic_retrieval_quality: unproven
+actual_embedding_generation: unproven
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: application review alignment only; not vector search quality evidence; not embedding generation; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 847:
 
 ```text
@@ -33050,6 +33074,59 @@ Boundaries:
 - not embedding generation
 - not benchmark evidence
 - not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 848 - Application-ready Semantic Quality Claim Gate Alignment v0
+
+Status: implemented.
+
+Purpose: align `docs/review/application-ready-review.md` with the semantic quality claim-gate proof chain now that the external-reader proof path, issue-body route, current-state issue screen, and remote verification all point to the claim gate before any semantic quality claim can be made.
+
+Artifacts:
+
+- `docs/review/application-ready-semantic-quality-claim-gate-alignment.md`
+- `docs/review/application-ready-review.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Claim-gate markers:
+
+```text
+status: blocked
+can_claim_semantic_quality: false
+semantic_quality_claim_blocked
+candidate_count: 0
+status: pending
+semantic retrieval quality remains unproven
+```
+
+Aligned proof chain:
+
+```text
+docs/review/semantic-quality-claim-gate.md
+docs/review/semantic-quality-claim-gate-remote-verification.md
+docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh.md
+docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh-remote-verification.md
+docs/review/external-review-issue-body-semantic-quality-claim-gate-route-refresh.md
+docs/review/external-review-issue-body-semantic-quality-claim-gate-route-refresh-remote-verification.md
+docs/review/external-feedback-current-state-semantic-quality-claim-gate-issue-verification.md
+docs/review/external-feedback-current-state-semantic-quality-claim-gate-issue-verification-remote-verification.md
+```
+
+Boundaries:
+
+- application review alignment only
+- not vector search quality evidence
+- not embedding generation
+- not benchmark evidence
+- not retrieval tuning
+- not hosted deployment evidence
+- not external reviewer feedback
 - not customer validation
 - not Braincrew acceptance
 - not product-complete
