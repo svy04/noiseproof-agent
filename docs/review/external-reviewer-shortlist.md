@@ -16,6 +16,12 @@ It does not replace the full proof path.
 
 1. `README.md`
    - Scope, non-goals, implementation status, and the current proof boundaries.
+   - Current semantic retrieval diagnostic matrix: `docs/review/semantic-retrieval-quality-diagnostic-matrix.md`.
+   - Remote verification: `docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md`.
+   - Evaluation report: `docs/evaluation/semantic-retrieval-quality-report.md`.
+   - Route refresh: `docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md`.
+   - Records `q-what-missing`, `no_semantic_candidates_at_k`, `no_relevant_semantic_candidate_at_k`, `missing_required_information_roles_at_k`, `relevant_chunk_missing_embedding`, `lexical_retrieved_relevant_not_in_semantic_top_k`, CI run `27079764317`, and External Feedback Screen run `27079764318`.
+   - Boundary: not vector search quality evidence, not embedding generation, not a benchmark result, not retrieval tuning, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
 2. Uploaded PDF table adapter Noise Gate provenance runtime proof
    - `docs/review/uploaded-pdf-table-adapter-noise-gate-provenance.md`
    - Product remote verification: `docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-remote-verification.md`.

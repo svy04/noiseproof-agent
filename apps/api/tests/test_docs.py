@@ -39834,3 +39834,49 @@ def test_semantic_retrieval_quality_diagnostic_matrix_remote_verification_is_rec
     assert "Phase 832 - Semantic Retrieval Quality Diagnostic Matrix Remote Verification v0" in goal
     assert "Phase 832 adds semantic retrieval quality diagnostic matrix remote verification v0" in runbook
     assert "semantic retrieval quality diagnostic matrix remote verification" in portfolio
+
+
+def test_external_reader_proof_path_semantic_retrieval_quality_diagnostic_matrix_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    link_map = (
+        REPO_ROOT / "docs/review/external-reviewer-link-map.md"
+    ).read_text(encoding="utf-8")
+    shortlist = (
+        REPO_ROOT / "docs/review/external-reviewer-shortlist.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External-reader Proof Path Semantic Retrieval Quality Diagnostic Matrix Route Refresh" in content
+    assert "external-reader proof path semantic retrieval quality diagnostic matrix route refresh v0" in content
+    assert "docs/review/semantic-retrieval-quality-diagnostic-matrix.md" in content
+    assert "docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md" in content
+    assert "docs/evaluation/semantic-retrieval-quality-report.md" in content
+    assert "q-what-missing" in content
+    assert "no_semantic_candidates_at_k" in content
+    assert "not vector search quality evidence" in content
+    assert "not new runtime evidence" in content
+    assert "not product-complete" in content
+
+    assert "External-reader proof path semantic retrieval quality diagnostic matrix route refresh v0: implemented" in readme
+    assert "Phase 833 - External-reader Proof Path Semantic Retrieval Quality Diagnostic Matrix Route Refresh v0" in goal
+    assert "Phase 833 adds external-reader proof path semantic retrieval quality diagnostic matrix route refresh v0" in runbook
+    assert "external-reader proof path semantic retrieval quality diagnostic matrix route refresh" in portfolio
+    for surfaced in [proof_path, link_map, shortlist]:
+        assert "docs/review/semantic-retrieval-quality-diagnostic-matrix.md" in surfaced
+        assert "docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md" in surfaced
+        assert "no_semantic_candidates_at_k" in surfaced
+        assert "not vector search quality evidence" in surfaced

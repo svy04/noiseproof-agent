@@ -8,6 +8,20 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest Semantic Retrieval Quality Diagnostic Matrix
+
+- Diagnostic matrix:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/semantic-retrieval-quality-diagnostic-matrix.md
+- Diagnostic remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md
+- Evaluation report:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/evaluation/semantic-retrieval-quality-report.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md
+- Route markers:
+  `q-what-missing`, `no_semantic_candidates_at_k`, `no_relevant_semantic_candidate_at_k`, `missing_required_information_roles_at_k`, `relevant_chunk_missing_embedding`, `lexical_retrieved_relevant_not_in_semantic_top_k`, CI run `27079764317`, External Feedback Screen run `27079764318`
+- Boundary: semantic retrieval diagnostic routing only; not a live issue body edit, not new runtime evidence, not vector search quality evidence, not embedding generation, not a benchmark result, not retrieval tuning, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 ## Latest Uploaded PDF Table Adapter Noise Gate Provenance Runtime Proof
 
 - Product proof:

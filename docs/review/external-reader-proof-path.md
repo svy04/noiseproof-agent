@@ -16,6 +16,30 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Semantic retrieval quality diagnostic matrix:
+
+```text
+docs/review/semantic-retrieval-quality-diagnostic-matrix.md
+docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md
+docs/evaluation/semantic-retrieval-quality-report.md
+docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md
+```
+
+Route markers:
+
+```text
+q-what-missing
+no_semantic_candidates_at_k
+no_relevant_semantic_candidate_at_k
+missing_required_information_roles_at_k
+relevant_chunk_missing_embedding
+lexical_retrieved_relevant_not_in_semantic_top_k
+CI run `27079764317`
+External Feedback Screen run `27079764318`
+```
+
+Boundary: this route points reviewers to the toy semantic retrieval diagnostic matrix so misses, missing roles, missing embedding coverage, and lexical rescue candidates are visible before aggregate toy metrics. It is route hygiene only, not new runtime evidence, not vector search quality evidence, not embedding generation, not a benchmark result, not a model comparison, not retrieval tuning, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 Uploaded PDF table adapter Noise Gate provenance runtime proof:
 
 ```text

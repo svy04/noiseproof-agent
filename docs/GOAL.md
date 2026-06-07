@@ -43,6 +43,20 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 833:
+
+```text
+latest_reader_route_gate: External-reader proof path semantic retrieval quality diagnostic matrix route refresh v0
+latest_reader_route_artifact: docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md
+routed_quality_artifacts: docs/review/semantic-retrieval-quality-diagnostic-matrix.md; docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md; docs/evaluation/semantic-retrieval-quality-report.md
+updated_reader_surfaces: docs/review/external-reader-proof-path.md; docs/review/external-reviewer-link-map.md; docs/review/external-reviewer-shortlist.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: route hygiene only; not new runtime evidence; not vector search quality evidence; not embedding generation; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 832:
 
 ```text
@@ -32156,6 +32170,44 @@ Boundaries:
 - not new runtime evidence
 - not vector search quality evidence
 - not embedding generation
+- not hosted deployment evidence
+- not external reviewer feedback
+- not product-complete
+
+### Phase 833 - External-reader Proof Path Semantic Retrieval Quality Diagnostic Matrix Route Refresh v0
+
+Status: implemented.
+
+Purpose: route first-pass external reviewers to the semantic retrieval diagnostic matrix proof chain through the compact proof path, reviewer link map, and 90-second shortlist.
+
+Artifacts:
+
+- `docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md`
+- `docs/review/external-reader-proof-path.md`
+- `docs/review/external-reviewer-link-map.md`
+- `docs/review/external-reviewer-shortlist.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Routed proof:
+
+```text
+docs/review/semantic-retrieval-quality-diagnostic-matrix.md
+docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md
+docs/evaluation/semantic-retrieval-quality-report.md
+```
+
+Boundaries:
+
+- route hygiene only
+- not new runtime evidence
+- not vector search quality evidence
+- not embedding generation
+- not a benchmark result
+- not retrieval tuning
 - not hosted deployment evidence
 - not external reviewer feedback
 - not product-complete
