@@ -43,6 +43,26 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 847:
+
+```text
+latest_external_feedback_current_state_remote_verification: External feedback current-state semantic quality claim gate issue verification remote verification v0
+latest_external_feedback_current_state_remote_verification_artifact: docs/review/external-feedback-current-state-semantic-quality-claim-gate-issue-verification-remote-verification.md
+latest_verified_head_sha: 6d29405bf8012e09d3257d1c4f440314e6e72754
+latest_ci_run: 27081453286
+latest_ci_job_id: 79928033772
+latest_external_feedback_screen_run: 27081453272
+latest_external_feedback_screen_job_id: 79928033787
+verified_external_feedback_current_state_artifact: docs/review/external-feedback-current-state-semantic-quality-claim-gate-issue-verification.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+semantic_retrieval_quality: unproven
+actual_embedding_generation: unproven
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the issue-state screen itself; not external reviewer feedback; not new runtime evidence; not vector search quality evidence; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 846:
 
 ```text
@@ -32985,6 +33005,45 @@ does_not_close_gate: true
 Boundaries:
 
 - current-state issue screen only
+- not external reviewer feedback
+- not new runtime evidence
+- not vector search quality evidence
+- not embedding generation
+- not benchmark evidence
+- not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 847 - External Feedback Current-state Semantic Quality Claim Gate Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions success for the Phase 846 external-feedback current-state semantic quality claim-gate issue screen after it was pushed.
+
+Artifacts:
+
+- `docs/review/external-feedback-current-state-semantic-quality-claim-gate-issue-verification-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Remote markers:
+
+```text
+head_sha: 6d29405bf8012e09d3257d1c4f440314e6e72754
+CI run: 27081453286 success
+CI job_id: 79928033772
+External Feedback Screen run: 27081453272 success
+External Feedback Screen job_id: 79928033787
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the issue-state screen itself
 - not external reviewer feedback
 - not new runtime evidence
 - not vector search quality evidence

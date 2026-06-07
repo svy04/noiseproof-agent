@@ -40406,3 +40406,42 @@ def test_external_feedback_current_state_semantic_quality_claim_gate_issue_verif
     assert "Phase 846 - External Feedback Current-state Semantic Quality Claim Gate Issue Verification v0" in goal
     assert "Phase 846 adds external feedback current-state semantic quality claim gate issue verification v0" in runbook
     assert "external feedback current-state semantic quality claim gate issue verification" in portfolio
+
+
+def test_external_feedback_current_state_semantic_quality_claim_gate_issue_verification_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-semantic-quality-claim-gate-issue-verification-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Feedback Current-state Semantic Quality Claim Gate Issue Verification Remote Verification" in content
+    assert "external feedback current-state semantic quality claim gate issue verification remote verification v0" in content
+    assert "6d29405bf8012e09d3257d1c4f440314e6e72754" in content
+    assert "CI run `27081453286`: success" in content
+    assert "CI job_id -> 79928033772" in content
+    assert "External Feedback Screen run `27081453272`: success" in content
+    assert "External Feedback Screen job_id -> 79928033787" in content
+    assert "Check semantic retrieval quality report staleness -> success" in content
+    assert "Check PDF extraction quality report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the issue-state screen itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not new runtime evidence" in content
+    assert "not vector search quality evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "External feedback current-state semantic quality claim gate issue verification remote verification v0: implemented" in readme
+    assert "Phase 847 - External Feedback Current-state Semantic Quality Claim Gate Issue Verification Remote Verification v0" in goal
+    assert "Phase 847 adds external feedback current-state semantic quality claim gate issue verification remote verification v0" in runbook
+    assert "external feedback current-state semantic quality claim gate issue verification remote verification" in portfolio
