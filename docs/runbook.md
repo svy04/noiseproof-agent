@@ -8854,6 +8854,8 @@ Boundary: local run metadata capture only; not distributed tracing, not OpenTele
 
 Phase 825 adds HTTP trace context run metadata remote verification v0: `docs/review/http-trace-context-run-metadata-remote-verification.md` records that commit `e88ff0d86664c185f2dca9b74a8bded142c79548` passed CI run `27078923440` (`Run API smoke tests -> success`, job `79921154247`) and External Feedback Screen run `27078923450` (`Screen issue comments -> success`, job `79921154239`) after the Phase 824 product gate was pushed. This is remote workflow verification only, not the product gate itself, not distributed tracing, not OpenTelemetry span export, not hosted observability, not external reviewer feedback, and not product-complete.
 
+Phase 826 adds http trace context docker runtime smoke v0: `docs/review/http-trace-context-docker-runtime-smoke.md` records local Docker API plus PostgreSQL proof under `noiseproof-phase826` with Docker `29.4.3`, Compose `v5.1.3`, `API_PORT=18080`, `POSTGRES_PORT=55462`, `POST /collection-plans/preview -> 200`, `GET /agent-runs -> 200`, and persisted `agent_runs.trace_json` fields for `http_traceparent`, `incoming_traceparent`, `local_header_propagation_no_distributed_tracing`, `distributed_tracing=false`, and `opentelemetry_span_export=false`. This is local Docker runtime evidence only, not hosted deployment evidence, not distributed tracing, not OpenTelemetry span export, not hosted observability, not external reviewer feedback, and not product-complete.
+
 ## Embedding Provider Source Review
 
 Phase marker: embedding provider source review v0.

@@ -43,6 +43,28 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 826:
+
+```text
+latest_runtime_smoke_gate: HTTP trace context Docker runtime smoke v0
+latest_runtime_smoke_artifact: docs/review/http-trace-context-docker-runtime-smoke.md
+latest_runtime_project: noiseproof-phase826
+docker_version: 29.4.3
+docker_compose_version: v5.1.3
+api_port: 18080
+postgres_port: 55462
+verified_product_gate: HTTP trace context run metadata v0
+verified_product_artifact: docs/review/http-trace-context-run-metadata.md
+runtime_endpoint: POST /collection-plans/preview -> 200
+inspection_endpoint: GET /agent-runs -> 200
+captured_trace_fields: http_traceparent; http_trace_source=incoming_traceparent; http_trace_context_boundary=local_header_propagation_no_distributed_tracing; distributed_tracing=false; opentelemetry_span_export=false
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: local Docker runtime evidence only; not hosted deployment evidence; not distributed tracing; not OpenTelemetry span export; not hosted observability; not cross-service trace proof; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 825:
 
 ```text
@@ -28897,6 +28919,52 @@ verified_artifact -> docs/review/http-trace-context-run-metadata.md
 Boundary: remote workflow verification only; not the product gate itself, not new runtime evidence, not distributed tracing, not OpenTelemetry span export, not hosted observability, not cross-service trace proof, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
 
 Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, hosted observability only with explicit deployment target, or another source-first product gate selected from the current repository state.
+
+### Phase 826 - HTTP Trace Context Docker Runtime Smoke v0
+
+Status: verified.
+
+Purpose:
+
+```text
+prove that Phase 824 HTTP trace context run metadata capture is visible through a Dockerized API service and local PostgreSQL row
+```
+
+Implemented artifacts:
+
+```text
+http trace context docker runtime smoke v0
+docs/review/http-trace-context-docker-runtime-smoke.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+docs/review/application-ready-review.md
+apps/api/tests/test_docs.py
+```
+
+Runtime markers:
+
+```text
+Docker version: 29.4.3
+Docker Compose version: v5.1.3
+Compose project: noiseproof-phase826
+API_PORT=18080
+POSTGRES_PORT=55462
+POST /collection-plans/preview -> 200
+GET /agent-runs -> 200
+run_id: 9f7fcf84-5d04-42f9-9fec-15bdd968669b
+http_traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
+http_trace_source: incoming_traceparent
+http_trace_context_boundary: local_header_propagation_no_distributed_tracing
+distributed_tracing: false
+opentelemetry_span_export: false
+docker compose -p noiseproof-phase826 --profile api down -v -> completed
+```
+
+Boundary: local Docker runtime evidence only; not hosted deployment evidence, not distributed tracing, not OpenTelemetry span export, not hosted observability, not cross-service trace proof, not production readiness, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: remote verification for this runtime smoke after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, hosted observability only with explicit deployment target, or another source-first product gate selected from the current repository state.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 

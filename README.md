@@ -679,6 +679,8 @@ HTTP trace context run metadata v0: implemented. Boundary: `run_with_trace()` no
 
 HTTP trace context run metadata remote verification v0: implemented. Boundary: `docs/review/http-trace-context-run-metadata-remote-verification.md` records that commit `e88ff0d86664c185f2dca9b74a8bded142c79548` passed CI run `27078923440` and External Feedback Screen run `27078923450` after the Phase 824 product gate was pushed; this is remote workflow verification only, not distributed tracing, not OpenTelemetry span export, not hosted observability, and not product-complete.
 
+HTTP trace context Docker runtime smoke v0: verified. Boundary: `docs/review/http-trace-context-docker-runtime-smoke.md` records local Docker API plus PostgreSQL proof under `noiseproof-phase826` with Docker `29.4.3`, Compose `v5.1.3`, `POST /collection-plans/preview -> 200`, `GET /agent-runs -> 200`, and persisted `agent_runs.trace_json.http_traceparent` / `http_trace_source=incoming_traceparent` / `http_trace_context_boundary=local_header_propagation_no_distributed_tracing`. This is local Docker runtime evidence only, not hosted deployment evidence, not distributed tracing, not OpenTelemetry span export, not hosted observability, not external reviewer feedback, and not product-complete.
+
 Embedding provider source review v0: implemented. Boundary: official OpenAI embeddings contract reviewed only; no API call, no dependency, no cost-incurring runtime path, and actual embedding model generation remains unproven.
 
 Embedding model provider disabled-path v0: implemented. Boundary: `POST /chunks/embedding-model-preview` reports provider configuration only; no provider call, no embedding vector, no persistence, and no cost.

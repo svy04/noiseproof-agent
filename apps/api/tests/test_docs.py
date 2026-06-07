@@ -252,6 +252,44 @@ def test_semantic_retrieval_readiness_review_uses_primary_sources_and_keeps_scop
     assert "docs/review/semantic-retrieval-readiness-review.md" in portfolio
 
 
+def test_http_trace_context_docker_runtime_smoke_is_documented_with_boundaries():
+    smoke_path = (
+        REPO_ROOT / "docs/review/http-trace-context-docker-runtime-smoke.md"
+    )
+    assert smoke_path.is_file()
+
+    content = smoke_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "HTTP Trace Context Docker Runtime Smoke" in content
+    assert "http trace context docker runtime smoke v0" in content
+    assert "Docker version 29.4.3" in content
+    assert "Docker Compose version v5.1.3" in content
+    assert "POST /collection-plans/preview -> 200" in content
+    assert "GET /agent-runs -> 200" in content
+    assert "http_traceparent" in content
+    assert "incoming_traceparent" in content
+    assert "local_header_propagation_no_distributed_tracing" in content
+    assert "not hosted deployment evidence" in content
+    assert "not distributed tracing" in content
+    assert "not OpenTelemetry span export" in content
+    assert "not product-complete" in content
+
+    assert "HTTP trace context Docker runtime smoke v0: verified" in readme
+    assert "Phase 826 - HTTP Trace Context Docker Runtime Smoke v0" in goal
+    assert "http trace context docker runtime smoke v0" in runbook
+    assert "docs/review/http-trace-context-docker-runtime-smoke.md" in portfolio
+    assert "http trace context Docker runtime smoke exists" in application_ready
+
+
 def test_embedding_schema_review_keeps_vector_storage_decision_review_only():
     review_path = REPO_ROOT / "docs/review/embedding-schema-review.md"
     assert review_path.is_file()
