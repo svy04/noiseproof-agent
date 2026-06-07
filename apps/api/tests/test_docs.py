@@ -35229,6 +35229,67 @@ def test_uploaded_pdf_table_adapter_noise_gate_provenance_runtime_smoke_v0_is_re
     assert "uploaded PDF table adapter Noise Gate provenance runtime smoke" in portfolio
 
 
+def test_uploaded_pdf_table_adapter_noise_gate_provenance_runtime_smoke_remote_verification_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke-remote-verification.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "Uploaded PDF Table Adapter Noise Gate Provenance Runtime Smoke Remote Verification"
+        in content
+    )
+    assert (
+        "uploaded PDF table adapter Noise Gate provenance runtime smoke remote verification v0"
+        in content
+    )
+    assert "69c35547866e4637a1a75c31c8989cd3ee10580c" in content
+    assert "CI run `27077666558`" in content
+    assert "CI job_id -> 79917692801" in content
+    assert "External Feedback Screen run `27077666546`" in content
+    assert "External Feedback Screen job_id -> 79917692762" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke.md"
+        in content
+    )
+    assert "not the local runtime smoke itself" in content
+    assert "not new runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not Noise Gate quality evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Uploaded PDF table adapter Noise Gate provenance runtime smoke remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 816 - Uploaded PDF Table Adapter Noise Gate Provenance Runtime Smoke Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 816 adds uploaded PDF table adapter Noise Gate provenance runtime smoke remote verification v0"
+        in runbook
+    )
+    assert (
+        "uploaded PDF table adapter Noise Gate provenance runtime smoke remote verification"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

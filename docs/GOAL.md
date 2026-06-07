@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 816:
+
+```text
+latest_remote_verification_gate: Uploaded PDF table adapter Noise Gate provenance runtime smoke remote verification v0
+latest_remote_verification_artifact: docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke-remote-verification.md
+latest_verified_head_sha: 69c35547866e4637a1a75c31c8989cd3ee10580c
+latest_ci_run: 27077666558
+latest_ci_job_id: 79917692801
+latest_external_feedback_screen_run: 27077666546
+latest_external_feedback_screen_job_id: 79917692762
+verified_runtime_proof_gate: Uploaded PDF table adapter Noise Gate provenance runtime smoke v0
+verified_runtime_proof_artifact: docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the local runtime smoke itself; not new runtime evidence; not hosted deployment evidence; not external reviewer feedback; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Noise Gate quality evidence; not final truth adjudication; not final report generation; not product-complete
+```
+
 Current navigation overlay as of Phase 815:
 
 ```text
@@ -28337,6 +28356,38 @@ all_required_markers_passed -> True
 Boundary: local Docker runtime evidence only; not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Noise Gate quality evidence, not final truth adjudication, not final report generation, and not product-complete.
 
 Next gate: remote verification after push, external-reader route refresh if this proof should become reviewer-facing, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 816 - Uploaded PDF Table Adapter Noise Gate Provenance Runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Implemented artifacts:
+
+```text
+uploaded PDF table adapter Noise Gate provenance runtime smoke remote verification v0
+docs/review/uploaded-pdf-table-adapter-noise-gate-provenance-runtime-smoke-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote workflow evidence:
+
+```text
+head_sha -> 69c35547866e4637a1a75c31c8989cd3ee10580c
+CI run `27077666558`
+CI job_id -> 79917692801
+External Feedback Screen run `27077666546`
+External Feedback Screen job_id -> 79917692762
+Run API smoke tests -> success
+Screen issue comments -> success
+```
+
+Boundary: remote workflow verification only; not the local runtime smoke itself, not new runtime evidence, not hosted deployment evidence, not external reviewer feedback, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Noise Gate quality evidence, not final truth adjudication, not final report generation, and not product-complete.
+
+Next gate: external-reader route refresh if this proof should become reviewer-facing, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 
