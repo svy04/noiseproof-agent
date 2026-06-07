@@ -11792,3 +11792,19 @@ Phase 848 adds application-ready semantic quality claim gate alignment v0: `docs
 Phase 849 adds application-ready semantic quality claim gate alignment remote verification v0: `docs/review/application-ready-semantic-quality-claim-gate-alignment-remote-verification.md` records that commit `b481dfebc22332fe5b9520059c04a4ed85d5846a` passed CI run `27081708141` (`api-smoke -> success`, job `79928745438`) and External Feedback Screen run `27081708142` (`screen -> success`, job `79928745318`) after Phase 848 was pushed. This is remote workflow verification only, not the application alignment itself, not vector search quality evidence, not embedding generation, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, or product-complete.
 
 Phase 850 adds local OpenTelemetry span export v0: `docs/review/local-otel-span-export.md` records that opt-in local request spans are exported through `opentelemetry-sdk` with `NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT=true`, surfaced through `GET /traces/otel-spans/local`, and marked in responses with `x-noiseproof-otel-span-export`. This is local in-memory span export only, not distributed tracing, not hosted observability, not external collector integration, not OpenTelemetry Collector deployment, not production monitoring, not cross-service trace proof, not hosted deployment evidence, not external reviewer feedback, or product-complete.
+
+Phase 851 adds Dockerized local OpenTelemetry span export runtime smoke v0: `docs/review/local-otel-span-export-runtime-smoke.md` records local Docker/FastAPI proof under `noiseproof-phase851` with `POSTGRES_PORT=15451`, `API_PORT=18051`, `NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT=true`, `GET /health -> 200`, `x-noiseproof-otel-span-export: local_in_memory_enabled`, `GET /agent-runs -> 200`, `GET /ops/summary -> 200`, and `GET /traces/otel-spans/local -> span_export_enabled=true` with `span_count=4`. Reproduce with:
+
+```powershell
+$env:POSTGRES_PORT='15451'
+$env:API_PORT='18051'
+$env:NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT='true'
+docker compose -p noiseproof-phase851 --profile api up -d --build --force-recreate db api
+curl.exe -sS -D - http://127.0.0.1:18051/health -o -
+curl.exe -sS http://127.0.0.1:18051/agent-runs
+curl.exe -sS http://127.0.0.1:18051/ops/summary
+curl.exe -sS http://127.0.0.1:18051/traces/otel-spans/local
+docker compose -p noiseproof-phase851 --profile api down -v
+```
+
+This is local Docker/FastAPI runtime evidence only, local in-memory span export only, not distributed tracing, not hosted observability, not external collector integration, not OpenTelemetry Collector deployment, not production monitoring, not cross-service trace proof, not hosted deployment evidence, not external reviewer feedback, or product-complete.

@@ -43,6 +43,34 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 851:
+
+```text
+latest_observability_runtime_smoke_gate: Dockerized local OpenTelemetry span export runtime smoke v0
+latest_observability_runtime_smoke_artifact: docs/review/local-otel-span-export-runtime-smoke.md
+latest_compose_project: noiseproof-phase851
+docker_runtime: verified_local
+implemented_runtime_switch: NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT
+compose_api_env_forwarding: implemented
+inspection_endpoint: GET /traces/otel-spans/local
+health_status: GET /health -> 200
+db_backed_route_status: GET /agent-runs -> 200
+ops_summary_status: GET /ops/summary -> 200
+response_header: x-noiseproof-otel-span-export: local_in_memory_enabled
+span_export_enabled: true
+span_export_boundary: local_in_memory_otel_span_export_not_distributed_tracing
+span_count_observed: 4
+cleanup: docker compose -p noiseproof-phase851 --profile api down -v -> completed
+distributed_tracing: not_claimed
+external_collector: not_implemented
+hosted_observability: not_implemented
+hosted_deployment_evidence: not_implemented
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+production_readiness: not_claimed
+product_complete: false
+boundary: local Docker/FastAPI runtime evidence only; local in-memory span export only; not distributed tracing; not hosted observability; not external collector integration; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 850:
 
 ```text
@@ -33251,6 +33279,62 @@ disabled_no_span_export
 
 Boundaries:
 
+- local in-memory OpenTelemetry span export only
+- not distributed tracing
+- not hosted observability
+- not external collector integration
+- not OpenTelemetry Collector deployment
+- not production monitoring
+- not cross-service trace proof
+- not hosted deployment evidence
+- not external reviewer feedback
+- not product-complete
+
+### Phase 851 - Dockerized Local OpenTelemetry Span Export Runtime Smoke v0
+
+Status: verified.
+
+Purpose: record local Docker/FastAPI runtime evidence that the opt-in local OpenTelemetry span export surface works when the API runs through the Compose `api` service.
+
+Artifacts:
+
+- `docs/review/local-otel-span-export-runtime-smoke.md`
+- `docker-compose.yml`
+- `apps/api/tests/test_compose.py`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_docs.py`
+
+Runtime markers:
+
+```text
+compose_project: noiseproof-phase851
+POSTGRES_PORT: 15451
+API_PORT: 18051
+NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT: true
+GET /health -> 200
+x-noiseproof-otel-span-export: local_in_memory_enabled
+GET /agent-runs -> 200
+GET /ops/summary -> 200
+GET /traces/otel-spans/local -> span_export_enabled=true
+span_count: 4
+span_export_boundary: local_in_memory_otel_span_export_not_distributed_tracing
+docker compose -p noiseproof-phase851 --profile api down -v -> completed
+```
+
+Implementation note:
+
+```text
+The first runtime smoke observed disabled span export because docker-compose.yml did not forward NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT into the api service.
+apps/api/tests/test_compose.py now guards this Compose environment contract.
+```
+
+Boundaries:
+
+- local Docker/FastAPI runtime evidence only
 - local in-memory OpenTelemetry span export only
 - not distributed tracing
 - not hosted observability

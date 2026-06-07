@@ -40569,3 +40569,48 @@ def test_local_otel_span_export_is_recorded_without_distributed_tracing_claim():
     assert "Phase 850 adds local OpenTelemetry span export v0" in runbook
     assert "local OpenTelemetry span export" in portfolio
     assert "local OpenTelemetry span export exists" in application_ready
+
+
+def test_local_otel_span_export_runtime_smoke_is_recorded_without_hosted_observability_claim():
+    review_path = REPO_ROOT / "docs/review/local-otel-span-export-runtime-smoke.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    compose = (REPO_ROOT / "docker-compose.yml").read_text(encoding="utf-8")
+
+    assert "Local OpenTelemetry Span Export Runtime Smoke" in content
+    assert "Dockerized local OpenTelemetry span export runtime smoke v0" in content
+    assert "compose_project: noiseproof-phase851" in content
+    assert "NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT: true" in content
+    assert "NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT: ${NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT:-false}" in compose
+    assert "GET /health" in content
+    assert "x-noiseproof-otel-span-export: local_in_memory_enabled" in content
+    assert "GET /agent-runs" in content
+    assert "GET /ops/summary" in content
+    assert "GET /traces/otel-spans/local" in content
+    assert '"span_export_enabled": true' in content
+    assert '"span_count": 4' in content
+    assert "local_in_memory_otel_span_export_not_distributed_tracing" in content
+    assert "docker compose -p noiseproof-phase851 --profile api down -v -> completed" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not external collector" in content
+    assert "not OpenTelemetry Collector deployment" in content
+    assert "not production monitoring" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "Dockerized local OpenTelemetry span export runtime smoke v0: verified" in readme
+    assert "Phase 851 - Dockerized Local OpenTelemetry Span Export Runtime Smoke v0" in goal
+    assert "Phase 851 adds Dockerized local OpenTelemetry span export runtime smoke v0" in runbook
+    assert "Dockerized local OpenTelemetry span export runtime smoke" in portfolio
+    assert "local OpenTelemetry span export Docker runtime smoke exists" in application_ready
