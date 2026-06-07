@@ -53,6 +53,11 @@ def evaluate_semantic_quality(
         if lexical_rankings is not None
         else None
     )
+    claim_gate = _quality_claim_gate(
+        fixture=fixture,
+        aggregate=aggregate,
+        per_query_diagnostics=per_query_diagnostics,
+    )
 
     return {
         "fixture": fixture.name,
@@ -60,6 +65,7 @@ def evaluate_semantic_quality(
         "per_query": per_query,
         "per_query_diagnostics": per_query_diagnostics,
         "aggregate": aggregate,
+        "claim_gate": claim_gate,
         "claim_boundary": "toy_fixture_metric_only_not_search_quality",
         "no_embedding_generation": fixture.no_embedding_generation,
     }
@@ -185,6 +191,53 @@ def _average_disagreement(
             continue
         scores.append(1.0 - (len(semantic_set.intersection(lexical_set)) / len(union)))
     return sum(scores) / max(len(scores), 1)
+
+
+def _quality_claim_gate(
+    *,
+    fixture: SemanticQualityFixture,
+    aggregate: dict[str, float | None],
+    per_query_diagnostics: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    blocker_codes: list[str] = []
+
+    if "fixture" in fixture.claim_boundary or "toy" in fixture.claim_boundary:
+        blocker_codes.append("toy_fixture_boundary")
+    if fixture.no_embedding_generation:
+        blocker_codes.append("no_embedding_generation")
+    if (aggregate.get("missing_embedding_rate") or 0) > 0:
+        blocker_codes.append("missing_embeddings")
+
+    warning_to_blocker = {
+        "no_semantic_candidates_at_k": "no_semantic_candidates_at_k",
+        "no_relevant_semantic_candidate_at_k": "no_relevant_semantic_candidate_at_k",
+        "missing_required_information_roles_at_k": "missing_required_information_roles_at_k",
+        "relevant_chunk_missing_embedding": "missing_relevant_chunk_embeddings",
+        "lexical_retrieved_relevant_not_in_semantic_top_k": "lexical_rescue_needed",
+    }
+    for diagnostics in per_query_diagnostics.values():
+        for warning in diagnostics.get("warnings", []):
+            blocker = warning_to_blocker.get(warning)
+            if blocker:
+                blocker_codes.append(blocker)
+
+    deduped_blockers = list(dict.fromkeys(blocker_codes))
+    can_claim = not deduped_blockers
+    return {
+        "status": "review_required" if can_claim else "blocked",
+        "can_claim_semantic_quality": can_claim,
+        "blocker_codes": deduped_blockers,
+        "summary": (
+            "semantic_quality_claim_requires_human_review"
+            if can_claim
+            else "semantic_quality_claim_blocked"
+        ),
+        "boundary": (
+            "claim_gate_only_not_vector_search_quality_evidence"
+            if not can_claim
+            else "claim_gate_only_requires_external_quality_evidence"
+        ),
+    }
 
 
 def _aggregate(per_query: dict[str, dict[str, float]]) -> dict[str, float]:

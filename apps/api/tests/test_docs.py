@@ -40109,3 +40109,48 @@ def test_application_ready_semantic_diagnostic_alignment_remote_verification_is_
     assert "Phase 839 - Application-ready Semantic Diagnostic Alignment Remote Verification v0" in goal
     assert "Phase 839 adds application-ready semantic diagnostic alignment remote verification v0" in runbook
     assert "application-ready semantic diagnostic alignment remote verification" in portfolio
+
+
+def test_semantic_quality_claim_gate_is_recorded_without_quality_claim():
+    review_path = REPO_ROOT / "docs/review/semantic-quality-claim-gate.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    report = (
+        REPO_ROOT / "docs/evaluation/semantic-retrieval-quality-report.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Semantic Quality Claim Gate" in content
+    assert "semantic quality claim gate v0" in content
+    assert "packages/ingestion/retrieval/quality_metrics.py" in content
+    assert "packages/ingestion/retrieval/quality_report.py" in content
+    assert "docs/evaluation/semantic-retrieval-quality-report.md" in content
+    assert "status: blocked" in content
+    assert "can_claim_semantic_quality: false" in content
+    assert "semantic_quality_claim_blocked" in content
+    assert "toy_fixture_boundary" in content
+    assert "no_embedding_generation" in content
+    assert "missing_embeddings" in content
+    assert "lexical_rescue_needed" in content
+    assert "not vector search quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert "## Quality Claim Gate" in report
+    assert "semantic_quality_claim_blocked" in report
+    assert "Semantic quality claim gate v0: implemented" in readme
+    assert "Phase 840 - Semantic Quality Claim Gate v0" in goal
+    assert "Phase 840 adds semantic quality claim gate v0" in runbook
+    assert "semantic quality claim gate" in portfolio
+    assert "semantic quality claim gate exists" in application_ready

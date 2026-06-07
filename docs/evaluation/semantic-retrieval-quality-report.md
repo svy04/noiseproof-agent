@@ -46,6 +46,16 @@ This matrix explains fixture misses; it does not prove semantic retrieval qualit
 | q-source-quality | chunk-demand-growth, chunk-missing-source | chunk-source-quality | none | chunk-source-quality | relevant_chunk_missing_embedding, lexical_retrieved_relevant_not_in_semantic_top_k |
 | q-what-missing | none | chunk-missing-source, chunk-scope-boundary | missing_data_signal, scope_boundary, user_intent_check | chunk-missing-source | no_semantic_candidates_at_k, no_relevant_semantic_candidate_at_k, missing_required_information_roles_at_k, relevant_chunk_missing_embedding, lexical_retrieved_relevant_not_in_semantic_top_k |
 
+## Quality Claim Gate
+
+This gate blocks the toy fixture from being cited as semantic retrieval quality evidence.
+
+- status: `blocked`
+- can_claim_semantic_quality: `false`
+- summary: `semantic_quality_claim_blocked`
+- boundary: `claim_gate_only_not_vector_search_quality_evidence`
+- blocker_codes: `toy_fixture_boundary, no_embedding_generation, missing_embeddings, lexical_rescue_needed, missing_required_information_roles_at_k, missing_relevant_chunk_embeddings, no_semantic_candidates_at_k, no_relevant_semantic_candidate_at_k`
+
 ## Interpretation
 
 This report intentionally uses a weak semantic ranking fixture so misses and disagreements remain visible.

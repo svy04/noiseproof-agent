@@ -98,6 +98,23 @@ def build_semantic_quality_report(
                 + " |"
             )
 
+    claim_gate = evaluation.get("claim_gate")
+    if claim_gate:
+        lines.extend(
+            [
+                "",
+                "## Quality Claim Gate",
+                "",
+                "This gate blocks the toy fixture from being cited as semantic retrieval quality evidence.",
+                "",
+                f"- status: `{claim_gate['status']}`",
+                f"- can_claim_semantic_quality: `{_format_bool(claim_gate['can_claim_semantic_quality'])}`",
+                f"- summary: `{claim_gate['summary']}`",
+                f"- boundary: `{claim_gate['boundary']}`",
+                f"- blocker_codes: `{_format_list(claim_gate.get('blocker_codes'))}`",
+            ]
+        )
+
     lines.extend(
         [
             "",
@@ -142,3 +159,7 @@ def _format_list(value: Any) -> str:
     if isinstance(value, list):
         return ", ".join(str(item) for item in value)
     return str(value)
+
+
+def _format_bool(value: Any) -> str:
+    return "true" if value else "false"

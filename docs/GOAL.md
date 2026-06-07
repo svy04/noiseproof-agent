@@ -43,6 +43,24 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 840:
+
+```text
+latest_semantic_quality_gate: Semantic quality claim gate v0
+latest_semantic_quality_gate_artifact: docs/review/semantic-quality-claim-gate.md
+updated_report_artifact: docs/evaluation/semantic-retrieval-quality-report.md
+quality_claim_gate_status: blocked
+can_claim_semantic_quality: false
+quality_claim_gate_summary: semantic_quality_claim_blocked
+semantic_retrieval_quality: unproven
+actual_embedding_generation: unproven
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: claim blocking only; not vector search quality evidence; not embedding generation; not benchmark evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 839:
 
 ```text
@@ -32560,6 +32578,49 @@ Boundaries:
 - not retrieval tuning
 - not external reviewer feedback
 - not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 840 - Semantic Quality Claim Gate v0
+
+Status: implemented.
+
+Purpose: add a deterministic quality-claim gate to the semantic retrieval quality evaluator and report so the toy fixture cannot be cited as semantic retrieval quality evidence.
+
+Artifacts:
+
+- `packages/ingestion/retrieval/quality_metrics.py`
+- `packages/ingestion/retrieval/quality_report.py`
+- `docs/evaluation/semantic-retrieval-quality-report.md`
+- `docs/review/semantic-quality-claim-gate.md`
+- `docs/review/application-ready-review.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_semantic_quality_report.py`
+- `apps/api/tests/test_docs.py`
+
+Gate markers:
+
+```text
+status: blocked
+can_claim_semantic_quality: false
+summary: semantic_quality_claim_blocked
+blocker_codes: toy_fixture_boundary, no_embedding_generation, missing_embeddings, no_semantic_candidates_at_k, no_relevant_semantic_candidate_at_k, missing_required_information_roles_at_k, missing_relevant_chunk_embeddings, lexical_rescue_needed
+```
+
+Boundaries:
+
+- claim blocking only
+- not vector search quality evidence
+- not embedding generation
+- not benchmark evidence
+- not retrieval tuning
+- not a model comparison
+- not hosted deployment evidence
+- not external reviewer feedback
 - not customer validation
 - not Braincrew acceptance
 - not product-complete

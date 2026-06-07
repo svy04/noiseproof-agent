@@ -82,6 +82,78 @@ def test_semantic_quality_report_includes_diagnostic_matrix_without_expanding_sc
     assert "This matrix explains fixture misses; it does not prove semantic retrieval quality." in report
 
 
+def test_semantic_quality_evaluation_blocks_quality_claim_for_toy_fixture():
+    fixture = load_semantic_quality_fixture(
+        REPO_ROOT / "examples/semantic-retrieval-quality"
+    )
+    semantic_rankings = {
+        "q-demand-growth": ["chunk-scope-boundary", "chunk-demand-growth"],
+        "q-risk-contradiction": ["chunk-demand-growth", "chunk-source-quality"],
+        "q-source-quality": ["chunk-demand-growth", "chunk-missing-source"],
+        "q-what-missing": [],
+    }
+    lexical_rankings = {
+        "q-demand-growth": ["chunk-demand-growth", "chunk-revenue-growth"],
+        "q-risk-contradiction": ["chunk-contradictory-channel"],
+        "q-source-quality": ["chunk-source-quality"],
+        "q-what-missing": ["chunk-missing-source"],
+    }
+
+    evaluation = evaluate_semantic_quality(
+        fixture,
+        semantic_rankings,
+        lexical_rankings=lexical_rankings,
+        k=2,
+    )
+
+    claim_gate = evaluation["claim_gate"]
+    assert claim_gate["status"] == "blocked"
+    assert claim_gate["can_claim_semantic_quality"] is False
+    assert "toy_fixture_boundary" in claim_gate["blocker_codes"]
+    assert "no_embedding_generation" in claim_gate["blocker_codes"]
+    assert "missing_embeddings" in claim_gate["blocker_codes"]
+    assert "no_semantic_candidates_at_k" in claim_gate["blocker_codes"]
+    assert "no_relevant_semantic_candidate_at_k" in claim_gate["blocker_codes"]
+    assert "lexical_rescue_needed" in claim_gate["blocker_codes"]
+    assert "missing_required_information_roles_at_k" in claim_gate["blocker_codes"]
+    assert "semantic_quality_claim_blocked" in claim_gate["summary"]
+
+
+def test_semantic_quality_report_renders_claim_gate_before_interpretation():
+    fixture = load_semantic_quality_fixture(
+        REPO_ROOT / "examples/semantic-retrieval-quality"
+    )
+    semantic_rankings = {
+        "q-demand-growth": ["chunk-scope-boundary", "chunk-demand-growth"],
+        "q-risk-contradiction": ["chunk-demand-growth", "chunk-source-quality"],
+        "q-source-quality": ["chunk-demand-growth", "chunk-missing-source"],
+        "q-what-missing": [],
+    }
+    lexical_rankings = {
+        "q-demand-growth": ["chunk-demand-growth", "chunk-revenue-growth"],
+        "q-risk-contradiction": ["chunk-contradictory-channel"],
+        "q-source-quality": ["chunk-source-quality"],
+        "q-what-missing": ["chunk-missing-source"],
+    }
+    evaluation = evaluate_semantic_quality(
+        fixture,
+        semantic_rankings,
+        lexical_rankings=lexical_rankings,
+        k=2,
+    )
+
+    report = build_semantic_quality_report(fixture, evaluation)
+
+    assert "## Quality Claim Gate" in report
+    assert "- status: `blocked`" in report
+    assert "- can_claim_semantic_quality: `false`" in report
+    assert "semantic_quality_claim_blocked" in report
+    assert "toy_fixture_boundary" in report
+    assert "no_embedding_generation" in report
+    assert report.index("## Quality Claim Gate") < report.index("## Interpretation")
+    assert "This gate blocks the toy fixture from being cited as semantic retrieval quality evidence." in report
+
+
 def test_semantic_quality_report_command_regenerates_committed_report(tmp_path):
     output_path = tmp_path / "semantic-retrieval-quality-report.md"
 
