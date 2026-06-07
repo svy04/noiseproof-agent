@@ -43,6 +43,26 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 839:
+
+```text
+latest_application_alignment_remote_verification_gate: Application-ready semantic diagnostic alignment remote verification v0
+latest_application_alignment_remote_verification_artifact: docs/review/application-ready-semantic-diagnostic-alignment-remote-verification.md
+latest_verified_head_sha: a105b45c0c56baf5da52cbacfa558662e372424e
+latest_ci_run: 27080545745
+latest_ci_job_id: 79925476229
+latest_external_feedback_screen_run: 27080545730
+latest_external_feedback_screen_job_id: 79925476252
+verified_application_alignment_artifact: docs/review/application-ready-semantic-diagnostic-alignment.md
+semantic_retrieval_quality: unproven
+actual_embedding_generation: unproven
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the application alignment itself; not vector search quality evidence; not embedding generation; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 838:
 
 ```text
@@ -32501,6 +32521,45 @@ Boundaries:
 - not retrieval tuning
 - not hosted deployment evidence
 - not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 839 - Application-ready Semantic Diagnostic Alignment Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions success for the Phase 838 application-ready semantic diagnostic alignment after it was pushed.
+
+Artifacts:
+
+- `docs/review/application-ready-semantic-diagnostic-alignment-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Remote markers:
+
+```text
+head_sha: a105b45c0c56baf5da52cbacfa558662e372424e
+CI run: 27080545745 success
+CI job_id: 79925476229
+External Feedback Screen run: 27080545730 success
+External Feedback Screen job_id: 79925476252
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the application alignment itself
+- not vector search quality evidence
+- not embedding generation
+- not benchmark evidence
+- not retrieval tuning
+- not external reviewer feedback
+- not hosted deployment evidence
 - not customer validation
 - not Braincrew acceptance
 - not product-complete

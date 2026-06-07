@@ -40070,3 +40070,42 @@ def test_application_ready_semantic_diagnostic_alignment_keeps_quality_boundary_
     assert "Phase 838 - Application-ready Semantic Diagnostic Alignment v0" in goal
     assert "Phase 838 adds application-ready semantic diagnostic alignment v0" in runbook
     assert "application-ready semantic diagnostic alignment" in portfolio
+
+
+def test_application_ready_semantic_diagnostic_alignment_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/application-ready-semantic-diagnostic-alignment-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Application-ready Semantic Diagnostic Alignment Remote Verification" in content
+    assert "application-ready semantic diagnostic alignment remote verification v0" in content
+    assert "a105b45c0c56baf5da52cbacfa558662e372424e" in content
+    assert "CI run `27080545745`: success" in content
+    assert "CI job_id -> 79925476229" in content
+    assert "External Feedback Screen run `27080545730`: success" in content
+    assert "External Feedback Screen job_id -> 79925476252" in content
+    assert "Check semantic retrieval quality report staleness -> success" in content
+    assert "Check PDF extraction quality report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the application alignment itself" in content
+    assert "not vector search quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "Application-ready semantic diagnostic alignment remote verification v0: implemented" in readme
+    assert "Phase 839 - Application-ready Semantic Diagnostic Alignment Remote Verification v0" in goal
+    assert "Phase 839 adds application-ready semantic diagnostic alignment remote verification v0" in runbook
+    assert "application-ready semantic diagnostic alignment remote verification" in portfolio
