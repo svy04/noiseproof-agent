@@ -43,6 +43,30 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 849:
+
+```text
+latest_application_alignment_remote_verification_gate: Application-ready semantic quality claim gate alignment remote verification v0
+latest_application_alignment_remote_verification_artifact: docs/review/application-ready-semantic-quality-claim-gate-alignment-remote-verification.md
+latest_verified_head_sha: b481dfebc22332fe5b9520059c04a4ed85d5846a
+latest_ci_run: 27081708141
+latest_ci_job_id: 79928745438
+latest_external_feedback_screen_run: 27081708142
+latest_external_feedback_screen_job_id: 79928745318
+verified_application_alignment_artifact: docs/review/application-ready-semantic-quality-claim-gate-alignment.md
+verified_application_review: docs/review/application-ready-review.md
+semantic_quality_gate_status: blocked
+can_claim_semantic_quality: false
+semantic_quality_gate_summary: semantic_quality_claim_blocked
+semantic_retrieval_quality: unproven
+actual_embedding_generation: unproven
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the application alignment itself; not vector search quality evidence; not embedding generation; not external reviewer feedback; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 848:
 
 ```text
@@ -33121,6 +33145,46 @@ docs/review/external-feedback-current-state-semantic-quality-claim-gate-issue-ve
 Boundaries:
 
 - application review alignment only
+- not vector search quality evidence
+- not embedding generation
+- not benchmark evidence
+- not retrieval tuning
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 849 - Application-ready Semantic Quality Claim Gate Alignment Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions success for the Phase 848 application-ready semantic quality claim-gate alignment after it was pushed.
+
+Artifacts:
+
+- `docs/review/application-ready-semantic-quality-claim-gate-alignment-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_docs.py`
+
+Remote markers:
+
+```text
+head_sha: b481dfebc22332fe5b9520059c04a4ed85d5846a
+CI run: 27081708141 success
+CI job_id: 79928745438
+External Feedback Screen run: 27081708142 success
+External Feedback Screen job_id: 79928745318
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the application alignment itself
 - not vector search quality evidence
 - not embedding generation
 - not benchmark evidence

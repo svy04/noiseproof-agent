@@ -40495,3 +40495,42 @@ def test_application_ready_semantic_quality_claim_gate_alignment_keeps_claim_blo
     assert "Phase 848 - Application-ready Semantic Quality Claim Gate Alignment v0" in goal
     assert "Phase 848 adds application-ready semantic quality claim gate alignment v0" in runbook
     assert "application-ready semantic quality claim gate alignment" in portfolio
+
+
+def test_application_ready_semantic_quality_claim_gate_alignment_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/application-ready-semantic-quality-claim-gate-alignment-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Application-ready Semantic Quality Claim Gate Alignment Remote Verification" in content
+    assert "application-ready semantic quality claim gate alignment remote verification v0" in content
+    assert "b481dfebc22332fe5b9520059c04a4ed85d5846a" in content
+    assert "CI run `27081708141`: success" in content
+    assert "CI job_id -> 79928745438" in content
+    assert "External Feedback Screen run `27081708142`: success" in content
+    assert "External Feedback Screen job_id -> 79928745318" in content
+    assert "Check semantic retrieval quality report staleness -> success" in content
+    assert "Check PDF extraction quality report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the application alignment itself" in content
+    assert "not vector search quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "Application-ready semantic quality claim gate alignment remote verification v0: implemented" in readme
+    assert "Phase 849 - Application-ready Semantic Quality Claim Gate Alignment Remote Verification v0" in goal
+    assert "Phase 849 adds application-ready semantic quality claim gate alignment remote verification v0" in runbook
+    assert "application-ready semantic quality claim gate alignment remote verification" in portfolio
