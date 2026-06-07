@@ -40028,3 +40028,45 @@ def test_external_feedback_current_state_semantic_retrieval_quality_diagnostic_m
     assert "Phase 837 - External Feedback Current-state Semantic Retrieval Quality Diagnostic Matrix Issue Verification Remote Verification v0" in goal
     assert "Phase 837 adds external feedback current-state semantic retrieval quality diagnostic matrix issue verification remote verification v0" in runbook
     assert "external feedback current-state semantic retrieval quality diagnostic matrix issue verification remote verification" in portfolio
+
+
+def test_application_ready_semantic_diagnostic_alignment_keeps_quality_boundary_visible():
+    review_path = (
+        REPO_ROOT / "docs/review/application-ready-semantic-diagnostic-alignment.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Application-ready Semantic Diagnostic Alignment" in content
+    assert "application-ready semantic diagnostic alignment v0" in content
+    for artifact in [
+        "docs/review/semantic-retrieval-quality-diagnostic-matrix.md",
+        "docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md",
+        "docs/review/external-review-issue-body-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md",
+        "docs/review/external-feedback-current-state-semantic-retrieval-quality-diagnostic-matrix-issue-verification.md",
+        "docs/review/external-feedback-current-state-semantic-retrieval-quality-diagnostic-matrix-issue-verification-remote-verification.md",
+    ]:
+        assert artifact in content
+        assert artifact in application_ready
+    assert "candidate_count: 0" in content
+    assert "status: pending" in content
+    assert "semantic retrieval quality remains unproven" in content
+    assert "not vector search quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+    assert "Application-ready semantic diagnostic alignment v0: implemented" in readme
+    assert "Phase 838 - Application-ready Semantic Diagnostic Alignment v0" in goal
+    assert "Phase 838 adds application-ready semantic diagnostic alignment v0" in runbook
+    assert "application-ready semantic diagnostic alignment" in portfolio

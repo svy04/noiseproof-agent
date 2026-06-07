@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 838:
+
+```text
+latest_application_alignment_gate: Application-ready semantic diagnostic alignment v0
+latest_application_alignment_artifact: docs/review/application-ready-semantic-diagnostic-alignment.md
+aligned_application_review: docs/review/application-ready-review.md
+aligned_semantic_diagnostic_artifact: docs/review/semantic-retrieval-quality-diagnostic-matrix.md
+aligned_issue_state_artifact: docs/review/external-feedback-current-state-semantic-retrieval-quality-diagnostic-matrix-issue-verification.md
+candidate_count: 0
+status: pending
+semantic_retrieval_quality: unproven
+actual_embedding_generation: unproven
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: application review alignment only; not vector search quality evidence; not embedding generation; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 837:
 
 ```text
@@ -32440,6 +32459,48 @@ Boundaries:
 - not vector search quality evidence
 - not embedding generation
 - not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 838 - Application-ready Semantic Diagnostic Alignment v0
+
+Status: implemented.
+
+Purpose: align `docs/review/application-ready-review.md` with the latest semantic retrieval diagnostic proof chain while preserving the boundaries that semantic retrieval quality, actual embedding generation, hosted deployment, and external reviewer feedback remain unproven.
+
+Artifacts:
+
+- `docs/review/application-ready-semantic-diagnostic-alignment.md`
+- `docs/review/application-ready-review.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Aligned markers:
+
+```text
+semantic_diagnostic: docs/review/semantic-retrieval-quality-diagnostic-matrix.md
+reader_route: docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md
+issue_route: docs/review/external-review-issue-body-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md
+issue_state: docs/review/external-feedback-current-state-semantic-retrieval-quality-diagnostic-matrix-issue-verification.md
+issue_state_remote: docs/review/external-feedback-current-state-semantic-retrieval-quality-diagnostic-matrix-issue-verification-remote-verification.md
+candidate_count: 0
+status: pending
+semantic retrieval quality remains unproven
+```
+
+Boundaries:
+
+- application review alignment only
+- not vector search quality evidence
+- not embedding generation
+- not benchmark evidence
+- not retrieval tuning
+- not hosted deployment evidence
+- not external reviewer feedback
 - not customer validation
 - not Braincrew acceptance
 - not product-complete
