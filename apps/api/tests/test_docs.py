@@ -39880,3 +39880,39 @@ def test_external_reader_proof_path_semantic_retrieval_quality_diagnostic_matrix
         assert "docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md" in surfaced
         assert "no_semantic_candidates_at_k" in surfaced
         assert "not vector search quality evidence" in surfaced
+
+
+def test_external_reader_proof_path_semantic_retrieval_quality_diagnostic_matrix_route_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External-reader Proof Path Semantic Retrieval Quality Diagnostic Matrix Route Refresh Remote Verification" in content
+    assert "external-reader proof path semantic retrieval quality diagnostic matrix route refresh remote verification v0" in content
+    assert "5fbcb173306148f45f1eaa7c08ede8698294ce87" in content
+    assert "CI run `27079979229`: success" in content
+    assert "CI job_id -> 79923997245" in content
+    assert "External Feedback Screen run `27079979254`: success" in content
+    assert "External Feedback Screen job_id -> 79923997313" in content
+    assert "Check semantic retrieval quality report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the route refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert "External-reader proof path semantic retrieval quality diagnostic matrix route refresh remote verification v0: implemented" in readme
+    assert "Phase 834 - External-reader Proof Path Semantic Retrieval Quality Diagnostic Matrix Route Refresh Remote Verification v0" in goal
+    assert "Phase 834 adds external-reader proof path semantic retrieval quality diagnostic matrix route refresh remote verification v0" in runbook
+    assert "external-reader proof path semantic retrieval quality diagnostic matrix route refresh remote verification" in portfolio

@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 834:
+
+```text
+latest_remote_verification_gate: External-reader proof path semantic retrieval quality diagnostic matrix route refresh remote verification v0
+latest_remote_verification_artifact: docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh-remote-verification.md
+latest_verified_head_sha: 5fbcb173306148f45f1eaa7c08ede8698294ce87
+latest_ci_run: 27079979229
+latest_ci_job_id: 79923997245
+latest_external_feedback_screen_run: 27079979254
+latest_external_feedback_screen_job_id: 79923997313
+verified_reader_route_gate: External-reader proof path semantic retrieval quality diagnostic matrix route refresh v0
+verified_reader_route_artifact: docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the route refresh itself; not new runtime evidence; not vector search quality evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 833:
 
 ```text
@@ -32208,6 +32227,42 @@ Boundaries:
 - not embedding generation
 - not a benchmark result
 - not retrieval tuning
+- not hosted deployment evidence
+- not external reviewer feedback
+- not product-complete
+
+### Phase 834 - External-reader Proof Path Semantic Retrieval Quality Diagnostic Matrix Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions success for the Phase 833 semantic retrieval diagnostic reader-route refresh after it was pushed.
+
+Artifacts:
+
+- `docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Remote evidence:
+
+```text
+head_sha: 5fbcb173306148f45f1eaa7c08ede8698294ce87
+CI run: 27079979229 success
+CI job_id: 79923997245
+External Feedback Screen run: 27079979254 success
+External Feedback Screen job_id: 79923997313
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the route refresh itself
+- not new runtime evidence
+- not vector search quality evidence
+- not embedding generation
 - not hosted deployment evidence
 - not external reviewer feedback
 - not product-complete
