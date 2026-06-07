@@ -40239,3 +40239,43 @@ def test_external_reader_proof_path_semantic_quality_claim_gate_route_refresh_is
         assert "docs/review/semantic-quality-claim-gate-remote-verification.md" in surfaced
         assert "semantic_quality_claim_blocked" in surfaced
         assert "not vector search quality evidence" in surfaced
+
+
+def test_external_reader_proof_path_semantic_quality_claim_gate_route_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External-reader Proof Path Semantic Quality Claim Gate Route Refresh Remote Verification" in content
+    assert "external-reader proof path semantic quality claim gate route refresh remote verification v0" in content
+    assert "2dd9bffda765bbdc5d718881b88213f54ad9bbc5" in content
+    assert "CI run `27081037580`: success" in content
+    assert "CI job_id -> 79926796593" in content
+    assert "External Feedback Screen run `27081037566`: success" in content
+    assert "External Feedback Screen job_id -> 79926796612" in content
+    assert "Check semantic retrieval quality report staleness -> success" in content
+    assert "Check PDF extraction quality report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the route refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not vector search quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "External-reader proof path semantic quality claim gate route refresh remote verification v0: implemented" in readme
+    assert "Phase 843 - External-reader Proof Path Semantic Quality Claim Gate Route Refresh Remote Verification v0" in goal
+    assert "Phase 843 adds external-reader proof path semantic quality claim gate route refresh remote verification v0" in runbook
+    assert "external-reader proof path semantic quality claim gate route refresh remote verification" in portfolio

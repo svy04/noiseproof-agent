@@ -43,6 +43,26 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 843:
+
+```text
+latest_semantic_quality_gate_route_refresh_remote_verification: External-reader proof path semantic quality claim gate route refresh remote verification v0
+latest_semantic_quality_gate_route_refresh_remote_verification_artifact: docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh-remote-verification.md
+latest_verified_head_sha: 2dd9bffda765bbdc5d718881b88213f54ad9bbc5
+latest_ci_run: 27081037580
+latest_ci_job_id: 79926796593
+latest_external_feedback_screen_run: 27081037566
+latest_external_feedback_screen_job_id: 79926796612
+verified_semantic_quality_gate_route_refresh_artifact: docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh.md
+semantic_retrieval_quality: unproven
+actual_embedding_generation: unproven
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the route refresh itself; not new runtime evidence; not vector search quality evidence; not embedding generation; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 842:
 
 ```text
@@ -32746,6 +32766,46 @@ Boundaries:
 - not a model comparison
 - not hosted deployment evidence
 - not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 843 - External-reader Proof Path Semantic Quality Claim Gate Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions success for the Phase 842 semantic quality claim-gate route refresh after it was pushed.
+
+Artifacts:
+
+- `docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Remote markers:
+
+```text
+head_sha: 2dd9bffda765bbdc5d718881b88213f54ad9bbc5
+CI run: 27081037580 success
+CI job_id: 79926796593
+External Feedback Screen run: 27081037566 success
+External Feedback Screen job_id: 79926796612
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the route refresh itself
+- not new runtime evidence
+- not vector search quality evidence
+- not embedding generation
+- not benchmark evidence
+- not retrieval tuning
+- not external reviewer feedback
+- not hosted deployment evidence
 - not customer validation
 - not Braincrew acceptance
 - not product-complete
