@@ -687,6 +687,8 @@ External review issue body HTTP trace context Docker runtime smoke route refresh
 
 External feedback current-state HTTP trace context Docker runtime smoke issue verification v0: implemented. Boundary: `docs/review/external-feedback-current-state-http-trace-context-docker-runtime-smoke-issue-verification.md` records that issue #1 still has only one owner-authored comment after the route refresh, with `candidate_count=0`, `draft_count=0`, `reason=self_authored_comment_only`, and `does_not_close_gate=true`; external reviewer feedback remains pending.
 
+External feedback current-state HTTP trace context Docker runtime smoke issue verification remote verification v0: implemented. Boundary: `docs/review/external-feedback-current-state-http-trace-context-docker-runtime-smoke-issue-verification-remote-verification.md` records that commit `ad7a755567e586405fd4b7b412bf0c5e9a4547e7` passed CI run `27079450015` and External Feedback Screen run `27079449999` after the Phase 828/829 issue route and issue-state screen were pushed; this is remote workflow verification only, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
+
 Embedding provider source review v0: implemented. Boundary: official OpenAI embeddings contract reviewed only; no API call, no dependency, no cost-incurring runtime path, and actual embedding model generation remains unproven.
 
 Embedding model provider disabled-path v0: implemented. Boundary: `POST /chunks/embedding-model-preview` reports provider configuration only; no provider call, no embedding vector, no persistence, and no cost.

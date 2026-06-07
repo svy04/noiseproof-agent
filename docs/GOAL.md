@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 830:
+
+```text
+latest_remote_verification_gate: External feedback current-state HTTP trace context Docker runtime smoke issue verification remote verification v0
+latest_remote_verification_artifact: docs/review/external-feedback-current-state-http-trace-context-docker-runtime-smoke-issue-verification-remote-verification.md
+latest_verified_head_sha: ad7a755567e586405fd4b7b412bf0c5e9a4547e7
+latest_ci_run: 27079450015
+latest_ci_job_id: 79922591132
+latest_external_feedback_screen_run: 27079449999
+latest_external_feedback_screen_job_id: 79922591150
+verified_issue_state_gate: External feedback current-state HTTP trace context Docker runtime smoke issue verification v0
+verified_issue_state_artifact: docs/review/external-feedback-current-state-http-trace-context-docker-runtime-smoke-issue-verification.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the issue-state screen itself; not external reviewer feedback; not hosted deployment evidence; not distributed tracing; not hosted observability; not product-complete
+```
+
 Current navigation overlay as of Phase 829:
 
 ```text
@@ -29134,6 +29153,39 @@ latest_http_trace_context_docker_runtime_smoke: true
 Boundary: current-state issue screening only; not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not OpenTelemetry span export, not hosted observability, not customer validation, not Braincrew acceptance, and not product-complete.
 
 Next gate: remote verification for this issue-state screen after push, external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, hosted observability only with explicit deployment target, or another source-first product gate selected from the current repository state.
+
+### Phase 830 - External Feedback Current-state HTTP Trace Context Docker Runtime Smoke Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Implemented artifacts:
+
+```text
+external feedback current-state HTTP trace context Docker runtime smoke issue verification remote verification v0
+docs/review/external-feedback-current-state-http-trace-context-docker-runtime-smoke-issue-verification-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote verification markers:
+
+```text
+head_sha -> ad7a755567e586405fd4b7b412bf0c5e9a4547e7
+CI run `27079450015`
+CI job_id -> 79922591132
+External Feedback Screen run `27079449999`
+External Feedback Screen job_id -> 79922591150
+Run API smoke tests -> success
+Screen issue comments -> success
+verified_artifacts -> docs/review/external-review-issue-body-http-trace-context-docker-runtime-smoke-route-refresh.md; docs/review/external-feedback-current-state-http-trace-context-docker-runtime-smoke-issue-verification.md
+```
+
+Boundary: remote workflow verification only; not the issue-state screen itself, not the live issue body edit itself, not external reviewer feedback, not hosted deployment evidence, not distributed tracing, not OpenTelemetry span export, not hosted observability, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, owner-runtime manual live embedding smoke v0 only when OPENAI_API_KEY is configured by the owner, hosted observability only with explicit deployment target, or another source-first product gate selected from the current repository state.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 

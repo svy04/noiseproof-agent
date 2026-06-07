@@ -447,6 +447,59 @@ def test_external_feedback_current_state_for_trace_context_docker_route_stays_pe
     )
 
 
+def test_external_issue_trace_context_docker_route_remote_verification_is_recorded():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-http-trace-context-docker-runtime-smoke-issue-verification-remote-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state HTTP Trace Context Docker Runtime Smoke Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state HTTP trace context Docker runtime smoke issue verification remote verification v0"
+        in content
+    )
+    assert "ad7a755567e586405fd4b7b412bf0c5e9a4547e7" in content
+    assert "CI run `27079450015`: success" in content
+    assert "CI job_id -> 79922591132" in content
+    assert "External Feedback Screen run `27079449999`: success" in content
+    assert "External Feedback Screen job_id -> 79922591150" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the issue-state screen itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External feedback current-state HTTP trace context Docker runtime smoke issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 830 - External Feedback Current-state HTTP Trace Context Docker Runtime Smoke Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 830 adds external feedback current-state HTTP trace context Docker runtime smoke issue verification remote verification v0"
+        in runbook
+    )
+    assert (
+        "external feedback current-state HTTP trace context Docker runtime smoke issue verification remote verification"
+        in portfolio
+    )
+
+
 def test_embedding_schema_review_keeps_vector_storage_decision_review_only():
     review_path = REPO_ROOT / "docs/review/embedding-schema-review.md"
     assert review_path.is_file()
