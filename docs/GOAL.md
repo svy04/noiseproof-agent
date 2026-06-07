@@ -43,6 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 844:
+
+```text
+latest_external_review_issue_body_route_refresh: External review issue body semantic quality claim gate route refresh v0
+latest_external_review_issue_body_route_refresh_artifact: docs/review/external-review-issue-body-semantic-quality-claim-gate-route-refresh.md
+latest_issue: https://github.com/svy04/noiseproof-agent/issues/1
+latest_issue_updated_at: 2026-06-07T03:10:59Z
+has_semantic_quality_claim_gate_latest_proof: true
+has_semantic_quality_claim_gate_route_remote_verification: true
+old_semantic_diagnostic_latest_label_present: false
+semantic_retrieval_quality: unproven
+actual_embedding_generation: unproven
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: owner-authored issue body routing only; not external reviewer feedback; not new runtime evidence; not vector search quality evidence; not embedding generation; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 843:
 
 ```text
@@ -32805,6 +32824,47 @@ Boundaries:
 - not benchmark evidence
 - not retrieval tuning
 - not external reviewer feedback
+- not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 844 - External Review Issue Body Semantic Quality Claim Gate Route Refresh v0
+
+Status: implemented.
+
+Purpose: record the owner-authored issue #1 body update that routes `Latest Proof To Inspect` to the semantic quality claim-gate proof chain.
+
+Artifacts:
+
+- `docs/review/external-review-issue-body-semantic-quality-claim-gate-route-refresh.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Issue markers:
+
+```text
+issue: https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt: 2026-06-07T03:10:59Z
+comment_count: 1
+first_codepoint: 35
+has_leading_bom: false
+has_semantic_quality_claim_gate_latest_proof: true
+has_semantic_quality_claim_gate_route_remote_verification: true
+old_semantic_diagnostic_latest_label_present: false
+```
+
+Boundaries:
+
+- owner-authored issue body routing only
+- not external reviewer feedback
+- not new runtime evidence
+- not vector search quality evidence
+- not embedding generation
+- not benchmark evidence
 - not hosted deployment evidence
 - not customer validation
 - not Braincrew acceptance

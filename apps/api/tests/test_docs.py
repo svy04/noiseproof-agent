@@ -40279,3 +40279,46 @@ def test_external_reader_proof_path_semantic_quality_claim_gate_route_refresh_re
     assert "Phase 843 - External-reader Proof Path Semantic Quality Claim Gate Route Refresh Remote Verification v0" in goal
     assert "Phase 843 adds external-reader proof path semantic quality claim gate route refresh remote verification v0" in runbook
     assert "external-reader proof path semantic quality claim gate route refresh remote verification" in portfolio
+
+
+def test_external_review_issue_body_semantic_quality_claim_gate_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-semantic-quality-claim-gate-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Review Issue Body Semantic Quality Claim Gate Route Refresh" in content
+    assert "external review issue body semantic quality claim gate route refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt:" in content
+    assert "first_codepoint: 35" in content
+    assert "has_leading_bom: false" in content
+    assert "has_semantic_quality_claim_gate_latest_proof: true" in content
+    assert "has_semantic_quality_claim_gate_route_remote_verification: true" in content
+    assert "old_semantic_diagnostic_latest_label_present: false" in content
+    assert "docs/review/semantic-quality-claim-gate.md" in content
+    assert "docs/review/semantic-quality-claim-gate-remote-verification.md" in content
+    assert "docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh.md" in content
+    assert "docs/review/external-reader-proof-path-semantic-quality-claim-gate-route-refresh-remote-verification.md" in content
+    assert "docs/evaluation/semantic-retrieval-quality-report.md" in content
+    assert "semantic_quality_claim_blocked" in content
+    assert "not external reviewer feedback" in content
+    assert "not new runtime evidence" in content
+    assert "not vector search quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "External review issue body semantic quality claim gate route refresh v0: implemented" in readme
+    assert "Phase 844 - External Review Issue Body Semantic Quality Claim Gate Route Refresh v0" in goal
+    assert "Phase 844 adds external review issue body semantic quality claim gate route refresh v0" in runbook
+    assert "external review issue body semantic quality claim gate route refresh" in portfolio
