@@ -35593,6 +35593,69 @@ def test_external_feedback_current_state_uploaded_pdf_table_adapter_noise_gate_p
     )
 
 
+def test_external_feedback_current_state_uploaded_pdf_table_adapter_noise_gate_provenance_issue_verification_remote_v0_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-noise-gate-provenance-issue-verification-remote-verification.md"
+    )
+
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "External Feedback Current-state Uploaded PDF Table Adapter Noise Gate Provenance Issue Verification Remote Verification"
+        in content
+    )
+    assert (
+        "external feedback current-state uploaded PDF table adapter Noise Gate provenance issue verification remote verification v0"
+        in content
+    )
+    assert "7af20f90c0c0350dc975de01ee4d48efffc3728a" in content
+    assert "CI run `27078200661`" in content
+    assert "CI job_id -> 79919154734" in content
+    assert "External Feedback Screen run `27078200654`" in content
+    assert "External Feedback Screen job_id -> 79919154750" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert (
+        "docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-noise-gate-provenance-issue-verification.md"
+        in content
+    )
+    assert "candidate_count=0" in content
+    assert "draft_count=0" in content
+    assert "self_authored_comment_only" in content
+    assert "not the issue-state screen itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not customer validation" in content
+    assert "not Braincrew acceptance" in content
+    assert "not product-complete" in content
+
+    assert (
+        "External feedback current-state uploaded PDF table adapter Noise Gate provenance issue verification remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 821 - External Feedback Current-state Uploaded PDF Table Adapter Noise Gate Provenance Issue Verification Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 821 adds external feedback current-state uploaded PDF table adapter Noise Gate provenance issue verification remote verification v0"
+        in runbook
+    )
+    assert (
+        "external feedback current-state uploaded PDF table adapter Noise Gate provenance issue verification remote verification"
+        in portfolio
+    )
+
+
 def test_upload_pdf_quality_preview_table_adapter_v0_is_recorded():
     review_path = REPO_ROOT / "docs/review/upload-pdf-quality-preview-table-adapter.md"
 

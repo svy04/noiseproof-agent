@@ -43,6 +43,28 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 821:
+
+```text
+latest_remote_verification_gate: External feedback current-state uploaded PDF table adapter Noise Gate provenance issue verification remote verification v0
+latest_remote_verification_artifact: docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-noise-gate-provenance-issue-verification-remote-verification.md
+latest_verified_head_sha: 7af20f90c0c0350dc975de01ee4d48efffc3728a
+latest_ci_run: 27078200661
+latest_ci_job_id: 79919154734
+latest_external_feedback_screen_run: 27078200654
+latest_external_feedback_screen_job_id: 79919154750
+verified_issue_state_gate: External feedback current-state uploaded PDF table adapter Noise Gate provenance issue verification v0
+verified_issue_state_artifact: docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-noise-gate-provenance-issue-verification.md
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment_only
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the issue-state screen itself; not external reviewer feedback; not hosted deployment evidence; not customer validation; not Braincrew acceptance; not new runtime evidence; not robust PDF extraction evidence; not table extraction evidence for arbitrary market PDFs; not Noise Gate quality evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 820:
 
 ```text
@@ -28618,6 +28640,41 @@ has_leading_bom: false
 Boundary: current-state issue screening only; not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not new runtime evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Noise Gate quality evidence, and not product-complete.
 
 Next gate: remote verification for this issue-state screen after push, external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
+
+### Phase 821 - External Feedback Current-state Uploaded PDF Table Adapter Noise Gate Provenance Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Implemented artifacts:
+
+```text
+external feedback current-state uploaded PDF table adapter Noise Gate provenance issue verification remote verification v0
+docs/review/external-feedback-current-state-uploaded-pdf-table-adapter-noise-gate-provenance-issue-verification-remote-verification.md
+README.md
+docs/GOAL.md
+docs/runbook.md
+docs/application/portfolio-index.md
+apps/api/tests/test_docs.py
+```
+
+Remote workflow markers:
+
+```text
+head_sha: 7af20f90c0c0350dc975de01ee4d48efffc3728a
+CI run `27078200661`
+CI job_id -> 79919154734
+External Feedback Screen run `27078200654`
+External Feedback Screen job_id -> 79919154750
+Run API smoke tests -> success
+Screen issue comments -> success
+candidate_count=0
+draft_count=0
+reason=self_authored_comment_only
+```
+
+Boundary: remote workflow verification only; not the issue-state screen itself, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, not new runtime evidence, not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Noise Gate quality evidence, and not product-complete.
+
+Next gate: external reviewer feedback v0 if qualifying outside feedback exists, or another source-first product gate selected from the current repository state.
 
 ### Phase 692 - External-reader Proof Path Evidence Quality Risk Ops Route Refresh v0
 
