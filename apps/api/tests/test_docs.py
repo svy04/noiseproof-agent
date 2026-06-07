@@ -39916,3 +39916,39 @@ def test_external_reader_proof_path_semantic_retrieval_quality_diagnostic_matrix
     assert "Phase 834 - External-reader Proof Path Semantic Retrieval Quality Diagnostic Matrix Route Refresh Remote Verification v0" in goal
     assert "Phase 834 adds external-reader proof path semantic retrieval quality diagnostic matrix route refresh remote verification v0" in runbook
     assert "external-reader proof path semantic retrieval quality diagnostic matrix route refresh remote verification" in portfolio
+
+
+def test_external_review_issue_body_semantic_retrieval_quality_diagnostic_matrix_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Review Issue Body Semantic Retrieval Quality Diagnostic Matrix Route Refresh" in content
+    assert "external review issue body semantic retrieval quality diagnostic matrix route refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "docs/review/semantic-retrieval-quality-diagnostic-matrix.md" in content
+    assert "docs/review/semantic-retrieval-quality-diagnostic-matrix-remote-verification.md" in content
+    assert "docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md" in content
+    assert "docs/review/external-reader-proof-path-semantic-retrieval-quality-diagnostic-matrix-route-refresh-remote-verification.md" in content
+    assert "first_codepoint: 35" in content
+    assert "has_leading_bom: false" in content
+    assert "has_semantic_diagnostic_latest_proof: true" in content
+    assert "old_http_trace_context_latest_label_present: false" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "External review issue body semantic retrieval quality diagnostic matrix route refresh v0: implemented" in readme
+    assert "Phase 835 - External Review Issue Body Semantic Retrieval Quality Diagnostic Matrix Route Refresh v0" in goal
+    assert "Phase 835 adds external review issue body semantic retrieval quality diagnostic matrix route refresh v0" in runbook
+    assert "external review issue body semantic retrieval quality diagnostic matrix route refresh" in portfolio

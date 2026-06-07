@@ -43,6 +43,26 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 835:
+
+```text
+latest_issue_body_route_gate: External review issue body semantic retrieval quality diagnostic matrix route refresh v0
+latest_issue_body_route_artifact: docs/review/external-review-issue-body-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md
+issue_url: https://github.com/svy04/noiseproof-agent/issues/1
+issue_updatedAt: 2026-06-07T02:15:43Z
+comment_count: 1
+issue_starts_with_request: true
+issue_first_codepoint: 35
+issue_has_leading_bom: false
+issue_latest_proof_to_inspect: semantic retrieval quality diagnostic matrix proof chain
+old_http_trace_context_latest_label_present: false
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: owner-authored issue body routing only; not external reviewer feedback; not new runtime evidence; not vector search quality evidence; not embedding generation; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 834:
 
 ```text
@@ -32265,4 +32285,41 @@ Boundaries:
 - not embedding generation
 - not hosted deployment evidence
 - not external reviewer feedback
+- not product-complete
+
+### Phase 835 - External Review Issue Body Semantic Retrieval Quality Diagnostic Matrix Route Refresh v0
+
+Status: implemented.
+
+Purpose: update the live public issue #1 `Latest Proof To Inspect` section so external reviewers are routed to the semantic retrieval quality diagnostic matrix proof chain.
+
+Artifacts:
+
+- `docs/review/external-review-issue-body-semantic-retrieval-quality-diagnostic-matrix-route-refresh.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Issue markers:
+
+```text
+issue: https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt: 2026-06-07T02:15:43Z
+comment_count: 1
+first_codepoint: 35
+has_leading_bom: false
+has_semantic_diagnostic_latest_proof: true
+old_http_trace_context_latest_label_present: false
+```
+
+Boundaries:
+
+- owner-authored issue body routing only
+- not external reviewer feedback
+- not new runtime evidence
+- not vector search quality evidence
+- not embedding generation
+- not hosted deployment evidence
 - not product-complete
