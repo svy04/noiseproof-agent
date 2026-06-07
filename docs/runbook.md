@@ -8856,6 +8856,8 @@ Phase 825 adds HTTP trace context run metadata remote verification v0: `docs/rev
 
 Phase 826 adds http trace context docker runtime smoke v0: `docs/review/http-trace-context-docker-runtime-smoke.md` records local Docker API plus PostgreSQL proof under `noiseproof-phase826` with Docker `29.4.3`, Compose `v5.1.3`, `API_PORT=18080`, `POSTGRES_PORT=55462`, `POST /collection-plans/preview -> 200`, `GET /agent-runs -> 200`, and persisted `agent_runs.trace_json` fields for `http_traceparent`, `incoming_traceparent`, `local_header_propagation_no_distributed_tracing`, `distributed_tracing=false`, and `opentelemetry_span_export=false`. This is local Docker runtime evidence only, not hosted deployment evidence, not distributed tracing, not OpenTelemetry span export, not hosted observability, not external reviewer feedback, and not product-complete.
 
+Phase 827 adds HTTP trace context Docker runtime smoke remote verification v0: `docs/review/http-trace-context-docker-runtime-smoke-remote-verification.md` records that commit `94981901a2c19a31f83197d3c624f814f995dd56` passed CI run `27079197598` (`Run API smoke tests -> success`, job `79921915130`) and External Feedback Screen run `27079197606` (`Screen issue comments -> success`, job `79921915143`) after the Phase 826 runtime-smoke proof was pushed. This is remote workflow verification only, not the local runtime smoke itself, not new runtime evidence, not hosted deployment evidence, not distributed tracing, not OpenTelemetry span export, not hosted observability, not external reviewer feedback, and not product-complete.
+
 ## Embedding Provider Source Review
 
 Phase marker: embedding provider source review v0.

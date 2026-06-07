@@ -290,6 +290,50 @@ def test_http_trace_context_docker_runtime_smoke_is_documented_with_boundaries()
     assert "http trace context Docker runtime smoke exists" in application_ready
 
 
+def test_http_trace_context_docker_runtime_smoke_remote_verification_is_recorded():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/http-trace-context-docker-runtime-smoke-remote-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "HTTP Trace Context Docker Runtime Smoke Remote Verification" in content
+    assert "http trace context docker runtime smoke remote verification v0" in content
+    assert "94981901a2c19a31f83197d3c624f814f995dd56" in content
+    assert "CI run `27079197598`: success" in content
+    assert "CI job_id -> 79921915130" in content
+    assert "External Feedback Screen run `27079197606`: success" in content
+    assert "External Feedback Screen job_id -> 79921915143" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the local runtime smoke itself" in content
+    assert "not new runtime evidence" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert (
+        "HTTP trace context Docker runtime smoke remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 827 - HTTP Trace Context Docker Runtime Smoke Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 827 adds HTTP trace context Docker runtime smoke remote verification v0"
+        in runbook
+    )
+    assert "http trace context Docker runtime smoke remote verification" in portfolio
+
+
 def test_embedding_schema_review_keeps_vector_storage_decision_review_only():
     review_path = REPO_ROOT / "docs/review/embedding-schema-review.md"
     assert review_path.is_file()
