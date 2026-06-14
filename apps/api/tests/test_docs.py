@@ -23098,6 +23098,70 @@ def test_multi_fixture_pdf_extraction_quality_eval_remote_verification_is_record
     )
 
 
+def test_missing_pdf_runtime_observation_pack_v0_is_recorded_without_robust_claim():
+    review_path = REPO_ROOT / "docs/review/missing-pdf-runtime-observation-pack.md"
+    report_path = (
+        REPO_ROOT
+        / "docs/evaluation/missing-pdf-runtime-observation-pack-report.md"
+    )
+    pack_path = (
+        REPO_ROOT
+        / "examples/pdf-extraction-quality/missing-runtime-observations.json"
+    )
+    assert review_path.is_file()
+    assert report_path.is_file()
+    assert pack_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    report = report_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    ci = (REPO_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+
+    expected_markers = [
+        "Missing PDF Runtime Observation Pack",
+        "missing_pdf_runtime_observation_pack_v0",
+        "fixture_count -> 8",
+        "base_observed_fixture_count -> 4",
+        "pack_observed_fixture_count -> 4",
+        "combined_observed_fixture_count -> 8",
+        "remaining_missing_runtime_observation_count -> 0",
+        "scanned_image_pdf",
+        "image_heavy_pdf",
+        "multi_column_layout_pdf",
+        "no_extractable_text_pdf",
+        "not robust PDF extraction evidence",
+        "not OCR evidence",
+        "not image/chart interpretation evidence",
+        "not layout fidelity evidence",
+    ]
+    for marker in expected_markers:
+        assert marker in content or marker in report
+
+    assert "| fixture_count | 8 |" in report
+    assert "| base_observed_fixture_count | 4 |" in report
+    assert "| pack_observed_fixture_count | 4 |" in report
+    assert "| combined_observed_fixture_count | 8 |" in report
+    assert "| can_claim_robust_pdf_extraction | false |" in report
+    assert "Missing PDF runtime observation pack v0: implemented" in readme
+    assert "Phase 872 - Missing PDF Runtime Observation Pack v0" in goal
+    assert "Phase 872 adds missing PDF runtime observation pack v0" in runbook
+    assert "docs/review/missing-pdf-runtime-observation-pack.md" in portfolio
+    assert (
+        "docs/evaluation/missing-pdf-runtime-observation-pack-report.md"
+        in portfolio
+    )
+    assert "Latest missing PDF runtime observation pack" in application_ready
+    assert "Check missing PDF runtime observation pack report staleness" in ci
+
+
 def test_external_review_issue_body_shortlist_refresh_records_live_issue_edit():
     refresh_path = REPO_ROOT / "docs/review/external-review-issue-body-shortlist-refresh.md"
     assert refresh_path.is_file()

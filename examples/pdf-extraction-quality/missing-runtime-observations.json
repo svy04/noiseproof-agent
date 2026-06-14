@@ -1,0 +1,86 @@
+{
+  "packet": "missing_pdf_runtime_observation_pack_v0",
+  "claim_boundary": "missing_runtime_observation_pack_only_not_robust_pdf_extraction",
+  "robust_pdf_extraction_claimed": false,
+  "observations": {
+    "scanned_image_pdf": {
+      "runtime_observed": true,
+      "observation_source": "local_no_text_pdf_parse_result_as_scanned_ocr_boundary_probe",
+      "truth_scope": "synthetic_runtime_boundary_observation",
+      "parser": "pdf-pymupdf",
+      "extracted_text": "",
+      "warnings": [
+        "OCR is required before text coverage can be claimed",
+        "PyMuPDF opened the PDF, but no digital text was extracted."
+      ],
+      "page_count": 1,
+      "extracted_page_count": 0,
+      "empty_page_count": 1,
+      "ocr_page_count": 0,
+      "ocr_performed": false,
+      "digital_pdf_text_extraction": true,
+      "robust_pdf_extraction": false,
+      "failure_case_candidate": "pdf_no_extractable_text"
+    },
+    "image_heavy_pdf": {
+      "runtime_observed": true,
+      "observation_source": "synthetic_image_heavy_diagnostics_observation",
+      "truth_scope": "synthetic_runtime_boundary_observation",
+      "parser": "pdf-pymupdf",
+      "extracted_text": "caption text and chart title text are visible as embedded digital text",
+      "warnings": [
+        "image/chart interpretation is not claimed"
+      ],
+      "page_count": 1,
+      "extracted_page_count": 1,
+      "empty_page_count": 0,
+      "image_block_count": 1,
+      "image_chart_interpretation_claimed": false,
+      "digital_pdf_text_extraction": true,
+      "robust_pdf_extraction": false,
+      "failure_case_candidate": null
+    },
+    "multi_column_layout_pdf": {
+      "runtime_observed": true,
+      "observation_source": "synthetic_multi_column_layout_boundary_observation",
+      "truth_scope": "synthetic_runtime_boundary_observation",
+      "parser": "pdf-pymupdf",
+      "extracted_text": "left column claim appears before right column limitation in this synthetic boundary probe",
+      "warnings": [
+        "layout fidelity is not claimed"
+      ],
+      "page_count": 1,
+      "extracted_page_count": 1,
+      "empty_page_count": 0,
+      "text_block_count": 2,
+      "layout_fidelity_claimed": false,
+      "digital_pdf_text_extraction": true,
+      "robust_pdf_extraction": false,
+      "failure_case_candidate": null
+    },
+    "no_extractable_text_pdf": {
+      "runtime_observed": true,
+      "observation_source": "local_no_text_pdf_parse_result",
+      "truth_scope": "synthetic_runtime_boundary_observation",
+      "parser": "pdf-pymupdf",
+      "extracted_text": "",
+      "warnings": [
+        "no digital text was extracted"
+      ],
+      "page_count": 1,
+      "extracted_page_count": 0,
+      "empty_page_count": 1,
+      "digital_pdf_text_extraction": true,
+      "robust_pdf_extraction": false,
+      "failure_case_candidate": "pdf_no_extractable_text"
+    }
+  },
+  "boundary_notes": [
+    "not robust PDF extraction evidence",
+    "not OCR evidence",
+    "not image/chart interpretation evidence",
+    "not layout fidelity evidence",
+    "not hosted deployment evidence",
+    "not product-complete"
+  ]
+}

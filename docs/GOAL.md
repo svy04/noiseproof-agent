@@ -43,6 +43,31 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 872:
+
+```text
+latest_product_gate: Missing PDF Runtime Observation Pack v0
+latest_product_artifact: docs/review/missing-pdf-runtime-observation-pack.md
+latest_eval_report: docs/evaluation/missing-pdf-runtime-observation-pack-report.md
+fixture_root: examples/pdf-extraction-quality/
+pack_file: examples/pdf-extraction-quality/missing-runtime-observations.json
+command: app.services.missing_pdf_runtime_observation_pack_command
+ci_check: Check missing PDF runtime observation pack report staleness
+phase_marker: missing_pdf_runtime_observation_pack_v0
+fixture_count: 8
+base_observed_fixture_count: 4
+pack_observed_fixture_count: 4
+combined_observed_fixture_count: 8
+remaining_missing_runtime_observation_count: 0
+robust_pdf_extraction_claimed: false
+can_claim_robust_pdf_extraction: false
+robust_pdf_extraction.status: unproven
+robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack
+robust_pdf_extraction.recommended_next_gate: ocr_layout_image_fixture_adapter_runtime_pack_v0
+product_complete: false
+boundary: missing-runtime-observation pack only; not robust PDF extraction evidence; not OCR evidence; not image/chart interpretation evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 870:
 
 ```text
@@ -34709,6 +34734,65 @@ Boundaries:
 - remote workflow verification only
 - not robust PDF extraction evidence
 - not OCR evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 872 - Missing PDF Runtime Observation Pack v0
+
+Status: implemented.
+
+Purpose: add a bounded observation pack for the four PDF fixture roles that
+Phase 870 kept visible as missing runtime observations.
+
+Artifacts:
+
+- `examples/pdf-extraction-quality/missing-runtime-observations.json`
+- `packages/ingestion/pdf_quality/missing_runtime_pack.py`
+- `apps/api/app/services/missing_pdf_runtime_observation_pack_command.py`
+- `apps/api/tests/test_missing_pdf_runtime_observation_pack.py`
+- `docs/evaluation/missing-pdf-runtime-observation-pack-report.md`
+- `docs/review/missing-pdf-runtime-observation-pack.md`
+- `.github/workflows/ci.yml`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/app/services/proof_gap_registry.py`
+- `apps/api/tests/test_docs.py`
+- `apps/api/tests/test_routes.py`
+
+Report markers:
+
+```text
+phase_marker -> missing_pdf_runtime_observation_pack_v0
+fixture_count -> 8
+base_observed_fixture_count -> 4
+pack_observed_fixture_count -> 4
+combined_observed_fixture_count -> 8
+remaining_missing_runtime_observation_count -> 0
+robust_pdf_extraction_claimed -> false
+can_claim_robust_pdf_extraction -> false
+```
+
+Updated proof gap state:
+
+```text
+robust_pdf_extraction.status -> unproven
+robust_pdf_extraction.current_evidence -> digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack
+robust_pdf_extraction.recommended_next_gate -> ocr_layout_image_fixture_adapter_runtime_pack_v0
+```
+
+Boundaries:
+
+- missing-runtime-observation pack only
+- not robust PDF extraction evidence
+- not OCR evidence
+- not image/chart interpretation evidence
 - not layout fidelity evidence
 - not hosted deployment evidence
 - not external reviewer feedback

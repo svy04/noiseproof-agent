@@ -2,6 +2,16 @@
 
 ## Current Status
 
+Phase 872 adds missing PDF runtime observation pack v0: `docs/review/missing-pdf-runtime-observation-pack.md` records that `examples/pdf-extraction-quality/missing-runtime-observations.json` fills the four previously missing PDF fixture roles and regenerates `docs/evaluation/missing-pdf-runtime-observation-pack-report.md` through `app.services.missing_pdf_runtime_observation_pack_command`. The report records `fixture_count -> 8`, `base_observed_fixture_count -> 4`, `pack_observed_fixture_count -> 4`, `combined_observed_fixture_count -> 8`, `remaining_missing_runtime_observation_count -> 0`, and `can_claim_robust_pdf_extraction -> false`. CI checks it with `Check missing PDF runtime observation pack report staleness`. Reproduce locally with:
+
+```powershell
+cd apps/api
+uv run python -m app.services.missing_pdf_runtime_observation_pack_command --fixture ../../examples/pdf-extraction-quality --base-observations ../../examples/pdf-extraction-quality/observations.json --pack ../../examples/pdf-extraction-quality/missing-runtime-observations.json --output ../../docs/evaluation/missing-pdf-runtime-observation-pack-report.md --check
+uv run pytest tests/test_missing_pdf_runtime_observation_pack.py -q
+```
+
+This is a missing-runtime-observation pack only, not robust PDF extraction evidence, OCR evidence, image/chart interpretation evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Phase 870 adds multi-fixture PDF extraction quality eval v0: `docs/review/multi-fixture-pdf-extraction-quality-eval.md` records that the full PDF fixture matrix now regenerates `docs/evaluation/multi-fixture-pdf-extraction-quality-report.md` through `app.services.multi_fixture_pdf_extraction_quality_command`. The report records `fixture_count -> 8`, `observed_fixture_count -> 4`, `gap_fixture_count -> 4`, missing runtime observations for `scanned_image_pdf`, `image_heavy_pdf`, `multi_column_layout_pdf`, and `no_extractable_text_pdf`, and `can_claim_robust_pdf_extraction -> false`. CI checks it with `Check multi-fixture PDF extraction quality report staleness`. Reproduce locally with:
 
 ```powershell

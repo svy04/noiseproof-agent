@@ -98,6 +98,16 @@ jobs:
             --output ../../docs/evaluation/multi-fixture-pdf-extraction-quality-report.md \
             --check
 
+      - name: Check missing PDF runtime observation pack report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.missing_pdf_runtime_observation_pack_command \
+            --fixture ../../examples/pdf-extraction-quality \
+            --base-observations ../../examples/pdf-extraction-quality/observations.json \
+            --pack ../../examples/pdf-extraction-quality/missing-runtime-observations.json \
+            --output ../../docs/evaluation/missing-pdf-runtime-observation-pack-report.md \
+            --check
+
       - name: Check ClamAV owner runtime input discovery no-payload missing state
         working-directory: apps/api
         run: |
