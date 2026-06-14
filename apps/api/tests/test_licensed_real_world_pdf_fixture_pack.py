@@ -119,9 +119,15 @@ def test_licensed_real_world_fixture_pack_command_check_mode_accepts_report():
 
 def test_licensed_real_world_fixture_pack_docs_ci_and_proof_gap_are_wired():
     review_path = REPO_ROOT / "docs/review/licensed-real-world-pdf-fixture-pack.md"
+    remote_verification_path = (
+        REPO_ROOT
+        / "docs/review/licensed-real-world-pdf-fixture-pack-remote-verification.md"
+    )
     assert review_path.is_file()
+    assert remote_verification_path.is_file()
 
     review = review_path.read_text(encoding="utf-8")
+    remote_verification = remote_verification_path.read_text(encoding="utf-8")
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
@@ -140,11 +146,24 @@ def test_licensed_real_world_fixture_pack_docs_ci_and_proof_gap_are_wired():
     assert "candidate_count -> 4" in review
     assert "downloaded_candidate_count -> 0" in review
     assert "not robust PDF extraction evidence" in review
+    assert "verified_head_sha -> fbb871bb02d5b1a2250e12bc769996aecdba06b4" in remote_verification
+    assert "CI run `27494850142`: success" in remote_verification
+    assert "CI job_id -> 81266891718" in remote_verification
+    assert "External Feedback Screen run `27494850152`: success" in remote_verification
+    assert "External Feedback Screen job_id -> 81266891669" in remote_verification
+    assert "Check licensed real-world PDF fixture pack report staleness -> success" in remote_verification
+    assert "remote workflow verification only" in remote_verification
+    assert "not robust PDF extraction evidence" in remote_verification
     assert "Licensed real-world PDF fixture pack v0: implemented" in readme
+    assert "Licensed real-world PDF fixture pack remote verification v0: implemented" in readme
     assert "Phase 884 - Licensed Real-world PDF Fixture Pack v0" in goal
+    assert "Phase 885 - Licensed Real-world PDF Fixture Pack Remote Verification v0" in goal
     assert "Phase 884 adds licensed real-world PDF fixture pack v0" in runbook
+    assert "Phase 885 adds licensed real-world PDF fixture pack remote verification v0" in runbook
     assert "docs/review/licensed-real-world-pdf-fixture-pack.md" in portfolio
+    assert "docs/review/licensed-real-world-pdf-fixture-pack-remote-verification.md" in portfolio
     assert "Licensed Real-world PDF Fixture Pack" in application_ready
+    assert "Licensed Real-world PDF Fixture Pack Remote Verification" in application_ready
     assert "Check licensed real-world PDF fixture pack report staleness" in ci
     assert "licensed_real_world_pdf_fixture_pack_v0" in proof_gap_registry
     assert "owner_approved_real_world_pdf_download_and_hash_v0" in proof_gap_registry

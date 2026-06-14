@@ -156,7 +156,22 @@ ci_step: Run API smoke tests -> success
 boundary: remote workflow verification only; not the product gate itself; not OCR evidence; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
-Current remote verification overlay as of Phase 883:
+Current remote verification overlay as of Phase 885:
+
+```text
+latest_remote_verification_gate: Licensed Real-world PDF Fixture Pack Remote Verification v0
+latest_remote_verification_artifact: docs/review/licensed-real-world-pdf-fixture-pack-remote-verification.md
+latest_verified_head_sha: fbb871bb02d5b1a2250e12bc769996aecdba06b4
+latest_ci_run: 27494850142
+latest_ci_job_id: 81266891718
+latest_external_feedback_screen_run: 27494850152
+latest_external_feedback_screen_job_id: 81266891669
+ci_step: Check licensed real-world PDF fixture pack report staleness -> success
+ci_step: Run API smoke tests -> success
+boundary: remote workflow verification only; not the candidate pack itself; not a real-world PDF download; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
+Previous remote verification overlay as of Phase 883:
 
 ```text
 latest_remote_verification_gate: Multi-fixture OCR Adapter Eval Remote Verification v0
@@ -33508,6 +33523,49 @@ Boundaries:
 - not OCR evidence
 - not table extraction evidence
 - not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 885 - Licensed Real-world PDF Fixture Pack Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions verification for the Phase 884 licensed
+real-world PDF fixture pack after it was pushed to `main`.
+
+Artifacts:
+
+- `docs/review/licensed-real-world-pdf-fixture-pack-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_licensed_real_world_pdf_fixture_pack.py`
+
+Remote markers:
+
+```text
+verified_head_sha -> fbb871bb02d5b1a2250e12bc769996aecdba06b4
+ci_run -> 27494850142
+ci_job_id -> 81266891718
+external_feedback_screen_run -> 27494850152
+external_feedback_screen_job_id -> 81266891669
+ci_step -> Check licensed real-world PDF fixture pack report staleness -> success
+ci_step -> Run API smoke tests -> success
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the candidate pack itself
+- not a real-world PDF download
+- not sha256 hash evidence for external PDFs
+- not robust PDF extraction evidence
+- not arbitrary market PDF parsing evidence
 - not hosted deployment evidence
 - not external reviewer feedback
 - not customer validation

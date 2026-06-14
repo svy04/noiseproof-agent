@@ -12,6 +12,8 @@ uv run pytest tests/test_licensed_real_world_pdf_fixture_pack.py -q
 
 This is candidate metadata only, not robust PDF extraction evidence, arbitrary market PDF parsing evidence, OCR evidence, table extraction evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
 
+Phase 885 adds licensed real-world PDF fixture pack remote verification v0: `docs/review/licensed-real-world-pdf-fixture-pack-remote-verification.md` records that head `fbb871bb02d5b1a2250e12bc769996aecdba06b4` passed CI run `27494850142` job `81266891718` and External Feedback Screen run `27494850152` job `81266891669`, including `Check licensed real-world PDF fixture pack report staleness` and `Run API smoke tests`. This is remote workflow verification only, not the candidate pack itself, not a real-world PDF download, not robust PDF extraction evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Phase 882 adds multi-fixture OCR adapter eval v0: `docs/review/multi-fixture-ocr-adapter-eval.md` records that the 8-role PDF fixture matrix now combines with one sanitized owner-runtime OCR smoke observation and regenerates `docs/evaluation/multi-fixture-ocr-adapter-eval-report.md` through `app.services.multi_fixture_ocr_adapter_eval_command`. The report records `base_fixture_count -> 8`, `owner_runtime_ocr_smoke_count -> 1`, `combined_fixture_signal_count -> 9`, `ocr_evidence_scope -> single_synthetic_owner_runtime_fixture`, and `can_claim_robust_pdf_extraction -> false`. CI checks it with `Check multi-fixture OCR adapter eval report staleness`. Reproduce locally with:
 
 ```powershell
