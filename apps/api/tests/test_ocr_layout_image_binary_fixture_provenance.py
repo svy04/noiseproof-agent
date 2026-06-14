@@ -205,3 +205,51 @@ def test_committed_ocr_layout_image_binary_fixture_docs_and_ci_are_wired():
         in proof_gap_registry
     )
     assert "opt_in_ocr_adapter_runtime_smoke_v0" in proof_gap_registry
+
+
+def test_committed_ocr_layout_image_binary_fixture_remote_verification_is_recorded():
+    remote_path = (
+        REPO_ROOT
+        / "docs/review/committed-ocr-layout-image-binary-fixture-provenance-remote-verification.md"
+    )
+    assert remote_path.is_file()
+
+    remote = remote_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Committed OCR Layout Image Binary Fixture Provenance Remote Verification" in remote
+    assert "e151dba810aaa7af4897727dd1a88415685cf632" in remote
+    assert "ci_run -> 27493138288" in remote
+    assert "ci_job_id -> 81262073564" in remote
+    assert "external_feedback_screen_run -> 27493138291" in remote
+    assert "external_feedback_screen_job_id -> 81262073535" in remote
+    assert "Check committed OCR layout image binary fixture provenance report staleness -> success" in remote
+    assert "not robust PDF extraction evidence" in remote
+    assert (
+        "Committed OCR/layout/image binary fixture provenance remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 877 - Committed OCR Layout Image Binary Fixture Provenance Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 877 adds committed OCR/layout/image binary fixture provenance remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/committed-ocr-layout-image-binary-fixture-provenance-remote-verification.md"
+        in portfolio
+    )
+    assert (
+        "Committed OCR Layout Image Binary Fixture Provenance Remote Verification"
+        in application_ready
+    )

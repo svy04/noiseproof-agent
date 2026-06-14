@@ -43,38 +43,38 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Current navigation overlay as of Phase 874:
+Current navigation overlay as of Phase 876:
 
 ```text
-latest_product_gate: OCR Layout Image Fixture Adapter Runtime Pack v0
-latest_product_artifact: docs/review/ocr-layout-image-fixture-adapter-runtime-pack.md
-latest_eval_report: docs/evaluation/ocr-layout-image-fixture-adapter-runtime-pack-report.md
-fixture_root: examples/pdf-extraction-quality/
-command: app.services.ocr_layout_image_fixture_adapter_runtime_pack_command
-ci_check: Check OCR layout image fixture adapter runtime pack report staleness
-phase_marker: ocr_layout_image_fixture_adapter_runtime_pack_v0
-fixture_count: 8
-adapter_runtime_observed_count: 4
+latest_product_gate: Committed OCR Layout Image Binary Fixture Provenance v0
+latest_product_artifact: docs/review/committed-ocr-layout-image-binary-fixture-provenance.md
+latest_eval_report: docs/evaluation/committed-ocr-layout-image-binary-fixture-provenance-report.md
+fixture_root: examples/pdf-extraction-quality/binary-fixtures/
+command: app.services.committed_ocr_layout_image_binary_fixture_provenance_command
+ci_check: Check committed OCR layout image binary fixture provenance report staleness
+phase_marker: committed_ocr_layout_image_binary_fixture_provenance_v0
+committed_fixture_count: 4
+parser_observed_fixture_count: 4
 robust_pdf_extraction_claimed: false
 can_claim_robust_pdf_extraction: false
 robust_pdf_extraction.status: unproven
-robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack
-robust_pdf_extraction.recommended_next_gate: committed_ocr_layout_image_binary_fixture_provenance_v0
+robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance
+robust_pdf_extraction.recommended_next_gate: opt_in_ocr_adapter_runtime_smoke_v0
 product_complete: false
-boundary: synthetic adapter-runtime pack only; not robust PDF extraction evidence; not OCR evidence; not image/chart interpretation evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+boundary: committed synthetic binary fixture provenance only; not robust PDF extraction evidence; not OCR evidence; not image/chart interpretation evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
-Current remote verification overlay as of Phase 875:
+Current remote verification overlay as of Phase 877:
 
 ```text
-latest_remote_verification_gate: OCR Layout Image Fixture Adapter Runtime Pack Remote Verification v0
-latest_remote_verification_artifact: docs/review/ocr-layout-image-fixture-adapter-runtime-pack-remote-verification.md
-latest_verified_head_sha: fe6a496eae641d2c28a1592bc66325ad01d58ad2
-latest_ci_run: 27492747996
-latest_ci_job_id: 81260967348
-latest_external_feedback_screen_run: 27492748007
-latest_external_feedback_screen_job_id: 81260967545
-ci_step: Check OCR layout image fixture adapter runtime pack report staleness -> success
+latest_remote_verification_gate: Committed OCR Layout Image Binary Fixture Provenance Remote Verification v0
+latest_remote_verification_artifact: docs/review/committed-ocr-layout-image-binary-fixture-provenance-remote-verification.md
+latest_verified_head_sha: e151dba810aaa7af4897727dd1a88415685cf632
+latest_ci_run: 27493138288
+latest_ci_job_id: 81262073564
+latest_external_feedback_screen_run: 27493138291
+latest_external_feedback_screen_job_id: 81262073535
+ci_step: Check committed OCR layout image binary fixture provenance report staleness -> success
 ci_step: Run API smoke tests -> success
 boundary: remote workflow verification only; not the product gate itself; not robust PDF extraction evidence; not OCR evidence; not image/chart interpretation evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
@@ -32999,66 +32999,6 @@ Boundaries:
 - not Braincrew acceptance
 - not product-complete
 
-### Phase 876 - Committed OCR Layout Image Binary Fixture Provenance v0
-
-Status: implemented.
-
-Purpose: commit synthetic binary PDF fixtures for OCR, image-heavy,
-multi-column layout, and no-extractable-text roles with explicit provenance
-before any OCR or robust PDF extraction adapter is introduced.
-
-Artifacts:
-
-- `examples/pdf-extraction-quality/binary-fixtures/ocr-layout-image-provenance.json`
-- `examples/pdf-extraction-quality/binary-fixtures/scanned-image.pdf`
-- `examples/pdf-extraction-quality/binary-fixtures/image-heavy.pdf`
-- `examples/pdf-extraction-quality/binary-fixtures/multi-column-layout.pdf`
-- `examples/pdf-extraction-quality/binary-fixtures/no-extractable-text.pdf`
-- `examples/pdf-extraction-quality/binary-fixtures/generate_ocr_layout_image_fixtures.py`
-- `packages/ingestion/pdf_quality/ocr_layout_image_binary_fixture.py`
-- `apps/api/app/services/committed_ocr_layout_image_binary_fixture_provenance_command.py`
-- `docs/evaluation/committed-ocr-layout-image-binary-fixture-provenance-report.md`
-- `docs/review/committed-ocr-layout-image-binary-fixture-provenance.md`
-- `.github/workflows/ci.yml`
-- `README.md`
-- `docs/GOAL.md`
-- `docs/runbook.md`
-- `docs/application/portfolio-index.md`
-- `docs/review/application-ready-review.md`
-- `apps/api/app/services/proof_gap_registry.py`
-
-Report markers:
-
-```text
-phase_marker -> committed_ocr_layout_image_binary_fixture_provenance_v0
-committed_fixture_count -> 4
-parser_observed_fixture_count -> 4
-robust_pdf_extraction_claimed -> false
-can_claim_robust_pdf_extraction -> false
-claim_boundary -> committed_ocr_layout_image_binary_fixture_provenance_only_not_robust_pdf_extraction
-```
-
-Updated proof gap state:
-
-```text
-robust_pdf_extraction.status -> unproven
-robust_pdf_extraction.current_evidence -> digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance
-robust_pdf_extraction.recommended_next_gate -> opt_in_ocr_adapter_runtime_smoke_v0
-```
-
-Boundaries:
-
-- committed synthetic binary fixture provenance only
-- not robust PDF extraction evidence
-- not OCR evidence
-- not image/chart interpretation evidence
-- not layout fidelity evidence
-- not hosted deployment evidence
-- not external reviewer feedback
-- not customer validation
-- not Braincrew acceptance
-- not product-complete
-
 ### Phase 837 - External Feedback Current-state Semantic Retrieval Quality Diagnostic Matrix Issue Verification Remote Verification v0
 
 Status: implemented.
@@ -35017,6 +34957,121 @@ Remote CI step evidence included:
 ```text
 Compile API and local packages -> success
 Check OCR layout image fixture adapter runtime pack report staleness -> success
+Run API smoke tests -> success
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the product gate itself
+- not robust PDF extraction evidence
+- not OCR evidence
+- not image/chart interpretation evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 876 - Committed OCR Layout Image Binary Fixture Provenance v0
+
+Status: implemented.
+
+Purpose: commit synthetic binary PDF fixtures for OCR, image-heavy,
+multi-column layout, and no-extractable-text roles with explicit provenance
+before any OCR or robust PDF extraction adapter is introduced.
+
+Artifacts:
+
+- `examples/pdf-extraction-quality/binary-fixtures/ocr-layout-image-provenance.json`
+- `examples/pdf-extraction-quality/binary-fixtures/scanned-image.pdf`
+- `examples/pdf-extraction-quality/binary-fixtures/image-heavy.pdf`
+- `examples/pdf-extraction-quality/binary-fixtures/multi-column-layout.pdf`
+- `examples/pdf-extraction-quality/binary-fixtures/no-extractable-text.pdf`
+- `examples/pdf-extraction-quality/binary-fixtures/generate_ocr_layout_image_fixtures.py`
+- `packages/ingestion/pdf_quality/ocr_layout_image_binary_fixture.py`
+- `apps/api/app/services/committed_ocr_layout_image_binary_fixture_provenance_command.py`
+- `docs/evaluation/committed-ocr-layout-image-binary-fixture-provenance-report.md`
+- `docs/review/committed-ocr-layout-image-binary-fixture-provenance.md`
+- `.github/workflows/ci.yml`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/app/services/proof_gap_registry.py`
+
+Report markers:
+
+```text
+phase_marker -> committed_ocr_layout_image_binary_fixture_provenance_v0
+committed_fixture_count -> 4
+parser_observed_fixture_count -> 4
+robust_pdf_extraction_claimed -> false
+can_claim_robust_pdf_extraction -> false
+claim_boundary -> committed_ocr_layout_image_binary_fixture_provenance_only_not_robust_pdf_extraction
+```
+
+Updated proof gap state:
+
+```text
+robust_pdf_extraction.status -> unproven
+robust_pdf_extraction.current_evidence -> digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance
+robust_pdf_extraction.recommended_next_gate -> opt_in_ocr_adapter_runtime_smoke_v0
+```
+
+Boundaries:
+
+- committed synthetic binary fixture provenance only
+- not robust PDF extraction evidence
+- not OCR evidence
+- not image/chart interpretation evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 877 - Committed OCR Layout Image Binary Fixture Provenance Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote workflow verification for the Phase 876 committed
+OCR/layout/image binary fixture provenance gate after it was pushed to `main`.
+
+Artifacts:
+
+- `docs/review/committed-ocr-layout-image-binary-fixture-provenance-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_ocr_layout_image_binary_fixture_provenance.py`
+
+Remote verification markers:
+
+```text
+verified_head_sha -> e151dba810aaa7af4897727dd1a88415685cf632
+branch -> main
+commit -> feat: add committed ocr layout image fixture provenance
+ci_run -> 27493138288
+ci_job_id -> 81262073564
+ci_job_name -> api-smoke
+ci_conclusion -> success
+external_feedback_screen_run -> 27493138291
+external_feedback_screen_job_id -> 81262073535
+external_feedback_screen_job_name -> screen
+external_feedback_screen_conclusion -> success
+```
+
+Remote CI step evidence included:
+
+```text
+Compile API and local packages -> success
+Check committed OCR layout image binary fixture provenance report staleness -> success
 Run API smoke tests -> success
 ```
 

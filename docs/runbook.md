@@ -11935,3 +11935,5 @@ uv run pytest tests/test_ocr_layout_image_binary_fixture_provenance.py -q
 ```
 
 This is committed synthetic fixture provenance only, not robust PDF extraction evidence, OCR evidence, image/chart interpretation evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
+Phase 877 adds committed OCR/layout/image binary fixture provenance remote verification v0: `docs/review/committed-ocr-layout-image-binary-fixture-provenance-remote-verification.md` records that commit `e151dba810aaa7af4897727dd1a88415685cf632` passed CI run `27493138288` (`api-smoke -> success`, job `81262073564`) and External Feedback Screen run `27493138291` (`screen -> success`, job `81262073535`) after Phase 876 was pushed. This is remote workflow verification only, not robust PDF extraction evidence, not OCR evidence, not image/chart interpretation evidence, not layout fidelity evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
