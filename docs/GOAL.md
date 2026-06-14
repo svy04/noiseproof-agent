@@ -43,16 +43,16 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Current navigation overlay as of Phase 866:
+Current navigation overlay as of Phase 868:
 
 ```text
-latest_product_gate: Live embedding-backed domain qrels owner-runtime eval packet v0
-latest_product_artifact: docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet.md
+latest_product_gate: Live embedding-backed domain qrels owner-runtime runner v0
+latest_product_artifact: docs/review/live-embedding-domain-qrels-owner-runtime-runner.md
 latest_eval_report: docs/evaluation/representative-live-semantic-quality-report.md
 fixture_root: examples/representative-semantic-retrieval-quality/
 live_run_source: owner_runtime_openai_embedding_domain_qrels
 command: app.services.live_embedding_domain_qrels_harness
-ci_check: Check live embedding domain qrels owner-runtime input discovery
+ci_check: Check live embedding domain qrels owner-runtime runner missing input
 latest_remote_verification_gate: Live embedding-backed domain qrels owner-runtime eval packet remote verification v0
 latest_remote_verification_artifact: docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet-remote-verification.md
 latest_verified_head_sha: 4bda105f31698521302341ed69e30addae9190b0
@@ -71,15 +71,16 @@ judged_coverage_at_k: 1.0
 unjudged_retrieved_count_at_k: 0
 semantic_quality_claim_gate: blocked
 semantic_retrieval_quality.status: unproven
-semantic_retrieval_quality.current_evidence: representative_local_semantic_quality_eval_with_caller_provided_vectors_plus_owner_runtime_domain_qrels_packet
+semantic_retrieval_quality.current_evidence: representative_local_semantic_quality_eval_with_caller_provided_vectors_plus_owner_runtime_domain_qrels_packet_and_runner
 semantic_retrieval_quality.recommended_next_gate: owner_runtime_live_embedding_domain_qrels_eval_v0
 owner_runtime_input_status: missing_openai_api_key
+owner_runtime_runner_status: input_not_ready_without_owner_secret
 openai_api_key_present: false
 openai_api_key_printed: false
 external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
 production_readiness: not_claimed
 product_complete: false
-boundary: owner-runtime packet and validator only; not live embedding generation proof; not production semantic retrieval quality evidence; not a public benchmark result; not hosted deployment evidence; not external reviewer feedback; not product-complete
+boundary: owner-runtime packet, runner, and validator only; not live embedding generation proof; not production semantic retrieval quality evidence; not a public benchmark result; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
 Current navigation overlay as of Phase 859:
@@ -34425,6 +34426,78 @@ Run API smoke tests -> success
 Boundaries:
 
 - remote workflow verification only
+- not live embedding generation proof
+- not production semantic retrieval quality evidence
+- not a public benchmark result
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 868 - Live embedding-backed domain qrels owner-runtime runner v0
+
+Status: implemented.
+
+Purpose: add the executable owner-runtime runner for the next live
+embedding-backed domain qrels gate while preserving the secret boundary and
+without claiming live embedding generation in CI.
+
+Artifacts:
+
+- `apps/api/app/services/live_embedding_domain_qrels_harness.py`
+- `apps/api/tests/test_live_embedding_domain_qrels_harness.py`
+- `docs/review/live-embedding-domain-qrels-owner-runtime-runner.md`
+- `.github/workflows/ci.yml`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_docs.py`
+
+Runner markers:
+
+```text
+phase_marker -> live embedding-backed domain qrels owner-runtime runner v0
+command -> --run-owner-runtime-eval
+fixture_root -> examples/representative-semantic-retrieval-quality
+run_source -> owner_runtime_openai_embedding_domain_qrels
+provider_call_count -> 18
+metadata_report_location -> outside_repository
+```
+
+CI missing-input markers:
+
+```text
+run_status -> input_not_ready
+owner_runtime_input_status -> missing_openai_api_key
+api_calls_attempted -> false
+openai_api_key_printed -> false
+secret_logged -> false
+secret_committed_to_repo -> false
+```
+
+Output path guard:
+
+```text
+output_path_allowed -> false
+required_location -> outside_repository
+api_calls_attempted -> false
+```
+
+Updated proof gap state:
+
+```text
+semantic_retrieval_quality.status -> unproven
+semantic_retrieval_quality.current_evidence -> representative_local_semantic_quality_eval_with_caller_provided_vectors_plus_owner_runtime_domain_qrels_packet_and_runner
+semantic_retrieval_quality.recommended_next_gate -> owner_runtime_live_embedding_domain_qrels_eval_v0
+```
+
+Boundaries:
+
+- owner-runtime runner, packet, and validator only
+- missing-input CI guard only
 - not live embedding generation proof
 - not production semantic retrieval quality evidence
 - not a public benchmark result

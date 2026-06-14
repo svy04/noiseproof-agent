@@ -49,6 +49,7 @@ _GAP_ACTIONS = {
             "toy qrels-backed evaluation proves production-grade semantic search",
         ],
         "proof_routes": [
+            "docs/review/live-embedding-domain-qrels-owner-runtime-runner.md",
             "docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet.md",
             "docs/evaluation/representative-live-semantic-quality-report.md",
             "docs/review/representative-live-semantic-quality-eval.md",
@@ -159,7 +160,7 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
             gap_id="semantic_retrieval_quality",
             status="unproven",
             current_evidence=(
-                "representative_local_semantic_quality_eval_with_caller_provided_vectors_plus_owner_runtime_domain_qrels_packet"
+                "representative_local_semantic_quality_eval_with_caller_provided_vectors_plus_owner_runtime_domain_qrels_packet_and_runner"
             ),
             claim_boundary=(
                 "representative_local_fixture_and_caller_provided_vectors_do_not_prove_production_semantic_retrieval_quality"

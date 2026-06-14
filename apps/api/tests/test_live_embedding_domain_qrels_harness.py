@@ -3,6 +3,8 @@ from pathlib import Path
 import subprocess
 import sys
 
+from app.services.live_embedding_domain_qrels_harness import main
+
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 FIXTURE_ROOT = REPO_ROOT / "examples/representative-semantic-retrieval-quality"
@@ -192,3 +194,147 @@ def test_live_embedding_domain_qrels_validator_accepts_metadata_only_report_outs
     assert payload["openai_api_key_printed"] is False
     assert payload["non_claims"]["validator_makes_provider_call"] is False
     assert payload["non_claims"]["production_semantic_quality"] is False
+
+
+def test_live_embedding_domain_qrels_runner_blocks_missing_key_without_provider_call(
+    capsys,
+    tmp_path,
+):
+    calls = []
+    report_path = tmp_path / "owner-runtime-domain-qrels-report.json"
+
+    class FakeProviderClient:
+        def create_embedding(self, **kwargs):
+            calls.append(kwargs)
+            return {"embedding": [0.0] * 1536, "usage": {"total_tokens": 1}}
+
+    exit_code = main(
+        ["--run-owner-runtime-eval", "--output", str(report_path)],
+        env={"NOISEPROOF_ENABLE_OPENAI_PROVIDER": "true", "CI": "false"},
+        provider_client=FakeProviderClient(),
+    )
+
+    payload = json.loads(capsys.readouterr().out)
+    assert exit_code == 4
+    assert payload["phase_marker"] == (
+        "live embedding-backed domain qrels owner-runtime runner v0"
+    )
+    assert payload["run_status"] == "input_not_ready"
+    assert payload["owner_runtime_input_status"] == "missing_openai_api_key"
+    assert payload["api_calls_attempted"] is False
+    assert payload["openai_api_key_printed"] is False
+    assert calls == []
+    assert report_path.exists() is False
+
+
+def test_live_embedding_domain_qrels_runner_rejects_output_inside_repository_before_provider_call(
+    capsys,
+):
+    calls = []
+    report_path = REPO_ROOT / ".tmp-owner-runtime-domain-qrels-report.json"
+
+    class FakeProviderClient:
+        def create_embedding(self, **kwargs):
+            calls.append(kwargs)
+            return {"embedding": [0.0] * 1536, "usage": {"total_tokens": 1}}
+
+    try:
+        exit_code = main(
+            ["--run-owner-runtime-eval", "--output", str(report_path)],
+            env={
+                "OPENAI_API_KEY": "sk-test-secret",
+                "NOISEPROOF_ENABLE_OPENAI_PROVIDER": "true",
+                "CI": "false",
+            },
+            provider_client=FakeProviderClient(),
+        )
+    finally:
+        report_path.unlink(missing_ok=True)
+
+    output = capsys.readouterr().out
+    payload = json.loads(output)
+    assert exit_code == 5
+    assert payload["phase_marker"] == (
+        "live embedding-backed domain qrels owner-runtime runner v0"
+    )
+    assert payload["run_status"] == "output_path_rejected"
+    assert payload["output_path_boundary"] == {
+        "output_path_allowed": False,
+        "required_location": "outside_repository",
+    }
+    assert payload["api_calls_attempted"] is False
+    assert payload["openai_api_key_printed"] is False
+    assert "sk-test-secret" not in output
+    assert "sk-" not in output
+    assert calls == []
+
+
+def test_live_embedding_domain_qrels_runner_writes_metadata_report_with_fake_provider(
+    capsys,
+    tmp_path,
+):
+    report_path = tmp_path / "owner-runtime-domain-qrels-report.json"
+    query_vectors = {
+        item["question"]: item["query_embedding"]
+        for item in json.loads((FIXTURE_ROOT / "queries.json").read_text())
+    }
+    chunk_vectors = {
+        item["text"]: item["embedding"]
+        for item in json.loads((FIXTURE_ROOT / "corpus.json").read_text())
+    }
+    calls = []
+
+    class FakeProviderClient:
+        def create_embedding(self, **kwargs):
+            calls.append(kwargs)
+            text = kwargs["text"]
+            vector = query_vectors[text] if text in query_vectors else chunk_vectors[text]
+            return {
+                "embedding": vector + ([0.0] * (1536 - len(vector))),
+                "model": kwargs["model"],
+                "usage": {"total_tokens": 5},
+            }
+
+    exit_code = main(
+        ["--run-owner-runtime-eval", "--output", str(report_path), "--k", "3"],
+        env={
+            "OPENAI_API_KEY": "sk-test-secret",
+            "NOISEPROOF_ENABLE_OPENAI_PROVIDER": "true",
+            "CI": "false",
+        },
+        provider_client=FakeProviderClient(),
+    )
+
+    assert exit_code == 0
+    assert capsys.readouterr().out == ""
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    assert report["run_source"] == "owner_runtime_openai_embedding_domain_qrels"
+    assert report["fixture_root"] == "examples/representative-semantic-retrieval-quality"
+    assert report["query_count"] == 6
+    assert report["chunk_count"] == 12
+    assert report["qrel_count"] == 24
+    assert report["provider_call_count"] == 18
+    assert report["api_calls_attempted"] is True
+    assert report["query_embedding_source"] == "owner_runtime_provider_generated"
+    assert report["chunk_embedding_source"] == "owner_runtime_provider_generated"
+    assert report["provider_response_dimension_check"] == "passed"
+    assert report["usage_metadata_present"] is True
+    assert report["qrels_evaluated"] is True
+    assert report["can_claim_production_semantic_quality"] is False
+    assert report["openai_api_key_printed"] is False
+    assert report["secret_exposed"] is False
+    assert report["secret_logged"] is False
+    assert report["secret_committed_to_repo"] is False
+    assert "run" not in report
+    assert "provider_raw_response" not in report
+    assert "sk-" not in json.dumps(report, sort_keys=True)
+    assert len(calls) == 18
+    assert all(call["api_key"] == "sk-test-secret" for call in calls)
+
+    validate_exit_code = main(
+        ["--validate-owner-runtime-eval-report", str(report_path)]
+    )
+    assert validate_exit_code == 0
+    validation = json.loads(capsys.readouterr().out)
+    assert validation["validation_status"] == "accepted"
+    assert validation["accepted_owner_runtime_eval"] is True

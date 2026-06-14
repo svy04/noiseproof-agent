@@ -34,6 +34,7 @@ VALIDATOR_PHASE_MARKER = (
 CONTRACT_PHASE_MARKER = (
     "live embedding-backed domain qrels owner-runtime eval report contract v0"
 )
+RUNNER_PHASE_MARKER = "live embedding-backed domain qrels owner-runtime runner v0"
 RUN_SOURCE = "owner_runtime_openai_embedding_domain_qrels"
 FIXTURE_ROOT_TEXT = "examples/representative-semantic-retrieval-quality"
 BOUNDARY = "owner_runtime_live_embedding_domain_qrels_not_production_quality"
@@ -260,6 +261,126 @@ def _owner_runtime_eval_report_contract() -> dict[str, object]:
     }
 
 
+def _run_owner_runtime_eval(
+    *,
+    output_path: Path,
+    env: Mapping[str, str],
+    provider_client: object | None,
+    fixture_root: Path | str = ROOT_DIR / FIXTURE_ROOT_TEXT,
+    embedding_model: str = "text-embedding-3-small",
+    embedding_dimension: int = 1536,
+    k: int = 3,
+) -> dict[str, object]:
+    output_path_allowed = not _path_is_inside_repository(output_path)
+    if not output_path_allowed:
+        return {
+            "phase_marker": RUNNER_PHASE_MARKER,
+            "run_status": "output_path_rejected",
+            "output_path_boundary": {
+                "output_path_allowed": False,
+                "required_location": "outside_repository",
+            },
+            "api_calls_attempted": False,
+            "openai_api_key_printed": False,
+            "secret_logged": False,
+            "secret_committed_to_repo": False,
+            "non_claims": _non_claims(),
+        }
+
+    readiness = _discover_owner_runtime_input(env)
+    if readiness["owner_runtime_input_status"] != "ready_for_owner_runtime_eval":
+        return {
+            "phase_marker": RUNNER_PHASE_MARKER,
+            "run_status": "input_not_ready",
+            "owner_runtime_input_status": readiness["owner_runtime_input_status"],
+            "next_action": readiness["next_action"],
+            "api_calls_attempted": False,
+            "openai_api_key_printed": False,
+            "secret_logged": False,
+            "secret_committed_to_repo": False,
+            "non_claims": _non_claims(),
+        }
+
+    api_key = env.get("OPENAI_API_KEY", "")
+    client = provider_client if provider_client is not None else _default_provider_client()
+
+    def provider(text: str) -> Mapping[str, Any]:
+        create_embedding = getattr(client, "create_embedding")
+        return create_embedding(
+            text=text,
+            model=embedding_model,
+            dimension=embedding_dimension,
+            encoding_format="float",
+            api_key=api_key,
+        )
+
+    evaluation = evaluate_owner_runtime_domain_qrels_with_provider(
+        fixture_root=fixture_root,
+        provider=provider,
+        embedding_model=embedding_model,
+        embedding_dimension=embedding_dimension,
+        k=k,
+    )
+    report = _owner_runtime_eval_report_from_result(evaluation)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return {
+        "phase_marker": RUNNER_PHASE_MARKER,
+        "run_status": "report_written",
+        "output_path_boundary": {
+            "output_path_allowed": True,
+            "required_location": "outside_repository",
+        },
+        "provider_call_count": report["provider_call_count"],
+        "api_calls_attempted": True,
+        "openai_api_key_printed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+        "non_claims": _non_claims(),
+    }
+
+
+def _owner_runtime_eval_report_from_result(
+    evaluation: Mapping[str, object],
+) -> dict[str, object]:
+    fixture_coverage = evaluation.get("fixture_coverage")
+    if not isinstance(fixture_coverage, Mapping):
+        fixture_coverage = {}
+    qrel_count = fixture_coverage.get("qrel_count")
+    if qrel_count is None:
+        qrel_count = sum(
+            len(qrel)
+            for qrel in load_semantic_quality_fixture(ROOT_DIR / FIXTURE_ROOT_TEXT).qrels.values()
+        )
+    return {
+        "run_source": evaluation["run_source"],
+        "fixture_root": evaluation["fixture_root"],
+        "embedding_model": evaluation["embedding_model"],
+        "embedding_dimension": evaluation["embedding_dimension"],
+        "query_count": fixture_coverage.get("query_count", 0),
+        "chunk_count": fixture_coverage.get("chunk_count", 0),
+        "qrel_count": qrel_count,
+        "coverage_status": fixture_coverage.get("coverage_status"),
+        "query_embedding_source": evaluation["query_embedding_source"],
+        "chunk_embedding_source": evaluation["chunk_embedding_source"],
+        "provider_call_count": evaluation["provider_call_count"],
+        "provider_response_dimension_check": evaluation["provider_response_dimension_check"],
+        "usage_metadata_present": evaluation["usage_metadata_present"],
+        "qrels_evaluated": evaluation["qrels_evaluated"],
+        "aggregate": evaluation["aggregate"],
+        "unjudged_retrieved_count_at_k": evaluation["unjudged_retrieved_count_at_k"],
+        "can_claim_production_semantic_quality": False,
+        "api_calls_attempted": True,
+        "openai_api_key_printed": False,
+        "secret_exposed": False,
+        "secret_logged": False,
+        "secret_committed_to_repo": False,
+    }
+
+
 def _accepted_owner_runtime_eval_report() -> dict[str, object]:
     return {
         "run_source": RUN_SOURCE,
@@ -291,6 +412,12 @@ def _accepted_owner_runtime_eval_report() -> dict[str, object]:
         "secret_logged": False,
         "secret_committed_to_repo": False,
     }
+
+
+def _default_provider_client() -> object:
+    from app.services.openai_embedding_provider import OpenAIEmbeddingProviderClient
+
+    return OpenAIEmbeddingProviderClient()
 
 
 def _validate_owner_runtime_eval_report(
@@ -534,6 +661,24 @@ def _read_json_report(path: Path) -> dict[str, object]:
     return payload
 
 
+def _parse_runner_args(args: Sequence[str]) -> tuple[Path | None, int]:
+    output_path: Path | None = None
+    k = 3
+    index = 0
+    while index < len(args):
+        value = args[index]
+        if value == "--output" and index + 1 < len(args):
+            output_path = Path(args[index + 1])
+            index += 2
+            continue
+        if value == "--k" and index + 1 < len(args):
+            k = int(args[index + 1])
+            index += 2
+            continue
+        raise ValueError(f"unsupported runner argument: {value}")
+    return output_path, k
+
+
 def _format_expected(value: object) -> str:
     if isinstance(value, bool):
         return str(value).lower()
@@ -544,7 +689,11 @@ def _print_json(payload: Mapping[str, object]) -> None:
     print(json.dumps(payload, indent=2, sort_keys=True))
 
 
-def main(argv: Sequence[str] | None = None, env: Mapping[str, str] | None = None) -> int:
+def main(
+    argv: Sequence[str] | None = None,
+    env: Mapping[str, str] | None = None,
+    provider_client: object | None = None,
+) -> int:
     environment = env if env is not None else os.environ
     args = list(argv if argv is not None else sys.argv[1:])
     if args == ["--print-owner-runtime-eval-packet"]:
@@ -564,6 +713,34 @@ def main(argv: Sequence[str] | None = None, env: Mapping[str, str] | None = None
         )
         _print_json(report)
         return 0 if report["accepted_owner_runtime_eval"] is True else 5
+    if args and args[0] == "--run-owner-runtime-eval":
+        try:
+            output_path, k = _parse_runner_args(args[1:])
+        except ValueError as exc:
+            _print_json({"error": str(exc), "phase_marker": RUNNER_PHASE_MARKER})
+            return 2
+        if output_path is None:
+            _print_json(
+                {
+                    "error": "missing --output",
+                    "phase_marker": RUNNER_PHASE_MARKER,
+                    "api_calls_attempted": False,
+                    "openai_api_key_printed": False,
+                }
+            )
+            return 2
+        result = _run_owner_runtime_eval(
+            output_path=output_path,
+            env=environment,
+            provider_client=provider_client,
+            k=k,
+        )
+        if result["run_status"] == "report_written":
+            return 0
+        _print_json(result)
+        if result["run_status"] == "input_not_ready":
+            return 4
+        return 5
     _print_json({"error": "unsupported_command", "phase_marker": PACKET_PHASE_MARKER})
     return 2
 

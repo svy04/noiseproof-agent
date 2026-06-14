@@ -46,8 +46,8 @@ external_reviewer_feedback
 
 For `semantic_retrieval_quality`, the action surface keeps the gap open. After
 Phase 866, the gap has a local representative fixture covering all current
-NoiseProof information roles and source types, plus an owner-runtime packet and
-validator for a future live embedding-backed domain qrels run. The current
+NoiseProof information roles and source types, plus an owner-runtime packet,
+runner, and validator for a future live embedding-backed domain qrels run. The current
 accepted evidence still does not include live embedding generation and does not
 prove production semantic retrieval quality:
 
@@ -57,7 +57,7 @@ claim_boundary -> representative_local_fixture_and_caller_provided_vectors_do_no
 acceptable_evidence -> run a live embedding-backed domain qrels quality evaluation beyond caller-provided fixture vectors
 blocked_claims -> semantic retrieval quality is proven
 recommended_next_gate -> owner_runtime_live_embedding_domain_qrels_eval_v0
-proof_routes -> docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet.md; docs/evaluation/representative-live-semantic-quality-report.md; docs/evaluation/live-semantic-qrels-baseline-report.md; docs/evaluation/live-lexical-qrels-baseline-report.md; docs/evaluation/qrels-backed-semantic-quality-report.md
+proof_routes -> docs/review/live-embedding-domain-qrels-owner-runtime-runner.md; docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet.md; docs/evaluation/representative-live-semantic-quality-report.md; docs/evaluation/live-semantic-qrels-baseline-report.md; docs/evaluation/live-lexical-qrels-baseline-report.md; docs/evaluation/qrels-backed-semantic-quality-report.md
 ```
 
 ## Boundary

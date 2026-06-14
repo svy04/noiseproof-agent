@@ -165,6 +165,36 @@ jobs:
           PY
           rm live-embedding-domain-qrels-input-discovery.json
 
+      - name: Check live embedding domain qrels owner-runtime runner missing input
+        working-directory: apps/api
+        run: |
+          set +e
+          uv run python -m app.services.live_embedding_domain_qrels_harness \
+            --run-owner-runtime-eval \
+            --output /tmp/noiseproof-owner-runtime-domain-qrels-report.json \
+            > live-embedding-domain-qrels-runner-missing-input.json
+          status=$?
+          set -e
+          cat live-embedding-domain-qrels-runner-missing-input.json
+          test "$status" -eq 4
+          test ! -f /tmp/noiseproof-owner-runtime-domain-qrels-report.json
+          python - live-embedding-domain-qrels-runner-missing-input.json <<'PY'
+          import json
+          import sys
+
+          payload = json.load(open(sys.argv[1], encoding="utf-8"))
+          assert payload["phase_marker"] == "live embedding-backed domain qrels owner-runtime runner v0"
+          assert payload["run_status"] == "input_not_ready"
+          assert payload["owner_runtime_input_status"] == "missing_openai_api_key"
+          assert payload["api_calls_attempted"] is False
+          assert payload["openai_api_key_printed"] is False
+          assert payload["secret_logged"] is False
+          assert payload["secret_committed_to_repo"] is False
+          assert payload["non_claims"]["live_embedding_generation_proof"] is False
+          assert payload["non_claims"]["production_semantic_quality"] is False
+          PY
+          rm live-embedding-domain-qrels-runner-missing-input.json
+
       - name: Run API smoke tests
         working-directory: apps/api
         run: uv run pytest -q

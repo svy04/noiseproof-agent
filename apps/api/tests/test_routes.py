@@ -6202,7 +6202,7 @@ def test_ops_summary_and_dashboard_surface_current_proof_gap_registry():
     assert by_id["hosted_deployment"]["status"] == "not_implemented"
     assert by_id["external_reviewer_feedback"]["status"] == "pending"
     assert by_id["semantic_retrieval_quality"]["current_evidence"] == (
-        "representative_local_semantic_quality_eval_with_caller_provided_vectors_plus_owner_runtime_domain_qrels_packet"
+        "representative_local_semantic_quality_eval_with_caller_provided_vectors_plus_owner_runtime_domain_qrels_packet_and_runner"
     )
     assert by_id["semantic_retrieval_quality"]["claim_boundary"] == (
         "representative_local_fixture_and_caller_provided_vectors_do_not_prove_production_semantic_retrieval_quality"
@@ -6242,6 +6242,9 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
         gap for gap in body["gaps"] if gap["gap_id"] == "semantic_retrieval_quality"
     )
     assert semantic_gap["status"] == "unproven"
+    assert semantic_gap["current_evidence"] == (
+        "representative_local_semantic_quality_eval_with_caller_provided_vectors_plus_owner_runtime_domain_qrels_packet_and_runner"
+    )
     assert semantic_gap["claim_boundary"] == (
         "representative_local_fixture_and_caller_provided_vectors_do_not_prove_production_semantic_retrieval_quality"
     )
@@ -6267,6 +6270,10 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
     ]
     assert (
         "docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet.md"
+        in semantic_gap["proof_routes"]
+    )
+    assert (
+        "docs/review/live-embedding-domain-qrels-owner-runtime-runner.md"
         in semantic_gap["proof_routes"]
     )
 

@@ -41404,3 +41404,54 @@ def test_live_embedding_domain_qrels_owner_runtime_packet_remote_verification_is
         "Live Embedding Domain Qrels Owner-runtime Packet Remote Verification"
         in application_ready
     )
+
+
+def test_live_embedding_domain_qrels_owner_runtime_runner_is_recorded_without_live_claim():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/live-embedding-domain-qrels-owner-runtime-runner.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    ci = (REPO_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    for marker in [
+        "Live embedding-backed domain qrels owner-runtime runner v0",
+        "--run-owner-runtime-eval",
+        "live embedding-backed domain qrels owner-runtime runner v0",
+        "owner_runtime_live_embedding_domain_qrels_eval_v0",
+        "provider_call_count -> 18",
+        "output_path_allowed -> false",
+        "run_status -> input_not_ready",
+        "owner_runtime_input_status -> missing_openai_api_key",
+    ]:
+        assert marker in content
+    assert "not live embedding generation proof" in content
+    assert "not production semantic retrieval quality evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Live embedding-backed domain qrels owner-runtime runner v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 868 - Live embedding-backed domain qrels owner-runtime runner v0"
+        in goal
+    )
+    assert "Phase 868 adds live embedding-backed domain qrels owner-runtime runner v0" in runbook
+    assert "Check live embedding domain qrels owner-runtime runner missing input" in ci
+    assert "--run-owner-runtime-eval" in ci
+    assert "owner_runtime_input_status" in ci
+    assert "Live Embedding Domain Qrels Owner-runtime Runner" in portfolio
+    assert "Live Embedding Domain Qrels Owner-runtime Runner" in application_ready
