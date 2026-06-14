@@ -178,3 +178,45 @@ def test_multi_real_world_pdf_parse_observation_docs_and_ci_are_wired():
     assert "Check multi real-world PDF parse observation report staleness" in ci
     assert "multi_real_world_pdf_parse_observation_matrix_v0" in proof_gap_registry
     assert "multi_real_world_pdf_parse_observation_matrix_remote_verification_v0" in proof_gap_registry
+
+
+def test_multi_real_world_pdf_parse_observation_matrix_reviewer_surfaces_route_to_latest_proof():
+    route_refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh.md"
+    )
+    assert route_refresh_path.is_file()
+
+    expected_markers = [
+        "docs/review/multi-real-world-pdf-parse-observation.md",
+        "docs/review/multi-real-world-pdf-parse-observation-remote-verification.md",
+        "observed_fixture_count -> 3",
+        "a37fe32f0f46c5d04008ea425a053966f063950c",
+        "27496475781",
+        "27496475772",
+        "not robust PDF extraction evidence",
+        "not hosted deployment evidence",
+        "not external reviewer feedback",
+        "not product-complete",
+    ]
+    surfaces = [
+        "README.md",
+        "docs/review/external-reader-proof-path.md",
+        "docs/review/external-reviewer-shortlist.md",
+        "docs/review/external-reviewer-link-map.md",
+        "CONTRIBUTING.md",
+        ".github/ISSUE_TEMPLATE/external-review-feedback.md",
+    ]
+    for path in surfaces:
+        content = (REPO_ROOT / path).read_text(encoding="utf-8")
+        for marker in expected_markers:
+            assert marker in content, f"{marker!r} missing from {path}"
+
+    route_refresh = route_refresh_path.read_text(encoding="utf-8")
+    assert (
+        "External Reviewer Surfaces Multi Real-world PDF Parse Observation Matrix Route Refresh"
+        in route_refresh
+    )
+    assert "route hygiene only" in route_refresh
+    assert "not a live issue body edit" in route_refresh
+    assert "Phase 893" in (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")

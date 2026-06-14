@@ -16,6 +16,12 @@ assignees: ""
 
 Fast links:
 
+- Latest multi real-world PDF parse observation matrix: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/multi-real-world-pdf-parse-observation.md
+  - Remote verification: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/multi-real-world-pdf-parse-observation-remote-verification.md
+  - Route refresh: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh.md
+  - Evaluation report: https://github.com/svy04/noiseproof-agent/blob/main/docs/evaluation/multi-real-world-pdf-parse-observation-report.md
+  - Markers: `observed_fixture_count -> 3`, `total_page_count -> 95`, `total_text_char_count -> 217555`, `total_table_candidate_count -> 43`, head `a37fe32f0f46c5d04008ea425a053966f063950c`, CI run `27496475781`, External Feedback Screen run `27496475772`, `can_claim_robust_pdf_extraction -> false`.
+  - Boundary: not robust PDF extraction evidence, not arbitrary market PDF parsing evidence, not OCR evidence, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 - Reviewer shortlist: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-shortlist.md
 - Reviewer link map: https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-link-map.md
 - Root review guide: https://github.com/svy04/noiseproof-agent/blob/main/CONTRIBUTING.md

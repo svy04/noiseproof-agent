@@ -16,6 +16,30 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Multi real-world PDF parse observation matrix:
+
+```text
+docs/review/multi-real-world-pdf-parse-observation.md
+docs/review/multi-real-world-pdf-parse-observation-remote-verification.md
+docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh.md
+docs/evaluation/multi-real-world-pdf-parse-observation-report.md
+```
+
+Route markers:
+
+```text
+observed_fixture_count -> 3
+total_page_count -> 95
+total_text_char_count -> 217555
+total_table_candidate_count -> 43
+a37fe32f0f46c5d04008ea425a053966f063950c
+CI run 27496475781
+External Feedback Screen run 27496475772
+can_claim_robust_pdf_extraction -> false
+```
+
+Boundary: this route points reviewers to the latest multi real-world PDF parse observation matrix and its remote workflow verification. It is route hygiene only, not new runtime evidence, not robust PDF extraction evidence, not arbitrary market PDF parsing evidence, not OCR evidence, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

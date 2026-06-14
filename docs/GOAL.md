@@ -88,6 +88,20 @@ ci_step: Run API smoke tests -> success
 boundary: remote workflow verification only; not the owner-runtime parse observations themselves; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
+Current reviewer-route overlay as of Phase 893:
+
+```text
+latest_route_gate: External Reviewer Surfaces Multi Real-world PDF Parse Observation Matrix Route Refresh v0
+latest_route_artifact: docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh.md
+latest_product_artifact: docs/review/multi-real-world-pdf-parse-observation.md
+latest_remote_verification_artifact: docs/review/multi-real-world-pdf-parse-observation-remote-verification.md
+observed_fixture_count: 3
+latest_verified_head_sha: a37fe32f0f46c5d04008ea425a053966f063950c
+latest_ci_run: 27496475781
+latest_external_feedback_screen_run: 27496475772
+boundary: route hygiene only; not a live issue body edit; not new runtime evidence; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 889:
 
 ```text
@@ -181,6 +195,35 @@ CI step: Run API smoke tests -> success
 ```
 
 Phase 892 is remote workflow verification only. It adds no owner-runtime PDF download, no parser behavior, no OCR, no table extraction, no hosted deployment evidence, no external reviewer feedback, and no product-complete claim.
+
+### Phase 893 - External Reviewer Surfaces Multi Real-world PDF Parse Observation Matrix Route Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+route first-pass external reviewer surfaces to the latest multi real-world PDF parse observation matrix and remote verification
+```
+
+Implemented:
+
+```text
+external reviewer surfaces multi real-world PDF parse observation matrix route refresh v0
+docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh.md
+README.md
+docs/review/external-reader-proof-path.md
+docs/review/external-reviewer-shortlist.md
+docs/review/external-reviewer-link-map.md
+CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/external-review-feedback.md
+observed_fixture_count -> 3
+a37fe32f0f46c5d04008ea425a053966f063950c
+CI run -> 27496475781
+External Feedback Screen run -> 27496475772
+```
+
+Phase 893 is route hygiene only. It adds no parser behavior, no new PDF observations, no remote runtime evidence, no OCR, no table extraction, no layout fidelity claim, no live issue body edit, no hosted deployment evidence, no external reviewer feedback, and no product-complete claim.
 
 Current navigation overlay as of Phase 887:
 

@@ -11,7 +11,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 | Latest verified gate | Multi Real-world PDF Parse Observation Matrix v0 | Three BEA PDFs have sanitized PyMuPDF digital-text observation metadata; no external PDF binaries, download caches, or raw extracted text are committed. |
 | Remote workflow verification | `a37fe32f0f46c5d04008ea425a053966f063950c` passed CI run `27496475781` and External Feedback Screen run `27496475772`. | Workflow success is not external validation. |
 | Reviewer route | `docs/review/external-reader-proof-path.md` | Repository-native inspection path only. |
-| Current next evidence | `multi_real_world_pdf_parse_observation_matrix_remote_verification_v0` | The multi-PDF matrix is still not robust extraction; the next proof should verify CI/report staleness remotely after push. |
+| Current next evidence | `external_reviewer_surfaces_multi_real_world_pdf_parse_observation_matrix_route_refresh_v0` | The multi-PDF matrix is still not robust extraction; the next proof should keep reviewer entry points routed to the latest bounded evidence without claiming external validation. |
 
 Do not read this as a product-complete claim.
 
@@ -55,7 +55,7 @@ Do not read this as a product-complete claim.
 
 1. Read `docs/review/external-reader-proof-path.md`.
 2. Check the current application summary in `docs/review/application-ready-review.md`.
-3. Inspect the latest PDF boundary at `docs/review/real-world-pdf-parse-observation.md`.
+3. Inspect the latest PDF boundary at `docs/review/multi-real-world-pdf-parse-observation.md`, then confirm remote workflow verification at `docs/review/multi-real-world-pdf-parse-observation-remote-verification.md`.
 4. Confirm CI-enforced regeneration through `.github/workflows/ci.yml`.
 5. Read `docs/GOAL.md` for what remains unproven.
 
@@ -72,6 +72,8 @@ Latest real-world PDF parse observation: `docs/review/real-world-pdf-parse-obser
 Latest multi real-world PDF parse observation matrix: `docs/review/multi-real-world-pdf-parse-observation.md` records three BEA real-world PDF PyMuPDF digital-text parse observations, with a regenerated report at `docs/evaluation/multi-real-world-pdf-parse-observation-report.md`. Multi real-world PDF parse observation matrix v0: implemented. The report keeps `observed_fixture_count -> 3`, `total_page_count -> 95`, `total_text_char_count -> 217555`, `total_table_candidate_count -> 43`, `table_extraction_performed -> false`, `ocr_calls_attempted -> false`, `binary_files_committed -> false`, `raw_extracted_text_committed -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> multi_real_world_pdf_parse_observation_matrix_remote_verification_v0`. This is a multi-fixture real-world PDF parse observation matrix only, not robust PDF extraction evidence, not arbitrary market PDF parsing evidence, not OCR evidence, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Latest multi real-world PDF parse observation matrix remote verification: `docs/review/multi-real-world-pdf-parse-observation-remote-verification.md` records that commit `a37fe32f0f46c5d04008ea425a053966f063950c` passed CI run `27496475781` job `81271370552` and External Feedback Screen run `27496475772` job `81271370589`, including `Check multi real-world PDF parse observation report staleness`. Multi real-world PDF parse observation matrix remote verification v0: implemented. This is remote workflow verification only, not the owner-runtime parse observations themselves, not robust PDF extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Latest external reviewer surfaces multi real-world PDF parse observation matrix route refresh: `docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh.md` records that `README.md`, `docs/review/external-reader-proof-path.md`, `docs/review/external-reviewer-shortlist.md`, `docs/review/external-reviewer-link-map.md`, `CONTRIBUTING.md`, and `.github/ISSUE_TEMPLATE/external-review-feedback.md` now route first-pass reviewers to `docs/review/multi-real-world-pdf-parse-observation.md` and `docs/review/multi-real-world-pdf-parse-observation-remote-verification.md`. It surfaces `observed_fixture_count -> 3`, head `a37fe32f0f46c5d04008ea425a053966f063950c`, CI run `27496475781`, and External Feedback Screen run `27496475772`. This is route hygiene only, not robust PDF extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Latest real-world PDF parse observation remote verification: `docs/review/real-world-pdf-parse-observation-remote-verification.md` records that commit `5d875a55e658593fde6ec31a4c34233a1a6e8d89` passed CI run `27495965671` job `81269970751` and External Feedback Screen run `27495965662`, including `Check real-world PDF parse observation report staleness`. Real-world PDF parse observation remote verification v0: implemented. This is remote workflow verification only, not the owner-runtime parse observation itself, not robust PDF extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 

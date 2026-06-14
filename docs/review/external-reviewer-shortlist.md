@@ -16,6 +16,11 @@ It does not replace the full proof path.
 
 1. `README.md`
    - Scope, non-goals, implementation status, and the current proof boundaries.
+   - Current multi real-world PDF parse observation matrix: `docs/review/multi-real-world-pdf-parse-observation.md`.
+   - Matrix remote verification: `docs/review/multi-real-world-pdf-parse-observation-remote-verification.md`.
+   - Reviewer surface route refresh: `docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh.md`.
+   - Records `observed_fixture_count -> 3`, `total_page_count -> 95`, `total_text_char_count -> 217555`, `total_table_candidate_count -> 43`, head `a37fe32f0f46c5d04008ea425a053966f063950c`, CI run `27496475781`, External Feedback Screen run `27496475772`, and `can_claim_robust_pdf_extraction -> false`.
+   - Boundary: not robust PDF extraction evidence, not arbitrary market PDF parsing evidence, not OCR evidence, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
    - Current local OTel runtime proof: `docs/review/local-otel-span-export-runtime-smoke.md`.
    - OTel route refresh: `docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh.md`.
    - Records `NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT=true`, `x-noiseproof-otel-span-export: local_in_memory_enabled`, `span_export_enabled=true`, `span_count=4`, and `local_in_memory_otel_span_export_not_distributed_tracing`.

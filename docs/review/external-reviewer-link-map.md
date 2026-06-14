@@ -8,6 +8,20 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest Multi Real-world PDF Parse Observation Matrix
+
+- Matrix proof:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/multi-real-world-pdf-parse-observation.md
+- Matrix remote verification:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/multi-real-world-pdf-parse-observation-remote-verification.md
+- Evaluation report:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/evaluation/multi-real-world-pdf-parse-observation-report.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh.md
+- Route markers:
+  `observed_fixture_count -> 3`, `total_page_count -> 95`, `total_text_char_count -> 217555`, `total_table_candidate_count -> 43`, head `a37fe32f0f46c5d04008ea425a053966f063950c`, CI run `27496475781`, External Feedback Screen run `27496475772`, `can_claim_robust_pdf_extraction -> false`
+- Boundary: multi real-world PDF parse observation matrix routing only; not a live issue body edit, not new runtime evidence, not robust PDF extraction evidence, not arbitrary market PDF parsing evidence, not OCR evidence, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 ## Latest Local OTel Span Export Runtime Proof
 
 - Span export implementation:
