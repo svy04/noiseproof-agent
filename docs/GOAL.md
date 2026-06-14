@@ -53,13 +53,13 @@ fixture_root: examples/representative-semantic-retrieval-quality/
 live_run_source: owner_runtime_openai_embedding_domain_qrels
 command: app.services.live_embedding_domain_qrels_harness
 ci_check: Check live embedding domain qrels owner-runtime input discovery
-latest_remote_verification_gate: Representative live semantic quality eval remote verification v0
-latest_remote_verification_artifact: docs/review/representative-live-semantic-quality-eval-remote-verification.md
-latest_verified_head_sha: 35318bb044bbdc980172f6585015202cfead131d
-latest_ci_run: 27490645731
-latest_ci_job_id: 81254937629
-latest_external_feedback_screen_run: 27490645765
-latest_external_feedback_screen_job_id: 81254937675
+latest_remote_verification_gate: Live embedding-backed domain qrels owner-runtime eval packet remote verification v0
+latest_remote_verification_artifact: docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet-remote-verification.md
+latest_verified_head_sha: 4bda105f31698521302341ed69e30addae9190b0
+latest_ci_run: 27491187230
+latest_ci_job_id: 81256509435
+latest_external_feedback_screen_run: 27491187229
+latest_external_feedback_screen_job_id: 81256509371
 coverage_status: passed
 role_coverage_ratio: 1.0
 source_type_coverage_ratio: 1.0
@@ -34372,6 +34372,59 @@ semantic_retrieval_quality.recommended_next_gate -> owner_runtime_live_embedding
 Boundaries:
 
 - owner-runtime packet, discovery, and validator only
+- not live embedding generation proof
+- not production semantic retrieval quality evidence
+- not a public benchmark result
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 867 - Live embedding-backed domain qrels owner-runtime eval packet remote verification v0
+
+Status: implemented.
+
+Purpose: record remote workflow verification for the Phase 866 owner-runtime
+domain qrels packet after it was pushed to `main`.
+
+Artifacts:
+
+- `docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_docs.py`
+
+Remote verification markers:
+
+```text
+verified_head_sha -> 4bda105f31698521302341ed69e30addae9190b0
+branch -> main
+commit -> feat: add live embedding domain qrels owner-runtime packet
+ci_run -> 27491187230
+ci_job_id -> 81256509435
+ci_job_name -> api-smoke
+ci_conclusion -> success
+external_feedback_screen_run -> 27491187229
+external_feedback_screen_job_id -> 81256509371
+external_feedback_screen_job_name -> screen
+external_feedback_screen_conclusion -> success
+```
+
+Remote CI step evidence included:
+
+```text
+Compile API and local packages -> success
+Check live embedding domain qrels owner-runtime input discovery -> success
+Run API smoke tests -> success
+```
+
+Boundaries:
+
+- remote workflow verification only
 - not live embedding generation proof
 - not production semantic retrieval quality evidence
 - not a public benchmark result

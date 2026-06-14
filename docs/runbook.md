@@ -11879,3 +11879,5 @@ uv run pytest tests/test_live_embedding_domain_qrels_harness.py -q
 ```
 
 This is an owner-runtime packet, discovery, and validator gate only, not live embedding generation proof, production semantic retrieval quality evidence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete.
+
+Phase 867 adds live embedding-backed domain qrels owner-runtime eval packet remote verification v0: `docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet-remote-verification.md` records that commit `4bda105f31698521302341ed69e30addae9190b0` passed CI run `27491187230` (`api-smoke -> success`, job `81256509435`) and External Feedback Screen run `27491187229` (`screen -> success`, job `81256509371`) after Phase 866 was pushed. This is remote workflow verification only, not live embedding generation proof, not production semantic retrieval quality evidence, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, and not product-complete.
