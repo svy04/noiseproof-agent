@@ -43,6 +43,35 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 855:
+
+```text
+latest_external_feedback_current_state_gate: External feedback current-state local OTel issue verification v0
+latest_external_feedback_current_state_artifact: docs/review/external-feedback-current-state-local-otel-issue-verification.md
+live_issue: https://github.com/svy04/noiseproof-agent/issues/1
+live_issue_updatedAt: 2026-06-14T04:23:17Z
+comment_count: 1
+screened_comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment_only
+status: pending
+does_not_close_gate: true
+live_issue_first_codepoint: 35
+live_issue_has_leading_bom: false
+live_issue_has_local_otel_latest_proof: true
+live_issue_has_local_otel_route_remote_verification: true
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+distributed_tracing: not_claimed
+external_collector: not_implemented
+hosted_observability: not_implemented
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: current-state issue screen only; not external reviewer feedback; not new runtime evidence; not distributed tracing; not hosted observability; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 854:
 
 ```text
@@ -33526,6 +33555,56 @@ old_semantic_quality_claim_gate_latest_label_present: false
 Boundaries:
 
 - owner-authored issue body routing only
+- not external reviewer feedback
+- not new runtime evidence
+- not distributed tracing
+- not hosted observability
+- not external collector integration
+- not OpenTelemetry Collector deployment
+- not production monitoring
+- not cross-service trace proof
+- not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 855 - External Feedback Current-state Local OTel Issue Verification v0
+
+Status: implemented.
+
+Purpose: record the live public issue #1 external-feedback current state after the local OTel span export runtime proof issue-body route refresh, keeping the external reviewer feedback gate pending because only owner-authored feedback exists.
+
+Artifacts:
+
+- `docs/review/external-feedback-current-state-local-otel-issue-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Live issue markers:
+
+```text
+issue: https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt: 2026-06-14T04:23:17Z
+comment_count: 1
+screened_comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment_only
+status: pending
+does_not_close_gate: true
+first_codepoint: 35
+has_leading_bom: false
+has_local_otel_latest_proof: true
+has_local_otel_route_remote_verification: true
+```
+
+Boundaries:
+
+- current-state issue screen only
 - not external reviewer feedback
 - not new runtime evidence
 - not distributed tracing

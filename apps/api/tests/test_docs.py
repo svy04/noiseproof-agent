@@ -40753,3 +40753,52 @@ def test_external_review_issue_body_local_otel_runtime_route_refresh_is_recorded
     assert "Phase 854 - External Review Issue Body Local OTel Span Export Runtime Route Refresh v0" in goal
     assert "Phase 854 adds external review issue body local OTel span export runtime route refresh v0" in runbook
     assert "external review issue body local OTel span export runtime route refresh" in portfolio
+
+
+def test_external_feedback_current_state_local_otel_issue_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-local-otel-issue-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Feedback Current-state Local OTel Issue Verification" in content
+    assert "external feedback current-state local OTel issue verification v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt: 2026-06-14T04:23:17Z" in content
+    assert "comment_count: 1" in content
+    assert "screened_comment_count: 1" in content
+    assert "owner_comment_count: 1" in content
+    assert "candidate_count: 0" in content
+    assert "draft_count: 0" in content
+    assert "reason: self_authored_comment_only" in content
+    assert "status: pending" in content
+    assert "does_not_close_gate: true" in content
+    assert "first_codepoint: 35" in content
+    assert "has_leading_bom: false" in content
+    assert "has_local_otel_latest_proof: true" in content
+    assert "has_local_otel_route_remote_verification: true" in content
+    assert "docs/review/local-otel-span-export.md" in content
+    assert "docs/review/local-otel-span-export-runtime-smoke.md" in content
+    assert "docs/review/external-review-issue-body-local-otel-span-export-runtime-route-refresh.md" in content
+    assert "owner-authored comment remains non-qualifying" in content
+    assert "current-state issue screen only" in content
+    assert "not external reviewer feedback" in content
+    assert "not new runtime evidence" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "External feedback current-state local OTel issue verification v0: implemented" in readme
+    assert "Phase 855 - External Feedback Current-state Local OTel Issue Verification v0" in goal
+    assert "Phase 855 adds external feedback current-state local OTel issue verification v0" in runbook
+    assert "external feedback current-state local OTel issue verification" in portfolio
