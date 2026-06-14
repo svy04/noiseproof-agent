@@ -105,9 +105,15 @@ def test_real_world_pdf_parse_observation_command_check_mode_accepts_report():
 
 def test_real_world_pdf_parse_observation_docs_and_ci_are_wired():
     review_path = REPO_ROOT / "docs/review/real-world-pdf-parse-observation.md"
+    remote_verification_path = (
+        REPO_ROOT
+        / "docs/review/real-world-pdf-parse-observation-remote-verification.md"
+    )
     assert review_path.is_file()
+    assert remote_verification_path.is_file()
 
     review = review_path.read_text(encoding="utf-8")
+    remote_verification = remote_verification_path.read_text(encoding="utf-8")
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
@@ -126,11 +132,25 @@ def test_real_world_pdf_parse_observation_docs_and_ci_are_wired():
     assert "text_char_count -> 92219" in review
     assert "table_candidate_count -> 35" in review
     assert "not robust PDF extraction evidence" in review
+    assert "verified_head_sha -> 5d875a55e658593fde6ec31a4c34233a1a6e8d89" in remote_verification
+    assert "CI run `27495965671`: success" in remote_verification
+    assert "CI job_id -> 81269970751" in remote_verification
+    assert "External Feedback Screen run `27495965662`: success" in remote_verification
+    assert "remote workflow verification only" in remote_verification
+    assert "not robust PDF extraction evidence" in remote_verification
     assert "Real-world PDF parse observation v0: implemented" in readme
+    assert "Real-world PDF parse observation remote verification v0: implemented" in readme
     assert "Phase 889 - Real-world PDF Parse Observation v0" in goal
+    assert "Phase 890 - Real-world PDF Parse Observation Remote Verification v0" in goal
     assert "Phase 889 adds real-world PDF parse observation v0" in runbook
+    assert "Phase 890 adds real-world PDF parse observation remote verification v0" in runbook
     assert "docs/review/real-world-pdf-parse-observation.md" in portfolio
+    assert (
+        "docs/review/real-world-pdf-parse-observation-remote-verification.md"
+        in portfolio
+    )
     assert "Real-world PDF Parse Observation" in application_ready
+    assert "Real-world PDF Parse Observation Remote Verification" in application_ready
     assert "Check real-world PDF parse observation report staleness" in ci
     assert "real_world_pdf_parse_observation_without_robust_claim_v0" in proof_gap_registry
     assert "multi_real_world_pdf_parse_observation_matrix_v0" in proof_gap_registry

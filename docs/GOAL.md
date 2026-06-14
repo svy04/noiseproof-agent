@@ -33809,6 +33809,43 @@ Boundaries:
 - not external reviewer feedback
 - not product-complete
 
+### Phase 890 - Real-world PDF Parse Observation Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote workflow verification for the single real-world PDF parse
+observation gate without treating workflow success as robust PDF extraction or
+external validation.
+
+Artifacts:
+
+- `docs/review/real-world-pdf-parse-observation-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_real_world_pdf_parse_observation.py`
+
+Verified:
+
+- verified_head_sha -> `5d875a55e658593fde6ec31a4c34233a1a6e8d89`
+- CI run `27495965671`: success
+- CI job_id -> `81269970751`
+- External Feedback Screen run `27495965662`: success
+- Check real-world PDF parse observation report staleness -> success
+- Run API smoke tests -> success
+
+Boundaries:
+
+- remote workflow verification only
+- not the owner-runtime parse observation itself
+- not robust PDF extraction evidence
+- not arbitrary market PDF parsing evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not product-complete
+
 ### Phase 837 - External Feedback Current-state Semantic Retrieval Quality Diagnostic Matrix Issue Verification Remote Verification v0
 
 Status: implemented.
