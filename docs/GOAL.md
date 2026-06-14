@@ -33694,6 +33694,43 @@ Boundaries:
 - not external reviewer feedback
 - not product-complete
 
+### Phase 888 - Owner-approved Real-world PDF Download and Hash Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote workflow verification for the owner-approved
+download/hash gate without converting workflow success into external validation
+or robust PDF extraction evidence.
+
+Artifacts:
+
+- `docs/review/owner-approved-real-world-pdf-download-hash-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_owner_approved_real_world_pdf_download_hash.py`
+
+Verified:
+
+- verified_head_sha -> `6d638fca11b02e03581a8296bb95bc9a5da3894c`
+- CI run `27495693041`: success
+- CI job_id -> `81269226120`
+- External Feedback Screen run `27495693049`: success
+- Check owner-approved real-world PDF download/hash report staleness -> success
+- Run API smoke tests -> success
+
+Boundaries:
+
+- remote workflow verification only
+- not the owner-runtime download/hash observation itself
+- not robust PDF extraction evidence
+- not arbitrary market PDF parsing evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not product-complete
+
 ### Phase 837 - External Feedback Current-state Semantic Retrieval Quality Diagnostic Matrix Issue Verification Remote Verification v0
 
 Status: implemented.

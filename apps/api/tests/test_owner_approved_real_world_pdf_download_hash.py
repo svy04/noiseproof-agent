@@ -122,9 +122,15 @@ def test_owner_approved_real_world_pdf_download_hash_command_check_mode_accepts_
 
 def test_owner_approved_real_world_pdf_download_hash_docs_and_ci_are_wired():
     review_path = REPO_ROOT / "docs/review/owner-approved-real-world-pdf-download-hash.md"
+    remote_verification_path = (
+        REPO_ROOT
+        / "docs/review/owner-approved-real-world-pdf-download-hash-remote-verification.md"
+    )
     assert review_path.is_file()
+    assert remote_verification_path.is_file()
 
     review = review_path.read_text(encoding="utf-8")
+    remote_verification = remote_verification_path.read_text(encoding="utf-8")
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
@@ -143,11 +149,34 @@ def test_owner_approved_real_world_pdf_download_hash_docs_and_ci_are_wired():
     assert "downloaded_fixture_count -> 1" in review
     assert "blocked_fixture_count -> 4" in review
     assert "not robust PDF extraction evidence" in review
+    assert "verified_head_sha -> 6d638fca11b02e03581a8296bb95bc9a5da3894c" in remote_verification
+    assert "CI run `27495693041`: success" in remote_verification
+    assert "CI job_id -> 81269226120" in remote_verification
+    assert "External Feedback Screen run `27495693049`: success" in remote_verification
+    assert "remote workflow verification only" in remote_verification
+    assert "not robust PDF extraction evidence" in remote_verification
     assert "Owner-approved real-world PDF download/hash v0: implemented" in readme
+    assert "Owner-approved real-world PDF download/hash remote verification v0: implemented" in readme
     assert "Phase 887 - Owner-approved Real-world PDF Download and Hash v0" in goal
+    assert (
+        "Phase 888 - Owner-approved Real-world PDF Download and Hash Remote Verification v0"
+        in goal
+    )
     assert "Phase 887 adds owner-approved real-world PDF download/hash v0" in runbook
+    assert (
+        "Phase 888 adds owner-approved real-world PDF download/hash remote verification v0"
+        in runbook
+    )
     assert "docs/review/owner-approved-real-world-pdf-download-hash.md" in portfolio
+    assert (
+        "docs/review/owner-approved-real-world-pdf-download-hash-remote-verification.md"
+        in portfolio
+    )
     assert "Owner-approved Real-world PDF Download and Hash" in application_ready
+    assert (
+        "Owner-approved Real-world PDF Download and Hash Remote Verification"
+        in application_ready
+    )
     assert "Check owner-approved real-world PDF download/hash report staleness" in ci
     assert "owner_approved_real_world_pdf_download_and_hash_v0" in proof_gap_registry
     assert "real_world_pdf_parse_observation_without_robust_claim_v0" in proof_gap_registry
