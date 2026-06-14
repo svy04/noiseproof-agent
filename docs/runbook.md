@@ -11909,3 +11909,15 @@ Phase 867 adds live embedding-backed domain qrels owner-runtime eval packet remo
 Phase 868 adds live embedding-backed domain qrels owner-runtime runner v0: run `uv run python -m app.services.live_embedding_domain_qrels_harness --run-owner-runtime-eval --output <runtime-report-path-outside-repo>` only after configuring `OPENAI_API_KEY` outside the repository, setting `NOISEPROOF_ENABLE_OPENAI_PROVIDER=true`, and confirming `CI=false`. Without owner runtime input, the runner returns `run_status -> input_not_ready`, `owner_runtime_input_status -> missing_openai_api_key`, and `api_calls_attempted -> false`. Repository output paths return `output_path_allowed -> false` before provider calls. This is not live embedding generation proof, not production semantic retrieval quality evidence, not external reviewer feedback, and not product-complete.
 
 Phase 869 adds live embedding-backed domain qrels owner-runtime runner remote verification v0: `docs/review/live-embedding-domain-qrels-owner-runtime-runner-remote-verification.md` records that commit `67dec62288b1dc40f57e2a8c1c3a22169b959f39` passed CI run `27491615373` (`api-smoke -> success`, job `81257751009`) and External Feedback Screen run `27491615371` (`screen -> success`, job `81257751081`) after Phase 868 was pushed. This is remote workflow verification only, not live embedding generation proof, not production semantic retrieval quality evidence, not external reviewer feedback, and not product-complete.
+
+Phase 874 adds OCR/layout/image fixture adapter runtime pack v0: `docs/review/ocr-layout-image-fixture-adapter-runtime-pack.md` records executable synthetic PyMuPDF parser observations for `scanned_image_pdf`, `image_heavy_pdf`, `multi_column_layout_pdf`, and `no_extractable_text_pdf`, regenerated into `docs/evaluation/ocr-layout-image-fixture-adapter-runtime-pack-report.md`.
+
+Reproduce locally:
+
+```powershell
+cd apps/api
+uv run python -m app.services.ocr_layout_image_fixture_adapter_runtime_pack_command --fixture ../../examples/pdf-extraction-quality --output ../../docs/evaluation/ocr-layout-image-fixture-adapter-runtime-pack-report.md --check
+uv run pytest tests/test_ocr_layout_image_fixture_adapter_runtime_pack.py -q
+```
+
+This is a synthetic adapter runtime pack only, not robust PDF extraction evidence, OCR evidence, image/chart interpretation evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.

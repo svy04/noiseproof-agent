@@ -43,29 +43,25 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Current navigation overlay as of Phase 872:
+Current navigation overlay as of Phase 874:
 
 ```text
-latest_product_gate: Missing PDF Runtime Observation Pack v0
-latest_product_artifact: docs/review/missing-pdf-runtime-observation-pack.md
-latest_eval_report: docs/evaluation/missing-pdf-runtime-observation-pack-report.md
+latest_product_gate: OCR Layout Image Fixture Adapter Runtime Pack v0
+latest_product_artifact: docs/review/ocr-layout-image-fixture-adapter-runtime-pack.md
+latest_eval_report: docs/evaluation/ocr-layout-image-fixture-adapter-runtime-pack-report.md
 fixture_root: examples/pdf-extraction-quality/
-pack_file: examples/pdf-extraction-quality/missing-runtime-observations.json
-command: app.services.missing_pdf_runtime_observation_pack_command
-ci_check: Check missing PDF runtime observation pack report staleness
-phase_marker: missing_pdf_runtime_observation_pack_v0
+command: app.services.ocr_layout_image_fixture_adapter_runtime_pack_command
+ci_check: Check OCR layout image fixture adapter runtime pack report staleness
+phase_marker: ocr_layout_image_fixture_adapter_runtime_pack_v0
 fixture_count: 8
-base_observed_fixture_count: 4
-pack_observed_fixture_count: 4
-combined_observed_fixture_count: 8
-remaining_missing_runtime_observation_count: 0
+adapter_runtime_observed_count: 4
 robust_pdf_extraction_claimed: false
 can_claim_robust_pdf_extraction: false
 robust_pdf_extraction.status: unproven
-robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack
-robust_pdf_extraction.recommended_next_gate: ocr_layout_image_fixture_adapter_runtime_pack_v0
+robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack
+robust_pdf_extraction.recommended_next_gate: committed_ocr_layout_image_binary_fixture_provenance_v0
 product_complete: false
-boundary: missing-runtime-observation pack only; not robust PDF extraction evidence; not OCR evidence; not image/chart interpretation evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+boundary: synthetic adapter-runtime pack only; not robust PDF extraction evidence; not OCR evidence; not image/chart interpretation evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
 Current remote verification overlay as of Phase 873:
@@ -34859,6 +34855,60 @@ Run API smoke tests -> success
 Boundaries:
 
 - remote workflow verification only
+- not robust PDF extraction evidence
+- not OCR evidence
+- not image/chart interpretation evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 874 - OCR Layout Image Fixture Adapter Runtime Pack v0
+
+Status: implemented.
+
+Purpose: add an executable synthetic adapter-runtime pack for OCR, image-heavy,
+multi-column layout, and no-extractable-text PDF roles before any robust PDF
+extraction wording can be considered.
+
+Artifacts:
+
+- `packages/ingestion/pdf_quality/ocr_layout_image_pack.py`
+- `apps/api/app/services/ocr_layout_image_fixture_adapter_runtime_pack_command.py`
+- `apps/api/tests/test_ocr_layout_image_fixture_adapter_runtime_pack.py`
+- `docs/evaluation/ocr-layout-image-fixture-adapter-runtime-pack-report.md`
+- `docs/review/ocr-layout-image-fixture-adapter-runtime-pack.md`
+- `.github/workflows/ci.yml`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/app/services/proof_gap_registry.py`
+
+Report markers:
+
+```text
+phase_marker -> ocr_layout_image_fixture_adapter_runtime_pack_v0
+fixture_count -> 8
+adapter_runtime_observed_count -> 4
+robust_pdf_extraction_claimed -> false
+can_claim_robust_pdf_extraction -> false
+```
+
+Updated proof gap state:
+
+```text
+robust_pdf_extraction.status -> unproven
+robust_pdf_extraction.current_evidence -> digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack
+robust_pdf_extraction.recommended_next_gate -> committed_ocr_layout_image_binary_fixture_provenance_v0
+```
+
+Boundaries:
+
+- synthetic adapter-runtime pack only
 - not robust PDF extraction evidence
 - not OCR evidence
 - not image/chart interpretation evidence

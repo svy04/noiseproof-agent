@@ -6196,10 +6196,10 @@ def test_ops_summary_and_dashboard_surface_current_proof_gap_registry():
     by_id = {gap["gap_id"]: gap for gap in registry}
     assert by_id["robust_pdf_extraction"]["status"] == "unproven"
     assert by_id["robust_pdf_extraction"]["current_evidence"] == (
-        "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack"
+        "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack"
     )
     assert by_id["robust_pdf_extraction"]["next_evidence_needed"] == (
-        "real_binary_fixture_adapter_evidence_for_ocr_image_and_layout_roles"
+        "committed_ocr_layout_image_binary_fixture_provenance_v0"
     )
     assert by_id["actual_embedding_generation"]["status"] == "unproven"
     assert by_id["semantic_retrieval_quality"]["status"] == "unproven"
@@ -6232,7 +6232,7 @@ def test_ops_summary_and_dashboard_surface_current_proof_gap_registry():
     assert "owner_authored_issue_only" in dashboard.text
     assert "current gaps only; not new proof" in dashboard.text
     assert (
-        "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack"
+        "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack"
         in dashboard.text
     )
 
@@ -6291,10 +6291,10 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
         gap for gap in body["gaps"] if gap["gap_id"] == "robust_pdf_extraction"
     )
     assert robust_gap["current_evidence"] == (
-        "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack"
+        "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack"
     )
     assert robust_gap["recommended_next_gate"] == (
-        "ocr_layout_image_fixture_adapter_runtime_pack_v0"
+        "committed_ocr_layout_image_binary_fixture_provenance_v0"
     )
     assert "docs/review/multi-fixture-pdf-extraction-quality-eval.md" in robust_gap[
         "proof_routes"
@@ -6308,6 +6308,13 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
     ]
     assert (
         "docs/evaluation/missing-pdf-runtime-observation-pack-report.md"
+        in robust_gap["proof_routes"]
+    )
+    assert "docs/review/ocr-layout-image-fixture-adapter-runtime-pack.md" in robust_gap[
+        "proof_routes"
+    ]
+    assert (
+        "docs/evaluation/ocr-layout-image-fixture-adapter-runtime-pack-report.md"
         in robust_gap["proof_routes"]
     )
 

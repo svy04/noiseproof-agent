@@ -108,6 +108,14 @@ jobs:
             --output ../../docs/evaluation/missing-pdf-runtime-observation-pack-report.md \
             --check
 
+      - name: Check OCR layout image fixture adapter runtime pack report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.ocr_layout_image_fixture_adapter_runtime_pack_command \
+            --fixture ../../examples/pdf-extraction-quality \
+            --output ../../docs/evaluation/ocr-layout-image-fixture-adapter-runtime-pack-report.md \
+            --check
+
       - name: Check ClamAV owner runtime input discovery no-payload missing state
         working-directory: apps/api
         run: |
