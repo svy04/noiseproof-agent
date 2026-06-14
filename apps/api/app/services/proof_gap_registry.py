@@ -49,6 +49,7 @@ _GAP_ACTIONS = {
             "toy qrels-backed evaluation proves production-grade semantic search",
         ],
         "proof_routes": [
+            "docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet.md",
             "docs/evaluation/representative-live-semantic-quality-report.md",
             "docs/review/representative-live-semantic-quality-eval.md",
             "docs/evaluation/live-semantic-qrels-baseline-report.md",
@@ -60,7 +61,7 @@ _GAP_ACTIONS = {
             "docs/review/semantic-retrieval-quality-diagnostic-matrix.md",
             "docs/evaluation/retrieval-eval-report.md",
         ],
-        "recommended_next_gate": "live_embedding_backed_domain_qrels_quality_eval_v0",
+        "recommended_next_gate": "owner_runtime_live_embedding_domain_qrels_eval_v0",
     },
     "distributed_tracing": {
         "acceptable_evidence": [
@@ -158,13 +159,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
             gap_id="semantic_retrieval_quality",
             status="unproven",
             current_evidence=(
-                "representative_local_semantic_quality_eval_with_caller_provided_vectors"
+                "representative_local_semantic_quality_eval_with_caller_provided_vectors_plus_owner_runtime_domain_qrels_packet"
             ),
             claim_boundary=(
                 "representative_local_fixture_and_caller_provided_vectors_do_not_prove_production_semantic_retrieval_quality"
             ),
             next_evidence_needed=(
-                "live_embedding_backed_domain_qrels_quality_eval_with_embedding_provenance_and_pass_conditions"
+                "owner_runtime_live_embedding_domain_qrels_eval_with_embedding_provenance_and_pass_conditions"
             ),
         ),
         ProofGapOut(

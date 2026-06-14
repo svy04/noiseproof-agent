@@ -45,18 +45,19 @@ external_reviewer_feedback
 ## Semantic Retrieval Quality Example
 
 For `semantic_retrieval_quality`, the action surface keeps the gap open. After
-Phase 864, the gap has a local representative fixture covering all current
-NoiseProof information roles and source types, but the run still uses
-caller-provided vectors and does not prove production semantic retrieval
-quality:
+Phase 866, the gap has a local representative fixture covering all current
+NoiseProof information roles and source types, plus an owner-runtime packet and
+validator for a future live embedding-backed domain qrels run. The current
+accepted evidence still does not include live embedding generation and does not
+prove production semantic retrieval quality:
 
 ```text
 status -> unproven
 claim_boundary -> representative_local_fixture_and_caller_provided_vectors_do_not_prove_production_semantic_retrieval_quality
 acceptable_evidence -> run a live embedding-backed domain qrels quality evaluation beyond caller-provided fixture vectors
 blocked_claims -> semantic retrieval quality is proven
-recommended_next_gate -> live_embedding_backed_domain_qrels_quality_eval_v0
-proof_routes -> docs/evaluation/representative-live-semantic-quality-report.md; docs/evaluation/live-semantic-qrels-baseline-report.md; docs/evaluation/live-lexical-qrels-baseline-report.md; docs/evaluation/qrels-backed-semantic-quality-report.md
+recommended_next_gate -> owner_runtime_live_embedding_domain_qrels_eval_v0
+proof_routes -> docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet.md; docs/evaluation/representative-live-semantic-quality-report.md; docs/evaluation/live-semantic-qrels-baseline-report.md; docs/evaluation/live-lexical-qrels-baseline-report.md; docs/evaluation/qrels-backed-semantic-quality-report.md
 ```
 
 ## Boundary
@@ -86,5 +87,5 @@ next actual gap-reduction gate selected from this action surface. The most
 direct next product gate after Phase 864 is:
 
 ```text
-live_embedding_backed_domain_qrels_quality_eval_v0
+owner_runtime_live_embedding_domain_qrels_eval_v0
 ```

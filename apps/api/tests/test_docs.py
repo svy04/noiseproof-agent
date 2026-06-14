@@ -40918,7 +40918,7 @@ def test_proof_gap_action_surface_is_recorded_without_closing_gaps():
         "proof_routes",
         "recommended_next_gate",
         "semantic_retrieval_quality",
-        "live_embedding_backed_domain_qrels_quality_eval_v0",
+        "owner_runtime_live_embedding_domain_qrels_eval_v0",
         "semantic retrieval quality is proven",
         "action_surface_only_not_new_proof_or_gap_closure",
     ]:
@@ -41290,3 +41290,64 @@ def test_representative_live_semantic_quality_eval_is_recorded_without_productio
     )
     assert "representative local semantic quality fixture" in role_map
     assert "Check representative live semantic quality report staleness" in ci
+
+
+def test_live_embedding_domain_qrels_owner_runtime_packet_is_recorded_without_live_claim():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    proof_gap = (
+        REPO_ROOT / "docs/review/proof-gap-action-surface.md"
+    ).read_text(encoding="utf-8")
+    ci = (REPO_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+
+    for marker in [
+        "Live embedding-backed domain qrels owner-runtime eval packet v0",
+        "app.services.live_embedding_domain_qrels_harness",
+        "live embedding-backed domain qrels owner-runtime eval packet v0",
+        "live embedding-backed domain qrels owner-runtime input discovery v0",
+        "live embedding-backed domain qrels owner-runtime eval validator v0",
+        "examples/representative-semantic-retrieval-quality",
+        "owner_runtime_openai_embedding_domain_qrels",
+        "query_count -> 6",
+        "chunk_count -> 12",
+        "qrel_count -> 24",
+        "provider_call_count -> 18",
+        "owner_runtime_live_embedding_domain_qrels_eval_v0",
+    ]:
+        assert marker in content
+    assert "not live embedding generation proof" in content
+    assert "not production semantic retrieval quality evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Live embedding-backed domain qrels owner-runtime eval packet v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 866 - Live embedding-backed domain qrels owner-runtime eval packet v0"
+        in goal
+    )
+    assert (
+        "Phase 866 adds live embedding-backed domain qrels owner-runtime eval packet v0"
+        in runbook
+    )
+    assert "Latest Live Embedding Domain Qrels Owner-runtime Packet" in portfolio
+    assert "Latest Live Embedding Domain Qrels Owner-runtime Packet" in application_ready
+    assert "live-embedding-domain-qrels-owner-runtime-eval-packet.md" in proof_gap
+    assert "owner_runtime_live_embedding_domain_qrels_eval_v0" in proof_gap
+    assert "Check live embedding domain qrels owner-runtime input discovery" in ci

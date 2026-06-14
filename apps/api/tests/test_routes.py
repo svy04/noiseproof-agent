@@ -6202,7 +6202,7 @@ def test_ops_summary_and_dashboard_surface_current_proof_gap_registry():
     assert by_id["hosted_deployment"]["status"] == "not_implemented"
     assert by_id["external_reviewer_feedback"]["status"] == "pending"
     assert by_id["semantic_retrieval_quality"]["current_evidence"] == (
-        "representative_local_semantic_quality_eval_with_caller_provided_vectors"
+        "representative_local_semantic_quality_eval_with_caller_provided_vectors_plus_owner_runtime_domain_qrels_packet"
     )
     assert by_id["semantic_retrieval_quality"]["claim_boundary"] == (
         "representative_local_fixture_and_caller_provided_vectors_do_not_prove_production_semantic_retrieval_quality"
@@ -6245,7 +6245,7 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
     assert semantic_gap["claim_boundary"] == (
         "representative_local_fixture_and_caller_provided_vectors_do_not_prove_production_semantic_retrieval_quality"
     )
-    assert "live_embedding_backed_domain_qrels_quality_eval" in semantic_gap[
+    assert "owner_runtime_live_embedding_domain_qrels_eval" in semantic_gap[
         "next_evidence_needed"
     ]
     assert (
@@ -6265,6 +6265,10 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
     assert "docs/evaluation/representative-live-semantic-quality-report.md" in semantic_gap[
         "proof_routes"
     ]
+    assert (
+        "docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet.md"
+        in semantic_gap["proof_routes"]
+    )
 
     detail = client.get("/ops/proof-gaps/semantic_retrieval_quality")
 
@@ -6276,7 +6280,7 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
         "action_surface_only_not_new_proof_or_gap_closure"
     )
     assert detail_body["recommended_next_gate"] == (
-        "live_embedding_backed_domain_qrels_quality_eval_v0"
+        "owner_runtime_live_embedding_domain_qrels_eval_v0"
     )
     assert detail_body["gap_closure_allowed"] is False
 

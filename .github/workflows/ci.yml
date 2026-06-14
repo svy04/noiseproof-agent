@@ -141,6 +141,30 @@ jobs:
           PY
           rm embedding-provider-input-discovery.json
 
+      - name: Check live embedding domain qrels owner-runtime input discovery
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.live_embedding_domain_qrels_harness \
+            --discover-owner-runtime-input > live-embedding-domain-qrels-input-discovery.json
+          cat live-embedding-domain-qrels-input-discovery.json
+          python - live-embedding-domain-qrels-input-discovery.json <<'PY'
+          import json
+          import sys
+
+          payload = json.load(open(sys.argv[1], encoding="utf-8"))
+          assert payload["phase_marker"] == "live embedding-backed domain qrels owner-runtime input discovery v0"
+          assert payload["owner_runtime_input_status"] == "missing_openai_api_key"
+          assert payload["openai_api_key_present"] is False
+          assert payload["openai_api_key_printed"] is False
+          assert payload["opt_in_enabled"] is False
+          assert payload["api_calls_attempted"] is False
+          assert payload["secret_logged"] is False
+          assert payload["secret_committed_to_repo"] is False
+          assert payload["non_claims"]["live_embedding_generation_proof"] is False
+          assert payload["non_claims"]["production_semantic_quality"] is False
+          PY
+          rm live-embedding-domain-qrels-input-discovery.json
+
       - name: Run API smoke tests
         working-directory: apps/api
         run: uv run pytest -q

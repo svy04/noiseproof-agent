@@ -43,19 +43,16 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Current navigation overlay as of Phase 865:
+Current navigation overlay as of Phase 866:
 
 ```text
-latest_product_gate: Representative live semantic quality eval v0
-latest_product_artifact: docs/review/representative-live-semantic-quality-eval.md
+latest_product_gate: Live embedding-backed domain qrels owner-runtime eval packet v0
+latest_product_artifact: docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet.md
 latest_eval_report: docs/evaluation/representative-live-semantic-quality-report.md
 fixture_root: examples/representative-semantic-retrieval-quality/
-live_run_source: representative_caller_provided_live_semantic_cosine
-retrieval_strategy: semantic-cosine
-ranking_boundary: exact_cosine_caller_provided_query_vector
-evaluator: packages/ingestion/retrieval/representative_semantic_quality.py
-command: app.services.representative_live_semantic_quality_command
-ci_check: Check representative live semantic quality report staleness
+live_run_source: owner_runtime_openai_embedding_domain_qrels
+command: app.services.live_embedding_domain_qrels_harness
+ci_check: Check live embedding domain qrels owner-runtime input discovery
 latest_remote_verification_gate: Representative live semantic quality eval remote verification v0
 latest_remote_verification_artifact: docs/review/representative-live-semantic-quality-eval-remote-verification.md
 latest_verified_head_sha: 35318bb044bbdc980172f6585015202cfead131d
@@ -69,16 +66,20 @@ source_type_coverage_ratio: 1.0
 query_count: 6
 chunk_count: 12
 qrel_count: 24
+provider_call_count: 18
 judged_coverage_at_k: 1.0
 unjudged_retrieved_count_at_k: 0
 semantic_quality_claim_gate: blocked
 semantic_retrieval_quality.status: unproven
-semantic_retrieval_quality.current_evidence: representative_local_semantic_quality_eval_with_caller_provided_vectors
-semantic_retrieval_quality.recommended_next_gate: live_embedding_backed_domain_qrels_quality_eval_v0
+semantic_retrieval_quality.current_evidence: representative_local_semantic_quality_eval_with_caller_provided_vectors_plus_owner_runtime_domain_qrels_packet
+semantic_retrieval_quality.recommended_next_gate: owner_runtime_live_embedding_domain_qrels_eval_v0
+owner_runtime_input_status: missing_openai_api_key
+openai_api_key_present: false
+openai_api_key_printed: false
 external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
 production_readiness: not_claimed
 product_complete: false
-boundary: local representative fixture with caller-provided vectors only; not production semantic retrieval quality evidence; not live embedding generation; not a public benchmark result; not hosted deployment evidence; not external reviewer feedback; not product-complete
+boundary: owner-runtime packet and validator only; not live embedding generation proof; not production semantic retrieval quality evidence; not a public benchmark result; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
 Current navigation overlay as of Phase 859:
@@ -34303,6 +34304,76 @@ Boundaries:
 - remote workflow verification only
 - not production semantic retrieval quality evidence
 - not live embedding generation
+- not a public benchmark result
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 866 - Live embedding-backed domain qrels owner-runtime eval packet v0
+
+Status: implemented.
+
+Purpose: prepare the next semantic retrieval quality gate by adding a
+no-secret/no-call owner-runtime packet, input discovery, and metadata-only
+validator for a future live embedding-backed domain qrels evaluation.
+
+Artifacts:
+
+- `apps/api/app/services/live_embedding_domain_qrels_harness.py`
+- `apps/api/tests/test_live_embedding_domain_qrels_harness.py`
+- `docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet.md`
+- `.github/workflows/ci.yml`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `docs/review/proof-gap-action-surface.md`
+- `apps/api/app/services/proof_gap_registry.py`
+- `apps/api/tests/test_docs.py`
+- `apps/api/tests/test_routes.py`
+
+Packet markers:
+
+```text
+phase_marker -> live embedding-backed domain qrels owner-runtime eval packet v0
+command -> app.services.live_embedding_domain_qrels_harness
+fixture_root -> examples/representative-semantic-retrieval-quality
+run_source -> owner_runtime_openai_embedding_domain_qrels
+query_count -> 6
+chunk_count -> 12
+qrel_count -> 24
+provider_call_count -> 18
+query_embedding_source -> owner_runtime_provider_generated
+chunk_embedding_source -> owner_runtime_provider_generated
+can_claim_production_semantic_quality -> false
+```
+
+Current local discovery:
+
+```text
+phase_marker -> live embedding-backed domain qrels owner-runtime input discovery v0
+owner_runtime_input_status -> missing_openai_api_key
+openai_api_key_present -> false
+openai_api_key_printed -> false
+opt_in_enabled -> false
+api_calls_attempted -> false
+```
+
+Updated proof gap state:
+
+```text
+semantic_retrieval_quality.status -> unproven
+semantic_retrieval_quality.recommended_next_gate -> owner_runtime_live_embedding_domain_qrels_eval_v0
+```
+
+Boundaries:
+
+- owner-runtime packet, discovery, and validator only
+- not live embedding generation proof
+- not production semantic retrieval quality evidence
 - not a public benchmark result
 - not hosted deployment evidence
 - not external reviewer feedback

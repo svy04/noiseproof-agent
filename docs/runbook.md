@@ -11867,3 +11867,15 @@ uv run pytest tests/test_semantic_quality_qrels_eval.py -q
 ```
 
 This is qrels-backed toy fixture evaluation only, not semantic retrieval quality evidence, embedding generation, benchmark evidence, model comparison, live vector search quality evidence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete.
+
+Phase 866 adds live embedding-backed domain qrels owner-runtime eval packet v0: `docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet.md` records the no-secret/no-call packet, input discovery, report contract, and metadata-only validator exposed by `app.services.live_embedding_domain_qrels_harness`. CI runs `Check live embedding domain qrels owner-runtime input discovery` and expects `owner_runtime_input_status -> missing_openai_api_key`, `openai_api_key_printed -> false`, and `api_calls_attempted -> false`. Reproduce locally with:
+
+```powershell
+cd apps/api
+uv run python -m app.services.live_embedding_domain_qrels_harness --print-owner-runtime-eval-packet
+uv run python -m app.services.live_embedding_domain_qrels_harness --discover-owner-runtime-input
+uv run python -m app.services.live_embedding_domain_qrels_harness --print-owner-runtime-eval-report-contract
+uv run pytest tests/test_live_embedding_domain_qrels_harness.py -q
+```
+
+This is an owner-runtime packet, discovery, and validator gate only, not live embedding generation proof, production semantic retrieval quality evidence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete.
