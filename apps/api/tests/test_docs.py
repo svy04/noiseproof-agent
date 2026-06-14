@@ -40666,3 +40666,43 @@ def test_external_reader_proof_path_local_otel_runtime_route_refresh_is_recorded
         assert "span_export_enabled=true" in surfaced
         assert "not distributed tracing" in surfaced
         assert "not hosted observability" in surfaced
+
+
+def test_external_reader_proof_path_local_otel_runtime_route_refresh_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External-reader Proof Path Local OTel Span Export Runtime Route Refresh Remote Verification" in content
+    assert "external-reader proof path local OTel span export runtime route refresh remote verification v0" in content
+    assert "e749dd82a3f9c46a2a9ccac7a0ed6cf198627344" in content
+    assert "CI run `27488009359`: success" in content
+    assert "CI job_id -> 81247794218" in content
+    assert "External Feedback Screen run `27488009357`: success" in content
+    assert "External Feedback Screen job_id -> 81247794249" in content
+    assert "Check semantic retrieval quality report staleness -> success" in content
+    assert "Check PDF extraction quality report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "not the route refresh itself" in content
+    assert "not new runtime evidence" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not external reviewer feedback" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "External-reader proof path local OTel span export runtime route refresh remote verification v0: implemented" in readme
+    assert "Phase 853 - External-reader Proof Path Local OTel Span Export Runtime Route Refresh Remote Verification v0" in goal
+    assert "Phase 853 adds external-reader proof path local OTel span export runtime route refresh remote verification v0" in runbook
+    assert "external-reader proof path local OTel span export runtime route refresh remote verification" in portfolio

@@ -43,6 +43,27 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 853:
+
+```text
+latest_reviewer_route_remote_verification_gate: External-reader proof path local OTel span export runtime route refresh remote verification v0
+latest_reviewer_route_remote_verification_artifact: docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh-remote-verification.md
+latest_verified_head_sha: e749dd82a3f9c46a2a9ccac7a0ed6cf198627344
+latest_ci_run: 27488009359
+latest_ci_job_id: 81247794218
+latest_external_feedback_screen_run: 27488009357
+latest_external_feedback_screen_job_id: 81247794249
+verified_route_artifact: docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh.md
+distributed_tracing: not_claimed
+external_collector: not_implemented
+hosted_observability: not_implemented
+hosted_deployment_evidence: not_implemented
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the route refresh itself; not new runtime evidence; not distributed tracing; not hosted observability; not external reviewer feedback; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 852:
 
 ```text
@@ -33400,6 +33421,46 @@ local_in_memory_otel_span_export_not_distributed_tracing
 Boundaries:
 
 - reviewer route hygiene only
+- not new runtime evidence
+- not distributed tracing
+- not hosted observability
+- not external collector integration
+- not OpenTelemetry Collector deployment
+- not production monitoring
+- not cross-service trace proof
+- not hosted deployment evidence
+- not external reviewer feedback
+- not product-complete
+
+### Phase 853 - External-reader Proof Path Local OTel Span Export Runtime Route Refresh Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions success for the Phase 852 external-reader local OTel route refresh after it was pushed.
+
+Artifacts:
+
+- `docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Remote markers:
+
+```text
+head_sha: e749dd82a3f9c46a2a9ccac7a0ed6cf198627344
+CI run: 27488009359 success
+CI job_id: 81247794218
+External Feedback Screen run: 27488009357 success
+External Feedback Screen job_id: 81247794249
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the route refresh itself
 - not new runtime evidence
 - not distributed tracing
 - not hosted observability
