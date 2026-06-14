@@ -129,9 +129,15 @@ def test_multi_real_world_pdf_parse_observation_docs_and_ci_are_wired():
     review_path = (
         REPO_ROOT / "docs/review/multi-real-world-pdf-parse-observation.md"
     )
+    remote_verification_path = (
+        REPO_ROOT
+        / "docs/review/multi-real-world-pdf-parse-observation-remote-verification.md"
+    )
     assert review_path.is_file()
+    assert remote_verification_path.is_file()
 
     review = review_path.read_text(encoding="utf-8")
+    remote_verification = remote_verification_path.read_text(encoding="utf-8")
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
@@ -149,11 +155,26 @@ def test_multi_real_world_pdf_parse_observation_docs_and_ci_are_wired():
     assert "Multi Real-world PDF Parse Observation Matrix" in review
     assert "observed_fixture_count -> 3" in review
     assert "not robust PDF extraction evidence" in review
+    assert "verified_head_sha -> a37fe32f0f46c5d04008ea425a053966f063950c" in remote_verification
+    assert "CI run `27496475781`: success" in remote_verification
+    assert "CI job_id -> 81271370552" in remote_verification
+    assert "External Feedback Screen run `27496475772`: success" in remote_verification
+    assert "External Feedback Screen job_id -> 81271370589" in remote_verification
+    assert "remote workflow verification only" in remote_verification
+    assert "not robust PDF extraction evidence" in remote_verification
     assert "Multi real-world PDF parse observation matrix v0: implemented" in readme
+    assert "Multi real-world PDF parse observation matrix remote verification v0: implemented" in readme
     assert "Phase 891 - Multi Real-world PDF Parse Observation Matrix v0" in goal
+    assert "Phase 892 - Multi Real-world PDF Parse Observation Matrix Remote Verification v0" in goal
     assert "Phase 891 adds multi real-world PDF parse observation matrix v0" in runbook
+    assert "Phase 892 adds multi real-world PDF parse observation matrix remote verification v0" in runbook
     assert "docs/review/multi-real-world-pdf-parse-observation.md" in portfolio
+    assert (
+        "docs/review/multi-real-world-pdf-parse-observation-remote-verification.md"
+        in portfolio
+    )
     assert "Multi Real-world PDF Parse Observation Matrix" in application_ready
+    assert "Multi Real-world PDF Parse Observation Matrix Remote Verification" in application_ready
     assert "Check multi real-world PDF parse observation report staleness" in ci
     assert "multi_real_world_pdf_parse_observation_matrix_v0" in proof_gap_registry
     assert "multi_real_world_pdf_parse_observation_matrix_remote_verification_v0" in proof_gap_registry

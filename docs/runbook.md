@@ -2,6 +2,8 @@
 
 ## Current Status
 
+Phase 892 adds multi real-world PDF parse observation matrix remote verification v0: `docs/review/multi-real-world-pdf-parse-observation-remote-verification.md` records that head `a37fe32f0f46c5d04008ea425a053966f063950c` passed CI run `27496475781` job `81271370552` and External Feedback Screen run `27496475772` job `81271370589`, including `Check multi real-world PDF parse observation report staleness` and `Run API smoke tests`. This is remote workflow verification only, not the owner-runtime parse observations themselves, not robust PDF extraction evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Phase 891 adds multi real-world PDF parse observation matrix v0: `docs/review/multi-real-world-pdf-parse-observation.md` records three BEA real-world PDF PyMuPDF digital-text parse observations, with sanitized metadata at `examples/pdf-extraction-quality/multi-real-world-pdf-parse-observations.json` and a regenerated report at `docs/evaluation/multi-real-world-pdf-parse-observation-report.md`. The report records `observed_fixture_count -> 3`, `total_page_count -> 95`, `total_text_char_count -> 217555`, `total_table_candidate_count -> 43`, `table_extraction_performed -> false`, `ocr_calls_attempted -> false`, `binary_files_committed -> false`, `raw_extracted_text_committed -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> multi_real_world_pdf_parse_observation_matrix_remote_verification_v0`. CI checks it with `Check multi real-world PDF parse observation report staleness`. Reproduce locally with:
 
 ```powershell

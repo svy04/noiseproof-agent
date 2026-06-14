@@ -73,6 +73,21 @@ product_complete: false
 boundary: three real-world BEA PDF digital-text observations only; no external PDF binaries committed; no download cache committed; no raw extracted text committed; not robust PDF extraction evidence; not arbitrary market PDF parsing evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
+Current remote verification overlay as of Phase 892:
+
+```text
+latest_remote_verification_gate: Multi Real-world PDF Parse Observation Matrix Remote Verification v0
+latest_remote_verification_artifact: docs/review/multi-real-world-pdf-parse-observation-remote-verification.md
+latest_verified_head_sha: a37fe32f0f46c5d04008ea425a053966f063950c
+latest_ci_run: 27496475781
+latest_ci_job_id: 81271370552
+latest_external_feedback_screen_run: 27496475772
+latest_external_feedback_screen_job_id: 81271370589
+ci_step: Check multi real-world PDF parse observation report staleness -> success
+ci_step: Run API smoke tests -> success
+boundary: remote workflow verification only; not the owner-runtime parse observations themselves; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 889:
 
 ```text
@@ -140,6 +155,32 @@ Next recommended evidence gate:
 ```text
 multi_real_world_pdf_parse_observation_matrix_remote_verification_v0
 ```
+
+### Phase 892 - Multi Real-world PDF Parse Observation Matrix Remote Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record that the multi real-world PDF parse observation matrix gate passed remote GitHub Actions verification
+```
+
+Implemented:
+
+```text
+multi real-world PDF parse observation matrix remote verification v0
+docs/review/multi-real-world-pdf-parse-observation-remote-verification.md
+verified_head_sha: a37fe32f0f46c5d04008ea425a053966f063950c
+CI run: 27496475781
+CI job_id: 81271370552
+External Feedback Screen run: 27496475772
+External Feedback Screen job_id: 81271370589
+CI step: Check multi real-world PDF parse observation report staleness -> success
+CI step: Run API smoke tests -> success
+```
+
+Phase 892 is remote workflow verification only. It adds no owner-runtime PDF download, no parser behavior, no OCR, no table extraction, no hosted deployment evidence, no external reviewer feedback, and no product-complete claim.
 
 Current navigation overlay as of Phase 887:
 
