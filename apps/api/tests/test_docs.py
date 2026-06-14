@@ -23162,6 +23162,59 @@ def test_missing_pdf_runtime_observation_pack_v0_is_recorded_without_robust_clai
     assert "Check missing PDF runtime observation pack report staleness" in ci
 
 
+def test_missing_pdf_runtime_observation_pack_remote_verification_is_recorded():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/missing-pdf-runtime-observation-pack-remote-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Missing PDF Runtime Observation Pack Remote Verification" in content
+    assert "missing PDF runtime observation pack remote verification v0" in content
+    assert "2b0d82189aaa9fb49fa606f8ed3d2daedc033bd6" in content
+    assert "CI run `27492295218`: success" in content
+    assert "CI job_id -> 81259657155" in content
+    assert "External Feedback Screen run `27492295232`: success" in content
+    assert "External Feedback Screen job_id -> 81259657170" in content
+    assert "Check missing PDF runtime observation pack report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Missing PDF runtime observation pack remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 873 - Missing PDF Runtime Observation Pack Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 873 adds missing PDF runtime observation pack remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/missing-pdf-runtime-observation-pack-remote-verification.md"
+        in portfolio
+    )
+    assert (
+        "Missing PDF Runtime Observation Pack Remote Verification"
+        in application_ready
+    )
+
+
 def test_external_review_issue_body_shortlist_refresh_records_live_issue_edit():
     refresh_path = REPO_ROOT / "docs/review/external-review-issue-body-shortlist-refresh.md"
     assert refresh_path.is_file()

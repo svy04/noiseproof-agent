@@ -68,6 +68,21 @@ product_complete: false
 boundary: missing-runtime-observation pack only; not robust PDF extraction evidence; not OCR evidence; not image/chart interpretation evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
+Current remote verification overlay as of Phase 873:
+
+```text
+latest_remote_verification_gate: Missing PDF Runtime Observation Pack Remote Verification v0
+latest_remote_verification_artifact: docs/review/missing-pdf-runtime-observation-pack-remote-verification.md
+latest_verified_head_sha: 2b0d82189aaa9fb49fa606f8ed3d2daedc033bd6
+latest_ci_run: 27492295218
+latest_ci_job_id: 81259657155
+latest_external_feedback_screen_run: 27492295232
+latest_external_feedback_screen_job_id: 81259657170
+ci_step: Check missing PDF runtime observation pack report staleness -> success
+ci_step: Run API smoke tests -> success
+boundary: remote workflow verification only; not robust PDF extraction evidence; not OCR evidence; not image/chart interpretation evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 870:
 
 ```text
@@ -34790,6 +34805,60 @@ robust_pdf_extraction.recommended_next_gate -> ocr_layout_image_fixture_adapter_
 Boundaries:
 
 - missing-runtime-observation pack only
+- not robust PDF extraction evidence
+- not OCR evidence
+- not image/chart interpretation evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 873 - Missing PDF Runtime Observation Pack Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote workflow verification for the Phase 872 missing PDF
+runtime observation pack after it was pushed to `main`.
+
+Artifacts:
+
+- `docs/review/missing-pdf-runtime-observation-pack-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_docs.py`
+
+Remote verification markers:
+
+```text
+verified_head_sha -> 2b0d82189aaa9fb49fa606f8ed3d2daedc033bd6
+branch -> main
+commit -> feat: add missing pdf runtime observation pack
+ci_run -> 27492295218
+ci_job_id -> 81259657155
+ci_job_name -> api-smoke
+ci_conclusion -> success
+external_feedback_screen_run -> 27492295232
+external_feedback_screen_job_id -> 81259657170
+external_feedback_screen_job_name -> screen
+external_feedback_screen_conclusion -> success
+```
+
+Remote CI step evidence included:
+
+```text
+Compile API and local packages -> success
+Check missing PDF runtime observation pack report staleness -> success
+Run API smoke tests -> success
+```
+
+Boundaries:
+
+- remote workflow verification only
 - not robust PDF extraction evidence
 - not OCR evidence
 - not image/chart interpretation evidence

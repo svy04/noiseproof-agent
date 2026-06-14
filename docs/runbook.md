@@ -12,6 +12,8 @@ uv run pytest tests/test_missing_pdf_runtime_observation_pack.py -q
 
 This is a missing-runtime-observation pack only, not robust PDF extraction evidence, OCR evidence, image/chart interpretation evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
 
+Phase 873 adds missing PDF runtime observation pack remote verification v0: `docs/review/missing-pdf-runtime-observation-pack-remote-verification.md` records that head `2b0d82189aaa9fb49fa606f8ed3d2daedc033bd6` passed CI run `27492295218` job `81259657155` and External Feedback Screen run `27492295232` job `81259657170`, including `Check missing PDF runtime observation pack report staleness` and `Run API smoke tests`. This is remote workflow verification only, not robust PDF extraction evidence, OCR evidence, image/chart interpretation evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Phase 870 adds multi-fixture PDF extraction quality eval v0: `docs/review/multi-fixture-pdf-extraction-quality-eval.md` records that the full PDF fixture matrix now regenerates `docs/evaluation/multi-fixture-pdf-extraction-quality-report.md` through `app.services.multi_fixture_pdf_extraction_quality_command`. The report records `fixture_count -> 8`, `observed_fixture_count -> 4`, `gap_fixture_count -> 4`, missing runtime observations for `scanned_image_pdf`, `image_heavy_pdf`, `multi_column_layout_pdf`, and `no_extractable_text_pdf`, and `can_claim_robust_pdf_extraction -> false`. CI checks it with `Check multi-fixture PDF extraction quality report staleness`. Reproduce locally with:
 
 ```powershell
