@@ -65,19 +65,19 @@ product_complete: false
 boundary: harness and missing-input proof only; not OCR evidence until owner runtime succeeds; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
-Current remote verification overlay as of Phase 877:
+Current remote verification overlay as of Phase 879:
 
 ```text
-latest_remote_verification_gate: Committed OCR Layout Image Binary Fixture Provenance Remote Verification v0
-latest_remote_verification_artifact: docs/review/committed-ocr-layout-image-binary-fixture-provenance-remote-verification.md
-latest_verified_head_sha: e151dba810aaa7af4897727dd1a88415685cf632
-latest_ci_run: 27493138288
-latest_ci_job_id: 81262073564
-latest_external_feedback_screen_run: 27493138291
-latest_external_feedback_screen_job_id: 81262073535
-ci_step: Check committed OCR layout image binary fixture provenance report staleness -> success
+latest_remote_verification_gate: Opt-in OCR Adapter Runtime Smoke Remote Verification v0
+latest_remote_verification_artifact: docs/review/opt-in-ocr-adapter-runtime-smoke-remote-verification.md
+latest_verified_head_sha: 677a5b21803a506c3212ba91aa8046473d530034
+latest_ci_run: 27493543132
+latest_ci_job_id: 81263271845
+latest_external_feedback_screen_run: 27493543127
+latest_external_feedback_screen_job_id: 81263271802
+ci_step: Check opt-in OCR adapter runtime input discovery missing state -> success
 ci_step: Run API smoke tests -> success
-boundary: remote workflow verification only; not the product gate itself; not robust PDF extraction evidence; not OCR evidence; not image/chart interpretation evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+boundary: remote workflow verification only; not the product gate itself; not OCR evidence; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
 Current navigation overlay as of Phase 870:
@@ -33053,6 +33053,61 @@ Boundaries:
 
 - harness and missing-input proof only
 - not OCR evidence until owner runtime succeeds
+- not robust PDF extraction evidence
+- not image/chart interpretation evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 879 - Opt-in OCR Adapter Runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote workflow verification for the Phase 878 opt-in OCR
+adapter runtime smoke harness after it was pushed to `main`.
+
+Artifacts:
+
+- `docs/review/opt-in-ocr-adapter-runtime-smoke-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_opt_in_ocr_adapter_runtime_smoke.py`
+
+Remote verification markers:
+
+```text
+verified_head_sha -> 677a5b21803a506c3212ba91aa8046473d530034
+branch -> main
+commit -> feat: add opt-in ocr adapter runtime smoke harness
+ci_run -> 27493543132
+ci_job_id -> 81263271845
+ci_job_name -> api-smoke
+ci_conclusion -> success
+external_feedback_screen_run -> 27493543127
+external_feedback_screen_job_id -> 81263271802
+external_feedback_screen_job_name -> screen
+external_feedback_screen_conclusion -> success
+```
+
+Remote CI step evidence included:
+
+```text
+Compile API and local packages -> success
+Check opt-in OCR adapter runtime input discovery missing state -> success
+Run API smoke tests -> success
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the product gate itself
+- not OCR evidence
 - not robust PDF extraction evidence
 - not image/chart interpretation evidence
 - not layout fidelity evidence

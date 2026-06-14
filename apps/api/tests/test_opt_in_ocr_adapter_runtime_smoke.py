@@ -258,3 +258,47 @@ def test_opt_in_ocr_runtime_smoke_docs_and_ci_are_wired():
         in proof_gap_registry
     )
     assert "owner_runtime_pymupdf_ocr_smoke_with_tessdata_v0" in proof_gap_registry
+
+
+def test_opt_in_ocr_runtime_smoke_remote_verification_is_recorded():
+    remote_path = (
+        REPO_ROOT / "docs/review/opt-in-ocr-adapter-runtime-smoke-remote-verification.md"
+    )
+    assert remote_path.is_file()
+
+    remote = remote_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Opt-in OCR Adapter Runtime Smoke Remote Verification" in remote
+    assert "677a5b21803a506c3212ba91aa8046473d530034" in remote
+    assert "ci_run -> 27493543132" in remote
+    assert "ci_job_id -> 81263271845" in remote
+    assert "external_feedback_screen_run -> 27493543127" in remote
+    assert "external_feedback_screen_job_id -> 81263271802" in remote
+    assert "Check opt-in OCR adapter runtime input discovery missing state -> success" in remote
+    assert "not OCR evidence" in remote
+    assert (
+        "Opt-in OCR adapter runtime smoke remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 879 - Opt-in OCR Adapter Runtime Smoke Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 879 adds opt-in OCR adapter runtime smoke remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/opt-in-ocr-adapter-runtime-smoke-remote-verification.md"
+        in portfolio
+    )
+    assert "Opt-in OCR Adapter Runtime Smoke Remote Verification" in application_ready
