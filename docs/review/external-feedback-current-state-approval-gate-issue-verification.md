@@ -65,7 +65,7 @@ gh issue view 1 --repo svy04/noiseproof-agent --json title,state,url,body,commen
 The payload and screening artifacts were written as temporary UTF-8 files before running the existing local screeners:
 
 ```powershell
-$env:PYTHONPATH='C:\Users\admin\Desktop\noiseproof-agent'
+$env:PYTHONPATH='<repo-root>'
 uv run python -m packages.review.external_feedback_cli --input <tmp-issue-json> --repository-owner svy04
 uv run python -m packages.review.external_feedback_acceptance_cli --input <tmp-screen-json>
 ```

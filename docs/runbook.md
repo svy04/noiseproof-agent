@@ -7856,7 +7856,7 @@ list_chunk_embeddings
 Smoke check:
 
 ```powershell
-cd C:\Users\admin\Desktop\noiseproof-agent\apps\api
+cd <repo-root>\apps\api
 uv run pytest tests/test_db.py -q -k "chunk_embedding"
 ```
 
@@ -7923,7 +7923,7 @@ GET /chunks/{chunk_id}/embeddings
 Local test:
 
 ```powershell
-cd C:\Users\admin\Desktop\noiseproof-agent\apps\api
+cd <repo-root>\apps\api
 uv run pytest tests/test_routes.py -q -k "chunk_embedding_endpoint"
 ```
 

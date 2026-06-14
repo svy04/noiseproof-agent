@@ -40,7 +40,7 @@ The command does not include the test signature payload in this artifact.
 The runtime report path was outside the repository:
 
 ```text
-report_path: C:\Users\admin\AppData\Local\Temp\noiseproof-owner-runtime-smoke-report-20260605030309.json
+report_path: <runtime-report-path-outside-repo>
 report_inside_repo: false
 ```
 
