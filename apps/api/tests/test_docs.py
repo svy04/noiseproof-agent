@@ -41055,8 +41055,80 @@ def test_live_lexical_qrels_baseline_eval_is_recorded_without_quality_claim():
     assert "Phase 860 adds live lexical qrels baseline eval v0" in runbook
     assert "Latest Live Lexical Qrels Baseline Eval" in portfolio
     assert "Live Lexical Qrels Baseline Eval" in application_ready
-    assert "live_lexical_baseline_and_toy_qrels_do_not_prove_semantic_retrieval_quality" in proof_gap
+    assert "docs/evaluation/live-lexical-qrels-baseline-report.md" in proof_gap
     assert "Check live lexical qrels baseline report staleness" in ci
+
+
+def test_live_semantic_qrels_baseline_eval_is_recorded_without_quality_claim():
+    review_path = REPO_ROOT / "docs/review/live-semantic-qrels-baseline-eval.md"
+    report_path = REPO_ROOT / "docs/evaluation/live-semantic-qrels-baseline-report.md"
+    assert review_path.is_file()
+    assert report_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    report = report_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    proof_gap = (
+        REPO_ROOT / "docs/review/proof-gap-action-surface.md"
+    ).read_text(encoding="utf-8")
+    role_map = (
+        REPO_ROOT / "docs/application/braincrew-role-map.md"
+    ).read_text(encoding="utf-8")
+    ci = (REPO_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+
+    for marker in [
+        "Live Semantic Qrels Baseline Eval",
+        "live semantic qrels baseline v0",
+        "caller_provided_live_semantic_cosine",
+        "semantic-cosine",
+        "exact_cosine_caller_provided_query_vector",
+        "docs/evaluation/live-semantic-qrels-baseline-report.md",
+        "packages/ingestion/retrieval/live_semantic_qrels.py",
+        "app.services.live_semantic_qrels_baseline_command",
+        "Hit@k -> 1.0",
+        "Recall@k -> 0.75",
+        "MRR@k -> 1.0",
+        "nDCG@k -> 0.7296",
+        "judged_coverage_at_k -> 0.75",
+        "unjudged_retrieved_count_at_k -> 2",
+        "missing_embedding_chunk_ids -> chunk-missing-source",
+        "live_semantic_qrels_baseline_quality_claim_blocked",
+        "representative_live_semantic_retrieval_quality_eval_v0",
+    ]:
+        assert marker in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not live embedding generation" in content
+    assert "not representative retrieval evaluation" in content
+    assert "not a benchmark result" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "# Live Semantic Qrels Baseline Eval" in report
+    assert "run_source: `caller_provided_live_semantic_cosine`" in report
+    assert "judged_coverage_at_k | 0.75" in report
+    assert "unjudged_retrieved_count_at_k | 2" in report
+    assert "caller_provided_embedding_boundary" in report
+    assert "This is not semantic retrieval quality evidence." in report
+
+    assert "Live semantic qrels baseline eval v0: implemented" in readme
+    assert "Phase 862 - Live semantic qrels baseline eval v0" in goal
+    assert "Phase 862 adds live semantic qrels baseline eval v0" in runbook
+    assert "Latest Live Semantic Qrels Baseline Eval" in portfolio
+    assert "Latest Live Semantic Qrels Baseline Eval" in application_ready
+    assert (
+        "caller_provided_live_semantic_baseline_and_toy_qrels_do_not_prove_semantic_retrieval_quality"
+        in proof_gap
+    )
+    assert "caller-provided live semantic qrels baseline" in role_map
+    assert "Check live semantic qrels baseline report staleness" in ci
 
 
 def test_live_lexical_qrels_baseline_eval_remote_verification_is_recorded():
