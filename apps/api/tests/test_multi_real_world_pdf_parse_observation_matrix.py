@@ -220,3 +220,42 @@ def test_multi_real_world_pdf_parse_observation_matrix_reviewer_surfaces_route_t
     assert "route hygiene only" in route_refresh
     assert "not a live issue body edit" in route_refresh
     assert "Phase 893" in (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+
+
+def test_multi_real_world_pdf_parse_observation_matrix_route_refresh_remote_verification_is_recorded():
+    remote_path = (
+        REPO_ROOT
+        / "docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh-remote-verification.md"
+    )
+    assert remote_path.is_file()
+
+    remote = remote_path.read_text(encoding="utf-8")
+    expected_markers = [
+        "External Reviewer Surfaces Multi Real-world PDF Parse Observation Matrix Route Refresh Remote Verification",
+        "9952bbb9f14c60a7c5510fb50af49b03f485ca80",
+        "CI run `27496923203`: success",
+        "CI job_id -> 81272609344",
+        "External Feedback Screen run `27496923199`: success",
+        "External Feedback Screen job_id -> 81272609334",
+        "remote workflow verification only",
+        "not the route refresh itself",
+        "not robust PDF extraction evidence",
+        "not hosted deployment evidence",
+        "not external reviewer feedback",
+        "not product-complete",
+    ]
+    for marker in expected_markers:
+        assert marker in remote
+
+    for path in [
+        "README.md",
+        "docs/GOAL.md",
+        "docs/runbook.md",
+        "docs/application/portfolio-index.md",
+        "docs/review/application-ready-review.md",
+    ]:
+        content = (REPO_ROOT / path).read_text(encoding="utf-8")
+        assert (
+            "docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh-remote-verification.md"
+            in content
+        ), path

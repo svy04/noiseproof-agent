@@ -102,6 +102,19 @@ latest_external_feedback_screen_run: 27496475772
 boundary: route hygiene only; not a live issue body edit; not new runtime evidence; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
+Current reviewer-route remote verification overlay as of Phase 894:
+
+```text
+latest_route_remote_verification_gate: External Reviewer Surfaces Multi Real-world PDF Parse Observation Matrix Route Refresh Remote Verification v0
+latest_route_remote_verification_artifact: docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh-remote-verification.md
+latest_verified_head_sha: 9952bbb9f14c60a7c5510fb50af49b03f485ca80
+latest_ci_run: 27496923203
+latest_ci_job_id: 81272609344
+latest_external_feedback_screen_run: 27496923199
+latest_external_feedback_screen_job_id: 81272609334
+boundary: remote workflow verification only; not the route refresh itself; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 889:
 
 ```text
@@ -224,6 +237,33 @@ External Feedback Screen run -> 27496475772
 ```
 
 Phase 893 is route hygiene only. It adds no parser behavior, no new PDF observations, no remote runtime evidence, no OCR, no table extraction, no layout fidelity claim, no live issue body edit, no hosted deployment evidence, no external reviewer feedback, and no product-complete claim.
+
+### Phase 894 - External Reviewer Surfaces Multi Real-world PDF Parse Observation Matrix Route Refresh Remote Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record that the external reviewer surfaces multi real-world PDF parse observation matrix route refresh passed remote GitHub Actions verification
+```
+
+Implemented:
+
+```text
+external reviewer surfaces multi real-world PDF parse observation matrix route refresh remote verification v0
+docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh-remote-verification.md
+verified_head_sha: 9952bbb9f14c60a7c5510fb50af49b03f485ca80
+CI run: 27496923203
+CI job_id: 81272609344
+External Feedback Screen run: 27496923199
+External Feedback Screen job_id: 81272609334
+CI step: Check multi real-world PDF parse observation report staleness -> success
+CI step: Run API smoke tests -> success
+External Feedback Screen step: Screen issue comments -> success
+```
+
+Phase 894 is remote workflow verification only. It adds no parser behavior, no new PDF observations, no live issue body edit, no hosted deployment evidence, no external reviewer feedback, and no product-complete claim.
 
 Current navigation overlay as of Phase 887:
 

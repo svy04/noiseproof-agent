@@ -70,4 +70,10 @@ It is not product-complete.
 
 ## Next Gate
 
+Remote workflow verification is recorded at:
+
+```text
+docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh-remote-verification.md
+```
+
 The next recommended gate remains Evidence/portfolio routing hygiene or a separately approved issue-body route refresh. Do not mutate GitHub issue #1 from this gate.
