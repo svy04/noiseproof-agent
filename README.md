@@ -11,7 +11,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 | Latest verified gate | Owner-approved Real-world PDF Download and Hash v0 | One BEA PDF downloaded/hashed as metadata; BLS candidates returned 403 in this owner runtime; no external PDF binaries are committed. |
 | Remote workflow verification | `6d638fca11b02e03581a8296bb95bc9a5da3894c` passed CI run `27495693041` and External Feedback Screen run `27495693049`. | Workflow success is not external validation. |
 | Reviewer route | `docs/review/external-reader-proof-path.md` | Repository-native inspection path only. |
-| Current next evidence | `real_world_pdf_parse_observation_without_robust_claim_v0` | Parsing observation remains separate from download/hash and still cannot claim robust extraction. |
+| Current next evidence | `multi_real_world_pdf_parse_observation_matrix_v0` | One parse observation is not robust extraction; the next proof needs multiple real-world PDFs and still bounded claims. |
 
 Do not read this as a product-complete claim.
 
@@ -19,7 +19,7 @@ Do not read this as a product-complete claim.
 
 - A small FastAPI service can keep document, retrieval, Evidence Ledger, report, failure, and operations proof surfaces inspectable.
 - The project has CI-enforced report staleness checks for semantic retrieval diagnostics and PDF extraction quality packets.
-- PDF handling is split into visible boundaries: digital text, table candidates, OCR smoke harnesses, synthetic fixture provenance, licensed real-world candidate metadata, and owner-approved download/hash metadata.
+- PDF handling is split into visible boundaries: digital text, table candidates, OCR smoke harnesses, synthetic fixture provenance, licensed real-world candidate metadata, owner-approved download/hash metadata, and one real-world parse observation.
 - Strong claims are intentionally blocked when evidence is missing.
 
 ## What This Does Not Prove Yet
@@ -55,7 +55,7 @@ Do not read this as a product-complete claim.
 
 1. Read `docs/review/external-reader-proof-path.md`.
 2. Check the current application summary in `docs/review/application-ready-review.md`.
-3. Inspect the latest PDF boundary at `docs/review/owner-approved-real-world-pdf-download-hash.md`.
+3. Inspect the latest PDF boundary at `docs/review/real-world-pdf-parse-observation.md`.
 4. Confirm CI-enforced regeneration through `.github/workflows/ci.yml`.
 5. Read `docs/GOAL.md` for what remains unproven.
 
@@ -66,6 +66,8 @@ Start with `docs/review/external-reader-proof-path.md`.
 That file is the 5-minute repository-native path for reviewing what this project currently proves. It points to the README, portfolio index, failure-case workflow parent proof index, failure-case workflow review queue proof index, application-ready review, and Braincrew role map.
 
 Boundary: this fast path is not hosted deployment evidence, not automatic failure-case creation beyond the local v0 workflow failure path, and not complete workflow failure causality.
+
+Latest real-world PDF parse observation: `docs/review/real-world-pdf-parse-observation.md` records one BEA real-world PDF PyMuPDF digital-text parse observation, with a regenerated report at `docs/evaluation/real-world-pdf-parse-observation-report.md`. Real-world PDF parse observation v0: implemented. The report keeps `observed_fixture_count -> 1`, `page_count -> 35`, `text_char_count -> 92219`, `table_candidate_count -> 35`, `table_extraction_performed -> false`, `ocr_calls_attempted -> false`, `binary_files_committed -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> multi_real_world_pdf_parse_observation_matrix_v0`. This is a single real-world PDF parse observation only, not robust PDF extraction evidence, not arbitrary market PDF parsing evidence, not OCR evidence, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Latest owner-approved real-world PDF download/hash: `docs/review/owner-approved-real-world-pdf-download-hash.md` records one BEA real-world PDF download/hash observation and four BLS runtime 403 observations, with a regenerated report at `docs/evaluation/owner-approved-real-world-pdf-download-hash-report.md`. Owner-approved real-world PDF download/hash v0: implemented. The report keeps `downloaded_fixture_count -> 1`, `blocked_fixture_count -> 4`, `binary_files_committed -> false`, `download_cache_committed -> false`, `parser_calls_attempted -> false`, `ocr_calls_attempted -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> real_world_pdf_parse_observation_without_robust_claim_v0`. This is download/hash metadata only, not robust PDF extraction evidence, not arbitrary market PDF parsing evidence, not OCR evidence, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 

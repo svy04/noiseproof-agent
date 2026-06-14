@@ -151,6 +151,14 @@ jobs:
             --output ../../docs/evaluation/owner-approved-real-world-pdf-download-hash-report.md \
             --check
 
+      - name: Check real-world PDF parse observation report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.real_world_pdf_parse_observation_command \
+            --observation ../../examples/pdf-extraction-quality/real-world-pdf-parse-observation.json \
+            --output ../../docs/evaluation/real-world-pdf-parse-observation-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

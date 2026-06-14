@@ -2,6 +2,16 @@
 
 ## Current Status
 
+Phase 889 adds real-world PDF parse observation v0: `docs/review/real-world-pdf-parse-observation.md` records one BEA real-world PDF PyMuPDF digital-text parse observation, with sanitized metadata at `examples/pdf-extraction-quality/real-world-pdf-parse-observation.json` and a regenerated report at `docs/evaluation/real-world-pdf-parse-observation-report.md`. The report records `observed_fixture_count -> 1`, `page_count -> 35`, `text_char_count -> 92219`, `table_candidate_count -> 35`, `table_extraction_performed -> false`, `ocr_calls_attempted -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> multi_real_world_pdf_parse_observation_matrix_v0`. CI checks it with `Check real-world PDF parse observation report staleness`. Reproduce locally with:
+
+```powershell
+cd apps/api
+uv run python -m app.services.real_world_pdf_parse_observation_command --observation ../../examples/pdf-extraction-quality/real-world-pdf-parse-observation.json --output ../../docs/evaluation/real-world-pdf-parse-observation-report.md --check
+uv run pytest tests/test_real_world_pdf_parse_observation.py -q
+```
+
+This is a single real-world PDF parse observation only, not robust PDF extraction evidence, arbitrary market PDF parsing evidence, OCR evidence, table extraction evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Phase 887 adds owner-approved real-world PDF download/hash v0: `docs/review/owner-approved-real-world-pdf-download-hash.md` records one BEA real-world PDF download/hash observation and four BLS runtime 403 observations, with sanitized metadata at `examples/pdf-extraction-quality/owner-approved-real-world-download-hash.json` and a regenerated report at `docs/evaluation/owner-approved-real-world-pdf-download-hash-report.md`. The report records `downloaded_fixture_count -> 1`, `blocked_fixture_count -> 4`, `binary_files_committed -> false`, `download_cache_committed -> false`, `parser_calls_attempted -> false`, `ocr_calls_attempted -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> real_world_pdf_parse_observation_without_robust_claim_v0`. CI checks it with `Check owner-approved real-world PDF download/hash report staleness`. Reproduce locally with:
 
 ```powershell
