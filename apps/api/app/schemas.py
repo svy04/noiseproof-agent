@@ -977,6 +977,29 @@ class ProofGapOut(BaseModel):
     next_evidence_needed: str
 
 
+class ProofGapActionOut(ProofGapOut):
+    acceptable_evidence: list[str]
+    blocked_claims: list[str]
+    proof_routes: list[str]
+    recommended_next_gate: str
+    action_boundary: str
+
+
+class ProofGapActionListOut(BaseModel):
+    gaps: list[ProofGapActionOut]
+    gap_count: int
+    surface_boundary: str
+    notes: list[str]
+
+
+class ProofGapActionDetailOut(BaseModel):
+    gap: ProofGapActionOut
+    surface_boundary: str
+    recommended_next_gate: str
+    gap_closure_allowed: bool
+    notes: list[str]
+
+
 class OpsSummaryOut(BaseModel):
     status: str
     workflow_version: str

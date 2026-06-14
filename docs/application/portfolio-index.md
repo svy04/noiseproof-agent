@@ -1480,3 +1480,26 @@ application-ready semantic quality claim gate alignment: `docs/review/applicatio
 application-ready semantic quality claim gate alignment remote verification: `docs/review/application-ready-semantic-quality-claim-gate-alignment-remote-verification.md` records that head `b481dfebc22332fe5b9520059c04a4ed85d5846a` passed CI run `27081708141` and External Feedback Screen run `27081708142` after the Phase 848 application alignment was pushed. It is remote workflow verification only, not the application alignment itself, not vector search quality evidence, not embedding generation, not hosted deployment evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, or product-complete.
 
 local OpenTelemetry span export: `docs/review/local-otel-span-export.md` records that opt-in local in-memory OpenTelemetry spans can be inspected through `GET /traces/otel-spans/local` when `NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT=true`, and responses expose `x-noiseproof-otel-span-export`. It is local in-memory span export only, not distributed tracing, hosted observability, external collector integration, OpenTelemetry Collector deployment, production monitoring, cross-service trace proof, hosted deployment evidence, external reviewer feedback, or product-complete.
+## Latest Proof Gap Action Surface
+
+`docs/review/proof-gap-action-surface.md` records that the operations API now
+has a read-only action surface for current proof gaps:
+
+```text
+GET /ops/proof-gaps
+GET /ops/proof-gaps/{gap_id}
+```
+
+For each gap it exposes `acceptable_evidence`, `blocked_claims`,
+`proof_routes`, and `recommended_next_gate`. This is useful for reviewers
+because it shows how the project prevents itself from overclaiming.
+
+For `semantic_retrieval_quality`, the current status remains `unproven`; the
+blocked claim is `semantic retrieval quality is proven`; and the recommended
+next gate is `qrels_backed_semantic_retrieval_quality_eval_v0`.
+
+Boundary: this is `action_surface_only_not_new_proof_or_gap_closure`, not
+robust PDF extraction evidence, live embedding generation proof, semantic
+retrieval quality evidence, distributed tracing, hosted observability, hosted
+deployment evidence, external reviewer feedback, customer validation, Braincrew
+acceptance, or product-complete.

@@ -1,15 +1,23 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import HTMLResponse
 
 from app.db import Repository, get_repository
-from app.schemas import OpsSummaryOut
+from app.schemas import (
+    OpsSummaryOut,
+    ProofGapActionDetailOut,
+    ProofGapActionListOut,
+)
 from app.services.embedding_provider_readiness import (
     summarize_embedding_provider_readiness,
 )
 from app.services.failure_case_review_queue import build_failure_case_workflow_review_queue
 from app.services.ops_dashboard import render_ops_dashboard
 from app.services.proof_gap_registry import (
+    ACTION_SURFACE_BOUNDARY,
     build_current_proof_gap_registry,
+    build_proof_gap_actions,
+    get_proof_gap_action,
+    proof_gap_action_surface_notes,
     proof_gap_registry_note,
 )
 from app.settings import Settings, get_settings
@@ -23,6 +31,31 @@ def ops_summary(
     settings: Settings = Depends(get_settings),
 ) -> OpsSummaryOut:
     return _ops_summary_with_runtime_boundaries(repository, settings)
+
+
+@router.get("/proof-gaps", response_model=ProofGapActionListOut)
+def ops_proof_gaps() -> ProofGapActionListOut:
+    gaps = build_proof_gap_actions()
+    return ProofGapActionListOut(
+        gaps=gaps,
+        gap_count=len(gaps),
+        surface_boundary=ACTION_SURFACE_BOUNDARY,
+        notes=proof_gap_action_surface_notes(),
+    )
+
+
+@router.get("/proof-gaps/{gap_id}", response_model=ProofGapActionDetailOut)
+def ops_proof_gap_detail(gap_id: str) -> ProofGapActionDetailOut:
+    gap = get_proof_gap_action(gap_id)
+    if gap is None:
+        raise HTTPException(status_code=404, detail="proof gap not found")
+    return ProofGapActionDetailOut(
+        gap=gap,
+        surface_boundary=ACTION_SURFACE_BOUNDARY,
+        recommended_next_gate=gap.recommended_next_gate,
+        gap_closure_allowed=False,
+        notes=proof_gap_action_surface_notes(),
+    )
 
 
 @router.get("/dashboard", response_class=HTMLResponse)

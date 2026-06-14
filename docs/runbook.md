@@ -11820,3 +11820,14 @@ Phase 855 adds external feedback current-state local OTel issue verification v0:
 Phase 856 adds external feedback current-state local OTel issue verification remote verification v0: `docs/review/external-feedback-current-state-local-otel-issue-verification-remote-verification.md` records that commit `ade89e368d1ec50f88a3845ea115f082569fdb0c` passed CI run `27488457883` (`api-smoke -> success`, job `81249014193`) and External Feedback Screen run `27488457885` (`screen -> success`, job `81249014204`) after Phase 855 was pushed. This is remote workflow verification only, not the current-state issue screen itself, external reviewer feedback, new runtime evidence, distributed tracing, hosted observability, external collector integration, hosted deployment evidence, customer validation, Braincrew acceptance, or product-complete.
 
 Phase 857 adds proof gap registry ops surface v0: `GET /ops/summary` now includes a read-only `proof_gap_registry`, and `GET /ops/dashboard` renders a `Proof Gap Registry` table for `robust_pdf_extraction`, `actual_embedding_generation`, `semantic_retrieval_quality`, `distributed_tracing`, `hosted_observability`, `hosted_deployment`, and `external_reviewer_feedback`. See `docs/review/proof-gap-registry-ops-surface.md`. This is current-gap visibility only, not robust PDF extraction evidence, live embedding generation proof, semantic retrieval quality evidence, distributed tracing, hosted observability, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete.
+
+Phase 858 adds proof gap action surface v0: `GET /ops/proof-gaps` and `GET /ops/proof-gaps/{gap_id}` expose action metadata for the same proof gaps, including `acceptable_evidence`, `blocked_claims`, `proof_routes`, `recommended_next_gate`, and `action_boundary`. The endpoint keeps `semantic_retrieval_quality` at `status -> unproven`, blocks the claim `semantic retrieval quality is proven`, and points the next gate to `qrels_backed_semantic_retrieval_quality_eval_v0`. Reproduce locally with:
+
+```powershell
+cd apps/api
+uv run uvicorn app.main:app --reload
+curl.exe -sS http://127.0.0.1:8000/ops/proof-gaps
+curl.exe -sS http://127.0.0.1:8000/ops/proof-gaps/semantic_retrieval_quality
+```
+
+This is `action_surface_only_not_new_proof_or_gap_closure`, not robust PDF extraction evidence, live embedding generation proof, semantic retrieval quality evidence, distributed tracing, hosted observability, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete.

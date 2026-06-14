@@ -43,6 +43,30 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 858:
+
+```text
+latest_product_gate: Proof gap action surface v0
+latest_product_artifact: docs/review/proof-gap-action-surface.md
+runtime_surface: GET /ops/proof-gaps; GET /ops/proof-gaps/{gap_id}
+proof_gap_action_surface: implemented_read_only
+proof_gap_action_fields: acceptable_evidence; blocked_claims; proof_routes; recommended_next_gate; action_boundary
+surface_boundary: action_surface_only_not_new_proof_or_gap_closure
+semantic_retrieval_quality.status: unproven
+semantic_retrieval_quality.recommended_next_gate: qrels_backed_semantic_retrieval_quality_eval_v0
+semantic_retrieval_quality.blocked_claim: semantic retrieval quality is proven
+external_reviewer_feedback.current_evidence: owner_authored_issue_only
+external_reviewer_feedback.next_evidence_needed: qualifying outside reviewer comment
+distributed_tracing: not_claimed
+external_collector: not_implemented
+hosted_observability: not_implemented
+hosted_deployment_evidence: not_implemented
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+production_readiness: not_claimed
+product_complete: false
+boundary: action surface only; not robust PDF extraction evidence; not live embedding generation proof; not semantic retrieval quality evidence; not distributed tracing; not hosted observability; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 857:
 
 ```text
@@ -33743,6 +33767,56 @@ external_reviewer_feedback.next_evidence_needed -> qualifying outside reviewer c
 Boundaries:
 
 - current-gap visibility only
+- not robust PDF extraction evidence
+- not live embedding generation proof
+- not semantic retrieval quality evidence
+- not distributed tracing
+- not hosted observability
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 858 - Proof gap action surface v0
+
+Status: implemented.
+
+Purpose: turn the read-only proof gap registry into a small action surface that
+shows what evidence would be acceptable for each gap, which claims remain
+blocked, where current proof routes live, and which next gate should reduce the
+gap.
+
+Artifacts:
+
+- `docs/review/proof-gap-action-surface.md`
+- `apps/api/app/schemas.py`
+- `apps/api/app/services/proof_gap_registry.py`
+- `apps/api/app/routes/ops.py`
+- `apps/api/tests/test_routes.py`
+- `apps/api/tests/test_docs.py`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+
+Runtime markers:
+
+```text
+GET /ops/proof-gaps -> list current proof gaps with action metadata
+GET /ops/proof-gaps/{gap_id} -> one current proof gap action detail
+surface_boundary -> action_surface_only_not_new_proof_or_gap_closure
+semantic_retrieval_quality.status -> unproven
+semantic_retrieval_quality.blocked_claim -> semantic retrieval quality is proven
+semantic_retrieval_quality.recommended_next_gate -> qrels_backed_semantic_retrieval_quality_eval_v0
+external_reviewer_feedback.current_evidence -> owner_authored_issue_only
+external_reviewer_feedback.next_evidence_needed -> qualifying outside reviewer comment
+```
+
+Boundaries:
+
+- action surface only
 - not robust PDF extraction evidence
 - not live embedding generation proof
 - not semantic retrieval quality evidence

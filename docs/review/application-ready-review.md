@@ -230,3 +230,27 @@ Avoid claims about:
 - distributed tracing
 - market prediction accuracy
 - direct evidence -> gate -> report foreign-key lineage
+## Proof Gap Action Surface
+
+Phase 858 adds `docs/review/proof-gap-action-surface.md`.
+
+Reviewer-facing ops endpoints now include:
+
+```text
+GET /ops/proof-gaps
+GET /ops/proof-gaps/{gap_id}
+```
+
+This surface exposes `acceptable_evidence`, `blocked_claims`, `proof_routes`,
+and `recommended_next_gate` for the current proof gaps. It makes unresolved
+claims easier to inspect without closing them.
+
+For `semantic_retrieval_quality`, the status remains `unproven`, the blocked
+claim remains `semantic retrieval quality is proven`, and the recommended next
+gate is `qrels_backed_semantic_retrieval_quality_eval_v0`.
+
+Boundary: this is `action_surface_only_not_new_proof_or_gap_closure`, not
+robust PDF extraction evidence, live embedding generation proof, semantic
+retrieval quality evidence, distributed tracing, hosted observability, hosted
+deployment evidence, external reviewer feedback, customer validation, Braincrew
+acceptance, or product-complete.

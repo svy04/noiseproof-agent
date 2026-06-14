@@ -40891,3 +40891,49 @@ def test_proof_gap_registry_ops_surface_is_recorded_without_new_proof_claim():
     assert "Phase 857 adds proof gap registry ops surface v0" in runbook
     assert "proof gap registry ops surface" in portfolio
     assert "proof gap registry ops surface" in application_ready
+
+
+def test_proof_gap_action_surface_is_recorded_without_closing_gaps():
+    review_path = REPO_ROOT / "docs/review/proof-gap-action-surface.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    for marker in [
+        "Proof Gap Action Surface",
+        "proof gap action surface v0",
+        "GET /ops/proof-gaps",
+        "GET /ops/proof-gaps/{gap_id}",
+        "acceptable_evidence",
+        "blocked_claims",
+        "proof_routes",
+        "recommended_next_gate",
+        "semantic_retrieval_quality",
+        "qrels_backed_semantic_retrieval_quality_eval_v0",
+        "semantic retrieval quality is proven",
+        "action_surface_only_not_new_proof_or_gap_closure",
+    ]:
+        assert marker in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not live embedding generation proof" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert "Proof gap action surface v0: implemented" in readme
+    assert "Phase 858 - Proof gap action surface v0" in goal
+    assert "Phase 858 adds proof gap action surface v0" in runbook
+    assert "Proof Gap Action Surface" in portfolio
+    assert "Proof Gap Action Surface" in application_ready

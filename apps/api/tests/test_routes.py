@@ -6224,6 +6224,57 @@ def test_ops_summary_and_dashboard_surface_current_proof_gap_registry():
     assert "current gaps only; not new proof" in dashboard.text
 
 
+def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
+    client = make_client()
+
+    response = client.get("/ops/proof-gaps")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["surface_boundary"] == (
+        "action_surface_only_not_new_proof_or_gap_closure"
+    )
+    assert body["gap_count"] == 7
+    semantic_gap = next(
+        gap for gap in body["gaps"] if gap["gap_id"] == "semantic_retrieval_quality"
+    )
+    assert semantic_gap["status"] == "unproven"
+    assert semantic_gap["claim_boundary"] == (
+        "caller_provided_vector_runs_are_operational_counts_not_quality_evidence"
+    )
+    assert "quality_eval_with_qrels" in semantic_gap["next_evidence_needed"]
+    assert "run a qrels-backed retrieval quality evaluation" in semantic_gap[
+        "acceptable_evidence"
+    ]
+    assert "semantic retrieval quality is proven" in semantic_gap["blocked_claims"]
+    assert "docs/review/semantic-retrieval-quality-diagnostic-matrix.md" in semantic_gap[
+        "proof_routes"
+    ]
+
+    detail = client.get("/ops/proof-gaps/semantic_retrieval_quality")
+
+    assert detail.status_code == 200
+    detail_body = detail.json()
+    assert detail_body["gap"]["gap_id"] == "semantic_retrieval_quality"
+    assert detail_body["gap"]["status"] == "unproven"
+    assert detail_body["surface_boundary"] == (
+        "action_surface_only_not_new_proof_or_gap_closure"
+    )
+    assert detail_body["recommended_next_gate"] == (
+        "qrels_backed_semantic_retrieval_quality_eval_v0"
+    )
+    assert detail_body["gap_closure_allowed"] is False
+
+
+def test_ops_proof_gap_action_surface_returns_404_for_unknown_gap():
+    client = make_client()
+
+    response = client.get("/ops/proof-gaps/unknown_gap")
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "proof gap not found"
+
+
 def test_ops_summary_counts_semantic_retrieval_and_caller_provided_embeddings():
     client = make_client()
     document, *_ = _create_semantic_fixture(client)
