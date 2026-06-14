@@ -71,6 +71,15 @@ jobs:
             --k 2 \
             --check
 
+      - name: Check representative live semantic quality report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.representative_live_semantic_quality_command \
+            --fixture-root ../../examples/representative-semantic-retrieval-quality \
+            --output ../../docs/evaluation/representative-live-semantic-quality-report.md \
+            --k 3 \
+            --check
+
       - name: Check PDF extraction quality report staleness
         working-directory: apps/api
         run: |

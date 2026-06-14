@@ -1,0 +1,98 @@
+[
+  {
+    "chunk_id": "chunk-demand-note",
+    "document_id": "doc-regional-market-note",
+    "source_type": "markdown",
+    "text": "Regional demand increased in Q2 after two enterprise accounts expanded usage in May.",
+    "information_roles": ["direct_support", "timeline_anchor"],
+    "embedding": [1.0, 0.0, 0.0, 0.0, 0.0]
+  },
+  {
+    "chunk_id": "chunk-demand-csv",
+    "document_id": "doc-regional-market-csv",
+    "source_type": "csv",
+    "text": "North segment revenue moved from 42 to 49 while renewal count stayed flat.",
+    "information_roles": ["direct_support", "quantitative_anchor"],
+    "embedding": [0.95, 0.1, 0.0, 0.0, 0.0]
+  },
+  {
+    "chunk_id": "chunk-demand-pdf",
+    "document_id": "doc-quarterly-market-pdf",
+    "source_type": "pdf",
+    "text": "The quarterly PDF report says demand acceleration was concentrated in the final six weeks of Q2.",
+    "information_roles": ["direct_support", "timeline_anchor"],
+    "embedding": [0.9, 0.05, 0.1, 0.0, 0.0]
+  },
+  {
+    "chunk_id": "chunk-promo-html",
+    "document_id": "doc-channel-page",
+    "source_type": "html",
+    "text": "A channel partner page says the same demand was partly pulled forward by a temporary promotion.",
+    "information_roles": ["contradiction", "source_quality_check", "timeline_anchor"],
+    "embedding": [0.0, 1.0, 0.0, 0.0, 0.0]
+  },
+  {
+    "chunk_id": "chunk-distributor-memo",
+    "document_id": "doc-distributor-memo",
+    "source_type": "memo",
+    "text": "A distributor memo says two enterprise orders were early renewals rather than new demand.",
+    "information_roles": ["contradiction", "source_quality_check"],
+    "embedding": [0.05, 0.95, 0.0, 0.0, 0.0]
+  },
+  {
+    "chunk_id": "chunk-source-quality",
+    "document_id": "doc-source-quality-note",
+    "source_type": "markdown",
+    "text": "Internal CSV data is current but narrow; the public channel page is third-party and needs source-quality checks.",
+    "information_roles": ["source_quality_check", "definition_anchor"],
+    "embedding": [0.0, 0.8, 0.4, 0.0, 0.0]
+  },
+  {
+    "chunk_id": "chunk-definition-note",
+    "document_id": "doc-definition-note",
+    "source_type": "markdown",
+    "text": "Demand growth means usage or qualified orders increased; revenue movement alone is not the definition.",
+    "information_roles": ["definition_anchor"],
+    "embedding": [0.0, 0.2, 1.0, 0.0, 0.0]
+  },
+  {
+    "chunk_id": "chunk-timeline-filing",
+    "document_id": "doc-filing-page",
+    "source_type": "html",
+    "text": "The filing timeline places the contract expansion after the distributor promotion ended.",
+    "information_roles": ["timeline_anchor"],
+    "embedding": [0.1, 0.0, 0.9, 0.0, 0.0]
+  },
+  {
+    "chunk_id": "chunk-missing-renewal",
+    "document_id": "doc-gap-note",
+    "source_type": "markdown",
+    "text": "The analysis is missing renewal cohort data and distributor-level sell-through before a strong demand claim can be made.",
+    "information_roles": ["missing_data_signal"],
+    "embedding": [0.0, 0.0, 0.0, 1.0, 0.0]
+  },
+  {
+    "chunk_id": "chunk-scope-boundary",
+    "document_id": "doc-scope-note",
+    "source_type": "markdown",
+    "text": "The available evidence can describe what happened but cannot support buy, sell, target price, or return claims.",
+    "information_roles": ["scope_boundary", "user_intent_check"],
+    "embedding": [0.0, 0.0, 0.0, 0.95, 0.2]
+  },
+  {
+    "chunk_id": "chunk-buy-sell-risk",
+    "document_id": "doc-risk-pdf",
+    "source_type": "pdf",
+    "text": "The PDF risk note warns that this evidence should not be converted into financial advice or a trading recommendation.",
+    "information_roles": ["scope_boundary", "user_intent_check"],
+    "embedding": [0.0, 0.0, 0.0, 0.9, 0.4]
+  },
+  {
+    "chunk_id": "chunk-noise-weather",
+    "document_id": "doc-weather-csv",
+    "source_type": "csv",
+    "text": "Weekly weather variance was logged but has no demonstrated relationship to the market intelligence question.",
+    "information_roles": [],
+    "embedding": [0.0, 0.0, 0.0, 0.0, 1.0]
+  }
+]

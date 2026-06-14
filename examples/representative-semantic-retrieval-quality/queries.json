@@ -1,0 +1,44 @@
+[
+  {
+    "query_id": "q-demand-evidence",
+    "question": "What evidence supports the claim that regional demand increased?",
+    "query_embedding": [1.0, 0.0, 0.0, 0.0, 0.0],
+    "relevant_chunk_ids": ["chunk-demand-note", "chunk-demand-csv", "chunk-demand-pdf"],
+    "information_roles": ["direct_support", "quantitative_anchor", "timeline_anchor"]
+  },
+  {
+    "query_id": "q-contradiction-risk",
+    "question": "What could contradict the demand growth story?",
+    "query_embedding": [0.0, 1.0, 0.0, 0.0, 0.0],
+    "relevant_chunk_ids": ["chunk-promo-html", "chunk-distributor-memo", "chunk-source-quality"],
+    "information_roles": ["contradiction", "source_quality_check"]
+  },
+  {
+    "query_id": "q-source-quality",
+    "question": "Which sources need quality checks before making a strong claim?",
+    "query_embedding": [0.0, 0.8, 0.4, 0.0, 0.0],
+    "relevant_chunk_ids": ["chunk-source-quality", "chunk-distributor-memo", "chunk-promo-html"],
+    "information_roles": ["source_quality_check", "definition_anchor"]
+  },
+  {
+    "query_id": "q-definition-timeline",
+    "question": "What definition and timeline anchors are needed for the demand claim?",
+    "query_embedding": [0.0, 0.0, 1.0, 0.0, 0.0],
+    "relevant_chunk_ids": ["chunk-timeline-filing", "chunk-definition-note", "chunk-source-quality"],
+    "information_roles": ["definition_anchor", "timeline_anchor"]
+  },
+  {
+    "query_id": "q-missing-before-claim",
+    "question": "What data is missing before this becomes a strong conclusion?",
+    "query_embedding": [0.0, 0.0, 0.0, 1.0, 0.0],
+    "relevant_chunk_ids": ["chunk-missing-renewal", "chunk-scope-boundary", "chunk-buy-sell-risk"],
+    "information_roles": ["missing_data_signal", "scope_boundary"]
+  },
+  {
+    "query_id": "q-buy-sell-boundary",
+    "question": "Can this evidence support a buy or sell recommendation?",
+    "query_embedding": [0.0, 0.0, 0.0, 0.9, 0.4],
+    "relevant_chunk_ids": ["chunk-buy-sell-risk", "chunk-scope-boundary", "chunk-missing-renewal"],
+    "information_roles": ["scope_boundary", "user_intent_check", "missing_data_signal"]
+  }
+]

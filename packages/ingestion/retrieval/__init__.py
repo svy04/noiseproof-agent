@@ -14,6 +14,9 @@ from packages.ingestion.retrieval.quality_fixture import (
 from packages.ingestion.retrieval.quality_metrics import evaluate_semantic_quality
 from packages.ingestion.retrieval.quality_report import build_semantic_quality_report
 from packages.ingestion.retrieval.qrels_eval import evaluate_qrels_backed_run
+from packages.ingestion.retrieval.representative_semantic_quality import (
+    evaluate_representative_live_semantic_quality,
+)
 
 __all__ = [
     "build_semantic_quality_report",
@@ -23,6 +26,7 @@ __all__ = [
     "evaluate_live_lexical_qrels_baseline",
     "evaluate_live_semantic_qrels_baseline",
     "evaluate_qrels_backed_run",
+    "evaluate_representative_live_semantic_quality",
     "load_semantic_quality_fixture",
     "retrieve_candidates",
     "summarize_semantic_quality_fixture",

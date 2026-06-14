@@ -43,19 +43,19 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Current navigation overlay as of Phase 862:
+Current navigation overlay as of Phase 864:
 
 ```text
-latest_product_gate: Live semantic qrels baseline eval v0
-latest_product_artifact: docs/review/live-semantic-qrels-baseline-eval.md
-latest_eval_report: docs/evaluation/live-semantic-qrels-baseline-report.md
-fixture_root: examples/semantic-retrieval-quality/
-live_run_source: caller_provided_live_semantic_cosine
+latest_product_gate: Representative live semantic quality eval v0
+latest_product_artifact: docs/review/representative-live-semantic-quality-eval.md
+latest_eval_report: docs/evaluation/representative-live-semantic-quality-report.md
+fixture_root: examples/representative-semantic-retrieval-quality/
+live_run_source: representative_caller_provided_live_semantic_cosine
 retrieval_strategy: semantic-cosine
 ranking_boundary: exact_cosine_caller_provided_query_vector
-evaluator: packages/ingestion/retrieval/live_semantic_qrels.py
-command: app.services.live_semantic_qrels_baseline_command
-ci_check: Check live semantic qrels baseline report staleness
+evaluator: packages/ingestion/retrieval/representative_semantic_quality.py
+command: app.services.representative_live_semantic_quality_command
+ci_check: Check representative live semantic quality report staleness
 latest_remote_verification_gate: Live semantic qrels baseline eval remote verification v0
 latest_remote_verification_artifact: docs/review/live-semantic-qrels-baseline-eval-remote-verification.md
 latest_verified_head_sha: ed73aef0b13261ac74ee14c7402d839dc5532797
@@ -63,17 +63,22 @@ latest_ci_run: 27490045473
 latest_ci_job_id: 81253278484
 latest_external_feedback_screen_run: 27490045474
 latest_external_feedback_screen_job_id: 81253278486
-judged_coverage_at_k: 0.75
-unjudged_retrieved_count_at_k: 2
-missing_embedding_chunk_ids: chunk-missing-source
+coverage_status: passed
+role_coverage_ratio: 1.0
+source_type_coverage_ratio: 1.0
+query_count: 6
+chunk_count: 12
+qrel_count: 24
+judged_coverage_at_k: 1.0
+unjudged_retrieved_count_at_k: 0
 semantic_quality_claim_gate: blocked
 semantic_retrieval_quality.status: unproven
-semantic_retrieval_quality.current_evidence: toy_live_semantic_qrels_baseline_toy_live_lexical_qrels_baseline_toy_qrels_backed_eval_and_caller_provided_vector_runs
-semantic_retrieval_quality.recommended_next_gate: representative_live_semantic_retrieval_quality_eval_v0
+semantic_retrieval_quality.current_evidence: representative_local_semantic_quality_eval_with_caller_provided_vectors
+semantic_retrieval_quality.recommended_next_gate: live_embedding_backed_domain_qrels_quality_eval_v0
 external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
 production_readiness: not_claimed
 product_complete: false
-boundary: caller-provided live semantic baseline over a tiny local fixture only; not semantic retrieval quality evidence; not live embedding generation; not representative retrieval evaluation; not a benchmark result; not hosted deployment evidence; not external reviewer feedback; not product-complete
+boundary: local representative fixture with caller-provided vectors only; not production semantic retrieval quality evidence; not live embedding generation; not a public benchmark result; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
 Current navigation overlay as of Phase 859:
@@ -34167,6 +34172,83 @@ Boundary:
 - not semantic retrieval quality evidence
 - not live embedding generation
 - not representative retrieval evaluation
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 864 - Representative live semantic quality eval v0
+
+Status: implemented.
+
+Purpose: replace the tiny semantic quality fixture as the latest product gate
+with a local representative fixture covering all current NoiseProof
+information roles and the source types `csv`, `html`, `markdown`, `memo`, and
+`pdf`, while preserving the boundary that caller-provided fixture vectors do
+not prove production semantic retrieval quality.
+
+Artifacts:
+
+- `examples/representative-semantic-retrieval-quality/`
+- `docs/review/representative-live-semantic-quality-eval.md`
+- `docs/evaluation/representative-live-semantic-quality-report.md`
+- `packages/ingestion/retrieval/representative_semantic_quality.py`
+- `apps/api/app/services/representative_live_semantic_quality_command.py`
+- `.github/workflows/ci.yml`
+- `apps/api/tests/test_representative_live_semantic_quality.py`
+- `apps/api/tests/test_docs.py`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `docs/review/proof-gap-action-surface.md`
+- `docs/application/braincrew-role-map.md`
+- `apps/api/app/services/proof_gap_registry.py`
+
+Evaluation markers:
+
+```text
+run_source -> representative_caller_provided_live_semantic_cosine
+retrieval_strategy -> semantic-cosine
+ranking_boundary -> exact_cosine_caller_provided_query_vector
+coverage_status -> passed
+role_coverage_ratio -> 1.0
+source_type_coverage_ratio -> 1.0
+query_count -> 6
+chunk_count -> 12
+qrel_count -> 24
+negative_qrel_count -> 6
+Hit@k -> 1.0
+Recall@k -> 1.0
+MRR@k -> 1.0
+nDCG@k -> 0.9954
+judged_coverage_at_k -> 1.0
+retrieved_count_at_k -> 18
+unjudged_retrieved_count_at_k -> 0
+status -> blocked
+can_claim_semantic_quality -> false
+summary -> representative_live_semantic_quality_claim_blocked
+```
+
+Updated proof gap state:
+
+```text
+semantic_retrieval_quality.status -> unproven
+semantic_retrieval_quality.current_evidence -> representative_local_semantic_quality_eval_with_caller_provided_vectors
+semantic_retrieval_quality.claim_boundary -> representative_local_fixture_and_caller_provided_vectors_do_not_prove_production_semantic_retrieval_quality
+semantic_retrieval_quality.next_evidence_needed -> live_embedding_backed_domain_qrels_quality_eval_with_embedding_provenance_and_pass_conditions
+semantic_retrieval_quality.recommended_next_gate -> live_embedding_backed_domain_qrels_quality_eval_v0
+```
+
+Boundaries:
+
+- local representative fixture with caller-provided vectors only
+- not production semantic retrieval quality evidence
+- not live embedding generation
+- not a public benchmark result
+- not a model comparison
 - not hosted deployment evidence
 - not external reviewer feedback
 - not customer validation

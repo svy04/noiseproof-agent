@@ -2,6 +2,16 @@
 
 ## Current Status
 
+Phase 864 adds representative live semantic quality eval v0: `docs/review/representative-live-semantic-quality-eval.md` records that `examples/representative-semantic-retrieval-quality/` covers all current NoiseProof information roles and source types `csv`, `html`, `markdown`, `memo`, and `pdf`, then regenerates `docs/evaluation/representative-live-semantic-quality-report.md` through `app.services.representative_live_semantic_quality_command`. The report records `coverage_status -> passed`, `role_coverage_ratio -> 1.0`, `source_type_coverage_ratio -> 1.0`, `query_count -> 6`, `chunk_count -> 12`, `qrel_count -> 24`, `judged_coverage_at_k -> 1.0`, `unjudged_retrieved_count_at_k -> 0`, and `representative_live_semantic_quality_claim_blocked`. CI checks it with `Check representative live semantic quality report staleness`. Reproduce locally with:
+
+```powershell
+cd apps/api
+uv run python -m app.services.representative_live_semantic_quality_command --fixture-root ../../examples/representative-semantic-retrieval-quality --output ../../docs/evaluation/representative-live-semantic-quality-report.md --k 3 --check
+uv run pytest tests/test_representative_live_semantic_quality.py -q
+```
+
+This is a local representative fixture with caller-provided vectors only, not production semantic retrieval quality evidence, live embedding generation, a public benchmark result, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Phase 862 adds live semantic qrels baseline eval v0: `docs/review/live-semantic-qrels-baseline-eval.md` records that caller-provided fixture vectors now generate a qrels-evaluable semantic-cosine run for the tiny semantic retrieval quality fixture. The committed report `docs/evaluation/live-semantic-qrels-baseline-report.md` records `run_source -> caller_provided_live_semantic_cosine`, `retrieval_strategy -> semantic-cosine`, `ranking_boundary -> exact_cosine_caller_provided_query_vector`, `judged_coverage_at_k -> 0.75`, `unjudged_retrieved_count_at_k -> 2`, `missing_embedding_chunk_ids -> chunk-missing-source`, and `live_semantic_qrels_baseline_quality_claim_blocked`. CI checks it with `Check live semantic qrels baseline report staleness`. Reproduce locally with:
 
 ```powershell

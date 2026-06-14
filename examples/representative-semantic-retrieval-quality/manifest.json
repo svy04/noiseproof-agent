@@ -1,0 +1,54 @@
+{
+  "name": "representative-semantic-retrieval-quality-fixture-v0",
+  "embedding_model": "local-representative-fixture-caller-provided",
+  "embedding_dimension": 5,
+  "no_embedding_generation": true,
+  "claim_boundary": "representative_local_fixture_not_production_semantic_quality_evidence",
+  "candidate_metrics": [
+    "Hit@k",
+    "Recall@k",
+    "MRR@k",
+    "nDCG@k",
+    "judged_coverage_at_k",
+    "role_coverage_ratio",
+    "source_type_coverage_ratio"
+  ],
+  "qrels": {
+    "q-demand-evidence": {
+      "chunk-demand-note": 3,
+      "chunk-demand-csv": 3,
+      "chunk-demand-pdf": 2,
+      "chunk-noise-weather": 0
+    },
+    "q-contradiction-risk": {
+      "chunk-promo-html": 3,
+      "chunk-distributor-memo": 3,
+      "chunk-source-quality": 1,
+      "chunk-noise-weather": 0
+    },
+    "q-source-quality": {
+      "chunk-source-quality": 3,
+      "chunk-distributor-memo": 2,
+      "chunk-promo-html": 1,
+      "chunk-noise-weather": 0
+    },
+    "q-definition-timeline": {
+      "chunk-timeline-filing": 3,
+      "chunk-definition-note": 3,
+      "chunk-source-quality": 1,
+      "chunk-noise-weather": 0
+    },
+    "q-missing-before-claim": {
+      "chunk-missing-renewal": 3,
+      "chunk-scope-boundary": 2,
+      "chunk-buy-sell-risk": 1,
+      "chunk-noise-weather": 0
+    },
+    "q-buy-sell-boundary": {
+      "chunk-buy-sell-risk": 3,
+      "chunk-scope-boundary": 3,
+      "chunk-missing-renewal": 1,
+      "chunk-noise-weather": 0
+    }
+  }
+}

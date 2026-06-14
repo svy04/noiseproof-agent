@@ -40918,7 +40918,7 @@ def test_proof_gap_action_surface_is_recorded_without_closing_gaps():
         "proof_routes",
         "recommended_next_gate",
         "semantic_retrieval_quality",
-        "representative_live_semantic_retrieval_quality_eval_v0",
+        "live_embedding_backed_domain_qrels_quality_eval_v0",
         "semantic retrieval quality is proven",
         "action_surface_only_not_new_proof_or_gap_closure",
     ]:
@@ -41123,10 +41123,7 @@ def test_live_semantic_qrels_baseline_eval_is_recorded_without_quality_claim():
     assert "Phase 862 adds live semantic qrels baseline eval v0" in runbook
     assert "Latest Live Semantic Qrels Baseline Eval" in portfolio
     assert "Latest Live Semantic Qrels Baseline Eval" in application_ready
-    assert (
-        "caller_provided_live_semantic_baseline_and_toy_qrels_do_not_prove_semantic_retrieval_quality"
-        in proof_gap
-    )
+    assert "docs/evaluation/live-semantic-qrels-baseline-report.md" in proof_gap
     assert "caller-provided live semantic qrels baseline" in role_map
     assert "Check live semantic qrels baseline report staleness" in ci
 
@@ -41215,3 +41212,81 @@ def test_live_semantic_qrels_baseline_eval_remote_verification_is_recorded():
     assert "Phase 863 adds live semantic qrels baseline eval remote verification v0" in runbook
     assert "Live semantic qrels baseline eval remote verification" in portfolio
     assert "Live semantic qrels baseline eval remote verification" in application_ready
+
+
+def test_representative_live_semantic_quality_eval_is_recorded_without_production_claim():
+    review_path = REPO_ROOT / "docs/review/representative-live-semantic-quality-eval.md"
+    report_path = (
+        REPO_ROOT / "docs/evaluation/representative-live-semantic-quality-report.md"
+    )
+    fixture_root = REPO_ROOT / "examples/representative-semantic-retrieval-quality"
+    assert review_path.is_file()
+    assert report_path.is_file()
+    assert fixture_root.is_dir()
+
+    content = review_path.read_text(encoding="utf-8")
+    report = report_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    proof_gap = (
+        REPO_ROOT / "docs/review/proof-gap-action-surface.md"
+    ).read_text(encoding="utf-8")
+    role_map = (
+        REPO_ROOT / "docs/application/braincrew-role-map.md"
+    ).read_text(encoding="utf-8")
+    ci = (REPO_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+
+    for marker in [
+        "Representative Live Semantic Quality Eval",
+        "representative live semantic quality eval v0",
+        "examples/representative-semantic-retrieval-quality",
+        "representative_caller_provided_live_semantic_cosine",
+        "representative-live-semantic-quality-report.md",
+        "packages/ingestion/retrieval/representative_semantic_quality.py",
+        "app.services.representative_live_semantic_quality_command",
+        "coverage_status -> passed",
+        "role_coverage_ratio -> 1.0",
+        "source_type_coverage_ratio -> 1.0",
+        "query_count -> 6",
+        "chunk_count -> 12",
+        "qrel_count -> 24",
+        "negative_qrel_count -> 6",
+        "judged_coverage_at_k -> 1.0",
+        "unjudged_retrieved_count_at_k -> 0",
+        "representative_live_semantic_quality_claim_blocked",
+        "live_embedding_backed_domain_qrels_quality_eval_v0",
+    ]:
+        assert marker in content
+    assert "not production semantic retrieval quality evidence" in content
+    assert "not live embedding generation" in content
+    assert "not a public benchmark result" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "# Representative Live Semantic Quality Eval" in report
+    assert "coverage_status: `passed`" in report
+    assert "role_coverage_ratio: `1`" in report
+    assert "source_type_coverage_ratio: `1`" in report
+    assert "judged_coverage_at_k | 1" in report
+    assert "unjudged_retrieved_count_at_k | 0" in report
+    assert "representative_live_semantic_quality_claim_blocked" in report
+    assert "This is not production semantic retrieval quality evidence." in report
+
+    assert "Representative live semantic quality eval v0: implemented" in readme
+    assert "Phase 864 - Representative live semantic quality eval v0" in goal
+    assert "Phase 864 adds representative live semantic quality eval v0" in runbook
+    assert "Latest Representative Live Semantic Quality Eval" in portfolio
+    assert "Latest Representative Live Semantic Quality Eval" in application_ready
+    assert (
+        "representative_local_fixture_and_caller_provided_vectors_do_not_prove_production_semantic_retrieval_quality"
+        in proof_gap
+    )
+    assert "representative local semantic quality fixture" in role_map
+    assert "Check representative live semantic quality report staleness" in ci

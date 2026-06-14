@@ -40,8 +40,8 @@ _GAP_ACTIONS = {
     },
     "semantic_retrieval_quality": {
         "acceptable_evidence": [
-            "run a representative qrels-backed retrieval quality evaluation",
-            "record missed relevant chunks, unjudged retrieved documents, pass conditions, and claim boundaries",
+            "run a live embedding-backed domain qrels quality evaluation beyond caller-provided fixture vectors",
+            "record missed relevant chunks, unjudged retrieved documents, pass conditions, embedding provenance, and claim boundaries",
         ],
         "blocked_claims": [
             "semantic retrieval quality is proven",
@@ -49,6 +49,8 @@ _GAP_ACTIONS = {
             "toy qrels-backed evaluation proves production-grade semantic search",
         ],
         "proof_routes": [
+            "docs/evaluation/representative-live-semantic-quality-report.md",
+            "docs/review/representative-live-semantic-quality-eval.md",
             "docs/evaluation/live-semantic-qrels-baseline-report.md",
             "docs/review/live-semantic-qrels-baseline-eval.md",
             "docs/evaluation/live-lexical-qrels-baseline-report.md",
@@ -58,7 +60,7 @@ _GAP_ACTIONS = {
             "docs/review/semantic-retrieval-quality-diagnostic-matrix.md",
             "docs/evaluation/retrieval-eval-report.md",
         ],
-        "recommended_next_gate": "representative_live_semantic_retrieval_quality_eval_v0",
+        "recommended_next_gate": "live_embedding_backed_domain_qrels_quality_eval_v0",
     },
     "distributed_tracing": {
         "acceptable_evidence": [
@@ -156,13 +158,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
             gap_id="semantic_retrieval_quality",
             status="unproven",
             current_evidence=(
-                "toy_live_semantic_qrels_baseline_toy_live_lexical_qrels_baseline_toy_qrels_backed_eval_and_caller_provided_vector_runs"
+                "representative_local_semantic_quality_eval_with_caller_provided_vectors"
             ),
             claim_boundary=(
-                "caller_provided_live_semantic_baseline_and_toy_qrels_do_not_prove_semantic_retrieval_quality"
+                "representative_local_fixture_and_caller_provided_vectors_do_not_prove_production_semantic_retrieval_quality"
             ),
             next_evidence_needed=(
-                "representative_qrels_with_live_semantic_retrieval_runs_and_pass_conditions"
+                "live_embedding_backed_domain_qrels_quality_eval_with_embedding_provenance_and_pass_conditions"
             ),
         ),
         ProofGapOut(
