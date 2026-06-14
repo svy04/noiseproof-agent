@@ -2,6 +2,16 @@
 
 ## Current Status
 
+Phase 887 adds owner-approved real-world PDF download/hash v0: `docs/review/owner-approved-real-world-pdf-download-hash.md` records one BEA real-world PDF download/hash observation and four BLS runtime 403 observations, with sanitized metadata at `examples/pdf-extraction-quality/owner-approved-real-world-download-hash.json` and a regenerated report at `docs/evaluation/owner-approved-real-world-pdf-download-hash-report.md`. The report records `downloaded_fixture_count -> 1`, `blocked_fixture_count -> 4`, `binary_files_committed -> false`, `download_cache_committed -> false`, `parser_calls_attempted -> false`, `ocr_calls_attempted -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> real_world_pdf_parse_observation_without_robust_claim_v0`. CI checks it with `Check owner-approved real-world PDF download/hash report staleness`. Reproduce locally with:
+
+```powershell
+cd apps/api
+uv run python -m app.services.owner_approved_real_world_pdf_download_hash_command --manifest ../../examples/pdf-extraction-quality/owner-approved-real-world-download-hash.json --output ../../docs/evaluation/owner-approved-real-world-pdf-download-hash-report.md --check
+uv run pytest tests/test_owner_approved_real_world_pdf_download_hash.py -q
+```
+
+This is download/hash metadata only, not robust PDF extraction evidence, arbitrary market PDF parsing evidence, OCR evidence, table extraction evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Phase 886 adds README proof-bounded marketing surface v0: `README.md` now opens with `Current Proof Surface`, `What This Proves Now`, `What This Does Not Prove Yet`, `Source-first Patterns Borrowed`, and a `90-second Reviewer Path`, with supporting review notes in `docs/review/readme-proof-bounded-marketing-surface.md`. This is README marketing surface only, not product-complete, not robust PDF extraction evidence, not hosted deployment evidence, not external reviewer feedback, or Braincrew acceptance.
 
 Phase 884 adds licensed real-world PDF fixture pack v0: `docs/review/licensed-real-world-pdf-fixture-pack.md` records a metadata-only candidate pack at `examples/pdf-extraction-quality/licensed-real-world-candidates.json` and regenerates `docs/evaluation/licensed-real-world-pdf-fixture-pack-report.md` through `app.services.licensed_real_world_fixture_pack_command`. The report records `candidate_count -> 4`, `downloaded_candidate_count -> 0`, `binary_files_committed -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> owner_approved_real_world_pdf_download_and_hash_v0`. CI checks it with `Check licensed real-world PDF fixture pack report staleness`. Reproduce locally with:

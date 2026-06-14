@@ -143,6 +143,14 @@ jobs:
             --output ../../docs/evaluation/licensed-real-world-pdf-fixture-pack-report.md \
             --check
 
+      - name: Check owner-approved real-world PDF download/hash report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.owner_approved_real_world_pdf_download_hash_command \
+            --manifest ../../examples/pdf-extraction-quality/owner-approved-real-world-download-hash.json \
+            --output ../../docs/evaluation/owner-approved-real-world-pdf-download-hash-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

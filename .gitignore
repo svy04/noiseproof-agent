@@ -7,3 +7,5 @@ __pycache__/
 *.py[cod]
 apps/api/.venv/
 apps/api/.pytest_cache/
+examples/pdf-extraction-quality/owner-runtime-downloads/
+examples/pdf-extraction-quality/**/*.downloaded.pdf

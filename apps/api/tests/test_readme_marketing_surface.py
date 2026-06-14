@@ -9,9 +9,10 @@ def test_readme_has_proof_bounded_marketing_surface():
 
     assert "## Current Proof Surface" in readme
     assert "Latest verified gate" in readme
-    assert "Licensed Real-world PDF Fixture Pack v0" in readme
+    assert "Owner-approved Real-world PDF Download and Hash v0" in readme
     assert "Remote workflow verification" in readme
-    assert "fc34a619cd660c1a7a32ff3eb2db245ee7eeba3e" in readme
+    assert "Pending for the owner-approved download/hash gate" in readme
+    assert "89ee37e0092f33425822f5f556e313e0f2fa8b75" in readme
     assert "## What This Proves Now" in readme
     assert "## What This Does Not Prove Yet" in readme
     assert "robust PDF extraction" in readme

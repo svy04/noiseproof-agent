@@ -1,0 +1,109 @@
+{
+  "packet": "owner_approved_real_world_pdf_download_and_hash_v0",
+  "phase_marker": "owner_approved_real_world_pdf_download_and_hash_v0",
+  "source_manifest": "examples/pdf-extraction-quality/licensed-real-world-candidates.json",
+  "claim_boundary": "owner_approved_real_world_pdf_download_hash_metadata_only_not_robust_pdf_extraction",
+  "owner_approved": true,
+  "approval_basis": "User approved continuing owner-runtime evidence gates in this Codex session. This manifest commits sanitized metadata only.",
+  "observed_at_utc": "2026-06-14T10:05:21Z",
+  "binary_files_committed": false,
+  "download_cache_committed": false,
+  "parser_calls_attempted": false,
+  "ocr_calls_attempted": false,
+  "table_extraction_attempted": false,
+  "robust_pdf_extraction_claimed": false,
+  "can_claim_robust_pdf_extraction": false,
+  "downloaded_fixtures": [
+    {
+      "fixture_id": "bea_nipa_glossary_2019",
+      "fixture_role": "digital_text_pdf",
+      "publisher": "U.S. Bureau of Economic Analysis",
+      "title": "NIPA Handbook Glossary",
+      "source_url": "https://www.bea.gov/resources/methodologies/nipa-handbook/pdf/glossary.pdf",
+      "license_source_url": "https://www.bea.gov/help/faq/147",
+      "redistribution_status": "public_domain_unless_stated_otherwise",
+      "citation": "Source: U.S. Bureau of Economic Analysis",
+      "download_status": "downloaded_and_hashed",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "last_modified": "Wed, 16 Dec 2020 22:07:41 GMT",
+      "byte_size": 315727,
+      "sha256_algorithm": "sha256",
+      "sha256": "991c6335ffb794cf8f7731a4bff770b810f63693d44af23f0edc8ffecab89cb6",
+      "pdf_magic_header": true,
+      "binary_committed": false,
+      "local_pdf_path": null,
+      "parser_status": "not_parsed",
+      "extraction_evaluated": false,
+      "known_risks": [
+        "download/hash metadata does not prove parse quality",
+        "BEA public-domain FAQ is a source policy reference, not legal advice"
+      ]
+    }
+  ],
+  "blocked_fixtures": [
+    {
+      "fixture_id": "bls_employment_situation_2025_01",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "source_url": "https://www.bls.gov/news.release/archives/empsit_02072025.pdf",
+      "license_source_url": "https://www.bls.gov/opub/copyright-information.htm",
+      "download_status": "blocked_403_in_owner_runtime",
+      "http_status": 403,
+      "sha256": null,
+      "binary_committed": false,
+      "local_pdf_path": null,
+      "boundary": "runtime access blocked; no download/hash claim for this fixture"
+    },
+    {
+      "fixture_id": "bls_women_labor_force_databook_2016",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "source_url": "https://www.bls.gov/opub/reports/womens-databook/2016/pdf/home.pdf",
+      "license_source_url": "https://www.bls.gov/opub/copyright-information.htm",
+      "download_status": "blocked_403_in_owner_runtime",
+      "http_status": 403,
+      "sha256": null,
+      "binary_committed": false,
+      "local_pdf_path": null,
+      "boundary": "runtime access blocked; no download/hash claim for this fixture"
+    },
+    {
+      "fixture_id": "bls_monthly_labor_review_2011_06",
+      "publisher": "U.S. Bureau of Labor Statistics Monthly Labor Review",
+      "source_url": "https://www.bls.gov/opub/mlr/2011/06/mlr201106.pdf",
+      "license_source_url": "https://www.bls.gov/opub/mlr/about.htm",
+      "download_status": "blocked_403_in_owner_runtime",
+      "http_status": 403,
+      "sha256": null,
+      "binary_committed": false,
+      "local_pdf_path": null,
+      "boundary": "runtime access blocked; no download/hash claim for this fixture"
+    },
+    {
+      "fixture_id": "bls_beyond_numbers_not_in_labor_force_2015",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "source_url": "https://www.bls.gov/opub/btn/volume-4/pdf/people-who-are-not-in-the-labor-force-why-arent-they-working.pdf",
+      "license_source_url": "https://www.bls.gov/opub/copyright-information.htm",
+      "download_status": "blocked_403_in_owner_runtime",
+      "http_status": 403,
+      "sha256": null,
+      "binary_committed": false,
+      "local_pdf_path": null,
+      "boundary": "runtime access blocked; no download/hash claim for this fixture"
+    }
+  ],
+  "boundary_notes": [
+    "download/hash metadata only",
+    "owner-runtime observation only",
+    "no external PDF binaries committed",
+    "no download cache committed",
+    "not robust PDF extraction evidence",
+    "not arbitrary market PDF parsing evidence",
+    "not OCR evidence",
+    "not table extraction evidence",
+    "not layout fidelity evidence",
+    "not hosted deployment evidence",
+    "not external reviewer feedback",
+    "not product-complete"
+  ],
+  "recommended_next_gate": "real_world_pdf_parse_observation_without_robust_claim_v0"
+}

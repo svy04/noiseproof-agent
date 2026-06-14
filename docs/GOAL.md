@@ -43,6 +43,31 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 887:
+
+```text
+latest_product_gate: Owner-approved Real-world PDF Download and Hash v0
+latest_product_artifact: docs/review/owner-approved-real-world-pdf-download-hash.md
+latest_eval_report: docs/evaluation/owner-approved-real-world-pdf-download-hash-report.md
+manifest: examples/pdf-extraction-quality/owner-approved-real-world-download-hash.json
+command: app.services.owner_approved_real_world_pdf_download_hash_command
+ci_check: Check owner-approved real-world PDF download/hash report staleness
+phase_marker: owner_approved_real_world_pdf_download_and_hash_v0
+downloaded_fixture_count: 1
+blocked_fixture_count: 4
+binary_files_committed: false
+download_cache_committed: false
+parser_calls_attempted: false
+ocr_calls_attempted: false
+robust_pdf_extraction_claimed: false
+can_claim_robust_pdf_extraction: false
+robust_pdf_extraction.status: unproven
+robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata_plus_multi_fixture_ocr_adapter_eval_v0_plus_licensed_real_world_pdf_fixture_pack_v0_plus_owner_approved_real_world_pdf_download_and_hash_v0
+robust_pdf_extraction.recommended_next_gate: real_world_pdf_parse_observation_without_robust_claim_v0
+product_complete: false
+boundary: download/hash metadata only; no external PDF binaries committed; not robust PDF extraction evidence; not arbitrary market PDF parsing evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 884:
 
 ```text
@@ -33620,6 +33645,54 @@ Boundaries:
 - not external reviewer feedback
 - not a public benchmark result
 - not Braincrew acceptance
+
+### Phase 887 - Owner-approved Real-world PDF Download and Hash v0
+
+Status: implemented.
+
+Purpose: close the next robust-PDF proof gap by recording a bounded
+owner-approved real-world PDF download/hash observation before any parsing,
+OCR, table extraction, layout, or robust extraction claim.
+
+Artifacts:
+
+- `examples/pdf-extraction-quality/owner-approved-real-world-download-hash.json`
+- `docs/evaluation/owner-approved-real-world-pdf-download-hash-report.md`
+- `docs/review/owner-approved-real-world-pdf-download-hash.md`
+- `packages/ingestion/pdf_quality/owner_approved_real_world_pdf_download_hash.py`
+- `apps/api/app/services/owner_approved_real_world_pdf_download_hash_command.py`
+- `apps/api/tests/test_owner_approved_real_world_pdf_download_hash.py`
+- `.github/workflows/ci.yml`
+- `README.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+
+Observed:
+
+- downloaded_fixture_count -> 1
+- blocked_fixture_count -> 4
+- downloaded fixture -> `bea_nipa_glossary_2019`
+- BLS candidates -> `blocked_403_in_owner_runtime`
+- binary_files_committed -> false
+- download_cache_committed -> false
+- parser_calls_attempted -> false
+- ocr_calls_attempted -> false
+- table_extraction_attempted -> false
+- can_claim_robust_pdf_extraction -> false
+- recommended_next_gate -> `real_world_pdf_parse_observation_without_robust_claim_v0`
+
+Boundaries:
+
+- download/hash metadata only
+- not robust PDF extraction evidence
+- not arbitrary market PDF parsing evidence
+- not OCR evidence
+- not table extraction evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not product-complete
 
 ### Phase 837 - External Feedback Current-state Semantic Retrieval Quality Diagnostic Matrix Issue Verification Remote Verification v0
 
