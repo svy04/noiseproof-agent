@@ -115,6 +115,24 @@ latest_external_feedback_screen_job_id: 81272609334
 boundary: remote workflow verification only; not the route refresh itself; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
+Current public issue overlay as of Phase 895 and Phase 896:
+
+```text
+latest_issue_route_gate: External Review Issue Body Multi Real-world PDF Parse Observation Matrix Route Refresh v0
+latest_issue_route_artifact: docs/review/external-review-issue-body-multi-real-world-pdf-parse-observation-matrix-route-refresh.md
+latest_issue_state_gate: External Feedback Current-state Multi Real-world PDF Parse Observation Matrix Issue Verification v0
+latest_issue_state_artifact: docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification.md
+issue: https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt: 2026-06-14T11:19:43Z
+comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+status: pending
+does_not_close_gate: true
+boundary: owner-authored issue body routing and current-state screening only; not external reviewer feedback; not robust PDF extraction evidence; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 889:
 
 ```text
@@ -264,6 +282,61 @@ External Feedback Screen step: Screen issue comments -> success
 ```
 
 Phase 894 is remote workflow verification only. It adds no parser behavior, no new PDF observations, no live issue body edit, no hosted deployment evidence, no external reviewer feedback, and no product-complete claim.
+
+### Phase 895 - External Review Issue Body Multi Real-world PDF Parse Observation Matrix Route Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+route public issue #1 Latest Proof To Inspect to the multi real-world PDF parse observation matrix proof chain
+```
+
+Implemented:
+
+```text
+external review issue body multi real-world PDF parse observation matrix route refresh v0
+docs/review/external-review-issue-body-multi-real-world-pdf-parse-observation-matrix-route-refresh.md
+issue: https://github.com/svy04/noiseproof-agent/issues/1
+updatedAt: 2026-06-14T11:19:43Z
+starts_with_request: true
+first_codepoint: 35
+has_leading_bom: false
+has_multi_real_world_pdf_matrix_latest_proof: true
+has_multi_real_world_pdf_matrix_remote_verification: true
+has_multi_real_world_pdf_matrix_route_refresh: true
+has_multi_real_world_pdf_matrix_route_refresh_remote_verification: true
+```
+
+Phase 895 is owner-authored issue body routing only. It adds no parser behavior, no new PDF observations, no external reviewer feedback, no hosted deployment evidence, and no product-complete claim.
+
+### Phase 896 - External Feedback Current-state Multi Real-world PDF Parse Observation Matrix Issue Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+screen issue #1 after the multi real-world PDF matrix issue-body route refresh and keep external reviewer feedback v0 pending when only owner-authored comments exist
+```
+
+Implemented:
+
+```text
+external feedback current-state multi real-world PDF parse observation matrix issue verification v0
+docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification.md
+comment_count: 1
+screened_comment_count: 1
+owner_comment_count: 1
+candidate_count: 0
+draft_count: 0
+reason: self_authored_comment_only
+status: pending
+does_not_close_gate: true
+```
+
+Phase 896 is current-state issue screening only. It is not external reviewer feedback, not customer validation, not hosted deployment evidence, not Braincrew acceptance, and not product-complete.
 
 Current navigation overlay as of Phase 887:
 

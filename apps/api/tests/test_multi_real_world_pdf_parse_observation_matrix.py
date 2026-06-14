@@ -259,3 +259,98 @@ def test_multi_real_world_pdf_parse_observation_matrix_route_refresh_remote_veri
             "docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh-remote-verification.md"
             in content
         ), path
+
+
+def test_external_review_issue_body_multi_real_world_pdf_matrix_route_refresh_is_recorded():
+    issue_refresh_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-multi-real-world-pdf-parse-observation-matrix-route-refresh.md"
+    )
+    assert issue_refresh_path.is_file()
+
+    content = issue_refresh_path.read_text(encoding="utf-8")
+    expected_markers = [
+        "External Review Issue Body Multi Real-world PDF Parse Observation Matrix Route Refresh",
+        "external review issue body multi real-world PDF parse observation matrix route refresh v0",
+        "https://github.com/svy04/noiseproof-agent/issues/1",
+        "starts_with_request: true",
+        "first_codepoint: 35",
+        "has_leading_bom: false",
+        "has_multi_real_world_pdf_matrix_latest_proof: true",
+        "has_multi_real_world_pdf_matrix_remote_verification: true",
+        "has_multi_real_world_pdf_matrix_route_refresh: true",
+        "has_multi_real_world_pdf_matrix_route_refresh_remote_verification: true",
+        "old_local_otel_latest_label_present: false",
+        "docs/review/multi-real-world-pdf-parse-observation.md",
+        "docs/review/multi-real-world-pdf-parse-observation-remote-verification.md",
+        "docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh.md",
+        "docs/review/external-reviewer-surfaces-multi-real-world-pdf-parse-observation-matrix-route-refresh-remote-verification.md",
+        "observed_fixture_count -> 3",
+        "9952bbb9f14c60a7c5510fb50af49b03f485ca80",
+        "owner-authored issue body routing only",
+        "not external reviewer feedback",
+        "not robust PDF extraction evidence",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+    for marker in expected_markers:
+        assert marker in content
+
+    for path in [
+        "README.md",
+        "docs/GOAL.md",
+        "docs/runbook.md",
+        "docs/application/portfolio-index.md",
+        "docs/review/application-ready-review.md",
+    ]:
+        surface = (REPO_ROOT / path).read_text(encoding="utf-8")
+        assert (
+            "docs/review/external-review-issue-body-multi-real-world-pdf-parse-observation-matrix-route-refresh.md"
+            in surface
+        ), path
+
+
+def test_external_feedback_current_state_multi_real_world_pdf_matrix_issue_verification_keeps_gate_pending():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    expected_markers = [
+        "External Feedback Current-state Multi Real-world PDF Parse Observation Matrix Issue Verification",
+        "external feedback current-state multi real-world PDF parse observation matrix issue verification v0",
+        "https://github.com/svy04/noiseproof-agent/issues/1",
+        "comment_count: 1",
+        "screened_comment_count: 1",
+        "owner_comment_count: 1",
+        "candidate_count: 0",
+        "draft_count: 0",
+        "reason: self_authored_comment_only",
+        "status: pending",
+        "does_not_close_gate: true",
+        "docs/review/multi-real-world-pdf-parse-observation.md",
+        "docs/review/external-review-issue-body-multi-real-world-pdf-parse-observation-matrix-route-refresh.md",
+        "owner-authored comment remains non-qualifying",
+        "current-state issue screen only",
+        "not external reviewer feedback",
+        "not robust PDF extraction evidence",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+    for marker in expected_markers:
+        assert marker in content
+
+    for path in [
+        "README.md",
+        "docs/GOAL.md",
+        "docs/runbook.md",
+        "docs/application/portfolio-index.md",
+        "docs/review/application-ready-review.md",
+    ]:
+        surface = (REPO_ROOT / path).read_text(encoding="utf-8")
+        assert (
+            "docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification.md"
+            in surface
+        ), path
