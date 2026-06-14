@@ -2,6 +2,18 @@
 
 ## Current Status
 
+Phase 882 adds multi-fixture OCR adapter eval v0: `docs/review/multi-fixture-ocr-adapter-eval.md` records that the 8-role PDF fixture matrix now combines with one sanitized owner-runtime OCR smoke observation and regenerates `docs/evaluation/multi-fixture-ocr-adapter-eval-report.md` through `app.services.multi_fixture_ocr_adapter_eval_command`. The report records `base_fixture_count -> 8`, `owner_runtime_ocr_smoke_count -> 1`, `combined_fixture_signal_count -> 9`, `ocr_evidence_scope -> single_synthetic_owner_runtime_fixture`, and `can_claim_robust_pdf_extraction -> false`. CI checks it with `Check multi-fixture OCR adapter eval report staleness`. Reproduce locally with:
+
+```powershell
+cd apps/api
+uv run python -m app.services.multi_fixture_ocr_adapter_eval_command --fixture ../../examples/pdf-extraction-quality --base-observations ../../examples/pdf-extraction-quality/observations.json --missing-pack ../../examples/pdf-extraction-quality/missing-runtime-observations.json --owner-ocr-observation ../../examples/pdf-extraction-quality/owner-runtime-ocr-smoke-observation.json --output ../../docs/evaluation/multi-fixture-ocr-adapter-eval-report.md --check
+uv run pytest tests/test_multi_fixture_ocr_adapter_eval.py -q
+```
+
+This is a multi-fixture OCR adapter evaluation surface only, not robust PDF extraction evidence, arbitrary market PDF OCR evidence, image/chart interpretation evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
+Phase 883 adds multi-fixture OCR adapter eval remote verification v0: `docs/review/multi-fixture-ocr-adapter-eval-remote-verification.md` records that head `bbdbe3732e01f3037b4173a855b6aeb5b8510084` passed CI run `27494378913` job `81265612274` and External Feedback Screen run `27494378901` job `81265612308`, including `Check multi-fixture OCR adapter eval report staleness` and `Run API smoke tests`. This is remote workflow verification only, not the eval gate itself, not robust PDF extraction evidence, arbitrary market PDF OCR evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Phase 872 adds missing PDF runtime observation pack v0: `docs/review/missing-pdf-runtime-observation-pack.md` records that `examples/pdf-extraction-quality/missing-runtime-observations.json` fills the four previously missing PDF fixture roles and regenerates `docs/evaluation/missing-pdf-runtime-observation-pack-report.md` through `app.services.missing_pdf_runtime_observation_pack_command`. The report records `fixture_count -> 8`, `base_observed_fixture_count -> 4`, `pack_observed_fixture_count -> 4`, `combined_observed_fixture_count -> 8`, `remaining_missing_runtime_observation_count -> 0`, and `can_claim_robust_pdf_extraction -> false`. CI checks it with `Check missing PDF runtime observation pack report staleness`. Reproduce locally with:
 
 ```powershell

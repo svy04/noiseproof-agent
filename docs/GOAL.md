@@ -134,7 +134,22 @@ ci_step: Run API smoke tests -> success
 boundary: remote workflow verification only; not the product gate itself; not OCR evidence; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
-Current remote verification overlay as of Phase 881:
+Current remote verification overlay as of Phase 883:
+
+```text
+latest_remote_verification_gate: Multi-fixture OCR Adapter Eval Remote Verification v0
+latest_remote_verification_artifact: docs/review/multi-fixture-ocr-adapter-eval-remote-verification.md
+latest_verified_head_sha: bbdbe3732e01f3037b4173a855b6aeb5b8510084
+latest_ci_run: 27494378913
+latest_ci_job_id: 81265612274
+latest_external_feedback_screen_run: 27494378901
+latest_external_feedback_screen_job_id: 81265612308
+ci_step: Check multi-fixture OCR adapter eval report staleness -> success
+ci_step: Run API smoke tests -> success
+boundary: remote workflow verification only; not the eval gate itself; not robust PDF extraction evidence; not arbitrary market PDF OCR evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
+Previous remote verification overlay as of Phase 881:
 
 ```text
 latest_remote_verification_gate: Opt-in OCR Adapter Owner-runtime Smoke Remote Verification v0
@@ -33369,6 +33384,47 @@ Boundaries:
 - not arbitrary market PDF OCR evidence
 - not image/chart interpretation evidence
 - not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 883 - Multi-fixture OCR Adapter Eval Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions verification for the Phase 882
+multi-fixture OCR adapter eval after it was pushed to `main`.
+
+Artifacts:
+
+- `docs/review/multi-fixture-ocr-adapter-eval-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_multi_fixture_ocr_adapter_eval.py`
+
+Remote markers:
+
+```text
+verified_head_sha -> bbdbe3732e01f3037b4173a855b6aeb5b8510084
+ci_run -> 27494378913
+ci_job_id -> 81265612274
+external_feedback_screen_run -> 27494378901
+external_feedback_screen_job_id -> 81265612308
+ci_step -> Check multi-fixture OCR adapter eval report staleness -> success
+ci_step -> Run API smoke tests -> success
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the eval gate itself
+- not robust PDF extraction evidence
+- not arbitrary market PDF OCR evidence
 - not hosted deployment evidence
 - not external reviewer feedback
 - not customer validation

@@ -125,9 +125,14 @@ def test_multi_fixture_ocr_adapter_eval_command_check_mode_accepts_report():
 
 def test_multi_fixture_ocr_adapter_eval_docs_ci_and_proof_gap_are_wired():
     review_path = REPO_ROOT / "docs/review/multi-fixture-ocr-adapter-eval.md"
+    remote_verification_path = (
+        REPO_ROOT / "docs/review/multi-fixture-ocr-adapter-eval-remote-verification.md"
+    )
     assert review_path.is_file()
+    assert remote_verification_path.is_file()
 
     review = review_path.read_text(encoding="utf-8")
+    remote_verification = remote_verification_path.read_text(encoding="utf-8")
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
     runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
@@ -148,11 +153,24 @@ def test_multi_fixture_ocr_adapter_eval_docs_ci_and_proof_gap_are_wired():
     assert "combined_fixture_signal_count -> 9" in review
     assert "not robust PDF extraction evidence" in review
     assert "not arbitrary market PDF OCR evidence" in review
+    assert "verified_head_sha -> bbdbe3732e01f3037b4173a855b6aeb5b8510084" in remote_verification
+    assert "CI run `27494378913`: success" in remote_verification
+    assert "CI job_id -> 81265612274" in remote_verification
+    assert "External Feedback Screen run `27494378901`: success" in remote_verification
+    assert "External Feedback Screen job_id -> 81265612308" in remote_verification
+    assert "Check multi-fixture OCR adapter eval report staleness -> success" in remote_verification
+    assert "remote workflow verification only" in remote_verification
+    assert "not robust PDF extraction evidence" in remote_verification
     assert "Multi-fixture OCR adapter eval v0: implemented" in readme
+    assert "Multi-fixture OCR adapter eval remote verification v0: implemented" in readme
     assert "Phase 882 - Multi-fixture OCR Adapter Eval v0" in goal
+    assert "Phase 883 - Multi-fixture OCR Adapter Eval Remote Verification v0" in goal
     assert "Phase 882 adds multi-fixture OCR adapter eval v0" in runbook
+    assert "Phase 883 adds multi-fixture OCR adapter eval remote verification v0" in runbook
     assert "docs/review/multi-fixture-ocr-adapter-eval.md" in portfolio
+    assert "docs/review/multi-fixture-ocr-adapter-eval-remote-verification.md" in portfolio
     assert "Multi-fixture OCR Adapter Eval" in application_ready
+    assert "Multi-fixture OCR Adapter Eval Remote Verification" in application_ready
     assert "Check multi-fixture OCR adapter eval report staleness" in ci
     assert "multi_fixture_ocr_adapter_eval_v0" in proof_gap_registry
     assert "licensed_real_world_pdf_fixture_pack_v0" in proof_gap_registry
