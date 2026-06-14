@@ -257,7 +257,7 @@ def test_opt_in_ocr_runtime_smoke_docs_and_ci_are_wired():
         "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness"
         in proof_gap_registry
     )
-    assert "owner_runtime_pymupdf_ocr_smoke_with_tessdata_v0" in proof_gap_registry
+    assert "owner_runtime_pymupdf_ocr_smoke_with_tessdata" in proof_gap_registry
 
 
 def test_opt_in_ocr_runtime_smoke_remote_verification_is_recorded():
@@ -302,3 +302,55 @@ def test_opt_in_ocr_runtime_smoke_remote_verification_is_recorded():
         in portfolio
     )
     assert "Opt-in OCR Adapter Runtime Smoke Remote Verification" in application_ready
+
+
+def test_opt_in_ocr_owner_runtime_smoke_is_recorded_with_boundaries():
+    owner_runtime_path = (
+        REPO_ROOT / "docs/review/opt-in-ocr-adapter-owner-runtime-smoke.md"
+    )
+    assert owner_runtime_path.is_file()
+
+    owner_runtime = owner_runtime_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    proof_gap_registry = (
+        REPO_ROOT / "apps/api/app/services/proof_gap_registry.py"
+    ).read_text(encoding="utf-8")
+
+    assert "Opt-in OCR Adapter Owner-runtime Smoke" in owner_runtime
+    assert "run_source -> owner_runtime_pymupdf_ocr_smoke" in owner_runtime
+    assert "expected_spans_found -> true" in owner_runtime
+    assert "recognized_text -> ocr smoke text" in owner_runtime
+    assert "accepted_owner_runtime_smoke -> true" in owner_runtime
+    assert "tessdata_path_printed -> false" in owner_runtime
+    assert "tessdata_path_committed_to_repo -> false" in owner_runtime
+    assert "not robust PDF extraction evidence" in owner_runtime
+    assert (
+        "owner_runtime_pymupdf_ocr_smoke_with_tessdata"
+        in proof_gap_registry
+    )
+    assert "multi_fixture_ocr_adapter_eval_v0" in proof_gap_registry
+    assert (
+        "Opt-in OCR adapter owner-runtime smoke v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 880 - Opt-in OCR Adapter Owner-runtime Smoke v0"
+        in goal
+    )
+    assert (
+        "Phase 880 adds opt-in OCR adapter owner-runtime smoke v0"
+        in runbook
+    )
+    assert (
+        "docs/review/opt-in-ocr-adapter-owner-runtime-smoke.md"
+        in portfolio
+    )
+    assert "Opt-in OCR Adapter Owner-runtime Smoke" in application_ready

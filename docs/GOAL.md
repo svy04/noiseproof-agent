@@ -43,6 +43,35 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 880:
+
+```text
+latest_product_gate: Opt-in OCR Adapter Owner-runtime Smoke v0
+latest_product_artifact: docs/review/opt-in-ocr-adapter-owner-runtime-smoke.md
+latest_eval_report: owner-runtime metadata report written outside repository and validated; path not committed
+fixture_root: examples/pdf-extraction-quality/ocr-runtime-fixtures/
+command: app.services.opt_in_ocr_adapter_runtime_smoke_command
+phase_marker: opt_in_ocr_adapter_runtime_smoke_v0
+run_source: owner_runtime_pymupdf_ocr_smoke
+fixture_id: ocr_smoke_text_image_pdf
+ocr_engine: pymupdf_get_textpage_ocr
+language: eng
+ocr_performed: true
+ocr_calls_attempted: true
+expected_spans_found: true
+recognized_text: ocr smoke text
+accepted_owner_runtime_smoke: true
+tessdata_path_printed: false
+tessdata_path_committed_to_repo: false
+robust_pdf_extraction_claimed: false
+can_claim_robust_pdf_extraction: false
+robust_pdf_extraction.status: unproven
+robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata
+robust_pdf_extraction.recommended_next_gate: multi_fixture_ocr_adapter_eval_v0
+product_complete: false
+boundary: one synthetic fixture OCR smoke only; not robust PDF extraction evidence; not arbitrary market PDF OCR evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 878:
 
 ```text
@@ -33109,6 +33138,69 @@ Boundaries:
 - not the product gate itself
 - not OCR evidence
 - not robust PDF extraction evidence
+- not image/chart interpretation evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 880 - Opt-in OCR Adapter Owner-runtime Smoke v0
+
+Status: implemented.
+
+Purpose: record one owner-runtime PyMuPDF OCR smoke over the committed
+synthetic image-only PDF fixture while keeping robust PDF extraction unproven.
+
+Artifacts:
+
+- `docs/review/opt-in-ocr-adapter-owner-runtime-smoke.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/app/services/proof_gap_registry.py`
+- `apps/api/tests/test_opt_in_ocr_adapter_runtime_smoke.py`
+
+Owner-runtime smoke markers:
+
+```text
+phase_marker -> opt_in_ocr_adapter_runtime_smoke_v0
+run_source -> owner_runtime_pymupdf_ocr_smoke
+run_status -> report_written
+fixture_id -> ocr_smoke_text_image_pdf
+fixture_sha256 -> f961080dcf4163f554e3c8e3f55825a49357b43010adceff78eea8591ddadc2c
+fixture_size_bytes -> 2122181
+ocr_engine -> pymupdf_get_textpage_ocr
+language -> eng
+page_count -> 1
+ocr_page_count -> 1
+ocr_performed -> true
+ocr_calls_attempted -> true
+recognized_text -> ocr smoke text
+expected_spans_found -> true
+accepted_owner_runtime_smoke -> true
+tessdata_path_printed -> false
+tessdata_path_committed_to_repo -> false
+robust_pdf_extraction_claimed -> false
+can_claim_robust_pdf_extraction -> false
+```
+
+Proof gap update:
+
+```text
+robust_pdf_extraction.status -> unproven
+robust_pdf_extraction.current_evidence -> digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata
+robust_pdf_extraction.recommended_next_gate -> multi_fixture_ocr_adapter_eval_v0
+```
+
+Boundaries:
+
+- owner-runtime OCR smoke over one synthetic fixture only
+- not robust PDF extraction evidence
+- not arbitrary market PDF OCR evidence
 - not image/chart interpretation evidence
 - not layout fidelity evidence
 - not hosted deployment evidence
