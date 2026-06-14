@@ -67,6 +67,21 @@ product_complete: false
 boundary: multi-fixture matrix and gap surface only; not robust PDF extraction evidence; not OCR evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
+Current remote verification overlay as of Phase 871:
+
+```text
+latest_remote_verification_gate: Multi-fixture PDF Extraction Quality Eval Remote Verification v0
+latest_remote_verification_artifact: docs/review/multi-fixture-pdf-extraction-quality-eval-remote-verification.md
+latest_verified_head_sha: 0c9cf904fdb28f431338b683ded0d89d30fdbd88
+latest_ci_run: 27491985623
+latest_ci_job_id: 81258771544
+latest_external_feedback_screen_run: 27491985622
+latest_external_feedback_screen_job_id: 81258771520
+ci_step: Check multi-fixture PDF extraction quality report staleness -> success
+ci_step: Run API smoke tests -> success
+boundary: remote workflow verification only; not robust PDF extraction evidence; not OCR evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 868:
 
 ```text
@@ -34639,6 +34654,59 @@ robust_pdf_extraction.recommended_next_gate -> missing_pdf_runtime_observation_p
 Boundaries:
 
 - multi-fixture matrix and gap surface only
+- not robust PDF extraction evidence
+- not OCR evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 871 - Multi-fixture PDF Extraction Quality Eval Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote workflow verification for the Phase 870 multi-fixture
+PDF extraction quality eval after it was pushed to `main`.
+
+Artifacts:
+
+- `docs/review/multi-fixture-pdf-extraction-quality-eval-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_docs.py`
+
+Remote verification markers:
+
+```text
+verified_head_sha -> 0c9cf904fdb28f431338b683ded0d89d30fdbd88
+branch -> main
+commit -> feat: add multi-fixture pdf extraction quality matrix
+ci_run -> 27491985623
+ci_job_id -> 81258771544
+ci_job_name -> api-smoke
+ci_conclusion -> success
+external_feedback_screen_run -> 27491985622
+external_feedback_screen_job_id -> 81258771520
+external_feedback_screen_job_name -> screen
+external_feedback_screen_conclusion -> success
+```
+
+Remote CI step evidence included:
+
+```text
+Compile API and local packages -> success
+Check multi-fixture PDF extraction quality report staleness -> success
+Run API smoke tests -> success
+```
+
+Boundaries:
+
+- remote workflow verification only
 - not robust PDF extraction evidence
 - not OCR evidence
 - not layout fidelity evidence

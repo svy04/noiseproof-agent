@@ -23045,6 +23045,59 @@ def test_multi_fixture_pdf_extraction_quality_eval_v0_is_recorded_without_robust
     assert "Check multi-fixture PDF extraction quality report staleness" in ci
 
 
+def test_multi_fixture_pdf_extraction_quality_eval_remote_verification_is_recorded():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/multi-fixture-pdf-extraction-quality-eval-remote-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Multi-fixture PDF Extraction Quality Eval Remote Verification" in content
+    assert "multi-fixture PDF extraction quality eval remote verification v0" in content
+    assert "0c9cf904fdb28f431338b683ded0d89d30fdbd88" in content
+    assert "CI run `27491985623`: success" in content
+    assert "CI job_id -> 81258771544" in content
+    assert "External Feedback Screen run `27491985622`: success" in content
+    assert "External Feedback Screen job_id -> 81258771520" in content
+    assert "Check multi-fixture PDF extraction quality report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Multi-fixture PDF extraction quality eval remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 871 - Multi-fixture PDF Extraction Quality Eval Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 871 adds multi-fixture PDF extraction quality eval remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/multi-fixture-pdf-extraction-quality-eval-remote-verification.md"
+        in portfolio
+    )
+    assert (
+        "Multi-fixture PDF Extraction Quality Eval Remote Verification"
+        in application_ready
+    )
+
+
 def test_external_review_issue_body_shortlist_refresh_records_live_issue_edit():
     refresh_path = REPO_ROOT / "docs/review/external-review-issue-body-shortlist-refresh.md"
     assert refresh_path.is_file()
