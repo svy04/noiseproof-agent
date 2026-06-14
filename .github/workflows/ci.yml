@@ -159,6 +159,14 @@ jobs:
             --output ../../docs/evaluation/real-world-pdf-parse-observation-report.md \
             --check
 
+      - name: Check multi real-world PDF parse observation report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.multi_real_world_pdf_parse_observation_command \
+            --matrix ../../examples/pdf-extraction-quality/multi-real-world-pdf-parse-observations.json \
+            --output ../../docs/evaluation/multi-real-world-pdf-parse-observation-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

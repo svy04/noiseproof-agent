@@ -39,8 +39,10 @@ _GAP_ACTIONS = {
             "docs/evaluation/owner-approved-real-world-pdf-download-hash-report.md",
             "docs/review/real-world-pdf-parse-observation.md",
             "docs/evaluation/real-world-pdf-parse-observation-report.md",
+            "docs/review/multi-real-world-pdf-parse-observation.md",
+            "docs/evaluation/multi-real-world-pdf-parse-observation-report.md",
         ],
-        "recommended_next_gate": "multi_real_world_pdf_parse_observation_matrix_v0",
+        "recommended_next_gate": "multi_real_world_pdf_parse_observation_matrix_remote_verification_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -161,12 +163,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
                 "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata_plus_multi_fixture_ocr_adapter_eval_v0_plus_licensed_real_world_pdf_fixture_pack_v0"
                 "_plus_owner_approved_real_world_pdf_download_and_hash_v0"
                 "_plus_real_world_pdf_parse_observation_without_robust_claim_v0"
+                "_plus_multi_real_world_pdf_parse_observation_matrix_v0"
             ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "multi_real_world_pdf_parse_observation_matrix_v0"
+                "multi_real_world_pdf_parse_observation_matrix_remote_verification_v0"
             ),
         ),
         ProofGapOut(

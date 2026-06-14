@@ -2,6 +2,16 @@
 
 ## Current Status
 
+Phase 891 adds multi real-world PDF parse observation matrix v0: `docs/review/multi-real-world-pdf-parse-observation.md` records three BEA real-world PDF PyMuPDF digital-text parse observations, with sanitized metadata at `examples/pdf-extraction-quality/multi-real-world-pdf-parse-observations.json` and a regenerated report at `docs/evaluation/multi-real-world-pdf-parse-observation-report.md`. The report records `observed_fixture_count -> 3`, `total_page_count -> 95`, `total_text_char_count -> 217555`, `total_table_candidate_count -> 43`, `table_extraction_performed -> false`, `ocr_calls_attempted -> false`, `binary_files_committed -> false`, `raw_extracted_text_committed -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> multi_real_world_pdf_parse_observation_matrix_remote_verification_v0`. CI checks it with `Check multi real-world PDF parse observation report staleness`. Reproduce locally with:
+
+```powershell
+cd apps/api
+uv run python -m app.services.multi_real_world_pdf_parse_observation_command --matrix ../../examples/pdf-extraction-quality/multi-real-world-pdf-parse-observations.json --output ../../docs/evaluation/multi-real-world-pdf-parse-observation-report.md --check
+uv run pytest tests/test_multi_real_world_pdf_parse_observation_matrix.py -q
+```
+
+This is a multi-fixture real-world PDF parse observation matrix only, not robust PDF extraction evidence, arbitrary market PDF parsing evidence, OCR evidence, table extraction evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Phase 889 adds real-world PDF parse observation v0: `docs/review/real-world-pdf-parse-observation.md` records one BEA real-world PDF PyMuPDF digital-text parse observation, with sanitized metadata at `examples/pdf-extraction-quality/real-world-pdf-parse-observation.json` and a regenerated report at `docs/evaluation/real-world-pdf-parse-observation-report.md`. The report records `observed_fixture_count -> 1`, `page_count -> 35`, `text_char_count -> 92219`, `table_candidate_count -> 35`, `table_extraction_performed -> false`, `ocr_calls_attempted -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> multi_real_world_pdf_parse_observation_matrix_v0`. CI checks it with `Check real-world PDF parse observation report staleness`. Reproduce locally with:
 
 ```powershell

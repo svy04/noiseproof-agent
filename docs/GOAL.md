@@ -43,6 +43,36 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 891:
+
+```text
+latest_product_gate: Multi Real-world PDF Parse Observation Matrix v0
+latest_product_artifact: docs/review/multi-real-world-pdf-parse-observation.md
+latest_eval_report: docs/evaluation/multi-real-world-pdf-parse-observation-report.md
+observation_matrix: examples/pdf-extraction-quality/multi-real-world-pdf-parse-observations.json
+command: app.services.multi_real_world_pdf_parse_observation_command
+ci_check: Check multi real-world PDF parse observation report staleness
+phase_marker: multi_real_world_pdf_parse_observation_matrix_v0
+observed_fixture_count: 3
+fixture_ids: bea_nipa_glossary_2019; bea_nipa_chapter_04_2024; bea_open_source_software_innovation_wp_2022_10
+parser: pdf-pymupdf
+total_page_count: 95
+total_text_char_count: 217555
+total_table_candidate_count: 43
+table_extraction_performed: false
+ocr_calls_attempted: false
+binary_files_committed: false
+download_cache_committed: false
+raw_extracted_text_committed: false
+robust_pdf_extraction_claimed: false
+can_claim_robust_pdf_extraction: false
+robust_pdf_extraction.status: unproven
+robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata_plus_multi_fixture_ocr_adapter_eval_v0_plus_licensed_real_world_pdf_fixture_pack_v0_plus_owner_approved_real_world_pdf_download_and_hash_v0_plus_real_world_pdf_parse_observation_without_robust_claim_v0_plus_multi_real_world_pdf_parse_observation_matrix_v0
+robust_pdf_extraction.recommended_next_gate: multi_real_world_pdf_parse_observation_matrix_remote_verification_v0
+product_complete: false
+boundary: three real-world BEA PDF digital-text observations only; no external PDF binaries committed; no download cache committed; no raw extracted text committed; not robust PDF extraction evidence; not arbitrary market PDF parsing evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 889:
 
 ```text
@@ -70,6 +100,45 @@ robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_
 robust_pdf_extraction.recommended_next_gate: multi_real_world_pdf_parse_observation_matrix_v0
 product_complete: false
 boundary: single real-world PDF parse observation only; no external PDF binaries committed; no raw extracted text committed; not robust PDF extraction evidence; not arbitrary market PDF parsing evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
+### Phase 891 - Multi Real-world PDF Parse Observation Matrix v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+extend the single real-world PDF parse observation into a small BEA PDF observation matrix without claiming robust PDF extraction
+```
+
+Implemented:
+
+```text
+multi real-world PDF parse observation matrix v0
+docs/review/multi-real-world-pdf-parse-observation.md
+docs/evaluation/multi-real-world-pdf-parse-observation-report.md
+examples/pdf-extraction-quality/multi-real-world-pdf-parse-observations.json
+app.services.multi_real_world_pdf_parse_observation_command
+CI staleness check for the regenerated matrix report
+observed_fixture_count: 3
+total_page_count: 95
+total_text_char_count: 217555
+total_table_candidate_count: 43
+table_extraction_performed: false
+ocr_calls_attempted: false
+binary_files_committed: false
+download_cache_committed: false
+raw_extracted_text_committed: false
+can_claim_robust_pdf_extraction: false
+```
+
+Phase 891 is a sanitized metadata/reporting gate only. It adds no parser capability beyond the existing PyMuPDF digital-text observation path, no OCR, no table extraction, no layout fidelity claim, no committed external PDF binaries, no raw extracted text, no hosted deployment evidence, no external reviewer feedback, and no product-complete claim.
+
+Next recommended evidence gate:
+
+```text
+multi_real_world_pdf_parse_observation_matrix_remote_verification_v0
 ```
 
 Current navigation overlay as of Phase 887:
