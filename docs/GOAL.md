@@ -43,7 +43,7 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Current navigation overlay as of Phase 864:
+Current navigation overlay as of Phase 865:
 
 ```text
 latest_product_gate: Representative live semantic quality eval v0
@@ -56,13 +56,13 @@ ranking_boundary: exact_cosine_caller_provided_query_vector
 evaluator: packages/ingestion/retrieval/representative_semantic_quality.py
 command: app.services.representative_live_semantic_quality_command
 ci_check: Check representative live semantic quality report staleness
-latest_remote_verification_gate: Live semantic qrels baseline eval remote verification v0
-latest_remote_verification_artifact: docs/review/live-semantic-qrels-baseline-eval-remote-verification.md
-latest_verified_head_sha: ed73aef0b13261ac74ee14c7402d839dc5532797
-latest_ci_run: 27490045473
-latest_ci_job_id: 81253278484
-latest_external_feedback_screen_run: 27490045474
-latest_external_feedback_screen_job_id: 81253278486
+latest_remote_verification_gate: Representative live semantic quality eval remote verification v0
+latest_remote_verification_artifact: docs/review/representative-live-semantic-quality-eval-remote-verification.md
+latest_verified_head_sha: 35318bb044bbdc980172f6585015202cfead131d
+latest_ci_run: 27490645731
+latest_ci_job_id: 81254937629
+latest_external_feedback_screen_run: 27490645765
+latest_external_feedback_screen_job_id: 81254937675
 coverage_status: passed
 role_coverage_ratio: 1.0
 source_type_coverage_ratio: 1.0
@@ -34249,6 +34249,61 @@ Boundaries:
 - not live embedding generation
 - not a public benchmark result
 - not a model comparison
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 865 - Representative live semantic quality eval remote verification v0
+
+Status: implemented.
+
+Purpose: record remote workflow verification for the Phase 864 representative
+live semantic quality eval after it was pushed to `main`, without treating
+workflow success as production semantic retrieval quality evidence or external
+reviewer feedback.
+
+Artifacts:
+
+- `docs/review/representative-live-semantic-quality-eval-remote-verification.md`
+- `docs/GOAL.md`
+
+Remote verification markers:
+
+```text
+verified_head_sha -> 35318bb044bbdc980172f6585015202cfead131d
+branch -> main
+commit -> feat: add representative live semantic quality eval
+ci_run -> 27490645731
+ci_job_id -> 81254937629
+ci_job_name -> api-smoke
+ci_conclusion -> success
+external_feedback_screen_run -> 27490645765
+external_feedback_screen_job_id -> 81254937675
+external_feedback_screen_job_name -> screen
+external_feedback_screen_conclusion -> success
+```
+
+Remote CI step evidence included:
+
+```text
+Compile API and local packages -> success
+Check semantic retrieval quality report staleness -> success
+Check qrels-backed semantic quality report staleness -> success
+Check live lexical qrels baseline report staleness -> success
+Check live semantic qrels baseline report staleness -> success
+Check representative live semantic quality report staleness -> success
+Check PDF extraction quality report staleness -> success
+Run API smoke tests -> success
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not production semantic retrieval quality evidence
+- not live embedding generation
+- not a public benchmark result
 - not hosted deployment evidence
 - not external reviewer feedback
 - not customer validation
