@@ -146,6 +146,19 @@ latest_external_feedback_screen_job_id: 81273628056
 boundary: remote workflow verification only; not the current-state issue screen itself; not external reviewer feedback; not robust PDF extraction evidence; not hosted deployment evidence; not product-complete
 ```
 
+Current external-reader proof packet overlay as of Phase 898:
+
+```text
+latest_external_reader_packet_gate: External-reader Phase 897 Current Proof Packet Refresh v0
+latest_external_reader_packet_artifact: docs/review/external-reader-phase-897-current-proof-packet-refresh.md
+latest_verified_head_sha: 084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea
+latest_ci_run: 27497284929
+latest_external_feedback_screen_run: 27497284920
+candidate_count: 0
+status: pending
+boundary: route hygiene only; not new runtime evidence; not external reviewer feedback; not robust PDF extraction evidence; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 889:
 
 ```text
@@ -377,6 +390,33 @@ External Feedback Screen step: Screen issue comments -> success
 ```
 
 Phase 897 is remote workflow verification only. It is not the current-state issue screen itself, not the owner-authored issue body route refresh itself, not external reviewer feedback, not robust PDF extraction evidence, not hosted deployment evidence, and not product-complete.
+
+### Phase 898 - External-reader Phase 897 Current Proof Packet Refresh v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+refresh the README, external-reader proof path, outreach packet, portfolio index, application-ready review, GOAL, and runbook so first-pass reviewers start from the current Phase 897 proof chain
+```
+
+Implemented:
+
+```text
+external reader phase 897 current proof packet refresh v0
+docs/review/external-reader-phase-897-current-proof-packet-refresh.md
+README current proof surface points to Phase 897
+docs/review/external-reader-proof-path.md points to Phase 897
+docs/review/external-reviewer-outreach-packet.md points to Phase 897
+candidate_count: 0
+status: pending
+verified_head_sha: 084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea
+CI run: 27497284929
+External Feedback Screen run: 27497284920
+```
+
+Phase 898 is route hygiene and marketing/proof packaging only. It is not new runtime evidence, not external reviewer feedback, not customer validation, not Braincrew acceptance, not robust PDF extraction evidence, not hosted deployment evidence, and not product-complete.
 
 Current navigation overlay as of Phase 887:
 

@@ -16,6 +16,28 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Phase 897 current proof packet:
+
+```text
+docs/review/external-reader-phase-897-current-proof-packet-refresh.md
+docs/review/external-review-issue-body-multi-real-world-pdf-parse-observation-matrix-route-refresh.md
+docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification.md
+docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification-remote-verification.md
+```
+
+Route markers:
+
+```text
+084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea
+CI run `27497284929`: success
+External Feedback Screen run `27497284920`: success
+candidate_count: 0
+status: pending
+does_not_close_gate: true
+```
+
+Boundary: this route points reviewers to the current Phase 897 public issue proof chain. It is route hygiene only, not new runtime evidence, not external reviewer feedback, not customer validation, not hosted deployment evidence, not robust PDF extraction evidence, and not product-complete.
+
 Multi real-world PDF parse observation matrix:
 
 ```text

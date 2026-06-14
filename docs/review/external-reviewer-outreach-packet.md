@@ -45,8 +45,26 @@ docs/review/external-feedback-intake-criteria.md
 Current compact proof to inspect:
 
 ```text
-Uploaded PDF table adapter metadata provenance runtime proof
+Phase 897 current proof packet
 docs/review/external-reviewer-outreach-packet.md
+docs/review/external-reader-phase-897-current-proof-packet-refresh.md
+docs/review/multi-real-world-pdf-parse-observation.md
+docs/review/multi-real-world-pdf-parse-observation-remote-verification.md
+docs/review/external-review-issue-body-multi-real-world-pdf-parse-observation-matrix-route-refresh.md
+docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification.md
+docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification-remote-verification.md
+observed_fixture_count -> 3
+can_claim_robust_pdf_extraction -> false
+candidate_count: 0
+status: pending
+```
+
+Boundary: this current proof route is not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+
+Predecessor compact proof route:
+
+```text
+Uploaded PDF table adapter metadata provenance runtime proof
 docs/review/uploaded-pdf-table-adapter-metadata-provenance.md
 docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md
 docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke-remote-verification.md
@@ -61,7 +79,7 @@ table_extraction_performed remains false
 source_provenance_boundary -> retrieval_run_candidate_chunk_metadata_only
 ```
 
-Boundary: this current proof route is not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger generation, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
+Boundary: this predecessor proof route is not robust PDF extraction evidence, not table extraction evidence for arbitrary market PDFs, not Evidence Ledger generation, not new runtime evidence, not external reviewer feedback, not hosted deployment evidence, not customer validation, not Braincrew acceptance, and not product-complete.
 
 Predecessor compact proof to inspect:
 
@@ -107,6 +125,8 @@ pdf_encrypted_requires_password
 
 ## Copy-paste outreach messages
 
+Continuity note: the current request should start from the Phase 897 current proof packet. The predecessor uploaded PDF table adapter metadata provenance runtime proof remains archived at `docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md`, and the older upload PDF quality preview coverage summary proof remains archived at `docs/review/upload-pdf-quality-preview-coverage-summary.md`. These archive routes are not the current proof to inspect first.
+
 ### FDE / product engineer reviewer
 
 ```text
@@ -114,7 +134,7 @@ Hi, I am preparing NoiseProof Agent as a small portfolio project for Forward Dep
 
 It is not a trading bot and not a production RAG platform. The current proof path is intentionally bounded: local service surfaces, parser/chunk/retrieval previews, evidence/noise/report previews, workflow lineage, and failure-case provenance.
 
-The most compact current proof to inspect is the uploaded PDF table adapter metadata provenance runtime proof in docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md. The predecessor compact boundary route remains the upload PDF quality preview coverage summary proof in docs/review/upload-pdf-quality-preview-coverage-summary.md.
+The most compact current proof to inspect is the Phase 897 current proof packet in docs/review/external-reader-phase-897-current-proof-packet-refresh.md. It routes to the three-BEA-PDF parse observation matrix, the issue-body route refresh, the current-state issue screen, and the remote workflow verification.
 
 Could you spend 5 minutes on the reviewer brief and leave one concrete comment on issue #1?
 
@@ -137,7 +157,7 @@ Hi, I am looking for a technical review of NoiseProof Agent before I claim more 
 
 The project is currently a local, inspectable evidence-first market-intelligence service. It has deterministic previews for collection planning, parser/chunk/retrieval boundaries, Evidence Ledger / Noise Gate / report previews, workflow lineage, and failure-case provenance. It does not claim semantic retrieval quality, embeddings, robust PDF extraction, hosted deployment, or production RAG behavior.
 
-The most compact current proof to inspect is the uploaded PDF table adapter metadata provenance runtime proof in docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md. The predecessor compact boundary route remains the upload PDF quality preview coverage summary proof in docs/review/upload-pdf-quality-preview-coverage-summary.md.
+The most compact current proof to inspect is the Phase 897 current proof packet in docs/review/external-reader-phase-897-current-proof-packet-refresh.md. It routes to the three-BEA-PDF parse observation matrix, the issue-body route refresh, the current-state issue screen, and the remote workflow verification.
 
 Could you inspect the short proof path and leave one evidence-referenced comment on issue #1?
 
@@ -163,7 +183,7 @@ Hi, I am stress-testing the clarity of a portfolio project called NoiseProof Age
 
 The project tries to show one thing: before an AI system generates a confident market-intelligence answer, it should expose what evidence exists, what conflicts, what is missing, and what claims should be blocked.
 
-The most compact current proof to inspect is the uploaded PDF table adapter metadata provenance runtime proof in docs/review/uploaded-pdf-table-adapter-metadata-provenance-runtime-smoke.md. The predecessor compact boundary route remains the upload PDF quality preview coverage summary proof in docs/review/upload-pdf-quality-preview-coverage-summary.md.
+The most compact current proof to inspect is the Phase 897 current proof packet in docs/review/external-reader-phase-897-current-proof-packet-refresh.md. It routes to the three-BEA-PDF parse observation matrix, the issue-body route refresh, the current-state issue screen, and the remote workflow verification.
 
 Could you spend 5 minutes on the reviewer brief and leave one practical comment on issue #1?
 

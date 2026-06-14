@@ -8,10 +8,12 @@ This project ingests messy documents and market data, evaluates chunking and ret
 
 | Surface | Current state | Boundary |
 |---|---|---|
-| Latest verified gate | Multi Real-world PDF Parse Observation Matrix v0 | Three BEA PDFs have sanitized PyMuPDF digital-text observation metadata; no external PDF binaries, download caches, or raw extracted text are committed. |
-| Remote workflow verification | `a37fe32f0f46c5d04008ea425a053966f063950c` passed CI run `27496475781` and External Feedback Screen run `27496475772`. | Workflow success is not external validation. |
-| Reviewer route | `docs/review/external-reader-proof-path.md` | Repository-native inspection path only. |
-| Current next evidence | `external_reviewer_surfaces_multi_real_world_pdf_parse_observation_matrix_route_refresh_v0` | The multi-PDF matrix is still not robust extraction; the next proof should keep reviewer entry points routed to the latest bounded evidence without claiming external validation. |
+| Latest verified gate | External Feedback Current-state Multi Real-world PDF Parse Observation Matrix Issue Verification Remote Verification v0 | `docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification-remote-verification.md` records that head `084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea` passed CI run `27497284929` and External Feedback Screen run `27497284920`. |
+| Remote workflow verification | `084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea` passed CI run `27497284929` and External Feedback Screen run `27497284920`. | Workflow success is not external validation. |
+| Latest product proof | Multi Real-world PDF Parse Observation Matrix v0 | Three BEA PDFs have sanitized PyMuPDF digital-text observation metadata; no external PDF binaries, download caches, or raw extracted text are committed. |
+| Current proof packet | `docs/review/external-reader-phase-897-current-proof-packet-refresh.md` | Top-of-funnel route refresh only; not new runtime evidence. |
+| Reviewer route | `docs/review/external-reader-proof-path.md` | Repository-native inspection path only; current issue state remains `candidate_count: 0` and `status: pending`. |
+| Current next evidence | `external_reviewer_feedback_v0` | The multi-PDF matrix is still not robust extraction, and the public issue still has no accepted external reviewer feedback. |
 
 Do not read this as a product-complete claim.
 
@@ -19,7 +21,7 @@ Do not read this as a product-complete claim.
 
 - A small FastAPI service can keep document, retrieval, Evidence Ledger, report, failure, and operations proof surfaces inspectable.
 - The project has CI-enforced report staleness checks for semantic retrieval diagnostics and PDF extraction quality packets.
-- PDF handling is split into visible boundaries: digital text, table candidates, OCR smoke harnesses, synthetic fixture provenance, licensed real-world candidate metadata, owner-approved download/hash metadata, and one real-world parse observation.
+- PDF handling is split into visible boundaries: digital text, table candidates, OCR smoke harnesses, synthetic fixture provenance, licensed real-world candidate metadata, owner-approved download/hash metadata, one real-world parse observation, and a three-file BEA multi-PDF observation matrix.
 - Strong claims are intentionally blocked when evidence is missing.
 
 ## What This Does Not Prove Yet
@@ -55,7 +57,7 @@ Do not read this as a product-complete claim.
 
 1. Read `docs/review/external-reader-proof-path.md`.
 2. Check the current application summary in `docs/review/application-ready-review.md`.
-3. Inspect the latest PDF boundary at `docs/review/multi-real-world-pdf-parse-observation.md`, then confirm remote workflow verification at `docs/review/multi-real-world-pdf-parse-observation-remote-verification.md`.
+3. Inspect the current proof packet at `docs/review/external-reader-phase-897-current-proof-packet-refresh.md`, then follow it to the multi-PDF matrix, issue-body route refresh, current-state issue screen, and remote workflow verification.
 4. Confirm CI-enforced regeneration through `.github/workflows/ci.yml`.
 5. Read `docs/GOAL.md` for what remains unproven.
 
