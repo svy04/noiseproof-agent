@@ -1,0 +1,38 @@
+{
+  "packet": "sanitized_owner_runtime_ocr_smoke_observation_v0",
+  "source_report_boundary": "derived_from_owner_runtime_report_without_path_or_tessdata",
+  "phase_marker": "opt_in_ocr_adapter_runtime_smoke_v0",
+  "run_source": "owner_runtime_pymupdf_ocr_smoke",
+  "fixture_root": "examples/pdf-extraction-quality/ocr-runtime-fixtures",
+  "fixture_id": "ocr_smoke_text_image_pdf",
+  "fixture_sha256": "f961080dcf4163f554e3c8e3f55825a49357b43010adceff78eea8591ddadc2c",
+  "fixture_size_bytes": 2122181,
+  "ocr_engine": "pymupdf_get_textpage_ocr",
+  "language": "eng",
+  "page_count": 1,
+  "ocr_page_count": 1,
+  "ocr_performed": true,
+  "ocr_calls_attempted": true,
+  "recognized_text": "ocr smoke text",
+  "expected_spans": [
+    "ocr smoke text"
+  ],
+  "expected_spans_found": true,
+  "accepted_owner_runtime_smoke": true,
+  "tessdata_prefix_present": true,
+  "tessdata_path_printed": false,
+  "tessdata_path_committed_to_repo": false,
+  "robust_pdf_extraction_claimed": false,
+  "can_claim_robust_pdf_extraction": false,
+  "ocr_evidence_scope": "single_synthetic_owner_runtime_fixture",
+  "boundary_notes": [
+    "owner-runtime OCR smoke over one synthetic fixture only",
+    "not robust PDF extraction evidence",
+    "not arbitrary market PDF OCR evidence",
+    "not image/chart interpretation evidence",
+    "not layout fidelity evidence",
+    "not hosted deployment evidence",
+    "not external reviewer feedback",
+    "not product-complete"
+  ]
+}

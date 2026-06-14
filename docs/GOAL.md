@@ -43,6 +43,31 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 882:
+
+```text
+latest_product_gate: Multi-fixture OCR Adapter Eval v0
+latest_product_artifact: docs/review/multi-fixture-ocr-adapter-eval.md
+latest_eval_report: docs/evaluation/multi-fixture-ocr-adapter-eval-report.md
+sanitized_owner_ocr_observation: examples/pdf-extraction-quality/owner-runtime-ocr-smoke-observation.json
+command: app.services.multi_fixture_ocr_adapter_eval_command
+ci_check: Check multi-fixture OCR adapter eval report staleness
+phase_marker: multi_fixture_ocr_adapter_eval_v0
+base_fixture_count: 8
+base_observed_fixture_count: 8
+owner_runtime_ocr_smoke_count: 1
+combined_fixture_signal_count: 9
+owner_runtime_ocr_expected_spans_found: true
+ocr_evidence_scope: single_synthetic_owner_runtime_fixture
+robust_pdf_extraction_claimed: false
+can_claim_robust_pdf_extraction: false
+robust_pdf_extraction.status: unproven
+robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata_plus_multi_fixture_ocr_adapter_eval_v0
+robust_pdf_extraction.recommended_next_gate: licensed_real_world_pdf_fixture_pack_v0
+product_complete: false
+boundary: multi-fixture OCR adapter evaluation surface only; not robust PDF extraction evidence; not arbitrary market PDF OCR evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 880:
 
 ```text
@@ -33271,6 +33296,75 @@ Boundaries:
 - not the owner-runtime smoke itself
 - not new OCR runtime evidence
 - not OCR evidence beyond the single owner-runtime fixture smoke
+- not robust PDF extraction evidence
+- not arbitrary market PDF OCR evidence
+- not image/chart interpretation evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 882 - Multi-fixture OCR Adapter Eval v0
+
+Status: implemented.
+
+Purpose: combine the existing 8-role PDF fixture matrix with one sanitized
+owner-runtime OCR smoke observation while keeping robust PDF extraction
+unproven.
+
+Artifacts:
+
+- `examples/pdf-extraction-quality/owner-runtime-ocr-smoke-observation.json`
+- `packages/ingestion/pdf_quality/multi_fixture_ocr_adapter_eval.py`
+- `apps/api/app/services/multi_fixture_ocr_adapter_eval_command.py`
+- `apps/api/tests/test_multi_fixture_ocr_adapter_eval.py`
+- `docs/evaluation/multi-fixture-ocr-adapter-eval-report.md`
+- `docs/review/multi-fixture-ocr-adapter-eval.md`
+- `.github/workflows/ci.yml`
+- `apps/api/app/services/proof_gap_registry.py`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+
+Report markers:
+
+```text
+phase_marker -> multi_fixture_ocr_adapter_eval_v0
+base_fixture_count -> 8
+base_observed_fixture_count -> 8
+owner_runtime_ocr_smoke_count -> 1
+combined_fixture_signal_count -> 9
+owner_runtime_ocr_expected_spans_found -> true
+ocr_evidence_scope -> single_synthetic_owner_runtime_fixture
+robust_pdf_extraction_claimed -> false
+can_claim_robust_pdf_extraction -> false
+```
+
+Signal markers:
+
+```text
+ocr_smoke_text_image_pdf -> owner_runtime_ocr_smoke_passed
+scanned_image_pdf -> base_scanned_role_still_boundary_only
+image_heavy_pdf -> image_diagnostics_only
+multi_column_layout_pdf -> layout_diagnostics_only
+```
+
+Proof gap update:
+
+```text
+robust_pdf_extraction.status -> unproven
+robust_pdf_extraction.current_evidence -> digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata_plus_multi_fixture_ocr_adapter_eval_v0
+robust_pdf_extraction.recommended_next_gate -> licensed_real_world_pdf_fixture_pack_v0
+```
+
+Boundaries:
+
+- multi-fixture OCR adapter evaluation surface only
+- one owner-runtime OCR smoke over one synthetic fixture only
 - not robust PDF extraction evidence
 - not arbitrary market PDF OCR evidence
 - not image/chart interpretation evidence

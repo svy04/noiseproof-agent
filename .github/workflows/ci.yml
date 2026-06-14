@@ -124,6 +124,17 @@ jobs:
             --output ../../docs/evaluation/committed-ocr-layout-image-binary-fixture-provenance-report.md \
             --check
 
+      - name: Check multi-fixture OCR adapter eval report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.multi_fixture_ocr_adapter_eval_command \
+            --fixture ../../examples/pdf-extraction-quality \
+            --base-observations ../../examples/pdf-extraction-quality/observations.json \
+            --missing-pack ../../examples/pdf-extraction-quality/missing-runtime-observations.json \
+            --owner-ocr-observation ../../examples/pdf-extraction-quality/owner-runtime-ocr-smoke-observation.json \
+            --output ../../docs/evaluation/multi-fixture-ocr-adapter-eval-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |
