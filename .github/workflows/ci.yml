@@ -116,6 +116,14 @@ jobs:
             --output ../../docs/evaluation/ocr-layout-image-fixture-adapter-runtime-pack-report.md \
             --check
 
+      - name: Check committed OCR layout image binary fixture provenance report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.committed_ocr_layout_image_binary_fixture_provenance_command \
+            --fixture-root ../../examples/pdf-extraction-quality/binary-fixtures \
+            --output ../../docs/evaluation/committed-ocr-layout-image-binary-fixture-provenance-report.md \
+            --check
+
       - name: Check ClamAV owner runtime input discovery no-payload missing state
         working-directory: apps/api
         run: |

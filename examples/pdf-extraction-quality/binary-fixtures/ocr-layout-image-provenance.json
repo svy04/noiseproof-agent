@@ -1,0 +1,87 @@
+{
+  "packet": "committed_ocr_layout_image_binary_fixture_provenance_v0",
+  "binary_pdf_fixtures_included": true,
+  "robust_pdf_extraction_claimed": false,
+  "claim_boundary": "committed_ocr_layout_image_binary_fixture_provenance_only_not_robust_pdf_extraction",
+  "source_first_basis": [
+    "PyMuPDF synthetic PDF generation is already used by local test fixtures.",
+    "In-repository synthetic fixtures avoid external redistribution ambiguity.",
+    "Committed binary fixtures make OCR, image, layout, and empty-text boundaries inspectable before OCR implementation."
+  ],
+  "fixtures": [
+    {
+      "fixture_id": "scanned_image_pdf",
+      "path": "scanned-image.pdf",
+      "source_kind": "synthetic_generated",
+      "generated_by": "examples/pdf-extraction-quality/binary-fixtures/generate_ocr_layout_image_fixtures.py",
+      "redistribution_allowed": true,
+      "license_note": "Synthetic in-repository fixture generated for NoiseProof tests.",
+      "sha256": "12fc66819182304009d0cffb553f23fba4ac32213a871cf0c02a078f89bddfb1",
+      "size_bytes": 3624,
+      "expected_spans": [],
+      "expected_failure_case": "pdf_no_extractable_text",
+      "expected_min_image_blocks": 1,
+      "expected_min_text_blocks": 0,
+      "robust_pdf_extraction_claimed": false
+    },
+    {
+      "fixture_id": "image_heavy_pdf",
+      "path": "image-heavy.pdf",
+      "source_kind": "synthetic_generated",
+      "generated_by": "examples/pdf-extraction-quality/binary-fixtures/generate_ocr_layout_image_fixtures.py",
+      "redistribution_allowed": true,
+      "license_note": "Synthetic in-repository fixture generated for NoiseProof tests.",
+      "sha256": "cedf9d8e82b8e56c8060acf063ae451fa2877026bfff8f37c7239ef94ee10acc",
+      "size_bytes": 4061,
+      "expected_spans": [
+        "chart title text",
+        "caption text"
+      ],
+      "expected_failure_case": null,
+      "expected_min_image_blocks": 1,
+      "expected_min_text_blocks": 2,
+      "robust_pdf_extraction_claimed": false
+    },
+    {
+      "fixture_id": "multi_column_layout_pdf",
+      "path": "multi-column-layout.pdf",
+      "source_kind": "synthetic_generated",
+      "generated_by": "examples/pdf-extraction-quality/binary-fixtures/generate_ocr_layout_image_fixtures.py",
+      "redistribution_allowed": true,
+      "license_note": "Synthetic in-repository fixture generated for NoiseProof tests.",
+      "sha256": "0166769c23f1c8ec6854fa3171395a766346bfc24db494e63ec4a11a023e1596",
+      "size_bytes": 1103,
+      "expected_spans": [
+        "left column claim",
+        "right column limitation"
+      ],
+      "expected_failure_case": null,
+      "expected_min_image_blocks": 0,
+      "expected_min_text_blocks": 2,
+      "robust_pdf_extraction_claimed": false
+    },
+    {
+      "fixture_id": "no_extractable_text_pdf",
+      "path": "no-extractable-text.pdf",
+      "source_kind": "synthetic_generated",
+      "generated_by": "examples/pdf-extraction-quality/binary-fixtures/generate_ocr_layout_image_fixtures.py",
+      "redistribution_allowed": true,
+      "license_note": "Synthetic in-repository fixture generated for NoiseProof tests.",
+      "sha256": "17991b339ea58388706299b6ee4bf48b0ba30dfab3bb56e720d09a7865ae41d2",
+      "size_bytes": 518,
+      "expected_spans": [],
+      "expected_failure_case": "pdf_no_extractable_text",
+      "expected_min_image_blocks": 0,
+      "expected_min_text_blocks": 0,
+      "robust_pdf_extraction_claimed": false
+    }
+  ],
+  "boundary_notes": [
+    "not robust PDF extraction evidence",
+    "not OCR evidence",
+    "not image/chart interpretation evidence",
+    "not layout fidelity evidence",
+    "not hosted deployment evidence",
+    "not product-complete"
+  ]
+}

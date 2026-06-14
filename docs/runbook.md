@@ -11923,3 +11923,15 @@ uv run pytest tests/test_ocr_layout_image_fixture_adapter_runtime_pack.py -q
 This is a synthetic adapter runtime pack only, not robust PDF extraction evidence, OCR evidence, image/chart interpretation evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
 
 Phase 875 adds OCR/layout/image fixture adapter runtime pack remote verification v0: `docs/review/ocr-layout-image-fixture-adapter-runtime-pack-remote-verification.md` records that commit `fe6a496eae641d2c28a1592bc66325ad01d58ad2` passed CI run `27492747996` (`api-smoke -> success`, job `81260967348`) and External Feedback Screen run `27492748007` (`screen -> success`, job `81260967545`) after Phase 874 was pushed. This is remote workflow verification only, not robust PDF extraction evidence, not OCR evidence, not image/chart interpretation evidence, not layout fidelity evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Phase 876 adds committed OCR/layout/image binary fixture provenance v0: `docs/review/committed-ocr-layout-image-binary-fixture-provenance.md` records committed synthetic binary PDFs for `scanned_image_pdf`, `image_heavy_pdf`, `multi_column_layout_pdf`, and `no_extractable_text_pdf`, with SHA-256 and byte-size provenance in `examples/pdf-extraction-quality/binary-fixtures/ocr-layout-image-provenance.json`.
+
+Reproduce locally:
+
+```powershell
+cd apps/api
+uv run python -m app.services.committed_ocr_layout_image_binary_fixture_provenance_command --fixture-root ../../examples/pdf-extraction-quality/binary-fixtures --output ../../docs/evaluation/committed-ocr-layout-image-binary-fixture-provenance-report.md --check
+uv run pytest tests/test_ocr_layout_image_binary_fixture_provenance.py -q
+```
+
+This is committed synthetic fixture provenance only, not robust PDF extraction evidence, OCR evidence, image/chart interpretation evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.

@@ -7,6 +7,7 @@ ACTION_SURFACE_BOUNDARY = "action_surface_only_not_new_proof_or_gap_closure"
 _GAP_ACTIONS = {
     "robust_pdf_extraction": {
         "acceptable_evidence": [
+            "use committed_ocr_layout_image_binary_fixture_provenance_v0 as the completed fixture provenance input before OCR adapter work",
             "run a multi-fixture PDF extraction evaluation covering digital text, tables, OCR-like no-text cases, encrypted failures, and layout diagnostics",
             "publish missed spans, failed fixture classes, and boundary-preserving failure candidates",
         ],
@@ -25,8 +26,10 @@ _GAP_ACTIONS = {
             "docs/evaluation/missing-pdf-runtime-observation-pack-report.md",
             "docs/review/ocr-layout-image-fixture-adapter-runtime-pack.md",
             "docs/evaluation/ocr-layout-image-fixture-adapter-runtime-pack-report.md",
+            "docs/review/committed-ocr-layout-image-binary-fixture-provenance.md",
+            "docs/evaluation/committed-ocr-layout-image-binary-fixture-provenance-report.md",
         ],
-        "recommended_next_gate": "committed_ocr_layout_image_binary_fixture_provenance_v0",
+        "recommended_next_gate": "opt_in_ocr_adapter_runtime_smoke_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -144,13 +147,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
             gap_id="robust_pdf_extraction",
             status="unproven",
             current_evidence=(
-                "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack"
+                "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance"
             ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "committed_ocr_layout_image_binary_fixture_provenance_v0"
+                "opt_in_ocr_adapter_runtime_smoke_v0"
             ),
         ),
         ProofGapOut(

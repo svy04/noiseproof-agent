@@ -32999,6 +32999,66 @@ Boundaries:
 - not Braincrew acceptance
 - not product-complete
 
+### Phase 876 - Committed OCR Layout Image Binary Fixture Provenance v0
+
+Status: implemented.
+
+Purpose: commit synthetic binary PDF fixtures for OCR, image-heavy,
+multi-column layout, and no-extractable-text roles with explicit provenance
+before any OCR or robust PDF extraction adapter is introduced.
+
+Artifacts:
+
+- `examples/pdf-extraction-quality/binary-fixtures/ocr-layout-image-provenance.json`
+- `examples/pdf-extraction-quality/binary-fixtures/scanned-image.pdf`
+- `examples/pdf-extraction-quality/binary-fixtures/image-heavy.pdf`
+- `examples/pdf-extraction-quality/binary-fixtures/multi-column-layout.pdf`
+- `examples/pdf-extraction-quality/binary-fixtures/no-extractable-text.pdf`
+- `examples/pdf-extraction-quality/binary-fixtures/generate_ocr_layout_image_fixtures.py`
+- `packages/ingestion/pdf_quality/ocr_layout_image_binary_fixture.py`
+- `apps/api/app/services/committed_ocr_layout_image_binary_fixture_provenance_command.py`
+- `docs/evaluation/committed-ocr-layout-image-binary-fixture-provenance-report.md`
+- `docs/review/committed-ocr-layout-image-binary-fixture-provenance.md`
+- `.github/workflows/ci.yml`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/app/services/proof_gap_registry.py`
+
+Report markers:
+
+```text
+phase_marker -> committed_ocr_layout_image_binary_fixture_provenance_v0
+committed_fixture_count -> 4
+parser_observed_fixture_count -> 4
+robust_pdf_extraction_claimed -> false
+can_claim_robust_pdf_extraction -> false
+claim_boundary -> committed_ocr_layout_image_binary_fixture_provenance_only_not_robust_pdf_extraction
+```
+
+Updated proof gap state:
+
+```text
+robust_pdf_extraction.status -> unproven
+robust_pdf_extraction.current_evidence -> digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance
+robust_pdf_extraction.recommended_next_gate -> opt_in_ocr_adapter_runtime_smoke_v0
+```
+
+Boundaries:
+
+- committed synthetic binary fixture provenance only
+- not robust PDF extraction evidence
+- not OCR evidence
+- not image/chart interpretation evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
 ### Phase 837 - External Feedback Current-state Semantic Retrieval Quality Diagnostic Matrix Issue Verification Remote Verification v0
 
 Status: implemented.
