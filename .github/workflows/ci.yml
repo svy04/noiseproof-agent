@@ -135,6 +135,14 @@ jobs:
             --output ../../docs/evaluation/multi-fixture-ocr-adapter-eval-report.md \
             --check
 
+      - name: Check licensed real-world PDF fixture pack report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.licensed_real_world_fixture_pack_command \
+            --pack ../../examples/pdf-extraction-quality/licensed-real-world-candidates.json \
+            --output ../../docs/evaluation/licensed-real-world-pdf-fixture-pack-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

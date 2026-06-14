@@ -43,6 +43,28 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 884:
+
+```text
+latest_product_gate: Licensed Real-world PDF Fixture Pack v0
+latest_product_artifact: docs/review/licensed-real-world-pdf-fixture-pack.md
+latest_eval_report: docs/evaluation/licensed-real-world-pdf-fixture-pack-report.md
+candidate_pack: examples/pdf-extraction-quality/licensed-real-world-candidates.json
+command: app.services.licensed_real_world_fixture_pack_command
+ci_check: Check licensed real-world PDF fixture pack report staleness
+phase_marker: licensed_real_world_pdf_fixture_pack_v0
+candidate_count: 4
+downloaded_candidate_count: 0
+binary_files_committed: false
+robust_pdf_extraction_claimed: false
+can_claim_robust_pdf_extraction: false
+robust_pdf_extraction.status: unproven
+robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata_plus_multi_fixture_ocr_adapter_eval_v0_plus_licensed_real_world_pdf_fixture_pack_v0
+robust_pdf_extraction.recommended_next_gate: owner_approved_real_world_pdf_download_and_hash_v0
+product_complete: false
+boundary: candidate metadata only; no external PDF binaries committed; not robust PDF extraction evidence; not arbitrary market PDF parsing evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 882:
 
 ```text
@@ -33425,6 +33447,67 @@ Boundaries:
 - not the eval gate itself
 - not robust PDF extraction evidence
 - not arbitrary market PDF OCR evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 884 - Licensed Real-world PDF Fixture Pack v0
+
+Status: implemented.
+
+Purpose: create a metadata-only real-world PDF candidate pack with visible
+source and license boundaries before downloading, hashing, parsing, or
+committing any external PDF binaries.
+
+Artifacts:
+
+- `examples/pdf-extraction-quality/licensed-real-world-candidates.json`
+- `packages/ingestion/pdf_quality/licensed_real_world_fixture_pack.py`
+- `apps/api/app/services/licensed_real_world_fixture_pack_command.py`
+- `docs/evaluation/licensed-real-world-pdf-fixture-pack-report.md`
+- `docs/review/licensed-real-world-pdf-fixture-pack.md`
+- `apps/api/tests/test_licensed_real_world_pdf_fixture_pack.py`
+- `.github/workflows/ci.yml`
+- `apps/api/app/services/proof_gap_registry.py`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+
+Report markers:
+
+```text
+phase_marker -> licensed_real_world_pdf_fixture_pack_v0
+candidate_count -> 4
+downloaded_candidate_count -> 0
+binary_files_committed -> false
+robust_pdf_extraction_claimed -> false
+can_claim_robust_pdf_extraction -> false
+recommended_next_gate -> owner_approved_real_world_pdf_download_and_hash_v0
+```
+
+Proof gap update:
+
+```text
+robust_pdf_extraction.status -> unproven
+robust_pdf_extraction.current_evidence -> digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata_plus_multi_fixture_ocr_adapter_eval_v0_plus_licensed_real_world_pdf_fixture_pack_v0
+robust_pdf_extraction.recommended_next_gate -> owner_approved_real_world_pdf_download_and_hash_v0
+```
+
+Boundaries:
+
+- candidate metadata only
+- no external PDF binaries committed
+- no PDF download performed
+- no sha256 hash evidence yet
+- not robust PDF extraction evidence
+- not arbitrary market PDF parsing evidence
+- not OCR evidence
+- not table extraction evidence
+- not layout fidelity evidence
 - not hosted deployment evidence
 - not external reviewer feedback
 - not customer validation

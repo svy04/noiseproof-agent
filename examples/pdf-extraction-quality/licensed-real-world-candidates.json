@@ -1,0 +1,135 @@
+{
+  "packet": "licensed_real_world_pdf_fixture_pack_v0",
+  "phase_marker": "licensed_real_world_pdf_fixture_pack_v0",
+  "description": "Metadata-only candidate pack for future real-world PDF fixture downloads. No external PDF binaries are committed in this gate.",
+  "source_checked_date": "2026-06-14",
+  "claim_boundary": "licensed_real_world_pdf_fixture_pack_metadata_only_not_robust_pdf_extraction",
+  "download_status": "candidate_metadata_only",
+  "binary_files_committed": false,
+  "robust_pdf_extraction_claimed": false,
+  "can_claim_robust_pdf_extraction": false,
+  "license_policy_sources": [
+    {
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/opub/copyright-information.htm",
+      "basis": "BLS states that its published hard-copy and electronic material is public domain except previously copyrighted photos and illustrations, and requests BLS citation."
+    },
+    {
+      "publisher": "BLS Monthly Labor Review",
+      "url": "https://www.bls.gov/opub/mlr/about.htm",
+      "basis": "BLS Monthly Labor Review states text, charts, and tables are public domain with proper credit, while some photographs are copyright protected."
+    },
+    {
+      "publisher": "U.S. Bureau of Economic Analysis",
+      "url": "https://www.bea.gov/help/faq/147",
+      "basis": "BEA states that unless otherwise stated, information on its website is public domain and may be used or reproduced with citation appreciated."
+    }
+  ],
+  "candidates": [
+    {
+      "fixture_id": "bls_employment_situation_2025_01",
+      "fixture_role": "digital_text_tables",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "title": "The Employment Situation - January 2025",
+      "source_url": "https://www.bls.gov/news.release/archives/empsit_02072025.pdf",
+      "license_source_url": "https://www.bls.gov/opub/copyright-information.htm",
+      "redistribution_status": "public_domain_with_citation_requested",
+      "citation": "Source: U.S. Bureau of Labor Statistics",
+      "download_status": "not_downloaded",
+      "local_pdf_path": null,
+      "sha256": null,
+      "expected_signals": [
+        "multi_page_release",
+        "dense_statistical_tables",
+        "source_date_visible",
+        "numeric_claim_anchors"
+      ],
+      "known_risks": [
+        "current-release URLs are mutable, so this candidate uses an archive URL",
+        "table extraction quality remains unproven until downloaded and observed"
+      ]
+    },
+    {
+      "fixture_id": "bls_women_labor_force_databook_2016",
+      "fixture_role": "long_report_tables",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "title": "Women in the labor force: a databook",
+      "source_url": "https://www.bls.gov/opub/reports/womens-databook/2016/pdf/home.pdf",
+      "license_source_url": "https://www.bls.gov/opub/copyright-information.htm",
+      "redistribution_status": "public_domain_with_citation_requested",
+      "citation": "Source: U.S. Bureau of Labor Statistics",
+      "download_status": "not_downloaded",
+      "local_pdf_path": null,
+      "sha256": null,
+      "expected_signals": [
+        "long_report",
+        "many_tables",
+        "technical_notes",
+        "multi_section_document"
+      ],
+      "known_risks": [
+        "long reports can expose page coverage and performance gaps",
+        "table row recovery must be evaluated separately from text extraction"
+      ]
+    },
+    {
+      "fixture_id": "bls_monthly_labor_review_2011_06",
+      "fixture_role": "multi_column_article",
+      "publisher": "BLS Monthly Labor Review",
+      "title": "Monthly Labor Review, June 2011",
+      "source_url": "https://www.bls.gov/opub/mlr/2011/06/mlr201106.pdf",
+      "license_source_url": "https://www.bls.gov/opub/mlr/about.htm",
+      "redistribution_status": "public_domain_unless_stated_otherwise",
+      "citation": "Source: Monthly Labor Review, U.S. Bureau of Labor Statistics",
+      "download_status": "not_downloaded",
+      "local_pdf_path": null,
+      "sha256": null,
+      "expected_signals": [
+        "multi_column_layout",
+        "article_format",
+        "reading_order_risk",
+        "charts_or_figures_possible"
+      ],
+      "known_risks": [
+        "multi-column reading order must be checked after download",
+        "images or photographs must be screened before any redistribution claim"
+      ]
+    },
+    {
+      "fixture_id": "bls_beyond_numbers_not_in_labor_force_2015",
+      "fixture_role": "article_with_figures",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "title": "People who are not in the labor force: why aren't they working?",
+      "source_url": "https://www.bls.gov/opub/btn/volume-4/pdf/people-who-are-not-in-the-labor-force-why-arent-they-working.pdf",
+      "license_source_url": "https://www.bls.gov/opub/copyright-information.htm",
+      "redistribution_status": "public_domain_with_citation_requested",
+      "citation": "Source: U.S. Bureau of Labor Statistics",
+      "download_status": "not_downloaded",
+      "local_pdf_path": null,
+      "sha256": null,
+      "expected_signals": [
+        "article_pdf",
+        "figures_or_related_articles",
+        "source_author_visible",
+        "digital_text"
+      ],
+      "known_risks": [
+        "figure interpretation is not claimed",
+        "candidate may be useful for image-block diagnostics only after download"
+      ]
+    }
+  ],
+  "boundary_notes": [
+    "candidate metadata only",
+    "no external PDF binaries committed",
+    "not robust PDF extraction evidence",
+    "not arbitrary market PDF parsing evidence",
+    "not OCR evidence",
+    "not table extraction evidence",
+    "not layout fidelity evidence",
+    "not hosted deployment evidence",
+    "not external reviewer feedback",
+    "not product-complete"
+  ],
+  "recommended_next_gate": "owner_approved_real_world_pdf_download_and_hash_v0"
+}

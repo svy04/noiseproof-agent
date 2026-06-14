@@ -33,8 +33,10 @@ _GAP_ACTIONS = {
             "docs/review/opt-in-ocr-adapter-owner-runtime-smoke.md",
             "docs/review/multi-fixture-ocr-adapter-eval.md",
             "docs/evaluation/multi-fixture-ocr-adapter-eval-report.md",
+            "docs/review/licensed-real-world-pdf-fixture-pack.md",
+            "docs/evaluation/licensed-real-world-pdf-fixture-pack-report.md",
         ],
-        "recommended_next_gate": "licensed_real_world_pdf_fixture_pack_v0",
+        "recommended_next_gate": "owner_approved_real_world_pdf_download_and_hash_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -152,13 +154,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
             gap_id="robust_pdf_extraction",
             status="unproven",
             current_evidence=(
-                "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata_plus_multi_fixture_ocr_adapter_eval_v0"
+                "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata_plus_multi_fixture_ocr_adapter_eval_v0_plus_licensed_real_world_pdf_fixture_pack_v0"
             ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "licensed_real_world_pdf_fixture_pack_v0"
+                "owner_approved_real_world_pdf_download_and_hash_v0"
             ),
         ),
         ProofGapOut(

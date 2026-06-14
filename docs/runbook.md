@@ -2,6 +2,16 @@
 
 ## Current Status
 
+Phase 884 adds licensed real-world PDF fixture pack v0: `docs/review/licensed-real-world-pdf-fixture-pack.md` records a metadata-only candidate pack at `examples/pdf-extraction-quality/licensed-real-world-candidates.json` and regenerates `docs/evaluation/licensed-real-world-pdf-fixture-pack-report.md` through `app.services.licensed_real_world_fixture_pack_command`. The report records `candidate_count -> 4`, `downloaded_candidate_count -> 0`, `binary_files_committed -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> owner_approved_real_world_pdf_download_and_hash_v0`. CI checks it with `Check licensed real-world PDF fixture pack report staleness`. Reproduce locally with:
+
+```powershell
+cd apps/api
+uv run python -m app.services.licensed_real_world_fixture_pack_command --pack ../../examples/pdf-extraction-quality/licensed-real-world-candidates.json --output ../../docs/evaluation/licensed-real-world-pdf-fixture-pack-report.md --check
+uv run pytest tests/test_licensed_real_world_pdf_fixture_pack.py -q
+```
+
+This is candidate metadata only, not robust PDF extraction evidence, arbitrary market PDF parsing evidence, OCR evidence, table extraction evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Phase 882 adds multi-fixture OCR adapter eval v0: `docs/review/multi-fixture-ocr-adapter-eval.md` records that the 8-role PDF fixture matrix now combines with one sanitized owner-runtime OCR smoke observation and regenerates `docs/evaluation/multi-fixture-ocr-adapter-eval-report.md` through `app.services.multi_fixture_ocr_adapter_eval_command`. The report records `base_fixture_count -> 8`, `owner_runtime_ocr_smoke_count -> 1`, `combined_fixture_signal_count -> 9`, `ocr_evidence_scope -> single_synthetic_owner_runtime_fixture`, and `can_claim_robust_pdf_extraction -> false`. CI checks it with `Check multi-fixture OCR adapter eval report staleness`. Reproduce locally with:
 
 ```powershell
