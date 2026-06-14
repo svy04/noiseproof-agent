@@ -40843,3 +40843,51 @@ def test_external_feedback_current_state_local_otel_issue_verification_remote_ve
     assert "Phase 856 - External Feedback Current-state Local OTel Issue Verification Remote Verification v0" in goal
     assert "Phase 856 adds external feedback current-state local OTel issue verification remote verification v0" in runbook
     assert "external feedback current-state local OTel issue verification remote verification" in portfolio
+
+
+def test_proof_gap_registry_ops_surface_is_recorded_without_new_proof_claim():
+    review_path = REPO_ROOT / "docs/review/proof-gap-registry-ops-surface.md"
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Proof Gap Registry Ops Surface" in content
+    assert "proof gap registry ops surface v0" in content
+    assert "GET /ops/summary" in content
+    assert "GET /ops/dashboard" in content
+    for marker in [
+        "robust_pdf_extraction",
+        "actual_embedding_generation",
+        "semantic_retrieval_quality",
+        "distributed_tracing",
+        "hosted_observability",
+        "hosted_deployment",
+        "external_reviewer_feedback",
+        "owner_authored_issue_only",
+        "qualifying outside reviewer comment",
+        "current gaps only; not new proof",
+    ]:
+        assert marker in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not live embedding generation proof" in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert "Proof gap registry ops surface v0: implemented" in readme
+    assert "Phase 857 - Proof Gap Registry Ops Surface v0" in goal
+    assert "Phase 857 adds proof gap registry ops surface v0" in runbook
+    assert "proof gap registry ops surface" in portfolio
+    assert "proof gap registry ops surface" in application_ready

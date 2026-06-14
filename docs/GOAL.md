@@ -43,6 +43,27 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 857:
+
+```text
+latest_product_gate: Proof gap registry ops surface v0
+latest_product_artifact: docs/review/proof-gap-registry-ops-surface.md
+runtime_surface: GET /ops/summary; GET /ops/dashboard
+proof_gap_registry: implemented_read_only
+proof_gap_ids: robust_pdf_extraction; actual_embedding_generation; semantic_retrieval_quality; distributed_tracing; hosted_observability; hosted_deployment; external_reviewer_feedback
+external_reviewer_feedback.current_evidence: owner_authored_issue_only
+external_reviewer_feedback.next_evidence_needed: qualifying outside reviewer comment
+semantic_retrieval_quality.claim_boundary: caller_provided_vector_runs_are_operational_counts_not_quality_evidence
+distributed_tracing: not_claimed
+external_collector: not_implemented
+hosted_observability: not_implemented
+hosted_deployment_evidence: not_implemented
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+production_readiness: not_claimed
+product_complete: false
+boundary: current-gap visibility only; not robust PDF extraction evidence; not live embedding generation proof; not semantic retrieval quality evidence; not distributed tracing; not hosted observability; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 856:
 
 ```text
@@ -33678,6 +33699,57 @@ Boundaries:
 - not production monitoring
 - not cross-service trace proof
 - not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 857 - Proof Gap Registry Ops Surface v0
+
+Status: implemented.
+
+Purpose: expose the current unproven claim gaps through runtime ops read-model surfaces so reviewers can inspect what remains unproven without reading only prose.
+
+Artifacts:
+
+- `docs/review/proof-gap-registry-ops-surface.md`
+- `apps/api/app/schemas.py`
+- `apps/api/app/services/proof_gap_registry.py`
+- `apps/api/app/routes/ops.py`
+- `apps/api/app/services/ops_dashboard.py`
+- `apps/api/tests/test_routes.py`
+- `apps/api/tests/test_docs.py`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+
+Runtime markers:
+
+```text
+GET /ops/summary -> proof_gap_registry
+GET /ops/dashboard -> Proof Gap Registry
+robust_pdf_extraction -> unproven
+actual_embedding_generation -> unproven
+semantic_retrieval_quality -> unproven
+distributed_tracing -> not_claimed
+hosted_observability -> not_implemented
+hosted_deployment -> not_implemented
+external_reviewer_feedback -> pending
+external_reviewer_feedback.current_evidence -> owner_authored_issue_only
+external_reviewer_feedback.next_evidence_needed -> qualifying outside reviewer comment
+```
+
+Boundaries:
+
+- current-gap visibility only
+- not robust PDF extraction evidence
+- not live embedding generation proof
+- not semantic retrieval quality evidence
+- not distributed tracing
+- not hosted observability
+- not hosted deployment evidence
+- not external reviewer feedback
 - not customer validation
 - not Braincrew acceptance
 - not product-complete

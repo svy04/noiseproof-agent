@@ -8,6 +8,10 @@ from app.services.embedding_provider_readiness import (
 )
 from app.services.failure_case_review_queue import build_failure_case_workflow_review_queue
 from app.services.ops_dashboard import render_ops_dashboard
+from app.services.proof_gap_registry import (
+    build_current_proof_gap_registry,
+    proof_gap_registry_note,
+)
 from app.settings import Settings, get_settings
 
 router = APIRouter(prefix="/ops", tags=["ops"])
@@ -50,10 +54,14 @@ def _ops_summary_with_runtime_boundaries(
     settings: Settings,
 ) -> OpsSummaryOut:
     summary = repository.ops_summary()
+    notes = list(summary.notes)
+    notes.append(proof_gap_registry_note())
     return summary.model_copy(
         update={
             "embedding_provider_readiness": summarize_embedding_provider_readiness(
                 settings
-            )
+            ),
+            "proof_gap_registry": build_current_proof_gap_registry(),
+            "notes": notes,
         }
     )

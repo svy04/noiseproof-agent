@@ -6175,6 +6175,55 @@ def test_ops_summary_boundary_note_separates_caller_provided_semantic_retrieval(
     )
 
 
+def test_ops_summary_and_dashboard_surface_current_proof_gap_registry():
+    client = make_client()
+
+    summary = client.get("/ops/summary")
+
+    assert summary.status_code == 200
+    body = summary.json()
+    registry = body["proof_gap_registry"]
+    gap_ids = [gap["gap_id"] for gap in registry]
+    assert gap_ids == [
+        "robust_pdf_extraction",
+        "actual_embedding_generation",
+        "semantic_retrieval_quality",
+        "distributed_tracing",
+        "hosted_observability",
+        "hosted_deployment",
+        "external_reviewer_feedback",
+    ]
+    by_id = {gap["gap_id"]: gap for gap in registry}
+    assert by_id["robust_pdf_extraction"]["status"] == "unproven"
+    assert by_id["actual_embedding_generation"]["status"] == "unproven"
+    assert by_id["semantic_retrieval_quality"]["status"] == "unproven"
+    assert by_id["distributed_tracing"]["status"] == "not_claimed"
+    assert by_id["hosted_observability"]["status"] == "not_implemented"
+    assert by_id["hosted_deployment"]["status"] == "not_implemented"
+    assert by_id["external_reviewer_feedback"]["status"] == "pending"
+    assert by_id["semantic_retrieval_quality"]["claim_boundary"] == (
+        "caller_provided_vector_runs_are_operational_counts_not_quality_evidence"
+    )
+    assert by_id["external_reviewer_feedback"]["current_evidence"] == (
+        "owner_authored_issue_only"
+    )
+    assert any("qualifying outside reviewer comment" in note for note in body["notes"])
+
+    dashboard = client.get("/ops/dashboard")
+
+    assert dashboard.status_code == 200
+    assert "Proof Gap Registry" in dashboard.text
+    assert "robust_pdf_extraction" in dashboard.text
+    assert "actual_embedding_generation" in dashboard.text
+    assert "semantic_retrieval_quality" in dashboard.text
+    assert "distributed_tracing" in dashboard.text
+    assert "hosted_observability" in dashboard.text
+    assert "hosted_deployment" in dashboard.text
+    assert "external_reviewer_feedback" in dashboard.text
+    assert "owner_authored_issue_only" in dashboard.text
+    assert "current gaps only; not new proof" in dashboard.text
+
+
 def test_ops_summary_counts_semantic_retrieval_and_caller_provided_embeddings():
     client = make_client()
     document, *_ = _create_semantic_fixture(client)

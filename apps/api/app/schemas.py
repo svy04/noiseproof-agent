@@ -969,6 +969,14 @@ class EmbeddingProviderReadinessOut(BaseModel):
     warnings: list[str]
 
 
+class ProofGapOut(BaseModel):
+    gap_id: str
+    status: str
+    current_evidence: str
+    claim_boundary: str
+    next_evidence_needed: str
+
+
 class OpsSummaryOut(BaseModel):
     status: str
     workflow_version: str
@@ -1006,6 +1014,7 @@ class OpsSummaryOut(BaseModel):
     evidence_quality_risk_count: int = 0
     average_latency_ms: float | None
     embedding_provider_readiness: EmbeddingProviderReadinessOut | None = None
+    proof_gap_registry: list[ProofGapOut] = Field(default_factory=list)
     notes: list[str]
 
 

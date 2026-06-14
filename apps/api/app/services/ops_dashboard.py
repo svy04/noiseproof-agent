@@ -85,6 +85,11 @@ def render_ops_dashboard(
     </div>
   </section>
   <section>
+    <h2>Proof Gap Registry</h2>
+    <p class="muted">current gaps only; not new proof</p>
+    {_proof_gap_registry_table(summary)}
+  </section>
+  <section>
     <h2>Trace & Filter Links</h2>
     {_trace_filter_links(agent_runs, noise_gate_records, report_records)}
   </section>
@@ -149,6 +154,30 @@ def render_ops_dashboard(
 
 def _metric(label: str, value: object) -> str:
     return f'<div class="metric"><div class="muted">{escape(label)}</div><strong>{_cell(value)}</strong></div>'
+
+
+def _proof_gap_registry_table(summary: OpsSummaryOut) -> str:
+    if not summary.proof_gap_registry:
+        return '<p class="muted">No proof gaps attached to this summary.</p>'
+    rows = "\n".join(
+        "<tr>"
+        f"<td><code>{_cell(gap.gap_id)}</code></td>"
+        f"<td>{_cell(gap.status)}</td>"
+        f"<td>{_cell(gap.current_evidence)}</td>"
+        f"<td>{_cell(gap.claim_boundary)}</td>"
+        f"<td>{_cell(gap.next_evidence_needed)}</td>"
+        "</tr>"
+        for gap in summary.proof_gap_registry
+    )
+    return (
+        "<table>"
+        "<thead><tr>"
+        "<th>Gap</th><th>Status</th><th>Current Evidence</th>"
+        "<th>Claim Boundary</th><th>Next Evidence Needed</th>"
+        "</tr></thead>"
+        f"<tbody>{rows}</tbody>"
+        "</table>"
+    )
 
 
 def _embedding_provider_value(summary: OpsSummaryOut, field: str) -> object:
