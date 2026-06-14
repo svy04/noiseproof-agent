@@ -41172,3 +41172,46 @@ def test_live_lexical_qrels_baseline_eval_remote_verification_is_recorded():
     assert "Phase 861 adds live lexical qrels baseline eval remote verification v0" in runbook
     assert "Live lexical qrels baseline eval remote verification" in portfolio
     assert "Live lexical qrels baseline eval remote verification" in application_ready
+
+
+def test_live_semantic_qrels_baseline_eval_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/live-semantic-qrels-baseline-eval-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    for marker in [
+        "Live semantic qrels baseline eval remote verification v0",
+        "ed73aef0b13261ac74ee14c7402d839dc5532797",
+        "27490045473",
+        "81253278484",
+        "27490045474",
+        "81253278486",
+        "Check live semantic qrels baseline report staleness",
+        "1193 passed",
+    ]:
+        assert marker in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not live embedding generation" in content
+    assert "not representative retrieval evaluation" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert "Live semantic qrels baseline eval remote verification v0: implemented" in readme
+    assert "Phase 863 - Live semantic qrels baseline eval remote verification v0" in goal
+    assert "Phase 863 adds live semantic qrels baseline eval remote verification v0" in runbook
+    assert "Live semantic qrels baseline eval remote verification" in portfolio
+    assert "Live semantic qrels baseline eval remote verification" in application_ready
