@@ -40706,3 +40706,50 @@ def test_external_reader_proof_path_local_otel_runtime_route_refresh_remote_veri
     assert "Phase 853 - External-reader Proof Path Local OTel Span Export Runtime Route Refresh Remote Verification v0" in goal
     assert "Phase 853 adds external-reader proof path local OTel span export runtime route refresh remote verification v0" in runbook
     assert "external-reader proof path local OTel span export runtime route refresh remote verification" in portfolio
+
+
+def test_external_review_issue_body_local_otel_runtime_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-review-issue-body-local-otel-span-export-runtime-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Review Issue Body Local OTel Span Export Runtime Route Refresh" in content
+    assert "external review issue body local OTel span export runtime route refresh v0" in content
+    assert "https://github.com/svy04/noiseproof-agent/issues/1" in content
+    assert "updatedAt:" in content
+    assert "comment_count: 1" in content
+    assert "starts_with_request: true" in content
+    assert "first_codepoint: 35" in content
+    assert "has_leading_bom: false" in content
+    assert "has_local_otel_latest_proof: true" in content
+    assert "has_local_otel_route_remote_verification: true" in content
+    assert "old_semantic_quality_claim_gate_latest_label_present: false" in content
+    assert "docs/review/local-otel-span-export.md" in content
+    assert "docs/review/local-otel-span-export-runtime-smoke.md" in content
+    assert "docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh.md" in content
+    assert "docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh-remote-verification.md" in content
+    assert "x-noiseproof-otel-span-export: local_in_memory_enabled" in content
+    assert "span_export_enabled=true" in content
+    assert "span_count=4" in content
+    assert "owner-authored issue body routing only" in content
+    assert "not external reviewer feedback" in content
+    assert "not new runtime evidence" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "External review issue body local OTel span export runtime route refresh v0: implemented" in readme
+    assert "Phase 854 - External Review Issue Body Local OTel Span Export Runtime Route Refresh v0" in goal
+    assert "Phase 854 adds external review issue body local OTel span export runtime route refresh v0" in runbook
+    assert "external review issue body local OTel span export runtime route refresh" in portfolio
