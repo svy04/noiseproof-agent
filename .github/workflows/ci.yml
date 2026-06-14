@@ -42,6 +42,16 @@ jobs:
             --k 2 \
             --check
 
+      - name: Check qrels-backed semantic quality report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.qrels_backed_semantic_quality_command \
+            --qrels ../../examples/semantic-retrieval-quality/qrels.txt \
+            --run ../../examples/semantic-retrieval-quality/semantic-run.txt \
+            --output ../../docs/evaluation/qrels-backed-semantic-quality-report.md \
+            --k 2 \
+            --check
+
       - name: Check PDF extraction quality report staleness
         working-directory: apps/api
         run: |

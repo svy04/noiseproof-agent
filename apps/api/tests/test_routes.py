@@ -6201,8 +6201,11 @@ def test_ops_summary_and_dashboard_surface_current_proof_gap_registry():
     assert by_id["hosted_observability"]["status"] == "not_implemented"
     assert by_id["hosted_deployment"]["status"] == "not_implemented"
     assert by_id["external_reviewer_feedback"]["status"] == "pending"
+    assert by_id["semantic_retrieval_quality"]["current_evidence"] == (
+        "toy_qrels_backed_eval_and_caller_provided_vector_runs"
+    )
     assert by_id["semantic_retrieval_quality"]["claim_boundary"] == (
-        "caller_provided_vector_runs_are_operational_counts_not_quality_evidence"
+        "toy_qrels_backed_eval_is_not_semantic_retrieval_quality_evidence"
     )
     assert by_id["external_reviewer_feedback"]["current_evidence"] == (
         "owner_authored_issue_only"
@@ -6240,14 +6243,16 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
     )
     assert semantic_gap["status"] == "unproven"
     assert semantic_gap["claim_boundary"] == (
-        "caller_provided_vector_runs_are_operational_counts_not_quality_evidence"
+        "toy_qrels_backed_eval_is_not_semantic_retrieval_quality_evidence"
     )
-    assert "quality_eval_with_qrels" in semantic_gap["next_evidence_needed"]
-    assert "run a qrels-backed retrieval quality evaluation" in semantic_gap[
+    assert "representative_qrels_with_live_retrieval_runs" in semantic_gap[
+        "next_evidence_needed"
+    ]
+    assert "run a representative qrels-backed retrieval quality evaluation" in semantic_gap[
         "acceptable_evidence"
     ]
     assert "semantic retrieval quality is proven" in semantic_gap["blocked_claims"]
-    assert "docs/review/semantic-retrieval-quality-diagnostic-matrix.md" in semantic_gap[
+    assert "docs/evaluation/qrels-backed-semantic-quality-report.md" in semantic_gap[
         "proof_routes"
     ]
 
@@ -6261,7 +6266,7 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
         "action_surface_only_not_new_proof_or_gap_closure"
     )
     assert detail_body["recommended_next_gate"] == (
-        "qrels_backed_semantic_retrieval_quality_eval_v0"
+        "representative_qrels_and_live_retrieval_quality_eval_v0"
     )
     assert detail_body["gap_closure_allowed"] is False
 

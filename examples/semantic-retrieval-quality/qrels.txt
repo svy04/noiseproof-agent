@@ -1,0 +1,10 @@
+# qid iteration docno relevance
+q-demand-growth 0 chunk-demand-growth 3
+q-demand-growth 0 chunk-revenue-growth 2
+q-risk-contradiction 0 chunk-contradictory-channel 3
+q-risk-contradiction 0 chunk-source-quality 1
+q-source-quality 0 chunk-source-quality 3
+q-source-quality 0 chunk-missing-source 2
+q-source-quality 0 chunk-demand-growth 0
+q-what-missing 0 chunk-missing-source 3
+q-what-missing 0 chunk-scope-boundary 1

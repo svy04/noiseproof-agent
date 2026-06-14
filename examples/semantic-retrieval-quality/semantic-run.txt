@@ -1,0 +1,7 @@
+# qid Q0 docno rank score runid
+q-demand-growth Q0 chunk-scope-boundary 1 0.91 semantic-toy-v0
+q-demand-growth Q0 chunk-demand-growth 2 0.84 semantic-toy-v0
+q-risk-contradiction Q0 chunk-demand-growth 1 0.77 semantic-toy-v0
+q-risk-contradiction Q0 chunk-source-quality 2 0.62 semantic-toy-v0
+q-source-quality Q0 chunk-demand-growth 1 0.73 semantic-toy-v0
+q-source-quality Q0 chunk-missing-source 2 0.58 semantic-toy-v0

@@ -11831,3 +11831,13 @@ curl.exe -sS http://127.0.0.1:8000/ops/proof-gaps/semantic_retrieval_quality
 ```
 
 This is `action_surface_only_not_new_proof_or_gap_closure`, not robust PDF extraction evidence, live embedding generation proof, semantic retrieval quality evidence, distributed tracing, hosted observability, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete.
+
+Phase 859 adds qrels-backed semantic retrieval quality eval v0: `examples/semantic-retrieval-quality/qrels.txt` and `examples/semantic-retrieval-quality/semantic-run.txt` now regenerate `docs/evaluation/qrels-backed-semantic-quality-report.md` through `app.services.qrels_backed_semantic_quality_command`. The report records `judged_coverage_at_k -> 0.6667`, `unjudged_retrieved_count_at_k -> 2`, and `qrels_backed_semantic_quality_claim_blocked`; CI checks it with `Check qrels-backed semantic quality report staleness`. Reproduce locally with:
+
+```powershell
+cd apps/api
+uv run python -m app.services.qrels_backed_semantic_quality_command --qrels ../../examples/semantic-retrieval-quality/qrels.txt --run ../../examples/semantic-retrieval-quality/semantic-run.txt --output ../../docs/evaluation/qrels-backed-semantic-quality-report.md --k 2 --check
+uv run pytest tests/test_semantic_quality_qrels_eval.py -q
+```
+
+This is qrels-backed toy fixture evaluation only, not semantic retrieval quality evidence, embedding generation, benchmark evidence, model comparison, live vector search quality evidence, hosted deployment evidence, external reviewer feedback, customer validation, Braincrew acceptance, or product-complete.

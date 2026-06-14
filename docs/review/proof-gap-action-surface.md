@@ -44,15 +44,17 @@ external_reviewer_feedback
 
 ## Semantic Retrieval Quality Example
 
-For `semantic_retrieval_quality`, the action surface keeps the gap open:
+For `semantic_retrieval_quality`, the action surface keeps the gap open. After
+Phase 859, the gap has toy qrels-backed evaluation evidence, but still not
+semantic retrieval quality evidence:
 
 ```text
 status -> unproven
-claim_boundary -> caller_provided_vector_runs_are_operational_counts_not_quality_evidence
-acceptable_evidence -> run a qrels-backed retrieval quality evaluation
+claim_boundary -> toy_qrels_backed_eval_is_not_semantic_retrieval_quality_evidence
+acceptable_evidence -> run a representative qrels-backed retrieval quality evaluation beyond the toy fixture
 blocked_claims -> semantic retrieval quality is proven
-recommended_next_gate -> qrels_backed_semantic_retrieval_quality_eval_v0
-proof_routes -> docs/review/semantic-retrieval-quality-diagnostic-matrix.md
+recommended_next_gate -> representative_qrels_and_live_retrieval_quality_eval_v0
+proof_routes -> docs/evaluation/qrels-backed-semantic-quality-report.md
 ```
 
 ## Boundary
@@ -78,9 +80,9 @@ Observed result:
 ## Next Gate
 
 Next recommended gate: either remote workflow verification after push, or the
-first actual gap-reduction gate selected from this action surface. The most
-direct next product gate is:
+next actual gap-reduction gate selected from this action surface. The most
+direct next product gate after Phase 859 is:
 
 ```text
-qrels_backed_semantic_retrieval_quality_eval_v0
+representative_qrels_and_live_retrieval_quality_eval_v0
 ```

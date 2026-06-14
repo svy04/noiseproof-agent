@@ -40,19 +40,21 @@ _GAP_ACTIONS = {
     },
     "semantic_retrieval_quality": {
         "acceptable_evidence": [
-            "run a qrels-backed retrieval quality evaluation",
-            "record missed relevant chunks, false positives, pass conditions, and claim boundaries",
+            "run a representative qrels-backed retrieval quality evaluation",
+            "record missed relevant chunks, unjudged retrieved documents, pass conditions, and claim boundaries",
         ],
         "blocked_claims": [
             "semantic retrieval quality is proven",
             "caller-provided vectors prove answer quality",
-            "toy retrieval counts prove production-grade semantic search",
+            "toy qrels-backed evaluation proves production-grade semantic search",
         ],
         "proof_routes": [
+            "docs/evaluation/qrels-backed-semantic-quality-report.md",
+            "docs/review/qrels-backed-semantic-quality-eval.md",
             "docs/review/semantic-retrieval-quality-diagnostic-matrix.md",
             "docs/evaluation/retrieval-eval-report.md",
         ],
-        "recommended_next_gate": "qrels_backed_semantic_retrieval_quality_eval_v0",
+        "recommended_next_gate": "representative_qrels_and_live_retrieval_quality_eval_v0",
     },
     "distributed_tracing": {
         "acceptable_evidence": [
@@ -149,12 +151,12 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
         ProofGapOut(
             gap_id="semantic_retrieval_quality",
             status="unproven",
-            current_evidence="toy_fixture_and_caller_provided_vector_runs",
+            current_evidence="toy_qrels_backed_eval_and_caller_provided_vector_runs",
             claim_boundary=(
-                "caller_provided_vector_runs_are_operational_counts_not_quality_evidence"
+                "toy_qrels_backed_eval_is_not_semantic_retrieval_quality_evidence"
             ),
             next_evidence_needed=(
-                "quality_eval_with_qrels_missed_relevant_chunks_and_claim_gate_pass_conditions"
+                "representative_qrels_with_live_retrieval_runs_and_pass_conditions"
             ),
         ),
         ProofGapOut(

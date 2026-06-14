@@ -43,6 +43,30 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 859:
+
+```text
+latest_product_gate: Qrels-backed semantic retrieval quality eval v0
+latest_product_artifact: docs/review/qrels-backed-semantic-quality-eval.md
+latest_eval_report: docs/evaluation/qrels-backed-semantic-quality-report.md
+fixture_files: examples/semantic-retrieval-quality/qrels.txt; examples/semantic-retrieval-quality/semantic-run.txt
+evaluator: packages/ingestion/retrieval/qrels_eval.py
+command: app.services.qrels_backed_semantic_quality_command
+ci_check: Check qrels-backed semantic quality report staleness
+qrel_format: trec_qrels_qid_iter_docno_relevance
+run_format: trec_run_qid_Q0_docno_rank_score_runid
+judged_coverage_at_k: 0.6667
+unjudged_retrieved_count_at_k: 2
+semantic_quality_claim_gate: blocked
+semantic_retrieval_quality.status: unproven
+semantic_retrieval_quality.current_evidence: toy_qrels_backed_eval_and_caller_provided_vector_runs
+semantic_retrieval_quality.recommended_next_gate: representative_qrels_and_live_retrieval_quality_eval_v0
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+production_readiness: not_claimed
+product_complete: false
+boundary: qrels-backed toy fixture evaluation only; not semantic retrieval quality evidence; not embedding generation; not a benchmark result; not model comparison; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 858:
 
 ```text
@@ -33822,6 +33846,74 @@ Boundaries:
 - not semantic retrieval quality evidence
 - not distributed tracing
 - not hosted observability
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 859 - Qrels-backed semantic retrieval quality eval v0
+
+Status: implemented.
+
+Purpose: make the semantic retrieval quality gap more inspectable by evaluating
+a tiny local run against explicit TREC-style qrels and recording judged
+coverage, unjudged retrieved documents, missed relevance, and the blocked
+quality-claim gate.
+
+Artifacts:
+
+- `docs/review/qrels-backed-semantic-quality-eval.md`
+- `docs/evaluation/qrels-backed-semantic-quality-report.md`
+- `examples/semantic-retrieval-quality/qrels.txt`
+- `examples/semantic-retrieval-quality/semantic-run.txt`
+- `packages/ingestion/retrieval/qrels_eval.py`
+- `apps/api/app/services/qrels_backed_semantic_quality_command.py`
+- `.github/workflows/ci.yml`
+- `apps/api/tests/test_semantic_quality_qrels_eval.py`
+- `apps/api/tests/test_docs.py`
+- `apps/api/tests/test_routes.py`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+
+Evaluation markers:
+
+```text
+qrel_format -> trec_qrels_qid_iter_docno_relevance
+run_format -> trec_run_qid_Q0_docno_rank_score_runid
+Hit@k -> 0.75
+Recall@k -> 0.375
+MRR@k -> 0.375
+nDCG@k -> 0.198
+judged_coverage_at_k -> 0.6667
+retrieved_count_at_k -> 6
+unjudged_retrieved_count_at_k -> 2
+judged_relevant_count -> 8
+status -> blocked
+can_claim_semantic_quality -> false
+summary -> qrels_backed_semantic_quality_claim_blocked
+```
+
+Updated proof gap state:
+
+```text
+semantic_retrieval_quality.status -> unproven
+semantic_retrieval_quality.current_evidence -> toy_qrels_backed_eval_and_caller_provided_vector_runs
+semantic_retrieval_quality.next_evidence_needed -> representative_qrels_with_live_retrieval_runs_and_pass_conditions
+semantic_retrieval_quality.recommended_next_gate -> representative_qrels_and_live_retrieval_quality_eval_v0
+```
+
+Boundaries:
+
+- qrels-backed toy fixture evaluation only
+- not semantic retrieval quality evidence
+- not embedding generation
+- not a benchmark result
+- not a model comparison
+- not live vector search quality evidence
 - not hosted deployment evidence
 - not external reviewer feedback
 - not customer validation

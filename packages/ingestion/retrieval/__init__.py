@@ -5,10 +5,12 @@ from packages.ingestion.retrieval.quality_fixture import (
 )
 from packages.ingestion.retrieval.quality_metrics import evaluate_semantic_quality
 from packages.ingestion.retrieval.quality_report import build_semantic_quality_report
+from packages.ingestion.retrieval.qrels_eval import evaluate_qrels_backed_run
 
 __all__ = [
     "build_semantic_quality_report",
     "evaluate_semantic_quality",
+    "evaluate_qrels_backed_run",
     "load_semantic_quality_fixture",
     "retrieve_candidates",
     "summarize_semantic_quality_fixture",

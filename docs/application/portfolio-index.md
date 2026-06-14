@@ -1503,3 +1503,28 @@ robust PDF extraction evidence, live embedding generation proof, semantic
 retrieval quality evidence, distributed tracing, hosted observability, hosted
 deployment evidence, external reviewer feedback, customer validation, Braincrew
 acceptance, or product-complete.
+
+## Latest Qrels-backed Semantic Quality Eval
+
+`docs/review/qrels-backed-semantic-quality-eval.md` records that the project now
+has a tiny TREC-style qrels/run evaluation surface:
+
+```text
+examples/semantic-retrieval-quality/qrels.txt
+examples/semantic-retrieval-quality/semantic-run.txt
+docs/evaluation/qrels-backed-semantic-quality-report.md
+```
+
+It reports `judged_coverage_at_k -> 0.6667`,
+`unjudged_retrieved_count_at_k -> 2`, and
+`qrels_backed_semantic_quality_claim_blocked`.
+
+This updates the `semantic_retrieval_quality` gap from "needs qrels-backed eval"
+to "has toy qrels-backed eval, still unproven". The next evidence should use
+representative qrels and live retrieval runs.
+
+Boundary: this is qrels-backed toy fixture evaluation only, not semantic
+retrieval quality evidence, embedding generation, benchmark evidence, model
+comparison, live vector search quality evidence, hosted deployment evidence,
+external reviewer feedback, customer validation, Braincrew acceptance, or
+product-complete.

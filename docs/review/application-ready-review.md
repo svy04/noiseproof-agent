@@ -254,3 +254,33 @@ robust PDF extraction evidence, live embedding generation proof, semantic
 retrieval quality evidence, distributed tracing, hosted observability, hosted
 deployment evidence, external reviewer feedback, customer validation, Braincrew
 acceptance, or product-complete.
+
+## Qrels-backed Semantic Retrieval Quality Eval
+
+Phase 859 adds `docs/review/qrels-backed-semantic-quality-eval.md` and
+`docs/evaluation/qrels-backed-semantic-quality-report.md`.
+
+The evaluation uses explicit local qrels and a TREC-style run file:
+
+```text
+examples/semantic-retrieval-quality/qrels.txt
+examples/semantic-retrieval-quality/semantic-run.txt
+```
+
+The report records:
+
+```text
+judged_coverage_at_k -> 0.6667
+unjudged_retrieved_count_at_k -> 2
+qrels_backed_semantic_quality_claim_blocked
+```
+
+Application-facing interpretation: NoiseProof can now show a qrels-backed toy
+quality-evaluation path, including unjudged retrieved documents and missed
+relevant documents. It still cannot claim semantic retrieval quality.
+
+Boundary: this is qrels-backed toy fixture evaluation only, not semantic
+retrieval quality evidence, embedding generation, benchmark evidence, model
+comparison, live vector search quality evidence, hosted deployment evidence,
+external reviewer feedback, customer validation, Braincrew acceptance, or
+product-complete.
