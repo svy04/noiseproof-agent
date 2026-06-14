@@ -124,6 +124,29 @@ jobs:
             --output ../../docs/evaluation/committed-ocr-layout-image-binary-fixture-provenance-report.md \
             --check
 
+      - name: Check opt-in OCR adapter runtime input discovery missing state
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.opt_in_ocr_adapter_runtime_smoke_command \
+            --discover-owner-runtime-input > opt-in-ocr-runtime-input-discovery.json
+          cat opt-in-ocr-runtime-input-discovery.json
+          python - opt-in-ocr-runtime-input-discovery.json <<'PY'
+          import json
+          import sys
+
+          payload = json.load(open(sys.argv[1], encoding="utf-8"))
+          assert payload["phase_marker"] == "opt-in OCR adapter owner-runtime input discovery v0"
+          assert payload["owner_runtime_input_status"] == "missing_tessdata_prefix"
+          assert payload["opt_in_enabled"] is False
+          assert payload["tessdata_prefix_present"] is False
+          assert payload["tessdata_path_printed"] is False
+          assert payload["tessdata_path_committed_to_repo"] is False
+          assert payload["ocr_calls_attempted"] is False
+          assert payload["api_calls_attempted"] is False
+          assert payload["non_claims"]["ocr_evidence"] is False
+          PY
+          rm opt-in-ocr-runtime-input-discovery.json
+
       - name: Check ClamAV owner runtime input discovery no-payload missing state
         working-directory: apps/api
         run: |

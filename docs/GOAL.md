@@ -43,25 +43,26 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
-Current navigation overlay as of Phase 876:
+Current navigation overlay as of Phase 878:
 
 ```text
-latest_product_gate: Committed OCR Layout Image Binary Fixture Provenance v0
-latest_product_artifact: docs/review/committed-ocr-layout-image-binary-fixture-provenance.md
-latest_eval_report: docs/evaluation/committed-ocr-layout-image-binary-fixture-provenance-report.md
-fixture_root: examples/pdf-extraction-quality/binary-fixtures/
-command: app.services.committed_ocr_layout_image_binary_fixture_provenance_command
-ci_check: Check committed OCR layout image binary fixture provenance report staleness
-phase_marker: committed_ocr_layout_image_binary_fixture_provenance_v0
-committed_fixture_count: 4
-parser_observed_fixture_count: 4
+latest_product_gate: Opt-in OCR Adapter Runtime Smoke Harness v0
+latest_product_artifact: docs/review/opt-in-ocr-adapter-runtime-smoke.md
+latest_eval_report: owner-runtime report path outside repository, pending
+fixture_root: examples/pdf-extraction-quality/ocr-runtime-fixtures/
+command: app.services.opt_in_ocr_adapter_runtime_smoke_command
+ci_check: Check opt-in OCR adapter runtime input discovery missing state
+phase_marker: opt_in_ocr_adapter_runtime_smoke_v0
+owner_runtime_input_status: missing_tessdata_prefix
+opt_in_enabled: false
+ocr_calls_attempted: false
 robust_pdf_extraction_claimed: false
 can_claim_robust_pdf_extraction: false
 robust_pdf_extraction.status: unproven
-robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance
-robust_pdf_extraction.recommended_next_gate: opt_in_ocr_adapter_runtime_smoke_v0
+robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness
+robust_pdf_extraction.recommended_next_gate: owner_runtime_pymupdf_ocr_smoke_with_tessdata_v0
 product_complete: false
-boundary: committed synthetic binary fixture provenance only; not robust PDF extraction evidence; not OCR evidence; not image/chart interpretation evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+boundary: harness and missing-input proof only; not OCR evidence until owner runtime succeeds; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
 Current remote verification overlay as of Phase 877:
@@ -32995,6 +32996,68 @@ Boundaries:
 - not vector search quality evidence
 - not embedding generation
 - not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 878 - Opt-in OCR Adapter Runtime Smoke Harness v0
+
+Status: implemented.
+
+Purpose: add an owner-runtime gated PyMuPDF OCR smoke harness for one committed
+synthetic image-only PDF fixture without forcing OCR or tessdata in CI.
+
+Source basis:
+
+- PyMuPDF documents `Page.get_textpage_ocr()` as the OCR path for raster image
+  or vector graphic page text.
+- PyMuPDF documents that the method invokes Tesseract-OCR and accepts a
+  `tessdata` folder.
+
+Artifacts:
+
+- `packages/ingestion/pdf_quality/opt_in_ocr_adapter_runtime_smoke.py`
+- `apps/api/app/services/opt_in_ocr_adapter_runtime_smoke_command.py`
+- `apps/api/tests/test_opt_in_ocr_adapter_runtime_smoke.py`
+- `examples/pdf-extraction-quality/ocr-runtime-fixtures/ocr-runtime-provenance.json`
+- `examples/pdf-extraction-quality/ocr-runtime-fixtures/ocr-smoke-text-image.pdf`
+- `examples/pdf-extraction-quality/ocr-runtime-fixtures/generate_ocr_runtime_fixtures.py`
+- `docs/review/opt-in-ocr-adapter-runtime-smoke.md`
+- `.github/workflows/ci.yml`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/app/services/proof_gap_registry.py`
+
+CI markers:
+
+```text
+phase_marker -> opt-in OCR adapter owner-runtime input discovery v0
+owner_runtime_input_status -> missing_tessdata_prefix
+opt_in_enabled -> false
+tessdata_prefix_present -> false
+ocr_calls_attempted -> false
+```
+
+Updated proof gap state:
+
+```text
+robust_pdf_extraction.status -> unproven
+robust_pdf_extraction.current_evidence -> digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness
+robust_pdf_extraction.recommended_next_gate -> owner_runtime_pymupdf_ocr_smoke_with_tessdata_v0
+```
+
+Boundaries:
+
+- harness and missing-input proof only
+- not OCR evidence until owner runtime succeeds
+- not robust PDF extraction evidence
+- not image/chart interpretation evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
 - not customer validation
 - not Braincrew acceptance
 - not product-complete

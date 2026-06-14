@@ -11937,3 +11937,12 @@ uv run pytest tests/test_ocr_layout_image_binary_fixture_provenance.py -q
 This is committed synthetic fixture provenance only, not robust PDF extraction evidence, OCR evidence, image/chart interpretation evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
 
 Phase 877 adds committed OCR/layout/image binary fixture provenance remote verification v0: `docs/review/committed-ocr-layout-image-binary-fixture-provenance-remote-verification.md` records that commit `e151dba810aaa7af4897727dd1a88415685cf632` passed CI run `27493138288` (`api-smoke -> success`, job `81262073564`) and External Feedback Screen run `27493138291` (`screen -> success`, job `81262073535`) after Phase 876 was pushed. This is remote workflow verification only, not robust PDF extraction evidence, not OCR evidence, not image/chart interpretation evidence, not layout fidelity evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Phase 878 adds opt-in OCR adapter runtime smoke harness v0: `docs/review/opt-in-ocr-adapter-runtime-smoke.md` records an owner-runtime gated PyMuPDF OCR smoke harness for a committed synthetic image-only PDF fixture. CI verifies the safe missing-input path:
+
+```powershell
+cd apps/api
+uv run python -m app.services.opt_in_ocr_adapter_runtime_smoke_command --discover-owner-runtime-input
+```
+
+For owner runtime only, configure `NOISEPROOF_ENABLE_PYMUPDF_OCR=true`, `NOISEPROOF_TESSDATA_PREFIX=<local-tessdata-dir-outside-repo>`, and `CI=false`, then write the report outside the repository with `--run-owner-runtime-smoke --output <runtime-report-path-outside-repo>`. This is a harness and missing-input proof only, not OCR evidence, not robust PDF extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.

@@ -1,0 +1,37 @@
+{
+  "packet": "opt_in_ocr_adapter_runtime_smoke_fixture_v0",
+  "binary_pdf_fixtures_included": true,
+  "robust_pdf_extraction_claimed": false,
+  "ocr_claim_requires_owner_runtime": true,
+  "source_first_basis": [
+    "PyMuPDF documents OCR through Page.get_textpage_ocr and a tessdata folder.",
+    "The fixture is synthetic and image-only so digital text extraction does not silently satisfy OCR claims.",
+    "The committed fixture supports an opt-in owner-runtime OCR smoke without committing tessdata."
+  ],
+  "fixtures": [
+    {
+      "fixture_id": "ocr_smoke_text_image_pdf",
+      "path": "ocr-smoke-text-image.pdf",
+      "source_kind": "synthetic_generated",
+      "generated_by": "examples/pdf-extraction-quality/ocr-runtime-fixtures/generate_ocr_runtime_fixtures.py",
+      "redistribution_allowed": true,
+      "license_note": "Synthetic in-repository fixture generated for NoiseProof OCR smoke tests.",
+      "sha256": "f961080dcf4163f554e3c8e3f55825a49357b43010adceff78eea8591ddadc2c",
+      "size_bytes": 2122181,
+      "expected_spans": [
+        "ocr smoke text"
+      ],
+      "expected_min_image_blocks": 1,
+      "expected_digital_text": false,
+      "robust_pdf_extraction_claimed": false
+    }
+  ],
+  "boundary_notes": [
+    "not robust PDF extraction evidence",
+    "not OCR evidence until owner-runtime smoke succeeds",
+    "not image/chart interpretation evidence",
+    "not layout fidelity evidence",
+    "not hosted deployment evidence",
+    "not product-complete"
+  ]
+}
