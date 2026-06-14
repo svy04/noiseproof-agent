@@ -55,6 +55,13 @@ retrieval_strategy: fixed-window
 evaluator: packages/ingestion/retrieval/live_lexical_qrels.py
 command: app.services.live_lexical_qrels_baseline_command
 ci_check: Check live lexical qrels baseline report staleness
+latest_remote_verification_gate: Live lexical qrels baseline eval remote verification v0
+latest_remote_verification_artifact: docs/review/live-lexical-qrels-baseline-eval-remote-verification.md
+latest_verified_head_sha: 8a7cc07aac8c4d7c218424a0ecf50381cfea0d3c
+latest_ci_run: 27489607815
+latest_ci_job_id: 81252099416
+latest_external_feedback_screen_run: 27489607811
+latest_external_feedback_screen_job_id: 81252099394
 judged_coverage_at_k: 0.5714
 unjudged_retrieved_count_at_k: 3
 semantic_quality_claim_gate: blocked
@@ -34005,6 +34012,48 @@ Boundaries:
 - not representative retrieval evaluation
 - not a benchmark result
 - not a model comparison
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 861 - Live lexical qrels baseline eval remote verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions success for the Phase 860 live lexical
+qrels baseline eval after it was pushed.
+
+Artifacts:
+
+- `docs/review/live-lexical-qrels-baseline-eval-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_docs.py`
+
+Remote verification markers:
+
+```text
+head_sha -> 8a7cc07aac8c4d7c218424a0ecf50381cfea0d3c
+ci_run -> 27489607815
+ci_job_id -> 81252099416
+external_feedback_screen_run -> 27489607811
+external_feedback_screen_job_id -> 81252099394
+ci_conclusion -> success
+external_feedback_screen_conclusion -> success
+api_smoke_tests -> 1187 passed
+```
+
+Boundary:
+
+- remote workflow verification only
+- not semantic retrieval quality evidence
+- not embedding generation
+- not representative retrieval evaluation
 - not hosted deployment evidence
 - not external reviewer feedback
 - not customer validation
