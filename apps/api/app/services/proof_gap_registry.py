@@ -19,8 +19,10 @@ _GAP_ACTIONS = {
             "docs/review/robust-pdf-extraction-source-first-strategy-review.md",
             "docs/review/pdf-extraction-quality-observation-smoke-index.md",
             "docs/review/upload-pdf-quality-preview-coverage-summary-runtime-smoke.md",
+            "docs/review/multi-fixture-pdf-extraction-quality-eval.md",
+            "docs/evaluation/multi-fixture-pdf-extraction-quality-report.md",
         ],
-        "recommended_next_gate": "multi_fixture_pdf_extraction_quality_eval_v0",
+        "recommended_next_gate": "missing_pdf_runtime_observation_pack_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -137,12 +139,14 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
         ProofGapOut(
             gap_id="robust_pdf_extraction",
             status="unproven",
-            current_evidence="digital_pdf_text_and_diagnostics_only",
+            current_evidence=(
+                "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix"
+            ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "multi_fixture_pdf_eval_with_ocr_layout_tables_and_failure_boundaries"
+                "missing_pdf_runtime_observations_for_ocr_image_layout_and_empty_text_fixture_roles"
             ),
         ),
         ProofGapOut(

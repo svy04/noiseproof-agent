@@ -22989,6 +22989,62 @@ def test_external_reviewer_shortlist_links_compact_proof_path():
     assert "external reviewer shortlist v0" in runbook
 
 
+def test_multi_fixture_pdf_extraction_quality_eval_v0_is_recorded_without_robust_claim():
+    review_path = REPO_ROOT / "docs/review/multi-fixture-pdf-extraction-quality-eval.md"
+    report_path = (
+        REPO_ROOT
+        / "docs/evaluation/multi-fixture-pdf-extraction-quality-report.md"
+    )
+    assert review_path.is_file()
+    assert report_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    report = report_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (REPO_ROOT / "docs/application/portfolio-index.md").read_text(
+        encoding="utf-8"
+    )
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    ci = (REPO_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+
+    expected_markers = [
+        "Multi-fixture PDF Extraction Quality Eval",
+        "multi_fixture_pdf_extraction_quality_eval_v0",
+        "fixture_count -> 8",
+        "observed_fixture_count -> 4",
+        "gap_fixture_count -> 4",
+        "missing_runtime_observation",
+        "scanned_image_pdf",
+        "image_heavy_pdf",
+        "multi_column_layout_pdf",
+        "no_extractable_text_pdf",
+        "not robust PDF extraction evidence",
+        "not OCR evidence",
+        "not layout fidelity evidence",
+    ]
+    for marker in expected_markers:
+        assert marker in content or marker in report
+
+    assert "| fixture_count | 8 |" in report
+    assert "| observed_fixture_count | 4 |" in report
+    assert "| gap_fixture_count | 4 |" in report
+    assert "can_claim_robust_pdf_extraction | false" in report
+    assert "Multi-fixture PDF extraction quality eval v0: implemented" in readme
+    assert "Phase 870 - Multi-fixture PDF Extraction Quality Eval v0" in goal
+    assert "Phase 870 adds multi-fixture PDF extraction quality eval v0" in runbook
+    assert "docs/review/multi-fixture-pdf-extraction-quality-eval.md" in portfolio
+    assert (
+        "docs/evaluation/multi-fixture-pdf-extraction-quality-report.md"
+        in portfolio
+    )
+    assert "Latest multi-fixture PDF extraction quality eval" in application_ready
+    assert "Check multi-fixture PDF extraction quality report staleness" in ci
+
+
 def test_external_review_issue_body_shortlist_refresh_records_live_issue_edit():
     refresh_path = REPO_ROOT / "docs/review/external-review-issue-body-shortlist-refresh.md"
     assert refresh_path.is_file()

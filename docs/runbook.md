@@ -2,6 +2,16 @@
 
 ## Current Status
 
+Phase 870 adds multi-fixture PDF extraction quality eval v0: `docs/review/multi-fixture-pdf-extraction-quality-eval.md` records that the full PDF fixture matrix now regenerates `docs/evaluation/multi-fixture-pdf-extraction-quality-report.md` through `app.services.multi_fixture_pdf_extraction_quality_command`. The report records `fixture_count -> 8`, `observed_fixture_count -> 4`, `gap_fixture_count -> 4`, missing runtime observations for `scanned_image_pdf`, `image_heavy_pdf`, `multi_column_layout_pdf`, and `no_extractable_text_pdf`, and `can_claim_robust_pdf_extraction -> false`. CI checks it with `Check multi-fixture PDF extraction quality report staleness`. Reproduce locally with:
+
+```powershell
+cd apps/api
+uv run python -m app.services.multi_fixture_pdf_extraction_quality_command --fixture ../../examples/pdf-extraction-quality --observations ../../examples/pdf-extraction-quality/observations.json --output ../../docs/evaluation/multi-fixture-pdf-extraction-quality-report.md --check
+uv run pytest tests/test_multi_fixture_pdf_extraction_quality.py -q
+```
+
+This is a multi-fixture matrix and gap surface only, not robust PDF extraction evidence, OCR evidence, layout fidelity evidence, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Phase 864 adds representative live semantic quality eval v0: `docs/review/representative-live-semantic-quality-eval.md` records that `examples/representative-semantic-retrieval-quality/` covers all current NoiseProof information roles and source types `csv`, `html`, `markdown`, `memo`, and `pdf`, then regenerates `docs/evaluation/representative-live-semantic-quality-report.md` through `app.services.representative_live_semantic_quality_command`. The report records `coverage_status -> passed`, `role_coverage_ratio -> 1.0`, `source_type_coverage_ratio -> 1.0`, `query_count -> 6`, `chunk_count -> 12`, `qrel_count -> 24`, `judged_coverage_at_k -> 1.0`, `unjudged_retrieved_count_at_k -> 0`, and `representative_live_semantic_quality_claim_blocked`. CI checks it with `Check representative live semantic quality report staleness`. Reproduce locally with:
 
 ```powershell

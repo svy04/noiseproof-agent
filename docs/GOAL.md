@@ -43,6 +43,30 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 870:
+
+```text
+latest_product_gate: Multi-fixture PDF Extraction Quality Eval v0
+latest_product_artifact: docs/review/multi-fixture-pdf-extraction-quality-eval.md
+latest_eval_report: docs/evaluation/multi-fixture-pdf-extraction-quality-report.md
+fixture_root: examples/pdf-extraction-quality/
+command: app.services.multi_fixture_pdf_extraction_quality_command
+ci_check: Check multi-fixture PDF extraction quality report staleness
+phase_marker: multi_fixture_pdf_extraction_quality_eval_v0
+fixture_count: 8
+observed_fixture_count: 4
+gap_fixture_count: 4
+missing_runtime_observation_fixture_ids: scanned_image_pdf; image_heavy_pdf; multi_column_layout_pdf; no_extractable_text_pdf
+quality_gate_status: blocked
+robust_pdf_extraction_claimed: false
+can_claim_robust_pdf_extraction: false
+robust_pdf_extraction.status: unproven
+robust_pdf_extraction.current_evidence: digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix
+robust_pdf_extraction.recommended_next_gate: missing_pdf_runtime_observation_pack_v0
+product_complete: false
+boundary: multi-fixture matrix and gap surface only; not robust PDF extraction evidence; not OCR evidence; not layout fidelity evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 868:
 
 ```text
@@ -34554,6 +34578,70 @@ Boundaries:
 - not live embedding generation proof
 - not production semantic retrieval quality evidence
 - not a public benchmark result
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 870 - Multi-fixture PDF Extraction Quality Eval v0
+
+Status: implemented.
+
+Purpose: add a committed PDF extraction quality matrix across every current
+fixture role before any robust PDF extraction claim can pass.
+
+Artifacts:
+
+- `packages/ingestion/pdf_quality/multi_fixture.py`
+- `apps/api/app/services/multi_fixture_pdf_extraction_quality_command.py`
+- `apps/api/tests/test_multi_fixture_pdf_extraction_quality.py`
+- `docs/evaluation/multi-fixture-pdf-extraction-quality-report.md`
+- `docs/review/multi-fixture-pdf-extraction-quality-eval.md`
+- `.github/workflows/ci.yml`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/app/services/proof_gap_registry.py`
+- `apps/api/tests/test_docs.py`
+
+Matrix markers:
+
+```text
+phase_marker -> multi_fixture_pdf_extraction_quality_eval_v0
+fixture_count -> 8
+observed_fixture_count -> 4
+gap_fixture_count -> 4
+quality_gate_status -> blocked
+robust_pdf_extraction_claimed -> false
+can_claim_robust_pdf_extraction -> false
+```
+
+Missing runtime observation fixture ids:
+
+```text
+scanned_image_pdf
+image_heavy_pdf
+multi_column_layout_pdf
+no_extractable_text_pdf
+```
+
+Updated proof gap state:
+
+```text
+robust_pdf_extraction.status -> unproven
+robust_pdf_extraction.current_evidence -> digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix
+robust_pdf_extraction.recommended_next_gate -> missing_pdf_runtime_observation_pack_v0
+```
+
+Boundaries:
+
+- multi-fixture matrix and gap surface only
+- not robust PDF extraction evidence
+- not OCR evidence
+- not layout fidelity evidence
 - not hosted deployment evidence
 - not external reviewer feedback
 - not customer validation

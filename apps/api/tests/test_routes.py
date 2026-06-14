@@ -6195,6 +6195,12 @@ def test_ops_summary_and_dashboard_surface_current_proof_gap_registry():
     ]
     by_id = {gap["gap_id"]: gap for gap in registry}
     assert by_id["robust_pdf_extraction"]["status"] == "unproven"
+    assert by_id["robust_pdf_extraction"]["current_evidence"] == (
+        "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix"
+    )
+    assert by_id["robust_pdf_extraction"]["next_evidence_needed"] == (
+        "missing_pdf_runtime_observations_for_ocr_image_layout_and_empty_text_fixture_roles"
+    )
     assert by_id["actual_embedding_generation"]["status"] == "unproven"
     assert by_id["semantic_retrieval_quality"]["status"] == "unproven"
     assert by_id["distributed_tracing"]["status"] == "not_claimed"
@@ -6225,6 +6231,7 @@ def test_ops_summary_and_dashboard_surface_current_proof_gap_registry():
     assert "external_reviewer_feedback" in dashboard.text
     assert "owner_authored_issue_only" in dashboard.text
     assert "current gaps only; not new proof" in dashboard.text
+    assert "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix" in dashboard.text
 
 
 def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
@@ -6275,6 +6282,23 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
     assert (
         "docs/review/live-embedding-domain-qrels-owner-runtime-runner.md"
         in semantic_gap["proof_routes"]
+    )
+
+    robust_gap = next(
+        gap for gap in body["gaps"] if gap["gap_id"] == "robust_pdf_extraction"
+    )
+    assert robust_gap["current_evidence"] == (
+        "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix"
+    )
+    assert robust_gap["recommended_next_gate"] == (
+        "missing_pdf_runtime_observation_pack_v0"
+    )
+    assert "docs/review/multi-fixture-pdf-extraction-quality-eval.md" in robust_gap[
+        "proof_routes"
+    ]
+    assert (
+        "docs/evaluation/multi-fixture-pdf-extraction-quality-report.md"
+        in robust_gap["proof_routes"]
     )
 
     detail = client.get("/ops/proof-gaps/semantic_retrieval_quality")
