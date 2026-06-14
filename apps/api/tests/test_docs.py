@@ -41455,3 +41455,56 @@ def test_live_embedding_domain_qrels_owner_runtime_runner_is_recorded_without_li
     assert "owner_runtime_input_status" in ci
     assert "Live Embedding Domain Qrels Owner-runtime Runner" in portfolio
     assert "Live Embedding Domain Qrels Owner-runtime Runner" in application_ready
+
+
+def test_live_embedding_domain_qrels_owner_runtime_runner_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/live-embedding-domain-qrels-owner-runtime-runner-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    for marker in [
+        "Live embedding-backed domain qrels owner-runtime runner remote verification v0",
+        "67dec62288b1dc40f57e2a8c1c3a22169b959f39",
+        "27491615373",
+        "81257751009",
+        "27491615371",
+        "81257751081",
+        "Check live embedding domain qrels owner-runtime runner missing input",
+        "Run API smoke tests -> success",
+    ]:
+        assert marker in content
+    assert "not live embedding generation proof" in content
+    assert "not production semantic retrieval quality evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "Live embedding-backed domain qrels owner-runtime runner remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 869 - Live embedding-backed domain qrels owner-runtime runner remote verification v0"
+        in goal
+    )
+    assert (
+        "Phase 869 adds live embedding-backed domain qrels owner-runtime runner remote verification v0"
+        in runbook
+    )
+    assert "Live Embedding Domain Qrels Owner-runtime Runner Remote Verification" in portfolio
+    assert (
+        "Live Embedding Domain Qrels Owner-runtime Runner Remote Verification"
+        in application_ready
+    )

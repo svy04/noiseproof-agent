@@ -53,13 +53,13 @@ fixture_root: examples/representative-semantic-retrieval-quality/
 live_run_source: owner_runtime_openai_embedding_domain_qrels
 command: app.services.live_embedding_domain_qrels_harness
 ci_check: Check live embedding domain qrels owner-runtime runner missing input
-latest_remote_verification_gate: Live embedding-backed domain qrels owner-runtime eval packet remote verification v0
-latest_remote_verification_artifact: docs/review/live-embedding-domain-qrels-owner-runtime-eval-packet-remote-verification.md
-latest_verified_head_sha: 4bda105f31698521302341ed69e30addae9190b0
-latest_ci_run: 27491187230
-latest_ci_job_id: 81256509435
-latest_external_feedback_screen_run: 27491187229
-latest_external_feedback_screen_job_id: 81256509371
+latest_remote_verification_gate: Live embedding-backed domain qrels owner-runtime runner remote verification v0
+latest_remote_verification_artifact: docs/review/live-embedding-domain-qrels-owner-runtime-runner-remote-verification.md
+latest_verified_head_sha: 67dec62288b1dc40f57e2a8c1c3a22169b959f39
+latest_ci_run: 27491615373
+latest_ci_job_id: 81257751009
+latest_external_feedback_screen_run: 27491615371
+latest_external_feedback_screen_job_id: 81257751081
 coverage_status: passed
 role_coverage_ratio: 1.0
 source_type_coverage_ratio: 1.0
@@ -34498,6 +34498,59 @@ Boundaries:
 
 - owner-runtime runner, packet, and validator only
 - missing-input CI guard only
+- not live embedding generation proof
+- not production semantic retrieval quality evidence
+- not a public benchmark result
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 869 - Live embedding-backed domain qrels owner-runtime runner remote verification v0
+
+Status: implemented.
+
+Purpose: record remote workflow verification for the Phase 868 owner-runtime
+runner after it was pushed to `main`.
+
+Artifacts:
+
+- `docs/review/live-embedding-domain-qrels-owner-runtime-runner-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_docs.py`
+
+Remote verification markers:
+
+```text
+verified_head_sha -> 67dec62288b1dc40f57e2a8c1c3a22169b959f39
+branch -> main
+commit -> feat: add live embedding domain qrels owner-runtime runner
+ci_run -> 27491615373
+ci_job_id -> 81257751009
+ci_job_name -> api-smoke
+ci_conclusion -> success
+external_feedback_screen_run -> 27491615371
+external_feedback_screen_job_id -> 81257751081
+external_feedback_screen_job_name -> screen
+external_feedback_screen_conclusion -> success
+```
+
+Remote CI step evidence included:
+
+```text
+Compile API and local packages -> success
+Check live embedding domain qrels owner-runtime runner missing input -> success
+Run API smoke tests -> success
+```
+
+Boundaries:
+
+- remote workflow verification only
 - not live embedding generation proof
 - not production semantic retrieval quality evidence
 - not a public benchmark result
