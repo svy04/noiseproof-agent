@@ -49,12 +49,14 @@ _GAP_ACTIONS = {
             "toy qrels-backed evaluation proves production-grade semantic search",
         ],
         "proof_routes": [
+            "docs/evaluation/live-lexical-qrels-baseline-report.md",
+            "docs/review/live-lexical-qrels-baseline-eval.md",
             "docs/evaluation/qrels-backed-semantic-quality-report.md",
             "docs/review/qrels-backed-semantic-quality-eval.md",
             "docs/review/semantic-retrieval-quality-diagnostic-matrix.md",
             "docs/evaluation/retrieval-eval-report.md",
         ],
-        "recommended_next_gate": "representative_qrels_and_live_retrieval_quality_eval_v0",
+        "recommended_next_gate": "representative_live_semantic_retrieval_quality_eval_v0",
     },
     "distributed_tracing": {
         "acceptable_evidence": [
@@ -151,12 +153,14 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
         ProofGapOut(
             gap_id="semantic_retrieval_quality",
             status="unproven",
-            current_evidence="toy_qrels_backed_eval_and_caller_provided_vector_runs",
+            current_evidence=(
+                "toy_live_lexical_qrels_baseline_toy_qrels_backed_eval_and_caller_provided_vector_runs"
+            ),
             claim_boundary=(
-                "toy_qrels_backed_eval_is_not_semantic_retrieval_quality_evidence"
+                "live_lexical_baseline_and_toy_qrels_do_not_prove_semantic_retrieval_quality"
             ),
             next_evidence_needed=(
-                "representative_qrels_with_live_retrieval_runs_and_pass_conditions"
+                "representative_qrels_with_live_semantic_retrieval_runs_and_pass_conditions"
             ),
         ),
         ProofGapOut(

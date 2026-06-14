@@ -40918,7 +40918,7 @@ def test_proof_gap_action_surface_is_recorded_without_closing_gaps():
         "proof_routes",
         "recommended_next_gate",
         "semantic_retrieval_quality",
-        "representative_qrels_and_live_retrieval_quality_eval_v0",
+        "representative_live_semantic_retrieval_quality_eval_v0",
         "semantic retrieval quality is proven",
         "action_surface_only_not_new_proof_or_gap_closure",
     ]:
@@ -40994,3 +40994,66 @@ def test_qrels_backed_semantic_quality_eval_is_recorded_without_quality_claim():
     assert "Latest Qrels-backed Semantic Quality Eval" in portfolio
     assert "Qrels-backed Semantic Retrieval Quality Eval" in application_ready
     assert "Check qrels-backed semantic quality report staleness" in ci
+
+
+def test_live_lexical_qrels_baseline_eval_is_recorded_without_quality_claim():
+    review_path = REPO_ROOT / "docs/review/live-lexical-qrels-baseline-eval.md"
+    report_path = REPO_ROOT / "docs/evaluation/live-lexical-qrels-baseline-report.md"
+    assert review_path.is_file()
+    assert report_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    report = report_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+    proof_gap = (
+        REPO_ROOT / "docs/review/proof-gap-action-surface.md"
+    ).read_text(encoding="utf-8")
+    ci = (REPO_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+
+    for marker in [
+        "Live Lexical Qrels Baseline Eval",
+        "live lexical qrels baseline v0",
+        "live_lexical_retrieve_candidates",
+        "fixed-window",
+        "docs/evaluation/live-lexical-qrels-baseline-report.md",
+        "packages/ingestion/retrieval/live_lexical_qrels.py",
+        "app.services.live_lexical_qrels_baseline_command",
+        "Hit@k -> 1.0",
+        "Recall@k -> 0.5",
+        "MRR@k -> 0.75",
+        "nDCG@k -> 0.5825",
+        "judged_coverage_at_k -> 0.5714",
+        "unjudged_retrieved_count_at_k -> 3",
+        "live_lexical_qrels_baseline_quality_claim_blocked",
+        "representative_live_semantic_retrieval_quality_eval_v0",
+    ]:
+        assert marker in content
+    assert "not semantic retrieval quality evidence" in content
+    assert "not embedding generation" in content
+    assert "not representative retrieval evaluation" in content
+    assert "not a benchmark result" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "# Live Lexical Qrels Baseline Eval" in report
+    assert "run_source: `live_lexical_retrieve_candidates`" in report
+    assert "judged_coverage_at_k | 0.5714" in report
+    assert "unjudged_retrieved_count_at_k | 3" in report
+    assert "live_lexical_baseline_boundary" in report
+    assert "This is not semantic retrieval quality evidence." in report
+
+    assert "Live lexical qrels baseline eval v0: implemented" in readme
+    assert "Phase 860 - Live lexical qrels baseline eval v0" in goal
+    assert "Phase 860 adds live lexical qrels baseline eval v0" in runbook
+    assert "Latest Live Lexical Qrels Baseline Eval" in portfolio
+    assert "Live Lexical Qrels Baseline Eval" in application_ready
+    assert "live_lexical_baseline_and_toy_qrels_do_not_prove_semantic_retrieval_quality" in proof_gap
+    assert "Check live lexical qrels baseline report staleness" in ci

@@ -43,6 +43,30 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 860:
+
+```text
+latest_product_gate: Live lexical qrels baseline eval v0
+latest_product_artifact: docs/review/live-lexical-qrels-baseline-eval.md
+latest_eval_report: docs/evaluation/live-lexical-qrels-baseline-report.md
+fixture_root: examples/semantic-retrieval-quality/
+live_run_source: live_lexical_retrieve_candidates
+retrieval_strategy: fixed-window
+evaluator: packages/ingestion/retrieval/live_lexical_qrels.py
+command: app.services.live_lexical_qrels_baseline_command
+ci_check: Check live lexical qrels baseline report staleness
+judged_coverage_at_k: 0.5714
+unjudged_retrieved_count_at_k: 3
+semantic_quality_claim_gate: blocked
+semantic_retrieval_quality.status: unproven
+semantic_retrieval_quality.current_evidence: toy_live_lexical_qrels_baseline_toy_qrels_backed_eval_and_caller_provided_vector_runs
+semantic_retrieval_quality.recommended_next_gate: representative_live_semantic_retrieval_quality_eval_v0
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+production_readiness: not_claimed
+product_complete: false
+boundary: live lexical baseline over a tiny local fixture only; not semantic retrieval quality evidence; not embedding generation; not representative retrieval evaluation; not a benchmark result; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
 Current navigation overlay as of Phase 859:
 
 ```text
@@ -33914,6 +33938,73 @@ Boundaries:
 - not a benchmark result
 - not a model comparison
 - not live vector search quality evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 860 - Live lexical qrels baseline eval v0
+
+Status: implemented.
+
+Purpose: make the semantic retrieval quality gap more inspectable by generating
+a qrels-evaluable run from the existing local lexical `retrieve_candidates()`
+path instead of a hand-authored run file.
+
+Artifacts:
+
+- `docs/review/live-lexical-qrels-baseline-eval.md`
+- `docs/evaluation/live-lexical-qrels-baseline-report.md`
+- `packages/ingestion/retrieval/live_lexical_qrels.py`
+- `apps/api/app/services/live_lexical_qrels_baseline_command.py`
+- `.github/workflows/ci.yml`
+- `apps/api/tests/test_live_lexical_qrels_baseline.py`
+- `apps/api/tests/test_docs.py`
+- `apps/api/tests/test_routes.py`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `docs/review/proof-gap-action-surface.md`
+
+Evaluation markers:
+
+```text
+run_source -> live_lexical_retrieve_candidates
+retrieval_strategy -> fixed-window
+Hit@k -> 1.0
+Recall@k -> 0.5
+MRR@k -> 0.75
+nDCG@k -> 0.5825
+judged_coverage_at_k -> 0.5714
+retrieved_count_at_k -> 7
+unjudged_retrieved_count_at_k -> 3
+judged_relevant_count -> 8
+status -> blocked
+can_claim_semantic_quality -> false
+summary -> live_lexical_qrels_baseline_quality_claim_blocked
+```
+
+Updated proof gap state:
+
+```text
+semantic_retrieval_quality.status -> unproven
+semantic_retrieval_quality.current_evidence -> toy_live_lexical_qrels_baseline_toy_qrels_backed_eval_and_caller_provided_vector_runs
+semantic_retrieval_quality.claim_boundary -> live_lexical_baseline_and_toy_qrels_do_not_prove_semantic_retrieval_quality
+semantic_retrieval_quality.next_evidence_needed -> representative_qrels_with_live_semantic_retrieval_runs_and_pass_conditions
+semantic_retrieval_quality.recommended_next_gate -> representative_live_semantic_retrieval_quality_eval_v0
+```
+
+Boundaries:
+
+- live lexical baseline over a tiny local fixture only
+- not semantic retrieval quality evidence
+- not embedding generation
+- not representative retrieval evaluation
+- not a benchmark result
+- not a model comparison
 - not hosted deployment evidence
 - not external reviewer feedback
 - not customer validation

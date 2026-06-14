@@ -8,6 +8,8 @@ Fast path: `docs/review/external-reader-proof-path.md` is the 5-minute path for 
 
 Boundary: this fast path is not hosted deployment evidence, not automatic failure-case creation beyond the local v0 workflow failure path, and not complete workflow failure causality.
 
+Latest Live Lexical Qrels Baseline Eval: `docs/review/live-lexical-qrels-baseline-eval.md` records that the existing local lexical `retrieve_candidates()` path now generates a qrels-evaluable run for the tiny semantic retrieval quality fixture, with `docs/evaluation/live-lexical-qrels-baseline-report.md`, `run_source -> live_lexical_retrieve_candidates`, `judged_coverage_at_k -> 0.5714`, `unjudged_retrieved_count_at_k -> 3`, and `live_lexical_qrels_baseline_quality_claim_blocked`. It is a live lexical baseline over a tiny local fixture only, not semantic retrieval quality evidence, embedding generation, representative retrieval evaluation, hosted deployment evidence, external reviewer feedback, or product-complete.
+
 Dockerized local OpenTelemetry span export runtime smoke: `docs/review/local-otel-span-export-runtime-smoke.md` records local Docker/FastAPI proof under `noiseproof-phase851` that `NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT=true` reaches the `api` service, `GET /health` returns `x-noiseproof-otel-span-export: local_in_memory_enabled`, DB-backed `GET /agent-runs` and `GET /ops/summary` return `200`, and `GET /traces/otel-spans/local` returns `span_export_enabled=true` with `span_count=4`. It is local runtime evidence only, not distributed tracing, hosted observability, external collector integration, OpenTelemetry Collector deployment, production monitoring, hosted deployment evidence, external reviewer feedback, or product-complete.
 
 external-reader proof path local OTel span export runtime route refresh: `docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh.md` routes first-pass reviewers to `docs/review/local-otel-span-export.md` and `docs/review/local-otel-span-export-runtime-smoke.md` through the proof path, link map, and shortlist. It is route hygiene only, not new runtime evidence, distributed tracing, hosted observability, external collector integration, hosted deployment evidence, external reviewer feedback, or product-complete.
@@ -1496,7 +1498,7 @@ because it shows how the project prevents itself from overclaiming.
 
 For `semantic_retrieval_quality`, the current status remains `unproven`; the
 blocked claim is `semantic retrieval quality is proven`; and the recommended
-next gate is `qrels_backed_semantic_retrieval_quality_eval_v0`.
+next gate is `representative_live_semantic_retrieval_quality_eval_v0`.
 
 Boundary: this is `action_surface_only_not_new_proof_or_gap_closure`, not
 robust PDF extraction evidence, live embedding generation proof, semantic
@@ -1520,8 +1522,9 @@ It reports `judged_coverage_at_k -> 0.6667`,
 `qrels_backed_semantic_quality_claim_blocked`.
 
 This updates the `semantic_retrieval_quality` gap from "needs qrels-backed eval"
-to "has toy qrels-backed eval, still unproven". The next evidence should use
-representative qrels and live retrieval runs.
+to "has toy qrels-backed eval, still unproven". Phase 860 then adds a live
+lexical baseline over the same tiny fixture. The next evidence should use
+representative qrels and live semantic retrieval runs.
 
 Boundary: this is qrels-backed toy fixture evaluation only, not semantic
 retrieval quality evidence, embedding generation, benchmark evidence, model

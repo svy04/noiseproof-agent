@@ -52,6 +52,16 @@ jobs:
             --k 2 \
             --check
 
+      - name: Check live lexical qrels baseline report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.live_lexical_qrels_baseline_command \
+            --fixture-root ../../examples/semantic-retrieval-quality \
+            --output ../../docs/evaluation/live-lexical-qrels-baseline-report.md \
+            --strategy fixed-window \
+            --k 2 \
+            --check
+
       - name: Check PDF extraction quality report staleness
         working-directory: apps/api
         run: |
