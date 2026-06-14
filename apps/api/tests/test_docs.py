@@ -40802,3 +40802,44 @@ def test_external_feedback_current_state_local_otel_issue_verification_is_record
     assert "Phase 855 - External Feedback Current-state Local OTel Issue Verification v0" in goal
     assert "Phase 855 adds external feedback current-state local OTel issue verification v0" in runbook
     assert "external feedback current-state local OTel issue verification" in portfolio
+
+
+def test_external_feedback_current_state_local_otel_issue_verification_remote_verification_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-local-otel-issue-verification-remote-verification.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External Feedback Current-state Local OTel Issue Verification Remote Verification" in content
+    assert "external feedback current-state local OTel issue verification remote verification v0" in content
+    assert "ade89e368d1ec50f88a3845ea115f082569fdb0c" in content
+    assert "CI run `27488457883`: success" in content
+    assert "CI job_id -> 81249014193" in content
+    assert "External Feedback Screen run `27488457885`: success" in content
+    assert "External Feedback Screen job_id -> 81249014204" in content
+    assert "Check semantic retrieval quality report staleness -> success" in content
+    assert "Check PDF extraction quality report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "Screen issue comments -> success" in content
+    assert "docs/review/external-feedback-current-state-local-otel-issue-verification.md" in content
+    assert "not the current-state issue screen itself" in content
+    assert "not external reviewer feedback" in content
+    assert "not new runtime evidence" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not hosted deployment evidence" in content
+    assert "not product-complete" in content
+
+    assert "External feedback current-state local OTel issue verification remote verification v0: implemented" in readme
+    assert "Phase 856 - External Feedback Current-state Local OTel Issue Verification Remote Verification v0" in goal
+    assert "Phase 856 adds external feedback current-state local OTel issue verification remote verification v0" in runbook
+    assert "external feedback current-state local OTel issue verification remote verification" in portfolio

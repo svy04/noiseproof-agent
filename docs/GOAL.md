@@ -43,6 +43,27 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 856:
+
+```text
+latest_external_feedback_current_state_remote_verification_gate: External feedback current-state local OTel issue verification remote verification v0
+latest_external_feedback_current_state_remote_verification_artifact: docs/review/external-feedback-current-state-local-otel-issue-verification-remote-verification.md
+latest_verified_head_sha: ade89e368d1ec50f88a3845ea115f082569fdb0c
+latest_ci_run: 27488457883
+latest_ci_job_id: 81249014193
+latest_external_feedback_screen_run: 27488457885
+latest_external_feedback_screen_job_id: 81249014204
+verified_external_feedback_current_state_artifact: docs/review/external-feedback-current-state-local-otel-issue-verification.md
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+distributed_tracing: not_claimed
+external_collector: not_implemented
+hosted_observability: not_implemented
+hosted_deployment_evidence: not_implemented
+production_readiness: not_claimed
+product_complete: false
+boundary: remote workflow verification only; not the current-state issue screen itself; not external reviewer feedback; not new runtime evidence; not distributed tracing; not hosted observability; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 855:
 
 ```text
@@ -33605,6 +33626,49 @@ has_local_otel_route_remote_verification: true
 Boundaries:
 
 - current-state issue screen only
+- not external reviewer feedback
+- not new runtime evidence
+- not distributed tracing
+- not hosted observability
+- not external collector integration
+- not OpenTelemetry Collector deployment
+- not production monitoring
+- not cross-service trace proof
+- not hosted deployment evidence
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 856 - External Feedback Current-state Local OTel Issue Verification Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote GitHub Actions success for the pushed Phase 855 current-state local OTel issue verification.
+
+Artifacts:
+
+- `docs/review/external-feedback-current-state-local-otel-issue-verification-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Remote markers:
+
+```text
+head_sha: ade89e368d1ec50f88a3845ea115f082569fdb0c
+CI run: 27488457883 success
+CI job_id: 81249014193
+External Feedback Screen run: 27488457885 success
+External Feedback Screen job_id: 81249014204
+verified_artifact: docs/review/external-feedback-current-state-local-otel-issue-verification.md
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the current-state issue screen itself
 - not external reviewer feedback
 - not new runtime evidence
 - not distributed tracing
