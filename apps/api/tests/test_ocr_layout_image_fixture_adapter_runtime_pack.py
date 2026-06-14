@@ -196,3 +196,57 @@ def test_ocr_layout_image_adapter_runtime_pack_is_documented_and_ci_checked():
         "committed_ocr_layout_image_binary_fixture_provenance_v0"
         in proof_gap_registry
     )
+
+
+def test_ocr_layout_image_adapter_runtime_pack_remote_verification_is_recorded():
+    verification_path = (
+        REPO_ROOT
+        / "docs/review/ocr-layout-image-fixture-adapter-runtime-pack-remote-verification.md"
+    )
+    assert verification_path.is_file()
+
+    content = verification_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "OCR Layout Image Fixture Adapter Runtime Pack Remote Verification" in content
+    assert "ocr layout image fixture adapter runtime pack remote verification v0" in content
+    assert "fe6a496eae641d2c28a1592bc66325ad01d58ad2" in content
+    assert "CI run `27492747996`: success" in content
+    assert "CI job_id -> 81260967348" in content
+    assert "External Feedback Screen run `27492748007`: success" in content
+    assert "External Feedback Screen job_id -> 81260967545" in content
+    assert "Check OCR layout image fixture adapter runtime pack report staleness -> success" in content
+    assert "Run API smoke tests -> success" in content
+    assert "not the product gate itself" in content
+    assert "not robust PDF extraction evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert (
+        "OCR/layout/image fixture adapter runtime pack remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 875 - OCR Layout Image Fixture Adapter Runtime Pack Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 875 adds OCR/layout/image fixture adapter runtime pack remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/ocr-layout-image-fixture-adapter-runtime-pack-remote-verification.md"
+        in portfolio
+    )
+    assert (
+        "OCR Layout Image Fixture Adapter Runtime Pack Remote Verification"
+        in application_ready
+    )
