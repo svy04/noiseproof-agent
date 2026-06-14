@@ -354,3 +354,47 @@ def test_external_feedback_current_state_multi_real_world_pdf_matrix_issue_verif
             "docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification.md"
             in surface
         ), path
+
+
+def test_external_feedback_current_state_multi_real_world_pdf_matrix_issue_verification_remote_verification_is_recorded():
+    remote_path = (
+        REPO_ROOT
+        / "docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification-remote-verification.md"
+    )
+    assert remote_path.is_file()
+
+    content = remote_path.read_text(encoding="utf-8")
+    expected_markers = [
+        "External Feedback Current-state Multi Real-world PDF Parse Observation Matrix Issue Verification Remote Verification",
+        "external feedback current-state multi real-world PDF parse observation matrix issue verification remote verification v0",
+        "084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea",
+        "CI run `27497284929`: success",
+        "CI job_id -> 81273628024",
+        "External Feedback Screen run `27497284920`: success",
+        "External Feedback Screen job_id -> 81273628056",
+        "Check multi real-world PDF parse observation report staleness -> success",
+        "Run API smoke tests -> success",
+        "Screen issue comments -> success",
+        "docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification.md",
+        "remote workflow verification only",
+        "not the current-state issue screen itself",
+        "not external reviewer feedback",
+        "not robust PDF extraction evidence",
+        "not hosted deployment evidence",
+        "not product-complete",
+    ]
+    for marker in expected_markers:
+        assert marker in content
+
+    for path in [
+        "README.md",
+        "docs/GOAL.md",
+        "docs/runbook.md",
+        "docs/application/portfolio-index.md",
+        "docs/review/application-ready-review.md",
+    ]:
+        surface = (REPO_ROOT / path).read_text(encoding="utf-8")
+        assert (
+            "docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification-remote-verification.md"
+            in surface
+        ), path

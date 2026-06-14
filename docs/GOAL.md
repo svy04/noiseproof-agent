@@ -133,6 +133,19 @@ does_not_close_gate: true
 boundary: owner-authored issue body routing and current-state screening only; not external reviewer feedback; not robust PDF extraction evidence; not hosted deployment evidence; not product-complete
 ```
 
+Current public issue remote verification overlay as of Phase 897:
+
+```text
+latest_issue_state_remote_verification_gate: External Feedback Current-state Multi Real-world PDF Parse Observation Matrix Issue Verification Remote Verification v0
+latest_issue_state_remote_verification_artifact: docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification-remote-verification.md
+latest_verified_head_sha: 084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea
+latest_ci_run: 27497284929
+latest_ci_job_id: 81273628024
+latest_external_feedback_screen_run: 27497284920
+latest_external_feedback_screen_job_id: 81273628056
+boundary: remote workflow verification only; not the current-state issue screen itself; not external reviewer feedback; not robust PDF extraction evidence; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 889:
 
 ```text
@@ -337,6 +350,33 @@ does_not_close_gate: true
 ```
 
 Phase 896 is current-state issue screening only. It is not external reviewer feedback, not customer validation, not hosted deployment evidence, not Braincrew acceptance, and not product-complete.
+
+### Phase 897 - External Feedback Current-state Multi Real-world PDF Parse Observation Matrix Issue Verification Remote Verification v0
+
+Status: accepted.
+
+Purpose:
+
+```text
+record that the multi real-world PDF matrix issue-body route refresh and current-state issue verification passed remote GitHub Actions verification
+```
+
+Implemented:
+
+```text
+external feedback current-state multi real-world PDF parse observation matrix issue verification remote verification v0
+docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification-remote-verification.md
+verified_head_sha: 084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea
+CI run: 27497284929
+CI job_id: 81273628024
+External Feedback Screen run: 27497284920
+External Feedback Screen job_id: 81273628056
+CI step: Check multi real-world PDF parse observation report staleness -> success
+CI step: Run API smoke tests -> success
+External Feedback Screen step: Screen issue comments -> success
+```
+
+Phase 897 is remote workflow verification only. It is not the current-state issue screen itself, not the owner-authored issue body route refresh itself, not external reviewer feedback, not robust PDF extraction evidence, not hosted deployment evidence, and not product-complete.
 
 Current navigation overlay as of Phase 887:
 
