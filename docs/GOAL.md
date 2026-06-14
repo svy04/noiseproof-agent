@@ -33572,6 +33572,55 @@ Boundaries:
 - not Braincrew acceptance
 - not product-complete
 
+### Phase 886 - README Proof-bounded Marketing Surface v0
+
+Status: implemented.
+
+Purpose: improve the README first screen so external readers can understand
+what NoiseProof currently proves, what it does not prove, and which
+source-first patterns it borrows without confusing workflow evidence with
+product-complete claims.
+
+Artifacts:
+
+- `README.md`
+- `docs/review/readme-proof-bounded-marketing-surface.md`
+- `apps/api/tests/test_readme_marketing_surface.py`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+
+README sections added:
+
+```text
+Current Proof Surface
+What This Proves Now
+What This Does Not Prove Yet
+Source-first Patterns Borrowed
+90-second Reviewer Path
+```
+
+Borrowed source-first patterns:
+
+- RAGAS: multi-surface RAG evaluation
+- Self-RAG: retrieve/generate/critique separation
+- Corrective RAG: retrieval quality check before answer trust
+- LlamaIndex retriever evaluation: retrieval diagnostic metric names
+- Docling: document parsing capability separation
+- PyMuPDF and OCRmyPDF: OCR/document extraction boundaries
+- BLS and BEA policy pages: license-source discipline for fixture candidates
+
+Boundaries:
+
+- README marketing surface only
+- not product-complete
+- not robust PDF extraction evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not a public benchmark result
+- not Braincrew acceptance
+
 ### Phase 837 - External Feedback Current-state Semantic Retrieval Quality Diagnostic Matrix Issue Verification Remote Verification v0
 
 Status: implemented.

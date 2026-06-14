@@ -4,6 +4,61 @@ A noise-resilient data agent for messy market intelligence.
 
 This project ingests messy documents and market data, evaluates chunking and retrieval strategies, detects contradictory evidence, and generates claim-bounded reports with citations. It is not a trading bot and does not provide buy/sell recommendations.
 
+## Current Proof Surface
+
+| Surface | Current state | Boundary |
+|---|---|---|
+| Latest verified gate | Licensed Real-world PDF Fixture Pack v0 | Candidate metadata only; no external PDF binaries are committed. |
+| Remote workflow verification | `fc34a619cd660c1a7a32ff3eb2db245ee7eeba3e` passed CI run `27494967345` and External Feedback Screen run `27494967342` | Workflow success is not external validation. |
+| Reviewer route | `docs/review/external-reader-proof-path.md` | Repository-native inspection path only. |
+| Current next evidence | `owner_approved_real_world_pdf_download_and_hash_v0` | Download, hash, and observation are still separate future gates. |
+
+Do not read this as a product-complete claim.
+
+## What This Proves Now
+
+- A small FastAPI service can keep document, retrieval, Evidence Ledger, report, failure, and operations proof surfaces inspectable.
+- The project has CI-enforced report staleness checks for semantic retrieval diagnostics and PDF extraction quality packets.
+- PDF handling is split into visible boundaries: digital text, table candidates, OCR smoke harnesses, synthetic fixture provenance, and licensed real-world candidate metadata.
+- Strong claims are intentionally blocked when evidence is missing.
+
+## What This Does Not Prove Yet
+
+- robust PDF extraction
+- arbitrary market PDF parsing reliability
+- live embedding generation as a default path
+- production semantic retrieval quality
+- hosted deployment
+- hosted observability
+- external reviewer feedback
+- Braincrew acceptance
+
+## Source-first Patterns Borrowed
+
+| Source pattern | What NoiseProof borrows | Local boundary |
+|---|---|---|
+| [RAGAS](https://aclanthology.org/2024.eacl-demo.16/) | Treat RAG quality as multiple measurable surfaces, not one vibe check. | Local reports are not public benchmarks. |
+| [Self-RAG](https://arxiv.org/abs/2310.11511) | Separate retrieve, generate, and critique instincts. | No trained Self-RAG model is implemented. |
+| [Corrective RAG](https://arxiv.org/abs/2401.15884) | Evaluate retrieval quality before trusting generation. | No web-scale corrective retrieval is claimed. |
+| [ALCE](https://aclanthology.org/2023.emnlp-main.398/) | Evaluate citation quality separately from answer fluency. | Citation coverage is inspected locally, not benchmarked publicly. |
+| [BEIR](https://openreview.net/forum?id=wCu6T5xFjeJ) and [trec_eval](https://github.com/usnistgov/trec_eval) | Keep retrieval evaluation shaped as corpus, query, qrels, and run outputs. | Current qrels are small fixtures, not general retrieval quality evidence. |
+| [W3C PROV-DM](https://www.w3.org/TR/prov-dm/) | Treat evidence as provenance: source entity, retrieval activity, claim/report entity. | Evidence Ledger rows are operational records, not truth adjudication. |
+| [LlamaIndex Retriever Evaluation](https://developers.llamaindex.ai/python/examples/evaluation/retrieval/retriever_eval/) | Use hit-rate, recall, MRR-style retrieval diagnostics. | Current fixtures remain small and local. |
+| [Docling](https://github.com/docling-project/docling) | Treat document parsing, tables, layout, and OCR as separate capabilities. | Docling is not currently wired into the service. |
+| [Unstructured partitioning](https://docs.unstructured.io/open-source/core-functionality/partitioning) | Separate raw documents into typed elements before downstream use. | NoiseProof keeps this as a design reference, not a full ETL claim. |
+| [OCR-D evaluation](https://ocr-d.de/en/spec/ocrd_eval.html) | Treat OCR quality as measurable text error, not a binary “OCR works” claim. | OCR quality is still unproven beyond one owner-runtime synthetic smoke. |
+| [PyMuPDF OCR](https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html) | Keep OCR opt-in and dependency-aware. | Owner-runtime OCR smoke is one synthetic fixture only. |
+| [OCRmyPDF](https://ocrmypdf.readthedocs.io/en/latest/introduction.html) | Consider searchable text layers for scanned PDFs as a future adapter direction. | OCRmyPDF is not implemented here yet. |
+| [BLS public domain policy](https://www.bls.gov/opub/copyright-information.htm) and [BEA public domain FAQ](https://www.bea.gov/help/faq/147) | Use visible license-source URLs before real-world PDF fixture downloads. | Candidate metadata is not download/hash evidence. |
+
+## 90-second Reviewer Path
+
+1. Read `docs/review/external-reader-proof-path.md`.
+2. Check the current application summary in `docs/review/application-ready-review.md`.
+3. Inspect the latest PDF boundary at `docs/review/licensed-real-world-pdf-fixture-pack.md`.
+4. Confirm CI-enforced regeneration through `.github/workflows/ci.yml`.
+5. Read `docs/GOAL.md` for what remains unproven.
+
 ## External Reviewer Fast Path
 
 Start with `docs/review/external-reader-proof-path.md`.

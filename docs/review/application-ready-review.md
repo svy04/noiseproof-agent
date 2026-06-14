@@ -6,6 +6,8 @@ This is an application-ready review, not a product-complete declaration.
 
 Not product-complete: robust PDF extraction, actual embedding model generation remains unproven, semantic retrieval quality, distributed tracing, hosted deployment, and external user validation are still unproven.
 
+README Proof-bounded Marketing Surface: `docs/review/readme-proof-bounded-marketing-surface.md` records that the README first screen now separates current proof, non-proof, source-first borrowed patterns, and the 90-second reviewer path. This is README marketing surface only, not product-complete, not robust PDF extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not Braincrew acceptance.
+
 Licensed Real-world PDF Fixture Pack: `docs/review/licensed-real-world-pdf-fixture-pack.md` records a metadata-only candidate pack with `candidate_count -> 4`, `downloaded_candidate_count -> 0`, `binary_files_committed -> false`, and `can_claim_robust_pdf_extraction -> false`. This is candidate metadata only, not robust PDF extraction evidence, not arbitrary market PDF parsing evidence, not OCR evidence, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Licensed Real-world PDF Fixture Pack Remote Verification: `docs/review/licensed-real-world-pdf-fixture-pack-remote-verification.md` records that the Phase 884 candidate pack passed remote CI, including `Check licensed real-world PDF fixture pack report staleness` and full API smoke tests. This is remote workflow verification only, not the candidate pack itself, not a real-world PDF download, not robust PDF extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.

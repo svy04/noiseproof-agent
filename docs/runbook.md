@@ -2,6 +2,8 @@
 
 ## Current Status
 
+Phase 886 adds README proof-bounded marketing surface v0: `README.md` now opens with `Current Proof Surface`, `What This Proves Now`, `What This Does Not Prove Yet`, `Source-first Patterns Borrowed`, and a `90-second Reviewer Path`, with supporting review notes in `docs/review/readme-proof-bounded-marketing-surface.md`. This is README marketing surface only, not product-complete, not robust PDF extraction evidence, not hosted deployment evidence, not external reviewer feedback, or Braincrew acceptance.
+
 Phase 884 adds licensed real-world PDF fixture pack v0: `docs/review/licensed-real-world-pdf-fixture-pack.md` records a metadata-only candidate pack at `examples/pdf-extraction-quality/licensed-real-world-candidates.json` and regenerates `docs/evaluation/licensed-real-world-pdf-fixture-pack-report.md` through `app.services.licensed_real_world_fixture_pack_command`. The report records `candidate_count -> 4`, `downloaded_candidate_count -> 0`, `binary_files_committed -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> owner_approved_real_world_pdf_download_and_hash_v0`. CI checks it with `Check licensed real-world PDF fixture pack report staleness`. Reproduce locally with:
 
 ```powershell
