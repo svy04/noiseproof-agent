@@ -40614,3 +40614,55 @@ def test_local_otel_span_export_runtime_smoke_is_recorded_without_hosted_observa
     assert "Phase 851 adds Dockerized local OpenTelemetry span export runtime smoke v0" in runbook
     assert "Dockerized local OpenTelemetry span export runtime smoke" in portfolio
     assert "local OpenTelemetry span export Docker runtime smoke exists" in application_ready
+
+
+def test_external_reader_proof_path_local_otel_runtime_route_refresh_is_recorded():
+    review_path = (
+        REPO_ROOT
+        / "docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh.md"
+    )
+    assert review_path.is_file()
+
+    content = review_path.read_text(encoding="utf-8")
+    readme = readme_with_proof_marker_archive()
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    proof_path = (
+        REPO_ROOT / "docs/review/external-reader-proof-path.md"
+    ).read_text(encoding="utf-8")
+    link_map = (
+        REPO_ROOT / "docs/review/external-reviewer-link-map.md"
+    ).read_text(encoding="utf-8")
+    shortlist = (
+        REPO_ROOT / "docs/review/external-reviewer-shortlist.md"
+    ).read_text(encoding="utf-8")
+
+    assert "External-reader Proof Path Local OTel Span Export Runtime Route Refresh" in content
+    assert "external-reader proof path local OTel span export runtime route refresh v0" in content
+    assert "docs/review/local-otel-span-export.md" in content
+    assert "docs/review/local-otel-span-export-runtime-smoke.md" in content
+    assert "NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT=true" in content
+    assert "x-noiseproof-otel-span-export: local_in_memory_enabled" in content
+    assert "span_export_enabled=true" in content
+    assert "span_count=4" in content
+    assert "not new runtime evidence" in content
+    assert "not distributed tracing" in content
+    assert "not hosted observability" in content
+    assert "not external collector" in content
+    assert "not hosted deployment evidence" in content
+    assert "not external reviewer feedback" in content
+    assert "not product-complete" in content
+
+    assert "External-reader proof path local OTel span export runtime route refresh v0: implemented" in readme
+    assert "Phase 852 - External-reader Proof Path Local OTel Span Export Runtime Route Refresh v0" in goal
+    assert "Phase 852 adds external-reader proof path local OTel span export runtime route refresh v0" in runbook
+    assert "external-reader proof path local OTel span export runtime route refresh" in portfolio
+    for surfaced in [proof_path, link_map, shortlist]:
+        assert "docs/review/local-otel-span-export-runtime-smoke.md" in surfaced
+        assert "x-noiseproof-otel-span-export: local_in_memory_enabled" in surfaced
+        assert "span_export_enabled=true" in surfaced
+        assert "not distributed tracing" in surfaced
+        assert "not hosted observability" in surfaced

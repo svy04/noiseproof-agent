@@ -16,6 +16,10 @@ It does not replace the full proof path.
 
 1. `README.md`
    - Scope, non-goals, implementation status, and the current proof boundaries.
+   - Current local OTel runtime proof: `docs/review/local-otel-span-export-runtime-smoke.md`.
+   - OTel route refresh: `docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh.md`.
+   - Records `NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT=true`, `x-noiseproof-otel-span-export: local_in_memory_enabled`, `span_export_enabled=true`, `span_count=4`, and `local_in_memory_otel_span_export_not_distributed_tracing`.
+   - Boundary: not distributed tracing, not hosted observability, not external collector integration, not OpenTelemetry Collector deployment, not production monitoring, not external reviewer feedback, not hosted deployment evidence, and not product-complete.
    - Current semantic quality claim gate: `docs/review/semantic-quality-claim-gate.md`.
    - Claim gate remote verification: `docs/review/semantic-quality-claim-gate-remote-verification.md`.
    - Evaluation report: `docs/evaluation/semantic-retrieval-quality-report.md`.

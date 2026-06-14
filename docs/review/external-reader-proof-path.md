@@ -16,6 +16,30 @@ docs/review/external-reviewer-shortlist.md
 
 ## Current Proof Route
 
+Local OpenTelemetry span export runtime proof:
+
+```text
+docs/review/local-otel-span-export.md
+docs/review/local-otel-span-export-runtime-smoke.md
+docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh.md
+GET /health
+GET /agent-runs
+GET /ops/summary
+GET /traces/otel-spans/local
+```
+
+Route markers:
+
+```text
+NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT=true
+x-noiseproof-otel-span-export: local_in_memory_enabled
+span_export_enabled=true
+span_count=4
+local_in_memory_otel_span_export_not_distributed_tracing
+```
+
+Boundary: this route points reviewers to Dockerized local FastAPI runtime proof for opt-in in-memory span inspection. It is route hygiene only, not new runtime evidence, not distributed tracing, not hosted observability, not external collector integration, not OpenTelemetry Collector deployment, not production monitoring, not cross-service trace proof, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 Semantic quality claim gate:
 
 ```text

@@ -8,6 +8,20 @@ Label: External reviewer link map.
 
 This artifact gives outside reviewers direct links to the shortest inspectable path. It reduces navigation friction before a reviewer leaves feedback, but it does not claim that any feedback has been received.
 
+## Latest Local OTel Span Export Runtime Proof
+
+- Span export implementation:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/local-otel-span-export.md
+- Docker runtime smoke:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/local-otel-span-export-runtime-smoke.md
+- Route refresh:
+  https://github.com/svy04/noiseproof-agent/blob/main/docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh.md
+- API routes:
+  `GET /health`, `GET /agent-runs`, `GET /ops/summary`, `GET /traces/otel-spans/local`
+- Route markers:
+  `NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT=true`, `x-noiseproof-otel-span-export: local_in_memory_enabled`, `span_export_enabled=true`, `span_count=4`, `local_in_memory_otel_span_export_not_distributed_tracing`
+- Boundary: local OTel span export runtime routing only; not a live issue body edit, not new runtime evidence, not distributed tracing, not hosted observability, not external collector integration, not OpenTelemetry Collector deployment, not production monitoring, not cross-service trace proof, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
 ## Latest Semantic Quality Claim Gate Route
 
 - Claim gate:

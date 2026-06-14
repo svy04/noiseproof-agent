@@ -43,6 +43,27 @@ If a request drifts toward trading advice, reframe it into evidence-based market
 
 ## 3. Current Accepted State
 
+Current navigation overlay as of Phase 852:
+
+```text
+latest_reviewer_route_gate: External-reader proof path local OTel span export runtime route refresh v0
+latest_reviewer_route_artifact: docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh.md
+routed_runtime_proof: docs/review/local-otel-span-export-runtime-smoke.md
+routed_implementation_proof: docs/review/local-otel-span-export.md
+routed_surfaces: docs/review/external-reader-proof-path.md; docs/review/external-reviewer-link-map.md; docs/review/external-reviewer-shortlist.md
+route_marker_header: x-noiseproof-otel-span-export: local_in_memory_enabled
+route_marker_span_export_enabled: true
+route_marker_span_count: 4
+distributed_tracing: not_claimed
+external_collector: not_implemented
+hosted_observability: not_implemented
+hosted_deployment_evidence: not_implemented
+external_reviewer_feedback_v0: pending_until_qualifying_outside_comment
+production_readiness: not_claimed
+product_complete: false
+boundary: reviewer route hygiene only; not new runtime evidence; not distributed tracing; not hosted observability; not external collector integration; not hosted deployment evidence; not product-complete
+```
+
 Current navigation overlay as of Phase 851:
 
 ```text
@@ -33336,6 +33357,50 @@ Boundaries:
 
 - local Docker/FastAPI runtime evidence only
 - local in-memory OpenTelemetry span export only
+- not distributed tracing
+- not hosted observability
+- not external collector integration
+- not OpenTelemetry Collector deployment
+- not production monitoring
+- not cross-service trace proof
+- not hosted deployment evidence
+- not external reviewer feedback
+- not product-complete
+
+### Phase 852 - External-reader Proof Path Local OTel Span Export Runtime Route Refresh v0
+
+Status: implemented.
+
+Purpose: make the Phase 850/851 local OTel span export proof chain discoverable from the first-pass external reviewer route without adding a new runtime claim.
+
+Artifacts:
+
+- `docs/review/external-reader-proof-path-local-otel-span-export-runtime-route-refresh.md`
+- `docs/review/external-reader-proof-path.md`
+- `docs/review/external-reviewer-link-map.md`
+- `docs/review/external-reviewer-shortlist.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `apps/api/tests/test_docs.py`
+
+Route markers:
+
+```text
+docs/review/local-otel-span-export.md
+docs/review/local-otel-span-export-runtime-smoke.md
+NOISEPROOF_ENABLE_OTEL_SPAN_EXPORT=true
+x-noiseproof-otel-span-export: local_in_memory_enabled
+span_export_enabled=true
+span_count=4
+local_in_memory_otel_span_export_not_distributed_tracing
+```
+
+Boundaries:
+
+- reviewer route hygiene only
+- not new runtime evidence
 - not distributed tracing
 - not hosted observability
 - not external collector integration
