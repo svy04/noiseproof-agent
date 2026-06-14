@@ -94,7 +94,7 @@ product_complete: false
 boundary: harness and missing-input proof only; not OCR evidence until owner runtime succeeds; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
-Current remote verification overlay as of Phase 879:
+Previous remote verification overlay as of Phase 879:
 
 ```text
 latest_remote_verification_gate: Opt-in OCR Adapter Runtime Smoke Remote Verification v0
@@ -107,6 +107,21 @@ latest_external_feedback_screen_job_id: 81263271802
 ci_step: Check opt-in OCR adapter runtime input discovery missing state -> success
 ci_step: Run API smoke tests -> success
 boundary: remote workflow verification only; not the product gate itself; not OCR evidence; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
+```
+
+Current remote verification overlay as of Phase 881:
+
+```text
+latest_remote_verification_gate: Opt-in OCR Adapter Owner-runtime Smoke Remote Verification v0
+latest_remote_verification_artifact: docs/review/opt-in-ocr-adapter-owner-runtime-smoke-remote-verification.md
+latest_verified_head_sha: 79097a0e541867bc0230a309cccb19ed777c166c
+latest_ci_run: 27493945882
+latest_ci_job_id: 81264364230
+latest_external_feedback_screen_run: 27493945873
+latest_external_feedback_screen_job_id: 81264364240
+ci_step: Check opt-in OCR adapter runtime input discovery missing state -> success
+ci_step: Run API smoke tests -> success
+boundary: remote workflow verification only; not the owner-runtime smoke itself; not new OCR runtime evidence; not robust PDF extraction evidence; not hosted deployment evidence; not external reviewer feedback; not product-complete
 ```
 
 Current navigation overlay as of Phase 870:
@@ -33199,6 +33214,63 @@ robust_pdf_extraction.recommended_next_gate -> multi_fixture_ocr_adapter_eval_v0
 Boundaries:
 
 - owner-runtime OCR smoke over one synthetic fixture only
+- not robust PDF extraction evidence
+- not arbitrary market PDF OCR evidence
+- not image/chart interpretation evidence
+- not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 881 - Opt-in OCR Adapter Owner-runtime Smoke Remote Verification v0
+
+Status: implemented.
+
+Purpose: record remote workflow verification for the Phase 880 opt-in OCR
+adapter owner-runtime smoke documentation after it was pushed to `main`.
+
+Artifacts:
+
+- `docs/review/opt-in-ocr-adapter-owner-runtime-smoke-remote-verification.md`
+- `README.md`
+- `docs/GOAL.md`
+- `docs/runbook.md`
+- `docs/application/portfolio-index.md`
+- `docs/review/application-ready-review.md`
+- `apps/api/tests/test_opt_in_ocr_adapter_runtime_smoke.py`
+
+Remote verification markers:
+
+```text
+verified_head_sha -> 79097a0e541867bc0230a309cccb19ed777c166c
+branch -> main
+commit -> docs: record opt-in ocr owner runtime smoke
+ci_run -> 27493945882
+ci_job_id -> 81264364230
+ci_job_name -> api-smoke
+ci_conclusion -> success
+external_feedback_screen_run -> 27493945873
+external_feedback_screen_job_id -> 81264364240
+external_feedback_screen_job_name -> screen
+external_feedback_screen_conclusion -> success
+```
+
+Remote CI step evidence included:
+
+```text
+Compile API and local packages -> success
+Check opt-in OCR adapter runtime input discovery missing state -> success
+Run API smoke tests -> success
+```
+
+Boundaries:
+
+- remote workflow verification only
+- not the owner-runtime smoke itself
+- not new OCR runtime evidence
+- not OCR evidence beyond the single owner-runtime fixture smoke
 - not robust PDF extraction evidence
 - not arbitrary market PDF OCR evidence
 - not image/chart interpretation evidence

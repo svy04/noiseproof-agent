@@ -354,3 +354,52 @@ def test_opt_in_ocr_owner_runtime_smoke_is_recorded_with_boundaries():
         in portfolio
     )
     assert "Opt-in OCR Adapter Owner-runtime Smoke" in application_ready
+
+
+def test_opt_in_ocr_owner_runtime_smoke_remote_verification_is_recorded():
+    remote_path = (
+        REPO_ROOT
+        / "docs/review/opt-in-ocr-adapter-owner-runtime-smoke-remote-verification.md"
+    )
+    assert remote_path.is_file()
+
+    remote = remote_path.read_text(encoding="utf-8")
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    goal = (REPO_ROOT / "docs/GOAL.md").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs/runbook.md").read_text(encoding="utf-8")
+    portfolio = (
+        REPO_ROOT / "docs/application/portfolio-index.md"
+    ).read_text(encoding="utf-8")
+    application_ready = (
+        REPO_ROOT / "docs/review/application-ready-review.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Opt-in OCR Adapter Owner-runtime Smoke Remote Verification" in remote
+    assert "79097a0e541867bc0230a309cccb19ed777c166c" in remote
+    assert "ci_run -> 27493945882" in remote
+    assert "ci_job_id -> 81264364230" in remote
+    assert "external_feedback_screen_run -> 27493945873" in remote
+    assert "external_feedback_screen_job_id -> 81264364240" in remote
+    assert "Check opt-in OCR adapter runtime input discovery missing state -> success" in remote
+    assert "Run API smoke tests -> success" in remote
+    assert "not OCR evidence beyond the single owner-runtime fixture smoke" in remote
+    assert (
+        "Opt-in OCR adapter owner-runtime smoke remote verification v0: implemented"
+        in readme
+    )
+    assert (
+        "Phase 881 - Opt-in OCR Adapter Owner-runtime Smoke Remote Verification v0"
+        in goal
+    )
+    assert (
+        "Phase 881 adds opt-in OCR adapter owner-runtime smoke remote verification v0"
+        in runbook
+    )
+    assert (
+        "docs/review/opt-in-ocr-adapter-owner-runtime-smoke-remote-verification.md"
+        in portfolio
+    )
+    assert (
+        "Opt-in OCR Adapter Owner-runtime Smoke Remote Verification"
+        in application_ready
+    )
