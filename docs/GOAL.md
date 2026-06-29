@@ -16,6 +16,12 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
+current_state_reconciliation_after_master_spec_v0
+```
+
+Previous operating gate:
+
+```text
 master_spec_operating_loop_v0
 ```
 
@@ -23,10 +29,22 @@ The master spec defines the source-first doctrine, reference spine, short-term
 spec template, stop conditions, and claim-boundary rule. This GOAL file remains
 the detailed phase ledger and next-gate map.
 
+Before selecting a future next gate, reconcile this GOAL file with:
+
+```text
+docs/application/portfolio-index.md
+docs/review/external-reader-proof-path.md
+current git status and latest commits
+```
+
+If those surfaces conflict, write or update a short-term spec in `docs/specs/`
+before touching runtime code.
+
 Review artifact:
 
 ```text
 docs/review/master-spec-operating-loop.md
+docs/review/current-state-reconciliation-after-master-spec.md
 ```
 
 ## 1. Top-level Purpose
