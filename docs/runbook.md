@@ -1,5 +1,21 @@
 # Runbook: NoiseProof Agent
 
+## Gate Start Checklist
+
+Before starting a new gate:
+
+1. Read `docs/MASTER-SPEC.md`.
+2. Read `docs/GOAL.md`.
+3. Read or create the relevant short-term spec in `docs/specs/`.
+4. Inspect the current repository state before changing files.
+5. Use primary/original sources and maintained OSS/framework patterns before bespoke design.
+6. Implement only the current short-term spec.
+7. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
+
+Current operating gate: `master_spec_operating_loop_v0`.
+
+Review artifact: `docs/review/master-spec-operating-loop.md`.
+
 ## Current Status
 
 Phase 898 adds external-reader Phase 897 current proof packet refresh v0: `docs/review/external-reader-phase-897-current-proof-packet-refresh.md` records the current reviewer route across the multi real-world PDF matrix, issue-body route refresh, current-state issue verification, and remote verification. It keeps head `084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea`, CI run `27497284929`, External Feedback Screen run `27497284920`, `candidate_count: 0`, and `status: pending` visible. This is route hygiene only, not new runtime evidence, external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, robust PDF extraction evidence, or product-complete.

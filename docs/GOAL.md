@@ -2,6 +2,33 @@
 
 Future agents should be able to continue the project by reading this file first, inspecting the current repository state, and executing the next highest-value gate without needing a new day-by-day prompt.
 
+## 0. Master Spec Read Order
+
+Before any future implementation, evidence, proof-surface, or public-routing
+gate, read these files in order:
+
+```text
+docs/MASTER-SPEC.md
+docs/GOAL.md
+latest relevant short-term spec in docs/specs/
+```
+
+Current operating gate:
+
+```text
+master_spec_operating_loop_v0
+```
+
+The master spec defines the source-first doctrine, reference spine, short-term
+spec template, stop conditions, and claim-boundary rule. This GOAL file remains
+the detailed phase ledger and next-gate map.
+
+Review artifact:
+
+```text
+docs/review/master-spec-operating-loop.md
+```
+
 ## 1. Top-level Purpose
 
 NoiseProof Agent is a noise-resilient data agent for messy market intelligence.
