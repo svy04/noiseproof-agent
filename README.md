@@ -22,6 +22,11 @@ Review artifact: `docs/review/master-spec-operating-loop.md`.
 Current-state reconciliation artifact:
 `docs/review/current-state-reconciliation-after-master-spec.md`.
 
+Source assimilation registry:
+`docs/research/source-assimilation-registry.md`.
+
+Current source assimilation gate: `source_assimilation_registry_v0`.
+
 Before choosing the next gate, reconcile `docs/MASTER-SPEC.md`, `docs/GOAL.md`,
 `docs/application/portfolio-index.md`, `docs/review/external-reader-proof-path.md`,
 and current git state. This is a documentation operating rule only, not new

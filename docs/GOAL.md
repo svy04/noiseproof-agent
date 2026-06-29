@@ -10,6 +10,7 @@ gate, read these files in order:
 ```text
 docs/MASTER-SPEC.md
 docs/GOAL.md
+docs/research/source-assimilation-registry.md
 latest relevant short-term spec in docs/specs/
 ```
 
@@ -23,6 +24,18 @@ Previous operating gate:
 
 ```text
 master_spec_operating_loop_v0
+```
+
+Current source assimilation gate:
+
+```text
+source_assimilation_registry_v0
+```
+
+Source assimilation registry:
+
+```text
+docs/research/source-assimilation-registry.md
 ```
 
 The master spec defines the source-first doctrine, reference spine, short-term
@@ -45,6 +58,7 @@ Review artifact:
 ```text
 docs/review/master-spec-operating-loop.md
 docs/review/current-state-reconciliation-after-master-spec.md
+docs/review/source-assimilation-registry.md
 ```
 
 ## 1. Top-level Purpose
