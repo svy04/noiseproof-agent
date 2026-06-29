@@ -12,9 +12,18 @@ Before starting a new gate:
 6. Implement only the current short-term spec.
 7. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `master_spec_operating_loop_v0`.
+Current operating gate: `current_state_reconciliation_after_master_spec_v0`.
+
+Previous operating gate: `master_spec_operating_loop_v0`.
 
 Review artifact: `docs/review/master-spec-operating-loop.md`.
+
+Current-state reconciliation artifact: `docs/review/current-state-reconciliation-after-master-spec.md`.
+
+Before choosing the next implementation or evidence gate, reconcile
+`docs/MASTER-SPEC.md`, `docs/GOAL.md`, `docs/application/portfolio-index.md`,
+`docs/review/external-reader-proof-path.md`, and current git state. If they
+conflict, write a short-term reconciliation spec before touching runtime code.
 
 ## Current Status
 
