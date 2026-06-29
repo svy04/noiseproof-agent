@@ -6,6 +6,11 @@ This file is the operating constitution for NoiseProof Agent. Before any future
 implementation or proof gate, read this file first, then read `docs/GOAL.md`,
 then read the latest relevant short-term spec under `docs/specs/`.
 
+Current source assimilation registry:
+`docs/research/source-assimilation-registry.md`.
+
+Current source assimilation gate: `source_assimilation_registry_v0`.
+
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source
 projects. The point is not to invent a more impressive demo. The point is to
@@ -60,6 +65,11 @@ boundary:
 rejection_condition:
 license_or_rights_note:
 ```
+
+Source cards belong in `docs/research/source-assimilation-registry.md`. A
+non-trivial gate that changes architecture, evaluation, parser behavior,
+retrieval behavior, report behavior, observability, or public claims should add
+or update a source card before implementation.
 
 Patent documents may inform problem framing and design patterns, but they are
 not permission to copy claims, protected implementations, diagrams, or product
@@ -129,7 +139,7 @@ Every future gate follows this loop:
 2. Read `docs/GOAL.md`.
 3. Inspect current local repo state and existing proof artifacts.
 4. Identify the next highest-value incomplete gate.
-5. Read primary/original sources relevant to that gate.
+5. Read `docs/research/source-assimilation-registry.md` and primary/original sources relevant to that gate.
 6. Create or update a short-term spec in `docs/specs/`.
 7. Implement only that spec.
 8. Run available verification.

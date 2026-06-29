@@ -6,11 +6,12 @@ Before starting a new gate:
 
 1. Read `docs/MASTER-SPEC.md`.
 2. Read `docs/GOAL.md`.
-3. Read or create the relevant short-term spec in `docs/specs/`.
-4. Inspect the current repository state before changing files.
-5. Use primary/original sources and maintained OSS/framework patterns before bespoke design.
-6. Implement only the current short-term spec.
-7. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
+3. Read `docs/research/source-assimilation-registry.md`.
+4. Read or create the relevant short-term spec in `docs/specs/`.
+5. Inspect the current repository state before changing files.
+6. Use primary/original sources and maintained OSS/framework patterns before bespoke design.
+7. Implement only the current short-term spec.
+8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
 Current operating gate: `current_state_reconciliation_after_master_spec_v0`.
 
@@ -19,6 +20,10 @@ Previous operating gate: `master_spec_operating_loop_v0`.
 Review artifact: `docs/review/master-spec-operating-loop.md`.
 
 Current-state reconciliation artifact: `docs/review/current-state-reconciliation-after-master-spec.md`.
+
+Source assimilation registry: `docs/research/source-assimilation-registry.md`.
+
+Current source assimilation gate: `source_assimilation_registry_v0`.
 
 Before choosing the next implementation or evidence gate, reconcile
 `docs/MASTER-SPEC.md`, `docs/GOAL.md`, `docs/application/portfolio-index.md`,
