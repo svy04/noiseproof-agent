@@ -4,6 +4,19 @@ A noise-resilient data agent for messy market intelligence.
 
 This project ingests messy documents and market data, evaluates chunking and retrieval strategies, detects contradictory evidence, and generates claim-bounded reports with citations. It is not a trading bot and does not provide buy/sell recommendations.
 
+## Master Spec Operating Loop
+
+Start future work from `docs/MASTER-SPEC.md`, then `docs/GOAL.md`, then the
+latest relevant short-term spec in `docs/specs/`.
+
+Current operating gate: `master_spec_operating_loop_v0`.
+
+This loop keeps future gates source-first and bounded: inspect current repo
+truth, absorb primary sources and proven implementation patterns, write the
+short-term spec, implement only that gate, verify, then update the proof surface.
+
+Review artifact: `docs/review/master-spec-operating-loop.md`.
+
 ## Current Proof Surface
 
 | Surface | Current state | Boundary |
