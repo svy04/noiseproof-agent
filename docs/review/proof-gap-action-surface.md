@@ -111,6 +111,18 @@ The table extraction evidence gate reduces the table blocker for the listed
 real-world fixtures, but the robust-PDF gap remains open because OCR and layout
 fidelity evidence are still missing.
 
+After `real_world_ocr_evidence_gate_v0`, the action surface includes:
+
+```text
+current_evidence -> ...plus_real_world_ocr_evidence_gate_v0
+proof_routes -> docs/review/real-world-ocr-evidence-gate.md
+proof_routes -> docs/evaluation/real-world-ocr-evidence-gate-report.md
+recommended_next_gate -> real_world_layout_fidelity_evidence_gate_v0
+```
+
+The OCR evidence gate reduces the OCR blocker for one NARA fixture, but the
+robust-PDF gap remains open because layout fidelity evidence is still missing.
+
 ## Semantic Retrieval Quality Example
 
 For `semantic_retrieval_quality`, the action surface keeps the gap open. After

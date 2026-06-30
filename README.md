@@ -9,7 +9,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 Start future work from `docs/MASTER-SPEC.md`, then `docs/GOAL.md`, then the
 latest relevant short-term spec in `docs/specs/`.
 
-Current operating gate: `proof_gap_action_surface_current_state_refresh_v0`.
+Current operating gate: `real_world_ocr_evidence_gate_v0`.
 
 The loop was introduced by `master_spec_operating_loop_v0`.
 
@@ -50,15 +50,17 @@ the proof gap priority matrix before selecting a local implementation gate.
 |---|---|---|
 | Latest verified gate | External Feedback Current-state Multi Real-world PDF Parse Observation Matrix Issue Verification Remote Verification v0 | `docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification-remote-verification.md` records that head `084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea` passed CI run `27497284929` and External Feedback Screen run `27497284920`. |
 | Remote workflow verification | `084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea` passed CI run `27497284929` and External Feedback Screen run `27497284920`. | Workflow success is not external validation. |
-| Latest product proof | Multi Real-world PDF Parse Observation Matrix v0 | Three BEA PDFs have sanitized PyMuPDF digital-text observation metadata; no external PDF binaries, download caches, or raw extracted text are committed. |
+| Latest product proof | Real-world OCR Evidence Gate v0 | One NARA PDF has sanitized PyMuPDF OCR observation metadata; no external PDF binaries, download caches, local paths, tessdata paths, raw extracted text, or raw OCR text are committed. |
 | Current proof packet | `docs/review/external-reader-phase-897-current-proof-packet-refresh.md` | Top-of-funnel route refresh only; not new runtime evidence. |
 | Reviewer route | `docs/review/external-reader-proof-path.md` | Repository-native inspection path only; current issue state remains `candidate_count: 0` and `status: pending`. |
 | Current next evidence | `external_reviewer_feedback_v0` | The multi-PDF matrix is still not robust extraction, and the public issue still has no accepted external reviewer feedback. |
 | Current action-surface refresh | `proof_gap_action_surface_current_state_refresh_v0` | Selected by `proof_gap_priority_matrix_v0`; refreshes the proof-gap action surface before adding another product proof. |
+| Prior product proof | Multi Real-world PDF Parse Observation Matrix v0 | Three BEA PDFs have sanitized PyMuPDF digital-text observation metadata; no external PDF binaries, download caches, or raw extracted text are committed. |
 | Latest local product gate | `robust_pdf_extraction_next_real_world_quality_gate_v0` | Quality gate over existing BEA real-world observations; status is blocked and still not robust PDF extraction evidence. |
 | Latest cross-publisher fixture gate | `cross_publisher_real_world_pdf_fixture_gate_v0` | Adds one EIA STEO owner-runtime observation to the existing BEA matrix; still not robust PDF extraction evidence. |
 | Latest table extraction evidence gate | `real_world_table_extraction_evidence_gate_v0` | Records sanitized PyMuPDF table extraction output for three temporary owner-runtime real-world PDF downloads; still not robust PDF extraction evidence. |
-| Next local product candidate | `real_world_ocr_evidence_gate_v0` | Add real-world OCR evidence before stronger PDF claims. |
+| Latest OCR evidence gate | `real_world_ocr_evidence_gate_v0` | Records one sanitized NARA PyMuPDF OCR observation; still not robust PDF extraction evidence or arbitrary-market PDF OCR evidence. |
+| Next local product candidate | `real_world_layout_fidelity_evidence_gate_v0` | Add layout-fidelity evidence before stronger PDF claims. |
 
 Do not read this as a product-complete claim.
 
@@ -66,7 +68,7 @@ Do not read this as a product-complete claim.
 
 - A small FastAPI service can keep document, retrieval, Evidence Ledger, report, failure, and operations proof surfaces inspectable.
 - The project has CI-enforced report staleness checks for semantic retrieval diagnostics and PDF extraction quality packets.
-- PDF handling is split into visible boundaries: digital text, table candidates, table extraction evidence, OCR smoke harnesses, synthetic fixture provenance, licensed real-world candidate metadata, owner-approved download/hash metadata, one real-world parse observation, and a three-file BEA multi-PDF observation matrix.
+- PDF handling is split into visible boundaries: digital text, table candidates, table extraction evidence, one real-world OCR observation, OCR smoke harnesses, synthetic fixture provenance, licensed real-world candidate metadata, owner-approved download/hash metadata, one real-world parse observation, and a three-file BEA multi-PDF observation matrix.
 - Strong claims are intentionally blocked when evidence is missing.
 
 ## What This Does Not Prove Yet
@@ -94,7 +96,7 @@ Do not read this as a product-complete claim.
 | [Docling](https://github.com/docling-project/docling) | Treat document parsing, tables, layout, and OCR as separate capabilities. | Docling is not currently wired into the service. |
 | [Unstructured partitioning](https://docs.unstructured.io/open-source/core-functionality/partitioning) | Separate raw documents into typed elements before downstream use. | NoiseProof keeps this as a design reference, not a full ETL claim. |
 | [OCR-D evaluation](https://ocr-d.de/en/spec/ocrd_eval.html) | Treat OCR quality as measurable text error, not a binary “OCR works” claim. | OCR quality is still unproven beyond one owner-runtime synthetic smoke. |
-| [PyMuPDF OCR](https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html) | Keep OCR opt-in and dependency-aware. | Owner-runtime OCR smoke is one synthetic fixture only. |
+| [PyMuPDF OCR](https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html) | Keep OCR explicit, Tesseract-backed, and dependency-aware. | OCR evidence is one NARA real-world fixture plus earlier synthetic smoke, not robust PDF extraction. |
 | [OCRmyPDF](https://ocrmypdf.readthedocs.io/en/latest/introduction.html) | Consider searchable text layers for scanned PDFs as a future adapter direction. | OCRmyPDF is not implemented here yet. |
 | [BLS public domain policy](https://www.bls.gov/opub/copyright-information.htm) and [BEA public domain FAQ](https://www.bea.gov/help/faq/147) | Use visible license-source URLs before real-world PDF fixture downloads. | Candidate metadata is not download/hash evidence. |
 
@@ -117,6 +119,8 @@ Boundary: this fast path is not hosted deployment evidence, not automatic failur
 Latest real-world PDF parse observation: `docs/review/real-world-pdf-parse-observation.md` records one BEA real-world PDF PyMuPDF digital-text parse observation, with a regenerated report at `docs/evaluation/real-world-pdf-parse-observation-report.md`. Real-world PDF parse observation v0: implemented. The report keeps `observed_fixture_count -> 1`, `page_count -> 35`, `text_char_count -> 92219`, `table_candidate_count -> 35`, `table_extraction_performed -> false`, `ocr_calls_attempted -> false`, `binary_files_committed -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> multi_real_world_pdf_parse_observation_matrix_v0`. This is a single real-world PDF parse observation only, not robust PDF extraction evidence, not arbitrary market PDF parsing evidence, not OCR evidence, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Latest multi real-world PDF parse observation matrix: `docs/review/multi-real-world-pdf-parse-observation.md` records three BEA real-world PDF PyMuPDF digital-text parse observations, with a regenerated report at `docs/evaluation/multi-real-world-pdf-parse-observation-report.md`. Multi real-world PDF parse observation matrix v0: implemented. The report keeps `observed_fixture_count -> 3`, `total_page_count -> 95`, `total_text_char_count -> 217555`, `total_table_candidate_count -> 43`, `table_extraction_performed -> false`, `ocr_calls_attempted -> false`, `binary_files_committed -> false`, `raw_extracted_text_committed -> false`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> multi_real_world_pdf_parse_observation_matrix_remote_verification_v0`. This is a multi-fixture real-world PDF parse observation matrix only, not robust PDF extraction evidence, not arbitrary market PDF parsing evidence, not OCR evidence, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Latest real-world OCR evidence gate: `docs/review/real-world-ocr-evidence-gate.md` records one NARA real-world PDF PyMuPDF OCR observation, with a regenerated report at `docs/evaluation/real-world-ocr-evidence-gate-report.md`. Real-world OCR evidence gate v0: implemented. The report keeps `ocr_gate_status -> passed`, `observed_fixture_count -> 1`, `ocr_observed_fixture_count -> 1`, `total_page_count -> 4`, `total_ocr_pages_attempted -> 2`, `total_ocr_text_char_count -> 3992`, `raw_ocr_text_committed -> false`, `can_claim_real_world_ocr_evidence -> true`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> real_world_layout_fidelity_evidence_gate_v0`. This is a single real-world OCR observation only, not robust PDF extraction evidence, not arbitrary-market PDF OCR evidence, not layout fidelity evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Latest multi real-world PDF parse observation matrix remote verification: `docs/review/multi-real-world-pdf-parse-observation-remote-verification.md` records that commit `a37fe32f0f46c5d04008ea425a053966f063950c` passed CI run `27496475781` job `81271370552` and External Feedback Screen run `27496475772` job `81271370589`, including `Check multi real-world PDF parse observation report staleness`. Multi real-world PDF parse observation matrix remote verification v0: implemented. This is remote workflow verification only, not the owner-runtime parse observations themselves, not robust PDF extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 

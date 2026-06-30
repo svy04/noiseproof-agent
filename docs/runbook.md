@@ -13,9 +13,9 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `cross_publisher_real_world_pdf_fixture_gate_v0`.
+Current operating gate: `real_world_ocr_evidence_gate_v0`.
 
-Previous operating gate: `robust_pdf_extraction_next_real_world_quality_gate_v0`.
+Previous operating gate: `real_world_table_extraction_evidence_gate_v0`.
 
 Previous action-surface gate: `proof_gap_action_surface_current_state_refresh_v0`.
 
@@ -12143,3 +12143,15 @@ uv run pytest tests/test_real_world_table_extraction_evidence_gate.py -q
 ```
 
 This is sanitized real-world table extraction evidence only, not robust PDF extraction evidence, not arbitrary-market PDF parsing evidence, not OCR evidence, not layout fidelity evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete. The next local product candidate is `real_world_ocr_evidence_gate_v0`.
+
+Phase 899 adds real-world OCR evidence gate v0: `docs/review/real-world-ocr-evidence-gate.md` records one sanitized PyMuPDF OCR observation from a temporary owner-runtime NARA PDF download, regenerated into `docs/evaluation/real-world-ocr-evidence-gate-report.md`.
+
+Reproduce locally:
+
+```powershell
+cd apps/api
+uv run python -m app.services.real_world_ocr_evidence_gate_command --evidence ../../examples/pdf-extraction-quality/real-world-ocr-evidence.json --output ../../docs/evaluation/real-world-ocr-evidence-gate-report.md --check
+uv run pytest tests/test_real_world_ocr_evidence_gate.py -q
+```
+
+This is sanitized real-world OCR evidence only, not robust PDF extraction evidence, not arbitrary-market PDF parsing evidence, not arbitrary-market PDF OCR evidence, not layout fidelity evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete. The next local product candidate is `real_world_layout_fidelity_evidence_gate_v0`.
