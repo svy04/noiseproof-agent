@@ -164,6 +164,20 @@ The execution plan defines an owner-runtime PyMuPDF/Tesseract OCR smoke
 contract for the preserved route. It does not run OCR, does not evaluate OCR
 quality, and does not close the robust-PDF gap.
 
+After `source_policy_no_native_text_ocr_execution_smoke_v0`, the action surface
+includes:
+
+```text
+current_evidence -> ...plus_source_policy_no_native_text_ocr_execution_smoke_v0
+proof_routes -> docs/review/source-policy-no-native-text-ocr-execution-smoke.md
+proof_routes -> docs/evaluation/source-policy-no-native-text-ocr-execution-smoke-report.md
+recommended_next_gate -> source_policy_no_native_text_ocr_quality_eval_plan_v0
+```
+
+The execution smoke records one owner-runtime PyMuPDF/Tesseract OCR run over
+the preserved route. It does not evaluate OCR quality and does not close the
+robust-PDF gap.
+
 After `robust_pdf_extraction_next_real_world_quality_gate_v0`, the action
 surface includes:
 

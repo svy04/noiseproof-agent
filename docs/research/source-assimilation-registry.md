@@ -469,6 +469,39 @@ license_or_rights_note: Cite PyMuPDF, Tesseract, and OCR-D docs as public
 patterns only; do not copy traineddata files, source PDF content, benchmark
 assets, local runtime paths, or long documentation passages.
 
+### Source-policy No-native-text OCR Execution Smoke
+
+source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.get_textpage_ocr
+
+source: https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html
+
+source: https://tesseract-ocr.github.io/tessdoc/Command-Line-Usage.html
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source_type: official_doc_standard_and_runtime_evidence_adaptation
+
+pattern_to_borrow: Treat OCR execution as a bounded runtime event with explicit
+adapter, language, dpi, source hash, no raw text commits, and a separate later
+quality-evaluation gate.
+
+local_adaptation: `source_policy_no_native_text_ocr_execution_smoke_v0`
+records one owner-runtime PyMuPDF/Tesseract OCR smoke for the preserved NARA
+no-native-text route. It commits sanitized counts, marker-hit booleans, source
+hash, and non-claims only.
+
+boundary: An OCR execution smoke does not prove OCR quality, robust PDF
+extraction, arbitrary-market PDF parsing reliability, rendered visual fidelity,
+image/chart interpretation, or external validation.
+
+rejection_condition: Reject any gate that commits raw OCR text, source PDFs,
+local paths, tessdata paths, page images, screenshots, or treats marker hits as
+OCR quality evaluation.
+
+license_or_rights_note: Cite PyMuPDF, Tesseract, and OCR-D docs as public
+patterns only; do not copy traineddata files, source PDF content, benchmark
+assets, local runtime paths, or long documentation passages.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables

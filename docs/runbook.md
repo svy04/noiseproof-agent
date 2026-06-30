@@ -12478,3 +12478,15 @@ uv run pytest tests/test_real_world_layout_fidelity_evidence_gate.py -q
 ```
 
 This is sanitized real-world layout metadata sanity evidence only, not robust PDF extraction evidence, not arbitrary-market PDF parsing evidence, not arbitrary-market layout fidelity evidence, not natural reading order correctness evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete. The next local product candidate is `robust_pdf_extraction_generalization_gap_review_v0`.
+
+Source-policy no-native-text OCR execution smoke v0: `docs/review/source-policy-no-native-text-ocr-execution-smoke.md` records one bounded owner-runtime PyMuPDF/Tesseract OCR smoke over the preserved NARA route, regenerated into `docs/evaluation/source-policy-no-native-text-ocr-execution-smoke-report.md`.
+
+Reproduce report staleness locally:
+
+```powershell
+cd apps/api
+uv run python -m app.services.source_policy_no_native_text_ocr_execution_smoke_command --observation ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-execution-smoke.json --output ../../docs/evaluation/source-policy-no-native-text-ocr-execution-smoke-report.md --check
+uv run pytest tests/test_source_policy_no_native_text_ocr_execution_smoke.py -q
+```
+
+This is sanitized source-policy OCR execution-smoke evidence only, not OCR quality evidence, not robust PDF extraction evidence, not arbitrary-market PDF parsing evidence, not rendered visual fidelity evidence, not image/chart interpretation evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete. The next local product candidate is `source_policy_no_native_text_ocr_quality_eval_plan_v0`.

@@ -73,8 +73,11 @@ Current source-policy no-native-text OCR dependency resolution gate:
 Current source-policy no-native-text OCR execution plan gate:
 `source_policy_no_native_text_ocr_execution_plan_v0`.
 
-Current next PDF evidence gate:
+Current source-policy no-native-text OCR execution smoke gate:
 `source_policy_no_native_text_ocr_execution_smoke_v0`.
+
+Current next PDF evidence gate:
+`source_policy_no_native_text_ocr_quality_eval_plan_v0`.
 
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source
@@ -295,14 +298,14 @@ it to a planned section.
 The current operating gate is:
 
 ```text
-source_policy_no_native_text_ocr_execution_plan_v0
+source_policy_no_native_text_ocr_execution_smoke_v0
 ```
 
-This gate records a bounded OCR execution plan for the preserved source-policy
-NARA no-native-text failure route. It does not run OCR, evaluate OCR quality,
-or support robust PDF wording.
+This gate records one bounded owner-runtime PyMuPDF/Tesseract OCR execution
+smoke for the preserved source-policy NARA no-native-text failure route. It
+does not evaluate OCR quality or support robust PDF wording.
 
 After this operating gate is accepted, future agents should return to the next
 highest-value evidence or implementation gate in `docs/GOAL.md`. The expected
-next PDF evidence gate is `source_policy_no_native_text_ocr_execution_smoke_v0`,
+next PDF evidence gate is `source_policy_no_native_text_ocr_quality_eval_plan_v0`,
 unless the user deliberately redirects the product vision.

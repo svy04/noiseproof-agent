@@ -379,6 +379,38 @@ not layout fidelity evidence, not rendered visual fidelity evidence, not
 image/chart interpretation evidence, not hosted deployment evidence, not
 external reviewer feedback, and not product-complete.
 
+Source-policy no-native-text OCR execution smoke:
+
+```text
+docs/review/source-policy-no-native-text-ocr-execution-smoke.md
+docs/evaluation/source-policy-no-native-text-ocr-execution-smoke-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-execution-smoke.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_ocr_execution_smoke_v0
+run_source -> owner_runtime_pymupdf_ocr_source_policy_smoke
+target_fixture_id -> nara_911_mfr_00282_no_native_text_candidate
+ocr_execution_performed -> true
+ocr_pages_attempted -> 4
+ocr_text_char_count -> 8019
+expected_markers_found_count -> 2
+raw_ocr_text_committed -> false
+can_claim_ocr_execution -> true
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_quality_eval_plan_v0
+```
+
+Boundary: this route records one sanitized owner-runtime OCR execution smoke
+only. It is not OCR quality evidence, not robust PDF extraction evidence, not
+arbitrary-market PDF parsing evidence, not table extraction benchmark evidence,
+not layout fidelity evidence, not rendered visual fidelity evidence, not
+image/chart interpretation evidence, not hosted deployment evidence, not
+external reviewer feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

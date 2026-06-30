@@ -17,7 +17,7 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-source_policy_no_native_text_ocr_execution_plan_v0
+source_policy_no_native_text_ocr_execution_smoke_v0
 ```
 
 Previous operating gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the source-policy no-native-text OCR dependency check gate:
+Current next local product candidate after the source-policy no-native-text OCR execution smoke gate:
 
 ```text
-source_policy_no_native_text_ocr_execution_smoke_v0
+source_policy_no_native_text_ocr_quality_eval_plan_v0
 ```
 
 Current source-policy no-native-text failure route artifact:
@@ -157,9 +157,19 @@ examples/pdf-extraction-quality/source-policy-no-native-text-ocr-dependency-reso
 Current source-policy no-native-text OCR execution plan artifact:
 
 ```text
+source_policy_no_native_text_ocr_execution_plan_v0
 docs/review/source-policy-no-native-text-ocr-execution-plan.md
 docs/evaluation/source-policy-no-native-text-ocr-execution-plan-report.md
 examples/pdf-extraction-quality/source-policy-no-native-text-ocr-execution-plan.json
+```
+
+Current source-policy no-native-text OCR execution smoke artifact:
+
+```text
+source_policy_no_native_text_ocr_execution_smoke_v0
+docs/review/source-policy-no-native-text-ocr-execution-smoke.md
+docs/evaluation/source-policy-no-native-text-ocr-execution-smoke-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-execution-smoke.json
 ```
 
 Latest robust-PDF local quality gate:
