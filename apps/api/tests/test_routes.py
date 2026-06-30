@@ -6219,9 +6219,10 @@ def test_ops_summary_and_dashboard_surface_current_proof_gap_registry():
         "_plus_source_policy_no_native_text_ocr_quality_eval_plan_v0"
         "_plus_source_policy_no_native_text_ocr_quality_reference_pack_v0"
         "_plus_source_policy_no_native_text_ocr_marker_proxy_eval_v0"
+        "_plus_source_policy_no_native_text_ocr_transcript_reference_plan_v0"
     )
     assert by_id["robust_pdf_extraction"]["next_evidence_needed"] == (
-        "source_policy_no_native_text_ocr_transcript_reference_plan_v0"
+        "source_policy_no_native_text_ocr_transcript_reference_pack_v0"
     )
     assert by_id["actual_embedding_generation"]["status"] == "unproven"
     assert by_id["semantic_retrieval_quality"]["status"] == "unproven"
@@ -6336,9 +6337,10 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
         "_plus_source_policy_no_native_text_ocr_quality_eval_plan_v0"
         "_plus_source_policy_no_native_text_ocr_quality_reference_pack_v0"
         "_plus_source_policy_no_native_text_ocr_marker_proxy_eval_v0"
+        "_plus_source_policy_no_native_text_ocr_transcript_reference_plan_v0"
     )
     assert robust_gap["recommended_next_gate"] == (
-        "source_policy_no_native_text_ocr_transcript_reference_plan_v0"
+        "source_policy_no_native_text_ocr_transcript_reference_pack_v0"
     )
     assert "docs/review/multi-fixture-pdf-extraction-quality-eval.md" in robust_gap[
         "proof_routes"
@@ -6541,6 +6543,14 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
     )
     assert (
         "docs/evaluation/source-policy-no-native-text-ocr-marker-proxy-eval-report.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/review/source-policy-no-native-text-ocr-transcript-reference-plan.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/evaluation/source-policy-no-native-text-ocr-transcript-reference-plan-report.md"
         in robust_gap["proof_routes"]
     )
 

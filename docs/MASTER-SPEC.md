@@ -85,8 +85,11 @@ Current source-policy no-native-text OCR quality reference pack gate:
 Current source-policy no-native-text OCR marker proxy eval gate:
 `source_policy_no_native_text_ocr_marker_proxy_eval_v0`.
 
-Current next PDF evidence gate:
+Current source-policy no-native-text OCR transcript reference plan gate:
 `source_policy_no_native_text_ocr_transcript_reference_plan_v0`.
+
+Current next PDF evidence gate:
+`source_policy_no_native_text_ocr_transcript_reference_pack_v0`.
 
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source
@@ -307,16 +310,17 @@ it to a planned section.
 The current operating gate is:
 
 ```text
-source_policy_no_native_text_ocr_marker_proxy_eval_v0
+source_policy_no_native_text_ocr_transcript_reference_plan_v0
 ```
 
-This gate records a bounded marker-presence proxy eval for the preserved
-source-policy NARA no-native-text route. It uses committed marker-hit booleans
-only; it does not evaluate OCR quality, compute CER/WER, inspect raw OCR text,
-or support robust PDF wording.
+This gate records a bounded source-policy and owner-approval plan for the
+minimum transcript/reference boundary needed before OCR quality metrics can be
+considered for the preserved source-policy NARA no-native-text route. It does
+not collect a transcript, evaluate OCR quality, compute CER/WER, inspect raw
+OCR text, or support robust PDF wording.
 
 After this operating gate is accepted, future agents should return to the next
 highest-value evidence or implementation gate in `docs/GOAL.md`. The expected
 next PDF evidence gate is
-`source_policy_no_native_text_ocr_transcript_reference_plan_v0`, unless the user
+`source_policy_no_native_text_ocr_transcript_reference_pack_v0`, unless the user
 deliberately redirects the product vision.

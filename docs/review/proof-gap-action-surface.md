@@ -220,6 +220,21 @@ The marker proxy eval records that the two accepted marker anchors were present
 in the committed smoke metadata. It does not evaluate OCR quality and does not
 close the robust-PDF gap.
 
+After `source_policy_no_native_text_ocr_transcript_reference_plan_v0`, the
+action surface includes:
+
+```text
+current_evidence -> ...plus_source_policy_no_native_text_ocr_transcript_reference_plan_v0
+proof_routes -> docs/review/source-policy-no-native-text-ocr-transcript-reference-plan.md
+proof_routes -> docs/evaluation/source-policy-no-native-text-ocr-transcript-reference-plan-report.md
+recommended_next_gate -> source_policy_no_native_text_ocr_transcript_reference_pack_v0
+```
+
+The transcript reference plan records the minimum source-policy-reviewed and
+owner-approved reference boundary required before any true OCR quality metric
+can be considered. It does not evaluate OCR quality and does not close the
+robust-PDF gap.
+
 After `robust_pdf_extraction_next_real_world_quality_gate_v0`, the action
 surface includes:
 
