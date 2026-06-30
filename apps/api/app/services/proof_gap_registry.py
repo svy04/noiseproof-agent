@@ -18,6 +18,7 @@ _GAP_ACTIONS = {
             "download and hash only owner-approved source-policy-reviewed candidates before new runtime extraction",
             "download and hash selected source-policy-reviewed candidates without committing binaries or raw derived content",
             "observe source-policy-reviewed candidates with PyMuPDF text/block metadata without committing raw text",
+            "turn source-policy parse observations into a quality-claim blocker matrix before stronger PDF extraction wording",
         ],
         "blocked_claims": [
             "robust PDF extraction is implemented",
@@ -70,8 +71,10 @@ _GAP_ACTIONS = {
             "docs/evaluation/source-policy-download-hash-report.md",
             "docs/review/source-policy-pdf-parse-observation.md",
             "docs/evaluation/source-policy-pdf-parse-observation-report.md",
+            "docs/review/source-policy-pdf-parse-quality-matrix.md",
+            "docs/evaluation/source-policy-pdf-parse-quality-matrix-report.md",
         ],
-        "recommended_next_gate": "source_policy_pdf_parse_quality_matrix_v0",
+        "recommended_next_gate": "source_policy_pdf_quality_gap_review_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -204,12 +207,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
                 "_plus_targeted_real_world_pdf_fixture_expansion_v0"
                 "_plus_real_world_pdf_fixture_source_policy_download_hash_v0"
                 "_plus_source_policy_pdf_parse_observation_v0"
+                "_plus_source_policy_pdf_parse_quality_matrix_v0"
             ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "source_policy_pdf_parse_quality_matrix_v0"
+                "source_policy_pdf_quality_gap_review_v0"
             ),
         ),
         ProofGapOut(

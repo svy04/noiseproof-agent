@@ -236,6 +236,31 @@ failure cases.
 license_or_rights_note: Respect upstream licenses before vendoring or direct
 integration.
 
+### Source-policy PDF Parse Quality Matrix
+
+source: https://github.com/docling-project/docling
+
+source: https://docs.unstructured.io/open-source/core-functionality/partitioning
+
+source_type: oss_and_official_docs_adaptation
+
+pattern_to_borrow: Treat document parsing as separable elements and stages
+rather than one undifferentiated "PDF parsed" claim.
+
+local_adaptation: `source_policy_pdf_parse_quality_matrix_v0` separates
+digital-text metadata observations, no-native-text failure candidates, blocked
+downloads, visual fidelity, layout ground truth, reading order, image/chart
+interpretation, and external validation into different matrix cells.
+
+boundary: A matrix over parse observations does not prove parsing quality.
+
+rejection_condition: Reject parser wording that upgrades PyMuPDF text/block
+metadata into robust PDF extraction, rendered visual fidelity, OCR quality, or
+image/chart interpretation.
+
+license_or_rights_note: Use public project/docs patterns only; do not copy
+project code or long documentation passages.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables
