@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-source_policy_pdf_parse_observation_v0
+source_policy_pdf_parse_quality_matrix_v0
 ```
 
 Previous operating gate:
 
 ```text
-real_world_pdf_fixture_source_policy_download_hash_v0
+source_policy_pdf_parse_observation_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the source-policy PDF parse observation gate:
+Current next local product candidate after the source-policy PDF parse quality matrix gate:
 
 ```text
-source_policy_pdf_parse_quality_matrix_v0
+source_policy_pdf_quality_gap_review_v0
 ```
 
 Latest robust-PDF local quality gate:
@@ -413,6 +413,46 @@ can_claim_source_policy_pdf_parse_observation: true
 can_claim_robust_pdf_extraction: false
 remaining_blocked_reasons: bls_mlr_candidate_blocked_http_403; bls_beyond_numbers_candidate_blocked_http_403; nara_candidate_has_no_native_text_without_ocr; external_reviewer_validation_still_pending; robust_pdf_claim_still_blocked
 next_gate: source_policy_pdf_parse_quality_matrix_v0
+```
+
+Latest source-policy PDF parse quality matrix:
+
+```text
+source_policy_pdf_parse_quality_matrix_v0
+```
+
+Latest source-policy PDF parse quality matrix report:
+
+```text
+docs/evaluation/source-policy-pdf-parse-quality-matrix-report.md
+```
+
+Current source-policy PDF parse quality matrix result:
+
+```text
+matrix_status: passed
+quality_status: blocked
+matrix_cell_count: 6
+observed_fixture_cell_count: 3
+native_text_observed_cell_count: 2
+no_native_text_failure_cell_count: 1
+blocked_download_cell_count: 2
+external_route_cell_count: 1
+quality_claim_ready_cell_count: 0
+quality_blocked_cell_count: 6
+runtime_work_performed: false
+pdf_downloads_performed: false
+parser_calls_performed: false
+ocr_calls_performed: false
+table_extraction_calls_performed: false
+llm_calls_performed: false
+binary_files_committed: false
+download_cache_committed: false
+raw_text_committed: false
+can_claim_source_policy_pdf_parse_quality_matrix: true
+can_claim_robust_pdf_extraction: false
+remaining_blocked_reasons: rendered_visual_fidelity_unproven; labeled_layout_ground_truth_unproven; ocr_quality_unproven_for_no_native_text_candidate; reading_order_candidate_blocked_http_403; image_chart_candidate_blocked_http_403; external_reviewer_validation_pending; robust_pdf_claim_still_blocked
+next_gate: source_policy_pdf_quality_gap_review_v0
 ```
 
 ## 1. Top-level Purpose

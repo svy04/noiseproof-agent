@@ -13,7 +13,7 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `source_policy_pdf_parse_observation_v0`.
+Current operating gate: `source_policy_pdf_parse_quality_matrix_v0`.
 
 Previous operating gate: `real_world_pdf_fixture_source_policy_download_hash_v0`.
 
@@ -194,6 +194,35 @@ This is source-policy PDF parse observation metadata only. It records
 `can_claim_source_policy_pdf_parse_observation -> true`,
 `can_claim_robust_pdf_extraction -> false`, and
 `recommended_next_gate -> source_policy_pdf_parse_quality_matrix_v0`. It is not
+robust PDF extraction evidence, arbitrary-market PDF parsing evidence, OCR
+quality evidence, table extraction benchmark evidence, layout fidelity
+evidence, rendered visual fidelity evidence, image/chart interpretation
+evidence, hosted deployment evidence, external reviewer feedback, or
+product-complete.
+
+Phase `source_policy_pdf_parse_quality_matrix_v0` adds
+`docs/review/source-policy-pdf-parse-quality-matrix.md` and
+`docs/evaluation/source-policy-pdf-parse-quality-matrix-report.md`. Reproduce
+with:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_pdf_parse_quality_matrix_command \
+  --matrix ../../examples/pdf-extraction-quality/source-policy-pdf-parse-quality-matrix.json \
+  --output ../../docs/evaluation/source-policy-pdf-parse-quality-matrix-report.md \
+  --check
+```
+
+This is a source-policy PDF parse quality matrix only. It records
+`matrix_status -> passed`, `quality_status -> blocked`,
+`matrix_cell_count -> 6`, `observed_fixture_cell_count -> 3`,
+`native_text_observed_cell_count -> 2`,
+`no_native_text_failure_cell_count -> 1`,
+`blocked_download_cell_count -> 2`, `external_route_cell_count -> 1`,
+`quality_claim_ready_cell_count -> 0`, `quality_blocked_cell_count -> 6`,
+`can_claim_source_policy_pdf_parse_quality_matrix -> true`,
+`can_claim_robust_pdf_extraction -> false`, and
+`recommended_next_gate -> source_policy_pdf_quality_gap_review_v0`. It is not
 robust PDF extraction evidence, arbitrary-market PDF parsing evidence, OCR
 quality evidence, table extraction benchmark evidence, layout fidelity
 evidence, rendered visual fidelity evidence, image/chart interpretation

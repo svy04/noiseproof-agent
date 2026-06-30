@@ -151,6 +151,35 @@ fidelity evidence, not rendered visual fidelity evidence, not image/chart
 interpretation evidence, not hosted deployment evidence, not external reviewer
 feedback, and not product-complete.
 
+Source-policy PDF parse quality matrix:
+
+```text
+docs/review/source-policy-pdf-parse-quality-matrix.md
+docs/evaluation/source-policy-pdf-parse-quality-matrix-report.md
+examples/pdf-extraction-quality/source-policy-pdf-parse-quality-matrix.json
+```
+
+Route markers:
+
+```text
+source_policy_pdf_parse_quality_matrix_v0
+matrix_status -> passed
+quality_status -> blocked
+matrix_cell_count -> 6
+quality_claim_ready_cell_count -> 0
+quality_blocked_cell_count -> 6
+can_claim_robust_pdf_extraction -> false
+recommended_next_gate -> source_policy_pdf_quality_gap_review_v0
+```
+
+Boundary: this route points reviewers to a deterministic quality-claim blocker
+matrix over the source-policy parse observation packet. It is route hygiene
+only, not new runtime evidence, not robust PDF extraction evidence, not
+arbitrary-market PDF parsing evidence, not OCR quality evidence, not table
+extraction benchmark evidence, not layout fidelity evidence, not rendered
+visual fidelity evidence, not image/chart interpretation evidence, not hosted
+deployment evidence, not external reviewer feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

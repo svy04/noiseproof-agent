@@ -49,8 +49,11 @@ Current source-policy PDF download/hash gate:
 Current source-policy PDF parse observation gate:
 `source_policy_pdf_parse_observation_v0`.
 
-Current next PDF evidence gate:
+Current source-policy PDF parse quality matrix gate:
 `source_policy_pdf_parse_quality_matrix_v0`.
+
+Current next PDF evidence gate:
+`source_policy_pdf_quality_gap_review_v0`.
 
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source
