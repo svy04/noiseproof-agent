@@ -9,7 +9,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 Start future work from `docs/MASTER-SPEC.md`, then `docs/GOAL.md`, then the
 latest relevant short-term spec in `docs/specs/`.
 
-Current operating gate: `real_world_layout_fidelity_evidence_gate_v0`.
+Current operating gate: `robust_pdf_extraction_generalization_gap_review_v0`.
 
 The loop was introduced by `master_spec_operating_loop_v0`.
 
@@ -50,7 +50,7 @@ the proof gap priority matrix before selecting a local implementation gate.
 |---|---|---|
 | Latest verified gate | External Feedback Current-state Multi Real-world PDF Parse Observation Matrix Issue Verification Remote Verification v0 | `docs/review/external-feedback-current-state-multi-real-world-pdf-parse-observation-matrix-issue-verification-remote-verification.md` records that head `084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea` passed CI run `27497284929` and External Feedback Screen run `27497284920`. |
 | Remote workflow verification | `084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea` passed CI run `27497284929` and External Feedback Screen run `27497284920`. | Workflow success is not external validation. |
-| Latest product proof | Real-world Layout Fidelity Evidence Gate v0 | One BEA PDF has sanitized PyMuPDF block/bbox layout metadata; no external PDF binaries, download caches, raw text, block text, screenshots, rendered images, or local paths are committed. |
+| Latest product proof | Robust PDF Extraction Generalization Gap Review v0 | Reviews five existing PDF proof gates and records six missing generalization capabilities; `can_claim_robust_pdf_extraction` remains false. |
 | Current proof packet | `docs/review/external-reader-phase-897-current-proof-packet-refresh.md` | Top-of-funnel route refresh only; not new runtime evidence. |
 | Reviewer route | `docs/review/external-reader-proof-path.md` | Repository-native inspection path only; current issue state remains `candidate_count: 0` and `status: pending`. |
 | Current next evidence | `external_reviewer_feedback_v0` | The multi-PDF matrix is still not robust extraction, and the public issue still has no accepted external reviewer feedback. |
@@ -61,7 +61,8 @@ the proof gap priority matrix before selecting a local implementation gate.
 | Latest table extraction evidence gate | `real_world_table_extraction_evidence_gate_v0` | Records sanitized PyMuPDF table extraction output for three temporary owner-runtime real-world PDF downloads; still not robust PDF extraction evidence. |
 | Latest OCR evidence gate | `real_world_ocr_evidence_gate_v0` | Records one sanitized NARA PyMuPDF OCR observation; still not robust PDF extraction evidence or arbitrary-market PDF OCR evidence. |
 | Latest layout fidelity evidence gate | `real_world_layout_fidelity_evidence_gate_v0` | Records one sanitized BEA PyMuPDF block/bbox metadata sanity observation; still not robust PDF extraction evidence or arbitrary-market layout fidelity evidence. |
-| Next local product candidate | `robust_pdf_extraction_generalization_gap_review_v0` | Review why the current small evidence chain still cannot support robust PDF wording. |
+| Latest generalization gap review | `robust_pdf_extraction_generalization_gap_review_v0` | Shows the current evidence chain covers five capabilities only in limited form and still misses labeled layout ground truth, reading-order evaluation, rendered visual fidelity, image/chart interpretation, arbitrary-market coverage, and external reviewer validation. |
+| Next local product candidate | `multi_publisher_modality_stratified_pdf_eval_v0` | Build a stratified evaluation matrix before any robust PDF wording is allowed. |
 
 Do not read this as a product-complete claim.
 
@@ -70,6 +71,7 @@ Do not read this as a product-complete claim.
 - A small FastAPI service can keep document, retrieval, Evidence Ledger, report, failure, and operations proof surfaces inspectable.
 - The project has CI-enforced report staleness checks for semantic retrieval diagnostics and PDF extraction quality packets.
 - PDF handling is split into visible boundaries: digital text, table candidates, table extraction evidence, one real-world OCR observation, one real-world layout metadata observation, OCR smoke harnesses, synthetic fixture provenance, licensed real-world candidate metadata, owner-approved download/hash metadata, one real-world parse observation, and a three-file BEA multi-PDF observation matrix.
+- The latest robust-PDF review records why the evidence chain still cannot be generalized into a robust PDF extraction claim.
 - Strong claims are intentionally blocked when evidence is missing.
 
 ## What This Does Not Prove Yet
@@ -125,6 +127,8 @@ Latest multi real-world PDF parse observation matrix: `docs/review/multi-real-wo
 Latest real-world OCR evidence gate: `docs/review/real-world-ocr-evidence-gate.md` records one NARA real-world PDF PyMuPDF OCR observation, with a regenerated report at `docs/evaluation/real-world-ocr-evidence-gate-report.md`. Real-world OCR evidence gate v0: implemented. The report keeps `ocr_gate_status -> passed`, `observed_fixture_count -> 1`, `ocr_observed_fixture_count -> 1`, `total_page_count -> 4`, `total_ocr_pages_attempted -> 2`, `total_ocr_text_char_count -> 3992`, `raw_ocr_text_committed -> false`, `can_claim_real_world_ocr_evidence -> true`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> real_world_layout_fidelity_evidence_gate_v0`. This is a single real-world OCR observation only, not robust PDF extraction evidence, not arbitrary-market PDF OCR evidence, not layout fidelity evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Latest real-world layout fidelity evidence gate: `docs/review/real-world-layout-fidelity-evidence-gate.md` records one BEA real-world PDF PyMuPDF block/bbox metadata sanity observation, with a regenerated report at `docs/evaluation/real-world-layout-fidelity-evidence-gate-report.md`. Real-world layout fidelity evidence gate v0: implemented. The report keeps `layout_gate_status -> passed`, `observed_fixture_count -> 1`, `layout_observed_fixture_count -> 1`, `total_block_count -> 20`, `total_text_block_count -> 16`, `total_text_blocks_with_bbox_in_page_bounds -> 16`, `expected_markers_found_count -> 7`, `raw_block_text_committed -> false`, `can_claim_real_world_layout_fidelity_evidence -> true`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> robust_pdf_extraction_generalization_gap_review_v0`. This is a single real-world layout metadata sanity observation only, not robust PDF extraction evidence, not arbitrary-market layout fidelity evidence, not natural reading order correctness evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Latest robust PDF extraction generalization gap review: `docs/review/robust-pdf-generalization-gap-review.md` records a deterministic review of the current PDF evidence chain, with a regenerated report at `docs/evaluation/robust-pdf-generalization-gap-review-report.md`. Robust PDF extraction generalization gap review v0: implemented. The report keeps `review_status -> passed`, `generalization_gap_status -> open`, `evidence_chain_count -> 5`, `covered_capability_count -> 5`, `missing_capability_count -> 6`, `can_claim_robust_pdf_extraction -> false`, and `recommended_next_gate -> multi_publisher_modality_stratified_pdf_eval_v0`. This is a generalization gap review only, not robust PDF extraction evidence, not arbitrary-market PDF parsing evidence, not natural reading order correctness evidence, not rendered visual fidelity evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Latest multi real-world PDF parse observation matrix remote verification: `docs/review/multi-real-world-pdf-parse-observation-remote-verification.md` records that commit `a37fe32f0f46c5d04008ea425a053966f063950c` passed CI run `27496475781` job `81271370552` and External Feedback Screen run `27496475772` job `81271370589`, including `Check multi real-world PDF parse observation report staleness`. Multi real-world PDF parse observation matrix remote verification v0: implemented. This is remote workflow verification only, not the owner-runtime parse observations themselves, not robust PDF extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 

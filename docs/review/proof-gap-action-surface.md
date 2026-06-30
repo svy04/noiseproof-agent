@@ -137,6 +137,21 @@ The layout fidelity evidence gate reduces the layout blocker for one BEA
 fixture, but the robust-PDF gap remains open because the evidence chain is still
 too small to generalize to arbitrary market PDFs.
 
+After `robust_pdf_extraction_generalization_gap_review_v0`, the action surface
+includes:
+
+```text
+current_evidence -> ...plus_robust_pdf_extraction_generalization_gap_review_v0
+proof_routes -> docs/review/robust-pdf-generalization-gap-review.md
+proof_routes -> docs/evaluation/robust-pdf-generalization-gap-review-report.md
+recommended_next_gate -> multi_publisher_modality_stratified_pdf_eval_v0
+```
+
+The generalization gap review keeps the robust-PDF gap open. It turns the
+remaining missing proof into explicit capability gaps: labeled layout ground
+truth, natural reading order evaluation, rendered visual fidelity, image/chart
+interpretation, arbitrary-market coverage, and external reviewer validation.
+
 ## Semantic Retrieval Quality Example
 
 For `semantic_retrieval_quality`, the action surface keeps the gap open. After

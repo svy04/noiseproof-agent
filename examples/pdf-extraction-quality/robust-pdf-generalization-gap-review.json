@@ -1,0 +1,179 @@
+{
+  "packet": "robust_pdf_extraction_generalization_gap_review_v0",
+  "phase_marker": "robust_pdf_extraction_generalization_gap_review_v0",
+  "previous_gate": "real_world_layout_fidelity_evidence_gate_v0",
+  "claim_boundary": "generalization_gap_review_blocks_robust_pdf_extraction_claim",
+  "review_status": "passed",
+  "generalization_gap_status": "open",
+  "can_claim_robust_pdf_extraction": false,
+  "runtime_work_performed": false,
+  "pdf_downloads_performed": false,
+  "parser_calls_performed": false,
+  "ocr_calls_performed": false,
+  "table_extraction_calls_performed": false,
+  "llm_calls_performed": false,
+  "binary_files_committed": false,
+  "download_cache_committed": false,
+  "raw_extracted_text_committed": false,
+  "raw_ocr_text_committed": false,
+  "raw_table_rows_committed": false,
+  "page_images_committed": false,
+  "screenshots_committed": false,
+  "source_patterns": [
+    "pymupdf_text_extraction_surfaces",
+    "docling_document_conversion_pipeline",
+    "unstructured_partitioning_elements_and_metadata",
+    "doclaynet_labeled_layout_ground_truth",
+    "publaynet_document_layout_benchmark"
+  ],
+  "evidence_chain": [
+    {
+      "gate": "multi_real_world_pdf_parse_observation_matrix_v0",
+      "route": "docs/evaluation/multi-real-world-pdf-parse-observation-report.md",
+      "fixture_count": 3,
+      "publisher_count": 1,
+      "capabilities": ["digital_text_parse_observation"],
+      "can_claim_robust_pdf_extraction": false,
+      "boundary": "BEA digital-text parse observations only"
+    },
+    {
+      "gate": "cross_publisher_real_world_pdf_fixture_gate_v0",
+      "route": "docs/evaluation/cross-publisher-real-world-pdf-fixture-gate-report.md",
+      "fixture_count": 4,
+      "publisher_count": 2,
+      "capabilities": ["cross_publisher_fixture_coverage"],
+      "can_claim_robust_pdf_extraction": false,
+      "boundary": "cross-publisher fixture coverage only"
+    },
+    {
+      "gate": "real_world_table_extraction_evidence_gate_v0",
+      "route": "docs/evaluation/real-world-table-extraction-evidence-gate-report.md",
+      "fixture_count": 3,
+      "publisher_count": 2,
+      "capabilities": ["table_extraction_observation"],
+      "can_claim_robust_pdf_extraction": false,
+      "boundary": "sanitized PyMuPDF table metrics only"
+    },
+    {
+      "gate": "real_world_ocr_evidence_gate_v0",
+      "route": "docs/evaluation/real-world-ocr-evidence-gate-report.md",
+      "fixture_count": 1,
+      "publisher_count": 1,
+      "capabilities": ["ocr_observation"],
+      "can_claim_robust_pdf_extraction": false,
+      "boundary": "single NARA OCR observation only"
+    },
+    {
+      "gate": "real_world_layout_fidelity_evidence_gate_v0",
+      "route": "docs/evaluation/real-world-layout-fidelity-evidence-gate-report.md",
+      "fixture_count": 1,
+      "publisher_count": 1,
+      "capabilities": ["layout_metadata_sanity_observation"],
+      "can_claim_robust_pdf_extraction": false,
+      "boundary": "single BEA layout metadata sanity observation only"
+    }
+  ],
+  "capability_reviews": [
+    {
+      "capability": "digital_text_parse_observation",
+      "status": "covered_limited",
+      "current_evidence": "three BEA PyMuPDF digital-text parse observations",
+      "required_next_evidence": "multi-publisher digital text extraction comparison with failure spans"
+    },
+    {
+      "capability": "cross_publisher_fixture_coverage",
+      "status": "covered_limited",
+      "current_evidence": "BEA plus EIA fixture coverage",
+      "required_next_evidence": "larger publisher and layout diversity with source-policy review"
+    },
+    {
+      "capability": "table_extraction_observation",
+      "status": "covered_limited",
+      "current_evidence": "three real-world PyMuPDF table extraction observations",
+      "required_next_evidence": "table ground truth or row/cell quality checks across table shapes"
+    },
+    {
+      "capability": "ocr_observation",
+      "status": "covered_limited",
+      "current_evidence": "one NARA PyMuPDF OCR observation",
+      "required_next_evidence": "multi-document OCR quality checks with expected spans and failure cases"
+    },
+    {
+      "capability": "layout_metadata_sanity_observation",
+      "status": "covered_limited",
+      "current_evidence": "one BEA block/bbox metadata sanity observation",
+      "required_next_evidence": "layout classes or rendered comparison across diverse page layouts"
+    },
+    {
+      "capability": "labeled_layout_ground_truth",
+      "status": "missing",
+      "current_evidence": "no labeled layout classes or benchmark qrels",
+      "required_next_evidence": "DocLayNet/PubLayNet-style labeled layout evaluation or local equivalent"
+    },
+    {
+      "capability": "natural_reading_order_benchmark",
+      "status": "missing",
+      "current_evidence": "one expected marker ordering sanity check only",
+      "required_next_evidence": "reading-order ground truth or reviewer-auditable ordering checks"
+    },
+    {
+      "capability": "rendered_visual_fidelity_comparison",
+      "status": "missing",
+      "current_evidence": "no committed rendered-page comparison or visual review packet",
+      "required_next_evidence": "sanitized rendered-layout comparison with explicit rights boundary"
+    },
+    {
+      "capability": "image_chart_interpretation_evidence",
+      "status": "missing",
+      "current_evidence": "image/chart interpretation remains not claimed",
+      "required_next_evidence": "image-heavy and chart-heavy fixture observations with failure candidates"
+    },
+    {
+      "capability": "arbitrary_market_pdf_coverage",
+      "status": "missing",
+      "current_evidence": "small hand-picked real-world fixture chain only",
+      "required_next_evidence": "stratified fixture matrix by publisher, modality, layout, and failure class"
+    },
+    {
+      "capability": "external_reviewer_validation",
+      "status": "missing",
+      "current_evidence": "owner-authored issue routes only",
+      "required_next_evidence": "qualifying outside reviewer comment or issue review"
+    }
+  ],
+  "minimum_next_evidence": [
+    "multi-publisher modality-stratified PDF evaluation matrix",
+    "per-capability pass/fail criteria for text, table, OCR, layout, reading order, and image/chart cases",
+    "failure cases for missed spans, bad table structure, OCR uncertainty, bad reading order, and no-extractable-text PDFs",
+    "source-policy-visible fixture metadata without external PDF binaries or raw extracted text"
+  ],
+  "blocked_reasons": [
+    "labeled_layout_ground_truth_missing",
+    "natural_reading_order_benchmark_missing",
+    "rendered_visual_fidelity_comparison_missing",
+    "image_chart_interpretation_evidence_missing",
+    "arbitrary_market_pdf_coverage_missing",
+    "external_reviewer_validation_missing"
+  ],
+  "warnings": [
+    "This packet reviews existing evidence only and does not add new runtime evidence.",
+    "Existing observations reduce local uncertainty but remain too small to generalize.",
+    "Layout metadata sanity checks are not labeled layout evaluation or visual fidelity proof.",
+    "OCR, table extraction, and digital text observations are separate surfaces and must not be collapsed into one robust-PDF claim."
+  ],
+  "boundary_notes": [
+    "generalization gap review only",
+    "does not add new runtime evidence",
+    "no external PDF binaries committed",
+    "no download cache committed",
+    "no raw extracted text committed",
+    "not robust PDF extraction evidence",
+    "not arbitrary-market PDF parsing evidence",
+    "not natural reading order correctness evidence",
+    "not rendered visual fidelity evidence",
+    "not hosted deployment evidence",
+    "not external reviewer feedback",
+    "not product-complete"
+  ],
+  "recommended_next_gate": "multi_publisher_modality_stratified_pdf_eval_v0"
+}

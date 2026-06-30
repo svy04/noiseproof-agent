@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-real_world_layout_fidelity_evidence_gate_v0
+robust_pdf_extraction_generalization_gap_review_v0
 ```
 
 Previous operating gate:
 
 ```text
-real_world_ocr_evidence_gate_v0
+real_world_layout_fidelity_evidence_gate_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the layout fidelity evidence gate:
+Current next local product candidate after the robust-PDF generalization gap review:
 
 ```text
-robust_pdf_extraction_generalization_gap_review_v0
+multi_publisher_modality_stratified_pdf_eval_v0
 ```
 
 Latest robust-PDF local quality gate:
@@ -247,6 +247,31 @@ expected_markers_found_count: 7
 can_claim_real_world_layout_fidelity_evidence: true
 can_claim_robust_pdf_extraction: false
 remaining_blocked_reasons: robust_pdf_generalization_missing; arbitrary_market_pdf_coverage_missing
+```
+
+Latest robust-PDF generalization gap review:
+
+```text
+robust_pdf_extraction_generalization_gap_review_v0
+```
+
+Latest robust-PDF generalization gap review report:
+
+```text
+docs/evaluation/robust-pdf-generalization-gap-review-report.md
+```
+
+Current robust-PDF generalization gap review result:
+
+```text
+review_status: passed
+generalization_gap_status: open
+evidence_chain_count: 5
+covered_capability_count: 5
+missing_capability_count: 6
+can_claim_robust_pdf_extraction: false
+remaining_blocked_reasons: labeled_layout_ground_truth_missing; natural_reading_order_benchmark_missing; rendered_visual_fidelity_comparison_missing; image_chart_interpretation_evidence_missing; arbitrary_market_pdf_coverage_missing; external_reviewer_validation_missing
+next_gate: multi_publisher_modality_stratified_pdf_eval_v0
 ```
 
 ## 1. Top-level Purpose
