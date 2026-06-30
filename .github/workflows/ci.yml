@@ -334,6 +334,16 @@ jobs:
             --output ../../docs/evaluation/source-policy-no-native-text-ocr-execution-smoke-report.md \
             --check
 
+      - name: Check source-policy no-native-text OCR quality eval plan report staleness
+        working-directory: apps/api
+        run: |
+          echo source_policy_no_native_text_ocr_quality_eval_plan_v0
+          echo source_policy_no_native_text_ocr_quality_reference_pack_v0
+          uv run python -m app.services.source_policy_no_native_text_ocr_quality_eval_plan_command \
+            --plan ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-quality-eval-plan.json \
+            --output ../../docs/evaluation/source-policy-no-native-text-ocr-quality-eval-plan-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |
