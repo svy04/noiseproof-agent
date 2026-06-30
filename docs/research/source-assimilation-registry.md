@@ -401,6 +401,71 @@ ground truth, rendered visual comparison, or reviewer-auditable layout checks.
 
 license_or_rights_note: Cite the paper; do not reproduce benchmark artifacts.
 
+### PubTables-1M
+
+source: https://arxiv.org/abs/2110.00061
+
+source_type: paper
+
+pattern_to_borrow: Treat table extraction quality as a structure-recognition
+problem with table-level ground truth, not as a raw table-count observation.
+
+local_adaptation: Use PubTables-1M as a source pattern for the
+`multi_publisher_modality_stratified_pdf_eval_v0` matrix cell that keeps table
+row/cell counts limited until structure quality is evaluated.
+
+boundary: NoiseProof does not claim PubTables-1M evaluation, table benchmark
+quality, or table structure correctness.
+
+rejection_condition: Reject any robust table claim that relies only on table
+count, row count, or cell count without structure ground truth or reviewer
+checks.
+
+license_or_rights_note: Cite the paper; do not reproduce benchmark artifacts.
+
+### TableBank
+
+source: https://arxiv.org/abs/1903.01949
+
+source_type: paper
+
+pattern_to_borrow: Separate table detection and table recognition when
+evaluating document table extraction.
+
+local_adaptation: Use TableBank as a reminder that NoiseProof's current
+sanitized table metrics are observations, not detection/recognition benchmark
+evidence.
+
+boundary: NoiseProof does not claim TableBank evaluation or benchmark
+performance.
+
+rejection_condition: Reject any table-extraction claim that does not identify
+whether it is measuring detection, recognition, structure, or downstream
+source support.
+
+license_or_rights_note: Cite the paper; do not reproduce benchmark artifacts.
+
+### OCR-D Evaluation
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source_type: standard
+
+pattern_to_borrow: Treat OCR quality as an evaluable text-recognition surface
+with error-rate-like measurements rather than a binary OCR-produced-text flag.
+
+local_adaptation: Use OCR-D evaluation as a source pattern for keeping the NARA
+OCR observation limited until future gates add expected-span or CER/WER-style
+quality checks.
+
+boundary: NoiseProof does not claim OCR-D compliance, OCR benchmark quality,
+or production OCR accuracy.
+
+rejection_condition: Reject any OCR claim that counts OCR text characters or
+term hits as robust OCR quality without an explicit quality criterion.
+
+license_or_rights_note: Cite the official OCR-D specification page.
+
 ### OCRmyPDF
 
 source: https://ocrmypdf.readthedocs.io/en/latest/introduction.html

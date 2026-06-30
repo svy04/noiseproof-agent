@@ -13,9 +13,9 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `robust_pdf_extraction_generalization_gap_review_v0`.
+Current operating gate: `multi_publisher_modality_stratified_pdf_eval_v0`.
 
-Previous operating gate: `real_world_layout_fidelity_evidence_gate_v0`.
+Previous operating gate: `robust_pdf_extraction_generalization_gap_review_v0`.
 
 Previous action-surface gate: `proof_gap_action_surface_current_state_refresh_v0`.
 
@@ -91,6 +91,30 @@ It is not robust PDF extraction evidence, arbitrary-market PDF parsing
 evidence, natural reading order correctness evidence, rendered visual fidelity
 evidence, hosted deployment evidence, external reviewer feedback, or
 product-complete.
+
+Phase `multi_publisher_modality_stratified_pdf_eval_v0` adds
+`docs/review/multi-publisher-modality-stratified-pdf-eval.md` and
+`docs/evaluation/multi-publisher-modality-stratified-pdf-eval-report.md`.
+Reproduce with:
+
+```bash
+cd apps/api
+uv run python -m app.services.multi_publisher_modality_stratified_pdf_eval_command \
+  --evidence ../../examples/pdf-extraction-quality/multi-publisher-modality-stratified-pdf-eval.json \
+  --output ../../docs/evaluation/multi-publisher-modality-stratified-pdf-eval-report.md \
+  --check
+```
+
+This is a stratified PDF evaluation matrix only. It records
+`matrix_status -> passed`, `coverage_status -> partial`,
+`robust_pdf_eval_status -> blocked`, `publisher_stratum_count -> 3`,
+`modality_stratum_count -> 9`, `matrix_cell_count -> 12`,
+`covered_limited_cell_count -> 6`, `missing_cell_count -> 6`,
+`can_claim_robust_pdf_extraction -> false`, and
+`recommended_next_gate -> targeted_real_world_pdf_fixture_expansion_v0`. It is
+not robust PDF extraction evidence, arbitrary-market PDF parsing evidence,
+table extraction benchmark evidence, OCR quality benchmark evidence, hosted
+deployment evidence, external reviewer feedback, or product-complete.
 
 Phase `robust_pdf_extraction_next_real_world_quality_gate_v0` adds
 `docs/review/robust-pdf-extraction-next-real-world-quality-gate.md` and

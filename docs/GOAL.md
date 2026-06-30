@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-robust_pdf_extraction_generalization_gap_review_v0
+multi_publisher_modality_stratified_pdf_eval_v0
 ```
 
 Previous operating gate:
 
 ```text
-real_world_layout_fidelity_evidence_gate_v0
+robust_pdf_extraction_generalization_gap_review_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the robust-PDF generalization gap review:
+Current next local product candidate after the multi-publisher modality-stratified PDF eval:
 
 ```text
-multi_publisher_modality_stratified_pdf_eval_v0
+targeted_real_world_pdf_fixture_expansion_v0
 ```
 
 Latest robust-PDF local quality gate:
@@ -272,6 +272,34 @@ missing_capability_count: 6
 can_claim_robust_pdf_extraction: false
 remaining_blocked_reasons: labeled_layout_ground_truth_missing; natural_reading_order_benchmark_missing; rendered_visual_fidelity_comparison_missing; image_chart_interpretation_evidence_missing; arbitrary_market_pdf_coverage_missing; external_reviewer_validation_missing
 next_gate: multi_publisher_modality_stratified_pdf_eval_v0
+```
+
+Latest multi-publisher modality-stratified PDF eval:
+
+```text
+multi_publisher_modality_stratified_pdf_eval_v0
+```
+
+Latest multi-publisher modality-stratified PDF eval report:
+
+```text
+docs/evaluation/multi-publisher-modality-stratified-pdf-eval-report.md
+```
+
+Current multi-publisher modality-stratified PDF eval result:
+
+```text
+matrix_status: passed
+coverage_status: partial
+robust_pdf_eval_status: blocked
+publisher_stratum_count: 3
+modality_stratum_count: 9
+matrix_cell_count: 12
+covered_limited_cell_count: 6
+missing_cell_count: 6
+can_claim_robust_pdf_extraction: false
+remaining_blocked_reasons: reading_order_ground_truth_missing; rendered_visual_fidelity_missing; labeled_layout_ground_truth_missing; image_chart_interpretation_missing; real_world_no_extractable_text_failure_missing; external_reviewer_validation_missing
+next_gate: targeted_real_world_pdf_fixture_expansion_v0
 ```
 
 ## 1. Top-level Purpose

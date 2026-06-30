@@ -25,10 +25,10 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
         "action_surface_only_not_new_proof_or_gap_closure"
     )
     assert robust_gap["recommended_next_gate"] == (
-        "multi_publisher_modality_stratified_pdf_eval_v0"
+        "targeted_real_world_pdf_fixture_expansion_v0"
     )
     assert robust_gap["next_evidence_needed"] == (
-        "multi_publisher_modality_stratified_pdf_eval_v0"
+        "targeted_real_world_pdf_fixture_expansion_v0"
     )
     assert (
         "multi_real_world_pdf_parse_observation_matrix_remote_verification_v0"
@@ -56,6 +56,10 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
     )
     assert (
         "robust_pdf_extraction_generalization_gap_review_v0"
+        in robust_gap["current_evidence"]
+    )
+    assert (
+        "multi_publisher_modality_stratified_pdf_eval_v0"
         in robust_gap["current_evidence"]
     )
     assert (
@@ -108,6 +112,14 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
     )
     assert (
         "docs/evaluation/robust-pdf-generalization-gap-review-report.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/review/multi-publisher-modality-stratified-pdf-eval.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/evaluation/multi-publisher-modality-stratified-pdf-eval-report.md"
         in robust_gap["proof_routes"]
     )
     assert "robust PDF extraction is implemented" in robust_gap["blocked_claims"]

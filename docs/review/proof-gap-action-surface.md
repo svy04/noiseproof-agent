@@ -152,6 +152,20 @@ remaining missing proof into explicit capability gaps: labeled layout ground
 truth, natural reading order evaluation, rendered visual fidelity, image/chart
 interpretation, arbitrary-market coverage, and external reviewer validation.
 
+After `multi_publisher_modality_stratified_pdf_eval_v0`, the action surface
+includes:
+
+```text
+current_evidence -> ...plus_multi_publisher_modality_stratified_pdf_eval_v0
+proof_routes -> docs/review/multi-publisher-modality-stratified-pdf-eval.md
+proof_routes -> docs/evaluation/multi-publisher-modality-stratified-pdf-eval-report.md
+recommended_next_gate -> targeted_real_world_pdf_fixture_expansion_v0
+```
+
+The stratified PDF eval keeps the robust-PDF gap open. It makes the current
+coverage partial in a 12-cell matrix and turns the next action into a targeted
+real-world fixture expansion plan rather than a broad parser claim.
+
 ## Semantic Retrieval Quality Example
 
 For `semantic_retrieval_quality`, the action surface keeps the gap open. After

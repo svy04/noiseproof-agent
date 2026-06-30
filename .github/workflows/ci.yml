@@ -216,6 +216,14 @@ jobs:
             --output ../../docs/evaluation/robust-pdf-generalization-gap-review-report.md \
             --check
 
+      - name: Check multi-publisher modality-stratified PDF eval report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.multi_publisher_modality_stratified_pdf_eval_command \
+            --evidence ../../examples/pdf-extraction-quality/multi-publisher-modality-stratified-pdf-eval.json \
+            --output ../../docs/evaluation/multi-publisher-modality-stratified-pdf-eval-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |
