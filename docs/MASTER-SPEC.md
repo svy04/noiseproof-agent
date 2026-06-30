@@ -91,8 +91,11 @@ Current source-policy no-native-text OCR transcript reference plan gate:
 Current source-policy no-native-text OCR transcript reference pack gate:
 `source_policy_no_native_text_ocr_transcript_reference_pack_v0`.
 
-Current next PDF evidence gate:
+Current source-policy no-native-text OCR owner transcript collection plan gate:
 `source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0`.
+
+Current next PDF evidence gate:
+`source_policy_no_native_text_ocr_source_rights_review_request_packet_v0`.
 
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source
@@ -313,16 +316,17 @@ it to a planned section.
 The current operating gate is:
 
 ```text
-source_policy_no_native_text_ocr_transcript_reference_pack_v0
+source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0
 ```
 
-This gate records a sanitized transcript-reference pack boundary for the
-preserved source-policy NARA no-native-text route. It does not collect a
-reference transcript, evaluate OCR quality, compute CER/WER, inspect raw OCR
-text, prove reference transcript availability, or support robust PDF wording.
+This gate records an owner-runtime transcript collection plan for the preserved
+source-policy NARA no-native-text route. It does not collect a reference
+transcript, record source-rights approval as complete, commit transcript
+hashes, evaluate OCR quality, compute CER/WER, inspect raw OCR text, prove
+reference transcript availability, or support robust PDF wording.
 
 After this operating gate is accepted, future agents should return to the next
 highest-value evidence or implementation gate in `docs/GOAL.md`. The expected
 next PDF evidence gate is
-`source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0`, unless
-the user deliberately redirects the product vision.
+`source_policy_no_native_text_ocr_source_rights_review_request_packet_v0`,
+unless the user deliberately redirects the product vision.

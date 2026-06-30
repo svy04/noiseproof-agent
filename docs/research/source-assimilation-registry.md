@@ -641,6 +641,47 @@ license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
 only; do not copy benchmark assets, source PDF content, raw OCR text, raw
 reference text, transcripts, or long documentation passages.
 
+### Source-policy No-native-text OCR Owner Transcript Collection Plan
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source: https://github.com/jitsi/jiwer
+
+source: https://www.archives.gov/global-pages/privacy.html
+
+source_type: standard_oss_and_official_policy_adaptation
+
+pattern_to_borrow: Treat owner-runtime transcript collection as a separate
+planning gate before any transcript text, transcript hash, or OCR quality
+metric can enter the repository. CER/WER-style metrics remain blocked until
+reference text, normalization, alignment policy, and item-specific rights
+review exist.
+
+local_adaptation: `source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0`
+records planned owner-runtime steps for the preserved NARA no-native-text
+route: item-specific rights review, owner-runtime workspace preparation,
+page-level manual reference transcription outside the repo, normalization,
+alignment policy, metric eligibility review, and a later commit/hash decision.
+It commits no transcript, source PDF, raw OCR text, raw reference text, page
+images, screenshots, local paths, transcript hash, or source-rights approval.
+
+boundary: The owner transcript collection plan can show only that the future
+collection workflow is defined. It is not transcript collection evidence, not
+source-rights approval evidence, not reference transcript availability, not OCR
+quality evidence, not CER/WER support, not robust PDF extraction evidence, and
+not arbitrary-market PDF parsing evidence. The next bounded candidate is
+`source_policy_no_native_text_ocr_source_rights_review_request_packet_v0`.
+
+rejection_condition: Reject any gate that treats the plan as collection,
+records source-rights owner approval as completed without evidence, commits
+transcript text or hashes before rights review, computes CER/WER before
+reference text exists, or uses the plan to claim OCR quality or robust PDF
+extraction.
+
+license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
+only; do not copy benchmark assets, source PDF content, raw OCR text, raw
+reference text, transcripts, or long documentation passages.
+
 ### Source-policy No-native-text OCR Transcript Reference Pack
 
 source: https://ocr-d.de/en/spec/ocrd_eval.html
