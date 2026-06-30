@@ -414,6 +414,16 @@ jobs:
             --output ../../docs/evaluation/source-policy-no-native-text-ocr-owner-rights-decision-record-report.md \
             --check
 
+      - name: Check source-policy no-native-text OCR rights request delivery record report staleness
+        working-directory: apps/api
+        run: |
+          echo source_policy_no_native_text_ocr_rights_request_delivery_record_v0
+          echo source_policy_no_native_text_ocr_owner_runtime_rights_request_delivery_v0
+          uv run python -m app.services.source_policy_no_native_text_ocr_rights_request_delivery_record_command \
+            --rights-request-delivery-record ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-rights-request-delivery-record.json \
+            --output ../../docs/evaluation/source-policy-no-native-text-ocr-rights-request-delivery-record-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

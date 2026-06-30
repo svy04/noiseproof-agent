@@ -762,6 +762,49 @@ license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
 only; do not copy benchmark assets, source PDF content, raw OCR text, raw
 reference text, transcripts, hashes, or long documentation passages.
 
+### Source-policy No-native-text OCR Rights Request Delivery Record
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source: https://github.com/jitsi/jiwer
+
+source: https://www.archives.gov/global-pages/privacy.html
+
+source_type: standard_oss_and_official_policy_adaptation
+
+pattern_to_borrow: Treat request delivery as an evidence-bearing event, not a
+documentation side effect. A prepared packet and owner hold decision can
+support route planning, but request-sent and request-delivered claims require
+owner-runtime delivery metadata and non-private delivery proof.
+
+local_adaptation: `source_policy_no_native_text_ocr_rights_request_delivery_record_v0`
+records delivery route candidates, required future delivery evidence, and
+missing owner-runtime inputs for the preserved NARA no-native-text route. It
+commits no owner contact identity, request body, delivery receipt, transcript,
+source PDF, raw OCR text, raw reference text, page images, screenshots, local
+paths, transcript hash, rights response, source-rights owner decision, or
+source-rights owner approval.
+
+boundary: The rights request delivery record can show only that the repository
+has a metadata-only delivery record and delivery route candidates. It is not
+rights clearance evidence, not request-sent evidence, not request-delivery
+evidence, not source-rights approval evidence, not source-rights owner decision
+evidence, not transcript collection evidence, not reference transcript
+availability, not OCR quality evidence, not CER/WER support, not robust PDF
+extraction evidence, and not arbitrary-market PDF parsing evidence. The next
+bounded candidate is
+`source_policy_no_native_text_ocr_owner_runtime_rights_request_delivery_v0`.
+
+rejection_condition: Reject any gate that treats route candidates as request
+delivery, records delivery timestamp or receipt without owner-runtime evidence,
+commits private contact identity, commits transcript text or hashes before
+approval, or uses the record to claim OCR quality or robust PDF extraction.
+
+license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
+only; do not copy benchmark assets, source PDF content, raw OCR text, raw
+reference text, transcripts, hashes, private contact identity, or long
+documentation passages.
+
 ### Source-policy No-native-text OCR Transcript Reference Pack
 
 source: https://ocr-d.de/en/spec/ocrd_eval.html

@@ -100,8 +100,11 @@ Current source-policy no-native-text OCR source rights review request packet gat
 Current source-policy no-native-text OCR owner rights decision record gate:
 `source_policy_no_native_text_ocr_owner_rights_decision_record_v0`.
 
-Current next PDF evidence gate:
+Current source-policy no-native-text OCR rights request delivery record gate:
 `source_policy_no_native_text_ocr_rights_request_delivery_record_v0`.
+
+Current next PDF evidence gate:
+`source_policy_no_native_text_ocr_owner_runtime_rights_request_delivery_v0`.
 
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source

@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-source_policy_no_native_text_ocr_owner_rights_decision_record_v0
+source_policy_no_native_text_ocr_rights_request_delivery_record_v0
 ```
 
 Previous operating gate:
 
 ```text
-source_policy_no_native_text_ocr_source_rights_review_request_packet_v0
+source_policy_no_native_text_ocr_owner_rights_decision_record_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the source-policy no-native-text OCR owner rights decision record gate:
+Current next local product candidate after the source-policy no-native-text OCR rights request delivery record gate:
 
 ```text
-source_policy_no_native_text_ocr_rights_request_delivery_record_v0
+source_policy_no_native_text_ocr_owner_runtime_rights_request_delivery_v0
 ```
 
 Current source-policy no-native-text failure route artifact:
@@ -247,6 +247,17 @@ docs/evaluation/source-policy-no-native-text-ocr-owner-rights-decision-record-re
 examples/pdf-extraction-quality/source-policy-no-native-text-ocr-owner-rights-decision-record.json
 next_gate: source_policy_no_native_text_ocr_rights_request_delivery_record_v0
 boundary: not rights clearance evidence; not request-sent evidence; not source-rights approval evidence; not source-rights owner decision evidence; not transcript collection evidence; not reference transcript availability; not OCR quality evidence; not CER/WER support; not robust PDF extraction evidence
+```
+
+Current source-policy no-native-text OCR rights request delivery record artifact:
+
+```text
+source_policy_no_native_text_ocr_rights_request_delivery_record_v0
+docs/review/source-policy-no-native-text-ocr-rights-request-delivery-record.md
+docs/evaluation/source-policy-no-native-text-ocr-rights-request-delivery-record-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-rights-request-delivery-record.json
+next_gate: source_policy_no_native_text_ocr_owner_runtime_rights_request_delivery_v0
+boundary: not rights clearance evidence; not request-sent evidence; not request-delivery evidence; not source-rights approval evidence; not source-rights owner decision evidence; not transcript collection evidence; not reference transcript availability; not OCR quality evidence; not CER/WER support; not robust PDF extraction evidence
 ```
 
 Latest robust-PDF local quality gate:
@@ -36781,6 +36792,79 @@ Boundaries:
 - not OCR evidence
 - not image/chart interpretation evidence
 - not layout fidelity evidence
+- not hosted deployment evidence
+- not external reviewer feedback
+- not customer validation
+- not Braincrew acceptance
+- not product-complete
+
+### Phase 898 - Source-policy No-native-text OCR Rights Request Delivery Record v0
+
+Status: implemented.
+
+Purpose: record a metadata-only rights request delivery record for the
+preserved NARA no-native-text route before any request-sent, delivery,
+rights-response, transcript, OCR-quality, or robust-PDF claim is allowed.
+
+Artifacts:
+
+- `examples/pdf-extraction-quality/source-policy-no-native-text-ocr-rights-request-delivery-record.json`
+- `docs/evaluation/source-policy-no-native-text-ocr-rights-request-delivery-record-report.md`
+- `docs/review/source-policy-no-native-text-ocr-rights-request-delivery-record.md`
+- `docs/specs/2026-07-01-source-policy-no-native-text-ocr-rights-request-delivery-record.md`
+- `packages/ingestion/pdf_quality/source_policy_no_native_text_ocr_rights_request_delivery_record.py`
+- `apps/api/app/services/source_policy_no_native_text_ocr_rights_request_delivery_record_command.py`
+- `apps/api/tests/test_source_policy_no_native_text_ocr_rights_request_delivery_record.py`
+
+Recorded state:
+
+```text
+delivery_status -> delivery_record_prepared_request_not_sent
+delivery_scope -> owner_runtime_external_rights_request_delivery
+request_packet_prepared -> true
+request_sent -> false
+source_rights_request_delivery_performed -> false
+delivery_channel_selected -> false
+delivery_destination_recorded -> false
+delivery_timestamp_recorded -> false
+delivery_receipt_recorded -> false
+owner_contact_identity_available -> false
+rights_response_received -> false
+source_rights_owner_approval_recorded -> false
+source_rights_owner_decision_recorded -> false
+transcript_collection_allowed -> false
+reference_text_available -> false
+quality_eval_performed -> false
+cer_computed -> false
+wer_computed -> false
+can_claim_rights_request_delivery_record -> true
+can_claim_request_sent -> false
+can_claim_delivery_performed -> false
+can_claim_rights_clearance -> false
+can_claim_source_rights_owner_approval -> false
+can_claim_transcript_collection -> false
+can_claim_reference_transcript_available -> false
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+next_gate -> source_policy_no_native_text_ocr_owner_runtime_rights_request_delivery_v0
+```
+
+Boundaries:
+
+- delivery record only
+- not rights clearance evidence
+- not request-sent evidence
+- not request-delivery evidence
+- not source-rights approval evidence
+- not source-rights owner decision evidence
+- not transcript collection evidence
+- not reference transcript availability
+- not OCR quality evidence
+- not CER/WER support
+- not robust PDF extraction evidence
+- not arbitrary-market PDF parsing evidence
+- not rendered visual fidelity evidence
+- not image/chart interpretation evidence
 - not hosted deployment evidence
 - not external reviewer feedback
 - not customer validation
