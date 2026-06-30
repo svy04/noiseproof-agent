@@ -620,6 +620,48 @@ not layout fidelity evidence, not rendered visual fidelity evidence, not
 image/chart interpretation evidence, not hosted deployment evidence, not
 external reviewer feedback, and not product-complete.
 
+Source-policy no-native-text OCR source rights review request packet:
+
+```text
+docs/review/source-policy-no-native-text-ocr-source-rights-review-request-packet.md
+docs/evaluation/source-policy-no-native-text-ocr-source-rights-review-request-packet-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-source-rights-review-request-packet.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_ocr_source_rights_review_request_packet_v0
+packet_status -> source_rights_review_request_packet_prepared
+request_scope -> rights_review_request_only
+request_sent -> false
+rights_response_received -> false
+source_rights_owner_approval_recorded -> false
+repository_commit_policy -> metadata_only_no_transcript_text_or_hash
+reference_text_available -> false
+transcript_hash_committed -> false
+quality_eval_performed -> false
+cer_computed -> false
+wer_computed -> false
+can_claim_source_rights_review_request_packet -> true
+can_claim_rights_clearance -> false
+can_claim_transcript_collection -> false
+can_claim_reference_transcript_available -> false
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_owner_rights_decision_record_v0
+```
+
+Boundary: this route records a source-rights review request packet only. It is
+not rights clearance evidence, not request-sent evidence, not source-rights
+approval evidence, not transcript collection evidence, not reference transcript
+availability, not OCR quality evidence, not CER/WER support, not a reference
+transcript, not robust PDF extraction evidence, not arbitrary-market PDF
+parsing evidence, not table extraction benchmark evidence, not layout fidelity
+evidence, not rendered visual fidelity evidence, not image/chart interpretation
+evidence, not hosted deployment evidence, not external reviewer feedback, and
+not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

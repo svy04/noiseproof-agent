@@ -12627,3 +12627,29 @@ rendered visual fidelity evidence, not image/chart interpretation evidence, not
 hosted deployment evidence, not external reviewer feedback, and not
 product-complete. The next local product candidate is
 `source_policy_no_native_text_ocr_source_rights_review_request_packet_v0`.
+
+### Source-policy no-native-text OCR source rights review request packet
+
+Phase `source_policy_no_native_text_ocr_source_rights_review_request_packet_v0`
+records a source-rights review request packet for the preserved NARA
+no-native-text OCR route. It does not send the request, receive a rights
+response, record source-rights owner approval, collect a reference transcript,
+commit transcript text or hashes, compute CER/WER, or prove OCR quality.
+
+Reproduce the report staleness check:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_no_native_text_ocr_source_rights_review_request_packet_command --source-rights-review-request-packet ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-source-rights-review-request-packet.json --output ../../docs/evaluation/source-policy-no-native-text-ocr-source-rights-review-request-packet-report.md --check
+uv run pytest tests/test_source_policy_no_native_text_ocr_source_rights_review_request_packet.py -q
+```
+
+This is a source-rights review request packet only, not rights clearance
+evidence, not request-sent evidence, not source-rights approval evidence, not
+transcript collection evidence, not reference transcript availability, not OCR
+quality evidence, not CER/WER support, not robust PDF extraction evidence, not
+arbitrary-market PDF parsing evidence, not rendered visual fidelity evidence,
+not image/chart interpretation evidence, not hosted deployment evidence, not
+external reviewer feedback, and not product-complete. The next local product
+candidate is
+`source_policy_no_native_text_ocr_owner_rights_decision_record_v0`.
