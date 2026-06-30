@@ -275,6 +275,41 @@ evidence, not rendered visual fidelity evidence, not image/chart
 interpretation evidence, not hosted deployment evidence, not external reviewer
 feedback, and not product-complete.
 
+Source-policy no-native-text OCR dependency check:
+
+```text
+docs/review/source-policy-no-native-text-ocr-dependency-check.md
+docs/evaluation/source-policy-no-native-text-ocr-dependency-check-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-dependency-check.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_ocr_dependency_check_v0
+dependency_check_status -> checked_missing_tesseract_command
+tesseract_command_present -> false
+version_check_performed -> false
+language_list_check_performed -> false
+eng_language_available -> false
+local_paths_printed -> false
+local_paths_committed -> false
+can_claim_ocr_dependency_available -> false
+can_claim_ocr_execution -> false
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_dependency_resolution_v0
+```
+
+Boundary: this route records current dependency state without printing or
+committing local executable or tessdata paths. It is route hygiene only, not
+OCR dependency availability evidence, not OCR execution evidence, not OCR
+quality evidence, not robust PDF extraction evidence, not arbitrary-market PDF
+parsing evidence, not table extraction benchmark evidence, not layout fidelity
+evidence, not rendered visual fidelity evidence, not image/chart
+interpretation evidence, not hosted deployment evidence, not external reviewer
+feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text
