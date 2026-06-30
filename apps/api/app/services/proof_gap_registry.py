@@ -15,6 +15,7 @@ _GAP_ACTIONS = {
             "run a generalization gap review before any robust PDF extraction wording is allowed",
             "run a multi-publisher modality-stratified PDF evaluation before any robust PDF extraction wording is allowed",
             "plan targeted source-policy-reviewed real-world PDF fixture expansion for missing matrix cells",
+            "download and hash only owner-approved source-policy-reviewed candidates before new runtime extraction",
         ],
         "blocked_claims": [
             "robust PDF extraction is implemented",
@@ -61,8 +62,10 @@ _GAP_ACTIONS = {
             "docs/evaluation/robust-pdf-generalization-gap-review-report.md",
             "docs/review/multi-publisher-modality-stratified-pdf-eval.md",
             "docs/evaluation/multi-publisher-modality-stratified-pdf-eval-report.md",
+            "docs/review/targeted-real-world-pdf-fixture-expansion.md",
+            "docs/evaluation/targeted-real-world-pdf-fixture-expansion-report.md",
         ],
-        "recommended_next_gate": "targeted_real_world_pdf_fixture_expansion_v0",
+        "recommended_next_gate": "real_world_pdf_fixture_source_policy_download_hash_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -192,12 +195,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
                 "_plus_real_world_layout_fidelity_evidence_gate_v0"
                 "_plus_robust_pdf_extraction_generalization_gap_review_v0"
                 "_plus_multi_publisher_modality_stratified_pdf_eval_v0"
+                "_plus_targeted_real_world_pdf_fixture_expansion_v0"
             ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "targeted_real_world_pdf_fixture_expansion_v0"
+                "real_world_pdf_fixture_source_policy_download_hash_v0"
             ),
         ),
         ProofGapOut(

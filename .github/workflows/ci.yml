@@ -224,6 +224,16 @@ jobs:
             --output ../../docs/evaluation/multi-publisher-modality-stratified-pdf-eval-report.md \
             --check
 
+      - name: Check targeted real-world PDF fixture expansion report staleness
+        working-directory: apps/api
+        run: |
+          echo targeted_real_world_pdf_fixture_expansion_v0
+          echo real_world_pdf_fixture_source_policy_download_hash_v0
+          uv run python -m app.services.targeted_real_world_pdf_fixture_expansion_command \
+            --plan ../../examples/pdf-extraction-quality/targeted-real-world-pdf-fixture-expansion-plan.json \
+            --output ../../docs/evaluation/targeted-real-world-pdf-fixture-expansion-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

@@ -166,6 +166,21 @@ The stratified PDF eval keeps the robust-PDF gap open. It makes the current
 coverage partial in a 12-cell matrix and turns the next action into a targeted
 real-world fixture expansion plan rather than a broad parser claim.
 
+After `targeted_real_world_pdf_fixture_expansion_v0`, the action surface
+includes:
+
+```text
+current_evidence -> ...plus_targeted_real_world_pdf_fixture_expansion_v0
+proof_routes -> docs/review/targeted-real-world-pdf-fixture-expansion.md
+proof_routes -> docs/evaluation/targeted-real-world-pdf-fixture-expansion-report.md
+recommended_next_gate -> real_world_pdf_fixture_source_policy_download_hash_v0
+```
+
+The targeted fixture expansion keeps the robust-PDF gap open. It maps all six
+missing cells to source-policy-reviewed candidate routes, but it performs no
+downloads, hashing, parsing, OCR, table extraction, visual comparison, or
+external review.
+
 ## Semantic Retrieval Quality Example
 
 For `semantic_retrieval_quality`, the action surface keeps the gap open. After

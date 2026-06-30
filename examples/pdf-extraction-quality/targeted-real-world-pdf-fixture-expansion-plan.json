@@ -1,0 +1,261 @@
+{
+  "packet": "targeted_real_world_pdf_fixture_expansion_v0",
+  "phase_marker": "targeted_real_world_pdf_fixture_expansion_v0",
+  "previous_gate": "multi_publisher_modality_stratified_pdf_eval_v0",
+  "claim_boundary": "source_policy_reviewed_fixture_expansion_plan_only_not_runtime_pdf_evidence",
+  "plan_status": "passed",
+  "coverage_status": "planned",
+  "can_claim_robust_pdf_extraction": false,
+  "runtime_work_performed": false,
+  "pdf_downloads_performed": false,
+  "parser_calls_performed": false,
+  "ocr_calls_performed": false,
+  "table_extraction_calls_performed": false,
+  "llm_calls_performed": false,
+  "binary_files_committed": false,
+  "download_cache_committed": false,
+  "raw_text_committed": false,
+  "raw_extracted_text_committed": false,
+  "raw_ocr_text_committed": false,
+  "raw_table_rows_committed": false,
+  "page_images_committed": false,
+  "screenshots_committed": false,
+  "missing_cells": [
+    "multi_publisher_reading_order",
+    "multi_publisher_rendered_visual_fidelity",
+    "multi_publisher_labeled_layout_ground_truth",
+    "multi_publisher_image_chart_interpretation",
+    "multi_publisher_no_extractable_text_failure",
+    "external_reviewer_validation"
+  ],
+  "source_policy_sources": [
+    {
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/opub/copyright-information.htm",
+      "use_in_plan": "BLS source-policy review for public-domain economic PDF candidates."
+    },
+    {
+      "publisher": "BLS Monthly Labor Review",
+      "url": "https://www.bls.gov/opub/mlr/about.htm",
+      "use_in_plan": "MLR source-policy review for multi-column article candidates and possible charts."
+    },
+    {
+      "publisher": "U.S. Energy Information Administration",
+      "url": "https://www.eia.gov/about/copyrights_reuse.php",
+      "use_in_plan": "EIA source-policy review for STEO chart/table PDF candidates."
+    },
+    {
+      "publisher": "U.S. Bureau of Economic Analysis",
+      "url": "https://www.bea.gov/help/faq/147",
+      "use_in_plan": "BEA source-policy review for existing layout and digital-text candidate continuity."
+    },
+    {
+      "publisher": "National Archives and Records Administration",
+      "url": "https://www.archives.gov/global-pages/privacy.html",
+      "use_in_plan": "NARA general policy boundary for archival scanned PDF candidate use."
+    },
+    {
+      "publisher": "NoiseProof GitHub issue tracker",
+      "url": "https://github.com/svy04/noiseproof-agent/issues/1",
+      "use_in_plan": "External reviewer validation route; not self-completable by implementation."
+    }
+  ],
+  "candidates": [
+    {
+      "fixture_id": "bls_mlr_2011_06_reading_order_candidate",
+      "target_missing_cell": "multi_publisher_reading_order",
+      "publisher": "BLS Monthly Labor Review",
+      "source_url": "https://www.bls.gov/opub/mlr/2011/06/mlr201106.pdf",
+      "policy_source_url": "https://www.bls.gov/opub/mlr/about.htm",
+      "policy_review_status": "source_policy_reviewed_metadata_only",
+      "download_status": "not_downloaded",
+      "local_pdf_path": null,
+      "sha256": null,
+      "evaluation_intent": [
+        "multi-column reading-order sanity check",
+        "human-reviewable expected section sequence sidecar",
+        "missed or scrambled order failure-case candidate"
+      ],
+      "acceptance_checks": [
+        "download and hash only after owner approval",
+        "commit only metadata and short expected-marker identifiers",
+        "record reading-order pass/fail separately from text extraction"
+      ],
+      "stop_conditions": [
+        "third-party image rights unclear",
+        "raw article text would need to be committed",
+        "candidate cannot be hashed from a stable URL"
+      ],
+      "boundary": "reading-order candidate only, not natural reading-order proof"
+    },
+    {
+      "fixture_id": "eia_steo_full_rendered_visual_fidelity_candidate",
+      "target_missing_cell": "multi_publisher_rendered_visual_fidelity",
+      "publisher": "U.S. Energy Information Administration",
+      "source_url": "https://www.eia.gov/outlooks/steo/pdf/steo_full.pdf",
+      "policy_source_url": "https://www.eia.gov/about/copyrights_reuse.php",
+      "policy_review_status": "source_policy_reviewed_metadata_only",
+      "download_status": "not_downloaded",
+      "local_pdf_path": null,
+      "sha256": null,
+      "evaluation_intent": [
+        "rendered page geometry sanity check",
+        "chart/table page selection for visual review packet",
+        "visual-fidelity failure-case candidate if rendering differs from source"
+      ],
+      "acceptance_checks": [
+        "use sanitized page-level geometry metrics",
+        "do not commit page images or screenshots without explicit rights review",
+        "separate rendered visual fidelity from text/table extraction"
+      ],
+      "stop_conditions": [
+        "page images would need to be committed",
+        "visual comparison cannot be summarized without copyrighted content risk",
+        "stable publication URL cannot be confirmed"
+      ],
+      "boundary": "rendered visual-fidelity planning only, not visual-fidelity evidence"
+    },
+    {
+      "fixture_id": "bea_wp2022_10_labeled_layout_candidate",
+      "target_missing_cell": "multi_publisher_labeled_layout_ground_truth",
+      "publisher": "U.S. Bureau of Economic Analysis",
+      "source_url": "https://www.bea.gov/sites/default/files/papers/BEA-WP2022-10.pdf",
+      "policy_source_url": "https://www.bea.gov/help/faq/147",
+      "policy_review_status": "source_policy_reviewed_metadata_only",
+      "download_status": "not_downloaded",
+      "local_pdf_path": null,
+      "sha256": null,
+      "evaluation_intent": [
+        "small local human label sidecar for layout classes",
+        "DocLayNet/PubLayNet-style label vocabulary mapping",
+        "layout-class mismatch failure-case candidate"
+      ],
+      "acceptance_checks": [
+        "label only page regions and class names, not raw text",
+        "record reviewer initials or owner label boundary",
+        "do not claim benchmark equivalence"
+      ],
+      "stop_conditions": [
+        "labeling requires source page image redistribution",
+        "layout classes cannot be reviewed without raw content",
+        "candidate collapses layout labels into a robust extraction claim"
+      ],
+      "boundary": "local label-candidate planning only, not DocLayNet or PubLayNet evaluation"
+    },
+    {
+      "fixture_id": "bls_beyond_numbers_figures_candidate",
+      "target_missing_cell": "multi_publisher_image_chart_interpretation",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "source_url": "https://www.bls.gov/opub/btn/volume-4/pdf/people-who-are-not-in-the-labor-force-why-arent-they-working.pdf",
+      "policy_source_url": "https://www.bls.gov/opub/copyright-information.htm",
+      "policy_review_status": "source_policy_reviewed_metadata_only",
+      "download_status": "not_downloaded",
+      "local_pdf_path": null,
+      "sha256": null,
+      "evaluation_intent": [
+        "figure presence and image-block diagnostics",
+        "chart interpretation explicitly marked not claimed",
+        "image/chart unreadability failure-case candidate"
+      ],
+      "acceptance_checks": [
+        "record only figure counts and page references",
+        "keep chart interpretation separate from visual block detection",
+        "do not commit screenshots or figure crops"
+      ],
+      "stop_conditions": [
+        "figure contains third-party copyrighted material",
+        "claim would require image semantics rather than block diagnostics",
+        "page image or crop would need to be committed"
+      ],
+      "boundary": "image/chart candidate only, not image or chart interpretation evidence"
+    },
+    {
+      "fixture_id": "nara_911_mfr_00282_no_native_text_candidate",
+      "target_missing_cell": "multi_publisher_no_extractable_text_failure",
+      "publisher": "National Archives and Records Administration",
+      "source_url": "https://nara-media-001.s3.amazonaws.com/arcmedia/9-11/MFR/t-0148-911MFR-00282.pdf",
+      "policy_source_url": "https://www.archives.gov/global-pages/privacy.html",
+      "policy_review_status": "source_policy_reviewed_metadata_only",
+      "download_status": "not_downloaded",
+      "local_pdf_path": null,
+      "sha256": null,
+      "evaluation_intent": [
+        "real-world no-native-text failure candidate",
+        "OCR-disabled no-extractable-text boundary check",
+        "OCR-enabled path remains separate and opt-in"
+      ],
+      "acceptance_checks": [
+        "record native text character count separately from OCR output",
+        "commit no archival PDF binary and no raw OCR text",
+        "surface failure_case_candidate when OCR is unavailable or disabled"
+      ],
+      "stop_conditions": [
+        "record-specific rights cannot be bounded by general NARA policy",
+        "raw OCR text would need to be committed",
+        "test silently falls back to OCR without explicit opt-in"
+      ],
+      "boundary": "no-native-text candidate only, not OCR quality or robust extraction evidence"
+    },
+    {
+      "fixture_id": "github_issue_1_external_reviewer_route",
+      "target_missing_cell": "external_reviewer_validation",
+      "publisher": "NoiseProof GitHub issue tracker",
+      "source_url": "https://github.com/svy04/noiseproof-agent/issues/1",
+      "policy_source_url": "https://github.com/svy04/noiseproof-agent/issues/1",
+      "policy_review_status": "external_review_route_only",
+      "download_status": "not_downloaded",
+      "local_pdf_path": null,
+      "sha256": null,
+      "evaluation_intent": [
+        "qualifying outside reviewer comment route",
+        "reviewer can inspect this fixture expansion plan before runtime work",
+        "external validation remains pending until a non-owner comment exists"
+      ],
+      "acceptance_checks": [
+        "outside reviewer is not repository owner",
+        "comment references at least one proof route or missing cell",
+        "owner-authored issue text does not close the gate"
+      ],
+      "stop_conditions": [
+        "only owner-authored comments exist",
+        "comment does not mention the artifact or evidence boundary",
+        "GitHub issue route is unavailable"
+      ],
+      "boundary": "external review route only, not external reviewer feedback"
+    }
+  ],
+  "minimum_next_evidence": [
+    "owner-approved download/hash for selected candidates only",
+    "per-candidate source-policy URL captured before download",
+    "no external PDF binaries, page images, screenshots, raw extracted text, raw OCR text, or raw table rows committed",
+    "per-cell pass/fail criteria before parser, OCR, table, layout, or visual runtime work"
+  ],
+  "blocked_reasons": [
+    "runtime_evidence_not_added",
+    "downloads_not_performed",
+    "robust_pdf_claim_still_blocked",
+    "external_reviewer_validation_still_pending"
+  ],
+  "warnings": [
+    "This plan does not add new runtime evidence.",
+    "Source-policy review is a prerequisite, not permission to commit external PDF binaries or raw extracted content.",
+    "Candidate coverage is planned coverage, not observed extraction coverage.",
+    "External reviewer validation cannot be self-completed."
+  ],
+  "boundary_notes": [
+    "source_policy_reviewed_metadata_only",
+    "does not add new runtime evidence",
+    "no PDF downloads performed",
+    "no external PDF binaries committed",
+    "no raw text committed",
+    "not robust PDF extraction evidence",
+    "not arbitrary-market PDF parsing evidence",
+    "not OCR quality evidence",
+    "not table extraction benchmark evidence",
+    "not layout fidelity evidence",
+    "not hosted deployment evidence",
+    "not external reviewer feedback",
+    "not product-complete"
+  ],
+  "recommended_next_gate": "real_world_pdf_fixture_source_policy_download_hash_v0"
+}
