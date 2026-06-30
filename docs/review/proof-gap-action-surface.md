@@ -192,6 +192,20 @@ The quality eval plan records the reference inputs and metric candidates needed
 before OCR quality scoring. It does not evaluate OCR quality and does not close
 the robust-PDF gap.
 
+After `source_policy_no_native_text_ocr_quality_reference_pack_v0`, the action
+surface includes:
+
+```text
+current_evidence -> ...plus_source_policy_no_native_text_ocr_quality_reference_pack_v0
+proof_routes -> docs/review/source-policy-no-native-text-ocr-quality-reference-pack.md
+proof_routes -> docs/evaluation/source-policy-no-native-text-ocr-quality-reference-pack-report.md
+recommended_next_gate -> source_policy_no_native_text_ocr_marker_proxy_eval_v0
+```
+
+The reference pack records two marker anchors and page/source bindings for a
+future proxy check. It does not evaluate OCR quality and does not close the
+robust-PDF gap.
+
 After `robust_pdf_extraction_next_real_world_quality_gate_v0`, the action
 surface includes:
 

@@ -441,6 +441,38 @@ evidence, not rendered visual fidelity evidence, not image/chart interpretation
 evidence, not hosted deployment evidence, not external reviewer feedback, and
 not product-complete.
 
+Source-policy no-native-text OCR quality reference pack:
+
+```text
+docs/review/source-policy-no-native-text-ocr-quality-reference-pack.md
+docs/evaluation/source-policy-no-native-text-ocr-quality-reference-pack-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-quality-reference-pack.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_ocr_quality_reference_pack_v0
+reference_pack_status -> marker_anchor_reference_pack
+accepted_marker_anchor_count -> 2
+full_reference_transcript_available -> false
+supports_marker_proxy_eval -> true
+supports_cer -> false
+supports_wer -> false
+quality_eval_performed -> false
+can_claim_reference_pack -> true
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_marker_proxy_eval_v0
+```
+
+Boundary: this route records a marker-anchor reference pack only. It is not OCR
+quality evidence, not CER/WER support, not robust PDF extraction evidence, not
+arbitrary-market PDF parsing evidence, not table extraction benchmark evidence,
+not layout fidelity evidence, not rendered visual fidelity evidence, not
+image/chart interpretation evidence, not hosted deployment evidence, not
+external reviewer feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

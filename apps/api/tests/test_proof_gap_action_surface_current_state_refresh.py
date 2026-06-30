@@ -25,10 +25,10 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
         "action_surface_only_not_new_proof_or_gap_closure"
     )
     assert robust_gap["recommended_next_gate"] == (
-        "source_policy_no_native_text_ocr_quality_reference_pack_v0"
+        "source_policy_no_native_text_ocr_marker_proxy_eval_v0"
     )
     assert robust_gap["next_evidence_needed"] == (
-        "source_policy_no_native_text_ocr_quality_reference_pack_v0"
+        "source_policy_no_native_text_ocr_marker_proxy_eval_v0"
     )
     assert (
         "multi_real_world_pdf_parse_observation_matrix_remote_verification_v0"
@@ -108,6 +108,10 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
     )
     assert (
         "source_policy_no_native_text_ocr_quality_eval_plan_v0"
+        in robust_gap["current_evidence"]
+    )
+    assert (
+        "source_policy_no_native_text_ocr_quality_reference_pack_v0"
         in robust_gap["current_evidence"]
     )
     assert (
@@ -267,11 +271,23 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
         in robust_gap["proof_routes"]
     )
     assert (
+        "docs/review/source-policy-no-native-text-ocr-quality-reference-pack.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/evaluation/source-policy-no-native-text-ocr-quality-reference-pack-report.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
         "record one bounded source-policy no-native-text OCR execution smoke before OCR quality evaluation"
         in robust_gap["acceptable_evidence"]
     )
     assert (
         "plan OCR quality evaluation with required reference inputs before scoring OCR output"
+        in robust_gap["acceptable_evidence"]
+    )
+    assert (
+        "record a marker-anchor reference pack before any OCR quality proxy check"
         in robust_gap["acceptable_evidence"]
     )
     assert "robust PDF extraction is implemented" in robust_gap["blocked_claims"]
