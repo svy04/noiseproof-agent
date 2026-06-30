@@ -12653,3 +12653,29 @@ not image/chart interpretation evidence, not hosted deployment evidence, not
 external reviewer feedback, and not product-complete. The next local product
 candidate is
 `source_policy_no_native_text_ocr_owner_rights_decision_record_v0`.
+
+### Source-policy no-native-text OCR owner rights decision record
+
+Phase `source_policy_no_native_text_ocr_owner_rights_decision_record_v0`
+records a repository-owner hold decision for the preserved NARA no-native-text
+OCR route. It does not send a request, receive a rights response, record
+source-rights owner approval, collect a reference transcript, commit transcript
+text or hashes, compute CER/WER, or prove OCR quality.
+
+Reproduce the report staleness check:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_no_native_text_ocr_owner_rights_decision_record_command --owner-rights-decision-record ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-owner-rights-decision-record.json --output ../../docs/evaluation/source-policy-no-native-text-ocr-owner-rights-decision-record-report.md --check
+uv run pytest tests/test_source_policy_no_native_text_ocr_owner_rights_decision_record.py -q
+```
+
+This is an owner hold decision record only, not rights clearance evidence, not
+request-sent evidence, not source-rights approval evidence, not source-rights
+owner decision evidence, not transcript collection evidence, not reference
+transcript availability, not OCR quality evidence, not CER/WER support, not
+robust PDF extraction evidence, not arbitrary-market PDF parsing evidence, not
+rendered visual fidelity evidence, not image/chart interpretation evidence, not
+hosted deployment evidence, not external reviewer feedback, and not
+product-complete. The next local product candidate is
+`source_policy_no_native_text_ocr_rights_request_delivery_record_v0`.
