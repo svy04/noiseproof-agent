@@ -641,6 +641,44 @@ license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
 only; do not copy benchmark assets, source PDF content, raw OCR text, raw
 reference text, transcripts, or long documentation passages.
 
+### Source-policy No-native-text OCR Transcript Reference Pack
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source: https://github.com/jitsi/jiwer
+
+source: https://www.archives.gov/global-pages/privacy.html
+
+source_type: standard_oss_and_official_policy_adaptation
+
+pattern_to_borrow: Keep transcript/reference pack creation separate from
+reference transcript availability and OCR quality scoring. CER/WER-style
+metrics remain blocked until reference text, normalization, alignment policy,
+and safe rights boundaries exist.
+
+local_adaptation: `source_policy_no_native_text_ocr_transcript_reference_pack_v0`
+records a sanitized pack boundary for the preserved NARA no-native-text route:
+source-policy metadata, project owner approval for the pack boundary,
+source-rights owner approval still false for transcript text, planned
+page-level units, normalization/alignment contract, and explicit non-claims.
+It commits no transcript, source PDF, raw OCR text, raw reference text, page
+images, screenshots, local paths, or transcript hash.
+
+boundary: The transcript reference pack can show only that a sanitized boundary
+exists before owner transcript collection. It is not reference transcript
+availability, not OCR quality evidence, not CER/WER support, not robust PDF
+extraction evidence, and not arbitrary-market PDF parsing evidence. The next
+bounded candidate is
+`source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0`.
+
+rejection_condition: Reject any gate that treats the pack boundary as transcript
+text, computes CER/WER before reference text exists, commits raw OCR/reference
+text, or uses the pack to claim OCR quality or robust PDF extraction.
+
+license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
+only; do not copy benchmark assets, source PDF content, raw OCR text, raw
+reference text, transcripts, or long documentation passages.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables
