@@ -13,7 +13,7 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `current_state_reconciliation_after_master_spec_v0`.
+Current operating gate: `proof_gap_priority_matrix_v0`.
 
 Previous operating gate: `master_spec_operating_loop_v0`.
 
@@ -21,16 +21,38 @@ Review artifact: `docs/review/master-spec-operating-loop.md`.
 
 Current-state reconciliation artifact: `docs/review/current-state-reconciliation-after-master-spec.md`.
 
+Current-state reconciliation gate:
+`current_state_reconciliation_after_master_spec_v0`.
+
 Source assimilation registry: `docs/research/source-assimilation-registry.md`.
 
 Current source assimilation gate: `source_assimilation_registry_v0`.
+
+Proof gap priority matrix: `docs/research/proof-gap-priority-matrix.md`.
+
+Current proof-gap prioritization gate: `proof_gap_priority_matrix_v0`.
+
+Proof gap priority review artifact: `docs/review/proof-gap-priority-matrix.md`.
 
 Before choosing the next implementation or evidence gate, reconcile
 `docs/MASTER-SPEC.md`, `docs/GOAL.md`, `docs/application/portfolio-index.md`,
 `docs/review/external-reader-proof-path.md`, and current git state. If they
 conflict, write a short-term reconciliation spec before touching runtime code.
+For proof-reduction gates, read the priority matrix before choosing a local
+implementation target.
 
 ## Current Status
+
+Phase `proof_gap_priority_matrix_v0` adds `docs/research/proof-gap-priority-matrix.md`
+and `docs/review/proof-gap-priority-matrix.md`. The highest-trust evidence gate
+remains `external_reviewer_feedback_v0`, but it cannot be self-completed. The
+next local implementation gate is
+`proof_gap_action_surface_current_state_refresh_v0`, which should refresh the
+action surface before another product proof is added. This is prioritization
+only, not new runtime evidence, robust PDF extraction evidence, semantic
+retrieval quality evidence, hosted deployment evidence, hosted observability
+evidence, external reviewer feedback, customer validation, Braincrew acceptance,
+or product-complete.
 
 Phase 898 adds external-reader Phase 897 current proof packet refresh v0: `docs/review/external-reader-phase-897-current-proof-packet-refresh.md` records the current reviewer route across the multi real-world PDF matrix, issue-body route refresh, current-state issue verification, and remote verification. It keeps head `084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea`, CI run `27497284929`, External Feedback Screen run `27497284920`, `candidate_count: 0`, and `status: pending` visible. This is route hygiene only, not new runtime evidence, external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, robust PDF extraction evidence, or product-complete.
 

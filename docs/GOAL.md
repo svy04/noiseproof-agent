@@ -17,13 +17,19 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-current_state_reconciliation_after_master_spec_v0
+proof_gap_priority_matrix_v0
 ```
 
 Previous operating gate:
 
 ```text
 master_spec_operating_loop_v0
+```
+
+Current-state reconciliation gate:
+
+```text
+current_state_reconciliation_after_master_spec_v0
 ```
 
 Current source assimilation gate:
@@ -36,6 +42,24 @@ Source assimilation registry:
 
 ```text
 docs/research/source-assimilation-registry.md
+```
+
+Current proof-gap prioritization gate:
+
+```text
+proof_gap_priority_matrix_v0
+```
+
+Proof gap priority matrix:
+
+```text
+docs/research/proof-gap-priority-matrix.md
+```
+
+Proof gap priority review artifact:
+
+```text
+docs/review/proof-gap-priority-matrix.md
 ```
 
 The master spec defines the source-first doctrine, reference spine, short-term
@@ -59,7 +83,18 @@ Review artifact:
 docs/review/master-spec-operating-loop.md
 docs/review/current-state-reconciliation-after-master-spec.md
 docs/review/source-assimilation-registry.md
+docs/review/proof-gap-priority-matrix.md
 ```
+
+Current next local gate selected by `proof_gap_priority_matrix_v0`:
+
+```text
+proof_gap_action_surface_current_state_refresh_v0
+```
+
+This does not replace the highest-trust evidence gap,
+`external_reviewer_feedback_v0`. External reviewer feedback remains pending
+until a qualifying outside reviewer comment exists.
 
 ## 1. Top-level Purpose
 
