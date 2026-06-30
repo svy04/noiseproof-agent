@@ -344,6 +344,41 @@ table extraction benchmark evidence, not layout fidelity evidence, not rendered
 visual fidelity evidence, not image/chart interpretation evidence, not hosted
 deployment evidence, not external reviewer feedback, and not product-complete.
 
+Source-policy no-native-text OCR execution plan:
+
+```text
+docs/review/source-policy-no-native-text-ocr-execution-plan.md
+docs/evaluation/source-policy-no-native-text-ocr-execution-plan-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-execution-plan.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_ocr_execution_plan_v0
+plan_status -> planned_execution_contract
+execution_adapter -> pymupdf_page_get_textpage_ocr
+target_fixture_id -> nara_911_mfr_00282_no_native_text_candidate
+dependency_available -> true
+opt_in_required -> true
+planned_ocr_language -> eng
+planned_dpi -> 300
+ocr_execution_performed -> false
+ocr_quality_eval_performed -> false
+can_claim_ocr_execution_plan -> true
+can_claim_ocr_execution -> false
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_execution_smoke_v0
+```
+
+Boundary: this route records an execution plan only. It is not OCR execution
+evidence, not OCR quality evidence, not robust PDF extraction evidence, not
+arbitrary-market PDF parsing evidence, not table extraction benchmark evidence,
+not layout fidelity evidence, not rendered visual fidelity evidence, not
+image/chart interpretation evidence, not hosted deployment evidence, not
+external reviewer feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

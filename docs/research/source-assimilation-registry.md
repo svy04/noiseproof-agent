@@ -436,6 +436,39 @@ manager output as public/runtime patterns only; do not copy traineddata files,
 installer binaries, source PDF content, benchmark assets, local runtime paths,
 or long documentation passages.
 
+### Source-policy No-native-text OCR Execution Plan
+
+source: https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html
+
+source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.get_textpage_ocr
+
+source: https://tesseract-ocr.github.io/tessdoc/Command-Line-Usage.html
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source_type: official_doc_and_standard_adaptation
+
+pattern_to_borrow: Treat OCR execution as an explicit Tesseract-backed adapter
+path with language, dpi, and full-page choices, and keep execution separate
+from OCR quality evaluation.
+
+local_adaptation: `source_policy_no_native_text_ocr_execution_plan_v0`
+records the planned PyMuPDF/Tesseract owner-runtime OCR smoke for the preserved
+NARA no-native-text route. It commits only the execution contract, planned
+parameters, stop conditions, output policy, and non-claims.
+
+boundary: An OCR execution plan does not prove OCR execution, OCR quality,
+robust PDF extraction, arbitrary-market PDF parsing reliability, rendered
+visual fidelity, image/chart interpretation, or external validation.
+
+rejection_condition: Reject any gate that runs OCR inside the plan gate,
+commits local paths or raw OCR text, treats execution planning as OCR evidence,
+or upgrades a future OCR smoke into OCR quality.
+
+license_or_rights_note: Cite PyMuPDF, Tesseract, and OCR-D docs as public
+patterns only; do not copy traineddata files, source PDF content, benchmark
+assets, local runtime paths, or long documentation passages.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables

@@ -1,0 +1,108 @@
+{
+  "packet": "source_policy_no_native_text_ocr_execution_plan_v0",
+  "phase_marker": "source_policy_no_native_text_ocr_execution_plan_v0",
+  "previous_gate": "source_policy_no_native_text_ocr_dependency_resolution_v0",
+  "claim_boundary": "source_policy_no_native_text_ocr_execution_plan_only_not_execution_or_quality_evidence",
+  "source_dependency_resolution_manifest": "examples/pdf-extraction-quality/source-policy-no-native-text-ocr-dependency-resolution.json",
+  "plan_status": "planned_execution_contract",
+  "execution_adapter": "pymupdf_page_get_textpage_ocr",
+  "execution_mode": "owner_runtime_opt_in_smoke",
+  "dependency_available": true,
+  "path_refresh_required": true,
+  "opt_in_required": true,
+  "planned_ocr_language": "eng",
+  "planned_dpi": 300,
+  "planned_full_page_ocr": true,
+  "planned_pages": [1, 2, 3, 4],
+  "planned_output_policy": "sanitized_counts_and_expected_marker_hits_only",
+  "ocr_execution_performed": false,
+  "ocr_quality_eval_performed": false,
+  "pdf_downloads_performed": false,
+  "parser_calls_performed": false,
+  "table_extraction_calls_performed": false,
+  "llm_calls_performed": false,
+  "binary_files_committed": false,
+  "download_cache_committed": false,
+  "raw_text_committed": false,
+  "raw_extracted_text_committed": false,
+  "raw_ocr_text_committed": false,
+  "raw_table_rows_committed": false,
+  "page_images_committed": false,
+  "screenshots_committed": false,
+  "can_claim_ocr_execution_plan": true,
+  "can_claim_ocr_execution": false,
+  "can_claim_ocr_quality": false,
+  "can_claim_robust_pdf_extraction": false,
+  "preserved_failure_route": {
+    "fixture_id": "nara_911_mfr_00282_no_native_text_candidate",
+    "publisher": "National Archives and Records Administration",
+    "failure_type": "no_native_text_observed",
+    "page_count": 4,
+    "empty_page_count": 4,
+    "text_char_count": 0
+  },
+  "sources": [
+    {
+      "label": "PyMuPDF OCR recipes",
+      "source_type": "official_doc",
+      "url": "https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html",
+      "pattern": "Keep OCR explicit, Tesseract-backed, and separate from normal text extraction."
+    },
+    {
+      "label": "PyMuPDF Page.get_textpage_ocr",
+      "source_type": "official_doc",
+      "url": "https://pymupdf.readthedocs.io/en/latest/page.html#Page.get_textpage_ocr",
+      "pattern": "Plan the owner-runtime smoke around the explicit OCR adapter and its language, dpi, and full-page options."
+    },
+    {
+      "label": "Tesseract command line usage",
+      "source_type": "official_doc",
+      "url": "https://tesseract-ocr.github.io/tessdoc/Command-Line-Usage.html",
+      "pattern": "Treat command and language availability as prerequisites, not OCR execution or quality."
+    },
+    {
+      "label": "OCR-D evaluation",
+      "source_type": "standard",
+      "url": "https://ocr-d.de/en/spec/ocrd_eval.html",
+      "pattern": "Keep OCR execution separate from recognition quality evaluation."
+    }
+  ],
+  "planned_execution_steps": [
+    "Refresh owner-runtime PATH before resolving the tesseract command.",
+    "Require explicit opt-in before any OCR call.",
+    "Use the preserved no-native-text route only.",
+    "Run PyMuPDF get_textpage_ocr with English language, 300 dpi, and full-page OCR in the next gate.",
+    "Record only sanitized counts, expected-marker hit booleans, warnings, and non-claims."
+  ],
+  "stop_conditions": [
+    "Stop if the source PDF is unavailable in the owner-runtime cache.",
+    "Stop if the tesseract command or English language data is unavailable.",
+    "Stop if OCR would require committing raw OCR text, source PDFs, page images, screenshots, local paths, or tessdata paths.",
+    "Stop if OCR output is requested to be treated as quality evidence without a separate quality gate."
+  ],
+  "minimum_next_evidence": [
+    "A bounded owner-runtime OCR smoke packet that records attempted page count and sanitized OCR text counts.",
+    "A report that keeps raw OCR text and source PDF binaries out of the repository.",
+    "A next gate for OCR quality evaluation only after execution evidence exists."
+  ],
+  "warnings": [
+    "This is an execution plan only and does not run OCR.",
+    "Dependency availability does not prove OCR execution.",
+    "OCR execution will not prove OCR quality without a separate evaluation criterion."
+  ],
+  "boundary_notes": [
+    "source-policy no-native-text OCR execution plan only",
+    "not OCR execution evidence",
+    "not OCR quality evidence",
+    "not robust PDF extraction evidence",
+    "not arbitrary-market PDF parsing evidence",
+    "not table extraction benchmark evidence",
+    "not layout fidelity evidence",
+    "not rendered visual fidelity evidence",
+    "not image/chart interpretation evidence",
+    "not hosted deployment evidence",
+    "not external reviewer feedback",
+    "not product-complete"
+  ],
+  "recommended_next_gate": "source_policy_no_native_text_ocr_execution_smoke_v0"
+}

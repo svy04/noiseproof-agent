@@ -13,7 +13,7 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `source_policy_no_native_text_ocr_dependency_resolution_v0`.
+Current operating gate: `source_policy_no_native_text_ocr_execution_plan_v0`.
 
 Previous operating gate: `source_policy_no_native_text_ocr_readiness_review_v0`.
 
@@ -354,6 +354,26 @@ uv run python -m app.services.source_policy_no_native_text_ocr_dependency_resolu
 This does not run OCR, evaluate OCR quality, prove robust PDF extraction, or
 close external validation. It sets
 `source_policy_no_native_text_ocr_execution_plan_v0` as the next gate.
+
+### Source-policy no-native-text OCR execution plan
+
+Phase `source_policy_no_native_text_ocr_execution_plan_v0` records a bounded
+execution contract for a future owner-runtime PyMuPDF/Tesseract OCR smoke over
+the preserved no-native-text route.
+
+Regenerate/check the report:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_no_native_text_ocr_execution_plan_command \
+  --plan ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-execution-plan.json \
+  --output ../../docs/evaluation/source-policy-no-native-text-ocr-execution-plan-report.md \
+  --check
+```
+
+This does not run OCR, evaluate OCR quality, prove robust PDF extraction, or
+close external validation. It sets
+`source_policy_no_native_text_ocr_execution_smoke_v0` as the next gate.
 It is not OCR dependency availability evidence, OCR execution evidence, OCR
 quality evidence, robust PDF extraction evidence, arbitrary-market PDF parsing
 evidence, table extraction benchmark evidence, layout fidelity evidence,
