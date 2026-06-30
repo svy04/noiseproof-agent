@@ -13,9 +13,11 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `proof_gap_action_surface_current_state_refresh_v0`.
+Current operating gate: `robust_pdf_extraction_next_real_world_quality_gate_v0`.
 
-Previous operating gate: `master_spec_operating_loop_v0`.
+Previous operating gate: `proof_gap_action_surface_current_state_refresh_v0`.
+
+Previous master operating gate: `master_spec_operating_loop_v0`.
 
 Review artifact: `docs/review/master-spec-operating-loop.md`.
 
@@ -55,16 +57,31 @@ evidence, external reviewer feedback, customer validation, Braincrew acceptance,
 or product-complete.
 
 Phase `proof_gap_action_surface_current_state_refresh_v0` adds
-`docs/review/proof-gap-action-surface-current-state-refresh.md`. The existing
-`GET /ops/proof-gaps` action surface now treats
-`multi_real_world_pdf_parse_observation_matrix_remote_verification_v0` as
-current robust-PDF routed evidence and points
-`robust_pdf_extraction.recommended_next_gate` to
-`robust_pdf_extraction_next_real_world_quality_gate_v0`. This is action-surface
+`docs/review/proof-gap-action-surface-current-state-refresh.md`. That refresh
+moved `GET /ops/proof-gaps` from the stale multi-real-world PDF matrix route to
+`robust_pdf_extraction_next_real_world_quality_gate_v0`. The current robust-PDF
+route has since advanced to `cross_publisher_real_world_pdf_fixture_gate_v0`
+after the quality gate below. This is action-surface
 metadata only, not new runtime evidence, robust PDF extraction evidence,
 semantic retrieval quality evidence, hosted deployment evidence, hosted
 observability evidence, external reviewer feedback, customer validation,
 Braincrew acceptance, or product-complete.
+
+Phase `robust_pdf_extraction_next_real_world_quality_gate_v0` adds
+`docs/review/robust-pdf-extraction-next-real-world-quality-gate.md` and
+`docs/evaluation/robust-pdf-real-world-quality-gate-report.md`. Reproduce with:
+
+```text
+uv run python -m app.services.robust_pdf_real_world_quality_gate_command --matrix ..\..\examples\pdf-extraction-quality\multi-real-world-pdf-parse-observations.json --output ..\..\docs\evaluation\robust-pdf-real-world-quality-gate-report.md --check
+```
+
+The report keeps `quality_gate_status -> blocked`,
+`can_claim_robust_pdf_extraction -> false`, and the next local product candidate
+`cross_publisher_real_world_pdf_fixture_gate_v0`. This is not robust PDF
+extraction evidence, arbitrary-market PDF parsing evidence, OCR evidence, table
+extraction evidence, layout fidelity evidence, hosted deployment evidence,
+external reviewer feedback, customer validation, Braincrew acceptance, or
+product-complete.
 
 Phase 898 adds external-reader Phase 897 current proof packet refresh v0: `docs/review/external-reader-phase-897-current-proof-packet-refresh.md` records the current reviewer route across the multi real-world PDF matrix, issue-body route refresh, current-state issue verification, and remote verification. It keeps head `084e3fe9fd3bf65bef873a28d7cbf8a06f3405ea`, CI run `27497284929`, External Feedback Screen run `27497284920`, `candidate_count: 0`, and `status: pending` visible. This is route hygiene only, not new runtime evidence, external reviewer feedback, hosted deployment evidence, customer validation, Braincrew acceptance, robust PDF extraction evidence, or product-complete.
 

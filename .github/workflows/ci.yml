@@ -167,6 +167,14 @@ jobs:
             --output ../../docs/evaluation/multi-real-world-pdf-parse-observation-report.md \
             --check
 
+      - name: Check robust PDF real-world quality gate report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.robust_pdf_real_world_quality_gate_command \
+            --matrix ../../examples/pdf-extraction-quality/multi-real-world-pdf-parse-observations.json \
+            --output ../../docs/evaluation/robust-pdf-real-world-quality-gate-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

@@ -17,10 +17,16 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-proof_gap_action_surface_current_state_refresh_v0
+robust_pdf_extraction_next_real_world_quality_gate_v0
 ```
 
 Previous operating gate:
+
+```text
+proof_gap_action_surface_current_state_refresh_v0
+```
+
+Previous master operating gate:
 
 ```text
 master_spec_operating_loop_v0
@@ -86,7 +92,7 @@ docs/review/source-assimilation-registry.md
 docs/review/proof-gap-priority-matrix.md
 ```
 
-Current next local gate selected by `proof_gap_priority_matrix_v0`:
+Local gate selected by `proof_gap_priority_matrix_v0` before this gate:
 
 ```text
 proof_gap_action_surface_current_state_refresh_v0
@@ -102,10 +108,30 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after action-surface refresh:
+Current next local product candidate after the robust-PDF quality gate:
+
+```text
+cross_publisher_real_world_pdf_fixture_gate_v0
+```
+
+Latest robust-PDF local quality gate:
 
 ```text
 robust_pdf_extraction_next_real_world_quality_gate_v0
+```
+
+Latest robust-PDF quality report:
+
+```text
+docs/evaluation/robust-pdf-real-world-quality-gate-report.md
+```
+
+Current robust-PDF quality result:
+
+```text
+quality_gate_status: blocked
+can_claim_robust_pdf_extraction: false
+blocked_reasons: cross_publisher_coverage_missing; table_extraction_evidence_missing; ocr_evidence_missing; layout_fidelity_evidence_missing
 ```
 
 ## 1. Top-level Purpose
