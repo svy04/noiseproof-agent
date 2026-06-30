@@ -241,6 +241,40 @@ fidelity evidence, not rendered visual fidelity evidence, not image/chart
 interpretation evidence, not hosted deployment evidence, not external reviewer
 feedback, and not product-complete.
 
+Source-policy no-native-text OCR readiness review:
+
+```text
+docs/review/source-policy-no-native-text-ocr-readiness-review.md
+docs/evaluation/source-policy-no-native-text-ocr-readiness-review-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-readiness-review.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_ocr_readiness_review_v0
+readiness_status -> passed_with_conditions
+fixture_id -> nara_911_mfr_00282_no_native_text_candidate
+ocr_dependency_identified -> true
+ocr_dependency_runtime_check_performed -> false
+ocr_execution_performed -> false
+ocr_quality_eval_performed -> false
+can_claim_ocr_dependency_available -> false
+can_claim_ocr_execution -> false
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_dependency_check_v0
+```
+
+Boundary: this route reviews OCR readiness for the preserved no-native-text
+failure route before any dependency runtime check. It is route hygiene only,
+not OCR dependency availability evidence, not OCR execution evidence, not OCR
+quality evidence, not robust PDF extraction evidence, not arbitrary-market PDF
+parsing evidence, not table extraction benchmark evidence, not layout fidelity
+evidence, not rendered visual fidelity evidence, not image/chart
+interpretation evidence, not hosted deployment evidence, not external reviewer
+feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text
