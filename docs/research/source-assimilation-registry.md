@@ -537,6 +537,39 @@ license_or_rights_note: Cite OCR-D, JiWER, and public papers as patterns only;
 do not copy benchmark assets, source PDF content, raw text, or long
 documentation passages.
 
+### Source-policy No-native-text OCR Quality Reference Pack
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source: https://github.com/jitsi/jiwer
+
+source: https://www.archives.gov/global-pages/privacy.html
+
+source_type: standard_oss_and_official_policy_adaptation
+
+pattern_to_borrow: Keep reference data, source policy, normalization rules,
+page mapping, and metric eligibility explicit before any OCR quality scoring.
+Treat marker anchors as a proxy-only reference surface, not as a ground-truth
+transcript.
+
+local_adaptation: `source_policy_no_native_text_ocr_quality_reference_pack_v0`
+records source policy, source hash, page mapping, normalization rules, and two
+marker anchors for the preserved NARA no-native-text route. It commits no
+source PDF, raw OCR text, raw reference text, full transcript, local paths,
+tessdata paths, page images, or screenshots.
+
+boundary: A marker-anchor reference pack can support only a future marker proxy
+check. It does not prove OCR quality, support CER/WER, prove robust PDF
+extraction, or validate arbitrary-market PDF parsing.
+
+rejection_condition: Reject any gate that treats marker anchors as full
+ground-truth, computes CER/WER without transcript data, commits raw OCR or
+reference text, or upgrades a reference pack into OCR quality evidence.
+
+license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
+only; do not copy benchmark assets, source PDF content, raw text, or long
+documentation passages.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables

@@ -27,6 +27,7 @@ _GAP_ACTIONS = {
             "plan a bounded owner-runtime OCR smoke before executing OCR or claiming OCR quality",
             "record one bounded source-policy no-native-text OCR execution smoke before OCR quality evaluation",
             "plan OCR quality evaluation with required reference inputs before scoring OCR output",
+            "record a marker-anchor reference pack before any OCR quality proxy check",
         ],
         "blocked_claims": [
             "robust PDF extraction is implemented",
@@ -97,8 +98,10 @@ _GAP_ACTIONS = {
             "docs/evaluation/source-policy-no-native-text-ocr-execution-smoke-report.md",
             "docs/review/source-policy-no-native-text-ocr-quality-eval-plan.md",
             "docs/evaluation/source-policy-no-native-text-ocr-quality-eval-plan-report.md",
+            "docs/review/source-policy-no-native-text-ocr-quality-reference-pack.md",
+            "docs/evaluation/source-policy-no-native-text-ocr-quality-reference-pack-report.md",
         ],
-        "recommended_next_gate": "source_policy_no_native_text_ocr_quality_reference_pack_v0",
+        "recommended_next_gate": "source_policy_no_native_text_ocr_marker_proxy_eval_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -240,12 +243,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
                 "_plus_source_policy_no_native_text_ocr_execution_plan_v0"
                 "_plus_source_policy_no_native_text_ocr_execution_smoke_v0"
                 "_plus_source_policy_no_native_text_ocr_quality_eval_plan_v0"
+                "_plus_source_policy_no_native_text_ocr_quality_reference_pack_v0"
             ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "source_policy_no_native_text_ocr_quality_reference_pack_v0"
+                "source_policy_no_native_text_ocr_marker_proxy_eval_v0"
             ),
         ),
         ProofGapOut(

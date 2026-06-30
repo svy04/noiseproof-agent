@@ -13,9 +13,9 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `source_policy_no_native_text_ocr_quality_eval_plan_v0`.
+Current operating gate: `source_policy_no_native_text_ocr_quality_reference_pack_v0`.
 
-Previous operating gate: `source_policy_no_native_text_ocr_execution_smoke_v0`.
+Previous operating gate: `source_policy_no_native_text_ocr_quality_eval_plan_v0`.
 
 Previous action-surface gate: `proof_gap_action_surface_current_state_refresh_v0`.
 
@@ -12512,3 +12512,25 @@ visual fidelity evidence, not image/chart interpretation evidence, not hosted
 deployment evidence, not external reviewer feedback, and not product-complete.
 The next local product candidate is
 `source_policy_no_native_text_ocr_quality_reference_pack_v0`.
+
+### Source-policy no-native-text OCR quality reference pack
+
+Phase `source_policy_no_native_text_ocr_quality_reference_pack_v0` records a
+sanitized marker-anchor reference pack for the preserved NARA no-native-text
+OCR route. It does not run OCR, compute CER/WER, commit reference transcripts,
+or prove OCR quality.
+
+Reproduce the report staleness check:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_no_native_text_ocr_quality_reference_pack_command --reference-pack ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-quality-reference-pack.json --output ../../docs/evaluation/source-policy-no-native-text-ocr-quality-reference-pack-report.md --check
+uv run pytest tests/test_source_policy_no_native_text_ocr_quality_reference_pack.py -q
+```
+
+This is a marker-anchor reference pack only, not OCR quality evidence, not
+robust PDF extraction evidence, not arbitrary-market PDF parsing evidence, not
+rendered visual fidelity evidence, not image/chart interpretation evidence, not
+hosted deployment evidence, not external reviewer feedback, and not
+product-complete. The next local product candidate is
+`source_policy_no_native_text_ocr_marker_proxy_eval_v0`.
