@@ -6199,9 +6199,10 @@ def test_ops_summary_and_dashboard_surface_current_proof_gap_registry():
         "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata_plus_multi_fixture_ocr_adapter_eval_v0_plus_licensed_real_world_pdf_fixture_pack_v0_plus_owner_approved_real_world_pdf_download_and_hash_v0_plus_real_world_pdf_parse_observation_without_robust_claim_v0_plus_multi_real_world_pdf_parse_observation_matrix_v0"
         "_plus_multi_real_world_pdf_parse_observation_matrix_remote_verification_v0"
         "_plus_robust_pdf_extraction_next_real_world_quality_gate_v0"
+        "_plus_cross_publisher_real_world_pdf_fixture_gate_v0"
     )
     assert by_id["robust_pdf_extraction"]["next_evidence_needed"] == (
-        "cross_publisher_real_world_pdf_fixture_gate_v0"
+        "real_world_table_extraction_evidence_gate_v0"
     )
     assert by_id["actual_embedding_generation"]["status"] == "unproven"
     assert by_id["semantic_retrieval_quality"]["status"] == "unproven"
@@ -6296,9 +6297,10 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
         "digital_pdf_text_diagnostics_plus_multi_fixture_gap_matrix_plus_missing_runtime_observation_pack_plus_ocr_layout_image_adapter_runtime_pack_plus_committed_ocr_layout_image_binary_fixture_provenance_plus_opt_in_ocr_adapter_runtime_smoke_harness_plus_owner_runtime_pymupdf_ocr_smoke_with_tessdata_plus_multi_fixture_ocr_adapter_eval_v0_plus_licensed_real_world_pdf_fixture_pack_v0_plus_owner_approved_real_world_pdf_download_and_hash_v0_plus_real_world_pdf_parse_observation_without_robust_claim_v0_plus_multi_real_world_pdf_parse_observation_matrix_v0"
         "_plus_multi_real_world_pdf_parse_observation_matrix_remote_verification_v0"
         "_plus_robust_pdf_extraction_next_real_world_quality_gate_v0"
+        "_plus_cross_publisher_real_world_pdf_fixture_gate_v0"
     )
     assert robust_gap["recommended_next_gate"] == (
-        "cross_publisher_real_world_pdf_fixture_gate_v0"
+        "real_world_table_extraction_evidence_gate_v0"
     )
     assert "docs/review/multi-fixture-pdf-extraction-quality-eval.md" in robust_gap[
         "proof_routes"
@@ -6368,6 +6370,14 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
     )
     assert (
         "docs/evaluation/robust-pdf-real-world-quality-gate-report.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/review/cross-publisher-real-world-pdf-fixture-gate.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/evaluation/cross-publisher-real-world-pdf-fixture-gate-report.md"
         in robust_gap["proof_routes"]
     )
 

@@ -17,10 +17,16 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-robust_pdf_extraction_next_real_world_quality_gate_v0
+cross_publisher_real_world_pdf_fixture_gate_v0
 ```
 
 Previous operating gate:
+
+```text
+robust_pdf_extraction_next_real_world_quality_gate_v0
+```
+
+Previous action-surface gate:
 
 ```text
 proof_gap_action_surface_current_state_refresh_v0
@@ -108,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the robust-PDF quality gate:
+Current next local product candidate after the cross-publisher fixture gate:
 
 ```text
-cross_publisher_real_world_pdf_fixture_gate_v0
+real_world_table_extraction_evidence_gate_v0
 ```
 
 Latest robust-PDF local quality gate:
@@ -132,6 +138,28 @@ Current robust-PDF quality result:
 quality_gate_status: blocked
 can_claim_robust_pdf_extraction: false
 blocked_reasons: cross_publisher_coverage_missing; table_extraction_evidence_missing; ocr_evidence_missing; layout_fidelity_evidence_missing
+```
+
+Latest cross-publisher real-world PDF fixture gate:
+
+```text
+cross_publisher_real_world_pdf_fixture_gate_v0
+```
+
+Latest cross-publisher fixture report:
+
+```text
+docs/evaluation/cross-publisher-real-world-pdf-fixture-gate-report.md
+```
+
+Current cross-publisher fixture result:
+
+```text
+cross_publisher_gate_status: passed
+distinct_publisher_count: 2
+can_claim_cross_publisher_real_world_pdf_fixture_coverage: true
+can_claim_robust_pdf_extraction: false
+remaining_blocked_reasons: table_extraction_evidence_missing; ocr_evidence_missing; layout_fidelity_evidence_missing
 ```
 
 ## 1. Top-level Purpose

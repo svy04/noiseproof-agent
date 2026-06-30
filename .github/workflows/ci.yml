@@ -175,6 +175,15 @@ jobs:
             --output ../../docs/evaluation/robust-pdf-real-world-quality-gate-report.md \
             --check
 
+      - name: Check cross-publisher real-world PDF fixture gate report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.cross_publisher_real_world_pdf_fixture_gate_command \
+            --base-matrix ../../examples/pdf-extraction-quality/multi-real-world-pdf-parse-observations.json \
+            --observation ../../examples/pdf-extraction-quality/cross-publisher-real-world-pdf-observation.json \
+            --output ../../docs/evaluation/cross-publisher-real-world-pdf-fixture-gate-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |
