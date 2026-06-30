@@ -2,6 +2,9 @@
 
 Phase 858 adds proof gap action surface v0.
 
+Phase `proof_gap_action_surface_current_state_refresh_v0` refreshes the same
+surface after `proof_gap_priority_matrix_v0`.
+
 ## What Changed
 
 NoiseProof already exposed a read-only proof gap registry through:
@@ -41,6 +44,30 @@ hosted_observability
 hosted_deployment
 external_reviewer_feedback
 ```
+
+## Current-state Refresh
+
+After `proof_gap_priority_matrix_v0`, the action surface now separates:
+
+```text
+highest-trust evidence gate -> external_reviewer_feedback_v0
+next local implementation gate -> proof_gap_action_surface_current_state_refresh_v0
+next robust PDF local product gate -> robust_pdf_extraction_next_real_world_quality_gate_v0
+```
+
+For `robust_pdf_extraction`, the action surface no longer points at
+`multi_real_world_pdf_parse_observation_matrix_remote_verification_v0` as the
+next gate, because that remote workflow verification is already represented in
+the current GOAL ledger and proof routes. It is now part of current evidence and
+proof routing:
+
+```text
+current_evidence -> ...plus_multi_real_world_pdf_parse_observation_matrix_remote_verification_v0
+proof_routes -> docs/review/multi-real-world-pdf-parse-observation-remote-verification.md
+recommended_next_gate -> robust_pdf_extraction_next_real_world_quality_gate_v0
+```
+
+This refresh does not close the robust PDF gap.
 
 ## Semantic Retrieval Quality Example
 
@@ -82,10 +109,12 @@ Observed result:
 
 ## Next Gate
 
-Next recommended gate: either remote workflow verification after push, or the
-next actual gap-reduction gate selected from this action surface. The most
-direct next product gate after Phase 864 is:
+Next recommended local product gate after this current-state refresh:
 
 ```text
-owner_runtime_live_embedding_domain_qrels_eval_v0
+robust_pdf_extraction_next_real_world_quality_gate_v0
 ```
+
+If real-world fixture inputs are unavailable, stop and record the planned path,
+actual state, blocking mismatch, why it blocks, and the minimum action to
+resume before selecting another gate.

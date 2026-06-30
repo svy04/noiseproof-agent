@@ -17,7 +17,7 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-proof_gap_priority_matrix_v0
+proof_gap_action_surface_current_state_refresh_v0
 ```
 
 Previous operating gate:
@@ -95,6 +95,18 @@ proof_gap_action_surface_current_state_refresh_v0
 This does not replace the highest-trust evidence gap,
 `external_reviewer_feedback_v0`. External reviewer feedback remains pending
 until a qualifying outside reviewer comment exists.
+
+Current action-surface refresh artifact:
+
+```text
+docs/review/proof-gap-action-surface-current-state-refresh.md
+```
+
+Current next local product candidate after action-surface refresh:
+
+```text
+robust_pdf_extraction_next_real_world_quality_gate_v0
+```
 
 ## 1. Top-level Purpose
 

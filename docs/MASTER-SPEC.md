@@ -16,6 +16,9 @@ Current proof-gap prioritization gate: `proof_gap_priority_matrix_v0`.
 Current proof-gap priority matrix:
 `docs/research/proof-gap-priority-matrix.md`.
 
+Current proof-gap action refresh gate:
+`proof_gap_action_surface_current_state_refresh_v0`.
+
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source
 projects. The point is not to invent a more impressive demo. The point is to
