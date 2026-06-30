@@ -9,7 +9,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 Start future work from `docs/MASTER-SPEC.md`, then `docs/GOAL.md`, then the
 latest relevant short-term spec in `docs/specs/`.
 
-Current operating gate: `source_policy_no_native_text_ocr_quality_reference_pack_v0`.
+Current operating gate: `source_policy_no_native_text_ocr_marker_proxy_eval_v0`.
 
 The loop was introduced by `master_spec_operating_loop_v0`.
 
@@ -76,7 +76,8 @@ the proof gap priority matrix before selecting a local implementation gate.
 | Latest source-policy no-native-text OCR execution smoke | `source_policy_no_native_text_ocr_execution_smoke_v0` | Records one bounded owner-runtime PyMuPDF/Tesseract OCR smoke for the preserved NARA route with raw OCR text, local paths, and source PDF binaries excluded; still no OCR quality or robust PDF extraction claim. |
 | Latest source-policy no-native-text OCR quality eval plan | `source_policy_no_native_text_ocr_quality_eval_plan_v0` | Plans the reference inputs and metric candidates needed before OCR quality can be evaluated; still no OCR quality or robust PDF extraction claim. |
 | Latest source-policy no-native-text OCR quality reference pack | `source_policy_no_native_text_ocr_quality_reference_pack_v0` | Records a sanitized marker-anchor reference pack for the preserved NARA route; supports only a future marker proxy check, not CER/WER or OCR quality. |
-| Next local product candidate | `source_policy_no_native_text_ocr_marker_proxy_eval_v0` | Run a bounded marker-presence proxy check while keeping OCR quality, CER/WER, and robust-PDF claims blocked. |
+| Latest source-policy no-native-text OCR marker proxy eval | `source_policy_no_native_text_ocr_marker_proxy_eval_v0` | Records a bounded marker-presence proxy eval over committed marker-hit booleans; still no OCR quality, CER/WER, or robust-PDF claim. |
+| Next local product candidate | `source_policy_no_native_text_ocr_transcript_reference_plan_v0` | Plan the minimum transcript/reference boundary needed before any true OCR quality metric can be considered. |
 
 Do not read this as a product-complete claim.
 
@@ -100,6 +101,7 @@ Do not read this as a product-complete claim.
 - The latest source-policy no-native-text OCR execution smoke records `ocr_execution_performed -> true`, `ocr_pages_attempted -> 4`, `ocr_text_char_count -> 8019`, `expected_markers_found_count -> 2`, `raw_ocr_text_committed -> false`, `can_claim_ocr_execution -> true`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
 - The latest source-policy no-native-text OCR quality eval plan records `plan_status -> planned_quality_eval_contract`, `ground_truth_available -> false`, `reference_pack_required -> true`, `quality_eval_performed -> false`, `marker_hits_are_quality_proxy_only -> true`, `can_claim_quality_eval_plan -> true`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
 - The latest source-policy no-native-text OCR quality reference pack records `reference_pack_status -> marker_anchor_reference_pack`, `accepted_marker_anchor_count -> 2`, `full_reference_transcript_available -> false`, `supports_marker_proxy_eval -> true`, `supports_cer -> false`, `supports_wer -> false`, `quality_eval_performed -> false`, `can_claim_reference_pack -> true`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
+- The latest source-policy no-native-text OCR marker proxy eval records `eval_status -> marker_proxy_eval_completed`, `expected_marker_anchor_count -> 2`, `observed_marker_hit_count -> 2`, `missing_marker_anchor_count -> 0`, `marker_proxy_hit_rate -> 1.0`, `marker_proxy_passed -> true`, `quality_eval_performed -> false`, `cer_computed -> false`, `wer_computed -> false`, `can_claim_marker_proxy_eval -> true`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
 - Strong claims are intentionally blocked when evidence is missing.
 
 ## What This Does Not Prove Yet

@@ -354,6 +354,16 @@ jobs:
             --output ../../docs/evaluation/source-policy-no-native-text-ocr-quality-reference-pack-report.md \
             --check
 
+      - name: Check source-policy no-native-text OCR marker proxy eval report staleness
+        working-directory: apps/api
+        run: |
+          echo source_policy_no_native_text_ocr_marker_proxy_eval_v0
+          echo source_policy_no_native_text_ocr_transcript_reference_plan_v0
+          uv run python -m app.services.source_policy_no_native_text_ocr_marker_proxy_eval_command \
+            --marker-proxy-eval ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-marker-proxy-eval.json \
+            --output ../../docs/evaluation/source-policy-no-native-text-ocr-marker-proxy-eval-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |
