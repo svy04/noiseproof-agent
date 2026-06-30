@@ -52,7 +52,7 @@ After `proof_gap_priority_matrix_v0`, the action surface now separates:
 ```text
 highest-trust evidence gate -> external_reviewer_feedback_v0
 next local implementation gate -> proof_gap_action_surface_current_state_refresh_v0
-next robust PDF local product gate -> robust_pdf_extraction_next_real_world_quality_gate_v0
+next robust PDF local product gate -> cross_publisher_real_world_pdf_fixture_gate_v0
 ```
 
 For `robust_pdf_extraction`, the action surface no longer points at
@@ -64,10 +64,24 @@ proof routing:
 ```text
 current_evidence -> ...plus_multi_real_world_pdf_parse_observation_matrix_remote_verification_v0
 proof_routes -> docs/review/multi-real-world-pdf-parse-observation-remote-verification.md
-recommended_next_gate -> robust_pdf_extraction_next_real_world_quality_gate_v0
+recommended_next_gate -> cross_publisher_real_world_pdf_fixture_gate_v0
 ```
 
 This refresh does not close the robust PDF gap.
+
+After `robust_pdf_extraction_next_real_world_quality_gate_v0`, the action
+surface includes:
+
+```text
+current_evidence -> ...plus_robust_pdf_extraction_next_real_world_quality_gate_v0
+proof_routes -> docs/review/robust-pdf-extraction-next-real-world-quality-gate.md
+proof_routes -> docs/evaluation/robust-pdf-real-world-quality-gate-report.md
+recommended_next_gate -> cross_publisher_real_world_pdf_fixture_gate_v0
+```
+
+The robust-PDF quality gate is blocked because the current real-world matrix has
+one publisher family only and no table extraction, OCR, or layout fidelity
+evidence.
 
 ## Semantic Retrieval Quality Example
 
@@ -112,7 +126,7 @@ Observed result:
 Next recommended local product gate after this current-state refresh:
 
 ```text
-robust_pdf_extraction_next_real_world_quality_gate_v0
+cross_publisher_real_world_pdf_fixture_gate_v0
 ```
 
 If real-world fixture inputs are unavailable, stop and record the planned path,
