@@ -209,6 +209,38 @@ evidence, not layout fidelity evidence, not rendered visual fidelity evidence,
 not image/chart interpretation evidence, not hosted deployment evidence, not
 external reviewer feedback, and not product-complete.
 
+Source-policy no-native-text failure route:
+
+```text
+docs/review/source-policy-no-native-text-failure-route.md
+docs/evaluation/source-policy-no-native-text-failure-route-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-failure-route.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_failure_route_v0
+route_status -> passed_failure_route_preserved
+fixture_id -> nara_911_mfr_00282_no_native_text_candidate
+failure_type -> no_native_text_observed
+page_count -> 4
+empty_page_count -> 4
+text_char_count -> 0
+ocr_calls_performed -> false
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_readiness_review_v0
+```
+
+Boundary: this route preserves one selected source-policy failure route before
+OCR readiness work. It is route hygiene only, not new runtime evidence, not
+robust PDF extraction evidence, not arbitrary-market PDF parsing evidence, not
+OCR quality evidence, not table extraction benchmark evidence, not layout
+fidelity evidence, not rendered visual fidelity evidence, not image/chart
+interpretation evidence, not hosted deployment evidence, not external reviewer
+feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

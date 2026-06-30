@@ -291,6 +291,43 @@ smaller inspectable failure route remains unpreserved.
 license_or_rights_note: Use public paper/spec patterns only; cite sources and
 avoid copying benchmark text or evaluation assets.
 
+### Source-policy No-native-text Failure Route
+
+source: https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html
+
+source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.get_textpage_ocr
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source: https://arxiv.org/abs/1810.03993
+
+source: https://arxiv.org/abs/1803.09010
+
+source_type: official_doc_spec_and_paper_adaptation
+
+pattern_to_borrow: Preserve no-native-text as an explicit failure route before
+OCR readiness, OCR execution, or OCR quality claims. Keep dependency readiness,
+runtime OCR, quality evaluation, and public claim boundaries as separate gates.
+
+local_adaptation: `source_policy_no_native_text_failure_route_v0` preserves
+the selected NARA no-native-text case as a deterministic packet with source
+URL, source policy URL, hash, page counts, empty page count, text character
+count, warnings, and non-claims. It commits no PDF binary, download cache, raw
+text, raw OCR text, page image, screenshot, or table rows.
+
+boundary: A preserved no-native-text failure route does not prove OCR quality,
+robust PDF extraction, arbitrary-market PDF parsing reliability, rendered
+visual fidelity, layout fidelity, image/chart interpretation, or external
+validation.
+
+rejection_condition: Reject any gate that treats the preserved failure route as
+OCR evidence, hides the lack of OCR execution, or jumps directly to robust PDF
+wording before `source_policy_no_native_text_ocr_readiness_review_v0`.
+
+license_or_rights_note: Cite the official PyMuPDF and OCR-D documentation plus
+the model-card/datasheet papers as patterns only; do not copy external PDF
+content, benchmark assets, or long documentation passages.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables
