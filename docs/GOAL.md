@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-source_policy_pdf_parse_quality_matrix_v0
+source_policy_pdf_quality_gap_review_v0
 ```
 
 Previous operating gate:
 
 ```text
-source_policy_pdf_parse_observation_v0
+source_policy_pdf_parse_quality_matrix_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the source-policy PDF parse quality matrix gate:
+Current next local product candidate after the source-policy PDF quality gap review gate:
 
 ```text
-source_policy_pdf_quality_gap_review_v0
+source_policy_no_native_text_failure_route_v0
 ```
 
 Latest robust-PDF local quality gate:
@@ -453,6 +453,44 @@ can_claim_source_policy_pdf_parse_quality_matrix: true
 can_claim_robust_pdf_extraction: false
 remaining_blocked_reasons: rendered_visual_fidelity_unproven; labeled_layout_ground_truth_unproven; ocr_quality_unproven_for_no_native_text_candidate; reading_order_candidate_blocked_http_403; image_chart_candidate_blocked_http_403; external_reviewer_validation_pending; robust_pdf_claim_still_blocked
 next_gate: source_policy_pdf_quality_gap_review_v0
+```
+
+Latest source-policy PDF quality gap review:
+
+```text
+source_policy_pdf_quality_gap_review_v0
+```
+
+Latest source-policy PDF quality gap review report:
+
+```text
+docs/evaluation/source-policy-pdf-quality-gap-review-report.md
+```
+
+Current source-policy PDF quality gap review result:
+
+```text
+review_status: passed
+quality_gap_status: open
+reviewed_gap_count: 6
+quality_claim_ready_cell_count: 0
+self_completable_without_new_download_count: 3
+selected_next_gap: multi_publisher_no_extractable_text_failure
+selected_next_gate: source_policy_no_native_text_failure_route_v0
+runtime_work_performed: false
+pdf_downloads_performed: false
+parser_calls_performed: false
+ocr_calls_performed: false
+table_extraction_calls_performed: false
+llm_calls_performed: false
+binary_files_committed: false
+download_cache_committed: false
+raw_text_committed: false
+can_claim_source_policy_pdf_quality_gap_review: true
+can_claim_robust_pdf_extraction: false
+can_claim_ocr_quality: false
+remaining_blocked_reasons: quality_gap_status_open; quality_claim_ready_cell_count_zero; rendered_visual_fidelity_ground_truth_missing; labeled_layout_ground_truth_missing; no_native_text_failure_route_not_preserved_yet; reading_order_candidate_blocked_http_403; image_chart_candidate_blocked_http_403; external_reviewer_validation_pending; robust_pdf_claim_still_blocked
+next_gate: source_policy_no_native_text_failure_route_v0
 ```
 
 ## 1. Top-level Purpose

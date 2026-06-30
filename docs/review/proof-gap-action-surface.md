@@ -82,6 +82,19 @@ The quality matrix turns the source-policy parse observations into six blocker
 cells and keeps `quality_claim_ready_cell_count -> 0`; it does not close the
 robust-PDF gap.
 
+After `source_policy_pdf_quality_gap_review_v0`, the action surface includes:
+
+```text
+current_evidence -> ...plus_source_policy_pdf_quality_gap_review_v0
+proof_routes -> docs/review/source-policy-pdf-quality-gap-review.md
+proof_routes -> docs/evaluation/source-policy-pdf-quality-gap-review-report.md
+recommended_next_gate -> source_policy_no_native_text_failure_route_v0
+```
+
+The quality gap review selects the NARA no-native-text failure route as the
+next smallest inspectable gate. It does not implement OCR and does not close the
+robust-PDF gap.
+
 After `robust_pdf_extraction_next_real_world_quality_gate_v0`, the action
 surface includes:
 
