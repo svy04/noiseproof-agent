@@ -13,7 +13,7 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `source_policy_no_native_text_ocr_dependency_check_v0`.
+Current operating gate: `source_policy_no_native_text_ocr_dependency_resolution_v0`.
 
 Previous operating gate: `source_policy_no_native_text_ocr_readiness_review_v0`.
 
@@ -334,6 +334,26 @@ This is a source-policy no-native-text OCR dependency check only. It records
 `can_claim_ocr_execution -> false`, `can_claim_ocr_quality -> false`,
 `can_claim_robust_pdf_extraction -> false`, and
 `source_policy_no_native_text_ocr_dependency_resolution_v0` as the next gate.
+
+### Source-policy no-native-text OCR dependency resolution
+
+Phase `source_policy_no_native_text_ocr_dependency_resolution_v0` records that
+the owner runtime can resolve Tesseract and English language data after PATH
+refresh. It is dependency availability evidence only.
+
+Regenerate/check the report:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_no_native_text_ocr_dependency_resolution_command \
+  --resolution-packet ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-dependency-resolution.json \
+  --output ../../docs/evaluation/source-policy-no-native-text-ocr-dependency-resolution-report.md \
+  --check
+```
+
+This does not run OCR, evaluate OCR quality, prove robust PDF extraction, or
+close external validation. It sets
+`source_policy_no_native_text_ocr_execution_plan_v0` as the next gate.
 It is not OCR dependency availability evidence, OCR execution evidence, OCR
 quality evidence, robust PDF extraction evidence, arbitrary-market PDF parsing
 evidence, table extraction benchmark evidence, layout fidelity evidence,

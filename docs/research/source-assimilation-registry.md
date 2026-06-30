@@ -399,6 +399,43 @@ license_or_rights_note: Cite Tesseract, PyMuPDF, and OCR-D docs as public
 patterns only; do not copy local runtime paths, traineddata files, source PDF
 content, benchmark assets, or long documentation passages.
 
+### Source-policy No-native-text OCR Dependency Resolution
+
+source: https://tesseract-ocr.github.io/tessdoc/Command-Line-Usage.html
+
+source: https://tesseract-ocr.github.io/tessdoc/Installation.html
+
+source: https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source: owner-runtime winget search/list/install output
+
+source_type: official_doc_standard_and_runtime_package_manager_adaptation
+
+pattern_to_borrow: Treat installation, PATH refresh, command version checks,
+language-data listing, OCR execution, and OCR quality as separate proof
+surfaces.
+
+local_adaptation: `source_policy_no_native_text_ocr_dependency_resolution_v0`
+records that the owner runtime can resolve Tesseract and English language data
+after installation/configuration and PATH refresh. It commits sanitized
+booleans, counts, package id, and version only; no local paths, tessdata paths,
+PDFs, raw text, raw OCR text, page images, or screenshots are committed.
+
+boundary: Dependency availability does not prove OCR execution, OCR quality,
+robust PDF extraction, arbitrary-market PDF parsing reliability, rendered
+visual fidelity, image/chart interpretation, or external validation.
+
+rejection_condition: Reject any gate that treats dependency availability as OCR
+execution, commits local executable or tessdata paths, runs OCR before an
+explicit execution gate, or upgrades dependency availability into OCR quality.
+
+license_or_rights_note: Cite Tesseract, PyMuPDF, OCR-D, and local package
+manager output as public/runtime patterns only; do not copy traineddata files,
+installer binaries, source PDF content, benchmark assets, local runtime paths,
+or long documentation passages.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables

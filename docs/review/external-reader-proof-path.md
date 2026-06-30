@@ -310,6 +310,40 @@ evidence, not rendered visual fidelity evidence, not image/chart
 interpretation evidence, not hosted deployment evidence, not external reviewer
 feedback, and not product-complete.
 
+Source-policy no-native-text OCR dependency resolution:
+
+```text
+docs/review/source-policy-no-native-text-ocr-dependency-resolution.md
+docs/evaluation/source-policy-no-native-text-ocr-dependency-resolution-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-dependency-resolution.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_ocr_dependency_resolution_v0
+dependency_resolution_status -> resolved_dependency_available
+installation_method -> winget
+installation_package_id -> tesseract-ocr.tesseract
+tesseract_command_present -> true
+version_check_performed -> true
+language_list_check_performed -> true
+eng_language_available -> true
+local_paths_committed -> false
+can_claim_ocr_dependency_available -> true
+can_claim_ocr_execution -> false
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_execution_plan_v0
+```
+
+Boundary: this route records dependency availability only after owner-runtime
+PATH refresh. It is not OCR execution evidence, not OCR quality evidence, not
+robust PDF extraction evidence, not arbitrary-market PDF parsing evidence, not
+table extraction benchmark evidence, not layout fidelity evidence, not rendered
+visual fidelity evidence, not image/chart interpretation evidence, not hosted
+deployment evidence, not external reviewer feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

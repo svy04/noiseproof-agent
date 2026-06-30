@@ -136,6 +136,20 @@ The dependency check records the current missing Tesseract command state
 without printing or committing local paths. It does not run OCR and does not
 close the robust-PDF gap.
 
+After `source_policy_no_native_text_ocr_dependency_resolution_v0`, the action
+surface includes:
+
+```text
+current_evidence -> ...plus_source_policy_no_native_text_ocr_dependency_resolution_v0
+proof_routes -> docs/review/source-policy-no-native-text-ocr-dependency-resolution.md
+proof_routes -> docs/evaluation/source-policy-no-native-text-ocr-dependency-resolution-report.md
+recommended_next_gate -> source_policy_no_native_text_ocr_execution_plan_v0
+```
+
+The dependency resolution records owner-runtime Tesseract command and English
+language-data availability after PATH refresh. It does not run OCR, does not
+evaluate OCR quality, and does not close the robust-PDF gap.
+
 After `robust_pdf_extraction_next_real_world_quality_gate_v0`, the action
 surface includes:
 
