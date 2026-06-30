@@ -37,8 +37,11 @@ Current real-world layout fidelity evidence gate:
 Current robust-PDF generalization gap review gate:
 `robust_pdf_extraction_generalization_gap_review_v0`.
 
-Current next PDF evidence gate:
+Current multi-publisher modality-stratified PDF eval gate:
 `multi_publisher_modality_stratified_pdf_eval_v0`.
+
+Current next PDF evidence gate:
+`targeted_real_world_pdf_fixture_expansion_v0`.
 
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source
