@@ -366,6 +366,39 @@ license_or_rights_note: Cite official docs and public papers as patterns only;
 do not copy external PDF content, benchmark assets, local runtime paths, or
 long documentation passages.
 
+### Source-policy No-native-text OCR Dependency Check
+
+source: https://tesseract-ocr.github.io/tessdoc/Command-Line-Usage.html
+
+source: https://tesseract-ocr.github.io/tessdoc/Installation.html
+
+source: https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source_type: official_doc_and_standard_adaptation
+
+pattern_to_borrow: Treat command availability, language data availability, OCR
+execution, and OCR quality as separate surfaces. Use command-level probes
+without printing local executable or tessdata paths.
+
+local_adaptation: `source_policy_no_native_text_ocr_dependency_check_v0`
+records the current missing Tesseract command state for the preserved NARA
+no-native-text route. It commits sanitized booleans and counts only; no local
+paths, PDFs, raw text, raw OCR text, page images, or screenshots are committed.
+
+boundary: A dependency check does not prove OCR execution, OCR quality, robust
+PDF extraction, arbitrary-market PDF parsing reliability, rendered visual
+fidelity, image/chart interpretation, or external validation.
+
+rejection_condition: Reject any gate that treats dependency availability as
+OCR evidence, prints local paths, commits tessdata paths, or runs OCR before
+the dependency state is resolved.
+
+license_or_rights_note: Cite Tesseract, PyMuPDF, and OCR-D docs as public
+patterns only; do not copy local runtime paths, traineddata files, source PDF
+content, benchmark assets, or long documentation passages.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables

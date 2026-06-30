@@ -64,8 +64,11 @@ Current source-policy no-native-text failure route gate:
 Current source-policy no-native-text OCR readiness review gate:
 `source_policy_no_native_text_ocr_readiness_review_v0`.
 
-Current next PDF evidence gate:
+Current source-policy no-native-text OCR dependency check gate:
 `source_policy_no_native_text_ocr_dependency_check_v0`.
+
+Current next PDF evidence gate:
+`source_policy_no_native_text_ocr_dependency_resolution_v0`.
 
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source
@@ -286,14 +289,15 @@ it to a planned section.
 The current operating gate is:
 
 ```text
-source_policy_no_native_text_ocr_readiness_review_v0
+source_policy_no_native_text_ocr_dependency_check_v0
 ```
 
-This gate does not add runtime behavior. It reviews the preserved source-policy
-NARA no-native-text failure route for OCR readiness before any dependency
-runtime check, OCR execution, OCR quality, or robust PDF wording work.
+This gate records the current OCR dependency state for the preserved
+source-policy NARA no-native-text failure route without printing or committing
+local executable or tessdata paths. It does not run OCR, evaluate OCR quality,
+or support robust PDF wording.
 
 After this operating gate is accepted, future agents should return to the next
 highest-value evidence or implementation gate in `docs/GOAL.md`. The expected
-next PDF evidence gate is `source_policy_no_native_text_ocr_dependency_check_v0`,
+next PDF evidence gate is `source_policy_no_native_text_ocr_dependency_resolution_v0`,
 unless the user deliberately redirects the product vision.

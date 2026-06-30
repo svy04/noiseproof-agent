@@ -1,0 +1,109 @@
+{
+  "packet": "source_policy_no_native_text_ocr_dependency_check_v0",
+  "phase_marker": "source_policy_no_native_text_ocr_dependency_check_v0",
+  "previous_gate": "source_policy_no_native_text_ocr_readiness_review_v0",
+  "claim_boundary": "source_policy_no_native_text_ocr_dependency_check_only_not_execution_or_quality_evidence",
+  "source_readiness_review_manifest": "examples/pdf-extraction-quality/source-policy-no-native-text-ocr-readiness-review.json",
+  "dependency_check_status": "checked_missing_tesseract_command",
+  "observation_source": "local_shell_get_command_2026_06_30_missing",
+  "owner_approved": true,
+  "tesseract_command_present": false,
+  "version_check_performed": false,
+  "language_list_check_performed": false,
+  "tesseract_version_reported": false,
+  "detected_language_count": 0,
+  "eng_language_available": false,
+  "local_paths_printed": false,
+  "local_paths_committed": false,
+  "tesseract_path_committed": false,
+  "tessdata_path_committed": false,
+  "runtime_work_performed": true,
+  "pdf_downloads_performed": false,
+  "parser_calls_performed": false,
+  "ocr_execution_performed": false,
+  "ocr_quality_eval_performed": false,
+  "table_extraction_calls_performed": false,
+  "llm_calls_performed": false,
+  "binary_files_committed": false,
+  "download_cache_committed": false,
+  "raw_text_committed": false,
+  "raw_extracted_text_committed": false,
+  "raw_ocr_text_committed": false,
+  "raw_table_rows_committed": false,
+  "page_images_committed": false,
+  "screenshots_committed": false,
+  "can_claim_ocr_dependency_check": true,
+  "can_claim_ocr_dependency_available": false,
+  "can_claim_ocr_execution": false,
+  "can_claim_ocr_quality": false,
+  "can_claim_robust_pdf_extraction": false,
+  "preserved_failure_route": {
+    "fixture_id": "nara_911_mfr_00282_no_native_text_candidate",
+    "publisher": "National Archives and Records Administration",
+    "failure_type": "no_native_text_observed",
+    "page_count": 4,
+    "empty_page_count": 4,
+    "text_char_count": 0
+  },
+  "sources": [
+    {
+      "label": "Tesseract command line usage",
+      "source_type": "official_doc",
+      "url": "https://tesseract-ocr.github.io/tessdoc/Command-Line-Usage.html",
+      "pattern": "Use command-level probes such as version and language listing without treating them as OCR quality."
+    },
+    {
+      "label": "Tesseract installation",
+      "source_type": "official_doc",
+      "url": "https://tesseract-ocr.github.io/tessdoc/Installation.html",
+      "pattern": "Treat engine installation and language data availability as separate dependency concerns."
+    },
+    {
+      "label": "PyMuPDF OCR recipes",
+      "source_type": "official_doc",
+      "url": "https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html",
+      "pattern": "Keep PyMuPDF OCR explicit and Tesseract-backed."
+    },
+    {
+      "label": "OCR-D evaluation",
+      "source_type": "standard",
+      "url": "https://ocr-d.de/en/spec/ocrd_eval.html",
+      "pattern": "Keep dependency availability separate from recognition quality evaluation."
+    }
+  ],
+  "blocked_reasons": [
+    "tesseract_command_missing",
+    "version_check_not_performed",
+    "language_list_check_not_performed",
+    "eng_language_availability_unverified",
+    "ocr_execution_not_performed",
+    "ocr_quality_eval_not_performed",
+    "robust_pdf_claim_still_blocked"
+  ],
+  "minimum_next_evidence": [
+    "Install or configure the Tesseract command outside the repository.",
+    "Rerun the dependency check without printing or committing local executable or tessdata paths.",
+    "If the command and required language data are available, plan OCR execution as a separate gate."
+  ],
+  "warnings": [
+    "The current local check did not find the Tesseract command.",
+    "This packet records dependency state only and does not run OCR.",
+    "Dependency availability would not prove OCR quality."
+  ],
+  "boundary_notes": [
+    "source-policy no-native-text OCR dependency check only",
+    "not OCR dependency availability evidence",
+    "not OCR execution evidence",
+    "not OCR quality evidence",
+    "not robust PDF extraction evidence",
+    "not arbitrary-market PDF parsing evidence",
+    "not table extraction benchmark evidence",
+    "not layout fidelity evidence",
+    "not rendered visual fidelity evidence",
+    "not image/chart interpretation evidence",
+    "not hosted deployment evidence",
+    "not external reviewer feedback",
+    "not product-complete"
+  ],
+  "recommended_next_gate": "source_policy_no_native_text_ocr_dependency_resolution_v0"
+}
