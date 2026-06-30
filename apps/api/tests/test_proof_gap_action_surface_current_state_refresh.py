@@ -25,10 +25,10 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
         "action_surface_only_not_new_proof_or_gap_closure"
     )
     assert robust_gap["recommended_next_gate"] == (
-        "source_policy_pdf_parse_observation_v0"
+        "source_policy_pdf_parse_quality_matrix_v0"
     )
     assert robust_gap["next_evidence_needed"] == (
-        "source_policy_pdf_parse_observation_v0"
+        "source_policy_pdf_parse_quality_matrix_v0"
     )
     assert (
         "multi_real_world_pdf_parse_observation_matrix_remote_verification_v0"
@@ -68,6 +68,10 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
     )
     assert (
         "real_world_pdf_fixture_source_policy_download_hash_v0"
+        in robust_gap["current_evidence"]
+    )
+    assert (
+        "source_policy_pdf_parse_observation_v0"
         in robust_gap["current_evidence"]
     )
     assert (
@@ -144,6 +148,14 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
     )
     assert (
         "docs/evaluation/source-policy-download-hash-report.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/review/source-policy-pdf-parse-observation.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/evaluation/source-policy-pdf-parse-observation-report.md"
         in robust_gap["proof_routes"]
     )
     assert "robust PDF extraction is implemented" in robust_gap["blocked_claims"]

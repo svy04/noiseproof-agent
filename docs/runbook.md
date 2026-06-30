@@ -13,9 +13,9 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `real_world_pdf_fixture_source_policy_download_hash_v0`.
+Current operating gate: `source_policy_pdf_parse_observation_v0`.
 
-Previous operating gate: `targeted_real_world_pdf_fixture_expansion_v0`.
+Previous operating gate: `real_world_pdf_fixture_source_policy_download_hash_v0`.
 
 Previous action-surface gate: `proof_gap_action_surface_current_state_refresh_v0`.
 
@@ -167,6 +167,36 @@ This is source-policy download/hash metadata only. It records
 `recommended_next_gate -> source_policy_pdf_parse_observation_v0`. It is not
 robust PDF extraction evidence, arbitrary-market PDF parsing evidence, OCR
 quality evidence, table extraction benchmark evidence, layout fidelity
+evidence, hosted deployment evidence, external reviewer feedback, or
+product-complete.
+
+Phase `source_policy_pdf_parse_observation_v0` adds
+`docs/review/source-policy-pdf-parse-observation.md` and
+`docs/evaluation/source-policy-pdf-parse-observation-report.md`. Reproduce with:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_pdf_parse_observation_command \
+  --observation ../../examples/pdf-extraction-quality/source-policy-pdf-parse-observations.json \
+  --output ../../docs/evaluation/source-policy-pdf-parse-observation-report.md \
+  --check
+```
+
+This is source-policy PDF parse observation metadata only. It records
+`parse_observation_status -> passed_with_no_native_text_candidate`,
+`observed_fixture_count -> 3`, `native_text_fixture_count -> 2`,
+`no_native_text_fixture_count -> 1`, `failure_case_candidate_count -> 1`,
+`total_page_count -> 94`, `total_text_char_count -> 309507`,
+`parser_calls_performed -> true`, `ocr_calls_performed -> false`,
+`table_extraction_calls_performed -> false`,
+`binary_files_committed -> false`, `download_cache_committed -> false`,
+`raw_text_committed -> false`,
+`can_claim_source_policy_pdf_parse_observation -> true`,
+`can_claim_robust_pdf_extraction -> false`, and
+`recommended_next_gate -> source_policy_pdf_parse_quality_matrix_v0`. It is not
+robust PDF extraction evidence, arbitrary-market PDF parsing evidence, OCR
+quality evidence, table extraction benchmark evidence, layout fidelity
+evidence, rendered visual fidelity evidence, image/chart interpretation
 evidence, hosted deployment evidence, external reviewer feedback, or
 product-complete.
 

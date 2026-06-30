@@ -46,8 +46,11 @@ Current targeted real-world PDF fixture expansion gate:
 Current source-policy PDF download/hash gate:
 `real_world_pdf_fixture_source_policy_download_hash_v0`.
 
-Current next PDF evidence gate:
+Current source-policy PDF parse observation gate:
 `source_policy_pdf_parse_observation_v0`.
+
+Current next PDF evidence gate:
+`source_policy_pdf_parse_quality_matrix_v0`.
 
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source

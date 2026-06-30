@@ -120,6 +120,37 @@ evidence, not OCR quality evidence, not table extraction benchmark evidence,
 not layout fidelity evidence, not hosted deployment evidence, not external
 reviewer feedback, and not product-complete.
 
+Source-policy PDF parse observation:
+
+```text
+docs/review/source-policy-pdf-parse-observation.md
+docs/evaluation/source-policy-pdf-parse-observation-report.md
+examples/pdf-extraction-quality/source-policy-pdf-parse-observations.json
+```
+
+Route markers:
+
+```text
+source_policy_pdf_parse_observation_v0
+parse_observation_status -> passed_with_no_native_text_candidate
+observed_fixture_count -> 3
+native_text_fixture_count -> 2
+no_native_text_fixture_count -> 1
+failure_case_candidate_count -> 1
+total_text_char_count -> 309507
+raw_text_committed -> false
+can_claim_robust_pdf_extraction -> false
+recommended_next_gate -> source_policy_pdf_parse_quality_matrix_v0
+```
+
+Boundary: this route points reviewers to PyMuPDF text/block metadata for
+selected source-policy-reviewed candidates. It is route hygiene only, not
+robust PDF extraction evidence, not arbitrary-market PDF parsing evidence, not
+OCR quality evidence, not table extraction benchmark evidence, not layout
+fidelity evidence, not rendered visual fidelity evidence, not image/chart
+interpretation evidence, not hosted deployment evidence, not external reviewer
+feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text
