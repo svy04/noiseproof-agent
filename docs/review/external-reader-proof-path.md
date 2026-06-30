@@ -662,6 +662,56 @@ evidence, not rendered visual fidelity evidence, not image/chart interpretation
 evidence, not hosted deployment evidence, not external reviewer feedback, and
 not product-complete.
 
+Source-policy no-native-text OCR owner rights decision record:
+
+```text
+docs/review/source-policy-no-native-text-ocr-owner-rights-decision-record.md
+docs/evaluation/source-policy-no-native-text-ocr-owner-rights-decision-record-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-owner-rights-decision-record.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_ocr_owner_rights_decision_record_v0
+decision_status -> owner_decision_recorded_blocked_pending_source_rights_response
+owner_decision -> do_not_collect_or_commit_transcript_until_source_rights_response_exists
+request_sent -> false
+rights_response_received -> false
+source_rights_owner_approval_recorded -> false
+source_rights_owner_decision_recorded -> false
+owner_rights_decision_recorded -> true
+source_rights_request_delivery_needed -> true
+source_rights_request_delivery_performed -> false
+transcript_collection_allowed -> false
+transcript_collection_performed -> false
+reference_text_available -> false
+transcript_hash_commit_allowed -> false
+transcript_hash_committed -> false
+quality_eval_performed -> false
+cer_computed -> false
+wer_computed -> false
+can_claim_owner_rights_decision_record -> true
+can_claim_rights_clearance -> false
+can_claim_request_sent -> false
+can_claim_source_rights_owner_approval -> false
+can_claim_transcript_collection -> false
+can_claim_reference_transcript_available -> false
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_rights_request_delivery_record_v0
+```
+
+Boundary: this route records an owner hold decision only. It is not rights
+clearance evidence, not request-sent evidence, not source-rights approval
+evidence, not source-rights owner decision evidence, not transcript collection
+evidence, not reference transcript availability, not OCR quality evidence, not
+CER/WER support, not a reference transcript, not robust PDF extraction
+evidence, not arbitrary-market PDF parsing evidence, not table extraction
+benchmark evidence, not layout fidelity evidence, not rendered visual fidelity
+evidence, not image/chart interpretation evidence, not hosted deployment
+evidence, not external reviewer feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

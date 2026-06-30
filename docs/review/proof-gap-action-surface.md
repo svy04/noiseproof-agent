@@ -278,6 +278,22 @@ questions, material scope, and repository non-commit policy. It is not rights
 clearance evidence, not request-sent evidence, not source-rights approval
 evidence, does not evaluate OCR quality, and does not close the robust-PDF gap.
 
+After `source_policy_no_native_text_ocr_owner_rights_decision_record_v0`,
+the action surface includes:
+
+```text
+current_evidence -> ...plus_source_policy_no_native_text_ocr_owner_rights_decision_record_v0
+proof_routes -> docs/review/source-policy-no-native-text-ocr-owner-rights-decision-record.md
+proof_routes -> docs/evaluation/source-policy-no-native-text-ocr-owner-rights-decision-record-report.md
+recommended_next_gate -> source_policy_no_native_text_ocr_rights_request_delivery_record_v0
+```
+
+The owner rights decision record records only a repository-owner hold decision
+that keeps transcript text and hashes blocked until source-rights response
+evidence exists. It is not rights clearance evidence, not request-sent evidence,
+not source-rights approval evidence, not source-rights owner decision evidence,
+does not evaluate OCR quality, and does not close the robust-PDF gap.
+
 After `robust_pdf_extraction_next_real_world_quality_gate_v0`, the action
 surface includes:
 
