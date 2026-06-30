@@ -9,7 +9,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 Start future work from `docs/MASTER-SPEC.md`, then `docs/GOAL.md`, then the
 latest relevant short-term spec in `docs/specs/`.
 
-Current operating gate: `source_policy_no_native_text_ocr_execution_plan_v0`.
+Current operating gate: `source_policy_no_native_text_ocr_execution_smoke_v0`.
 
 The loop was introduced by `master_spec_operating_loop_v0`.
 
@@ -73,7 +73,8 @@ the proof gap priority matrix before selecting a local implementation gate.
 | Latest source-policy no-native-text OCR dependency check | `source_policy_no_native_text_ocr_dependency_check_v0` | Records the current missing Tesseract command state without printing or committing local OCR paths; still no OCR execution or OCR quality claim. |
 | Latest source-policy no-native-text OCR dependency resolution | `source_policy_no_native_text_ocr_dependency_resolution_v0` | Records that the owner runtime can resolve Tesseract and English language data after PATH refresh; still no OCR execution or OCR quality claim. |
 | Latest source-policy no-native-text OCR execution plan | `source_policy_no_native_text_ocr_execution_plan_v0` | Plans a bounded PyMuPDF/Tesseract OCR smoke for the preserved no-native-text route; still no OCR execution or OCR quality claim. |
-| Next local product candidate | `source_policy_no_native_text_ocr_execution_smoke_v0` | Run the bounded owner-runtime OCR smoke without committing raw OCR text or local paths. |
+| Latest source-policy no-native-text OCR execution smoke | `source_policy_no_native_text_ocr_execution_smoke_v0` | Records one bounded owner-runtime PyMuPDF/Tesseract OCR smoke for the preserved NARA route with raw OCR text, local paths, and source PDF binaries excluded; still no OCR quality or robust PDF extraction claim. |
+| Next local product candidate | `source_policy_no_native_text_ocr_quality_eval_plan_v0` | Plan OCR quality evaluation before treating marker hits or OCR counts as recognition-quality evidence. |
 
 Do not read this as a product-complete claim.
 
@@ -92,6 +93,9 @@ Do not read this as a product-complete claim.
 - The latest source-policy no-native-text failure route preserves the NARA failure route with `page_count -> 4`, `empty_page_count -> 4`, `text_char_count -> 0`, `ocr_calls_performed -> false`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
 - The latest source-policy no-native-text OCR readiness review records `readiness_status -> passed_with_conditions`, identifies the Tesseract-backed OCR dependency boundary, and keeps `ocr_dependency_runtime_check_performed -> false`, `ocr_execution_performed -> false`, `ocr_quality_eval_performed -> false`, `can_claim_ocr_dependency_available -> false`, `can_claim_ocr_execution -> false`, and `can_claim_ocr_quality -> false`.
 - The latest source-policy no-native-text OCR dependency check records `dependency_check_status -> checked_missing_tesseract_command`, `tesseract_command_present -> false`, `version_check_performed -> false`, `language_list_check_performed -> false`, `local_paths_printed -> false`, `local_paths_committed -> false`, `can_claim_ocr_dependency_available -> false`, `can_claim_ocr_execution -> false`, and `can_claim_ocr_quality -> false`.
+- The latest source-policy no-native-text OCR dependency resolution records `dependency_resolution_status -> resolved_dependency_available`, `tesseract_command_present -> true`, `eng_language_available -> true`, `local_paths_committed -> false`, `can_claim_ocr_dependency_available -> true`, `can_claim_ocr_execution -> false`, and `can_claim_ocr_quality -> false`.
+- The latest source-policy no-native-text OCR execution plan records `plan_status -> planned_execution_contract`, `execution_adapter -> pymupdf_page_get_textpage_ocr`, `ocr_execution_performed -> false`, `can_claim_ocr_execution_plan -> true`, `can_claim_ocr_execution -> false`, and `can_claim_ocr_quality -> false`.
+- The latest source-policy no-native-text OCR execution smoke records `ocr_execution_performed -> true`, `ocr_pages_attempted -> 4`, `ocr_text_char_count -> 8019`, `expected_markers_found_count -> 2`, `raw_ocr_text_committed -> false`, `can_claim_ocr_execution -> true`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
 - Strong claims are intentionally blocked when evidence is missing.
 
 ## What This Does Not Prove Yet

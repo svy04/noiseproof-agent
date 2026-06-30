@@ -25,6 +25,7 @@ _GAP_ACTIONS = {
             "record the current OCR dependency state without printing or committing local executable or tessdata paths",
             "resolve the OCR dependency availability surface without running OCR or committing local paths",
             "plan a bounded owner-runtime OCR smoke before executing OCR or claiming OCR quality",
+            "record one bounded source-policy no-native-text OCR execution smoke before OCR quality evaluation",
         ],
         "blocked_claims": [
             "robust PDF extraction is implemented",
@@ -91,8 +92,10 @@ _GAP_ACTIONS = {
             "docs/evaluation/source-policy-no-native-text-ocr-dependency-resolution-report.md",
             "docs/review/source-policy-no-native-text-ocr-execution-plan.md",
             "docs/evaluation/source-policy-no-native-text-ocr-execution-plan-report.md",
+            "docs/review/source-policy-no-native-text-ocr-execution-smoke.md",
+            "docs/evaluation/source-policy-no-native-text-ocr-execution-smoke-report.md",
         ],
-        "recommended_next_gate": "source_policy_no_native_text_ocr_execution_smoke_v0",
+        "recommended_next_gate": "source_policy_no_native_text_ocr_quality_eval_plan_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -232,12 +235,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
                 "_plus_source_policy_no_native_text_ocr_dependency_check_v0"
                 "_plus_source_policy_no_native_text_ocr_dependency_resolution_v0"
                 "_plus_source_policy_no_native_text_ocr_execution_plan_v0"
+                "_plus_source_policy_no_native_text_ocr_execution_smoke_v0"
             ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "source_policy_no_native_text_ocr_execution_smoke_v0"
+                "source_policy_no_native_text_ocr_quality_eval_plan_v0"
             ),
         ),
         ProofGapOut(
