@@ -200,6 +200,14 @@ jobs:
             --output ../../docs/evaluation/real-world-ocr-evidence-gate-report.md \
             --check
 
+      - name: Check real-world layout fidelity evidence gate report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.real_world_layout_fidelity_evidence_gate_command \
+            --evidence ../../examples/pdf-extraction-quality/real-world-layout-fidelity-evidence.json \
+            --output ../../docs/evaluation/real-world-layout-fidelity-evidence-gate-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

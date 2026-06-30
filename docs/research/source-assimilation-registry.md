@@ -287,6 +287,76 @@ upgrades one observation into robust parsing wording.
 license_or_rights_note: Cite the official PyMuPDF documentation and respect
 publisher source policies before using external PDFs as fixtures.
 
+### PyMuPDF Text Blocks and Layout Metadata
+
+source: https://pymupdf.readthedocs.io/en/latest/app1.html
+
+source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.get_text
+
+source_type: official_doc
+
+pattern_to_borrow: Treat text blocks, dictionary blocks, coordinates, and
+`sort` behavior as layout metadata surfaces that can be inspected separately
+from plain text extraction and table/OCR behavior.
+
+local_adaptation: Keep real-world layout gates limited to sanitized block
+counts, page geometry, bbox samples, expected-marker hit booleans, and ordering
+sanity checks. Do not commit raw page text, block text, screenshots, rendered
+page images, local paths, or source PDFs.
+
+boundary: PyMuPDF block/bbox metadata does not prove arbitrary-market layout
+fidelity, natural reading-order correctness, rendered visual fidelity, or
+robust PDF extraction.
+
+rejection_condition: Reject any layout gate that treats `get_text("blocks")`,
+`get_text("dict")`, or `sort=True` output as a broad visual-fidelity proof.
+
+license_or_rights_note: Cite the official PyMuPDF documentation and respect
+source publisher reuse policies before using external PDFs as fixtures.
+
+### Unstructured Coordinates and Layout Metadata
+
+source: https://docs.unstructured.io/open-source/core-functionality/partitioning
+
+source_type: official_doc
+
+pattern_to_borrow: Preserve document element metadata and coordinates as
+separate evidence surfaces before downstream retrieval or generation.
+
+local_adaptation: Use the pattern to keep coordinate/layout metadata visible in
+NoiseProof proof packets while avoiding claims that coordinates alone prove
+visual fidelity or reading order.
+
+boundary: Referencing Unstructured does not mean NoiseProof integrates
+Unstructured or has production layout parsing.
+
+rejection_condition: Reject future parser work that collapses document text,
+element type, coordinates, and final claim support into one opaque field.
+
+license_or_rights_note: Respect upstream docs and license before integration.
+
+### DocLayNet
+
+source: https://arxiv.org/abs/2206.01062
+
+source_type: paper
+
+pattern_to_borrow: Treat document layout analysis as a labeled,
+human-annotated document-understanding task rather than a side effect of text
+extraction.
+
+local_adaptation: Use DocLayNet as a reminder that real layout fidelity would
+need labeled layout classes or human-reviewable visual evidence. The current
+gate records only a tiny metadata sanity observation.
+
+boundary: NoiseProof does not claim DocLayNet evaluation, trained layout models,
+or benchmark performance.
+
+rejection_condition: Reject any layout claim that does not disclose the absence
+of labeled layout ground truth or rendered visual comparison.
+
+license_or_rights_note: Cite the paper; do not reproduce benchmark content.
+
 ### OCRmyPDF
 
 source: https://ocrmypdf.readthedocs.io/en/latest/introduction.html

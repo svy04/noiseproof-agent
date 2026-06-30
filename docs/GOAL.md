@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-real_world_ocr_evidence_gate_v0
+real_world_layout_fidelity_evidence_gate_v0
 ```
 
 Previous operating gate:
 
 ```text
-real_world_table_extraction_evidence_gate_v0
+real_world_ocr_evidence_gate_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the OCR evidence gate:
+Current next local product candidate after the layout fidelity evidence gate:
 
 ```text
-real_world_layout_fidelity_evidence_gate_v0
+robust_pdf_extraction_generalization_gap_review_v0
 ```
 
 Latest robust-PDF local quality gate:
@@ -216,6 +216,37 @@ total_ocr_text_char_count: 3992
 can_claim_real_world_ocr_evidence: true
 can_claim_robust_pdf_extraction: false
 remaining_blocked_reasons: layout_fidelity_evidence_missing
+```
+
+Latest real-world layout fidelity evidence gate:
+
+```text
+real_world_layout_fidelity_evidence_gate_v0
+```
+
+Latest real-world layout fidelity evidence report:
+
+```text
+docs/evaluation/real-world-layout-fidelity-evidence-gate-report.md
+```
+
+Current real-world layout fidelity evidence result:
+
+```text
+layout_gate_status: passed
+observed_fixture_count: 1
+layout_observed_fixture_count: 1
+publisher: U.S. Bureau of Economic Analysis
+fixture_id: bea_open_source_software_innovation_wp_2022_10
+total_page_count: 30
+observed_page_count: 1
+total_block_count: 20
+total_text_block_count: 16
+total_text_blocks_with_bbox_in_page_bounds: 16
+expected_markers_found_count: 7
+can_claim_real_world_layout_fidelity_evidence: true
+can_claim_robust_pdf_extraction: false
+remaining_blocked_reasons: robust_pdf_generalization_missing; arbitrary_market_pdf_coverage_missing
 ```
 
 ## 1. Top-level Purpose
