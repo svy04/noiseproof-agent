@@ -542,6 +542,69 @@ license_or_rights_note: EIA describes U.S. government publications on its site
 as public domain and asks for acknowledgment; protected third-party materials,
 logos, service marks, and photographs remain out of scope.
 
+### BLS Copyright Information and Monthly Labor Review
+
+source: https://www.bls.gov/opub/copyright-information.htm
+
+source: https://www.bls.gov/opub/mlr/about.htm
+
+source_type: official_doc
+
+pattern_to_borrow: Keep BLS public-domain and credit-request boundaries visible
+before using BLS reports, MLR articles, tables, charts, or figures as fixture
+candidates.
+
+local_adaptation: Use BLS and MLR PDF candidates for reading-order,
+multi-column, and figure/image diagnostics in
+`targeted_real_world_pdf_fixture_expansion_v0`, while committing only candidate
+metadata, policy URLs, acceptance checks, stop conditions, and non-claims.
+
+boundary: BLS/MLR source policy review does not prove robust PDF extraction,
+visual fidelity, chart interpretation, table benchmark quality, or permission
+to commit screenshots, figure crops, raw extracted text, or third-party
+photographs.
+
+rejection_condition: Reject any future BLS fixture gate that omits the source
+policy URL, commits raw content from external PDFs, treats public-domain status
+as a reason to skip citation/rights review, or upgrades planned candidates into
+runtime evidence.
+
+license_or_rights_note: BLS requests source credit and warns that some
+photographs or illustrations may be copyrighted; review each fixture before
+committing derived visual artifacts.
+
+### Targeted Real-world PDF Fixture Expansion Planning
+
+source: examples/pdf-extraction-quality/targeted-real-world-pdf-fixture-expansion-plan.json
+
+source: docs/evaluation/targeted-real-world-pdf-fixture-expansion-report.md
+
+source_type: runtime_evidence
+
+pattern_to_borrow: Treat fixture expansion as a source-policy and evaluation
+design gate before downloads, parsing, OCR, table extraction, layout review, or
+visual review.
+
+local_adaptation: Map the six missing cells from
+`multi_publisher_modality_stratified_pdf_eval_v0` to candidate fixture routes,
+source-policy URLs, acceptance checks, and stop conditions. The next gate may
+download/hash selected candidates only after owner approval and must still avoid
+committing external binaries, raw extracted text, raw OCR text, raw table rows,
+page images, or screenshots.
+
+boundary: The targeted fixture expansion plan is not runtime evidence, robust
+PDF extraction evidence, arbitrary-market PDF parsing evidence, OCR quality
+evidence, table extraction benchmark evidence, layout fidelity evidence,
+external reviewer feedback, hosted deployment evidence, or product-complete.
+
+rejection_condition: Reject any future gate that treats candidate coverage as
+observed extraction coverage, downloads external PDFs without source-policy
+metadata, or closes external reviewer validation with owner-authored text.
+
+license_or_rights_note: Candidate URLs and source-policy URLs are metadata
+only. Do not copy protected source text, screenshots, page images, or binary
+PDFs into the repository without a stronger rights review.
+
 ### Patent: US20260105079A1
 
 source: https://patents.google.com/patent/US20260105079A1/en

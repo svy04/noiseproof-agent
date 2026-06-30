@@ -62,6 +62,34 @@ can_claim_robust_pdf_extraction -> false
 
 Boundary: this route points reviewers to the latest multi real-world PDF parse observation matrix and its remote workflow verification. It is route hygiene only, not new runtime evidence, not robust PDF extraction evidence, not arbitrary market PDF parsing evidence, not OCR evidence, not table extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
+Targeted real-world PDF fixture expansion plan:
+
+```text
+docs/review/targeted-real-world-pdf-fixture-expansion.md
+docs/evaluation/targeted-real-world-pdf-fixture-expansion-report.md
+examples/pdf-extraction-quality/targeted-real-world-pdf-fixture-expansion-plan.json
+```
+
+Route markers:
+
+```text
+targeted_real_world_pdf_fixture_expansion_v0
+plan_status -> passed
+candidate_count -> 6
+covered_missing_cell_count -> 6
+downloaded_candidate_count -> 0
+runtime_work_performed -> false
+can_claim_robust_pdf_extraction -> false
+recommended_next_gate -> real_world_pdf_fixture_source_policy_download_hash_v0
+```
+
+Boundary: this route points reviewers to the source-policy-reviewed candidate
+plan for the missing PDF matrix cells. It is route hygiene only, not new runtime
+evidence, not robust PDF extraction evidence, not arbitrary-market PDF parsing
+evidence, not OCR quality evidence, not table extraction benchmark evidence,
+not layout fidelity evidence, not hosted deployment evidence, not external
+reviewer feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

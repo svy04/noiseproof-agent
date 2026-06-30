@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-multi_publisher_modality_stratified_pdf_eval_v0
+targeted_real_world_pdf_fixture_expansion_v0
 ```
 
 Previous operating gate:
 
 ```text
-robust_pdf_extraction_generalization_gap_review_v0
+multi_publisher_modality_stratified_pdf_eval_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the multi-publisher modality-stratified PDF eval:
+Current next local product candidate after the targeted real-world PDF fixture expansion:
 
 ```text
-targeted_real_world_pdf_fixture_expansion_v0
+real_world_pdf_fixture_source_policy_download_hash_v0
 ```
 
 Latest robust-PDF local quality gate:
@@ -300,6 +300,40 @@ missing_cell_count: 6
 can_claim_robust_pdf_extraction: false
 remaining_blocked_reasons: reading_order_ground_truth_missing; rendered_visual_fidelity_missing; labeled_layout_ground_truth_missing; image_chart_interpretation_missing; real_world_no_extractable_text_failure_missing; external_reviewer_validation_missing
 next_gate: targeted_real_world_pdf_fixture_expansion_v0
+```
+
+Latest targeted real-world PDF fixture expansion:
+
+```text
+targeted_real_world_pdf_fixture_expansion_v0
+```
+
+Latest targeted real-world PDF fixture expansion report:
+
+```text
+docs/evaluation/targeted-real-world-pdf-fixture-expansion-report.md
+```
+
+Current targeted real-world PDF fixture expansion result:
+
+```text
+plan_status: passed
+coverage_status: planned
+candidate_count: 6
+missing_cell_count: 6
+covered_missing_cell_count: 6
+downloaded_candidate_count: 0
+runtime_work_performed: false
+pdf_downloads_performed: false
+parser_calls_performed: false
+ocr_calls_performed: false
+table_extraction_calls_performed: false
+llm_calls_performed: false
+binary_files_committed: false
+raw_text_committed: false
+can_claim_robust_pdf_extraction: false
+remaining_blocked_reasons: runtime_evidence_not_added; downloads_not_performed; robust_pdf_claim_still_blocked; external_reviewer_validation_still_pending
+next_gate: real_world_pdf_fixture_source_policy_download_hash_v0
 ```
 
 ## 1. Top-level Purpose
