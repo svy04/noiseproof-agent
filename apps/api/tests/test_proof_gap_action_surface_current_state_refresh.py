@@ -25,10 +25,10 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
         "action_surface_only_not_new_proof_or_gap_closure"
     )
     assert robust_gap["recommended_next_gate"] == (
-        "source_policy_no_native_text_ocr_rights_request_delivery_record_v0"
+        "source_policy_no_native_text_ocr_owner_runtime_rights_request_delivery_v0"
     )
     assert robust_gap["next_evidence_needed"] == (
-        "source_policy_no_native_text_ocr_rights_request_delivery_record_v0"
+        "source_policy_no_native_text_ocr_owner_runtime_rights_request_delivery_v0"
     )
     assert (
         "multi_real_world_pdf_parse_observation_matrix_remote_verification_v0"
@@ -136,6 +136,10 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
     )
     assert (
         "source_policy_no_native_text_ocr_owner_rights_decision_record_v0"
+        in robust_gap["current_evidence"]
+    )
+    assert (
+        "source_policy_no_native_text_ocr_rights_request_delivery_record_v0"
         in robust_gap["current_evidence"]
     )
     assert (
@@ -336,6 +340,10 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
     )
     assert (
         "plan the transcript/reference boundary before creating any transcript reference pack"
+        in robust_gap["acceptable_evidence"]
+    )
+    assert (
+        "record rights request delivery route candidates and missing owner-runtime delivery evidence before request_sent can be claimed"
         in robust_gap["acceptable_evidence"]
     )
     assert "robust PDF extraction is implemented" in robust_gap["blocked_claims"]

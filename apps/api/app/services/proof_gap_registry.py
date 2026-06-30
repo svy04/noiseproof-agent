@@ -34,6 +34,7 @@ _GAP_ACTIONS = {
             "plan owner-runtime transcript collection and source-rights review before transcript text or hashes enter the repository",
             "prepare a source-rights review request packet before transcript text or hashes enter the repository",
             "record an owner hold decision that blocks transcript text and hashes until source-rights response evidence exists",
+            "record rights request delivery route candidates and missing owner-runtime delivery evidence before request_sent can be claimed",
         ],
         "blocked_claims": [
             "robust PDF extraction is implemented",
@@ -118,8 +119,10 @@ _GAP_ACTIONS = {
             "docs/evaluation/source-policy-no-native-text-ocr-source-rights-review-request-packet-report.md",
             "docs/review/source-policy-no-native-text-ocr-owner-rights-decision-record.md",
             "docs/evaluation/source-policy-no-native-text-ocr-owner-rights-decision-record-report.md",
+            "docs/review/source-policy-no-native-text-ocr-rights-request-delivery-record.md",
+            "docs/evaluation/source-policy-no-native-text-ocr-rights-request-delivery-record-report.md",
         ],
-        "recommended_next_gate": "source_policy_no_native_text_ocr_rights_request_delivery_record_v0",
+        "recommended_next_gate": "source_policy_no_native_text_ocr_owner_runtime_rights_request_delivery_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -268,12 +271,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
                 "_plus_source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0"
                 "_plus_source_policy_no_native_text_ocr_source_rights_review_request_packet_v0"
                 "_plus_source_policy_no_native_text_ocr_owner_rights_decision_record_v0"
+                "_plus_source_policy_no_native_text_ocr_rights_request_delivery_record_v0"
             ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "source_policy_no_native_text_ocr_rights_request_delivery_record_v0"
+                "source_policy_no_native_text_ocr_owner_runtime_rights_request_delivery_v0"
             ),
         ),
         ProofGapOut(
