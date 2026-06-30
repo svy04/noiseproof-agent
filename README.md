@@ -9,7 +9,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 Start future work from `docs/MASTER-SPEC.md`, then `docs/GOAL.md`, then the
 latest relevant short-term spec in `docs/specs/`.
 
-Current operating gate: `proof_gap_priority_matrix_v0`.
+Current operating gate: `proof_gap_action_surface_current_state_refresh_v0`.
 
 The loop was introduced by `master_spec_operating_loop_v0`.
 
@@ -54,7 +54,8 @@ the proof gap priority matrix before selecting a local implementation gate.
 | Current proof packet | `docs/review/external-reader-phase-897-current-proof-packet-refresh.md` | Top-of-funnel route refresh only; not new runtime evidence. |
 | Reviewer route | `docs/review/external-reader-proof-path.md` | Repository-native inspection path only; current issue state remains `candidate_count: 0` and `status: pending`. |
 | Current next evidence | `external_reviewer_feedback_v0` | The multi-PDF matrix is still not robust extraction, and the public issue still has no accepted external reviewer feedback. |
-| Current next local gate | `proof_gap_action_surface_current_state_refresh_v0` | Selected by `proof_gap_priority_matrix_v0`; refresh the proof-gap action surface before adding another product proof. |
+| Current action-surface refresh | `proof_gap_action_surface_current_state_refresh_v0` | Selected by `proof_gap_priority_matrix_v0`; refreshes the proof-gap action surface before adding another product proof. |
+| Next local product candidate | `robust_pdf_extraction_next_real_world_quality_gate_v0` | Selected after the action-surface current-state refresh; still not robust PDF extraction evidence. |
 
 Do not read this as a product-complete claim.
 
@@ -221,6 +222,8 @@ Latest ops inspectability gate: `docs/review/proof-gap-registry-ops-surface.md` 
 Latest proof gap action surface: `docs/review/proof-gap-action-surface.md` records that `GET /ops/proof-gaps` and `GET /ops/proof-gaps/{gap_id}` now expose `acceptable_evidence`, `blocked_claims`, `proof_routes`, and `recommended_next_gate` for the current proof gaps, including `semantic_retrieval_quality -> owner_runtime_live_embedding_domain_qrels_eval_v0`. Proof gap action surface v0: implemented. This is `action_surface_only_not_new_proof_or_gap_closure`, not robust PDF extraction evidence, not live embedding generation proof, not semantic retrieval quality evidence, not distributed tracing, not hosted observability, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Latest proof gap priority matrix: `docs/research/proof-gap-priority-matrix.md` and `docs/review/proof-gap-priority-matrix.md` define `proof_gap_priority_matrix_v0`. The matrix ranks the current gaps as `external_reviewer_feedback`, `robust_pdf_extraction`, `semantic_retrieval_quality`, `actual_embedding_generation`, `hosted_deployment`, `hosted_observability`, and `distributed_tracing`, then separates the highest-trust gate from the next local implementation gate. It keeps `external_reviewer_feedback_v0` as the highest-trust evidence gate, but selects `proof_gap_action_surface_current_state_refresh_v0` as the next local gate because external feedback cannot be self-completed. This is prioritization only, not new runtime evidence, not robust PDF extraction evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not hosted observability evidence, not external reviewer feedback, and not product-complete.
+
+Latest proof gap action surface current-state refresh: `docs/review/proof-gap-action-surface-current-state-refresh.md` defines `proof_gap_action_surface_current_state_refresh_v0`. The existing `GET /ops/proof-gaps` action surface now treats `multi_real_world_pdf_parse_observation_matrix_remote_verification_v0` as current robust-PDF routed evidence and points `robust_pdf_extraction.recommended_next_gate` to `robust_pdf_extraction_next_real_world_quality_gate_v0`. This is action-surface metadata only, not new runtime evidence, not robust PDF extraction evidence, not semantic retrieval quality evidence, not hosted deployment evidence, not hosted observability evidence, not external reviewer feedback, and not product-complete.
 
 Latest semantic quality eval gate: `docs/review/qrels-backed-semantic-quality-eval.md` records that `examples/semantic-retrieval-quality/qrels.txt` and `semantic-run.txt` now drive `docs/evaluation/qrels-backed-semantic-quality-report.md` through `app.services.qrels_backed_semantic_quality_command`, with CI staleness checking. Qrels-backed semantic retrieval quality eval v0: implemented. The toy report surfaces `judged_coverage_at_k -> 0.6667`, `unjudged_retrieved_count_at_k -> 2`, and `qrels_backed_semantic_quality_claim_blocked`. This is qrels-backed toy fixture evaluation only, not semantic retrieval quality evidence, not embedding generation, not a benchmark result, not a model comparison, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
