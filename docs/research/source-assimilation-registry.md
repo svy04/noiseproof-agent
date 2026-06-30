@@ -605,6 +605,42 @@ license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
 only; do not copy benchmark assets, source PDF content, raw OCR text, raw
 reference text, or long documentation passages.
 
+### Source-policy No-native-text OCR Transcript Reference Plan
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source: https://github.com/jitsi/jiwer
+
+source: https://www.archives.gov/global-pages/privacy.html
+
+source_type: standard_oss_and_official_policy_adaptation
+
+pattern_to_borrow: Treat transcript/reference preparation as a separate
+precondition before OCR quality scoring. CER/WER-style metrics require
+reference text, normalization, alignment policy, source-policy review, and
+owner approval before any score can be computed or claimed.
+
+local_adaptation: `source_policy_no_native_text_ocr_transcript_reference_plan_v0`
+records the required future reference units for the preserved NARA
+no-native-text route: source-policy review, owner approval, page-level
+reference transcript, normalization rules, alignment policy, and metric
+eligibility review. It commits no transcript, source PDF, raw OCR text, raw
+reference text, page images, screenshots, or local paths.
+
+boundary: The transcript reference plan can show only that the minimum future
+reference boundary is defined. It is not OCR quality evidence, not CER/WER
+support, not a reference transcript, not robust PDF extraction evidence, and
+not arbitrary-market PDF parsing evidence. The next bounded candidate is
+`source_policy_no_native_text_ocr_transcript_reference_pack_v0`.
+
+rejection_condition: Reject any gate that treats a plan as a transcript,
+computes CER/WER before reference text exists, commits raw OCR/reference text,
+or uses the plan to claim OCR quality or robust PDF extraction.
+
+license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
+only; do not copy benchmark assets, source PDF content, raw OCR text, raw
+reference text, transcripts, or long documentation passages.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables

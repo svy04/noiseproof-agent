@@ -507,6 +507,44 @@ not layout fidelity evidence, not rendered visual fidelity evidence, not
 image/chart interpretation evidence, not hosted deployment evidence, not
 external reviewer feedback, and not product-complete.
 
+Source-policy no-native-text OCR transcript reference plan:
+
+```text
+docs/review/source-policy-no-native-text-ocr-transcript-reference-plan.md
+docs/evaluation/source-policy-no-native-text-ocr-transcript-reference-plan-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-transcript-reference-plan.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_ocr_transcript_reference_plan_v0
+plan_status -> planned_transcript_reference_contract
+required_reference_unit_count -> 6
+owner_approval_required -> true
+source_policy_review_required -> true
+full_reference_transcript_required -> true
+full_reference_transcript_available -> false
+transcript_collection_performed -> false
+reference_pack_created -> false
+quality_eval_performed -> false
+cer_computed -> false
+wer_computed -> false
+can_claim_transcript_reference_plan -> true
+can_claim_transcript_reference_pack -> false
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_transcript_reference_pack_v0
+```
+
+Boundary: this route records a transcript/reference planning contract only. It
+is not OCR quality evidence, not CER/WER support, not a reference transcript,
+not robust PDF extraction evidence, not arbitrary-market PDF parsing evidence,
+not table extraction benchmark evidence, not layout fidelity evidence, not
+rendered visual fidelity evidence, not image/chart interpretation evidence, not
+hosted deployment evidence, not external reviewer feedback, and not
+product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text
