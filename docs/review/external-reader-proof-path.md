@@ -473,6 +473,40 @@ not layout fidelity evidence, not rendered visual fidelity evidence, not
 image/chart interpretation evidence, not hosted deployment evidence, not
 external reviewer feedback, and not product-complete.
 
+Source-policy no-native-text OCR marker proxy eval:
+
+```text
+docs/review/source-policy-no-native-text-ocr-marker-proxy-eval.md
+docs/evaluation/source-policy-no-native-text-ocr-marker-proxy-eval-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-marker-proxy-eval.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_ocr_marker_proxy_eval_v0
+eval_status -> marker_proxy_eval_completed
+expected_marker_anchor_count -> 2
+observed_marker_hit_count -> 2
+missing_marker_anchor_count -> 0
+marker_proxy_hit_rate -> 1.0
+marker_proxy_passed -> true
+quality_eval_performed -> false
+cer_computed -> false
+wer_computed -> false
+can_claim_marker_proxy_eval -> true
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_transcript_reference_plan_v0
+```
+
+Boundary: this route records a marker-presence proxy eval only. It is not OCR
+quality evidence, not CER/WER support, not robust PDF extraction evidence, not
+arbitrary-market PDF parsing evidence, not table extraction benchmark evidence,
+not layout fidelity evidence, not rendered visual fidelity evidence, not
+image/chart interpretation evidence, not hosted deployment evidence, not
+external reviewer feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

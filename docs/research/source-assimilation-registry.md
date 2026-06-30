@@ -570,6 +570,41 @@ license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
 only; do not copy benchmark assets, source PDF content, raw text, or long
 documentation passages.
 
+### Source-policy No-native-text OCR Marker Proxy Eval
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source: https://github.com/jitsi/jiwer
+
+source: https://www.archives.gov/global-pages/privacy.html
+
+source_type: standard_oss_and_official_policy_adaptation
+
+pattern_to_borrow: Keep marker-proxy evaluation visibly separate from real OCR
+quality scoring. Use committed marker-hit booleans only when no full reference
+transcript exists, and block CER/WER wording until transcript-level reference
+data is available.
+
+local_adaptation: `source_policy_no_native_text_ocr_marker_proxy_eval_v0`
+combines the sanitized marker-anchor reference pack with the committed OCR
+execution-smoke marker-hit metadata. It records `observed_marker_hit_count`,
+`missing_marker_anchor_count`, `marker_proxy_hit_rate`, and explicit non-claims
+without committing raw OCR text, raw reference text, source PDF binaries, page
+images, screenshots, or local paths.
+
+boundary: Marker-proxy evaluation can show only that expected marker anchors
+were present in committed smoke metadata. It is not OCR quality evidence, not
+CER/WER support, not robust PDF extraction evidence, and not arbitrary-market
+PDF parsing evidence.
+
+rejection_condition: Reject any gate that treats marker-hit rate as OCR quality,
+computes CER/WER without full reference text, commits raw OCR/reference text, or
+uses the proxy result to claim robust PDF extraction.
+
+license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
+only; do not copy benchmark assets, source PDF content, raw OCR text, raw
+reference text, or long documentation passages.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables

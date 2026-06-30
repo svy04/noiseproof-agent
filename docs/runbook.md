@@ -13,9 +13,9 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `source_policy_no_native_text_ocr_quality_reference_pack_v0`.
+Current operating gate: `source_policy_no_native_text_ocr_marker_proxy_eval_v0`.
 
-Previous operating gate: `source_policy_no_native_text_ocr_quality_eval_plan_v0`.
+Previous operating gate: `source_policy_no_native_text_ocr_quality_reference_pack_v0`.
 
 Previous action-surface gate: `proof_gap_action_surface_current_state_refresh_v0`.
 
@@ -12534,3 +12534,25 @@ rendered visual fidelity evidence, not image/chart interpretation evidence, not
 hosted deployment evidence, not external reviewer feedback, and not
 product-complete. The next local product candidate is
 `source_policy_no_native_text_ocr_marker_proxy_eval_v0`.
+
+### Source-policy no-native-text OCR marker proxy eval
+
+Phase `source_policy_no_native_text_ocr_marker_proxy_eval_v0` records a bounded
+marker-presence proxy eval for the preserved NARA no-native-text OCR route. It
+uses committed marker-hit booleans only. It does not run OCR, inspect raw OCR
+text, compute CER/WER, or prove OCR quality.
+
+Reproduce the report staleness check:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_no_native_text_ocr_marker_proxy_eval_command --marker-proxy-eval ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-marker-proxy-eval.json --output ../../docs/evaluation/source-policy-no-native-text-ocr-marker-proxy-eval-report.md --check
+uv run pytest tests/test_source_policy_no_native_text_ocr_marker_proxy_eval.py -q
+```
+
+This is a marker-presence proxy eval only, not OCR quality evidence, not
+CER/WER support, not robust PDF extraction evidence, not arbitrary-market PDF
+parsing evidence, not rendered visual fidelity evidence, not image/chart
+interpretation evidence, not hosted deployment evidence, not external reviewer
+feedback, and not product-complete. The next local product candidate is
+`source_policy_no_native_text_ocr_transcript_reference_plan_v0`.
