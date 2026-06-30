@@ -21,6 +21,7 @@ _GAP_ACTIONS = {
             "turn source-policy parse observations into a quality-claim blocker matrix before stronger PDF extraction wording",
             "review source-policy PDF quality blockers and preserve the no-native-text failure route before OCR quality work",
             "preserve the selected no-native-text failure route before OCR readiness, OCR execution, or OCR quality work",
+            "review OCR readiness for the preserved no-native-text route before checking local OCR dependency availability",
         ],
         "blocked_claims": [
             "robust PDF extraction is implemented",
@@ -79,8 +80,10 @@ _GAP_ACTIONS = {
             "docs/evaluation/source-policy-pdf-quality-gap-review-report.md",
             "docs/review/source-policy-no-native-text-failure-route.md",
             "docs/evaluation/source-policy-no-native-text-failure-route-report.md",
+            "docs/review/source-policy-no-native-text-ocr-readiness-review.md",
+            "docs/evaluation/source-policy-no-native-text-ocr-readiness-review-report.md",
         ],
-        "recommended_next_gate": "source_policy_no_native_text_ocr_readiness_review_v0",
+        "recommended_next_gate": "source_policy_no_native_text_ocr_dependency_check_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -216,12 +219,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
                 "_plus_source_policy_pdf_parse_quality_matrix_v0"
                 "_plus_source_policy_pdf_quality_gap_review_v0"
                 "_plus_source_policy_no_native_text_failure_route_v0"
+                "_plus_source_policy_no_native_text_ocr_readiness_review_v0"
             ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "source_policy_no_native_text_ocr_readiness_review_v0"
+                "source_policy_no_native_text_ocr_dependency_check_v0"
             ),
         ),
         ProofGapOut(

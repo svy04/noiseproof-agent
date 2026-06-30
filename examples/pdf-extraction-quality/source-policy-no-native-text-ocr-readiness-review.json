@@ -1,0 +1,143 @@
+{
+  "packet": "source_policy_no_native_text_ocr_readiness_review_v0",
+  "phase_marker": "source_policy_no_native_text_ocr_readiness_review_v0",
+  "previous_gate": "source_policy_no_native_text_failure_route_v0",
+  "claim_boundary": "source_policy_no_native_text_ocr_readiness_review_only_not_dependency_execution_or_quality_evidence",
+  "source_failure_route_manifest": "examples/pdf-extraction-quality/source-policy-no-native-text-failure-route.json",
+  "readiness_status": "passed_with_conditions",
+  "owner_approved": true,
+  "ocr_dependency_identified": true,
+  "ocr_dependency_runtime_check_performed": false,
+  "ocr_execution_performed": false,
+  "ocr_quality_eval_performed": false,
+  "runtime_work_performed": false,
+  "pdf_downloads_performed": false,
+  "parser_calls_performed": false,
+  "table_extraction_calls_performed": false,
+  "llm_calls_performed": false,
+  "binary_files_committed": false,
+  "download_cache_committed": false,
+  "raw_text_committed": false,
+  "raw_extracted_text_committed": false,
+  "raw_ocr_text_committed": false,
+  "raw_table_rows_committed": false,
+  "page_images_committed": false,
+  "screenshots_committed": false,
+  "local_paths_committed": false,
+  "tessdata_paths_committed": false,
+  "can_claim_ocr_readiness_review": true,
+  "can_claim_ocr_dependency_available": false,
+  "can_claim_ocr_execution": false,
+  "can_claim_ocr_quality": false,
+  "can_claim_robust_pdf_extraction": false,
+  "preserved_failure_route": {
+    "fixture_id": "nara_911_mfr_00282_no_native_text_candidate",
+    "publisher": "National Archives and Records Administration",
+    "source_url": "https://nara-media-001.s3.amazonaws.com/arcmedia/9-11/MFR/t-0148-911MFR-00282.pdf",
+    "policy_source_url": "https://www.archives.gov/global-pages/privacy.html",
+    "source_sha256": "6b0cc03081182e91fd9f43d604ede1e6da101464c348dc9efc83f342288b7aba",
+    "failure_type": "no_native_text_observed",
+    "root_cause": "image_or_scanned_pdf_without_native_text_layer",
+    "page_count": 4,
+    "empty_page_count": 4,
+    "text_char_count": 0
+  },
+  "sources": [
+    {
+      "label": "PyMuPDF OCR recipes",
+      "source_type": "official_doc",
+      "url": "https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html",
+      "pattern": "Treat OCR as an explicit Tesseract-backed path, separate from normal digital text extraction."
+    },
+    {
+      "label": "PyMuPDF Page.get_textpage_ocr",
+      "source_type": "official_doc",
+      "url": "https://pymupdf.readthedocs.io/en/latest/page.html#Page.get_textpage_ocr",
+      "pattern": "Treat OCR textpage creation as a distinct API surface that needs dependency checks before execution."
+    },
+    {
+      "label": "OCR-D evaluation",
+      "source_type": "standard",
+      "url": "https://ocr-d.de/en/spec/ocrd_eval.html",
+      "pattern": "Treat OCR quality as an evaluated recognition surface, not a binary produced-text flag."
+    },
+    {
+      "label": "Model Cards",
+      "source_type": "paper",
+      "url": "https://arxiv.org/abs/1810.03993",
+      "pattern": "Keep intended-use and caveat boundaries visible before stronger public claims."
+    },
+    {
+      "label": "Datasheets for Datasets",
+      "source_type": "paper",
+      "url": "https://arxiv.org/abs/1803.09010",
+      "pattern": "Keep source composition, collection, omissions, and maintenance limits explicit."
+    }
+  ],
+  "readiness_criteria": [
+    {
+      "criterion_id": "preserved_failure_route",
+      "status": "met",
+      "reason": "The NARA no-native-text route is preserved with source URL, policy URL, hash, page counts, empty page count, and zero text character count."
+    },
+    {
+      "criterion_id": "source_policy_boundary",
+      "status": "met",
+      "reason": "The route remains source-policy-reviewed and commits no external PDF binary, download cache, raw text, page image, or screenshot."
+    },
+    {
+      "criterion_id": "ocr_dependency_boundary",
+      "status": "planned_next_gate",
+      "reason": "PyMuPDF OCR is Tesseract-backed, so dependency availability must be checked in a separate gate before OCR execution."
+    },
+    {
+      "criterion_id": "ocr_execution_boundary",
+      "status": "blocked_until_dependency_check",
+      "reason": "This gate does not run OCR; execution is blocked until dependency readiness is inspectable."
+    },
+    {
+      "criterion_id": "ocr_quality_boundary",
+      "status": "blocked_until_ground_truth_eval",
+      "reason": "OCR quality needs explicit ground-truth or expected-span evaluation and cannot be inferred from text character count."
+    },
+    {
+      "criterion_id": "raw_content_boundary",
+      "status": "met",
+      "reason": "The readiness packet commits no raw source text, raw OCR text, table rows, local paths, tessdata paths, page images, or screenshots."
+    }
+  ],
+  "blocked_reasons": [
+    "ocr_dependency_runtime_check_not_performed",
+    "ocr_execution_not_performed",
+    "ocr_quality_eval_not_performed",
+    "ground_truth_not_defined",
+    "robust_pdf_claim_still_blocked",
+    "external_reviewer_validation_pending"
+  ],
+  "minimum_next_evidence": [
+    "Run a source-policy no-native-text OCR dependency check without printing or committing local paths.",
+    "Keep OCR execution separate from dependency readiness.",
+    "Keep OCR quality evaluation separate from OCR execution and require expected spans or error-rate-like criteria before any quality claim."
+  ],
+  "warnings": [
+    "This is a readiness review only and does not check local OCR dependencies.",
+    "This gate does not run OCR and does not produce OCR text.",
+    "The preserved NARA route remains a failure route, not OCR quality evidence."
+  ],
+  "boundary_notes": [
+    "source-policy no-native-text OCR readiness review only",
+    "not OCR dependency availability evidence",
+    "not OCR execution evidence",
+    "not OCR quality evidence",
+    "not robust PDF extraction evidence",
+    "not arbitrary-market PDF parsing evidence",
+    "not table extraction benchmark evidence",
+    "not layout fidelity evidence",
+    "not rendered visual fidelity evidence",
+    "not image/chart interpretation evidence",
+    "not hosted deployment evidence",
+    "not external reviewer feedback",
+    "not product-complete"
+  ],
+  "recommended_next_gate": "source_policy_no_native_text_ocr_dependency_check_v0"
+}

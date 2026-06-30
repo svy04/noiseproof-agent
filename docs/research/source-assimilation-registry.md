@@ -328,6 +328,44 @@ license_or_rights_note: Cite the official PyMuPDF and OCR-D documentation plus
 the model-card/datasheet papers as patterns only; do not copy external PDF
 content, benchmark assets, or long documentation passages.
 
+### Source-policy No-native-text OCR Readiness Review
+
+source: https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html
+
+source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.get_textpage_ocr
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source: https://arxiv.org/abs/1810.03993
+
+source: https://arxiv.org/abs/1803.09010
+
+source_type: official_doc_spec_and_paper_adaptation
+
+pattern_to_borrow: Treat OCR readiness as a separate review surface before
+dependency runtime checks, OCR execution, or OCR quality evaluation. Use
+Model Cards and Datasheets as patterns for keeping intended-use, source,
+dependency, and non-claim boundaries visible.
+
+local_adaptation: `source_policy_no_native_text_ocr_readiness_review_v0`
+reviews the preserved NARA no-native-text route and records the readiness
+criteria needed before a future dependency check. It commits no source PDF,
+raw text, raw OCR text, local paths, tessdata paths, page images, or
+screenshots.
+
+boundary: OCR readiness review does not prove OCR dependency availability,
+OCR execution, OCR quality, robust PDF extraction, arbitrary-market PDF
+parsing reliability, rendered visual fidelity, image/chart interpretation, or
+external validation.
+
+rejection_condition: Reject any gate that treats readiness as dependency
+availability, runs OCR before the dependency check gate, prints local OCR
+paths, commits OCR text, or upgrades readiness wording into OCR quality.
+
+license_or_rights_note: Cite official docs and public papers as patterns only;
+do not copy external PDF content, benchmark assets, local runtime paths, or
+long documentation passages.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables

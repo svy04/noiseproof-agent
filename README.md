@@ -9,7 +9,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 Start future work from `docs/MASTER-SPEC.md`, then `docs/GOAL.md`, then the
 latest relevant short-term spec in `docs/specs/`.
 
-Current operating gate: `source_policy_no_native_text_failure_route_v0`.
+Current operating gate: `source_policy_no_native_text_ocr_readiness_review_v0`.
 
 The loop was introduced by `master_spec_operating_loop_v0`.
 
@@ -69,7 +69,8 @@ the proof gap priority matrix before selecting a local implementation gate.
 | Latest source-policy parse quality matrix | `source_policy_pdf_parse_quality_matrix_v0` | Turns those parse observations into 6 quality-blocker cells; no cell is ready for stronger PDF extraction wording. |
 | Latest source-policy PDF quality gap review | `source_policy_pdf_quality_gap_review_v0` | Selects the no-native-text failure route as the smallest inspectable next gate; still no OCR or parser-quality claim. |
 | Latest source-policy no-native-text failure route | `source_policy_no_native_text_failure_route_v0` | Preserves the NARA no-native-text failure route before any OCR quality work; still no OCR call, OCR quality claim, or robust PDF extraction claim. |
-| Next local product candidate | `source_policy_no_native_text_ocr_readiness_review_v0` | Review OCR readiness for the preserved route before any OCR dependency, OCR execution, or OCR quality gate. |
+| Latest source-policy no-native-text OCR readiness review | `source_policy_no_native_text_ocr_readiness_review_v0` | Reviews OCR readiness boundaries for the preserved NARA route; still no dependency runtime check, OCR execution, OCR quality claim, or robust PDF extraction claim. |
+| Next local product candidate | `source_policy_no_native_text_ocr_dependency_check_v0` | Check OCR dependency availability without printing or committing local OCR paths. |
 
 Do not read this as a product-complete claim.
 
@@ -86,6 +87,7 @@ Do not read this as a product-complete claim.
 - The latest source-policy parse quality matrix records 6 quality-blocker cells and keeps all stronger PDF extraction quality claims blocked.
 - The latest source-policy PDF quality gap review selects the NARA no-native-text failure route as the next smallest inspectable gate before OCR quality work.
 - The latest source-policy no-native-text failure route preserves the NARA failure route with `page_count -> 4`, `empty_page_count -> 4`, `text_char_count -> 0`, `ocr_calls_performed -> false`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
+- The latest source-policy no-native-text OCR readiness review records `readiness_status -> passed_with_conditions`, identifies the Tesseract-backed OCR dependency boundary, and keeps `ocr_dependency_runtime_check_performed -> false`, `ocr_execution_performed -> false`, `ocr_quality_eval_performed -> false`, `can_claim_ocr_dependency_available -> false`, `can_claim_ocr_execution -> false`, and `can_claim_ocr_quality -> false`.
 - Strong claims are intentionally blocked when evidence is missing.
 
 ## What This Does Not Prove Yet

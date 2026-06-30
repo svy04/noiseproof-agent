@@ -13,9 +13,9 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `source_policy_no_native_text_failure_route_v0`.
+Current operating gate: `source_policy_no_native_text_ocr_readiness_review_v0`.
 
-Previous operating gate: `source_policy_pdf_quality_gap_review_v0`.
+Previous operating gate: `source_policy_no_native_text_failure_route_v0`.
 
 Previous action-surface gate: `proof_gap_action_surface_current_state_refresh_v0`.
 
@@ -282,6 +282,35 @@ quality evidence, table extraction benchmark evidence, layout fidelity
 evidence, rendered visual fidelity evidence, image/chart interpretation
 evidence, hosted deployment evidence, external reviewer feedback, or
 product-complete.
+
+Phase `source_policy_no_native_text_ocr_readiness_review_v0` adds
+`docs/review/source-policy-no-native-text-ocr-readiness-review.md` and
+`docs/evaluation/source-policy-no-native-text-ocr-readiness-review-report.md`.
+Reproduce with:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_no_native_text_ocr_readiness_review_command \
+  --review ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-readiness-review.json \
+  --output ../../docs/evaluation/source-policy-no-native-text-ocr-readiness-review-report.md \
+  --check
+```
+
+This is a source-policy no-native-text OCR readiness review only. It records
+`readiness_status -> passed_with_conditions`, `fixture_id ->
+nara_911_mfr_00282_no_native_text_candidate`,
+`ocr_dependency_identified -> true`,
+`ocr_dependency_runtime_check_performed -> false`,
+`ocr_execution_performed -> false`, `ocr_quality_eval_performed -> false`,
+`can_claim_ocr_dependency_available -> false`,
+`can_claim_ocr_execution -> false`, `can_claim_ocr_quality -> false`,
+`can_claim_robust_pdf_extraction -> false`, and
+`source_policy_no_native_text_ocr_dependency_check_v0` as the next gate. It is
+not OCR dependency availability evidence, OCR execution evidence, OCR quality
+evidence, robust PDF extraction evidence, arbitrary-market PDF parsing
+evidence, table extraction benchmark evidence, layout fidelity evidence,
+rendered visual fidelity evidence, image/chart interpretation evidence, hosted
+deployment evidence, external reviewer feedback, or product-complete.
 
 Phase `robust_pdf_extraction_next_real_world_quality_gate_v0` adds
 `docs/review/robust-pdf-extraction-next-real-world-quality-gate.md` and
