@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-real_world_table_extraction_evidence_gate_v0
+real_world_ocr_evidence_gate_v0
 ```
 
 Previous operating gate:
 
 ```text
-cross_publisher_real_world_pdf_fixture_gate_v0
+real_world_table_extraction_evidence_gate_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the table extraction evidence gate:
+Current next local product candidate after the OCR evidence gate:
 
 ```text
-real_world_ocr_evidence_gate_v0
+real_world_layout_fidelity_evidence_gate_v0
 ```
 
 Latest robust-PDF local quality gate:
@@ -187,6 +187,35 @@ total_table_cell_count: 7902
 can_claim_real_world_table_extraction_evidence: true
 can_claim_robust_pdf_extraction: false
 remaining_blocked_reasons: ocr_evidence_missing; layout_fidelity_evidence_missing
+```
+
+Latest real-world OCR evidence gate:
+
+```text
+real_world_ocr_evidence_gate_v0
+```
+
+Latest real-world OCR evidence report:
+
+```text
+docs/evaluation/real-world-ocr-evidence-gate-report.md
+```
+
+Current real-world OCR evidence result:
+
+```text
+ocr_gate_status: passed
+observed_fixture_count: 1
+ocr_observed_fixture_count: 1
+publisher: National Archives and Records Administration
+fixture_id: nara_911_mfr_00282
+total_page_count: 4
+total_ocr_pages_attempted: 2
+total_native_text_char_count: 0
+total_ocr_text_char_count: 3992
+can_claim_real_world_ocr_evidence: true
+can_claim_robust_pdf_extraction: false
+remaining_blocked_reasons: layout_fidelity_evidence_missing
 ```
 
 ## 1. Top-level Purpose

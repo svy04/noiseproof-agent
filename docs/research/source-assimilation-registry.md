@@ -261,6 +261,80 @@ external source PDFs.
 license_or_rights_note: Cite the official PyMuPDF documentation; respect source
 publisher reuse policies before using external PDFs as fixtures.
 
+### PyMuPDF OCR
+
+source: https://pymupdf.readthedocs.io/en/latest/recipes-ocr.html
+
+source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.get_textpage_ocr
+
+source_type: official_doc
+
+pattern_to_borrow: Treat OCR as an explicit Tesseract-backed path through
+`Page.get_textpage_ocr()`, separate from normal digital text extraction.
+
+local_adaptation: Keep owner-runtime OCR observations sanitized. Commit source
+URL, source policy URL, hash, page counts, character counts, expected-term hit
+metadata, warnings, and non-claims. Do not commit external PDFs, raw OCR text,
+local file paths, or tessdata paths.
+
+boundary: One OCR observation through PyMuPDF does not prove robust PDF
+extraction, arbitrary-market OCR reliability, layout fidelity, or report truth.
+
+rejection_condition: Reject any OCR gate that silently falls back to OCR, hides
+Tesseract/tessdata dependency, commits raw OCR text from external PDFs, or
+upgrades one observation into robust parsing wording.
+
+license_or_rights_note: Cite the official PyMuPDF documentation and respect
+publisher source policies before using external PDFs as fixtures.
+
+### OCRmyPDF
+
+source: https://ocrmypdf.readthedocs.io/en/latest/introduction.html
+
+source_type: official_doc
+
+pattern_to_borrow: Treat OCR for scanned PDFs as a distinct document-processing
+stage that adds searchable text but carries accuracy, structure, and dependency
+limits.
+
+local_adaptation: Use OCRmyPDF as a reference pattern for OCR boundaries and
+future adapter decisions. Do not claim OCRmyPDF integration in the current
+PyMuPDF OCR gate.
+
+boundary: Referencing OCRmyPDF documentation does not mean NoiseProof runs
+OCRmyPDF, creates OCRed PDF/A files, or solves poor scan, handwriting, reading
+order, or layout-fidelity problems.
+
+rejection_condition: Reject any future OCR work that treats text-layer creation
+as evidence of claim truth or layout fidelity.
+
+license_or_rights_note: Reference official documentation only; check OCRmyPDF
+license and dependency requirements before integration.
+
+### NARA 9/11 Records and Permissions
+
+source: https://www.archives.gov/research/9-11
+
+source: https://www.archives.gov/global-pages/privacy.html
+
+source_type: official_doc
+
+pattern_to_borrow: Keep collection URL, record URL, source hash, and reuse
+boundary visible when using a National Archives PDF as an external fixture.
+
+local_adaptation: Use one NARA 9/11 Commission MFR PDF as a temporary
+owner-runtime OCR observation and commit only sanitized metadata. Do not commit
+the PDF binary, download cache, local paths, or raw OCR text.
+
+boundary: A NARA source page and general policy URL do not guarantee every
+record has the same rights status and do not prove robust PDF extraction.
+
+rejection_condition: Reject any fixture gate that commits raw archival text or
+binary source files without a stronger source policy review.
+
+license_or_rights_note: Treat the policy URL as a rights boundary signal, not a
+blanket public-domain guarantee for all archival material.
+
 ### EIA Content Reuse and Short-Term Energy Outlook
 
 source: https://www.eia.gov/about/copyrights_reuse.php
