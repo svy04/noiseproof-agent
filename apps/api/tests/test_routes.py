@@ -6206,9 +6206,10 @@ def test_ops_summary_and_dashboard_surface_current_proof_gap_registry():
         "_plus_robust_pdf_extraction_generalization_gap_review_v0"
         "_plus_multi_publisher_modality_stratified_pdf_eval_v0"
         "_plus_targeted_real_world_pdf_fixture_expansion_v0"
+        "_plus_real_world_pdf_fixture_source_policy_download_hash_v0"
     )
     assert by_id["robust_pdf_extraction"]["next_evidence_needed"] == (
-        "real_world_pdf_fixture_source_policy_download_hash_v0"
+        "source_policy_pdf_parse_observation_v0"
     )
     assert by_id["actual_embedding_generation"]["status"] == "unproven"
     assert by_id["semantic_retrieval_quality"]["status"] == "unproven"
@@ -6310,9 +6311,10 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
         "_plus_robust_pdf_extraction_generalization_gap_review_v0"
         "_plus_multi_publisher_modality_stratified_pdf_eval_v0"
         "_plus_targeted_real_world_pdf_fixture_expansion_v0"
+        "_plus_real_world_pdf_fixture_source_policy_download_hash_v0"
     )
     assert robust_gap["recommended_next_gate"] == (
-        "real_world_pdf_fixture_source_policy_download_hash_v0"
+        "source_policy_pdf_parse_observation_v0"
     )
     assert "docs/review/multi-fixture-pdf-extraction-quality-eval.md" in robust_gap[
         "proof_routes"
@@ -6343,6 +6345,12 @@ def test_ops_proof_gap_action_surface_exposes_gap_details_without_closing_gap():
         "docs/evaluation/committed-ocr-layout-image-binary-fixture-provenance-report.md"
         in robust_gap["proof_routes"]
     )
+    assert "docs/review/source-policy-download-hash.md" in robust_gap[
+        "proof_routes"
+    ]
+    assert "docs/evaluation/source-policy-download-hash-report.md" in robust_gap[
+        "proof_routes"
+    ]
     assert "docs/review/opt-in-ocr-adapter-runtime-smoke.md" in robust_gap[
         "proof_routes"
     ]

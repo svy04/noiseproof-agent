@@ -605,6 +605,35 @@ license_or_rights_note: Candidate URLs and source-policy URLs are metadata
 only. Do not copy protected source text, screenshots, page images, or binary
 PDFs into the repository without a stronger rights review.
 
+### Source-policy PDF Download and Hash
+
+source: examples/pdf-extraction-quality/source-policy-download-hash-observations.json
+
+source: docs/evaluation/source-policy-download-hash-report.md
+
+source_type: runtime_evidence
+
+pattern_to_borrow: Convert source-policy-reviewed candidate routes into
+temporary owner-runtime download/hash metadata before parser observations.
+
+local_adaptation: Record HTTP status, content type, byte size, SHA-256 hash,
+PDF magic-header result, blocked BLS HTTP 403 candidates, and external review
+routes while committing no external PDF binaries, caches, raw text, screenshots,
+or page images.
+
+boundary: Source-policy download/hash metadata is not robust PDF extraction
+evidence, arbitrary-market PDF parsing evidence, OCR quality evidence, table
+extraction benchmark evidence, layout fidelity evidence, external reviewer
+feedback, hosted deployment evidence, or product-complete.
+
+rejection_condition: Reject any future parse gate that treats download/hash
+metadata as extraction quality, commits external binaries or raw derived text,
+or skips blocked-candidate reporting.
+
+license_or_rights_note: The committed artifact is sanitized metadata only.
+Temporary downloaded PDFs remain owner-runtime byproducts and must not be
+committed without a separate rights review.
+
 ### Patent: US20260105079A1
 
 source: https://patents.google.com/patent/US20260105079A1/en
