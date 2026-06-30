@@ -545,6 +545,41 @@ rendered visual fidelity evidence, not image/chart interpretation evidence, not
 hosted deployment evidence, not external reviewer feedback, and not
 product-complete.
 
+Source-policy no-native-text OCR transcript reference pack:
+
+```text
+docs/review/source-policy-no-native-text-ocr-transcript-reference-pack.md
+docs/evaluation/source-policy-no-native-text-ocr-transcript-reference-pack-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-transcript-reference-pack.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_ocr_transcript_reference_pack_v0
+reference_pack_status -> sanitized_transcript_reference_pack_boundary
+reference_pack_claim_scope -> sanitized_boundary_only
+reference_text_available -> false
+full_reference_transcript_available -> false
+transcript_collection_performed -> false
+quality_eval_performed -> false
+cer_computed -> false
+wer_computed -> false
+can_claim_transcript_reference_pack -> true
+can_claim_reference_transcript_available -> false
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0
+```
+
+Boundary: this route records a sanitized transcript-reference pack boundary
+only. It is not reference transcript availability, not OCR quality evidence,
+not CER/WER support, not a reference transcript, not robust PDF extraction
+evidence, not arbitrary-market PDF parsing evidence, not table extraction
+benchmark evidence, not layout fidelity evidence, not rendered visual fidelity
+evidence, not image/chart interpretation evidence, not hosted deployment
+evidence, not external reviewer feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

@@ -374,6 +374,16 @@ jobs:
             --output ../../docs/evaluation/source-policy-no-native-text-ocr-transcript-reference-plan-report.md \
             --check
 
+      - name: Check source-policy no-native-text OCR transcript reference pack report staleness
+        working-directory: apps/api
+        run: |
+          echo source_policy_no_native_text_ocr_transcript_reference_pack_v0
+          echo source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0
+          uv run python -m app.services.source_policy_no_native_text_ocr_transcript_reference_pack_command \
+            --transcript-reference-pack ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-transcript-reference-pack.json \
+            --output ../../docs/evaluation/source-policy-no-native-text-ocr-transcript-reference-pack-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

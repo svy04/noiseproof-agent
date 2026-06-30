@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-source_policy_no_native_text_ocr_transcript_reference_plan_v0
+source_policy_no_native_text_ocr_transcript_reference_pack_v0
 ```
 
 Previous operating gate:
 
 ```text
-source_policy_no_native_text_ocr_marker_proxy_eval_v0
+source_policy_no_native_text_ocr_transcript_reference_plan_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the source-policy no-native-text OCR transcript reference plan gate:
+Current next local product candidate after the source-policy no-native-text OCR transcript reference pack gate:
 
 ```text
-source_policy_no_native_text_ocr_transcript_reference_pack_v0
+source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0
 ```
 
 Current source-policy no-native-text failure route artifact:
@@ -207,6 +207,15 @@ source_policy_no_native_text_ocr_transcript_reference_plan_v0
 docs/review/source-policy-no-native-text-ocr-transcript-reference-plan.md
 docs/evaluation/source-policy-no-native-text-ocr-transcript-reference-plan-report.md
 examples/pdf-extraction-quality/source-policy-no-native-text-ocr-transcript-reference-plan.json
+```
+
+Current source-policy no-native-text OCR transcript reference pack artifact:
+
+```text
+source_policy_no_native_text_ocr_transcript_reference_pack_v0
+docs/review/source-policy-no-native-text-ocr-transcript-reference-pack.md
+docs/evaluation/source-policy-no-native-text-ocr-transcript-reference-pack-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-transcript-reference-pack.json
 ```
 
 Latest robust-PDF local quality gate:
