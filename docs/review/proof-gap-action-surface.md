@@ -123,6 +123,20 @@ recommended_next_gate -> real_world_layout_fidelity_evidence_gate_v0
 The OCR evidence gate reduces the OCR blocker for one NARA fixture, but the
 robust-PDF gap remains open because layout fidelity evidence is still missing.
 
+After `real_world_layout_fidelity_evidence_gate_v0`, the action surface
+includes:
+
+```text
+current_evidence -> ...plus_real_world_layout_fidelity_evidence_gate_v0
+proof_routes -> docs/review/real-world-layout-fidelity-evidence-gate.md
+proof_routes -> docs/evaluation/real-world-layout-fidelity-evidence-gate-report.md
+recommended_next_gate -> robust_pdf_extraction_generalization_gap_review_v0
+```
+
+The layout fidelity evidence gate reduces the layout blocker for one BEA
+fixture, but the robust-PDF gap remains open because the evidence chain is still
+too small to generalize to arbitrary market PDFs.
+
 ## Semantic Retrieval Quality Example
 
 For `semantic_retrieval_quality`, the action surface keeps the gap open. After
