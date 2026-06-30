@@ -261,6 +261,36 @@ image/chart interpretation.
 license_or_rights_note: Use public project/docs patterns only; do not copy
 project code or long documentation passages.
 
+### Source-policy PDF Quality Gap Review
+
+source: https://arxiv.org/abs/1810.03993
+
+source: https://arxiv.org/abs/1803.09010
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source_type: paper_and_spec_adaptation
+
+pattern_to_borrow: Select next evidence by explicit limitations, dataset/source
+boundaries, and measurable OCR-quality separation rather than by the most
+impressive demo path.
+
+local_adaptation: `source_policy_pdf_quality_gap_review_v0` ranks the six
+source-policy PDF quality blockers and selects the NARA no-native-text failure
+route because it can preserve a real observed failure before OCR quality work,
+without new downloads or OCR calls.
+
+boundary: Selecting a no-native-text failure route does not prove OCR quality,
+robust PDF extraction, rendered visual fidelity, layout fidelity, image/chart
+interpretation, or external validation.
+
+rejection_condition: Reject next-gate decisions that jump from no-native-text
+metadata to OCR quality, or that choose externally blocked routes while a
+smaller inspectable failure route remains unpreserved.
+
+license_or_rights_note: Use public paper/spec patterns only; cite sources and
+avoid copying benchmark text or evaluation assets.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables

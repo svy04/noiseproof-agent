@@ -180,6 +180,35 @@ extraction benchmark evidence, not layout fidelity evidence, not rendered
 visual fidelity evidence, not image/chart interpretation evidence, not hosted
 deployment evidence, not external reviewer feedback, and not product-complete.
 
+Source-policy PDF quality gap review:
+
+```text
+docs/review/source-policy-pdf-quality-gap-review.md
+docs/evaluation/source-policy-pdf-quality-gap-review-report.md
+examples/pdf-extraction-quality/source-policy-pdf-quality-gap-review.json
+```
+
+Route markers:
+
+```text
+source_policy_pdf_quality_gap_review_v0
+quality_gap_status -> open
+reviewed_gap_count -> 6
+quality_claim_ready_cell_count -> 0
+selected_next_gap -> multi_publisher_no_extractable_text_failure
+selected_next_gate -> source_policy_no_native_text_failure_route_v0
+can_claim_robust_pdf_extraction -> false
+can_claim_ocr_quality -> false
+```
+
+Boundary: this route points reviewers to a deterministic review over the
+source-policy PDF parse quality matrix. It is route hygiene only, not new
+runtime evidence, not robust PDF extraction evidence, not arbitrary-market PDF
+parsing evidence, not OCR quality evidence, not table extraction benchmark
+evidence, not layout fidelity evidence, not rendered visual fidelity evidence,
+not image/chart interpretation evidence, not hosted deployment evidence, not
+external reviewer feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

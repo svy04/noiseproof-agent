@@ -264,6 +264,16 @@ jobs:
             --output ../../docs/evaluation/source-policy-pdf-parse-quality-matrix-report.md \
             --check
 
+      - name: Check source-policy PDF quality gap review report staleness
+        working-directory: apps/api
+        run: |
+          echo source_policy_pdf_quality_gap_review_v0
+          echo source_policy_no_native_text_failure_route_v0
+          uv run python -m app.services.source_policy_pdf_quality_gap_review_command \
+            --review ../../examples/pdf-extraction-quality/source-policy-pdf-quality-gap-review.json \
+            --output ../../docs/evaluation/source-policy-pdf-quality-gap-review-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

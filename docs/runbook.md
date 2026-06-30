@@ -13,7 +13,7 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `source_policy_pdf_parse_quality_matrix_v0`.
+Current operating gate: `source_policy_pdf_quality_gap_review_v0`.
 
 Previous operating gate: `real_world_pdf_fixture_source_policy_download_hash_v0`.
 
@@ -228,6 +228,33 @@ quality evidence, table extraction benchmark evidence, layout fidelity
 evidence, rendered visual fidelity evidence, image/chart interpretation
 evidence, hosted deployment evidence, external reviewer feedback, or
 product-complete.
+
+Phase `source_policy_pdf_quality_gap_review_v0` adds
+`docs/review/source-policy-pdf-quality-gap-review.md` and
+`docs/evaluation/source-policy-pdf-quality-gap-review-report.md`. Reproduce
+with:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_pdf_quality_gap_review_command \
+  --review ../../examples/pdf-extraction-quality/source-policy-pdf-quality-gap-review.json \
+  --output ../../docs/evaluation/source-policy-pdf-quality-gap-review-report.md \
+  --check
+```
+
+This is a source-policy PDF quality gap review only. It records
+`review_status -> passed`, `quality_gap_status -> open`,
+`reviewed_gap_count -> 6`, `quality_claim_ready_cell_count -> 0`,
+`self_completable_without_new_download_count -> 3`,
+`selected_next_gap -> multi_publisher_no_extractable_text_failure`,
+`selected_next_gate -> source_policy_no_native_text_failure_route_v0`,
+`can_claim_source_policy_pdf_quality_gap_review -> true`,
+`can_claim_robust_pdf_extraction -> false`, and
+`can_claim_ocr_quality -> false`. It is not robust PDF extraction evidence,
+arbitrary-market PDF parsing evidence, OCR quality evidence, table extraction
+benchmark evidence, layout fidelity evidence, rendered visual fidelity
+evidence, image/chart interpretation evidence, hosted deployment evidence,
+external reviewer feedback, or product-complete.
 
 Phase `robust_pdf_extraction_next_real_world_quality_gate_v0` adds
 `docs/review/robust-pdf-extraction-next-real-world-quality-gate.md` and
