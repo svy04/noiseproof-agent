@@ -234,6 +234,16 @@ jobs:
             --output ../../docs/evaluation/targeted-real-world-pdf-fixture-expansion-report.md \
             --check
 
+      - name: Check source-policy PDF download/hash report staleness
+        working-directory: apps/api
+        run: |
+          echo real_world_pdf_fixture_source_policy_download_hash_v0
+          echo source_policy_pdf_parse_observation_v0
+          uv run python -m app.services.source_policy_download_hash_command \
+            --manifest ../../examples/pdf-extraction-quality/source-policy-download-hash-observations.json \
+            --output ../../docs/evaluation/source-policy-download-hash-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

@@ -181,6 +181,21 @@ missing cells to source-policy-reviewed candidate routes, but it performs no
 downloads, hashing, parsing, OCR, table extraction, visual comparison, or
 external review.
 
+After `real_world_pdf_fixture_source_policy_download_hash_v0`, the action
+surface includes:
+
+```text
+current_evidence -> ...plus_real_world_pdf_fixture_source_policy_download_hash_v0
+proof_routes -> docs/review/source-policy-download-hash.md
+proof_routes -> docs/evaluation/source-policy-download-hash-report.md
+recommended_next_gate -> source_policy_pdf_parse_observation_v0
+```
+
+The source-policy download/hash gate keeps the robust-PDF gap open. It records
+three temporary owner-runtime downloaded/hashable PDFs, two BLS HTTP 403
+blocked candidates, and one external route, but it performs no parsing, OCR,
+table extraction, visual comparison, or external review.
+
 ## Semantic Retrieval Quality Example
 
 For `semantic_retrieval_quality`, the action surface keeps the gap open. After

@@ -13,9 +13,9 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `targeted_real_world_pdf_fixture_expansion_v0`.
+Current operating gate: `real_world_pdf_fixture_source_policy_download_hash_v0`.
 
-Previous operating gate: `multi_publisher_modality_stratified_pdf_eval_v0`.
+Previous operating gate: `targeted_real_world_pdf_fixture_expansion_v0`.
 
 Previous action-surface gate: `proof_gap_action_surface_current_state_refresh_v0`.
 
@@ -141,6 +141,33 @@ This is a source-policy-reviewed fixture expansion plan only. It records
 It is not robust PDF extraction evidence, arbitrary-market PDF parsing
 evidence, OCR quality evidence, table extraction benchmark evidence, layout
 fidelity evidence, hosted deployment evidence, external reviewer feedback, or
+product-complete.
+
+Phase `real_world_pdf_fixture_source_policy_download_hash_v0` adds
+`docs/review/source-policy-download-hash.md` and
+`docs/evaluation/source-policy-download-hash-report.md`. Reproduce with:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_download_hash_command \
+  --manifest ../../examples/pdf-extraction-quality/source-policy-download-hash-observations.json \
+  --output ../../docs/evaluation/source-policy-download-hash-report.md \
+  --check
+```
+
+This is source-policy download/hash metadata only. It records
+`download_hash_status -> passed_with_blocked_candidates`,
+`downloaded_fixture_count -> 3`, `blocked_fixture_count -> 2`,
+`external_route_count -> 1`, `binary_files_committed -> false`,
+`download_cache_committed -> false`, `raw_text_committed -> false`,
+`parser_calls_performed -> false`, `ocr_calls_performed -> false`,
+`table_extraction_calls_performed -> false`,
+`can_claim_download_hash_metadata -> true`,
+`can_claim_robust_pdf_extraction -> false`, and
+`recommended_next_gate -> source_policy_pdf_parse_observation_v0`. It is not
+robust PDF extraction evidence, arbitrary-market PDF parsing evidence, OCR
+quality evidence, table extraction benchmark evidence, layout fidelity
+evidence, hosted deployment evidence, external reviewer feedback, or
 product-complete.
 
 Phase `robust_pdf_extraction_next_real_world_quality_gate_v0` adds

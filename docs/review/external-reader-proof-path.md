@@ -90,6 +90,36 @@ evidence, not OCR quality evidence, not table extraction benchmark evidence,
 not layout fidelity evidence, not hosted deployment evidence, not external
 reviewer feedback, and not product-complete.
 
+Source-policy PDF download/hash:
+
+```text
+docs/review/source-policy-download-hash.md
+docs/evaluation/source-policy-download-hash-report.md
+examples/pdf-extraction-quality/source-policy-download-hash-observations.json
+```
+
+Route markers:
+
+```text
+real_world_pdf_fixture_source_policy_download_hash_v0
+download_hash_status -> passed_with_blocked_candidates
+downloaded_fixture_count -> 3
+blocked_fixture_count -> 2
+external_route_count -> 1
+binary_files_committed -> false
+download_cache_committed -> false
+raw_text_committed -> false
+can_claim_robust_pdf_extraction -> false
+recommended_next_gate -> source_policy_pdf_parse_observation_v0
+```
+
+Boundary: this route points reviewers to temporary owner-runtime download/hash
+metadata for selected source-policy-reviewed candidates. It is route hygiene
+only, not robust PDF extraction evidence, not arbitrary-market PDF parsing
+evidence, not OCR quality evidence, not table extraction benchmark evidence,
+not layout fidelity evidence, not hosted deployment evidence, not external
+reviewer feedback, and not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text
