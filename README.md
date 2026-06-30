@@ -9,7 +9,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 Start future work from `docs/MASTER-SPEC.md`, then `docs/GOAL.md`, then the
 latest relevant short-term spec in `docs/specs/`.
 
-Current operating gate: `source_policy_no_native_text_ocr_dependency_check_v0`.
+Current operating gate: `source_policy_no_native_text_ocr_dependency_resolution_v0`.
 
 The loop was introduced by `master_spec_operating_loop_v0`.
 
@@ -71,7 +71,8 @@ the proof gap priority matrix before selecting a local implementation gate.
 | Latest source-policy no-native-text failure route | `source_policy_no_native_text_failure_route_v0` | Preserves the NARA no-native-text failure route before any OCR quality work; still no OCR call, OCR quality claim, or robust PDF extraction claim. |
 | Latest source-policy no-native-text OCR readiness review | `source_policy_no_native_text_ocr_readiness_review_v0` | Reviews OCR readiness boundaries for the preserved NARA route; still no dependency runtime check, OCR execution, OCR quality claim, or robust PDF extraction claim. |
 | Latest source-policy no-native-text OCR dependency check | `source_policy_no_native_text_ocr_dependency_check_v0` | Records the current missing Tesseract command state without printing or committing local OCR paths; still no OCR execution or OCR quality claim. |
-| Next local product candidate | `source_policy_no_native_text_ocr_dependency_resolution_v0` | Resolve or configure the missing Tesseract dependency before any OCR execution gate. |
+| Latest source-policy no-native-text OCR dependency resolution | `source_policy_no_native_text_ocr_dependency_resolution_v0` | Records that the owner runtime can resolve Tesseract and English language data after PATH refresh; still no OCR execution or OCR quality claim. |
+| Next local product candidate | `source_policy_no_native_text_ocr_execution_plan_v0` | Plan a bounded OCR execution gate before any OCR run or quality wording. |
 
 Do not read this as a product-complete claim.
 

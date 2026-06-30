@@ -304,6 +304,16 @@ jobs:
             --output ../../docs/evaluation/source-policy-no-native-text-ocr-dependency-check-report.md \
             --check
 
+      - name: Check source-policy no-native-text OCR dependency resolution report staleness
+        working-directory: apps/api
+        run: |
+          echo source_policy_no_native_text_ocr_dependency_resolution_v0
+          echo source_policy_no_native_text_ocr_execution_plan_v0
+          uv run python -m app.services.source_policy_no_native_text_ocr_dependency_resolution_command \
+            --resolution-packet ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-dependency-resolution.json \
+            --output ../../docs/evaluation/source-policy-no-native-text-ocr-dependency-resolution-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |
