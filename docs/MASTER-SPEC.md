@@ -11,6 +11,11 @@ Current source assimilation registry:
 
 Current source assimilation gate: `source_assimilation_registry_v0`.
 
+Current proof-gap prioritization gate: `proof_gap_priority_matrix_v0`.
+
+Current proof-gap priority matrix:
+`docs/research/proof-gap-priority-matrix.md`.
+
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source
 projects. The point is not to invent a more impressive demo. The point is to
@@ -140,11 +145,14 @@ Every future gate follows this loop:
 3. Inspect current local repo state and existing proof artifacts.
 4. Identify the next highest-value incomplete gate.
 5. Read `docs/research/source-assimilation-registry.md` and primary/original sources relevant to that gate.
-6. Create or update a short-term spec in `docs/specs/`.
-7. Implement only that spec.
-8. Run available verification.
-9. Update README, runbook, GOAL, review/application docs if the gate changes public proof state.
-10. Report what is implemented, what remains planned, what was verified, and what is blocked.
+6. For proof-reduction gates, read
+   `docs/research/proof-gap-priority-matrix.md` before selecting the local
+   implementation target.
+7. Create or update a short-term spec in `docs/specs/`.
+8. Implement only that spec.
+9. Run available verification.
+10. Update README, runbook, GOAL, review/application docs if the gate changes public proof state.
+11. Report what is implemented, what remains planned, what was verified, and what is blocked.
 
 No gate should jump straight from idea to code.
 
