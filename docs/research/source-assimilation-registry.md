@@ -502,6 +502,41 @@ license_or_rights_note: Cite PyMuPDF, Tesseract, and OCR-D docs as public
 patterns only; do not copy traineddata files, source PDF content, benchmark
 assets, local runtime paths, or long documentation passages.
 
+### Source-policy No-native-text OCR Quality Eval Plan
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source: https://github.com/jitsi/jiwer
+
+source: https://arxiv.org/abs/1810.03993
+
+source: https://arxiv.org/abs/1803.09010
+
+source_type: standard_oss_and_paper_adaptation
+
+pattern_to_borrow: Treat OCR quality as a reference-backed evaluation surface,
+not as a side effect of successful OCR execution, character counts, or marker
+hits. Keep metric candidates, reference inputs, normalization rules, source
+binding, and non-claims explicit before scoring.
+
+local_adaptation: `source_policy_no_native_text_ocr_quality_eval_plan_v0`
+records the reference inputs and metric candidates required before the
+preserved NARA no-native-text route can compute OCR quality. It commits no
+source PDF, raw OCR text, raw reference text, local paths, tessdata paths, page
+images, or screenshots.
+
+boundary: An OCR quality evaluation plan does not prove OCR quality, robust PDF
+extraction, arbitrary-market PDF parsing reliability, rendered visual
+fidelity, image/chart interpretation, or external validation.
+
+rejection_condition: Reject any gate that treats expected-marker hits or OCR
+text counts as quality scores, computes CER/WER without reference data, commits
+raw OCR/reference text, or upgrades a plan into an OCR quality claim.
+
+license_or_rights_note: Cite OCR-D, JiWER, and public papers as patterns only;
+do not copy benchmark assets, source PDF content, raw text, or long
+documentation passages.
+
 ### PyMuPDF Table Extraction
 
 source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables

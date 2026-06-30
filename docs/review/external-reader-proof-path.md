@@ -411,6 +411,36 @@ not layout fidelity evidence, not rendered visual fidelity evidence, not
 image/chart interpretation evidence, not hosted deployment evidence, not
 external reviewer feedback, and not product-complete.
 
+Source-policy no-native-text OCR quality eval plan:
+
+```text
+docs/review/source-policy-no-native-text-ocr-quality-eval-plan.md
+docs/evaluation/source-policy-no-native-text-ocr-quality-eval-plan-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-quality-eval-plan.json
+```
+
+Route markers:
+
+```text
+source_policy_no_native_text_ocr_quality_eval_plan_v0
+plan_status -> planned_quality_eval_contract
+ground_truth_available -> false
+reference_pack_required -> true
+quality_eval_performed -> false
+marker_hits_are_quality_proxy_only -> true
+can_claim_quality_eval_plan -> true
+can_claim_ocr_quality -> false
+can_claim_robust_pdf_extraction -> false
+source_policy_no_native_text_ocr_quality_reference_pack_v0
+```
+
+Boundary: this route records the evaluation contract only. It is not OCR
+quality evidence, not robust PDF extraction evidence, not arbitrary-market PDF
+parsing evidence, not table extraction benchmark evidence, not layout fidelity
+evidence, not rendered visual fidelity evidence, not image/chart interpretation
+evidence, not hosted deployment evidence, not external reviewer feedback, and
+not product-complete.
+
 Local OpenTelemetry span export runtime proof:
 
 ```text

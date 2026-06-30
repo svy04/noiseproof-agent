@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-source_policy_no_native_text_ocr_execution_smoke_v0
+source_policy_no_native_text_ocr_quality_eval_plan_v0
 ```
 
 Previous operating gate:
 
 ```text
-source_policy_no_native_text_ocr_readiness_review_v0
+source_policy_no_native_text_ocr_execution_smoke_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the source-policy no-native-text OCR execution smoke gate:
+Current next local product candidate after the source-policy no-native-text OCR quality eval plan gate:
 
 ```text
-source_policy_no_native_text_ocr_quality_eval_plan_v0
+source_policy_no_native_text_ocr_quality_reference_pack_v0
 ```
 
 Current source-policy no-native-text failure route artifact:
@@ -131,6 +131,7 @@ examples/pdf-extraction-quality/source-policy-no-native-text-failure-route.json
 Current source-policy no-native-text OCR readiness review artifact:
 
 ```text
+source_policy_no_native_text_ocr_readiness_review_v0
 docs/review/source-policy-no-native-text-ocr-readiness-review.md
 docs/evaluation/source-policy-no-native-text-ocr-readiness-review-report.md
 examples/pdf-extraction-quality/source-policy-no-native-text-ocr-readiness-review.json
@@ -170,6 +171,15 @@ source_policy_no_native_text_ocr_execution_smoke_v0
 docs/review/source-policy-no-native-text-ocr-execution-smoke.md
 docs/evaluation/source-policy-no-native-text-ocr-execution-smoke-report.md
 examples/pdf-extraction-quality/source-policy-no-native-text-ocr-execution-smoke.json
+```
+
+Current source-policy no-native-text OCR quality eval plan artifact:
+
+```text
+source_policy_no_native_text_ocr_quality_eval_plan_v0
+docs/review/source-policy-no-native-text-ocr-quality-eval-plan.md
+docs/evaluation/source-policy-no-native-text-ocr-quality-eval-plan-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-quality-eval-plan.json
 ```
 
 Latest robust-PDF local quality gate:

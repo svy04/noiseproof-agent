@@ -9,7 +9,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 Start future work from `docs/MASTER-SPEC.md`, then `docs/GOAL.md`, then the
 latest relevant short-term spec in `docs/specs/`.
 
-Current operating gate: `source_policy_no_native_text_ocr_execution_smoke_v0`.
+Current operating gate: `source_policy_no_native_text_ocr_quality_eval_plan_v0`.
 
 The loop was introduced by `master_spec_operating_loop_v0`.
 
@@ -74,7 +74,8 @@ the proof gap priority matrix before selecting a local implementation gate.
 | Latest source-policy no-native-text OCR dependency resolution | `source_policy_no_native_text_ocr_dependency_resolution_v0` | Records that the owner runtime can resolve Tesseract and English language data after PATH refresh; still no OCR execution or OCR quality claim. |
 | Latest source-policy no-native-text OCR execution plan | `source_policy_no_native_text_ocr_execution_plan_v0` | Plans a bounded PyMuPDF/Tesseract OCR smoke for the preserved no-native-text route; still no OCR execution or OCR quality claim. |
 | Latest source-policy no-native-text OCR execution smoke | `source_policy_no_native_text_ocr_execution_smoke_v0` | Records one bounded owner-runtime PyMuPDF/Tesseract OCR smoke for the preserved NARA route with raw OCR text, local paths, and source PDF binaries excluded; still no OCR quality or robust PDF extraction claim. |
-| Next local product candidate | `source_policy_no_native_text_ocr_quality_eval_plan_v0` | Plan OCR quality evaluation before treating marker hits or OCR counts as recognition-quality evidence. |
+| Latest source-policy no-native-text OCR quality eval plan | `source_policy_no_native_text_ocr_quality_eval_plan_v0` | Plans the reference inputs and metric candidates needed before OCR quality can be evaluated; still no OCR quality or robust PDF extraction claim. |
+| Next local product candidate | `source_policy_no_native_text_ocr_quality_reference_pack_v0` | Build the reference pack needed before CER/WER or any OCR quality score can be computed. |
 
 Do not read this as a product-complete claim.
 
@@ -96,6 +97,7 @@ Do not read this as a product-complete claim.
 - The latest source-policy no-native-text OCR dependency resolution records `dependency_resolution_status -> resolved_dependency_available`, `tesseract_command_present -> true`, `eng_language_available -> true`, `local_paths_committed -> false`, `can_claim_ocr_dependency_available -> true`, `can_claim_ocr_execution -> false`, and `can_claim_ocr_quality -> false`.
 - The latest source-policy no-native-text OCR execution plan records `plan_status -> planned_execution_contract`, `execution_adapter -> pymupdf_page_get_textpage_ocr`, `ocr_execution_performed -> false`, `can_claim_ocr_execution_plan -> true`, `can_claim_ocr_execution -> false`, and `can_claim_ocr_quality -> false`.
 - The latest source-policy no-native-text OCR execution smoke records `ocr_execution_performed -> true`, `ocr_pages_attempted -> 4`, `ocr_text_char_count -> 8019`, `expected_markers_found_count -> 2`, `raw_ocr_text_committed -> false`, `can_claim_ocr_execution -> true`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
+- The latest source-policy no-native-text OCR quality eval plan records `plan_status -> planned_quality_eval_contract`, `ground_truth_available -> false`, `reference_pack_required -> true`, `quality_eval_performed -> false`, `marker_hits_are_quality_proxy_only -> true`, `can_claim_quality_eval_plan -> true`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
 - Strong claims are intentionally blocked when evidence is missing.
 
 ## What This Does Not Prove Yet
