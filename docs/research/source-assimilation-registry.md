@@ -357,6 +357,50 @@ of labeled layout ground truth or rendered visual comparison.
 
 license_or_rights_note: Cite the paper; do not reproduce benchmark content.
 
+### Docling Technical Report
+
+source: https://arxiv.org/abs/2408.09869
+
+source_type: paper
+
+pattern_to_borrow: Treat PDF/document conversion as a multi-stage system with
+separate parsing, layout, table, OCR, metadata, and serialization decisions.
+
+local_adaptation: Use Docling as a source pattern for the
+`robust_pdf_extraction_generalization_gap_review_v0` capability matrix. The
+review keeps current digital text, table, OCR, layout metadata, reading order,
+and visual-fidelity claims separate.
+
+boundary: NoiseProof does not claim Docling integration, Docling accuracy, or
+production-grade document conversion.
+
+rejection_condition: Reject robust-PDF wording that collapses separate document
+conversion capabilities into one successful parser observation.
+
+license_or_rights_note: Cite the paper and check upstream project licensing
+before any future integration.
+
+### PubLayNet
+
+source: https://arxiv.org/abs/1908.07836
+
+source_type: paper
+
+pattern_to_borrow: Use large-scale document layout annotations and explicit
+layout categories as a reminder that layout fidelity needs labeled or
+reviewable ground truth.
+
+local_adaptation: Use PubLayNet with DocLayNet to justify why one block/bbox
+metadata sanity observation does not prove arbitrary-market layout fidelity.
+
+boundary: NoiseProof does not claim PubLayNet evaluation, benchmark coverage,
+or trained layout model performance.
+
+rejection_condition: Reject any robust layout claim that lacks labeled layout
+ground truth, rendered visual comparison, or reviewer-auditable layout checks.
+
+license_or_rights_note: Cite the paper; do not reproduce benchmark artifacts.
+
 ### OCRmyPDF
 
 source: https://ocrmypdf.readthedocs.io/en/latest/introduction.html

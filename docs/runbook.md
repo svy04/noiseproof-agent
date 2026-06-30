@@ -13,9 +13,9 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `real_world_layout_fidelity_evidence_gate_v0`.
+Current operating gate: `robust_pdf_extraction_generalization_gap_review_v0`.
 
-Previous operating gate: `real_world_ocr_evidence_gate_v0`.
+Previous operating gate: `real_world_layout_fidelity_evidence_gate_v0`.
 
 Previous action-surface gate: `proof_gap_action_surface_current_state_refresh_v0`.
 
@@ -68,6 +68,29 @@ metadata only, not new runtime evidence, robust PDF extraction evidence,
 semantic retrieval quality evidence, hosted deployment evidence, hosted
 observability evidence, external reviewer feedback, customer validation,
 Braincrew acceptance, or product-complete.
+
+Phase `robust_pdf_extraction_generalization_gap_review_v0` adds
+`docs/review/robust-pdf-generalization-gap-review.md` and
+`docs/evaluation/robust-pdf-generalization-gap-review-report.md`. Reproduce
+with:
+
+```bash
+cd apps/api
+uv run python -m app.services.robust_pdf_generalization_gap_review_command \
+  --evidence ../../examples/pdf-extraction-quality/robust-pdf-generalization-gap-review.json \
+  --output ../../docs/evaluation/robust-pdf-generalization-gap-review-report.md \
+  --check
+```
+
+This is a generalization gap review only. It records
+`review_status -> passed`, `generalization_gap_status -> open`,
+`evidence_chain_count -> 5`, `covered_capability_count -> 5`,
+`missing_capability_count -> 6`, `can_claim_robust_pdf_extraction -> false`,
+and `recommended_next_gate -> multi_publisher_modality_stratified_pdf_eval_v0`.
+It is not robust PDF extraction evidence, arbitrary-market PDF parsing
+evidence, natural reading order correctness evidence, rendered visual fidelity
+evidence, hosted deployment evidence, external reviewer feedback, or
+product-complete.
 
 Phase `robust_pdf_extraction_next_real_world_quality_gate_v0` adds
 `docs/review/robust-pdf-extraction-next-real-world-quality-gate.md` and

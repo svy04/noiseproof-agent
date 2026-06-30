@@ -13,6 +13,7 @@ _GAP_ACTIONS = {
             "publish missed spans, failed fixture classes, and boundary-preserving failure candidates",
             "add layout-fidelity evidence before any robust PDF wording is allowed",
             "run a generalization gap review before any robust PDF extraction wording is allowed",
+            "run a multi-publisher modality-stratified PDF evaluation before any robust PDF extraction wording is allowed",
         ],
         "blocked_claims": [
             "robust PDF extraction is implemented",
@@ -55,8 +56,10 @@ _GAP_ACTIONS = {
             "docs/evaluation/real-world-ocr-evidence-gate-report.md",
             "docs/review/real-world-layout-fidelity-evidence-gate.md",
             "docs/evaluation/real-world-layout-fidelity-evidence-gate-report.md",
+            "docs/review/robust-pdf-generalization-gap-review.md",
+            "docs/evaluation/robust-pdf-generalization-gap-review-report.md",
         ],
-        "recommended_next_gate": "robust_pdf_extraction_generalization_gap_review_v0",
+        "recommended_next_gate": "multi_publisher_modality_stratified_pdf_eval_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -184,12 +187,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
                 "_plus_real_world_table_extraction_evidence_gate_v0"
                 "_plus_real_world_ocr_evidence_gate_v0"
                 "_plus_real_world_layout_fidelity_evidence_gate_v0"
+                "_plus_robust_pdf_extraction_generalization_gap_review_v0"
             ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "robust_pdf_extraction_generalization_gap_review_v0"
+                "multi_publisher_modality_stratified_pdf_eval_v0"
             ),
         ),
         ProofGapOut(

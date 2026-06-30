@@ -34,8 +34,11 @@ Current real-world OCR evidence gate:
 Current real-world layout fidelity evidence gate:
 `real_world_layout_fidelity_evidence_gate_v0`.
 
-Current next PDF evidence gate:
+Current robust-PDF generalization gap review gate:
 `robust_pdf_extraction_generalization_gap_review_v0`.
+
+Current next PDF evidence gate:
+`multi_publisher_modality_stratified_pdf_eval_v0`.
 
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source
