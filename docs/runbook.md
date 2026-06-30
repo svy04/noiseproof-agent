@@ -13,9 +13,9 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `source_policy_no_native_text_ocr_transcript_reference_pack_v0`.
+Current operating gate: `source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0`.
 
-Previous operating gate: `source_policy_no_native_text_ocr_transcript_reference_plan_v0`.
+Previous operating gate: `source_policy_no_native_text_ocr_transcript_reference_pack_v0`.
 
 Previous action-surface gate: `proof_gap_action_surface_current_state_refresh_v0`.
 
@@ -12602,3 +12602,28 @@ rendered visual fidelity evidence, not image/chart interpretation evidence, not
 hosted deployment evidence, not external reviewer feedback, and not
 product-complete. The next local product candidate is
 `source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0`.
+
+### Source-policy no-native-text OCR owner transcript collection plan
+
+Phase `source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0`
+records an owner-runtime transcript collection plan for the preserved NARA
+no-native-text OCR route. It does not collect a reference transcript, record
+source-rights approval as completed, commit transcript hashes, run OCR, inspect
+raw OCR text, compute CER/WER, or prove OCR quality.
+
+Reproduce the report staleness check:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_no_native_text_ocr_owner_transcript_collection_plan_command --owner-transcript-collection-plan ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-owner-transcript-collection-plan.json --output ../../docs/evaluation/source-policy-no-native-text-ocr-owner-transcript-collection-plan-report.md --check
+uv run pytest tests/test_source_policy_no_native_text_ocr_owner_transcript_collection_plan.py -q
+```
+
+This is an owner-runtime transcript collection plan only, not transcript
+collection evidence, not source-rights approval evidence, not reference
+transcript availability, not OCR quality evidence, not CER/WER support, not
+robust PDF extraction evidence, not arbitrary-market PDF parsing evidence, not
+rendered visual fidelity evidence, not image/chart interpretation evidence, not
+hosted deployment evidence, not external reviewer feedback, and not
+product-complete. The next local product candidate is
+`source_policy_no_native_text_ocr_source_rights_review_request_packet_v0`.

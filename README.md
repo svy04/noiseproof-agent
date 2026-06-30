@@ -9,7 +9,7 @@ This project ingests messy documents and market data, evaluates chunking and ret
 Start future work from `docs/MASTER-SPEC.md`, then `docs/GOAL.md`, then the
 latest relevant short-term spec in `docs/specs/`.
 
-Current operating gate: `source_policy_no_native_text_ocr_transcript_reference_pack_v0`.
+Current operating gate: `source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0`.
 
 The loop was introduced by `master_spec_operating_loop_v0`.
 
@@ -79,7 +79,8 @@ the proof gap priority matrix before selecting a local implementation gate.
 | Latest source-policy no-native-text OCR marker proxy eval | `source_policy_no_native_text_ocr_marker_proxy_eval_v0` | Records a bounded marker-presence proxy eval over committed marker-hit booleans; still no OCR quality, CER/WER, or robust-PDF claim. |
 | Latest source-policy no-native-text OCR transcript reference plan | `source_policy_no_native_text_ocr_transcript_reference_plan_v0` | Plans the minimum source-policy-reviewed, owner-approved transcript/reference boundary needed before any true OCR quality metric can be considered; still no transcript, CER/WER, OCR quality, or robust-PDF claim. |
 | Latest source-policy no-native-text OCR transcript reference pack | `source_policy_no_native_text_ocr_transcript_reference_pack_v0` | Records a sanitized transcript-reference pack boundary for the preserved NARA route; still no reference transcript availability, CER/WER, OCR quality, or robust-PDF claim. |
-| Next local product candidate | `source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0` | Plan any owner transcript collection step before reference text exists or OCR quality metrics can be considered. |
+| Latest source-policy no-native-text OCR owner transcript collection plan | `source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0` | Plans an owner-runtime transcript collection workflow while keeping transcript text, transcript hashes, source-rights approval, CER/WER, OCR quality, and robust-PDF claims blocked. |
+| Next local product candidate | `source_policy_no_native_text_ocr_source_rights_review_request_packet_v0` | Prepare a source-rights review request packet before any transcript text or hash can be committed. |
 
 Do not read this as a product-complete claim.
 
@@ -106,6 +107,7 @@ Do not read this as a product-complete claim.
 - The latest source-policy no-native-text OCR marker proxy eval records `eval_status -> marker_proxy_eval_completed`, `expected_marker_anchor_count -> 2`, `observed_marker_hit_count -> 2`, `missing_marker_anchor_count -> 0`, `marker_proxy_hit_rate -> 1.0`, `marker_proxy_passed -> true`, `quality_eval_performed -> false`, `cer_computed -> false`, `wer_computed -> false`, `can_claim_marker_proxy_eval -> true`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
 - The latest source-policy no-native-text OCR transcript reference plan records `plan_status -> planned_transcript_reference_contract`, `required_reference_unit_count -> 6`, `owner_approval_required -> true`, `source_policy_review_required -> true`, `full_reference_transcript_required -> true`, `full_reference_transcript_available -> false`, `transcript_collection_performed -> false`, `reference_pack_created -> false`, `quality_eval_performed -> false`, `cer_computed -> false`, `wer_computed -> false`, `can_claim_transcript_reference_plan -> true`, `can_claim_transcript_reference_pack -> false`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
 - The latest source-policy no-native-text OCR transcript reference pack records `reference_pack_status -> sanitized_transcript_reference_pack_boundary`, `reference_pack_claim_scope -> sanitized_boundary_only`, `reference_text_available -> false`, `full_reference_transcript_available -> false`, `source_rights_owner_approval_recorded -> false`, `source_rights_owner_approval_required_before_transcript -> true`, `quality_eval_performed -> false`, `cer_computed -> false`, `wer_computed -> false`, `can_claim_transcript_reference_pack -> true`, `can_claim_reference_transcript_available -> false`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
+- The latest source-policy no-native-text OCR owner transcript collection plan records `plan_status -> owner_transcript_collection_planned`, `source_rights_review_required -> true`, `source_rights_owner_approval_recorded -> false`, `repository_commit_policy -> metadata_only_no_transcript_text_or_hash`, `transcript_collection_performed -> false`, `reference_text_available -> false`, `transcript_hash_committed -> false`, `quality_eval_performed -> false`, `cer_computed -> false`, `wer_computed -> false`, `can_claim_owner_transcript_collection_plan -> true`, `can_claim_transcript_collection -> false`, `can_claim_reference_transcript_available -> false`, `can_claim_ocr_quality -> false`, and `can_claim_robust_pdf_extraction -> false`.
 - Strong claims are intentionally blocked when evidence is missing.
 
 ## What This Does Not Prove Yet
