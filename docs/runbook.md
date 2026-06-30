@@ -13,9 +13,9 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `source_policy_pdf_quality_gap_review_v0`.
+Current operating gate: `source_policy_no_native_text_failure_route_v0`.
 
-Previous operating gate: `real_world_pdf_fixture_source_policy_download_hash_v0`.
+Previous operating gate: `source_policy_pdf_quality_gap_review_v0`.
 
 Previous action-surface gate: `proof_gap_action_surface_current_state_refresh_v0`.
 
@@ -255,6 +255,33 @@ arbitrary-market PDF parsing evidence, OCR quality evidence, table extraction
 benchmark evidence, layout fidelity evidence, rendered visual fidelity
 evidence, image/chart interpretation evidence, hosted deployment evidence,
 external reviewer feedback, or product-complete.
+
+Phase `source_policy_no_native_text_failure_route_v0` adds
+`docs/review/source-policy-no-native-text-failure-route.md` and
+`docs/evaluation/source-policy-no-native-text-failure-route-report.md`.
+Reproduce with:
+
+```bash
+cd apps/api
+uv run python -m app.services.source_policy_no_native_text_failure_route_command \
+  --route ../../examples/pdf-extraction-quality/source-policy-no-native-text-failure-route.json \
+  --output ../../docs/evaluation/source-policy-no-native-text-failure-route-report.md \
+  --check
+```
+
+This is a source-policy no-native-text failure route only. It records
+`route_status -> passed_failure_route_preserved`,
+`selected_failure_route -> multi_publisher_no_extractable_text_failure`,
+`fixture_id -> nara_911_mfr_00282_no_native_text_candidate`,
+`page_count -> 4`, `empty_page_count -> 4`, `text_char_count -> 0`,
+`ocr_calls_performed -> false`, `can_claim_ocr_quality -> false`,
+`can_claim_robust_pdf_extraction -> false`, and
+`source_policy_no_native_text_ocr_readiness_review_v0` as the next gate. It is
+not robust PDF extraction evidence, arbitrary-market PDF parsing evidence, OCR
+quality evidence, table extraction benchmark evidence, layout fidelity
+evidence, rendered visual fidelity evidence, image/chart interpretation
+evidence, hosted deployment evidence, external reviewer feedback, or
+product-complete.
 
 Phase `robust_pdf_extraction_next_real_world_quality_gate_v0` adds
 `docs/review/robust-pdf-extraction-next-real-world-quality-gate.md` and

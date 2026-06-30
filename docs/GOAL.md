@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-source_policy_pdf_quality_gap_review_v0
+source_policy_no_native_text_failure_route_v0
 ```
 
 Previous operating gate:
 
 ```text
-source_policy_pdf_parse_quality_matrix_v0
+source_policy_pdf_quality_gap_review_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,18 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the source-policy PDF quality gap review gate:
+Current next local product candidate after the source-policy no-native-text failure route gate:
 
 ```text
-source_policy_no_native_text_failure_route_v0
+source_policy_no_native_text_ocr_readiness_review_v0
+```
+
+Current source-policy no-native-text failure route artifact:
+
+```text
+docs/review/source-policy-no-native-text-failure-route.md
+docs/evaluation/source-policy-no-native-text-failure-route-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-failure-route.json
 ```
 
 Latest robust-PDF local quality gate:

@@ -25,10 +25,10 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
         "action_surface_only_not_new_proof_or_gap_closure"
     )
     assert robust_gap["recommended_next_gate"] == (
-        "source_policy_no_native_text_failure_route_v0"
+        "source_policy_no_native_text_ocr_readiness_review_v0"
     )
     assert robust_gap["next_evidence_needed"] == (
-        "source_policy_no_native_text_failure_route_v0"
+        "source_policy_no_native_text_ocr_readiness_review_v0"
     )
     assert (
         "multi_real_world_pdf_parse_observation_matrix_remote_verification_v0"
@@ -80,6 +80,10 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
     )
     assert (
         "source_policy_pdf_quality_gap_review_v0"
+        in robust_gap["current_evidence"]
+    )
+    assert (
+        "source_policy_no_native_text_failure_route_v0"
         in robust_gap["current_evidence"]
     )
     assert (
@@ -180,6 +184,14 @@ def test_proof_gap_action_surface_advances_after_table_extraction_evidence_gate(
     )
     assert (
         "docs/evaluation/source-policy-pdf-quality-gap-review-report.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/review/source-policy-no-native-text-failure-route.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/evaluation/source-policy-no-native-text-failure-route-report.md"
         in robust_gap["proof_routes"]
     )
     assert "robust PDF extraction is implemented" in robust_gap["blocked_claims"]
