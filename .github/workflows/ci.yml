@@ -394,6 +394,16 @@ jobs:
             --output ../../docs/evaluation/source-policy-no-native-text-ocr-owner-transcript-collection-plan-report.md \
             --check
 
+      - name: Check source-policy no-native-text OCR source rights review request packet report staleness
+        working-directory: apps/api
+        run: |
+          echo source_policy_no_native_text_ocr_source_rights_review_request_packet_v0
+          echo source_policy_no_native_text_ocr_owner_rights_decision_record_v0
+          uv run python -m app.services.source_policy_no_native_text_ocr_source_rights_review_request_packet_command \
+            --source-rights-review-request-packet ../../examples/pdf-extraction-quality/source-policy-no-native-text-ocr-source-rights-review-request-packet.json \
+            --output ../../docs/evaluation/source-policy-no-native-text-ocr-source-rights-review-request-packet-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

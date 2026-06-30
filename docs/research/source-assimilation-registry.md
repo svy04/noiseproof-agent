@@ -682,6 +682,45 @@ license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
 only; do not copy benchmark assets, source PDF content, raw OCR text, raw
 reference text, transcripts, or long documentation passages.
 
+### Source-policy No-native-text OCR Source Rights Review Request Packet
+
+source: https://ocr-d.de/en/spec/ocrd_eval.html
+
+source: https://github.com/jitsi/jiwer
+
+source: https://www.archives.gov/global-pages/privacy.html
+
+source_type: standard_oss_and_official_policy_adaptation
+
+pattern_to_borrow: Keep source-rights review as a separate request packet
+before any transcript text, transcript hash, or OCR quality metric can enter
+the repository. Public access and reproduction policy references can inform
+the request, but they do not prove item-specific rights clearance.
+
+local_adaptation: `source_policy_no_native_text_ocr_source_rights_review_request_packet_v0`
+records the request questions, material scope, proposed use, non-commit
+policy, metric candidates, and explicit claim boundaries for the preserved NARA
+no-native-text route. It commits no transcript, source PDF, raw OCR text, raw
+reference text, page images, screenshots, local paths, transcript hash, request
+submission, rights response, or source-rights owner approval.
+
+boundary: The source rights review request packet can show only that the
+request packet is prepared. It is not rights clearance evidence, not
+request-sent evidence, not source-rights approval evidence, not transcript
+collection evidence, not reference transcript availability, not OCR quality
+evidence, not CER/WER support, not robust PDF extraction evidence, and not
+arbitrary-market PDF parsing evidence. The next bounded candidate is
+`source_policy_no_native_text_ocr_owner_rights_decision_record_v0`.
+
+rejection_condition: Reject any gate that treats the packet as sent, treats
+public source access as rights clearance, records owner approval without a
+decision artifact, commits transcript text or hashes before rights approval, or
+uses the packet to claim OCR quality or robust PDF extraction.
+
+license_or_rights_note: Cite OCR-D, JiWER, and NARA policy as public patterns
+only; do not copy benchmark assets, source PDF content, raw OCR text, raw
+reference text, transcripts, hashes, or long documentation passages.
+
 ### Source-policy No-native-text OCR Transcript Reference Pack
 
 source: https://ocr-d.de/en/spec/ocrd_eval.html

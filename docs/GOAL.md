@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0
+source_policy_no_native_text_ocr_source_rights_review_request_packet_v0
 ```
 
 Previous operating gate:
 
 ```text
-source_policy_no_native_text_ocr_transcript_reference_pack_v0
+source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the source-policy no-native-text OCR owner transcript collection plan gate:
+Current next local product candidate after the source-policy no-native-text OCR source rights review request packet gate:
 
 ```text
-source_policy_no_native_text_ocr_source_rights_review_request_packet_v0
+source_policy_no_native_text_ocr_owner_rights_decision_record_v0
 ```
 
 Current source-policy no-native-text failure route artifact:
@@ -225,6 +225,17 @@ source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0
 docs/review/source-policy-no-native-text-ocr-owner-transcript-collection-plan.md
 docs/evaluation/source-policy-no-native-text-ocr-owner-transcript-collection-plan-report.md
 examples/pdf-extraction-quality/source-policy-no-native-text-ocr-owner-transcript-collection-plan.json
+```
+
+Current source-policy no-native-text OCR source rights review request packet artifact:
+
+```text
+source_policy_no_native_text_ocr_source_rights_review_request_packet_v0
+docs/review/source-policy-no-native-text-ocr-source-rights-review-request-packet.md
+docs/evaluation/source-policy-no-native-text-ocr-source-rights-review-request-packet-report.md
+examples/pdf-extraction-quality/source-policy-no-native-text-ocr-source-rights-review-request-packet.json
+next_gate: source_policy_no_native_text_ocr_owner_rights_decision_record_v0
+boundary: not rights clearance evidence; not request-sent evidence; not source-rights approval evidence; not transcript collection evidence; not reference transcript availability; not OCR quality evidence; not CER/WER support; not robust PDF extraction evidence
 ```
 
 Latest robust-PDF local quality gate:

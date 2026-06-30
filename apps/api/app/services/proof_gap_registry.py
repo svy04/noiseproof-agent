@@ -32,6 +32,7 @@ _GAP_ACTIONS = {
             "plan the transcript/reference boundary before creating any transcript reference pack",
             "record a sanitized transcript-reference pack boundary before collecting reference text",
             "plan owner-runtime transcript collection and source-rights review before transcript text or hashes enter the repository",
+            "prepare a source-rights review request packet before transcript text or hashes enter the repository",
         ],
         "blocked_claims": [
             "robust PDF extraction is implemented",
@@ -112,8 +113,10 @@ _GAP_ACTIONS = {
             "docs/evaluation/source-policy-no-native-text-ocr-transcript-reference-pack-report.md",
             "docs/review/source-policy-no-native-text-ocr-owner-transcript-collection-plan.md",
             "docs/evaluation/source-policy-no-native-text-ocr-owner-transcript-collection-plan-report.md",
+            "docs/review/source-policy-no-native-text-ocr-source-rights-review-request-packet.md",
+            "docs/evaluation/source-policy-no-native-text-ocr-source-rights-review-request-packet-report.md",
         ],
-        "recommended_next_gate": "source_policy_no_native_text_ocr_source_rights_review_request_packet_v0",
+        "recommended_next_gate": "source_policy_no_native_text_ocr_owner_rights_decision_record_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -260,12 +263,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
                 "_plus_source_policy_no_native_text_ocr_transcript_reference_plan_v0"
                 "_plus_source_policy_no_native_text_ocr_transcript_reference_pack_v0"
                 "_plus_source_policy_no_native_text_ocr_owner_transcript_collection_plan_v0"
+                "_plus_source_policy_no_native_text_ocr_source_rights_review_request_packet_v0"
             ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "source_policy_no_native_text_ocr_source_rights_review_request_packet_v0"
+                "source_policy_no_native_text_ocr_owner_rights_decision_record_v0"
             ),
         ),
         ProofGapOut(
