@@ -236,6 +236,31 @@ failure cases.
 license_or_rights_note: Respect upstream licenses before vendoring or direct
 integration.
 
+### PyMuPDF Table Extraction
+
+source: https://pymupdf.readthedocs.io/en/latest/page.html#Page.find_tables
+
+source_type: official_doc
+
+pattern_to_borrow: Use `Page.find_tables()` to locate table structures and
+`Table.extract()` to return table rows, while treating that output as adapter
+evidence rather than general PDF reliability.
+
+local_adaptation: Keep `pymupdf-find_tables-extract` as a bounded table
+adapter. For real-world PDFs, commit only sanitized counts, hashes, table shape
+samples, warnings, and non-claims. Do not commit PDF binaries, raw extracted
+text, or raw table rows.
+
+boundary: PyMuPDF table extraction output does not prove robust PDF extraction,
+OCR, layout fidelity, or arbitrary-market PDF parsing reliability.
+
+rejection_condition: Reject any gate that treats `find_tables()` success on a
+few fixtures as a broad robust-PDF claim, or that commits raw table rows from
+external source PDFs.
+
+license_or_rights_note: Cite the official PyMuPDF documentation; respect source
+publisher reuse policies before using external PDFs as fixtures.
+
 ### EIA Content Reuse and Short-Term Energy Outlook
 
 source: https://www.eia.gov/about/copyrights_reuse.php
