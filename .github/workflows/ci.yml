@@ -184,6 +184,14 @@ jobs:
             --output ../../docs/evaluation/cross-publisher-real-world-pdf-fixture-gate-report.md \
             --check
 
+      - name: Check real-world table extraction evidence gate report staleness
+        working-directory: apps/api
+        run: |
+          uv run python -m app.services.real_world_table_extraction_evidence_gate_command \
+            --evidence ../../examples/pdf-extraction-quality/real-world-table-extraction-evidence.json \
+            --output ../../docs/evaluation/real-world-table-extraction-evidence-gate-report.md \
+            --check
+
       - name: Check opt-in OCR adapter runtime input discovery missing state
         working-directory: apps/api
         run: |

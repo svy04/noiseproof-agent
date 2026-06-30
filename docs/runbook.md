@@ -12131,3 +12131,15 @@ Phase 880 adds opt-in OCR adapter owner-runtime smoke v0: `docs/review/opt-in-oc
 Phase 881 adds opt-in OCR adapter owner-runtime smoke remote verification v0: `docs/review/opt-in-ocr-adapter-owner-runtime-smoke-remote-verification.md` records that commit `79097a0e541867bc0230a309cccb19ed777c166c` passed CI run `27493945882` (`api-smoke -> success`, job `81264364230`) and External Feedback Screen run `27493945873` (`screen -> success`, job `81264364240`) after Phase 880 was pushed. This is remote workflow verification only, not new OCR runtime evidence, not robust PDF extraction evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
 
 Phase 882 adds multi-fixture OCR adapter eval v0: `docs/review/multi-fixture-ocr-adapter-eval.md` records a regenerated report at `docs/evaluation/multi-fixture-ocr-adapter-eval-report.md` that combines the existing 8-role PDF fixture matrix with one sanitized owner-runtime OCR smoke observation. Reproduce with `uv run python -m app.services.multi_fixture_ocr_adapter_eval_command --fixture ../../examples/pdf-extraction-quality --base-observations ../../examples/pdf-extraction-quality/observations.json --missing-pack ../../examples/pdf-extraction-quality/missing-runtime-observations.json --owner-ocr-observation ../../examples/pdf-extraction-quality/owner-runtime-ocr-smoke-observation.json --output ../../docs/evaluation/multi-fixture-ocr-adapter-eval-report.md --check`. This is a multi-fixture OCR adapter evaluation surface only, not robust PDF extraction evidence, not arbitrary market PDF OCR evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete.
+
+Phase 898 adds real-world table extraction evidence gate v0: `docs/review/real-world-table-extraction-evidence-gate.md` records sanitized PyMuPDF table extraction output from temporary owner-runtime BEA/EIA PDF downloads, regenerated into `docs/evaluation/real-world-table-extraction-evidence-gate-report.md`.
+
+Reproduce locally:
+
+```powershell
+cd apps/api
+uv run python -m app.services.real_world_table_extraction_evidence_gate_command --evidence ../../examples/pdf-extraction-quality/real-world-table-extraction-evidence.json --output ../../docs/evaluation/real-world-table-extraction-evidence-gate-report.md --check
+uv run pytest tests/test_real_world_table_extraction_evidence_gate.py -q
+```
+
+This is sanitized real-world table extraction evidence only, not robust PDF extraction evidence, not arbitrary-market PDF parsing evidence, not OCR evidence, not layout fidelity evidence, not hosted deployment evidence, not external reviewer feedback, and not product-complete. The next local product candidate is `real_world_ocr_evidence_gate_v0`.

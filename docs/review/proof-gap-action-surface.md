@@ -52,7 +52,7 @@ After `proof_gap_priority_matrix_v0`, the action surface now separates:
 ```text
 highest-trust evidence gate -> external_reviewer_feedback_v0
 next local implementation gate -> proof_gap_action_surface_current_state_refresh_v0
-next robust PDF local product gate -> real_world_table_extraction_evidence_gate_v0
+next robust PDF local product gate -> real_world_ocr_evidence_gate_v0
 ```
 
 For `robust_pdf_extraction`, the action surface no longer points at
@@ -96,6 +96,20 @@ recommended_next_gate -> real_world_table_extraction_evidence_gate_v0
 The cross-publisher fixture gate reduces the publisher-family blocker, but the
 robust-PDF gap remains open because table extraction, OCR, and layout fidelity
 evidence are still missing.
+
+After `real_world_table_extraction_evidence_gate_v0`, the action surface
+includes:
+
+```text
+current_evidence -> ...plus_real_world_table_extraction_evidence_gate_v0
+proof_routes -> docs/review/real-world-table-extraction-evidence-gate.md
+proof_routes -> docs/evaluation/real-world-table-extraction-evidence-gate-report.md
+recommended_next_gate -> real_world_ocr_evidence_gate_v0
+```
+
+The table extraction evidence gate reduces the table blocker for the listed
+real-world fixtures, but the robust-PDF gap remains open because OCR and layout
+fidelity evidence are still missing.
 
 ## Semantic Retrieval Quality Example
 

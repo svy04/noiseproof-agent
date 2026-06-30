@@ -57,7 +57,8 @@ the proof gap priority matrix before selecting a local implementation gate.
 | Current action-surface refresh | `proof_gap_action_surface_current_state_refresh_v0` | Selected by `proof_gap_priority_matrix_v0`; refreshes the proof-gap action surface before adding another product proof. |
 | Latest local product gate | `robust_pdf_extraction_next_real_world_quality_gate_v0` | Quality gate over existing BEA real-world observations; status is blocked and still not robust PDF extraction evidence. |
 | Latest cross-publisher fixture gate | `cross_publisher_real_world_pdf_fixture_gate_v0` | Adds one EIA STEO owner-runtime observation to the existing BEA matrix; still not robust PDF extraction evidence. |
-| Next local product candidate | `real_world_table_extraction_evidence_gate_v0` | Add table extraction evidence before stronger PDF claims. |
+| Latest table extraction evidence gate | `real_world_table_extraction_evidence_gate_v0` | Records sanitized PyMuPDF table extraction output for three temporary owner-runtime real-world PDF downloads; still not robust PDF extraction evidence. |
+| Next local product candidate | `real_world_ocr_evidence_gate_v0` | Add real-world OCR evidence before stronger PDF claims. |
 
 Do not read this as a product-complete claim.
 
@@ -65,7 +66,7 @@ Do not read this as a product-complete claim.
 
 - A small FastAPI service can keep document, retrieval, Evidence Ledger, report, failure, and operations proof surfaces inspectable.
 - The project has CI-enforced report staleness checks for semantic retrieval diagnostics and PDF extraction quality packets.
-- PDF handling is split into visible boundaries: digital text, table candidates, OCR smoke harnesses, synthetic fixture provenance, licensed real-world candidate metadata, owner-approved download/hash metadata, one real-world parse observation, and a three-file BEA multi-PDF observation matrix.
+- PDF handling is split into visible boundaries: digital text, table candidates, table extraction evidence, OCR smoke harnesses, synthetic fixture provenance, licensed real-world candidate metadata, owner-approved download/hash metadata, one real-world parse observation, and a three-file BEA multi-PDF observation matrix.
 - Strong claims are intentionally blocked when evidence is missing.
 
 ## What This Does Not Prove Yet

@@ -17,13 +17,13 @@ latest relevant short-term spec in docs/specs/
 Current operating gate:
 
 ```text
-cross_publisher_real_world_pdf_fixture_gate_v0
+real_world_table_extraction_evidence_gate_v0
 ```
 
 Previous operating gate:
 
 ```text
-robust_pdf_extraction_next_real_world_quality_gate_v0
+cross_publisher_real_world_pdf_fixture_gate_v0
 ```
 
 Previous action-surface gate:
@@ -114,10 +114,10 @@ Current action-surface refresh artifact:
 docs/review/proof-gap-action-surface-current-state-refresh.md
 ```
 
-Current next local product candidate after the cross-publisher fixture gate:
+Current next local product candidate after the table extraction evidence gate:
 
 ```text
-real_world_table_extraction_evidence_gate_v0
+real_world_ocr_evidence_gate_v0
 ```
 
 Latest robust-PDF local quality gate:
@@ -160,6 +160,33 @@ distinct_publisher_count: 2
 can_claim_cross_publisher_real_world_pdf_fixture_coverage: true
 can_claim_robust_pdf_extraction: false
 remaining_blocked_reasons: table_extraction_evidence_missing; ocr_evidence_missing; layout_fidelity_evidence_missing
+```
+
+Latest real-world table extraction evidence gate:
+
+```text
+real_world_table_extraction_evidence_gate_v0
+```
+
+Latest real-world table extraction evidence report:
+
+```text
+docs/evaluation/real-world-table-extraction-evidence-gate-report.md
+```
+
+Current real-world table extraction evidence result:
+
+```text
+table_extraction_gate_status: passed
+observed_fixture_count: 3
+table_extraction_observed_fixture_count: 3
+distinct_publisher_count: 2
+total_table_count: 124
+total_table_rows_extracted: 847
+total_table_cell_count: 7902
+can_claim_real_world_table_extraction_evidence: true
+can_claim_robust_pdf_extraction: false
+remaining_blocked_reasons: ocr_evidence_missing; layout_fidelity_evidence_missing
 ```
 
 ## 1. Top-level Purpose
