@@ -236,6 +236,34 @@ failure cases.
 license_or_rights_note: Respect upstream licenses before vendoring or direct
 integration.
 
+### EIA Content Reuse and Short-Term Energy Outlook
+
+source: https://www.eia.gov/about/copyrights_reuse.php
+
+source: https://www.eia.gov/outlooks/steo/
+
+source_type: official_doc
+
+pattern_to_borrow: Keep official reuse policy, publication page, release date,
+download URL, hash, and non-claims visible when adding real-world fixtures.
+
+local_adaptation: Use the EIA Short-Term Energy Outlook PDF as a
+source-policy-reviewed cross-publisher real-world PDF observation, while
+committing only sanitized metadata, hashes, diagnostics, and no PDF binary or
+raw extracted text.
+
+boundary: EIA source policy and one owner-runtime STEO observation do not prove
+robust PDF extraction, table extraction, OCR, layout fidelity, or arbitrary
+market PDF parsing reliability.
+
+rejection_condition: Reject any EIA fixture gate that commits the external PDF
+binary, commits raw extracted text, omits the reuse-policy source URL, or treats
+one EIA observation as robust parsing evidence.
+
+license_or_rights_note: EIA describes U.S. government publications on its site
+as public domain and asks for acknowledgment; protected third-party materials,
+logos, service marks, and photographs remain out of scope.
+
 ### Patent: US20260105079A1
 
 source: https://patents.google.com/patent/US20260105079A1/en

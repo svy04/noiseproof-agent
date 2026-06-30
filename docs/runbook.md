@@ -13,9 +13,11 @@ Before starting a new gate:
 7. Implement only the current short-term spec.
 8. If a blocker changes the plan, stop and report the planned path, actual state, blocking mismatch, why it blocks, and the minimum action to resume.
 
-Current operating gate: `robust_pdf_extraction_next_real_world_quality_gate_v0`.
+Current operating gate: `cross_publisher_real_world_pdf_fixture_gate_v0`.
 
-Previous operating gate: `proof_gap_action_surface_current_state_refresh_v0`.
+Previous operating gate: `robust_pdf_extraction_next_real_world_quality_gate_v0`.
+
+Previous action-surface gate: `proof_gap_action_surface_current_state_refresh_v0`.
 
 Previous master operating gate: `master_spec_operating_loop_v0`.
 
@@ -78,6 +80,26 @@ uv run python -m app.services.robust_pdf_real_world_quality_gate_command --matri
 The report keeps `quality_gate_status -> blocked`,
 `can_claim_robust_pdf_extraction -> false`, and the next local product candidate
 `cross_publisher_real_world_pdf_fixture_gate_v0`. This is not robust PDF
+extraction evidence, arbitrary-market PDF parsing evidence, OCR evidence, table
+extraction evidence, layout fidelity evidence, hosted deployment evidence,
+external reviewer feedback, customer validation, Braincrew acceptance, or
+product-complete.
+
+Phase `cross_publisher_real_world_pdf_fixture_gate_v0` adds
+`docs/review/cross-publisher-real-world-pdf-fixture-gate.md`,
+`examples/pdf-extraction-quality/cross-publisher-real-world-pdf-observation.json`,
+and `docs/evaluation/cross-publisher-real-world-pdf-fixture-gate-report.md`.
+Reproduce with:
+
+```text
+uv run python -m app.services.cross_publisher_real_world_pdf_fixture_gate_command --base-matrix ..\..\examples\pdf-extraction-quality\multi-real-world-pdf-parse-observations.json --observation ..\..\examples\pdf-extraction-quality\cross-publisher-real-world-pdf-observation.json --output ..\..\docs\evaluation\cross-publisher-real-world-pdf-fixture-gate-report.md --check
+```
+
+The report keeps `cross_publisher_gate_status -> passed`,
+`distinct_publisher_count -> 2`,
+`can_claim_cross_publisher_real_world_pdf_fixture_coverage -> true`, and
+`can_claim_robust_pdf_extraction -> false`. The next local product candidate is
+`real_world_table_extraction_evidence_gate_v0`. This is not robust PDF
 extraction evidence, arbitrary-market PDF parsing evidence, OCR evidence, table
 extraction evidence, layout fidelity evidence, hosted deployment evidence,
 external reviewer feedback, customer validation, Braincrew acceptance, or

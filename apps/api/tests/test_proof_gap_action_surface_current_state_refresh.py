@@ -11,7 +11,7 @@ def _read(path: str) -> str:
     return (REPO_ROOT / path).read_text(encoding="utf-8")
 
 
-def test_proof_gap_action_surface_advances_after_robust_pdf_quality_gate():
+def test_proof_gap_action_surface_advances_after_cross_publisher_fixture_gate():
     client = TestClient(app)
 
     response = client.get("/ops/proof-gaps")
@@ -25,10 +25,10 @@ def test_proof_gap_action_surface_advances_after_robust_pdf_quality_gate():
         "action_surface_only_not_new_proof_or_gap_closure"
     )
     assert robust_gap["recommended_next_gate"] == (
-        "cross_publisher_real_world_pdf_fixture_gate_v0"
+        "real_world_table_extraction_evidence_gate_v0"
     )
     assert robust_gap["next_evidence_needed"] == (
-        "cross_publisher_real_world_pdf_fixture_gate_v0"
+        "real_world_table_extraction_evidence_gate_v0"
     )
     assert (
         "multi_real_world_pdf_parse_observation_matrix_remote_verification_v0"
@@ -36,6 +36,10 @@ def test_proof_gap_action_surface_advances_after_robust_pdf_quality_gate():
     )
     assert (
         "robust_pdf_extraction_next_real_world_quality_gate_v0"
+        in robust_gap["current_evidence"]
+    )
+    assert (
+        "cross_publisher_real_world_pdf_fixture_gate_v0"
         in robust_gap["current_evidence"]
     )
     assert (
@@ -48,6 +52,14 @@ def test_proof_gap_action_surface_advances_after_robust_pdf_quality_gate():
     )
     assert (
         "docs/evaluation/robust-pdf-real-world-quality-gate-report.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/review/cross-publisher-real-world-pdf-fixture-gate.md"
+        in robust_gap["proof_routes"]
+    )
+    assert (
+        "docs/evaluation/cross-publisher-real-world-pdf-fixture-gate-report.md"
         in robust_gap["proof_routes"]
     )
     assert "robust PDF extraction is implemented" in robust_gap["blocked_claims"]

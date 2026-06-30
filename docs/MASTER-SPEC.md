@@ -22,6 +22,9 @@ Current proof-gap action refresh gate:
 Current robust-PDF local quality gate:
 `robust_pdf_extraction_next_real_world_quality_gate_v0`.
 
+Current cross-publisher PDF fixture gate:
+`cross_publisher_real_world_pdf_fixture_gate_v0`.
+
 NoiseProof should evolve by absorbing strong existing solutions from primary
 sources, papers, standards, patents, official docs, and maintained open-source
 projects. The point is not to invent a more impressive demo. The point is to

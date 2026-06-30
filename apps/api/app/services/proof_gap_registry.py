@@ -44,8 +44,10 @@ _GAP_ACTIONS = {
             "docs/review/multi-real-world-pdf-parse-observation-remote-verification.md",
             "docs/review/robust-pdf-extraction-next-real-world-quality-gate.md",
             "docs/evaluation/robust-pdf-real-world-quality-gate-report.md",
+            "docs/review/cross-publisher-real-world-pdf-fixture-gate.md",
+            "docs/evaluation/cross-publisher-real-world-pdf-fixture-gate-report.md",
         ],
-        "recommended_next_gate": "cross_publisher_real_world_pdf_fixture_gate_v0",
+        "recommended_next_gate": "real_world_table_extraction_evidence_gate_v0",
     },
     "actual_embedding_generation": {
         "acceptable_evidence": [
@@ -169,12 +171,13 @@ def build_current_proof_gap_registry() -> list[ProofGapOut]:
                 "_plus_multi_real_world_pdf_parse_observation_matrix_v0"
                 "_plus_multi_real_world_pdf_parse_observation_matrix_remote_verification_v0"
                 "_plus_robust_pdf_extraction_next_real_world_quality_gate_v0"
+                "_plus_cross_publisher_real_world_pdf_fixture_gate_v0"
             ),
             claim_boundary=(
                 "pdf_preview_and_table_candidate_metadata_do_not_prove_robust_pdf_extraction"
             ),
             next_evidence_needed=(
-                "cross_publisher_real_world_pdf_fixture_gate_v0"
+                "real_world_table_extraction_evidence_gate_v0"
             ),
         ),
         ProofGapOut(
