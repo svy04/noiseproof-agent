@@ -634,6 +634,37 @@ license_or_rights_note: The committed artifact is sanitized metadata only.
 Temporary downloaded PDFs remain owner-runtime byproducts and must not be
 committed without a separate rights review.
 
+### Source-policy PDF Parse Observation
+
+source: examples/pdf-extraction-quality/source-policy-pdf-parse-observations.json
+
+source: docs/evaluation/source-policy-pdf-parse-observation-report.md
+
+source_type: runtime_evidence
+
+pattern_to_borrow: Use PyMuPDF text/block metadata as an explicit parser
+observation surface after source-policy download/hash, while preserving blocked
+and external routes.
+
+local_adaptation: Record page counts, extracted page counts, empty page counts,
+native text character counts, text block counts, image block counts, and
+no-native-text failure candidacy for selected candidates without committing raw
+text or binaries.
+
+boundary: Source-policy PDF parse observation metadata is not robust PDF
+extraction evidence, arbitrary-market PDF parsing evidence, OCR quality
+evidence, table extraction benchmark evidence, layout fidelity evidence,
+rendered visual fidelity evidence, image/chart interpretation evidence,
+external reviewer feedback, hosted deployment evidence, or product-complete.
+
+rejection_condition: Reject any future gate that treats PyMuPDF metadata counts
+as parser quality, commits raw extracted text, skips the no-native-text failure
+candidate, or claims OCR/table/layout/visual behavior from this observation.
+
+license_or_rights_note: The committed artifact is sanitized metadata only.
+External PDFs, raw text, screenshots, page images, and derived visual material
+must remain out of the repository without a separate rights review.
+
 ### Patent: US20260105079A1
 
 source: https://patents.google.com/patent/US20260105079A1/en
