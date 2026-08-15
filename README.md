@@ -1,68 +1,14 @@
 # NoiseProof Agent
 
-NoiseProof Agent is a FastAPI service that reads messy market documents
-(PDF, CSV, HTML, markdown) and records each claim with its sources,
-evidence spans, contradictions, and a status, so you can see why a claim
-was accepted or blocked. It is a portfolio project with a local
-development setup.
+**NoiseProof Agent is a FastAPI service that reads messy market documents and records every claim with its sources, evidence spans, contradictions, and a status — so you can see why a claim was accepted or blocked.** It is not a trading bot and gives no buy/sell advice ([ADR 004](docs/adr/004-why-not-trading-bot.md)); the rule checks block questions that drift into trading advice.
 
-It is not a trading bot and does not provide buy/sell recommendations,
-signals, price targets, or return predictions. That boundary is a recorded
-design decision (docs/adr/004-why-not-trading-bot.md), and the rule checks
-block questions that drift into trading advice.
-
-## What works today
-
-- FastAPI + PostgreSQL (pgvector), with an initial schema and incremental
-  migrations applied by a small migration runner (db/,
-  apps/api/app/migration_runner.py).
-- Document endpoints: profiling, parse preview, chunk preview, and file
-  upload. Uploaded digital PDFs get PyMuPDF text extraction with page
-  diagnostics; PDFs with no extractable text are flagged as failure-case
-  candidates.
-- Retrieval runs over caller-supplied sources using lexical term matching.
-  The persisted run keeps aggregate metrics (result count, hit rate,
-  citation coverage); candidate chunks are returned in the response.
-- Semantic retrieval endpoints rank stored chunk embeddings against a
-  query vector supplied by the caller; they do not generate embeddings.
-- Evidence Ledger: per-claim records (claim, source, evidence span,
-  confidence, limitation, and a status of supported, weakly_supported,
-  contradicted, unsupported, or blocked), persisted and linkable to a
-  retrieval run.
-- Noise Gate: rule-based checks over ledger entries and draft claims that
-  decide pass, needs_revision, or blocked. In the retrieval-run-linked
-  flow, storing a report requires ledger rows and a gate record for that
-  run.
-- Report records: deterministic markdown built from ledger entries that
-  passed the gate. When the gate blocks or requires revision, no report
-  body is generated; the record stores a fixed fallback message and the
-  required revisions.
-- Workflow runs that chain retrieval -> ledger -> gate -> report, with
-  lineage and stage-event lookups, failure-case records, and a plain HTML
-  ops dashboard.
-- Optional and off by default: ClamAV upload scanning (compose profile
-  `scanner`), an OpenAI embedding provider
-  (`NOISEPROOF_ENABLE_OPENAI_PROVIDER`), and local in-memory OpenTelemetry
-  span export.
-
-The pipeline is rule-based Python throughout. In the default configuration
-nothing calls an external model; the opt-in OpenAI embedding provider is
-the only code path that would.
-
-## What is planned or not built
-
-- No web UI. The interface is the API plus the server-rendered dashboard.
-- No LLM-backed analysis or report writing. The analysis-draft stage in
-  docs/architecture.md has no implementation; draft claims come from the
-  caller, and reports only reformat ledger entries.
-- No model-generated embeddings in the default configuration. A hash-based
-  preview endpoint can produce deterministic vectors for local testing,
-  and there is no evidence of semantic retrieval quality beyond small
-  local fixtures.
-- PDF support means digital text extraction. OCR and table extraction
-  exist as experiments and evaluation scripts
-  (packages/ingestion/pdf_quality), not as product features.
-- No hosted deployment; everything runs locally.
+- **Rule-based end to end** — in the default configuration nothing calls an external model; an opt-in OpenAI embedding provider (`NOISEPROOF_ENABLE_OPENAI_PROVIDER`) is the only code path that would
+- **Evidence Ledger** — per-claim records: claim, source, evidence span, confidence, limitation, and a status of supported / weakly_supported / contradicted / unsupported / blocked
+- **Noise Gate** — rule checks over ledger entries and draft claims deciding pass, needs_revision, or blocked; when the gate blocks or requires revision, the record stores a fixed fallback message and the required revisions instead of a report body
+- **Chained workflow runs** — retrieval → ledger → gate → report, with lineage, stage events, failure-case records, and a plain HTML ops dashboard
+- **Document intake** — profiling, parse preview, chunk preview, and upload for PDF/CSV/HTML/markdown; digital PDFs get PyMuPDF extraction with page diagnostics
+- **Retrieval runs** — lexical term matching over caller-supplied sources; persisted runs keep aggregate metrics (result count, hit rate, citation coverage), candidate chunks return in the response
+- **FastAPI + PostgreSQL (pgvector)** — initial schema plus incremental migrations applied by a small runner
 
 ## Run it
 
@@ -76,33 +22,30 @@ uv sync
 uv run uvicorn app.main:app --reload
 ```
 
-Then open http://localhost:8000/health and http://localhost:8000/ops/dashboard.
-Example curl calls for the core endpoints are in apps/api/README.md.
+Then open http://localhost:8000/health and http://localhost:8000/ops/dashboard. Example curl calls for the core endpoints are in apps/api/README.md.
 
-Tests (CI runs the same command):
+Tests, with the same command CI runs:
 
 ```bash
 cd apps/api
 uv run pytest -q
 ```
 
-## Repository layout
+## Know what is not built
+
+- **No web UI** — the API plus the server-rendered dashboard are the interface
+- **No LLM analysis or report writing** — draft claims come from the caller and reports reformat ledger entries; the analysis-draft stage in docs/architecture.md has no implementation
+- **No model-generated embeddings by default** — semantic endpoints rank caller-supplied vectors; a hash-based preview endpoint produces deterministic vectors for local testing, and there is no quality evidence beyond small local fixtures
+- **OCR and table extraction are experiments** — they live in evaluation scripts (packages/ingestion/pdf_quality), not product features
+- **No hosted deployment** — everything runs locally
+
+## Find your way around
 
 - `apps/api` — the FastAPI service and its test suite
-- `packages/ingestion` — parsers (CSV, HTML, markdown, PDF), chunking,
-  retrieval, the evidence ledger, the noise gate, and PDF-quality
-  experiments
+- `packages/ingestion` — parsers (CSV, HTML, markdown, PDF), chunking, retrieval, the evidence ledger, the noise gate, PDF-quality experiments
 - `packages/review` — CLI helpers for screening external feedback issues
 - `db` — initial schema and migrations
 - `examples` — small fixtures used by tests and evaluation reports
-- `docs` — ADRs, specs, runbook, evaluation reports, and per-phase review
-  notes
+- `docs` — ADRs, specs, runbook, evaluation reports, per-phase review notes
 
-## About docs/
-
-The project was built in many small, separately verified steps, and each
-step wrote its own review note; that left several hundred files under
-docs/review. The reports under docs/evaluation are regenerated by commands
-in apps/api/app/services, and CI fails when a committed report no longer
-matches its inputs. They describe small local fixtures and sanitized
-metadata from a few real-world PDFs, not benchmarks.
+The project grew in many small, separately verified steps, and each step wrote its own review note — that is why docs/review holds several hundred files. The reports under docs/evaluation are regenerated by commands in apps/api/app/services, and CI fails when a committed report no longer matches its inputs; they describe small local fixtures and sanitized metadata from a few real-world PDFs, not benchmarks.
