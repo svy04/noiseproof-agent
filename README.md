@@ -1,4 +1,6 @@
-# NoiseProof Agent
+<p align="center">
+  <img src="docs/banner.png" alt="NoiseProof Agent" width="820">
+</p>
 
 **[한국어 문서 →](README.ko.md)**
 

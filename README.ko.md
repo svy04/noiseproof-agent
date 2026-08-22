@@ -1,4 +1,6 @@
-# NoiseProof Agent
+<p align="center">
+  <img src="docs/banner.png" alt="NoiseProof Agent" width="820">
+</p>
 
 **[English →](README.md)**
 
